@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">
+
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title><%= @book.title %></dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BookId" opf:scheme="ISBN"><%= @book.identifier %></dc:identifier>
+    <dc:creator opf:file-as="<%= @book.creator %>" opf:role="aut"><%= @book.creator %></dc:creator>
+    <dc:date opf:event="publication"><%= @book.date %></dc:date>
+    <dc:subject><%= @book.subject %></dc:subject>
+    <dc:description><%= @book.description %></dc:description>
+    <dc:subject><%= @book.subject %></dc:subject>
+    <dc:rights><%= @book.rights %></dc:rights>
+  </metadata>
+
+  <manifest>
+    <% for entry in @book.manifest do -%>
+    <item id="<%= entry.id %>" href="<%= entry.href %>" media-type="<%= entry.mediaType %>" />
+    <% end -%>
+  </manifest>
+
+  <spine toc="ncx">
+    <% for entry in @book.spine do -%>
+    <itemref idref="<%= entry.id %>" />
+    <% end -%>
+  </spine>
+
+  <guide>
+    <% for entry in @book.references do -%>
+    <reference type="<%= entry.referenceType %>" title="<%= entry.referenceTitle %>" href="<%= entry.href %>" />
+    <% end -%>
+  </guide>
+
+</package>
