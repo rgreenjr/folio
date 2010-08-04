@@ -1,471 +1,0 @@
-TFolio
-v7
-r0
-t302570361.562180
-cCheck dependencies
-cProcessInfoPlistFile /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Info.plist Info.plist
-cCopyStringsFile /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-cCpResource build/Debug/Folio.app/Contents/Resources/rb_main.rb rb_main.rb
-cCompileXIB /Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib
-cCpResource build/Debug/Folio.app/Contents/Resources/AppController.rb AppController.rb
-cCpResource build/Debug/Folio.app/Contents/Resources/Book.rb Book.rb
-cCpResource build/Debug/Folio.app/Contents/Resources/BookController.rb BookController.rb
-cCpResource build/Debug/Folio.app/Contents/Resources/Entry.rb Entry.rb
-cCpResource build/Debug/Folio.app/Contents/Resources/container.xml container.xml
-cCpResource build/Debug/Folio.app/Contents/Resources/content.opf.erb content.opf.erb
-cCpResource build/Debug/Folio.app/Contents/Resources/toc.ncx.erb toc.ncx.erb
-cCompileC build/Folio.build/Debug/Folio.build/Objects-normal/x86_64/main.o /Users/rgreen/Desktop/Folio/main.m normal x86_64 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/MacOS/Folio normal x86_64
-cTouch /Users/rgreen/Desktop/Folio/build/Debug/Folio.app
-
-N/Developer/SDKs/MacOSX10.5.sdk
-c000000004C0E5C4D00000000000000EE
-t1276009549
-s238
-
-N/Developer/SDKs/MacOSX10.5.sdk/Library/Frameworks/MacRuby.framework/Headers/MacRuby.h
-c000000004BDB4850000000000000005F
-t1272662096
-s95
-
-N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/WebKit.framework/WebKit
-c000000004B760CE30000000000079BD4
-t1266027747
-s498644
-
-N/Library/Frameworks/MacRuby.framework/MacRuby
-c000000004BDF355E0000000001C109E8
-t1272919390
-s29428200
-
-N/System/Library/Frameworks/Cocoa.framework/Cocoa
-c000000004A1F2D63000000000000A5E0
-t1243557219
-s42464
-
-N/Users/rgreen/Desktop/Folio/AppController.rb
-c000000004C588AF700000000000000F7
-t1280871159
-s247
-
-N/Users/rgreen/Desktop/Folio/AppDelegate.rb
-c000000004C5778E3000000000000013C
-t1280800995
-s316
-
-N/Users/rgreen/Desktop/Folio/Book.rb
-c000000004C58A41D0000000000000B0C
-t1280877597
-s2828
-
-N/Users/rgreen/Desktop/Folio/BookController.rb
-c000000004C588A7400000000000006AC
-t1280871028
-s1708
-
-N/Users/rgreen/Desktop/Folio/English.lproj/InfoPlist.strings
-c000000004C581AF600000000000000CA
-t1280842486
-s202
-
-N/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib
-c000000004C588DEA00000000000265C0
-t1280871914
-s157120
-
-N/Users/rgreen/Desktop/Folio/Entry.rb
-c000000004C589A9300000000000002D9
-t1280875155
-s729
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app
-t1280877561
-s102
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Info.plist
-t1280842507
-s763
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/MacOS/Folio
-t1280842508
-s9656
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/PkgInfo
-t1280842507
-s8
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/AppController.rb
-t1280871176
-s247
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/AppDelegate.rb
-t1280800998
-s316
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/Book.rb
-t1280877561
-s2828
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/BookController.rb
-t1280871054
-s1708
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/English.lproj/InfoPlist.strings
-t1280842507
-s202
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/English.lproj/MainMenu.nib
-t1280871917
-s28816
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/Entry.rb
-t1280875165
-s729
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/container.xml
-t1280871688
-s242
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/content.opf.erb
-t1280876769
-s1276
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/ioextras.rb
-t1280792170
-s3338
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/rb_main.rb
-t1280842507
-s611
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/stdrubyext.rb
-t1280792170
-s2599
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/tempfile_bugfixed.rb
-t1280792170
-s4369
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/toc.ncx.erb
-t1280871688
-s736
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/untitled.rb
-t2
-s0
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/version.rb
-t1280792170
-s35
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/zip.rb
-t1280792170
-s52396
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/zipfilesystem.rb
-t1280792170
-s15461
-
-N/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/ziprequire.rb
-t1280792170
-s2294
-
-N/Users/rgreen/Desktop/Folio/build/Folio.build/Debug/Folio.build/Objects-normal/x86_64/Folio.LinkFileList
-c000000004C581AE1000000000000005D
-t1280842465
-s93
-
-N/Users/rgreen/Desktop/Folio/build/Folio.build/Debug/Folio.build/Objects-normal/x86_64/main.o
-t1280842508
-s7440
-
-N/Users/rgreen/Desktop/Folio/container.xml
-c000000004C588B3400000000000000F2
-t1280871220
-s242
-
-N/Users/rgreen/Desktop/Folio/content.opf.erb
-c000000004C58A0D300000000000004FC
-t1280876755
-s1276
-
-N/Users/rgreen/Desktop/Folio/ioextras.rb
-c000000004C4B443A0000000000000D0A
-t1280001082
-s3338
-
-N/Users/rgreen/Desktop/Folio/main.m
-c000000004C581AF800000000000000F3
-t1280842488
-s243
-i<MacRuby/MacRuby.h>
-
-N/Users/rgreen/Desktop/Folio/rb_main.rb
-c000000004C581AF90000000000000263
-t1280842489
-s611
-
-N/Users/rgreen/Desktop/Folio/stdrubyext.rb
-c000000004C4B443A0000000000000A27
-t1280001082
-s2599
-
-N/Users/rgreen/Desktop/Folio/tempfile_bugfixed.rb
-c000000004C4B443A0000000000001111
-t1280001082
-s4369
-
-N/Users/rgreen/Desktop/Folio/toc.ncx.erb
-c000000004C588B3400000000000002E0
-t1280871220
-s736
-
-N/Users/rgreen/Desktop/Folio/untitled.rb
-c000000004C57567F0000000000000075
-t1280792191
-s117
-
-N/Users/rgreen/Desktop/Folio/version.rb
-c000000004C4B443A0000000000000023
-t1280001082
-s35
-
-N/Users/rgreen/Desktop/Folio/zip.rb
-c000000004C4B489E000000000000CCAC
-t1280002206
-s52396
-
-N/Users/rgreen/Desktop/Folio/zipfilesystem.rb
-c000000004C4B486B0000000000003C65
-t1280002155
-s15461
-
-N/Users/rgreen/Desktop/Folio/ziprequire.rb
-c000000004C4B488200000000000008F6
-t1280002178
-s2294
-
-NInfo.plist
-c000000004C581AF80000000000000342
-t1280842488
-s834
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies302570361#302570361#0(0"0(0#1#0"8621725600#0"0#
-
-CCompileC build/Folio.build/Debug/Folio.build/Objects-normal/x86_64/main.o /Users/rgreen/Desktop/Folio/main.m normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s302535307.930107
-e302535308.380262
-r1
-xCompileC
-xbuild/Folio.build/Debug/Folio.build/Objects-normal/x86_64/main.o
-x/Users/rgreen/Desktop/Folio/main.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@42"Compile /Users/rgreen/Desktop/Folio/main.m302535307#302535308#0(0"0(0#0#34"/Users/rgreen/Desktop/Folio/main.m7955997338297972736#856"    cd /Users/rgreen/Desktop/Folio    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mfix-and-continue -fobjc-gc-only -mmacosx-version-min=10.5 -gdwarf-2 -I/Users/rgreen/Desktop/Folio/build/Folio.build/Debug/Folio.build/Folio.hmap -F/Users/rgreen/Desktop/Folio/build/Debug -F/Users/rgreen/Desktop/Folio/build/Debug -I/Users/rgreen/Desktop/Folio/build/Debug/include -I/Users/rgreen/Desktop/Folio/build/Folio.build/Debug/Folio.build/DerivedSources/x86_64 -I/Users/rgreen/Desktop/Folio/build/Folio.build/Debug/Folio.build/DerivedSources -c /Users/rgreen/Desktop/Folio/main.m -o /Users/rgreen/Desktop/Folio/build/Folio.build/Debug/Folio.build/Objects-normal/x86_64/main.o0#
-
-CCompileXIB /Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib
-s302564716.842754
-e302564717.174436
-r1
-xCompileXIB
-x/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib
-o/* com.apple.ibtool.document.warnings */
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:378: warning: "Focus Ring Type" will be ignored on Mac OS X versions prior to 10.3.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:378: warning: The "Automatically Hide Scrollers" option will be ignored on Mac OS X versions prior to 10.3.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:381: warning: "Focus Ring Type" will be ignored on Mac OS X versions prior to 10.3.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:371: warning: Interface Builder does not support values other than "Autosize" for NSWindow's "Bottom Content Border" property on Mac OS X versions prior to 10.6.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:426: warning: NSTextView's "Use Find Panel" option will be ignored on Mac OS X versions prior to 10.3.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:426: warning: NSTextView's "Continuous Spell Checking" will be ignored on Mac OS X versions prior to 10.3.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:380: warning: "Hidden" option will be ignored on Mac OS X versions prior to 10.3.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:432: warning: The "Thin Divider Style" is not supported on Mac OS X versions prior to 10.5.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:425: warning: "Hidden" option will be ignored on Mac OS X versions prior to 10.3.
-o/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:379: warning: "Hidden" option will be ignored on Mac OS X versions prior to 10.3.
-lSLF07#2@37"CompileXIB English.lproj/MainMenu.xib302564716#302564717#0(1577"/* com.apple.ibtool.document.warnings *//Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:378: warning: "Focus Ring Type" will be ignored on Mac OS X versions prior to 10.3./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:378: warning: The "Automatically Hide Scrollers" option will be ignored on Mac OS X versions prior to 10.3./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:381: warning: "Focus Ring Type" will be ignored on Mac OS X versions prior to 10.3./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:371: warning: Interface Builder does not support values other than "Autosize" for NSWindow's "Bottom Content Border" property on Mac OS X versions prior to 10.6./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:426: warning: NSTextView's "Use Find Panel" option will be ignored on Mac OS X versions prior to 10.3./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:426: warning: NSTextView's "Continuous Spell Checking" will be ignored on Mac OS X versions prior to 10.3./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:380: warning: "Hidden" option will be ignored on Mac OS X versions prior to 10.3./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:432: warning: The "Thin Divider Style" is not supported on Mac OS X versions prior to 10.5./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:425: warning: "Hidden" option will be ignored on Mac OS X versions prior to 10.3./Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib:379: warning: "Hidden" option will be ignored on Mac OS X versions prior to 10.3.10(22@69""Focus Ring Type" will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#378#0#378#0#0"0(22@93"The "Automatically Hide Scrollers" option will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#378#0#378#0#0"0(22@69""Focus Ring Type" will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#381#0#381#0#0"0(22@147"Interface Builder does not support values other than "Autosize" for NSWindow's "Bottom Content Border" property on Mac OS X versions prior to 10.6.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#371#0#371#0#0"0(22@88"NSTextView's "Use Find Panel" option will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#426#0#426#0#0"0(22@92"NSTextView's "Continuous Spell Checking" will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#426#0#426#0#0"0(22@67""Hidden" option will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#380#0#380#0#0"0(22@77"The "Thin Divider Style" is not supported on Mac OS X versions prior to 10.5.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#432#0#432#0#0"0(22@67""Hidden" option will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#425#0#425#0#0"0(22@67""Hidden" option will be ignored on Mac OS X versions prior to 10.3.302564717#18446744073709551615#0#0(6@54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib302564714#379#0#379#0#0"0(0#0#54"/Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib8620460960#329"    cd /Users/rgreen/Desktop/Folio    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/English.lproj/MainMenu.nib /Users/rgreen/Desktop/Folio/English.lproj/MainMenu.xib --sdk /Developer/SDKs/MacOSX10.5.sdk0#
-
-CCopyStringsFile /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-s302535307.574594
-e302535307.627105
-r1
-xCopyStringsFile
-x/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/English.lproj/InfoPlist.strings
-xEnglish.lproj/InfoPlist.strings
-lSLF07#2@36"Copy English.lproj/InfoPlist.strings302535307#302535307#0(0"0(0#0#59"/Users/rgreen/Desktop/Folio/English.lproj/InfoPlist.strings32651591226556524#342"    cd /Users/rgreen/Desktop/Folio    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-16 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources/English.lproj0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/AppController.rb AppController.rb
-s302563976.947063
-e302563976.960967
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/AppController.rb
-xAppController.rb
-lSLF07#2@21"Copy AppController.rb302563976#302563976#0(0"0(0#0#44"/Users/rgreen/Desktop/Folio/AppController.rb8604107616#297"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/AppController.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/AppDelegate.rb AppDelegate.rb
-s302493798.116046
-e302493798.121226
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/AppDelegate.rb
-xAppDelegate.rb
-lSLF07#2@19"Copy AppDelegate.rb302493798#302493798#0(0"0(0#0#42"/Users/rgreen/Desktop/Folio/AppDelegate.rb8615281792#295"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/AppDelegate.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/Book.rb Book.rb
-s302570361.542943
-e302570361.558614
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/Book.rb
-xBook.rb
-lSLF07#2@12"Copy Book.rb302570361#302570361#0(0"0(0#0#35"/Users/rgreen/Desktop/Folio/Book.rb8623083488#288"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/Book.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/BookController.rb BookController.rb
-s302563854.395876
-e302563854.418007
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/BookController.rb
-xBookController.rb
-lSLF07#2@22"Copy BookController.rb302563854#302563854#0(0"0(0#0#45"/Users/rgreen/Desktop/Folio/BookController.rb8614658272#298"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/BookController.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/Entry.rb Entry.rb
-s302567965.021346
-e302567965.027621
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/Entry.rb
-xEntry.rb
-lSLF07#2@13"Copy Entry.rb302567965#302567965#0(0"0(0#0#36"/Users/rgreen/Desktop/Folio/Entry.rb8623598624#289"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/Entry.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/container.xml container.xml
-s302564488.157251
-e302564488.168970
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/container.xml
-xcontainer.xml
-lSLF07#2@18"Copy container.xml302564488#302564488#0(0"0(0#0#41"/Users/rgreen/Desktop/Folio/container.xml8608158144#294"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/container.xml /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/content.opf.erb content.opf.erb
-s302569569.388426
-e302569569.401597
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/content.opf.erb
-xcontent.opf.erb
-lSLF07#2@20"Copy content.opf.erb302569569#302569569#0(0"0(0#0#43"/Users/rgreen/Desktop/Folio/content.opf.erb8622799808#296"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/content.opf.erb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/ioextras.rb ioextras.rb
-s302484970.031187
-e302484970.036783
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/ioextras.rb
-xioextras.rb
-lSLF07#2@16"Copy ioextras.rb302484970#302484970#0(0"0(0#0#39"/Users/rgreen/Desktop/Folio/ioextras.rb8620736224#292"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/ioextras.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/rb_main.rb rb_main.rb
-s302535307.575557
-e302535307.592596
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/rb_main.rb
-xrb_main.rb
-lSLF07#2@15"Copy rb_main.rb302535307#302535307#0(0"0(0#0#38"/Users/rgreen/Desktop/Folio/rb_main.rb8600676960#291"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/rb_main.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/stdrubyext.rb stdrubyext.rb
-s302484970.030593
-e302484970.036578
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/stdrubyext.rb
-xstdrubyext.rb
-lSLF07#2@18"Copy stdrubyext.rb302484970#302484970#0(0"0(0#0#41"/Users/rgreen/Desktop/Folio/stdrubyext.rb8620784320#294"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/stdrubyext.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/tempfile_bugfixed.rb tempfile_bugfixed.rb
-s302484970.029059
-e302484970.034797
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/tempfile_bugfixed.rb
-xtempfile_bugfixed.rb
-lSLF07#2@25"Copy tempfile_bugfixed.rb302484970#302484970#0(0"0(0#0#48"/Users/rgreen/Desktop/Folio/tempfile_bugfixed.rb8621074432#301"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/tempfile_bugfixed.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/toc.ncx.erb toc.ncx.erb
-s302564488.159643
-e302564488.169947
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/toc.ncx.erb
-xtoc.ncx.erb
-lSLF07#2@16"Copy toc.ncx.erb302564488#302564488#0(0"0(0#0#39"/Users/rgreen/Desktop/Folio/toc.ncx.erb8601280320#292"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/toc.ncx.erb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/untitled.rb untitled.rb
-r0
-
-CCpResource build/Debug/Folio.app/Contents/Resources/version.rb version.rb
-s302484970.030072
-e302484970.035560
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/version.rb
-xversion.rb
-lSLF07#2@15"Copy version.rb302484970#302484970#0(0"0(0#0#38"/Users/rgreen/Desktop/Folio/version.rb8620823360#291"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/version.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/zip.rb zip.rb
-s302484970.027908
-e302484970.033928
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/zip.rb
-xzip.rb
-lSLF07#2@11"Copy zip.rb302484970#302484970#0(0"0(0#0#34"/Users/rgreen/Desktop/Folio/zip.rb32370056118796336#287"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/zip.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/zipfilesystem.rb zipfilesystem.rb
-s302484970.028574
-e302484970.034148
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/zipfilesystem.rb
-xzipfilesystem.rb
-lSLF07#2@21"Copy zipfilesystem.rb302484970#302484970#0(0"0(0#0#44"/Users/rgreen/Desktop/Folio/zipfilesystem.rb8621170528#297"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/zipfilesystem.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CCpResource build/Debug/Folio.app/Contents/Resources/ziprequire.rb ziprequire.rb
-s302484970.029552
-e302484970.035188
-r1
-xCpResource
-xbuild/Debug/Folio.app/Contents/Resources/ziprequire.rb
-xziprequire.rb
-lSLF07#2@18"Copy ziprequire.rb302484970#302484970#0(0"0(0#0#41"/Users/rgreen/Desktop/Folio/ziprequire.rb8620888832#294"    cd /Users/rgreen/Desktop/Folio    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/rgreen/Desktop/Folio/ziprequire.rb /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Resources0#
-
-CLd /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/MacOS/Folio normal x86_64
-s302535308.380352
-e302535308.452748
-r1
-xLd
-x/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/MacOS/Folio
-xnormal
-xx86_64
-lSLF07#2@75"Link /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/MacOS/Folio302535308#302535308#0(0"0(0#0#0"8590390080#556"    cd /Users/rgreen/Desktop/Folio    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk -L/Users/rgreen/Desktop/Folio/build/Debug -F/Users/rgreen/Desktop/Folio/build/Debug -F/Users/rgreen/Desktop/Folio/build/Debug -filelist /Users/rgreen/Desktop/Folio/build/Folio.build/Debug/Folio.build/Objects-normal/x86_64/Folio.LinkFileList -mmacosx-version-min=10.5 -framework Cocoa -framework MacRuby -framework WebKit -o /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/MacOS/Folio0#
-
-CProcessInfoPlistFile /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Info.plist Info.plist
-s302535307.566249
-e302535307.574471
-r1
-xProcessInfoPlistFile
-x/Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Info.plist
-xInfo.plist
-lSLF07#2@18"Process Info.plist302535307#302535307#0(0"0(0#0#38"/Users/rgreen/Desktop/Folio/Info.plist28429470871191664#265"    cd /Users/rgreen/Desktop/Folio    builtin-infoPlistUtility Info.plist -genpkginfo /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/rgreen/Desktop/Folio/build/Debug/Folio.app/Contents/Info.plist0#
-
-CTouch /Users/rgreen/Desktop/Folio/build/Debug/Folio.app
-s302570361.558912
-e302570361.561996
-r1
-xTouch
-x/Users/rgreen/Desktop/Folio/build/Debug/Folio.app
-lSLF07#2@55"Touch /Users/rgreen/Desktop/Folio/build/Debug/Folio.app302570361#302570361#0(0"0(0#0#0"8626193280#107"    cd /Users/rgreen/Desktop/Folio    /usr/bin/touch -c /Users/rgreen/Desktop/Folio/build/Debug/Folio.app0#
-
