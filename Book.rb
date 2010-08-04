@@ -1,10 +1,11 @@
 require "rexml/document"
+require "fileutils"
 require "erb"
 
 class Book
 
   attr_accessor :title, :creator, :rights, :date, :publisher, :language
-  attr_accessor :subject, :description, :identifier, :items, :spine, :references, :navigation
+  attr_accessor :subject, :description, :identifier, :spine
 
 
   def initialize(filepath)
@@ -16,6 +17,7 @@ class Book
     Dir.mkdir(@root)
     system("unzip -q -d '#{@root}' '#{@filepath}'")
     parse_opf
+	@entries.first.tidy
   end
 
   def manifest
@@ -44,15 +46,13 @@ class Book
   private
 
   def parse_opf
-    puts "parsing opf..."
     opf = entries.select {|entry| entry.name =~ /.*content\.opf$/}.first
     raise "Book #{@filepath} cannot be opened because it is missing its content.opf file." unless opf
     doc = REXML::Document.new(opf.content)
     parse_metadata(doc)
     parse_manifest(doc)
     parse_spine(doc)
-    parse_guide(doc)
-    p @spine[0]
+    #parse_guide(doc)
   end
 
   def parse_metadata(doc)
@@ -97,7 +97,6 @@ class Book
   end
 
   def parse_guide(doc)
-    puts "parse_guide"
     doc.elements.each("/package/guide/reference") do |element|
       entry = entryWithHref(element.attributes["href"])
       entry.referenceTitle = element.attributes["title"]

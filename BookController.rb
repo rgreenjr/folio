@@ -4,7 +4,6 @@ class BookController
 
   def openBook(sender)
     panel = NSOpenPanel.openPanel
-    panel.canChooseFiles = true
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
     if (panel.runModalForDirectory(nil, file:nil, types:['epub']) == NSOKButton)
@@ -59,7 +58,16 @@ class BookController
     textView.textStorage.attributedString = attrString
     textView.richText = false
   end
-
+  
+  def tidy(sender)
+	puts "tidy 1"
+	if @currentEntry && @currentEntry.xml?
+		@currentEntry.tidy
+		refreshWebView
+		refreshTextView
+	end
+  end
+  
   private
 
   def showAlert(exception)
