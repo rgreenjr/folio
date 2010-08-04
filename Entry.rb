@@ -7,7 +7,7 @@ class Entry
   end
 
   def name
-    href.split('/').last
+	href.split('/').last
   end
 
   def content
@@ -18,6 +18,10 @@ class Entry
     @content = content
     File.open(fullpath, 'wb') {|f| f.puts @content}
   end
+  
+  def dirname
+	File.dirname(href)
+  end
 
   def url
     "file://#{fullpath}"
@@ -27,8 +31,8 @@ class Entry
     ['.xml', '.html', '.xhtml', '.htm', '.txt', '.css', '.opf', '.ncx', '.plist'].include?(File.extname(name))
   end
 
-  def xml?
-    ['.xml', '.xhtml', '.html'].include?(File.extname(name))
+  def tidyable?
+    ['.xml', '.xhtml', '.html', '.htm'].include?(File.extname(name))
   end
 
   def renderable?
@@ -36,13 +40,12 @@ class Entry
   end
   
   def tidy
-	puts "tidy"
-	@content = `tidy -xml -wrap 80 -i -q -f /Users/rgreen/Desktop/tidy_errors.txt #{fullpath}`
+	@content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{fullpath}'`
   end
 
   private
 
-  def	fullpath
+  def fullpath
     "#{@base}/#{href}"
   end
 

@@ -9,8 +9,8 @@ class BookController
     if (panel.runModalForDirectory(nil, file:nil, types:['epub']) == NSOKButton)
       begin
         self.book = Book.new(panel.filename)
-      rescue Exception => exception
-        showAlert(exception)
+      rescue Exception => e
+        showAlert(e)
       end
     end
   end
@@ -19,6 +19,7 @@ class BookController
     @book = book
     window.title = @book.title
     tableView.reloadData
+	# tableView.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection:false)
   end
 
   def numberOfRowsInTableView(aTableView)
@@ -60,8 +61,7 @@ class BookController
   end
   
   def tidy(sender)
-	puts "tidy 1"
-	if @currentEntry && @currentEntry.xml?
+	if @currentEntry && @currentEntry.tidyable?
 		@currentEntry.tidy
 		refreshWebView
 		refreshTextView

@@ -15,7 +15,7 @@ class Book
     @rootURL = NSURL.URLWithString("file://#{@root}")
     FileUtils.rm_rf(@root)
     Dir.mkdir(@root)
-    system("unzip -q -d '#{@root}' '#{@filepath}'")
+    system("unzip -q -d '#{@root}' \"#{@filepath}\"")
     parse_opf
 	@entries.first.tidy
   end
@@ -46,8 +46,8 @@ class Book
   private
 
   def parse_opf
-    opf = entries.select {|entry| entry.name =~ /.*content\.opf$/}.first
-    raise "Book #{@filepath} cannot be opened because it is missing its content.opf file." unless opf
+	raiseParseException("OPF file is missing") unless opf
+	puts opf.dirname
     doc = REXML::Document.new(opf.content)
     parse_metadata(doc)
     parse_manifest(doc)
@@ -83,22 +83,24 @@ class Book
   end
 
   def parse_manifest(doc)
-    doc.elements.each("/package/manifest/item") do |element|
-      entry = entryWithHref(element.attributes["href"])
-      entry.id = element.attributes["id"]
-      entry.mediaType = element.attributes["media-type"]
-    end
+	doc.elements.each("/package/manifest/item") do |element|
+		entry = entryWithHref(element.attributes["href"])
+		raiseParseException("Unable to resolve manifest item href #{element.attributes["href"]}") unless entry
+		entry.id = element.attributes["id"]
+		entry.mediaType = element.attributes["media-type"]
+	end
   end
 
   def parse_spine(doc)
     doc.elements.each("/package/spine/itemref") do |element|
-      @spine << entryWithId(element.attributes["idref"])
+		entry = entryWithId(element.attributes["idref"])
+		raiseParseException("Unable to resolve spine itemref idref #{element.attributes["idref"]}") unless entry
+		@spine << entry
     end
   end
 
   def parse_guide(doc)
     doc.elements.each("/package/guide/reference") do |element|
-      entry = entryWithHref(element.attributes["href"])
       entry.referenceTitle = element.attributes["title"]
       entry.referenceType = element.attributes["type"]
     end
@@ -107,15 +109,25 @@ class Book
   def entries
     @entries ||= Dir["#{@root}/**/*"].reject! {|entry| File.directory?(entry)}.collect {|entry| Entry.new(@root, entry.sub(@root + '/', ''))}
   end
-
+  
+  def opf
+    @opf ||= entries.select {|entry| entry.name =~ /.*\.opf$/}.first
+  end
+    
   private
 
   def entryWithHref(href)
-    @entries.select {|entry| entry.href == href}.first
+    entry = @entries.select {|entry| entry.href == href}.first
+	entry = @entries.select {|entry| entry.href == "#{opf.dirname}/#{href}"}.first unless entry
+	entry
   end
 
   def entryWithId(id)
     @entries.select {|entry| entry.id == id}.first
+  end
+  
+  def raiseParseException(reason)
+	raise "Book #{@filepath} cannot be opened because the OPF file could not be parsed:\n\n#{reason}."
   end
 
 end
