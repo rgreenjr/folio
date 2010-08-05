@@ -52,6 +52,8 @@
 		CD06035212078DFF00E447D5 /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD06035112078DFF00E447D5 /* Book.rb */; };
 		CD0603A31207921600E447D5 /* BookController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0603A21207921600E447D5 /* BookController.rb */; };
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
+		CD1AC551120B69EF007991AD /* NavMap.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD1AC550120B69EF007991AD /* NavMap.rb */; };
+		CD1AC553120B6A04007991AD /* NavPoint.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD1AC552120B6A04007991AD /* NavPoint.rb */; };
 		CD783EDE1208C2F200019E67 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDB1208C2F200019E67 /* container.xml */; };
 		CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDC1208C2F200019E67 /* content.opf.erb */; };
 		CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDD1208C2F200019E67 /* toc.ncx.erb */; };
@@ -89,6 +91,8 @@
 		CD06035112078DFF00E447D5 /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
 		CD0603A21207921600E447D5 /* BookController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookController.rb; sourceTree = "<group>"; };
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		CD1AC550120B69EF007991AD /* NavMap.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NavMap.rb; sourceTree = "<group>"; };
+		CD1AC552120B6A04007991AD /* NavPoint.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NavPoint.rb; sourceTree = "<group>"; };
 		CD783EDB1208C2F200019E67 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
 		CD783EDC1208C2F200019E67 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD783EDD1208C2F200019E67 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				CD0603A21207921600E447D5 /* BookController.rb */,
 				CD06035112078DFF00E447D5 /* Book.rb */,
 				CDC963F31208615B00058451 /* Entry.rb */,
+				CD1AC550120B69EF007991AD /* NavMap.rb */,
+				CD1AC552120B6A04007991AD /* NavPoint.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -262,6 +268,8 @@
 				CD783EDE1208C2F200019E67 /* container.xml in Resources */,
 				CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */,
 				CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */,
+				CD1AC551120B69EF007991AD /* NavMap.rb in Resources */,
+				CD1AC553120B6A04007991AD /* NavPoint.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

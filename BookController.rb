@@ -27,12 +27,12 @@ class BookController
   end
 
   def tableView(aTableView, objectValueForTableColumn:column, row:index)
-    @book.entry(index).name
+    @book.entryAt(index).name
   end
 
   def tableViewSelectionDidChange(aNotification)
     return if tableView.selectedRow == -1
-    @currentEntry = @book.entry(tableView.selectedRow)
+    @currentEntry = @book.entryAt(tableView.selectedRow)
     refreshWebView
     refreshTextView
   end
