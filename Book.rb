@@ -16,6 +16,7 @@ class Book
     system("unzip -q -d '#{@root}' \"#{@filepath}\"")
     parse_opf
     @navMap = NavMap.new(ncx)
+    # puts @navMap.to_xml
   end
 
   def size
@@ -24,13 +25,6 @@ class Book
 
   def entryAt(index)
     @entries[index]
-  end
-
-  def print_opf
-    @book = self
-    template = File.read("/Users/rgreen/Desktop/Folio/content.opf.erb")
-    erb = ERB.new(template, nil, "%<>-")
-    erb.result(binding)
   end
 
   private

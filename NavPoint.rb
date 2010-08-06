@@ -1,34 +1,36 @@
 class NavPoint
   
-	attr_accessor :id, :playOrder, :text, :src, :navPoints, :level
+	attr_accessor :id, :playOrder, :text, :src, :navPoints, :depth
 	
-	def initialize(element, level)
-		parse(element, level)
+	def initialize(element, depth)
+		parse(element, depth)
 	end
 	
 	def to_xml
-		padding = "  " * @level
-		puts "#{padding}<navPoint id=\"#{@id}\" playOrder=\"#{@playOrder}\">"
-		puts "#{padding}  <navLabel>"
-		puts "#{padding}    <text>#{@text}</text>"
-		puts "#{padding}  </navLabel>"
-		puts "#{padding}  <content>#{@src}</>"
-		@navPoints.each {|point| point.to_xml}
-		puts "#{padding}</navPoint>"
+    buffer = ""
+		padding = "  " * @depth
+		buffer << "#{padding}<navPoint id=\"#{@id}\" playOrder=\"#{@playOrder}\">\n"
+		buffer << "#{padding}  <navLabel>\n"
+		buffer << "#{padding}    <text>#{@text}</text>\n"
+		buffer << "#{padding}  </navLabel>\n"
+		buffer << "#{padding}  <content>#{@src}</>\n"
+		@navPoints.each do |point|
+      buffer << point.to_xml
+    end
+		buffer << "#{padding}</navPoint>\n"
 	end
   
 	private
   
-	def parse(element, level)
+	def parse(element, depth)
 		@navPoints = []
-		@level     = level
+		@depth     = depth
 		@id        = element.attributes["id"]
 		@playOrder = element.attributes["playOrder"]
 		@text      = element.elements["navLabel/text"].text
 		@src       = element.elements["content"].attributes["src"]
-		#puts @playOrder + ' => ' * level + @text
 		element.elements.each("navPoint") do |e|
-			@navPoints << NavPoint.new(e, level + 1)
+			@navPoints << NavPoint.new(e, depth + 1)
 		end
 	end
   
