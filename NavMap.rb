@@ -11,7 +11,23 @@ class NavMap
 		doc.elements.each("/ncx/navMap/*") do |element|
 			@navPoints << NavPoint.new(element, 1)
 		end
-	end
+    @pointArray = []
+    @navPoints.each do |point|
+      @pointArray += point.collect
+    end
+  end
+  
+  def depth
+    @depth
+  end
+  
+  def size
+    @pointArray.size
+  end
+  
+  def navPointAtIndex(index)
+    @pointArray[index]
+  end
 	
 	def to_xml
     buffer = ""

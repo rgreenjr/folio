@@ -2,6 +2,7 @@ class Entry
   
   attr_accessor :root, :fullpath, :content, :dirname, :extname, :name, :url
   attr_accessor :id, :href, :mediaType, :referenceTitle, :referenceType
+  attr_accessor :previous, :next
   
   def initialize(root, href)
     @root, self.href = root, href
@@ -35,6 +36,10 @@ class Entry
   
   def renderable?
     %w{.xml .html .xhtml .htm .txt .jpg .jpeg .gif .svg .png}.include?(@extname)
+  end
+  
+  def manifestable?
+    %w{.opf .ncx .plist}.include?(@extname) == false
   end
   
   def tidy

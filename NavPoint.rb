@@ -5,7 +5,19 @@ class NavPoint
 	def initialize(element, depth)
 		parse(element, depth)
 	end
-	
+  
+  def collect
+    array = [self]
+    navPoints.each do |point|
+      array += point.collect
+    end
+    array
+  end
+  
+  def indentedText
+		"    " * @depth + @text
+  end
+  
 	def to_xml
     buffer = ""
 		padding = "  " * @depth
@@ -13,7 +25,7 @@ class NavPoint
 		buffer << "#{padding}  <navLabel>\n"
 		buffer << "#{padding}    <text>#{@text}</text>\n"
 		buffer << "#{padding}  </navLabel>\n"
-		buffer << "#{padding}  <content>#{@src}</>\n"
+		buffer << "#{padding}  <content>#{@src}</content>\n"
 		@navPoints.each do |point|
       buffer << point.to_xml
     end

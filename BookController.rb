@@ -1,6 +1,6 @@
 class BookController
   
-  attr_accessor :window, :book, :tableView, :webView, :textView
+  attr_accessor :window, :book, :webView, :textView, :layoutController, :entryController
   
   def openBook(sender)
     panel = NSOpenPanel.openPanel
@@ -15,28 +15,30 @@ class BookController
     end
   end
   
+  def saveBook(sender)
+    @book.save("/Users/rgreen/Desktop/save.epub")
+  end
+  
   def book=(book)
     @book = book
-    window.title = @book.title
-    tableView.reloadData
-    # tableView.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection:false)
+    @window.title = @book.title
+    @entryController.refresh
+    @layoutController.refresh
+    selectEntry(@book.spine.first)
   end
   
-  def numberOfRowsInTableView(aTableView)
-    @book ? @book.size: 0
+  def selectEntryWithHref(href)
+    selectEntry(@book.entryWithHref(href))
   end
   
-  def tableView(aTableView, objectValueForTableColumn:column, row:index)
-    @book.entryAt(index).name
-  end
-  
-  def tableViewSelectionDidChange(aNotification)
-    return if tableView.selectedRow == -1
-    @currentEntry = @book.entryAt(tableView.selectedRow)
+  def selectEntry(entry)
+    return unless entry
+    @currentEntry = entry
     refreshWebView
     refreshTextView
+    #@tableView.selectRowIndexes(NSIndexSet.indexSetWithIndex(@book.indexForEntry(entry)), byExtendingSelection:false)
   end
-  
+    
   def textDidChange(notification)
     @currentEntry.content = textView.textStorage.string
     refreshWebView
