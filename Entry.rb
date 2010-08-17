@@ -14,7 +14,11 @@ class Entry
   
   def content=(content)
     @content = content
-    File.open(fullpath, 'wb') {|f| f.puts @content}
+    save
+  end
+  
+  def save
+    File.open(@fullpath, 'wb') {|f| f.puts @content}
   end
   
   def href=(href)
@@ -43,6 +47,7 @@ class Entry
   end
   
   def tidy
+    return unless tidyable?
     self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{@fullpath}'`
   end
   

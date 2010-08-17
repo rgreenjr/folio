@@ -62,6 +62,7 @@
 		CD1AC551120B69EF007991AD /* NavMap.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD1AC550120B69EF007991AD /* NavMap.rb */; };
 		CD1AC553120B6A04007991AD /* NavPoint.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD1AC552120B6A04007991AD /* NavPoint.rb */; };
 		CD40B02612104FC000C8C3C3 /* LayoutController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD40B02512104FC000C8C3C3 /* LayoutController.rb */; };
+		CD67D56E1219B32100CF8148 /* items.png in Resources */ = {isa = PBXBuildFile; fileRef = CD67D56D1219B32100CF8148 /* items.png */; };
 		CD783EDE1208C2F200019E67 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDB1208C2F200019E67 /* container.xml */; };
 		CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDC1208C2F200019E67 /* content.opf.erb */; };
 		CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDD1208C2F200019E67 /* toc.ncx.erb */; };
@@ -109,6 +110,7 @@
 		CD1AC550120B69EF007991AD /* NavMap.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NavMap.rb; sourceTree = "<group>"; };
 		CD1AC552120B6A04007991AD /* NavPoint.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NavPoint.rb; sourceTree = "<group>"; };
 		CD40B02512104FC000C8C3C3 /* LayoutController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LayoutController.rb; sourceTree = "<group>"; };
+		CD67D56D1219B32100CF8148 /* items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = items.png; sourceTree = "<group>"; };
 		CD783EDB1208C2F200019E67 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
 		CD783EDC1208C2F200019E67 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD783EDD1208C2F200019E67 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
@@ -136,16 +138,16 @@
 			isa = PBXGroup;
 			children = (
 				CD8BD22312078C3C00F3B809 /* AppController.rb */,
-				CD12065912132FA8007405B8 /* WindowController.rb */,
-				CD40B02512104FC000C8C3C3 /* LayoutController.rb */,
-				CD12068D12133623007405B8 /* EntryController.rb */,
-				CD0603A21207921600E447D5 /* BookController.rb */,
-				CD06035112078DFF00E447D5 /* Book.rb */,
-				CD12063A12130649007405B8 /* Package.rb */,
 				CD12064212132926007405B8 /* Container.rb */,
+				CD06035112078DFF00E447D5 /* Book.rb */,
+				CD0603A21207921600E447D5 /* BookController.rb */,
 				CDC963F31208615B00058451 /* Entry.rb */,
+				CD12068D12133623007405B8 /* EntryController.rb */,
+				CD40B02512104FC000C8C3C3 /* LayoutController.rb */,
 				CD1AC550120B69EF007991AD /* NavMap.rb */,
 				CD1AC552120B6A04007991AD /* NavPoint.rb */,
+				CD12063A12130649007405B8 /* Package.rb */,
+				CD12065912132FA8007405B8 /* WindowController.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -214,6 +216,7 @@
 			children = (
 				CD06A2C21210A70B00DAD0D4 /* pageDown.png */,
 				CD06A2C31210A70B00DAD0D4 /* pageUp.png */,
+				CD67D56D1219B32100CF8148 /* items.png */,
 				CD783EDB1208C2F200019E67 /* container.xml */,
 				CD1205BC1211FDD9007405B8 /* mimetype */,
 				CD783EDC1208C2F200019E67 /* content.opf.erb */,
@@ -302,6 +305,7 @@
 				CD12064312132926007405B8 /* Container.rb in Resources */,
 				CD12065A12132FA8007405B8 /* WindowController.rb in Resources */,
 				CD12068E12133623007405B8 /* EntryController.rb in Resources */,
+				CD67D56E1219B32100CF8148 /* items.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

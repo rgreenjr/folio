@@ -19,7 +19,8 @@ class EntryController
   end
   
   def tableViewSelectionDidChange(aNotification)
-    @bookController.selectEntry(book.entries[tableView.selectedRow])
+    return if @tableView.selectedRow == -1
+    @bookController.selectEntry(book.entries[@tableView.selectedRow])
   end
   
 end

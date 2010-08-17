@@ -23,7 +23,8 @@ class LayoutController
   end
   
   def tableViewSelectionDidChange(notification)
-    @bookController.selectEntryWithHref(book.navMap.navPointAtIndex(tableView.selectedRow).src)
+    return if @tableView.selectedRow == -1
+    @bookController.selectEntryWithHref(book.navMap.navPointAtIndex(@tableView.selectedRow).src)
   end
 
 end
