@@ -10,6 +10,14 @@ class NavPoint
 	  @navPoints.size
   end
   
+  def url
+    @url = "file:///Users/rgreen/Desktop/extract/#{@src}"
+  end
+  
+  def renderable?
+    true
+  end
+  
   def collect
     array = [self]
     navPoints.each do |point|

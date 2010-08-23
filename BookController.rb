@@ -16,7 +16,7 @@ class BookController
   end
   
   def saveBook(sender)
-    @book.save("/Users/rgreen/Desktop/save.epub")
+    @book.save("/Users/rgreen/Desktop/")
   end
   
   def book=(book)
@@ -31,11 +31,17 @@ class BookController
     selectEntry(@book.entryWithHref(href))
   end
   
+  def selectNavPoint(point)
+    return unless point
+    @currentEntry = point
+    refreshWebView
+  end
+  
   def selectEntry(entry)
     return unless entry
     @currentEntry = entry
     refreshWebView
-    refreshTextView
+    #refreshTextView
     #@tableView.selectRowIndexes(NSIndexSet.indexSetWithIndex(@book.indexForEntry(entry)), byExtendingSelection:false)
   end
     
@@ -46,6 +52,7 @@ class BookController
   
   def refreshWebView
     if @currentEntry.renderable?
+    puts @currentEntry.url
         webView.mainFrame.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString(@currentEntry.url)))
       else
         webView.mainFrame.loadHTMLString("", baseURL:nil)
@@ -53,12 +60,8 @@ class BookController
   end
   
   def refreshTextView
-    if @currentEntry.text?
-        attrString = NSAttributedString.alloc.initWithString(@currentEntry.content)
-      else
-        attrString = NSAttributedString.alloc.initWithString("")
-    end
-    textView.textStorage.attributedString = attrString
+    text = (@currentEntry.text?) ? @currentEntry.content : ""
+    textView.textStorage.attributedString = NSAttributedString.alloc.initWithString(text)
     textView.richText = false
   end
   

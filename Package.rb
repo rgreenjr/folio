@@ -27,7 +27,7 @@ class Package
           f.puts "    <item id=\"#{entry.id}\" href=\"#{entry.href}\" media-type=\"#{entry.mediaType}\"/>"
           FileUtils.mkdir_p(File.dirname("#{dest}/#{entry.href}"))
           puts "#{src}/#{book.container.root}/#{entry.href}"
-          FileUtils.cp("#{src}/#{book.container.root}/#{entry.href}", "#{dest}/OEBPS/#{entry.href}")
+          FileUtils.cp("#{src}/#{entry.href}", "#{dest}/OEBPS/#{entry.href}")
         end
       end
       f.puts "  </manifest>"
@@ -67,7 +67,6 @@ class Package
         #puts "unparsed metadata element: #{element}" if element.name.strip.size != 0
       end
     end
-    p book
   end
   
   def parseManifest(book, doc)
@@ -85,14 +84,14 @@ class Package
     book.ncx = book.entryWithId(doc.elements["/package/spine"].attributes["toc"])
     raise "an NCX file is not speicifed in the spine as required." unless book.ncx
     
-    previous = nil
+    current = nil
     doc.elements.each("/package/spine/itemref") do |element|
       entry = book.entryWithId(element.attributes["idref"])
       raise "a OPF spine itemref element has an invalid idref value: #{element.attributes["idref"]}" unless entry
       book.spine << entry
-      entry.previous = previous
-      previous.next = entry if previous
-      previous = entry
+      entry.previousEntry = current
+      current.nextEntry = entry if current
+      current = entry
     end
   end
 

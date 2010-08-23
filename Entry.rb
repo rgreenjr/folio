@@ -2,7 +2,7 @@ class Entry
   
   attr_accessor :root, :fullpath, :content, :dirname, :extname, :name, :url
   attr_accessor :id, :href, :mediaType, :referenceTitle, :referenceType
-  attr_accessor :previous, :next
+  attr_accessor :previousEntry, :nextEntry
   
   def initialize(root, href)
     @root, self.href = root, href

@@ -1,6 +1,7 @@
 class WindowController < NSWindowController
 
   attr_accessor :placeHolderView, :entryScrollView, :layoutScrollView
+  attr_accessor :previousPageToolbarItem, :nextPageToolbarItem
 
   def awakeFromNib
     toggleView(self)
@@ -23,12 +24,16 @@ class WindowController < NSWindowController
   end
     
   def previousPage(sender)
-    puts "previousPage"
-    puts currentTableView.selectedRow
+    currentTableView.dataSource.showPrevious
   end
   
   def nextPage(sender)
-    puts "nextPage"
+    currentTableView.dataSource.showNext
+  end
+  
+  def validateToolbarItem(toolbarItem)
+    return true unless @currentScrollView == @entryScrollView
+    return (toolbarItem != @previousPageToolbarItem && toolbarItem != @nextPageToolbarItem)
   end
   
   private
