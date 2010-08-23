@@ -5,6 +5,10 @@ class NavPoint
 	def initialize(element, depth, prefix)
 		parse(element, depth, prefix)
 	end
+	
+	def size
+	  @navPoints.size
+  end
   
   def collect
     array = [self]

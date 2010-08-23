@@ -1,6 +1,6 @@
 class NavMap
 
-  attr_accessor :id, :title, :creator, :depth, :docAuthor
+  attr_accessor :id, :title, :creator, :depth, :docAuthor, :navPoints
 	
 	def initialize(entry)
     puts "parse ncx"
