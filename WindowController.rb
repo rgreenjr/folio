@@ -1,17 +1,19 @@
 class WindowController < NSWindowController
 
-  attr_accessor :placeHolderView, :entryScrollView, :layoutScrollView
+  attr_accessor :placeHolderView, :layoutScrollView, :spineScrollView, :manifestScrollView
   attr_accessor :previousPageToolbarItem, :nextPageToolbarItem
 
   def awakeFromNib
-    toggleView(self)
+    @currentScrollView = @layoutScrollView
   end
 
   def toggleView(sender)
-    if @currentScrollView == @layoutScrollView
-      @currentScrollView = @entryScrollView
-    else
+    if sender.selectedSegment == 0 && @currentScrollView != @layoutScrollView
       @currentScrollView = @layoutScrollView
+    elsif sender.selectedSegment == 1 && @currentScrollView != @spineScrollView
+      @currentScrollView = @spineScrollView
+    elsif sender.selectedSegment == 2 && @currentScrollView != @manifestScrollView
+      @currentScrollView = @manifestScrollView
     end
     subviews = @placeHolderView.subviews
     subviews.objectAtIndex(0).removeFromSuperview if subviews.size > 0    
@@ -32,7 +34,7 @@ class WindowController < NSWindowController
   end
   
   def validateToolbarItem(toolbarItem)
-    return true unless @currentScrollView == @entryScrollView
+    return true unless @currentScrollView == @manifestScrollView
     return (toolbarItem != @previousPageToolbarItem && toolbarItem != @nextPageToolbarItem)
   end
   

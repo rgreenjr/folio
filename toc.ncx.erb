@@ -2,24 +2,24 @@
 <ncx version="2005-1" xml:lang="en" xmlns="http://www.daisy.org/z3986/2005/ncx/">
 
   <head>
-    <meta name="dtb:uid" content="<%= @map.id %>"/>
-    <meta name="dtb:depth" content="<%= @map.depth %>"/>
+    <meta name="dtb:uid" content="<%= @layout.id %>"/>
+    <meta name="dtb:depth" content="-1"/>
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
  
   <docTitle>
-    <text><%= @map.title %></text>
+    <text><%= @layout.title %></text>
   </docTitle>
  
   <docAuthor>
-    <text><%= @map.docAuthor %></text>
+    <text><%= @layout.docAuthor %></text>
   </docAuthor>
 
   <navMap>
-  <% @navPoints.each do |point| %>
+  <% @layout.root.each do |point| %>
     <%= point.to_xml %>
   <% end %>
-  </navMap>
+  </layout>
 
 </ncx>

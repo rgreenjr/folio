@@ -1,11 +1,30 @@
 class Package
 
   def initialize(book)
-    raise "the OPF file #{book.container.absolutepath} is missing" unless File.exists?(book.container.absolutepath)
-    doc = REXML::Document.new(File.read(book.container.absolutepath))
-    parseMetadata(book, doc)
-    parseManifest(book, doc)
-    parseSpine(book, doc)
+    book.container.opfDoc.elements.each("/package/metadata/*") do |element|
+      case element.name
+      when 'title'
+        book.title = element.text
+      when 'publisher'
+        book.publisher = element.text
+      when 'creator'
+        book.creator = element.text
+      when 'date'
+        book.date = element.text
+      when 'language'
+        book.language = element.text
+      when 'description'
+        book.description = element.text
+      when 'rights'
+        book.rights = element.text
+      when 'identifier'
+        book.identifier = element.text
+      when 'subject'
+        book.subject = element.text
+      else
+        #puts "unparsed metadata element: #{element}" if element.name.strip.size != 0
+      end
+    end
   end
   
   def save(book, src, dest)
@@ -39,68 +58,5 @@ class Package
       f.puts "</package>"
     end
   end
-  
-  private
-  
-  def parseMetadata(book, doc)
-    doc.elements.each("/package/metadata/*") do |element|
-      case element.name
-      when 'title'
-        book.title = element.text
-      when 'publisher'
-        book.publisher = element.text
-      when 'creator'
-        book.creator = element.text
-      when 'date'
-        book.date = element.text
-      when 'language'
-        book.language = element.text
-      when 'description'
-        book.description = element.text
-      when 'rights'
-        book.rights = element.text
-      when 'identifier'
-        book.identifier = element.text
-      when 'subject'
-        book.subject = element.text
-      else
-        #puts "unparsed metadata element: #{element}" if element.name.strip.size != 0
-      end
-    end
-  end
-  
-  def parseManifest(book, doc)
-    puts "parseManifest"
-    doc.elements.each("/package/manifest/item") do |element|
-      entry = book.entryWithHref(element.attributes["href"])
-      raise "an OPF manifest item element has an invalid href value: #{element.attributes["href"]}" unless entry
-      entry.id = element.attributes["id"]
-      entry.mediaType = element.attributes["media-type"]
-    end
-  end
-
-  def parseSpine(book, doc)
-    puts "parseSpine"
-    book.ncx = book.entryWithId(doc.elements["/package/spine"].attributes["toc"])
-    raise "an NCX file is not speicifed in the spine as required." unless book.ncx
-    
-    current = nil
-    doc.elements.each("/package/spine/itemref") do |element|
-      entry = book.entryWithId(element.attributes["idref"])
-      raise "a OPF spine itemref element has an invalid idref value: #{element.attributes["idref"]}" unless entry
-      book.spine << entry
-      entry.previousEntry = current
-      current.nextEntry = entry if current
-      current = entry
-    end
-  end
-
-#  def parseGuide(book, doc)
-#    puts "parseGuide"
-#    doc.elements.each("/package/guide/reference") do |element|
-#      entry.referenceTitle = element.attributes["title"]
-#      entry.referenceType = element.attributes["type"]
-#    end
-#  end
 
 end

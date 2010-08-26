@@ -1,17 +1,25 @@
 class Container
 
-  attr_reader :root, :fullpath, :absolutepath
+  CONTAINER_XML_PATH = "/META-INF/container.xml"
 
-  def initialize(root)
-    path = "#{root}/META-INF/container.xml"
-    raise "the META-INF/container.xml file is missing" unless File.exists?(path)
-    @fullpath = REXML::Document.new(File.read(path)).root.elements["rootfiles/rootfile"].attributes["full-path"]
-    @absolutepath = "#{root}/#{@fullpath}"
-    @root = File.dirname(@fullpath)
+  attr_reader :base, :opfPath, :root
+
+  def initialize(book)
+    @base = book.base
+    file = "#{@base}/#{CONTAINER_XML_PATH}"
+    raise "The #{CONTAINER_XML_PATH} file is missing" unless File.exists?(file)
+    path = REXML::Document.new(File.read(file)).root.elements["rootfiles/rootfile"].attributes["full-path"]
+    @opfPath = "#{base}/#{path}"
+    @root = File.dirname(@opfPath)
   end
   
   def save(directory)
-    FileUtils.cp(NSBundle.mainBundle.pathForResource("container", ofType:"xml"), "#{directory}/META-INF/container.xml")
+    FileUtils.cp(NSBundle.mainBundle.pathForResource("container", ofType:"xml"), "#{directory}/#{CONTAINER_XML_PATH}")
+  end
+  
+  def opfDoc
+    raise "OPF file is missing: #{File.basename(@opfPath)}" unless File.exists?(@opfPath)
+    @opfDoc ||= REXML::Document.new(File.read(@opfPath))
   end
 
 end

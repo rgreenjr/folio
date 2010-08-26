@@ -49,6 +49,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD04E4F812259914005946C7 /* TextViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD04E4F712259914005946C7 /* TextViewController.rb */; };
 		CD06035212078DFF00E447D5 /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD06035112078DFF00E447D5 /* Book.rb */; };
 		CD0603A31207921600E447D5 /* BookController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0603A21207921600E447D5 /* BookController.rb */; };
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
@@ -58,16 +59,19 @@
 		CD12063B12130649007405B8 /* Package.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12063A12130649007405B8 /* Package.rb */; };
 		CD12064312132926007405B8 /* Container.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12064212132926007405B8 /* Container.rb */; };
 		CD12065A12132FA8007405B8 /* WindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12065912132FA8007405B8 /* WindowController.rb */; };
-		CD12068E12133623007405B8 /* EntryController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12068D12133623007405B8 /* EntryController.rb */; };
-		CD1AC551120B69EF007991AD /* NavMap.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD1AC550120B69EF007991AD /* NavMap.rb */; };
-		CD1AC553120B6A04007991AD /* NavPoint.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD1AC552120B6A04007991AD /* NavPoint.rb */; };
 		CD40B02612104FC000C8C3C3 /* LayoutController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD40B02512104FC000C8C3C3 /* LayoutController.rb */; };
+		CD5126E71224153800542CEB /* Manifest.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5126E61224153800542CEB /* Manifest.rb */; };
+		CD512701122436C400542CEB /* Spine.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD512700122436C400542CEB /* Spine.rb */; };
+		CD51271F122439DF00542CEB /* Layout.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD51271E122439DF00542CEB /* Layout.rb */; };
+		CD51273712243CD700542CEB /* ManifestController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD51273612243CD700542CEB /* ManifestController.rb */; };
+		CD51274B12243DEA00542CEB /* Item.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD51274A12243DEA00542CEB /* Item.rb */; };
+		CD51C78312257FE500B06B4E /* Point.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD51C78212257FE500B06B4E /* Point.rb */; };
 		CD67D56E1219B32100CF8148 /* items.png in Resources */ = {isa = PBXBuildFile; fileRef = CD67D56D1219B32100CF8148 /* items.png */; };
 		CD783EDE1208C2F200019E67 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDB1208C2F200019E67 /* container.xml */; };
 		CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDC1208C2F200019E67 /* content.opf.erb */; };
 		CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDD1208C2F200019E67 /* toc.ncx.erb */; };
 		CD8BD22412078C3C00F3B809 /* AppController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD8BD22312078C3C00F3B809 /* AppController.rb */; };
-		CDC963F41208615B00058451 /* Entry.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDC963F31208615B00058451 /* Entry.rb */; };
+		CDF98DED1226E6FC001FC6C1 /* SpineController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDF98DEC1226E6FC001FC6C1 /* SpineController.rb */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +101,7 @@
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Folio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Folio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD04E4F712259914005946C7 /* TextViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TextViewController.rb; sourceTree = "<group>"; };
 		CD06035112078DFF00E447D5 /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
 		CD0603A21207921600E447D5 /* BookController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookController.rb; sourceTree = "<group>"; };
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -106,16 +111,19 @@
 		CD12063A12130649007405B8 /* Package.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Package.rb; sourceTree = "<group>"; };
 		CD12064212132926007405B8 /* Container.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Container.rb; sourceTree = "<group>"; };
 		CD12065912132FA8007405B8 /* WindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WindowController.rb; sourceTree = "<group>"; };
-		CD12068D12133623007405B8 /* EntryController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = EntryController.rb; sourceTree = "<group>"; };
-		CD1AC550120B69EF007991AD /* NavMap.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NavMap.rb; sourceTree = "<group>"; };
-		CD1AC552120B6A04007991AD /* NavPoint.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NavPoint.rb; sourceTree = "<group>"; };
 		CD40B02512104FC000C8C3C3 /* LayoutController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LayoutController.rb; sourceTree = "<group>"; };
+		CD5126E61224153800542CEB /* Manifest.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Manifest.rb; sourceTree = "<group>"; };
+		CD512700122436C400542CEB /* Spine.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Spine.rb; sourceTree = "<group>"; };
+		CD51271E122439DF00542CEB /* Layout.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Layout.rb; sourceTree = "<group>"; };
+		CD51273612243CD700542CEB /* ManifestController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ManifestController.rb; sourceTree = "<group>"; };
+		CD51274A12243DEA00542CEB /* Item.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Item.rb; sourceTree = "<group>"; };
+		CD51C78212257FE500B06B4E /* Point.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Point.rb; sourceTree = "<group>"; };
 		CD67D56D1219B32100CF8148 /* items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = items.png; sourceTree = "<group>"; };
 		CD783EDB1208C2F200019E67 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
 		CD783EDC1208C2F200019E67 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD783EDD1208C2F200019E67 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
 		CD8BD22312078C3C00F3B809 /* AppController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AppController.rb; sourceTree = "<group>"; };
-		CDC963F31208615B00058451 /* Entry.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Entry.rb; sourceTree = "<group>"; };
+		CDF98DEC1226E6FC001FC6C1 /* SpineController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SpineController.rb; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -141,12 +149,16 @@
 				CD12064212132926007405B8 /* Container.rb */,
 				CD06035112078DFF00E447D5 /* Book.rb */,
 				CD0603A21207921600E447D5 /* BookController.rb */,
-				CDC963F31208615B00058451 /* Entry.rb */,
-				CD12068D12133623007405B8 /* EntryController.rb */,
+				CD51274A12243DEA00542CEB /* Item.rb */,
+				CD51271E122439DF00542CEB /* Layout.rb */,
 				CD40B02512104FC000C8C3C3 /* LayoutController.rb */,
-				CD1AC550120B69EF007991AD /* NavMap.rb */,
-				CD1AC552120B6A04007991AD /* NavPoint.rb */,
+				CD5126E61224153800542CEB /* Manifest.rb */,
+				CD51273612243CD700542CEB /* ManifestController.rb */,
 				CD12063A12130649007405B8 /* Package.rb */,
+				CD51C78212257FE500B06B4E /* Point.rb */,
+				CD512700122436C400542CEB /* Spine.rb */,
+				CDF98DEC1226E6FC001FC6C1 /* SpineController.rb */,
+				CD04E4F712259914005946C7 /* TextViewController.rb */,
 				CD12065912132FA8007405B8 /* WindowController.rb */,
 			);
 			name = Classes;
@@ -291,12 +303,9 @@
 				CD8BD22412078C3C00F3B809 /* AppController.rb in Resources */,
 				CD06035212078DFF00E447D5 /* Book.rb in Resources */,
 				CD0603A31207921600E447D5 /* BookController.rb in Resources */,
-				CDC963F41208615B00058451 /* Entry.rb in Resources */,
 				CD783EDE1208C2F200019E67 /* container.xml in Resources */,
 				CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */,
 				CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */,
-				CD1AC551120B69EF007991AD /* NavMap.rb in Resources */,
-				CD1AC553120B6A04007991AD /* NavPoint.rb in Resources */,
 				CD40B02612104FC000C8C3C3 /* LayoutController.rb in Resources */,
 				CD06A2C41210A70B00DAD0D4 /* pageDown.png in Resources */,
 				CD06A2C51210A70B00DAD0D4 /* pageUp.png in Resources */,
@@ -304,8 +313,15 @@
 				CD12063B12130649007405B8 /* Package.rb in Resources */,
 				CD12064312132926007405B8 /* Container.rb in Resources */,
 				CD12065A12132FA8007405B8 /* WindowController.rb in Resources */,
-				CD12068E12133623007405B8 /* EntryController.rb in Resources */,
 				CD67D56E1219B32100CF8148 /* items.png in Resources */,
+				CD5126E71224153800542CEB /* Manifest.rb in Resources */,
+				CD512701122436C400542CEB /* Spine.rb in Resources */,
+				CD51271F122439DF00542CEB /* Layout.rb in Resources */,
+				CD51273712243CD700542CEB /* ManifestController.rb in Resources */,
+				CD51274B12243DEA00542CEB /* Item.rb in Resources */,
+				CD51C78312257FE500B06B4E /* Point.rb in Resources */,
+				CD04E4F812259914005946C7 /* TextViewController.rb in Resources */,
+				CDF98DED1226E6FC001FC6C1 /* SpineController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
