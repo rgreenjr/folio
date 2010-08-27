@@ -1,6 +1,6 @@
 class Point
   
-	attr_accessor :id, :playOrder, :text, :src, :url, :expanded
+	attr_accessor :id, :playOrder, :text, :src, :uri, :expanded
 	
 	def initialize(base=nil, element=nil, prefix=nil)
 		@points = []
@@ -11,7 +11,7 @@ class Point
   		@text      = element.elements["#{prefix}navLabel/#{prefix}text"].text
   		@src       = element.elements["#{prefix}content"].attributes["src"]
   		@base      = base
-  		@url       = "file://#{base}/#{src}"
+  		@uri       = "file://#{base}/#{src}"
   		element.elements.each("#{prefix}navPoint") do |e|
   			@points << Point.new(base, e, prefix)
   		end

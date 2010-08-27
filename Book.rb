@@ -10,7 +10,7 @@ class Book
   attr_accessor :title, :language, :identifier
   attr_accessor :creator, :contributor, :publisher, :subject, :description
   attr_accessor :date, :type, :format, :source, :relation, :coverage, :rights
-  attr_accessor :container, :manifest, :spine, :layout
+  attr_accessor :container, :manifest, :spine, :navigation
   attr_accessor :base
 
   def initialize(filepath)
@@ -18,11 +18,11 @@ class Book
     @filepath = filepath
     @base = Dir.mktmpdir("folio-unzip-")
     system("unzip -q -d '#{@base}' '#{@filepath}'")
-    @container = Container.new(self)
-    @manifest  = Manifest.new(self)
-    @spine     = Spine.new(self)
-    @package   = Package.new(self)
-    @layout    = Layout.new(self)
+    @container  = Container.new(self)
+    @manifest   = Manifest.new(self)
+    @spine      = Spine.new(self)
+    @package    = Package.new(self)
+    @navigation = Navigation.new(self)
   end
 
   def save(directory)

@@ -1,4 +1,4 @@
-class Layout
+class Navigation
 
   attr_accessor :id, :title, :creator, :docAuthor, :root
 	
@@ -26,7 +26,7 @@ class Layout
   end
   
   def to_xml
-    @layout = self
+    @navigation = self
     ERB.new(File.read(NSBundle.mainBundle.pathForResource("toc.ncx", ofType:"erb"))).result(binding)
   end
 	

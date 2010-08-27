@@ -1,6 +1,6 @@
 class BookController
 
-  attr_accessor :window, :book, :layoutController, :spineController, :manifestController
+  attr_accessor :window, :book, :navigationController, :spineController, :manifestController
 
   def openBook(sender)
     panel = NSOpenPanel.openPanel
@@ -21,17 +21,15 @@ class BookController
 
   def book=(book)
     @book = book
-    @window.title = @book.title
-    @layoutController.layout = @book.layout
+    @navigationController.navigation = @book.navigation
     @spineController.spine = @book.spine
     @manifestController.manifest = @book.manifest
+    @window.title = @book.title
   end
 
-  # def tidy(sender)
-  #   if @currentItem && @currentItem.tidyable?
-  #     @currentItem.tidy
-  #   end
-  # end
+  def tidy(sender)
+    # @currentItem.tidy if @currentItem && @currentItem.tidyable?
+  end
 
   def showTemporaryDirectory(sender)
     system("open #{@book.base}")

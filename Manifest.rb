@@ -1,35 +1,44 @@
 class Manifest
   
-  attr_accessor :items, :base
+  attr_accessor :items, :base, :root
 
   def initialize(book)
-    @items = []
-    book.container.opfDoc.elements.each("/package/manifest/item") do |e|
-      @items << Item.new(book.container.root, e.attributes["href"], e.attributes["id"], e.attributes["media-type"])
+    @hash  = {}
+    @root = Item.new("file://#{book.container.root}", 'ROOT', 'ROOT')
+    book.container.opfDoc.elements.each("/package/manifest/item") do |e|      
+      parts = e.attributes["href"].split('/')
+      parent = @root
+      parts.each_with_index do |part, index|
+        break if index == (parts.size - 1)
+        directory = parent.find(part)
+        if directory == nil
+          directory = Item.new("#{parent.uri}/#{part}", part, 'directory')
+          parent << directory
+        end
+        parent = directory
+      end
+      item = Item.new("#{parent.uri}/#{parts.last}", e.attributes["id"], e.attributes["media-type"])
+      parent << item
+      raise "Manifest item ids must be unique: #{item.id}" if @hash[item.id]      
+      @hash[item.id] = item
     end
-  end
-
-  def size
-    @items.size
-  end
-  
-  def each
-   @items.each {|i| yield i} 
+    
+    # walk(@root, 0)
   end
   
   def [](index)
-    @items[index]
+    @root.traverse(index).first
   end
   
-  def itemWithHref(href)
-    href = URI.parse(href).path
-    each {|i| return i if i.href == href}
-    nil
+  def itemWithId(identifier)
+    @hash[identifier]
   end
 
-  def itemWithId(id)
-    each {|i| return i if i.id == id}
-    nil
+  def walk(item, depth)
+    puts "    " * depth + item.uri
+    item.each do |child|
+      walk(child, depth + 1)
+    end
   end
   
 end

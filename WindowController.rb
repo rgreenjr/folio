@@ -1,15 +1,15 @@
 class WindowController < NSWindowController
 
-  attr_accessor :placeHolderView, :layoutScrollView, :spineScrollView, :manifestScrollView
+  attr_accessor :placeHolderView, :navigationScrollView, :spineScrollView, :manifestScrollView
   attr_accessor :previousPageToolbarItem, :nextPageToolbarItem
 
   def awakeFromNib
-    @currentScrollView = @layoutScrollView
+    @currentScrollView = @navigationScrollView
   end
 
   def toggleView(sender)
-    if sender.selectedSegment == 0 && @currentScrollView != @layoutScrollView
-      @currentScrollView = @layoutScrollView
+    if sender.selectedSegment == 0 && @currentScrollView != @navigationScrollView
+      @currentScrollView = @navigationScrollView
     elsif sender.selectedSegment == 1 && @currentScrollView != @spineScrollView
       @currentScrollView = @spineScrollView
     elsif sender.selectedSegment == 2 && @currentScrollView != @manifestScrollView
