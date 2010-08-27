@@ -34,15 +34,15 @@ class Point
     @points << point
   end
   
-  def traverse(depth)
-    return [self, depth] if depth == -1
-    return [nil, depth] if size == 0 || !expanded
+  def traverse(index)
+    return [self, index] if index == -1
+    return [nil, index] if size == 0 || !expanded
     match = nil
     each do |p|
-      match, depth = p.traverse(depth - 1)
+      match, index = p.traverse(index - 1)
       break if match
     end
-    return [match, depth]
+    return [match, index]
   end
     
 	def to_xml(depth=1)

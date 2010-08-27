@@ -22,8 +22,6 @@ class Manifest
       raise "Manifest item ids must be unique: #{item.id}" if @hash[item.id]      
       @hash[item.id] = item
     end
-    
-    # walk(@root, 0)
   end
   
   def [](index)
@@ -34,11 +32,4 @@ class Manifest
     @hash[identifier]
   end
 
-  def walk(item, depth)
-    puts "    " * depth + item.uri
-    item.each do |child|
-      walk(child, depth + 1)
-    end
-  end
-  
 end
