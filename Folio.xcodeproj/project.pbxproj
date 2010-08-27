@@ -56,7 +56,6 @@
 		CD06A2C41210A70B00DAD0D4 /* pageDown.png in Resources */ = {isa = PBXBuildFile; fileRef = CD06A2C21210A70B00DAD0D4 /* pageDown.png */; };
 		CD06A2C51210A70B00DAD0D4 /* pageUp.png in Resources */ = {isa = PBXBuildFile; fileRef = CD06A2C31210A70B00DAD0D4 /* pageUp.png */; };
 		CD1205BD1211FDD9007405B8 /* mimetype in Resources */ = {isa = PBXBuildFile; fileRef = CD1205BC1211FDD9007405B8 /* mimetype */; };
-		CD12063B12130649007405B8 /* Package.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12063A12130649007405B8 /* Package.rb */; };
 		CD12064312132926007405B8 /* Container.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12064212132926007405B8 /* Container.rb */; };
 		CD12065A12132FA8007405B8 /* WindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12065912132FA8007405B8 /* WindowController.rb */; };
 		CD5126E71224153800542CEB /* Manifest.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5126E61224153800542CEB /* Manifest.rb */; };
@@ -108,7 +107,6 @@
 		CD06A2C21210A70B00DAD0D4 /* pageDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageDown.png; sourceTree = "<group>"; };
 		CD06A2C31210A70B00DAD0D4 /* pageUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageUp.png; sourceTree = "<group>"; };
 		CD1205BC1211FDD9007405B8 /* mimetype */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mimetype; sourceTree = "<group>"; };
-		CD12063A12130649007405B8 /* Package.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Package.rb; sourceTree = "<group>"; };
 		CD12064212132926007405B8 /* Container.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Container.rb; sourceTree = "<group>"; };
 		CD12065912132FA8007405B8 /* WindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WindowController.rb; sourceTree = "<group>"; };
 		CD5126E61224153800542CEB /* Manifest.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Manifest.rb; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 				CD52A74312282BDD00CD54A1 /* Navigation.rb */,
 				CD52A74412282BDD00CD54A1 /* NavigationController.rb */,
 				CD51273612243CD700542CEB /* ManifestController.rb */,
-				CD12063A12130649007405B8 /* Package.rb */,
 				CD51C78212257FE500B06B4E /* Point.rb */,
 				CD512700122436C400542CEB /* Spine.rb */,
 				CDF98DEC1226E6FC001FC6C1 /* SpineController.rb */,
@@ -309,7 +306,6 @@
 				CD06A2C41210A70B00DAD0D4 /* pageDown.png in Resources */,
 				CD06A2C51210A70B00DAD0D4 /* pageUp.png in Resources */,
 				CD1205BD1211FDD9007405B8 /* mimetype in Resources */,
-				CD12063B12130649007405B8 /* Package.rb in Resources */,
 				CD12064312132926007405B8 /* Container.rb in Resources */,
 				CD12065A12132FA8007405B8 /* WindowController.rb in Resources */,
 				CD67D56E1219B32100CF8148 /* items.png in Resources */,
