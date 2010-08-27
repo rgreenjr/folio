@@ -58,6 +58,7 @@
 		CD1205BD1211FDD9007405B8 /* mimetype in Resources */ = {isa = PBXBuildFile; fileRef = CD1205BC1211FDD9007405B8 /* mimetype */; };
 		CD12064312132926007405B8 /* Container.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12064212132926007405B8 /* Container.rb */; };
 		CD12065A12132FA8007405B8 /* WindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD12065912132FA8007405B8 /* WindowController.rb */; };
+		CD1C662A12285CD500ECCF15 /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD1C662912285CD500ECCF15 /* WebViewController.rb */; };
 		CD5126E71224153800542CEB /* Manifest.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5126E61224153800542CEB /* Manifest.rb */; };
 		CD512701122436C400542CEB /* Spine.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD512700122436C400542CEB /* Spine.rb */; };
 		CD51273712243CD700542CEB /* ManifestController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD51273612243CD700542CEB /* ManifestController.rb */; };
@@ -109,6 +110,7 @@
 		CD1205BC1211FDD9007405B8 /* mimetype */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mimetype; sourceTree = "<group>"; };
 		CD12064212132926007405B8 /* Container.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Container.rb; sourceTree = "<group>"; };
 		CD12065912132FA8007405B8 /* WindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WindowController.rb; sourceTree = "<group>"; };
+		CD1C662912285CD500ECCF15 /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
 		CD5126E61224153800542CEB /* Manifest.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Manifest.rb; sourceTree = "<group>"; };
 		CD512700122436C400542CEB /* Spine.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Spine.rb; sourceTree = "<group>"; };
 		CD51273612243CD700542CEB /* ManifestController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ManifestController.rb; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				CD512700122436C400542CEB /* Spine.rb */,
 				CDF98DEC1226E6FC001FC6C1 /* SpineController.rb */,
 				CD04E4F712259914005946C7 /* TextViewController.rb */,
+				CD1C662912285CD500ECCF15 /* WebViewController.rb */,
 				CD12065912132FA8007405B8 /* WindowController.rb */,
 			);
 			name = Classes;
@@ -318,6 +321,7 @@
 				CDF98DED1226E6FC001FC6C1 /* SpineController.rb in Resources */,
 				CD52A74512282BDD00CD54A1 /* Navigation.rb in Resources */,
 				CD52A74612282BDD00CD54A1 /* NavigationController.rb in Resources */,
+				CD1C662A12285CD500ECCF15 /* WebViewController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

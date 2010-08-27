@@ -1,6 +1,6 @@
 class NavigationController
   
-  attr_accessor :navigation, :outlineView, :webView, :textView
+  attr_accessor :navigation, :outlineView, :webViewController, :textViewController
   
 	def awakeFromNib
     @outlineView.delegate = self
@@ -12,6 +12,8 @@ class NavigationController
 	def navigation=(navigation)
 	  @navigation = navigation
     @outlineView.reloadData
+    @outlineView.selectColumnIndexes(NSIndexSet.indexSetWithIndex(1), byExtendingSelection:false)
+    @outlineView.expandItem(@navigation.root[0])
   end
   
   def outlineView(outlineView, numberOfChildrenOfItem:point)
@@ -42,7 +44,8 @@ class NavigationController
   def outlineViewSelectionDidChange(notification)
     return if @outlineView.selectedRow < 0
     point = @navigation[@outlineView.selectedRow]
-    @webView.mainFrame.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString(point.uri)))
+    @webViewController.item = point
+    @textViewController.item = nil
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)

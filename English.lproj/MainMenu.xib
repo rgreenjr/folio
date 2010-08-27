@@ -21,11 +21,11 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="574"/>
+			<integer value="371"/>
 			<integer value="551"/>
-			<integer value="29"/>
 			<integer value="499"/>
-			<integer value="372"/>
+			<integer value="574"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1828,6 +1828,9 @@
 				<reference key="NSCornerView" ref="223603275"/>
 				<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 			</object>
+			<object class="NSCustomObject" id="429193861">
+				<string key="NSClassName">WebViewController</string>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -2266,51 +2269,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">webView</string>
-						<reference key="source" ref="976202373"/>
-						<reference key="destination" ref="622970222"/>
-					</object>
-					<int key="connectionID">563</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">textView</string>
-						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="958675177"/>
-					</object>
-					<int key="connectionID">565</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">bookController</string>
-						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="190618754"/>
-					</object>
-					<int key="connectionID">566</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">manifestController</string>
 						<reference key="source" ref="190618754"/>
 						<reference key="destination" ref="505361772"/>
 					</object>
 					<int key="connectionID">567</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">webView</string>
-						<reference key="source" ref="505361772"/>
-						<reference key="destination" ref="622970222"/>
-					</object>
-					<int key="connectionID">568</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">webView</string>
-						<reference key="source" ref="701581699"/>
-						<reference key="destination" ref="622970222"/>
-					</object>
-					<int key="connectionID">572</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2346,30 +2309,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">textView</string>
-						<reference key="source" ref="976202373"/>
-						<reference key="destination" ref="779142809"/>
-					</object>
-					<int key="connectionID">591</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">textView</string>
-						<reference key="source" ref="701581699"/>
-						<reference key="destination" ref="779142809"/>
-					</object>
-					<int key="connectionID">592</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">textView</string>
-						<reference key="source" ref="505361772"/>
-						<reference key="destination" ref="779142809"/>
-					</object>
-					<int key="connectionID">593</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">outlineView</string>
 						<reference key="source" ref="505361772"/>
 						<reference key="destination" ref="439216352"/>
@@ -2391,6 +2330,86 @@
 						<reference key="destination" ref="565051217"/>
 					</object>
 					<int key="connectionID">596</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">webView</string>
+						<reference key="source" ref="429193861"/>
+						<reference key="destination" ref="622970222"/>
+					</object>
+					<int key="connectionID">598</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textViewController</string>
+						<reference key="source" ref="505361772"/>
+						<reference key="destination" ref="429776501"/>
+					</object>
+					<int key="connectionID">599</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">webViewController</string>
+						<reference key="source" ref="505361772"/>
+						<reference key="destination" ref="429193861"/>
+					</object>
+					<int key="connectionID">600</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textViewController</string>
+						<reference key="source" ref="976202373"/>
+						<reference key="destination" ref="429776501"/>
+					</object>
+					<int key="connectionID">601</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">webViewController</string>
+						<reference key="source" ref="976202373"/>
+						<reference key="destination" ref="429193861"/>
+					</object>
+					<int key="connectionID">602</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textViewController</string>
+						<reference key="source" ref="701581699"/>
+						<reference key="destination" ref="429776501"/>
+					</object>
+					<int key="connectionID">603</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">webViewController</string>
+						<reference key="source" ref="701581699"/>
+						<reference key="destination" ref="429193861"/>
+					</object>
+					<int key="connectionID">604</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textView</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="779142809"/>
+					</object>
+					<int key="connectionID">605</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">segementedControl</string>
+						<reference key="source" ref="1069398854"/>
+						<reference key="destination" ref="100091502"/>
+					</object>
+					<int key="connectionID">606</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="972006081"/>
+						<reference key="destination" ref="1069398854"/>
+					</object>
+					<int key="connectionID">607</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3354,6 +3373,11 @@
 						<reference key="object" ref="232531103"/>
 						<reference key="parent" ref="464496299"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">597</int>
+						<reference key="object" ref="429193861"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3847,7 +3871,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">596</int>
+			<int key="maxID">607</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3987,8 +4011,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>manifest</string>
 							<string>outlineView</string>
-							<string>textView</string>
-							<string>webView</string>
+							<string>textViewController</string>
+							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4004,8 +4028,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>manifest</string>
 							<string>outlineView</string>
-							<string>textView</string>
-							<string>webView</string>
+							<string>textViewController</string>
+							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4018,11 +4042,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">textView</string>
+								<string key="name">textViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">webView</string>
+								<string key="name">webViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -4041,8 +4065,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>navigation</string>
 							<string>outlineView</string>
-							<string>textView</string>
-							<string>webView</string>
+							<string>textViewController</string>
+							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4058,8 +4082,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>navigation</string>
 							<string>outlineView</string>
-							<string>textView</string>
-							<string>webView</string>
+							<string>textViewController</string>
+							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4072,11 +4096,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">textView</string>
+								<string key="name">textViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">webView</string>
+								<string key="name">webViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -4095,8 +4119,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>spine</string>
 							<string>tableView</string>
-							<string>textView</string>
-							<string>webView</string>
+							<string>textViewController</string>
+							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4112,8 +4136,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>spine</string>
 							<string>tableView</string>
-							<string>textView</string>
-							<string>webView</string>
+							<string>textViewController</string>
+							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4126,11 +4150,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">textView</string>
+								<string key="name">textViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">webView</string>
+								<string key="name">webViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -4147,13 +4171,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>textView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -4162,16 +4184,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>textView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
 								<string key="candidateClassName">id</string>
@@ -4185,6 +4202,46 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">TextViewController.rb</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">WebViewController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>item</string>
+							<string>webView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>item</string>
+							<string>webView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">item</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">webView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">WebViewController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4238,10 +4295,12 @@
 							<string>nextPageToolbarItem</string>
 							<string>placeHolderView</string>
 							<string>previousPageToolbarItem</string>
+							<string>segementedControl</string>
 							<string>spineScrollView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4259,6 +4318,7 @@
 							<string>nextPageToolbarItem</string>
 							<string>placeHolderView</string>
 							<string>previousPageToolbarItem</string>
+							<string>segementedControl</string>
 							<string>spineScrollView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4281,6 +4341,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">previousPageToolbarItem</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">segementedControl</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

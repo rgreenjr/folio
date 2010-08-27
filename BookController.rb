@@ -1,6 +1,7 @@
 class BookController
 
-  attr_accessor :window, :book, :navigationController, :spineController, :manifestController
+  attr_accessor :window, :book
+  attr_accessor :navigationController, :spineController, :manifestController
 
   def openBook(sender)
     panel = NSOpenPanel.openPanel
@@ -25,6 +26,7 @@ class BookController
     @spineController.spine = @book.spine
     @manifestController.manifest = @book.manifest
     @window.title = @book.title
+    @window.delegate.toggleView(self)
   end
 
   def tidy(sender)

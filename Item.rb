@@ -2,10 +2,7 @@ require 'open-uri'
 
 class Item
 
-  attr_accessor :base, :fullpath, :content, :extname, :name, :uri
-  attr_accessor :id, :href, :mediaType, :referenceTitle, :referenceType
-
-  attr_accessor :expanded
+  attr_accessor :id, :href, :mediaType, :content, :name, :uri, :expanded
 
   def initialize(uri, id, mediaType)
     @id = id
@@ -15,11 +12,9 @@ class Item
     @name = @href.split('/').last
     @children = []
     @expanded = true if @mediaType == 'ROOT'
-    p self
   end
 
   def content
-    puts "@href = #{@href}"
     @content ||= File.read(@href)
   end
 
@@ -47,7 +42,7 @@ class Item
 
   def tidy
     return unless tidyable?
-    self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{@fullpath}'`
+    self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{@href}'`
   end
 
   def size

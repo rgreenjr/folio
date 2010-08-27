@@ -1,7 +1,6 @@
 class ManifestController
 
-  attr_accessor :manifest, :outlineView, :webView, :textView
-
+  attr_accessor :manifest, :outlineView, :webViewController, :textViewController
 
 	def awakeFromNib
     @outlineView.delegate = self
@@ -43,14 +42,8 @@ class ManifestController
   def outlineViewSelectionDidChange(notification)
     return if @outlineView.selectedRow < 0
     item = @manifest[@outlineView.selectedRow]
-    @webView.mainFrame.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString(item.uri)))
-    if item.editable?
-      string = NSAttributedString.alloc.initWithString(item.content)
-    else
-      string = NSAttributedString.alloc.initWithString('')
-    end
-    @textView.textStorage.attributedString = string
-    @textView.richText = false
+    @webViewController.item = item
+    @textViewController.item = item
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:item)

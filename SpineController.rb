@@ -1,11 +1,10 @@
 class SpineController
 
-  attr_accessor :spine, :tableView, :webView, :textView
+  attr_accessor :spine, :tableView, :webViewController, :textViewController
 
   def awakeFromNib
     @tableView.delegate = self
     @tableView.dataSource = self
-    @textView.delegate = self
     @tableView.reloadData
   end
 
@@ -25,16 +24,8 @@ class SpineController
   def tableViewSelectionDidChange(aNotification)
     return if @tableView.selectedRow < 0
     item = @spine[@tableView.selectedRow]
-    @webView.mainFrame.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString(item.uri)))
-    string = NSAttributedString.alloc.initWithString(item.content)
-    @textView.textStorage.attributedString = string
-    @textView.richText = false
-  end
-
-  def textDidChange(notification)
-    item = @spine[@tableView.selectedRow]
-    item.content = @textView.textStorage.string
-    @webView.mainFrame.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString(item.uri)))
+    @webViewController.item = item
+    @textViewController.item = item
   end
 
 end

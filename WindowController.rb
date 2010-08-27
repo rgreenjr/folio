@@ -1,18 +1,18 @@
 class WindowController < NSWindowController
 
   attr_accessor :placeHolderView, :navigationScrollView, :spineScrollView, :manifestScrollView
-  attr_accessor :previousPageToolbarItem, :nextPageToolbarItem
+  attr_accessor :previousPageToolbarItem, :nextPageToolbarItem, :segementedControl
 
   def awakeFromNib
     @currentScrollView = @navigationScrollView
   end
 
   def toggleView(sender)
-    if sender.selectedSegment == 0 && @currentScrollView != @navigationScrollView
+    if @segementedControl.selectedSegment == 0 && @currentScrollView != @navigationScrollView
       @currentScrollView = @navigationScrollView
-    elsif sender.selectedSegment == 1 && @currentScrollView != @spineScrollView
+    elsif @segementedControl.selectedSegment == 1 && @currentScrollView != @spineScrollView
       @currentScrollView = @spineScrollView
-    elsif sender.selectedSegment == 2 && @currentScrollView != @manifestScrollView
+    elsif @segementedControl.selectedSegment == 2 && @currentScrollView != @manifestScrollView
       @currentScrollView = @manifestScrollView
     end
     subviews = @placeHolderView.subviews
@@ -26,16 +26,14 @@ class WindowController < NSWindowController
   end
     
   def previousPage(sender)
-    currentTableView.dataSource.showPrevious
   end
   
   def nextPage(sender)
-    currentTableView.dataSource.showNext
   end
   
   def validateToolbarItem(toolbarItem)
-    return true unless @currentScrollView == @manifestScrollView
-    return (toolbarItem != @previousPageToolbarItem && toolbarItem != @nextPageToolbarItem)
+    # return true unless @currentScrollView == @manifestScrollView
+    # return (toolbarItem != @previousPageToolbarItem && toolbarItem != @nextPageToolbarItem)
   end
   
   private
