@@ -3,6 +3,7 @@ class ManifestController
   attr_accessor :manifest, :outlineView, :webViewController, :textViewController
 
 	def awakeFromNib
+    @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
@@ -71,4 +72,15 @@ class ManifestController
     true
   end
 
+  def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
+    cell.editable = true
+    cell.lineBreakMode = NSLineBreakByTruncatingTail
+    cell.selectable = true      
+    if item.directory?
+      cell.image = NSImage.imageNamed('folder.png')
+    else
+      cell.image = nil
+    end
+  end
+  
 end

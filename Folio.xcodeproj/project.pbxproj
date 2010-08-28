@@ -70,6 +70,10 @@
 		CD783EDE1208C2F200019E67 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDB1208C2F200019E67 /* container.xml */; };
 		CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDC1208C2F200019E67 /* content.opf.erb */; };
 		CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDD1208C2F200019E67 /* toc.ncx.erb */; };
+		CD7C68D612294EBA00500265 /* Guide.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD7C68D412294EBA00500265 /* Guide.rb */; };
+		CD7C68D712294EBA00500265 /* ImageCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD7C68D512294EBA00500265 /* ImageCell.rb */; };
+		CD7C69221229557400500265 /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = CD7C69211229557400500265 /* book.png */; };
+		CD7C6A3312296B7C00500265 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = CD7C6A3212296B7C00500265 /* folder.png */; };
 		CD8BD22412078C3C00F3B809 /* AppController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD8BD22312078C3C00F3B809 /* AppController.rb */; };
 		CDF98DED1226E6FC001FC6C1 /* SpineController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDF98DEC1226E6FC001FC6C1 /* SpineController.rb */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
@@ -122,6 +126,10 @@
 		CD783EDB1208C2F200019E67 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
 		CD783EDC1208C2F200019E67 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD783EDD1208C2F200019E67 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
+		CD7C68D412294EBA00500265 /* Guide.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Guide.rb; sourceTree = "<group>"; };
+		CD7C68D512294EBA00500265 /* ImageCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageCell.rb; sourceTree = "<group>"; };
+		CD7C69211229557400500265 /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
+		CD7C6A3212296B7C00500265 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		CD8BD22312078C3C00F3B809 /* AppController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AppController.rb; sourceTree = "<group>"; };
 		CDF98DEC1226E6FC001FC6C1 /* SpineController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SpineController.rb; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -149,7 +157,9 @@
 				CD12064212132926007405B8 /* Container.rb */,
 				CD06035112078DFF00E447D5 /* Book.rb */,
 				CD0603A21207921600E447D5 /* BookController.rb */,
+				CD7C68D412294EBA00500265 /* Guide.rb */,
 				CD51274A12243DEA00542CEB /* Item.rb */,
+				CD7C68D512294EBA00500265 /* ImageCell.rb */,
 				CD5126E61224153800542CEB /* Manifest.rb */,
 				CD52A74312282BDD00CD54A1 /* Navigation.rb */,
 				CD52A74412282BDD00CD54A1 /* NavigationController.rb */,
@@ -226,6 +236,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CD7C69211229557400500265 /* book.png */,
+				CD7C6A3212296B7C00500265 /* folder.png */,
 				CD06A2C21210A70B00DAD0D4 /* pageDown.png */,
 				CD06A2C31210A70B00DAD0D4 /* pageUp.png */,
 				CD67D56D1219B32100CF8148 /* items.png */,
@@ -322,6 +334,10 @@
 				CD52A74512282BDD00CD54A1 /* Navigation.rb in Resources */,
 				CD52A74612282BDD00CD54A1 /* NavigationController.rb in Resources */,
 				CD1C662A12285CD500ECCF15 /* WebViewController.rb in Resources */,
+				CD7C68D612294EBA00500265 /* Guide.rb in Resources */,
+				CD7C68D712294EBA00500265 /* ImageCell.rb in Resources */,
+				CD7C69221229557400500265 /* book.png in Resources */,
+				CD7C6A3312296B7C00500265 /* folder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

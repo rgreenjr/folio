@@ -44,6 +44,14 @@ class Item
     return unless tidyable?
     self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{@href}'`
   end
+  
+  def directory?
+    @mediaType == 'directory'
+  end
+  
+  def leaf?
+    @children.empty?
+  end
 
   def size
     @children.size
