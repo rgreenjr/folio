@@ -1,18 +1,22 @@
 class WindowController < NSWindowController
+  
+  NAVIGATION = 0
+  SPINE      = 1
+  MANIFEST   = 2
 
   attr_accessor :placeHolderView, :navigationScrollView, :spineScrollView, :manifestScrollView
   attr_accessor :previousPageToolbarItem, :nextPageToolbarItem, :segementedControl
 
   def awakeFromNib
-    @currentScrollView = @navigationScrollView
+    showNavigation(self)
   end
 
   def toggleView(sender)
-    if @segementedControl.selectedSegment == 0 && @currentScrollView != @navigationScrollView
+    if @segementedControl.selectedSegment == NAVIGATION && @currentScrollView != @navigationScrollView
       @currentScrollView = @navigationScrollView
-    elsif @segementedControl.selectedSegment == 1 && @currentScrollView != @spineScrollView
+    elsif @segementedControl.selectedSegment == SPINE && @currentScrollView != @spineScrollView
       @currentScrollView = @spineScrollView
-    elsif @segementedControl.selectedSegment == 2 && @currentScrollView != @manifestScrollView
+    elsif @segementedControl.selectedSegment == MANIFEST && @currentScrollView != @manifestScrollView
       @currentScrollView = @manifestScrollView
     end
     subviews = @placeHolderView.subviews
@@ -20,26 +24,24 @@ class WindowController < NSWindowController
     @placeHolderView.addSubview(@currentScrollView)
 		@currentScrollView.setFrame(@currentScrollView.superview.frame)
   end
+  
+  def showNavigation(sender)
+    @segementedControl.selectedSegment = NAVIGATION
+    toggleView(self)
+  end
+
+  def showSpine(sender)
+    @segementedControl.selectedSegment = SPINE
+    toggleView(self)
+  end
+
+  def showManifest(sender)
+    @segementedControl.selectedSegment = MANIFEST
+    toggleView(self)
+  end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
     120.0
   end
     
-  def previousPage(sender)
-  end
-  
-  def nextPage(sender)
-  end
-  
-  def validateToolbarItem(toolbarItem)
-    # return true unless @currentScrollView == @manifestScrollView
-    # return (toolbarItem != @previousPageToolbarItem && toolbarItem != @nextPageToolbarItem)
-  end
-  
-  private
-  
-  def currentTableView
-    @currentScrollView.subviews.objectAtIndex(0).subviews.objectAtIndex(0)
-  end
-  
 end

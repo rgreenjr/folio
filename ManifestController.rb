@@ -79,7 +79,10 @@ class ManifestController
     if item.directory?
       cell.image = NSImage.imageNamed('folder.png')
     else
-      cell.image = nil
+      image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      image.scalesWhenResized = true
+      image.size = NSSize.new(16, 16)
+      cell.image = image
     end
   end
   
