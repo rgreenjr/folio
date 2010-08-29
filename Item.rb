@@ -5,7 +5,6 @@ class Item
   attr_accessor :id, :href, :mediaType, :content, :name, :uri, :expanded
 
   def initialize(uri, id, mediaType)
-    puts "uri = #{uri}"
     @id = id
     @uri = uri
     @href = URI.parse(@uri).path

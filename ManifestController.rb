@@ -4,6 +4,7 @@ class ManifestController
   attr_accessor :webViewController, :textViewController
 
 	def awakeFromNib
+	  disableInspector
     @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.delegate = self
     @outlineView.dataSource = self
@@ -50,9 +51,8 @@ class ManifestController
       disableInspector
     else
       enableInspector
-      @inspectorForm.cellAtIndex(0).stringValue = item.name
-      @inspectorForm.cellAtIndex(1).stringValue = item.id
-      @inspectorForm.cellAtIndex(2).stringValue = item.href
+      nameCell.stringValue = item.name
+      idCell.stringValue = item.id
     end
     @typePopUpButton.selectItemWithTitle(item.mediaType)
   end
@@ -96,21 +96,52 @@ class ManifestController
     end
   end
   
+  def changeName(sender)
+    updateAttribute('name', nameCell)
+  end
+  
+  def changeID(sender)
+    updateAttribute('id', idCell)
+  end
+  
+  def changeMediaType(sender)
+    @manifest[@outlineView.selectedRow].mediaType = @typePopUpButton.title
+  end
+  
   private
   
-  def disableInspector
-    0.upto(2) do |index|
-      cell = @inspectorForm.cellAtIndex(index)
-      cell.enabled = false
-      cell.stringValue = ''
+  def updateAttribute(attribuute, cell)
+    item = @manifest[@outlineView.selectedRow]
+    return unless item
+    value = cell.stringValue.strip.gsub(%r{[/"*:<>\?\\]}, '_')
+    if value.size > 0
+      item.send("#{attribuute}=", value)
+      @outlineView.needsDisplay = true
+    else
+      value = item.send(attribuute)
     end
+    cell.stringValue = value
+  end
+  
+  def nameCell
+    @inspectorForm.cellAtIndex(0)
+  end
+  
+  def idCell
+    @inspectorForm.cellAtIndex(1)
+  end
+  
+  def disableInspector
+    nameCell.enabled = false
+    nameCell.stringValue = ''
+    idCell.enabled = false
+    idCell.stringValue = ''
     @typePopUpButton.enabled = false
   end
   
   def enableInspector
-    0.upto(2) do |index|
-      @inspectorForm.cellAtIndex(index).enabled = true
-    end
+    nameCell.enabled = true
+    idCell.enabled = true
     @typePopUpButton.enabled = true
   end
   

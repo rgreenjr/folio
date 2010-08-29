@@ -48,9 +48,9 @@ class NavigationController
     @webViewController.item = point
     @textViewController.item = nil
     
-    @inspectorForm.cellAtIndex(0).stringValue = point.text
-    @inspectorForm.cellAtIndex(1).stringValue = point.id
-    @inspectorForm.cellAtIndex(2).stringValue = point.src    
+    textCell.stringValue = point.text
+    idCell.stringValue = point.id
+    sourceCell.stringValue = point.src    
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
@@ -76,6 +76,45 @@ class NavigationController
     @raggedItems = nil
     @outlineView.reloadData
     true
+  end
+  
+  def changeText(sender)
+    updateAttribute('text', textCell)
+  end
+  
+  def changeID(sender)
+    updateAttribute('id', idCell)
+  end
+  
+  def changeSource(sender)
+    updateAttribute('src', sourceCell)
+  end
+  
+  private
+  
+  def updateAttribute(attribuute, cell)
+    item = @navigation[@outlineView.selectedRow]
+    return unless item
+    value = cell.stringValue.strip
+    if value.size > 0
+      item.send("#{attribuute}=", value)
+      @outlineView.needsDisplay = true
+    else
+      value = item.send(attribuute)
+    end
+    cell.stringValue = value
+  end
+  
+  def textCell
+    @inspectorForm.cellAtIndex(0)
+  end
+  
+  def idCell
+    @inspectorForm.cellAtIndex(1)
+  end
+  
+  def sourceCell
+    @inspectorForm.cellAtIndex(2)
   end
   
 end
