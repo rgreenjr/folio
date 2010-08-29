@@ -1,6 +1,7 @@
 class NavigationController
   
-  attr_accessor :navigation, :outlineView, :webViewController, :textViewController
+  attr_accessor :navigation, :outlineView, :inspectorForm
+  attr_accessor :webViewController, :textViewController
   
 	def awakeFromNib
     @outlineView.delegate = self
@@ -46,6 +47,10 @@ class NavigationController
     point = @navigation[@outlineView.selectedRow]
     @webViewController.item = point
     @textViewController.item = nil
+    
+    @inspectorForm.cellAtIndex(0).stringValue = point.text
+    @inspectorForm.cellAtIndex(1).stringValue = point.id
+    @inspectorForm.cellAtIndex(2).stringValue = point.src    
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)

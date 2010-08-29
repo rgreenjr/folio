@@ -5,6 +5,7 @@ class Item
   attr_accessor :id, :href, :mediaType, :content, :name, :uri, :expanded
 
   def initialize(uri, id, mediaType)
+    puts "uri = #{uri}"
     @id = id
     @uri = uri
     @href = URI.parse(@uri).path
@@ -32,7 +33,7 @@ class Item
   end
 
   def renderable?
-    %w{application/xml application/xhtml+xml text/css image/jpeg image/png image/gif image/svg+xml}.include?(@mediaType)
+    %w{application/xml application/xhtml+xml image/jpeg image/png image/gif image/svg+xml text/css}.include?(@mediaType)
   end
 
   def manifestable?

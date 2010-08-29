@@ -1,6 +1,7 @@
 class ManifestController
 
-  attr_accessor :manifest, :outlineView, :webViewController, :textViewController
+  attr_accessor :manifest, :outlineView, :inspectorForm, :typePopUpButton
+  attr_accessor :webViewController, :textViewController
 
 	def awakeFromNib
     @outlineView.tableColumns.first.dataCell = ImageCell.new
@@ -45,6 +46,15 @@ class ManifestController
     item = @manifest[@outlineView.selectedRow]
     @webViewController.item = item
     @textViewController.item = item
+    if item.directory?
+      disableInspector
+    else
+      enableInspector
+      @inspectorForm.cellAtIndex(0).stringValue = item.name
+      @inspectorForm.cellAtIndex(1).stringValue = item.id
+      @inspectorForm.cellAtIndex(2).stringValue = item.href
+    end
+    @typePopUpButton.selectItemWithTitle(item.mediaType)
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:item)
@@ -84,6 +94,24 @@ class ManifestController
       image.size = NSSize.new(16, 16)
       cell.image = image
     end
+  end
+  
+  private
+  
+  def disableInspector
+    0.upto(2) do |index|
+      cell = @inspectorForm.cellAtIndex(index)
+      cell.enabled = false
+      cell.stringValue = ''
+    end
+    @typePopUpButton.enabled = false
+  end
+  
+  def enableInspector
+    0.upto(2) do |index|
+      @inspectorForm.cellAtIndex(index).enabled = true
+    end
+    @typePopUpButton.enabled = true
   end
   
 end

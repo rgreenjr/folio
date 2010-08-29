@@ -4,20 +4,21 @@ class WindowController < NSWindowController
   SPINE      = 1
   MANIFEST   = 2
 
-  attr_accessor :placeHolderView, :navigationScrollView, :spineScrollView, :manifestScrollView
-  attr_accessor :previousPageToolbarItem, :nextPageToolbarItem, :segementedControl
+  attr_accessor :splitView, :segementedControl
+  attr_accessor :placeHolderView, :navigationView, :spineView, :manifestView
 
   def awakeFromNib
+    @splitView.delegate = self
     showNavigation(self)
   end
 
   def toggleView(sender)
-    if @segementedControl.selectedSegment == NAVIGATION && @currentScrollView != @navigationScrollView
-      @currentScrollView = @navigationScrollView
-    elsif @segementedControl.selectedSegment == SPINE && @currentScrollView != @spineScrollView
-      @currentScrollView = @spineScrollView
-    elsif @segementedControl.selectedSegment == MANIFEST && @currentScrollView != @manifestScrollView
-      @currentScrollView = @manifestScrollView
+    if @segementedControl.selectedSegment == NAVIGATION && @currentScrollView != @navigationView
+      @currentScrollView = @navigationView
+    elsif @segementedControl.selectedSegment == SPINE && @currentScrollView != @spineView
+      @currentScrollView = @spineView
+    elsif @segementedControl.selectedSegment == MANIFEST && @currentScrollView != @manifestView
+      @currentScrollView = @manifestView
     end
     subviews = @placeHolderView.subviews
     subviews.objectAtIndex(0).removeFromSuperview if subviews.size > 0    
@@ -40,8 +41,18 @@ class WindowController < NSWindowController
     toggleView(self)
   end
 
-  def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
-    120.0
+	def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
+    # puts "splitView(#{sender}, constrainMinCoordinate:#{proposedMin}, ofSubviewAt:#{offset})"
+    if offset == NAVIGATION
+      return [150, proposedMin].max
+    else
+      return [500, proposedMin].max
+    end
   end
-    
+	
+	def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
+    # puts "splitView(#{sender}, constrainMaxCoordinate:#{proposedMax}, ofSubviewAt:#{offset})"
+    proposedMax
+  end
+	
 end
