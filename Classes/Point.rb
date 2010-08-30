@@ -17,6 +17,10 @@ class Point
       end
     end
   end
+  
+  def depth
+    1 + @children.inject(0) {|max, point| [point.depth, max].max}
+  end
 
   def size
     @children.size
@@ -34,16 +38,16 @@ class Point
     @children << point
   end
 
-  def to_xml(depth=1)
+  def to_xml(indent=1)
     buffer = ""
-    padding = "  " * depth
+    padding = "  " * indent
     buffer << "#{padding}<navPoint id=\"#{@id}\" playOrder=\"#{@playOrder}\">\n"
     buffer << "#{padding}  <navLabel>\n"
     buffer << "#{padding}    <text>#{@text}</text>\n"
     buffer << "#{padding}  </navLabel>\n"
     buffer << "#{padding}  <content src=\"#{@src}\"/>\n"
     @children.each do |p|
-      buffer << p.to_xml(depth + 1)
+      buffer << p.to_xml(indent + 1)
     end
     buffer << "#{padding}</navPoint>\n"
   end

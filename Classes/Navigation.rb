@@ -16,6 +16,10 @@ class Navigation
       @root << Point.new(book.container.root, element, prefix)
     end
   end
+  
+  def depth
+    @root.depth - 1
+  end
 
   def [](index)
     stack = [@root]
