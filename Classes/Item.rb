@@ -22,6 +22,11 @@ class Item
     @content = content
     File.open(@href, 'wb') {|f| f.puts @content}
   end
+  
+  def name=(string)
+    string = string.strip.gsub(%r{[/"*:<>\?\\]}, '_')
+    @name = string if string.size > 0
+  end
 
   def editable?
     %w{application/xml application/xhtml+xml text/css application/x-dtbncx+xml}.include?(@mediaType)

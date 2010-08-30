@@ -113,14 +113,9 @@ class ManifestController
   def updateAttribute(attribuute, cell)
     item = @manifest[@outlineView.selectedRow]
     return unless item
-    value = cell.stringValue.strip.gsub(%r{[/"*:<>\?\\]}, '_')
-    if value.size > 0
-      item.send("#{attribuute}=", value)
-      @outlineView.needsDisplay = true
-    else
-      value = item.send(attribuute)
-    end
-    cell.stringValue = value
+    item.send("#{attribuute}=", cell.stringValue)
+    cell.stringValue = item.send(attribuute)
+    @outlineView.needsDisplay = true
   end
 
   def nameCell

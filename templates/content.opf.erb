@@ -13,22 +13,16 @@
     <dc:rights><%= @book.rights %></dc:rights>
   </metadata>
 
-  <manifest>
-    <% @book.manifest.each do |item| %>
-    <item id="<%= item.id %>" href="<%= item.href %>" media-type="<%= item.mediaType %>" />
-    <% end %>
+  <manifest><% @book.manifest.each do |item| %>
+    <item id="<%= item.id %>" href="<%= item.href %>" media-type="<%= item.mediaType %>" /><% end %>
   </manifest>
 
-  <spine toc="ncx">
-    <% @book.spine.each do |item| %>
-    <itemref idref="<%= item.id %>" />
-    <% end %>
+  <spine toc="ncx"><% @book.spine.each do |item| %>
+    <itemref idref="<%= item.id %>" /><% end %>
   </spine>
 
-  <guide>
-    <% @book.guide.each do |item| %>
-    <reference type="<%= item.referenceType %>" title="<%= item.referenceTitle %>" href="<%= item.href %>" />
-    <% end %>
+  <guide><% @book.guide.each do |item| %>
+    <reference type="<%= item.referenceType %>" title="<%= item.referenceTitle %>" href="<%= item.href %>" /><% end %>
   </guide>
 
 </package>

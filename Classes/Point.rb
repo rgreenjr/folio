@@ -18,6 +18,11 @@ class Point
     end
   end
   
+  def text=(string)
+    string = string.strip
+    @text = string if string.size > 0
+  end
+  
   def depth
     1 + @children.inject(0) {|max, point| [point.depth, max].max}
   end

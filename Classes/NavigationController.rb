@@ -93,16 +93,11 @@ class NavigationController
   private
 
   def updateAttribute(attribuute, cell)
-    item = @navigation[@outlineView.selectedRow]
-    return unless item
-    value = cell.stringValue.strip
-    if value.size > 0
-      item.send("#{attribuute}=", value)
-      @outlineView.needsDisplay = true
-    else
-      value = item.send(attribuute)
-    end
-    cell.stringValue = value
+    point = @navigation[@outlineView.selectedRow]
+    return unless point
+    point.send("#{attribuute}=", cell.stringValue)
+    cell.stringValue = point.send(attribuute)
+    @outlineView.needsDisplay = true
   end
 
   def textCell
