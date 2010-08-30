@@ -4,18 +4,18 @@ class Item
 
   attr_accessor :id, :href, :mediaType, :content, :name, :uri, :expanded
 
-  def initialize(uri, id, mediaType)
+  def initialize(uri, href, id, mediaType, expanded=false)
     @id = id
-    @uri = uri
-    @href = URI.parse(@uri).path
+    @uri = URI.parse(uri)
+    @href = href
     @mediaType = mediaType
     @name = @href.split('/').last
     @children = []
-    @expanded = true if @mediaType == 'ROOT'
+    @expanded = expanded
   end
-
+  
   def content
-    @content ||= File.read(@href)
+    @content ||= File.read(@uri.path)
   end
 
   def content=(content)
@@ -69,20 +69,13 @@ class Item
     @children << item
   end
 
-  def traverse(index)
-    return [self, index] if index == -1
-    return [nil, index] if size == 0 || !expanded
-    match = nil
-    each do |p|
-      match, index = p.traverse(index - 1)
-      break if match
-    end
-    return [match, index]
-  end
-
   def find(name)
     each {|item| return item if item.name == name}
     nil
+  end
+  
+  def to_xml
+    "    <item id=\"#{@id}\" href=\"#{@href}\" media-type=\"#{@mediaType}\"/>"
   end
 
 end

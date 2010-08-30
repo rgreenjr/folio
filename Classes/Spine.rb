@@ -7,6 +7,7 @@ class Spine
 
     ncxId = book.container.opfDoc.elements["/package/spine"].attributes["toc"]
     raise "An NCX file is not speicifed in the spine as required." unless ncxId
+    
     @ncx = book.manifest.itemWithId(ncxId)
     raise "The NCX file is missing: id=#{ncxId}" unless @ncx
 

@@ -14,7 +14,7 @@ class ImageCell < NSTextFieldCell
       imageFrame, textFrame, cellFrame = divideFrame(cellFrame)
 
       if self.drawsBackground
-        self.backgroundColor.set
+        backgroundColor.set
         NSRectFill(imageFrame)
       end
 

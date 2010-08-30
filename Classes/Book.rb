@@ -10,7 +10,7 @@ class Book
   attr_accessor :title, :language, :identifier
   attr_accessor :creator, :contributor, :publisher, :subject, :description
   attr_accessor :date, :type, :format, :source, :relation, :coverage, :rights
-  attr_accessor :container, :manifest, :spine, :navigation, :base
+  attr_accessor :container, :manifest, :spine, :guide, :navigation, :base
 
   def initialize(filepath)
     @filepath = filepath
@@ -23,10 +23,12 @@ class Book
     FileUtils.mkdir_p(["#{tmp}/META-INF", "#{tmp}/OEBPS"])
     FileUtils.cp(NSBundle.mainBundle.pathForResource("mimetype", ofType:nil), "#{tmp}/mimetype")
     @container.save(tmp)
+    @manifest.save(tmp)
     @navigation.save(tmp)
-    writeOPF(tmp)
-    system("cd '#{tmp}'; zip -X0 '#{epubFilename}' mimetype")
-    system("cd '#{tmp}'; zip -X9urD '#{epubFilename}' *")
+    File.open("#{tmp}/OEBPS/content.opf", "w") {|f| f.puts to_xml}
+    system("mate #{tmp}/OEBPS/content.opf")
+    system("cd '#{tmp}'; zip -qX0 '#{epubFilename}' mimetype")
+    system("cd '#{tmp}'; zip -qX9urD '#{epubFilename}' *")
   end
 
   private
@@ -37,6 +39,7 @@ class Book
     parseMetadata
     @manifest   = Manifest.new(self)
     @spine      = Spine.new(self)
+    @guide      = Guide.new
     @navigation = Navigation.new(self)
   end
 
@@ -71,37 +74,10 @@ class Book
       end
     end
   end
-
-  def writeOPF(dest)
-    File.open("#{dest}/OEBPS/content.opf", "w") do |f|
-      f.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-      f.puts "<package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"BookID\" version=\"2.0\">"
-      f.puts "  <metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\">"
-      f.puts "    <dc:title>#{@title}</dc:title>"
-      f.puts "    <dc:creator opf:role=\"aut\">#{@creator}</dc:creator>"
-      f.puts "    <dc:description>#{@description}</dc:description>"
-      f.puts "    <dc:publisher>#{@publisher}</dc:publisher>"
-      f.puts "    <dc:language>#{@language}</dc:language>"
-      f.puts "    <dc:identifier id=\"BookID\" opf:scheme=\"UUID\">#{@identifier}</dc:identifier>"
-      f.puts "  </metadata>"
-      f.puts "  <manifest>"
-      f.puts "    <item id=\"ncx\" href=\"toc.ncx\" media-type=\"application/x-dtbncx+xml\"/>"
-      @manifest.each do |item|
-        if item.id && item.manifestable?
-          f.puts "    <item id=\"#{item.id}\" href=\"#{item.href}\" media-type=\"#{item.mediaType}\"/>"
-          FileUtils.mkdir_p(File.dirname("#{dest}/#{item.href}"))
-          puts "#{@base}/#{@container.root}/#{item.href}"
-          FileUtils.cp("#{@base}/#{item.href}", "#{dest}/OEBPS/#{item.href}")
-        end
-      end
-      f.puts "  </manifest>"
-      f.puts "  <spine toc=\"ncx\">"
-      @spine.each do |item|
-        f.puts "    <itemref idref=\"#{item.id}\"/>"
-      end
-      f.puts "  </spine>"
-      f.puts "</package>"
-    end
+  
+  def to_xml
+    @book = self
+    ERB.new(File.read(NSBundle.mainBundle.pathForResource("content.opf", ofType:"erb"))).result(binding)
   end
 
   def raiseParseException(reason)

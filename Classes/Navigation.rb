@@ -18,11 +18,22 @@ class Navigation
   end
 
   def [](index)
-    @root.traverse(index).first
+    stack = [@root]
+    while stack.size > 0
+      item = stack.shift
+      return item if index == -1
+      if item.expanded
+        inner = []
+        item.each {|child| inner << child}
+        stack = inner + stack
+      end
+      index -= 1
+    end
   end
 
   def save(directory)
     File.open("#{directory}/OEBPS/toc.ncx", 'w') {|f| f.write(to_xml)}
+    system("mate #{directory}/OEBPS/toc.ncx")
   end
 
   def to_xml
