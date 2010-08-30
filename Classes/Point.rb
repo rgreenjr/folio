@@ -31,7 +31,11 @@ class Point
   end
 
   def each
-    @children.each {|p| yield p}
+    @children.each {|point| yield point}
+  end
+
+  def each_with_index
+    @children.each_with_index {|point, index| yield point, index}
   end
 
   def <<(point)

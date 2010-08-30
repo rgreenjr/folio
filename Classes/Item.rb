@@ -62,7 +62,11 @@ class Item
   end
 
   def each
-    @children.each {|i| yield i}
+    @children.each {|item| yield item}
+  end
+
+  def each_with_index
+    @children.each_with_index {|item, index| yield item, index}
   end
 
   def <<(item)

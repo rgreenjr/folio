@@ -30,9 +30,7 @@ class Manifest
       item = stack.shift
       return item if index == -1
       if item.expanded
-        inner = []
-        item.each {|child| inner << child}
-        stack = inner + stack
+        item.each_with_index {|child, i| stack.insert(i, child)}
       end
       index -= 1
     end
