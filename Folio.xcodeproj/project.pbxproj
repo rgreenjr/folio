@@ -50,7 +50,6 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
-		CD1205BD1211FDD9007405B8 /* mimetype in Resources */ = {isa = PBXBuildFile; fileRef = CD1205BC1211FDD9007405B8 /* mimetype */; };
 		CD3FAEFA122B16C200708E30 /* AppController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAEE9122B16C200708E30 /* AppController.rb */; };
 		CD3FAEFB122B16C200708E30 /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAEEA122B16C200708E30 /* Book.rb */; };
 		CD3FAEFC122B16C200708E30 /* BookController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAEEB122B16C200708E30 /* BookController.rb */; };
@@ -68,9 +67,10 @@
 		CD3FAF08122B16C200708E30 /* TextViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAEF7122B16C200708E30 /* TextViewController.rb */; };
 		CD3FAF09122B16C200708E30 /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAEF8122B16C200708E30 /* WebViewController.rb */; };
 		CD3FAF0A122B16C200708E30 /* WindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAEF9122B16C200708E30 /* WindowController.rb */; };
-		CD783EDE1208C2F200019E67 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDB1208C2F200019E67 /* container.xml */; };
-		CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDC1208C2F200019E67 /* content.opf.erb */; };
-		CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD783EDD1208C2F200019E67 /* toc.ncx.erb */; };
+		CD83F59D122B3E32005BB914 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD83F599122B3E32005BB914 /* container.xml */; };
+		CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59A122B3E32005BB914 /* content.opf.erb */; };
+		CD83F59F122B3E32005BB914 /* mimetype in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59B122B3E32005BB914 /* mimetype */; };
+		CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59C122B3E32005BB914 /* toc.ncx.erb */; };
 		CDBDC8AF122AA9DA00844EAA /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8A8122AA9DA00844EAA /* book.png */; };
 		CDBDC8B0122AA9DA00844EAA /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8A9122AA9DA00844EAA /* folder.png */; };
 		CDBDC8B1122AA9DA00844EAA /* items.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8AA122AA9DA00844EAA /* items.png */; };
@@ -108,7 +108,6 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Folio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Folio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		CD1205BC1211FDD9007405B8 /* mimetype */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mimetype; sourceTree = "<group>"; };
 		CD3FAEE9122B16C200708E30 /* AppController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AppController.rb; sourceTree = "<group>"; };
 		CD3FAEEA122B16C200708E30 /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
 		CD3FAEEB122B16C200708E30 /* BookController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookController.rb; sourceTree = "<group>"; };
@@ -126,9 +125,10 @@
 		CD3FAEF7122B16C200708E30 /* TextViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TextViewController.rb; sourceTree = "<group>"; };
 		CD3FAEF8122B16C200708E30 /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
 		CD3FAEF9122B16C200708E30 /* WindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WindowController.rb; sourceTree = "<group>"; };
-		CD783EDB1208C2F200019E67 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
-		CD783EDC1208C2F200019E67 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
-		CD783EDD1208C2F200019E67 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
+		CD83F599122B3E32005BB914 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
+		CD83F59A122B3E32005BB914 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
+		CD83F59B122B3E32005BB914 /* mimetype */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mimetype; sourceTree = "<group>"; };
+		CD83F59C122B3E32005BB914 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
 		CDBDC8A8122AA9DA00844EAA /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
 		CDBDC8A9122AA9DA00844EAA /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		CDBDC8AA122AA9DA00844EAA /* items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = items.png; sourceTree = "<group>"; };
@@ -195,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				CD3FAEE8122B16C200708E30 /* Classes */,
-				CDBDC8A7122AA9DA00844EAA /* images */,
 				172754AE1075979200D0347B /* Tests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -217,10 +216,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CD783EDB1208C2F200019E67 /* container.xml */,
-				CD1205BC1211FDD9007405B8 /* mimetype */,
-				CD783EDC1208C2F200019E67 /* content.opf.erb */,
-				CD783EDD1208C2F200019E67 /* toc.ncx.erb */,
+				CDBDC8A7122AA9DA00844EAA /* images */,
+				CD83F598122B3E32005BB914 /* templates */,
 				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -260,6 +257,17 @@
 				CD3FAEF9122B16C200708E30 /* WindowController.rb */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		CD83F598122B3E32005BB914 /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				CD83F599122B3E32005BB914 /* container.xml */,
+				CD83F59A122B3E32005BB914 /* content.opf.erb */,
+				CD83F59B122B3E32005BB914 /* mimetype */,
+				CD83F59C122B3E32005BB914 /* toc.ncx.erb */,
+			);
+			path = templates;
 			sourceTree = "<group>";
 		};
 		CDBDC8A7122AA9DA00844EAA /* images */ = {
@@ -326,10 +334,6 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */,
 				2BFA9DA710CDF852007972A1 /* MainMenu.xib in Resources */,
-				CD783EDE1208C2F200019E67 /* container.xml in Resources */,
-				CD783EDF1208C2F200019E67 /* content.opf.erb in Resources */,
-				CD783EE01208C2F200019E67 /* toc.ncx.erb in Resources */,
-				CD1205BD1211FDD9007405B8 /* mimetype in Resources */,
 				CDBDC8AF122AA9DA00844EAA /* book.png in Resources */,
 				CDBDC8B0122AA9DA00844EAA /* folder.png in Resources */,
 				CDBDC8B1122AA9DA00844EAA /* items.png in Resources */,
@@ -354,6 +358,10 @@
 				CD3FAF08122B16C200708E30 /* TextViewController.rb in Resources */,
 				CD3FAF09122B16C200708E30 /* WebViewController.rb in Resources */,
 				CD3FAF0A122B16C200708E30 /* WindowController.rb in Resources */,
+				CD83F59D122B3E32005BB914 /* container.xml in Resources */,
+				CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */,
+				CD83F59F122B3E32005BB914 /* mimetype in Resources */,
+				CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
