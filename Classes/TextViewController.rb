@@ -1,7 +1,7 @@
 class TextViewController
 
   attr_accessor :textView, :item
-  
+
   def awakeFromNib
     @textView.delegate = self
   end

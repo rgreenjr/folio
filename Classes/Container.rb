@@ -12,11 +12,11 @@ class Container
     @opfPath = "#{book.base}/#{path}"
     @root = File.dirname(@opfPath)
   end
-  
+
   def save(directory)
     FileUtils.cp(NSBundle.mainBundle.pathForResource("container", ofType:"xml"), "#{directory}/#{CONTAINER_XML_PATH}")
   end
-  
+
   def opfDoc
     raise "The OPF file is missing: #{File.basename(@opfPath)}" unless File.exists?(@opfPath)
     @opfDoc ||= REXML::Document.new(File.read(@opfPath))

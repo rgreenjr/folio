@@ -1,5 +1,5 @@
 class WindowController < NSWindowController
-  
+
   NAVIGATION = 0
   SPINE      = 1
   MANIFEST   = 2
@@ -23,9 +23,9 @@ class WindowController < NSWindowController
     subviews = @placeHolderView.subviews
     subviews.objectAtIndex(0).removeFromSuperview if subviews.size > 0    
     @placeHolderView.addSubview(@currentScrollView)
-		@currentScrollView.setFrame(@currentScrollView.superview.frame)
+    @currentScrollView.setFrame(@currentScrollView.superview.frame)
   end
-  
+
   def showNavigation(sender)
     @segementedControl.selectedSegment = NAVIGATION
     toggleView(self)
@@ -41,7 +41,7 @@ class WindowController < NSWindowController
     toggleView(self)
   end
 
-	def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
+  def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
     # puts "splitView(#{sender}, constrainMinCoordinate:#{proposedMin}, ofSubviewAt:#{offset})"
     if offset == NAVIGATION
       return [150, proposedMin].max
@@ -49,10 +49,10 @@ class WindowController < NSWindowController
       return [500, proposedMin].max
     end
   end
-	
-	def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
+
+  def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
     # puts "splitView(#{sender}, constrainMaxCoordinate:#{proposedMax}, ofSubviewAt:#{offset})"
     proposedMax
   end
-	
+
 end

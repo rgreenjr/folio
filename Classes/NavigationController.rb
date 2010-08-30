@@ -1,22 +1,22 @@
 class NavigationController
-  
+
   attr_accessor :navigation, :outlineView, :inspectorForm
   attr_accessor :webViewController, :textViewController
-  
-	def awakeFromNib
+
+  def awakeFromNib
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
-	end
-	
-	def navigation=(navigation)
-	  @navigation = navigation
+  end
+
+  def navigation=(navigation)
+    @navigation = navigation
     @outlineView.reloadData
     @outlineView.selectColumnIndexes(NSIndexSet.indexSetWithIndex(1), byExtendingSelection:false)
     @outlineView.expandItem(@navigation.root[0])
   end
-  
+
   def outlineView(outlineView, numberOfChildrenOfItem:point)
     return 0 unless @outlineView.dataSource && @navigation # guard against SDK bug
     point ? point.size : @navigation.root.size
@@ -33,7 +33,7 @@ class NavigationController
   def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:point)
     point.text
   end
-  
+
   def outlineViewItemDidExpand(notification)
     notification.userInfo['NSObject'].expanded = true
   end
@@ -47,7 +47,7 @@ class NavigationController
     point = @navigation[@outlineView.selectedRow]
     @webViewController.item = point
     @textViewController.item = nil
-    
+
     textCell.stringValue = point.text
     idCell.stringValue = point.id
     sourceCell.stringValue = point.src    
@@ -56,12 +56,12 @@ class NavigationController
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
     point.text = object
   end
-  
+
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
     puts "writeRowsWithIndexes"
     @draggedItems = points
     pboard.declareTypes([NSStringPboardType], owner:self)
-		pboard.setString(points.first.text, forType:NSStringPboardType)
+    pboard.setString(points.first.text, forType:NSStringPboardType)
     true
   end 
 
@@ -69,7 +69,7 @@ class NavigationController
     puts "validateDrop"
     NSDragOperationMove
   end
-  
+
   def outlineView(outlineView, acceptDrop:info, item:point, childIndex:childIndex)
     return false unless @draggedItems
     puts "acceptDrop"
@@ -77,21 +77,21 @@ class NavigationController
     @outlineView.reloadData
     true
   end
-  
+
   def changeText(sender)
     updateAttribute('text', textCell)
   end
-  
+
   def changeID(sender)
     updateAttribute('id', idCell)
   end
-  
+
   def changeSource(sender)
     updateAttribute('src', sourceCell)
   end
-  
+
   private
-  
+
   def updateAttribute(attribuute, cell)
     item = @navigation[@outlineView.selectedRow]
     return unless item
@@ -104,17 +104,17 @@ class NavigationController
     end
     cell.stringValue = value
   end
-  
+
   def textCell
     @inspectorForm.cellAtIndex(0)
   end
-  
+
   def idCell
     @inspectorForm.cellAtIndex(1)
   end
-  
+
   def sourceCell
     @inspectorForm.cellAtIndex(2)
   end
-  
+
 end

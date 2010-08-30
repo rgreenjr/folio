@@ -1,5 +1,5 @@
 class Manifest
-  
+
   attr_accessor :items, :base, :root
 
   def initialize(book)
@@ -23,11 +23,11 @@ class Manifest
       @hash[item.id] = item
     end
   end
-  
+
   def [](index)
     @root.traverse(index).first
   end
-  
+
   def itemWithId(identifier)
     @hash[identifier]
   end

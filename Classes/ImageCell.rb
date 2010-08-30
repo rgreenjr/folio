@@ -1,5 +1,5 @@
 class ImageCell < NSTextFieldCell
-  
+
   PADDING = 4
 
   attr_accessor :image

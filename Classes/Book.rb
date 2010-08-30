@@ -28,7 +28,7 @@ class Book
     system("cd '#{tmp}'; zip -X0 '#{epubFilename}' mimetype")
     system("cd '#{tmp}'; zip -X9urD '#{epubFilename}' *")
   end
-  
+
   private
 
   def parse
@@ -39,12 +39,12 @@ class Book
     @spine      = Spine.new(self)
     @navigation = Navigation.new(self)
   end
-  
+
   def unzip
     @base = Dir.mktmpdir("folio-unzip-")
     system("unzip -q -d '#{@base}' '#{@filepath}'")
   end
-  
+
   def parseMetadata
     @container.opfDoc.elements.each("/package/metadata/*") do |e|
       case e.name
@@ -71,7 +71,7 @@ class Book
       end
     end
   end
-  
+
   def writeOPF(dest)
     File.open("#{dest}/OEBPS/content.opf", "w") do |f|
       f.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
