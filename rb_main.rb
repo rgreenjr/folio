@@ -1,13 +1,4 @@
-#
-# rb_main.rb
-# Folio
-#
-# Created by Ron Green on 8/2/10.
-# Copyright __MyCompanyName__ 2010. All rights reserved.
-#
-
-# Loading the Cocoa framework. If you need to load more frameworks, you can
-# do that here too.
+# Loading the Cocoa framework. If you need to load more frameworks, you can do that here too.
 framework 'Cocoa'
 
 # Loading all the Ruby project files.
