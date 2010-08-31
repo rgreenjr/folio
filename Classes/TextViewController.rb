@@ -18,16 +18,14 @@ class TextViewController
   end
   
   def textView(tv, shouldChangeTextInRange:afcr, replacementString:rps)
-    p afcr
     # puts "textView(tv, shouldChangeTextInRange:#{afcr}, replacementString:#{rps})"
-    @changedText = rps
+    true
   end
 
   def textDidChange(notification)
     return unless @item
     @item.content = @textView.textStorage.string		
     @webView.reload(self)
-    # @webView.replaceSelectionWithText @changedText
   end
 
 end

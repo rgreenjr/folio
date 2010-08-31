@@ -1,25 +1,21 @@
 class Spine
 
-  attr_accessor :items, :ncx
+  attr_accessor :items
 
   def initialize(book)
     @items = []
 
-    ncxId = book.container.opfDoc.elements["/package/spine"].attributes["toc"]
-    raise "An NCX file is not speicifed in the spine as required." unless ncxId
+    # ncxID = book.container.opfDoc.elements["/package/spine"].attributes["toc"]
+    # raise "An NCX file is not speicifed." unless ncxID
     
-    @ncx = book.manifest.itemWithId(ncxId)
-    raise "The NCX file is missing: id=#{ncxId}" unless @ncx
+    raise "The NCX file is missing." unless book.manifest.ncx
 
     book.container.opfDoc.elements.each("/package/spine/itemref") do |element|
-      item = book.manifest.itemWithId(element.attributes["idref"])
-      raise "Spine item is missing: #{element.attributes["idref"]}" unless item
+      idref = element.attributes["idref"]
+      item = book.manifest.itemWithId(idref)
+      raise "Spine item is missing: idref=#{idref}" unless item
       @items << item
     end
-  end
-
-  def ncxDoc
-    @ncxDoc ||= REXML::Document.new(@ncx.content)
   end
 
   def size

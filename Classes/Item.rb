@@ -51,9 +51,8 @@ class Item
     %w{application/xml application/xhtml+xml image/jpeg image/png image/gif image/svg+xml text/css}.include?(@mediaType)
   end
 
-  def manifestable?
-    # application/x-dtbncx+xml
-    %w{.opf .ncx .plist}.include?(File.extname(@href)) == false
+  def ncx?
+    @mediaType == "application/x-dtbncx+xml"
   end
 
   def tidy

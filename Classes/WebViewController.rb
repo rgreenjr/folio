@@ -9,9 +9,13 @@ class WebViewController
 
   def item=(item)
     @item = item
-    url = NSURL.URLWithString(@item.uri.to_s)
-    request = NSURLRequest.requestWithURL(url)
-    @webView.mainFrame.loadRequest(request)
+    if @item
+      url = NSURL.URLWithString(@item.uri.to_s)
+      request = NSURLRequest.requestWithURL(url)
+      @webView.mainFrame.loadRequest(request)
+    else
+      @webView.mainFrame.loadHTMLString('', baseURL:nil)      
+    end
   end
 
 end

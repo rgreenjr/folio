@@ -1,6 +1,6 @@
 class Manifest
 
-  attr_accessor :items, :root
+  attr_accessor :items, :root, :ncx
 
   def initialize(book)
     @hash  = {}
@@ -18,9 +18,14 @@ class Manifest
         parent = directory
       end
       item = Item.new("#{parent.uri}/#{parts.last}", e.attributes["href"], e.attributes["id"], e.attributes["media-type"])
-      parent << item
-      raise "Manifest item id is not unique: #{item.id}" if @hash[item.id]      
-      @hash[item.id] = item
+      if item.ncx?
+        ncxID = book.container.opfDoc.elements["/package/spine"].attributes["toc"]
+        @ncx = item if item.id == ncxID
+      else
+        parent << item
+        raise "Manifest item id is not unique: #{item.id}" if @hash[item.id]      
+        @hash[item.id] = item
+      end
     end
   end
 
@@ -41,7 +46,7 @@ class Manifest
     while stack.size > 0
       item = stack.shift
       item.each {|child| stack << child}
-      yield item unless item.directory?
+      yield item unless item.directory? || item.ncx?
     end
   end
 
@@ -53,7 +58,7 @@ class Manifest
     each {|item| return item if item.href == href}
     nil
   end
-
+  
   def save(directory)
     src  = File.join(@root.uri.path, '.')
     dest = File.join(directory, @root.href)

@@ -3,7 +3,7 @@ class Navigation
   attr_accessor :id, :title, :creator, :docAuthor, :root
 
   def initialize(book)
-    doc = book.spine.ncxDoc
+    doc = REXML::Document.new(book.manifest.ncx.content)    
         
     prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
 
@@ -23,7 +23,7 @@ class Navigation
 
         uri = URI.parse(e.elements["#{prefix}content"].attributes["src"])
         item = book.manifest.itemWithHref(uri.path)
-        raise "Navigation point source is missing: #{uri.path}" unless item
+        raise "Navigation point src is missing: #{uri.path}" unless item
 
         child           = Point.new
         child.id        = e.attributes["id"]

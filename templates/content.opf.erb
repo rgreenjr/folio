@@ -15,6 +15,7 @@
 
   <manifest><% @book.manifest.each do |item| %>
     <item id="<%= item.id %>" href="<%= item.href %>" media-type="<%= item.mediaType %>" /><% end %>
+	<item id="ncx" href="<%= @book.manifest.ncx.href %>" media-type="<%= @book.manifest.ncx.mediaType %>" />
   </manifest>
 
   <spine toc="ncx"><% @book.spine.each do |item| %>

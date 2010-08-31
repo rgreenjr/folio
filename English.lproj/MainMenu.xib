@@ -22,6 +22,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="372"/>
+			<integer value="776"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1272,7 +1273,7 @@
 				<string key="NSClassName">ManifestController</string>
 			</object>
 			<object class="NSCustomView" id="312724168">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">4374</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1514,7 +1515,7 @@
 									<object class="NSOutlineView" id="128234924">
 										<reference key="NSNextResponder" ref="669972940"/>
 										<int key="NSvFlags">4352</int>
-										<string key="NSFrameSize">{351, 314}</string>
+										<string key="NSFrameSize">{351, 311}</string>
 										<reference key="NSSuperview" ref="669972940"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="_NSCornerView" key="NSCornerView">
@@ -1590,7 +1591,7 @@
 										<int key="NSTableViewDraggingDestinationStyle">0</int>
 									</object>
 								</object>
-								<string key="NSFrameSize">{351, 314}</string>
+								<string key="NSFrameSize">{351, 311}</string>
 								<reference key="NSSuperview" ref="563779075"/>
 								<reference key="NSNextKeyView" ref="128234924"/>
 								<reference key="NSDocView" ref="128234924"/>
@@ -1604,8 +1605,7 @@
 								<reference key="NSSuperview" ref="563779075"/>
 								<reference key="NSTarget" ref="563779075"/>
 								<string key="NSAction">_doScroller:</string>
-								<double key="NSCurValue">0.27189112487100103</double>
-								<double key="NSPercent">0.94485294117647056</double>
+								<double key="NSPercent">0.99679487179487181</double>
 							</object>
 							<object class="NSScroller" id="811389803">
 								<reference key="NSNextResponder" ref="563779075"/>
@@ -1618,7 +1618,7 @@
 								<double key="NSPercent">0.99715909090909094</double>
 							</object>
 						</object>
-						<string key="NSFrame">{{0, 108}, {351, 314}}</string>
+						<string key="NSFrame">{{0, 111}, {351, 311}}</string>
 						<reference key="NSSuperview" ref="312724168"/>
 						<reference key="NSNextKeyView" ref="669972940"/>
 						<int key="NSsFlags">528</int>
@@ -1629,6 +1629,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{351, 422}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomObject" id="976202373">
@@ -1752,7 +1753,7 @@
 									<object class="NSOutlineView" id="195450137">
 										<reference key="NSNextResponder" ref="806732036"/>
 										<int key="NSvFlags">4352</int>
-										<string key="NSFrameSize">{351, 313}</string>
+										<string key="NSFrameSize">{351, 312}</string>
 										<reference key="NSSuperview" ref="806732036"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="_NSCornerView" key="NSCornerView">
@@ -1810,9 +1811,8 @@
 										<int key="NSTableViewDraggingDestinationStyle">0</int>
 									</object>
 								</object>
-								<string key="NSFrameSize">{351, 313}</string>
+								<string key="NSFrameSize">{351, 312}</string>
 								<reference key="NSSuperview" ref="1041398416"/>
-								<reference key="NSNextKeyView" ref="195450137"/>
 								<reference key="NSDocView" ref="195450137"/>
 								<reference key="NSBGColor" ref="764096244"/>
 								<int key="NScvFlags">4</int>
@@ -1824,8 +1824,7 @@
 								<reference key="NSSuperview" ref="1041398416"/>
 								<reference key="NSTarget" ref="1041398416"/>
 								<string key="NSAction">_doScroller:</string>
-								<double key="NSCurValue">0.25560280022552151</double>
-								<double key="NSPercent">0.94485294117647056</double>
+								<double key="NSPercent">0.99679487179487181</double>
 							</object>
 							<object class="NSScroller" id="1046136208">
 								<reference key="NSNextResponder" ref="1041398416"/>
@@ -1838,9 +1837,8 @@
 								<double key="NSPercent">0.99715909090909094</double>
 							</object>
 						</object>
-						<string key="NSFrame">{{0, 109}, {351, 313}}</string>
+						<string key="NSFrame">{{0, 110}, {351, 312}}</string>
 						<reference key="NSSuperview" ref="31214201"/>
-						<reference key="NSNextKeyView" ref="806732036"/>
 						<int key="NSsFlags">528</int>
 						<reference key="NSVScroller" ref="770807481"/>
 						<reference key="NSHScroller" ref="1046136208"/>
@@ -2495,14 +2493,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">inspectorForm</string>
-						<reference key="source" ref="976202373"/>
-						<reference key="destination" ref="667466579"/>
-					</object>
-					<int key="connectionID">743</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">outlineView</string>
 						<reference key="source" ref="976202373"/>
 						<reference key="destination" ref="195450137"/>
@@ -2532,14 +2522,6 @@
 						<reference key="destination" ref="128234924"/>
 					</object>
 					<int key="connectionID">790</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">inspectorForm</string>
-						<reference key="source" ref="505361772"/>
-						<reference key="destination" ref="344441105"/>
-					</object>
-					<int key="connectionID">791</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2620,6 +2602,22 @@
 						<reference key="destination" ref="622970222"/>
 					</object>
 					<int key="connectionID">823</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">propertiesForm</string>
+						<reference key="source" ref="976202373"/>
+						<reference key="destination" ref="667466579"/>
+					</object>
+					<int key="connectionID">824</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">propertiesForm</string>
+						<reference key="source" ref="505361772"/>
+						<reference key="destination" ref="344441105"/>
+					</object>
+					<int key="connectionID">825</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4271,7 +4269,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">823</int>
+			<int key="maxID">825</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4448,9 +4446,9 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>inspectorForm</string>
 							<string>manifest</string>
 							<string>outlineView</string>
+							<string>propertiesForm</string>
 							<string>textViewController</string>
 							<string>typePopUpButton</string>
 							<string>webViewController</string>
@@ -4469,9 +4467,9 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>inspectorForm</string>
 							<string>manifest</string>
 							<string>outlineView</string>
+							<string>propertiesForm</string>
 							<string>textViewController</string>
 							<string>typePopUpButton</string>
 							<string>webViewController</string>
@@ -4479,15 +4477,15 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
-								<string key="name">inspectorForm</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">manifest</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">outlineView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">propertiesForm</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -4555,9 +4553,9 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>inspectorForm</string>
 							<string>navigation</string>
 							<string>outlineView</string>
+							<string>propertiesForm</string>
 							<string>textViewController</string>
 							<string>webViewController</string>
 						</object>
@@ -4574,24 +4572,24 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>inspectorForm</string>
 							<string>navigation</string>
 							<string>outlineView</string>
+							<string>propertiesForm</string>
 							<string>textViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
-								<string key="name">inspectorForm</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">navigation</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">outlineView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">propertiesForm</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -5791,8 +5789,8 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
-				<string>{128, 128}</string>
-				<string>{128, 128}</string>
+				<string>{12, 11}</string>
+				<string>{12, 11}</string>
 			</object>
 		</object>
 	</data>

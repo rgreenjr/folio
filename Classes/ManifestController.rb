@@ -1,10 +1,10 @@
 class ManifestController
 
-  attr_accessor :manifest, :outlineView, :inspectorForm, :typePopUpButton
+  attr_accessor :manifest, :outlineView, :propertiesForm, :typePopUpButton
   attr_accessor :webViewController, :textViewController
 
   def awakeFromNib
-    disableInspector
+    disableProperties
     @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.delegate = self
     @outlineView.dataSource = self
@@ -43,18 +43,28 @@ class ManifestController
   end
 
   def outlineViewSelectionDidChange(notification)
-    return if @outlineView.selectedRow < 0
-    item = @manifest[@outlineView.selectedRow]
-    @webViewController.item = item
-    @textViewController.item = item
-    if item.directory?
-      disableInspector
+    if @outlineView.selectedRow < 0
+      disableProperties
+      item = nil
+      @webViewController.item = nil
+      @textViewController.item = nil
+      @typePopUpButton.selectItemWithTitle('')
     else
-      enableInspector
-      nameCell.stringValue = item.name
-      idCell.stringValue = item.id
+      item = @manifest[@outlineView.selectedRow]
+      if item.directory?
+        disableProperties
+        @typePopUpButton.selectItemWithTitle(item.mediaType)
+        @webViewController.item = nil
+        @textViewController.item = nil
+      else
+        enableProperties
+        nameCell.stringValue = item.name
+        idCell.stringValue = item.id
+        @typePopUpButton.selectItemWithTitle(item.mediaType)
+        @webViewController.item = item
+        @textViewController.item = item
+      end
     end
-    @typePopUpButton.selectItemWithTitle(item.mediaType)
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:item)
@@ -84,8 +94,8 @@ class ManifestController
 
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
     cell.editable = true
-    cell.lineBreakMode = NSLineBreakByTruncatingTail
     cell.selectable = true      
+    cell.lineBreakMode = NSLineBreakByTruncatingTail
     if item.directory?
       cell.image = NSImage.imageNamed('folder.png')
     else
@@ -119,25 +129,23 @@ class ManifestController
   end
 
   def nameCell
-    @inspectorForm.cellAtIndex(0)
+    @propertiesForm.cellAtIndex(0)
   end
 
   def idCell
-    @inspectorForm.cellAtIndex(1)
+    @propertiesForm.cellAtIndex(1)
   end
 
-  def disableInspector
-    nameCell.enabled = false
-    nameCell.stringValue = ''
-    idCell.enabled = false
-    idCell.stringValue = ''
-    @typePopUpButton.enabled = false
+  def disableProperties
+    propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
   end
 
-  def enableInspector
-    nameCell.enabled = true
-    idCell.enabled = true
-    @typePopUpButton.enabled = true
+  def enableProperties
+    propertyCells.each {|cell| cell.enabled = true}
+  end
+
+  def propertyCells
+    [nameCell, idCell, typePopUpButton]
   end
 
 end

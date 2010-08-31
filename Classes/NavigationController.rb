@@ -1,6 +1,6 @@
 class NavigationController
 
-  attr_accessor :navigation, :outlineView, :inspectorForm
+  attr_accessor :navigation, :outlineView, :propertiesForm
   attr_accessor :webViewController, :textViewController
 
   def awakeFromNib
@@ -8,6 +8,7 @@ class NavigationController
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
+    disableProperties
   end
 
   def book=(book)
@@ -15,6 +16,7 @@ class NavigationController
     @outlineView.reloadData
     @outlineView.selectColumnIndexes(NSIndexSet.indexSetWithIndex(1), byExtendingSelection:false)
     @outlineView.expandItem(@book.navigation.root[0])
+    disableProperties
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:point)
@@ -43,14 +45,20 @@ class NavigationController
   end
 
   def outlineViewSelectionDidChange(notification)
-    return if @outlineView.selectedRow < 0
-    point = @book.navigation[@outlineView.selectedRow]
-    @webViewController.item = point
-    @textViewController.item = point
-    textCell.stringValue = point.text
-    idCell.stringValue = point.id
-    sourceCell.stringValue = point.src
-    # point.item.links
+    if @outlineView.selectedRow < 0
+      disableProperties
+      @webViewController.item = nil
+      @textViewController.item = nil
+    else
+      point = @book.navigation[@outlineView.selectedRow]
+      @webViewController.item = point
+      @textViewController.item = point
+      textCell.stringValue = point.text
+      idCell.stringValue = point.id
+      sourceCell.stringValue = point.src
+      enableProperties
+      # point.item.links
+    end
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
@@ -91,8 +99,21 @@ class NavigationController
     return unless point
     uri = URI.parse(sourceCell.stringValue)
     item = @book.manifest.itemWithHref(uri.path)
+    
+    unless item
+      alert = NSAlert.alloc.init
+      alert.addButtonWithTitle "OK"
+      alert.messageText = "Error"
+      alert.informativeText = "Source is not valid: #{uri.to_s}"
+      alert.runModal
+      sourceCell.stringValue = point.src
+      return
+    end
+
     point.item = item
     point.fragment = uri.fragment
+    @webViewController.item = point
+    @textViewController.item = point
   end
 
   private
@@ -106,15 +127,27 @@ class NavigationController
   end
 
   def textCell
-    @inspectorForm.cellAtIndex(0)
+    @propertiesForm.cellAtIndex(0)
   end
 
   def idCell
-    @inspectorForm.cellAtIndex(1)
+    @propertiesForm.cellAtIndex(1)
   end
 
   def sourceCell
-    @inspectorForm.cellAtIndex(2)
+    @propertiesForm.cellAtIndex(2)
+  end
+
+  def disableProperties
+    propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
+  end
+
+  def enableProperties
+    propertyCells.each {|cell| cell.enabled = true}
+  end
+  
+  def propertyCells
+    [textCell, idCell, sourceCell]
   end
 
 end

@@ -3,6 +3,15 @@ class ImageCell < NSTextFieldCell
   PADDING = 4
 
   attr_accessor :image
+  
+  def initWithCoder(coder)
+    super
+    self
+  end
+  
+  def copyWithZone(zone)
+    super
+  end
 
   def selectWithFrame(cellFrame, inView:controlView, editor:textObj, delegate:anObject, start:selStart, length:selLength)
     imageFrame, textFrame, cellFrame = divideFrame(cellFrame) if @image
