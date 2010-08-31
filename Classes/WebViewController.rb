@@ -4,6 +4,7 @@ class WebViewController
 
   def awakeFromNib
     # @webView.resourceLoadDelegate = self
+    @webView.editable = true
   end
 
   def item=(item)

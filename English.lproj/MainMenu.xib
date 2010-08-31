@@ -2613,6 +2613,14 @@
 					</object>
 					<int key="connectionID">822</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">webView</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="622970222"/>
+					</object>
+					<int key="connectionID">823</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4263,7 +4271,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">822</int>
+			<int key="maxID">823</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4664,9 +4672,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>item</string>
 							<string>textView</string>
+							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -4677,6 +4687,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>item</string>
 							<string>textView</string>
+							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4686,6 +4697,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">textView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">webView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -5776,8 +5791,8 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
-				<string>{12, 11}</string>
-				<string>{12, 11}</string>
+				<string>{128, 128}</string>
+				<string>{128, 128}</string>
 			</object>
 		</object>
 	</data>

@@ -49,6 +49,11 @@ class Manifest
     @hash[identifier]
   end
 
+  def itemWithHref(href)
+    each {|item| return item if item.href == href}
+    nil
+  end
+
   def save(directory)
     src  = File.join(@root.uri.path, '.')
     dest = File.join(directory, @root.href)

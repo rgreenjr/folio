@@ -20,12 +20,23 @@ class Item
 
   def content=(content)
     @content = content
-    File.open(@href, 'wb') {|f| f.puts @content}
+    File.open(@uri.path, 'wb') {|f| f.puts @content}
   end
   
   def name=(string)
     string = string.strip.gsub(%r{[/"*:<>\?\\]}, '_')
     @name = string if string.size > 0
+  end
+  
+  def links
+    puts @href
+    # REXML::XPath.each(doc, "//*[@id]") do |element|
+    REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
+      puts element
+    end
+    puts "-------------------"
+  rescue
+    nil
   end
 
   def editable?

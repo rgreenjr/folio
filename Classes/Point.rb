@@ -1,21 +1,20 @@
 class Point
 
-  attr_accessor :id, :playOrder, :text, :src, :uri, :expanded
+  attr_accessor :id, :playOrder, :text
+  attr_accessor :item, :fragment, :expanded
 
-  def initialize(base=nil, element=nil, prefix=nil)
+  def initialize
     @children = []
-    @expanded = element.nil?
-    if element
-      @id        = element.attributes["id"]
-      @playOrder = element.attributes["playOrder"]
-      @text      = element.elements["#{prefix}navLabel/#{prefix}text"].text
-      @src       = element.elements["#{prefix}content"].attributes["src"]
-      @base      = base
-      @uri       = "file://#{base}/#{src}"
-      element.elements.each("#{prefix}navPoint") do |e|
-        @children << Point.new(base, e, prefix)
-      end
-    end
+  end
+  
+  def src
+    @fragment ? "#{@item.href}##{@fragment}" : @item.href
+  end
+  
+  def uri
+    u = @item.uri.dup
+    u.fragment = @fragment
+    u
   end
   
   def text=(string)
@@ -54,11 +53,23 @@ class Point
     buffer << "#{padding}  <navLabel>\n"
     buffer << "#{padding}    <text>#{@text}</text>\n"
     buffer << "#{padding}  </navLabel>\n"
-    buffer << "#{padding}  <content src=\"#{@src}\"/>\n"
+    buffer << "#{padding}  <content src=\"#{src}\"/>\n"
     @children.each do |p|
       buffer << p.to_xml(indent + 1)
     end
     buffer << "#{padding}</navPoint>\n"
+  end
+  
+  def editable?
+    @item.editable?
+  end
+  
+  def content
+    @item.content
+  end
+
+  def content=(string)
+    @item.content = string
   end
 
 end

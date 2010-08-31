@@ -10,16 +10,16 @@ class NavigationController
     @outlineView.reloadData
   end
 
-  def navigation=(navigation)
-    @navigation = navigation
+  def book=(book)
+    @book = book
     @outlineView.reloadData
     @outlineView.selectColumnIndexes(NSIndexSet.indexSetWithIndex(1), byExtendingSelection:false)
-    @outlineView.expandItem(@navigation.root[0])
+    @outlineView.expandItem(@book.navigation.root[0])
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:point)
-    return 0 unless @outlineView.dataSource && @navigation # guard against SDK bug
-    point ? point.size : @navigation.root.size
+    return 0 unless @outlineView.dataSource && @book # guard against SDK bug
+    point ? point.size : @book.navigation.root.size
   end
 
   def outlineView(outlineView, isItemExpandable:point)
@@ -27,7 +27,7 @@ class NavigationController
   end
 
   def outlineView(outlineView, child:index, ofItem:point)
-    point ? point[index] : @navigation.root[index]
+    point ? point[index] : @book.navigation.root[index]
   end
 
   def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:point)
@@ -44,13 +44,13 @@ class NavigationController
 
   def outlineViewSelectionDidChange(notification)
     return if @outlineView.selectedRow < 0
-    point = @navigation[@outlineView.selectedRow]
+    point = @book.navigation[@outlineView.selectedRow]
     @webViewController.item = point
-    @textViewController.item = nil
-
+    @textViewController.item = point
     textCell.stringValue = point.text
     idCell.stringValue = point.id
-    sourceCell.stringValue = point.src    
+    sourceCell.stringValue = point.src
+    # point.item.links
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
@@ -87,13 +87,18 @@ class NavigationController
   end
 
   def changeSource(sender)
-    updateAttribute('src', sourceCell)
+    point = @book.navigation[@outlineView.selectedRow]
+    return unless point
+    uri = URI.parse(sourceCell.stringValue)
+    item = @book.manifest.itemWithHref(uri.path)
+    point.item = item
+    point.fragment = uri.fragment
   end
 
   private
 
   def updateAttribute(attribuute, cell)
-    point = @navigation[@outlineView.selectedRow]
+    point = @book.navigation[@outlineView.selectedRow]
     return unless point
     point.send("#{attribuute}=", cell.stringValue)
     cell.stringValue = point.send(attribuute)

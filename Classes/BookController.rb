@@ -22,7 +22,7 @@ class BookController
 
   def book=(book)
     @book = book
-    @navigationController.navigation = @book.navigation
+    @navigationController.book = @book
     @spineController.spine = @book.spine
     @manifestController.manifest = @book.manifest
     @window.title = @book.title
