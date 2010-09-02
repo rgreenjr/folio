@@ -26,7 +26,7 @@ class Book
     @manifest.save(tmp)
     @navigation.save(tmp)
     File.open("#{tmp}/OEBPS/content.opf", "w") {|f| f.puts to_xml}
-    system("mate #{tmp}/OEBPS/content.opf")
+    # system("mate #{tmp}/OEBPS/content.opf")
     system("cd '#{tmp}'; zip -qX0 '#{epubFilename}' mimetype")
     system("cd '#{tmp}'; zip -qX9urD '#{epubFilename}' *")
   end

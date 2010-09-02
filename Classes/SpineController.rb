@@ -5,7 +5,6 @@ class SpineController
   def awakeFromNib
     @tableView.delegate = self
     @tableView.dataSource = self
-    @tableView.reloadData
   end
 
   def spine=(spine)

@@ -58,7 +58,7 @@ class Navigation
 
   def save(directory)
     File.open("#{directory}/OEBPS/toc.ncx", 'w') {|f| f.write(to_xml)}
-    system("mate #{directory}/OEBPS/toc.ncx")
+    # system("mate #{directory}/OEBPS/toc.ncx")
   end
 
   def to_xml

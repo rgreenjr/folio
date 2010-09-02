@@ -12,10 +12,12 @@ class NavigationController
   end
 
   def book=(book)
+    @webViewController.item = nil
+    @textViewController.item = nil
     @book = book
     @outlineView.reloadData
-    @outlineView.selectColumnIndexes(NSIndexSet.indexSetWithIndex(1), byExtendingSelection:false)
-    @outlineView.expandItem(@book.navigation.root[0])
+    @outlineView.expandItem(@book.navigation.root[0], expandChildren:true) # if @book.navigation.root.size > 0
+    # @outlineView.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection:false)
     disableProperties
   end
 
