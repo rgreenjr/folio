@@ -1,7 +1,20 @@
+TODO
+====
+
+- change navigation src attribute UI to drop down menu
+- add HTML and CSS syntax highlighting
+
+
+Hpricot Examples
+===============
+
 %w{body p h1 h2 h3 div blockquote span a sup}.each do |element|
   doc.search("//#{element}").remove_attr('class')
   doc.search("//#{element}").remove_attr('style')
 end
+
+Zip Examples
+============
 
 def self.open(filepath)
 	Zip::ZipInputStream::open(filepath) do |io|

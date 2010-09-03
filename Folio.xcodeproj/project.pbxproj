@@ -50,6 +50,9 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
+		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
+		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
+		CD0A2E5E123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5B123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub */; };
 		CD83F59D122B3E32005BB914 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD83F599122B3E32005BB914 /* container.xml */; };
 		CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59A122B3E32005BB914 /* content.opf.erb */; };
 		CD83F59F122B3E32005BB914 /* mimetype in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59B122B3E32005BB914 /* mimetype */; };
@@ -108,6 +111,9 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Folio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Folio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
+		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
+		CD0A2E5B123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub"; sourceTree = "<group>"; };
 		CD83F599122B3E32005BB914 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
 		CD83F59A122B3E32005BB914 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD83F59B122B3E32005BB914 /* mimetype */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mimetype; sourceTree = "<group>"; };
@@ -187,6 +193,7 @@
 		29B97314FDCFA39411CA2CEA /* Folio */ = {
 			isa = PBXGroup;
 			children = (
+				CD0A2E58123140FA00A67BFB /* data */,
 				CDE4491012305CAD001C69AE /* test */,
 				CDE448ED12305CA2001C69AE /* src */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -226,6 +233,16 @@
 				CDFA75D2120909AA00830BCE /* CoreAudio.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD0A2E58123140FA00A67BFB /* data */ = {
+			isa = PBXGroup;
+			children = (
+				CD0A2E59123140FA00A67BFB /* Fight Club.epub */,
+				CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */,
+				CD0A2E5B123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 		CD83F598122B3E32005BB914 /* templates */ = {
@@ -366,6 +383,9 @@
 				CDE4490F12305CA2001C69AE /* WindowController.rb in Resources */,
 				CDE4491312305CAD001C69AE /* book_test.rb in Resources */,
 				CDE4491412305CAD001C69AE /* run_suite.rb in Resources */,
+				CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */,
+				CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */,
+				CD0A2E5E123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

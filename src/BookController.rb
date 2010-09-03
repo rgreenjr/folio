@@ -5,7 +5,8 @@ class BookController
   attr_accessor :navigationController, :spineController, :manifestController
 
   def awakeFromNib
-    readBook("/Users/rgreen/Desktop/Folio/data/The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub")
+    path = NSBundle.mainBundle.pathForResource("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", ofType:"epub")
+    readBook(path)
   end
 
   def showOpenBookPanel(sender)
