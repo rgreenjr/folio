@@ -6,7 +6,8 @@ class WindowController < NSWindowController
 
   attr_accessor :splitView, :segementedControl
   attr_accessor :placeHolderView, :navigationView, :spineView, :manifestView
-
+  attr_accessor :textView
+  
   def awakeFromNib
     @splitView.delegate = self
     showNavigation(self)
@@ -42,17 +43,35 @@ class WindowController < NSWindowController
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
-    # puts "splitView(#{sender}, constrainMinCoordinate:#{proposedMin}, ofSubviewAt:#{offset})"
-    if offset == NAVIGATION
-      return [150, proposedMin].max
-    else
-      return [500, proposedMin].max
-    end
+  	subviewFrame = sender.subviews.objectAtIndex(offset).frame
+    frameOrigin = subviewFrame.origin.x
+  	return frameOrigin + minimumSize(offset)
   end
 
   def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
-    # puts "splitView(#{sender}, constrainMaxCoordinate:#{proposedMax}, ofSubviewAt:#{offset})"
-    proposedMax
+  	growingSubviewFrame = sender.subviews.objectAtIndex(offset).frame
+  	shrinkingSubviewFrame = sender.subviews.objectAtIndex(offset + 1).frame
+    currentCoordinate = growingSubviewFrame.origin.x + growingSubviewFrame.size.width
+    shrinkingSize = shrinkingSubviewFrame.size.width
+  	return currentCoordinate + (shrinkingSize - minimumSize(offset))
+  end
+
+  def toggleSourceView(sender)
+    newFrame = @textView.frame
+    newFrame.origin.x += newFrame.size.width
+    newFrame.size.width = 0
+    windowResize = {NSViewAnimationTargetKey => @textView, NSViewAnimationEndFrameKey => NSValue.valueWithRect(newFrame)}
+    animation = NSViewAnimation.alloc.initWithViewAnimations([windowResize])
+    animation.setAnimationBlockingMode(NSAnimationBlocking)
+    animation.startAnimation
+    @textView.animator.removeFromSuperview
+    @splitView.needsDisplay = true
+  end
+  
+  private
+  
+  def minimumSize(frameIndex)
+    @frameSizes ||= [250.0, 400.0, 400.0][frameIndex]
   end
 
 end

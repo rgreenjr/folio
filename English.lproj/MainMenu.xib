@@ -21,8 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="432"/>
-			<integer value="826"/>
+			<integer value="848"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1252,6 +1251,30 @@
 								<int key="NSSegmentStyle">2</int>
 							</object>
 						</object>
+						<object class="NSButton" id="851877339">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">289</int>
+							<string key="NSFrame">{{1326, 7}, {39, 18}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="98958576">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134348800</int>
+								<string key="NSContents"/>
+								<reference key="NSSupport" ref="26"/>
+								<reference key="NSControlView" ref="851877339"/>
+								<int key="NSButtonFlags">-2042347265</int>
+								<int key="NSButtonFlags2">163</int>
+								<object class="NSCustomResource" key="NSNormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSSlideshowTemplate</string>
+								</object>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
 					</object>
 					<string key="NSFrameSize">{1385, 686}</string>
 					<reference key="NSSuperview"/>
@@ -1978,7 +2001,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="673480815">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2013,7 +2036,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{283, 72}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -2686,6 +2708,22 @@
 					</object>
 					<int key="connectionID">836</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleSourceView:</string>
+						<reference key="source" ref="1069398854"/>
+						<reference key="destination" ref="98958576"/>
+					</object>
+					<int key="connectionID">850</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textView</string>
+						<reference key="source" ref="1069398854"/>
+						<reference key="destination" ref="958675177"/>
+					</object>
+					<int key="connectionID">851</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3296,6 +3334,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="911334574"/>
 							<reference ref="100091502"/>
+							<reference ref="851877339"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3842,6 +3881,20 @@
 						<reference key="object" ref="253196609"/>
 						<reference key="parent" ref="64848758"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">848</int>
+						<reference key="object" ref="851877339"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="98958576"/>
+						</object>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">849</int>
+						<reference key="object" ref="98958576"/>
+						<reference key="parent" ref="851877339"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4107,6 +4160,8 @@
 					<string>830.IBPluginDependency</string>
 					<string>831.IBPluginDependency</string>
 					<string>832.IBPluginDependency</string>
+					<string>848.IBPluginDependency</string>
+					<string>849.IBPluginDependency</string>
 					<string>92.IBPluginDependency</string>
 					<string>92.ImportedFromIB2</string>
 				</object>
@@ -4250,9 +4305,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{344, 228}, {1385, 686}}</string>
+					<string>{{329, 245}, {1385, 686}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{344, 228}, {1385, 686}}</string>
+					<string>{{329, 245}, {1385, 686}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -4372,6 +4427,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 				</object>
 			</object>
@@ -4391,7 +4448,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">836</int>
+			<int key="maxID">851</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4401,7 +4458,7 @@
 					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/AppController.rb</string>
+						<string key="minorKey">src/AppController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4536,7 +4593,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/BookController.rb</string>
+						<string key="minorKey">src/BookController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4643,7 +4700,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/ManifestController.rb</string>
+						<string key="minorKey">src/ManifestController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4743,7 +4800,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/NavigationController.rb</string>
+						<string key="minorKey">src/NavigationController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4797,7 +4854,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/SpineController.rb</string>
+						<string key="minorKey">src/SpineController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4844,7 +4901,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/TextViewController.rb</string>
+						<string key="minorKey">src/TextViewController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4884,7 +4941,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/WebViewController.rb</string>
+						<string key="minorKey">src/WebViewController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4897,10 +4954,12 @@
 							<string>showManifest:</string>
 							<string>showNavigation:</string>
 							<string>showSpine:</string>
+							<string>toggleSourceView:</string>
 							<string>toggleView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4914,6 +4973,7 @@
 							<string>showManifest:</string>
 							<string>showNavigation:</string>
 							<string>showSpine:</string>
+							<string>toggleSourceView:</string>
 							<string>toggleView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4928,6 +4988,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showSpine:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleSourceView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -4946,9 +5010,11 @@
 							<string>segementedControl</string>
 							<string>spineView</string>
 							<string>splitView</string>
+							<string>textView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4967,6 +5033,7 @@
 							<string>segementedControl</string>
 							<string>spineView</string>
 							<string>splitView</string>
+							<string>textView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4994,11 +5061,15 @@
 								<string key="name">splitView</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">textView</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/WindowController.rb</string>
+						<string key="minorKey">src/WindowController.rb</string>
 					</object>
 				</object>
 			</object>
@@ -5929,6 +6000,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
+				<string>NSSlideshowTemplate</string>
 				<string>window1</string>
 				<string>window2</string>
 			</object>
@@ -5936,6 +6008,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
+				<string>{17, 14}</string>
 				<string>{12, 11}</string>
 				<string>{12, 11}</string>
 			</object>
