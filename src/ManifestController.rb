@@ -93,16 +93,10 @@ class ManifestController
   end
 
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
-    cell.editable = true
-    cell.selectable = true      
-    cell.lineBreakMode = NSLineBreakByTruncatingTail
     if item.directory?
       cell.image = NSImage.imageNamed('folder.png')
     else
-      image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
-      image.scalesWhenResized = true
-      image.size = NSSize.new(16, 16)
-      cell.image = image
+      cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
     end
   end
 
@@ -120,11 +114,11 @@ class ManifestController
 
   private
 
-  def updateAttribute(attribuute, cell)
+  def updateAttribute(attribute, cell)
     item = @manifest[@outlineView.selectedRow]
     return unless item
-    item.send("#{attribuute}=", cell.stringValue)
-    cell.stringValue = item.send(attribuute)
+    item.send("#{attribute}=", cell.stringValue)
+    cell.stringValue = item.send(attribute)
     @outlineView.needsDisplay = true
   end
 

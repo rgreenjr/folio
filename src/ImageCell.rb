@@ -4,15 +4,25 @@ class ImageCell < NSTextFieldCell
 
   attr_accessor :image
   
-  def initWithCoder(coder)
+  def initImageCell(image)
+    initTextCell("")
+    @image = image
+  end
+  
+  def initTextCell(text)
     super
+    self.editable = true
+    self.selectable = true      
+    self.lineBreakMode = NSLineBreakByTruncatingTail
     self
   end
   
-  def copyWithZone(zone)
+  def image=(image)
+    image.scalesWhenResized = true
+    image.size = NSSize.new(16, 16)
     super
   end
-
+  
   def selectWithFrame(cellFrame, inView:controlView, editor:textObj, delegate:anObject, start:selStart, length:selLength)
     imageFrame, textFrame, cellFrame = divideFrame(cellFrame) if @image
     super
