@@ -5,6 +5,13 @@ class BookController
   attr_accessor :navigationController, :spineController, :manifestController
 
   def awakeFromNib
+    
+    # file = '/Users/rgreen/code/ruby/css-parser/test/test1.css'
+    # parser = CSSParser.new
+    # result = parser.parse(IO.read(file))
+    # raise "Failed to parse CSS file: " + parser.failure_reason unless result
+    # p parser
+    
     path = NSBundle.mainBundle.pathForResource("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", ofType:"epub")
     readBook(path)
   end
