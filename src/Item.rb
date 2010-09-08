@@ -20,7 +20,7 @@ class Item
 
   def content=(content)
     @content = content
-    File.open(@uri.path, 'wb') {|f| f.puts @content}
+    save
   end
   
   def name=(string)
@@ -30,7 +30,6 @@ class Item
   
   def links
     puts @href
-    # REXML::XPath.each(doc, "//*[@id]") do |element|
     REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
       puts element
     end
@@ -76,12 +75,12 @@ class Item
     @children[index]
   end
 
-  def each
-    @children.each {|item| yield item}
+  def each(&block)
+    @children.each(&block)
   end
 
-  def each_with_index
-    @children.each_with_index {|item, index| yield item, index}
+  def each_with_index(&block)
+    @children.each_with_index(&block)
   end
 
   def <<(item)
@@ -89,8 +88,11 @@ class Item
   end
 
   def find(name)
-    each {|item| return item if item.name == name}
-    nil
+    @children.find {|item| item.name == name}
+  end
+  
+  def save
+    File.open(@uri.path, 'wb') {|file| file.puts @content}
   end
   
   def to_xml

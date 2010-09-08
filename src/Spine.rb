@@ -1,7 +1,5 @@
 class Spine
 
-  attr_accessor :items
-
   def initialize(book)
     @items = []
 
@@ -26,8 +24,8 @@ class Spine
     @items.first
   end
 
-  def each
-    @items.each {|i| yield i} 
+  def each(&block)
+    @items.each(&block)
   end
 
   def <<(item)
