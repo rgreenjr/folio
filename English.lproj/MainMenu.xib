@@ -21,7 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="848"/>
+			<integer value="432"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1078,7 +1078,7 @@
 															<string>public.url</string>
 														</object>
 													</object>
-													<string key="NSFrameSize">{634, 14}</string>
+													<string key="NSFrameSize">{634, 15}</string>
 													<reference key="NSSuperview" ref="15713991"/>
 													<object class="NSTextContainer" key="NSTextContainer" id="129327803">
 														<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1190,7 +1190,7 @@
 										<object class="NSScroller" id="995642979">
 											<reference key="NSNextResponder" ref="958675177"/>
 											<int key="NSvFlags">-2147483392</int>
-											<string key="NSFrame">{{-100, -100}, {571, 15}}</string>
+											<string key="NSFrame">{{-100, -100}, {634, 15}}</string>
 											<reference key="NSSuperview" ref="958675177"/>
 											<int key="NSsFlags">1</int>
 											<reference key="NSTarget" ref="958675177"/>
@@ -4305,9 +4305,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{329, 245}, {1385, 686}}</string>
+					<string>{{55, 121}, {1385, 686}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{329, 245}, {1385, 686}}</string>
+					<string>{{55, 121}, {1385, 686}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>

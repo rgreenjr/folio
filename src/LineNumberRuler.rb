@@ -8,16 +8,12 @@ class LineNumberRuler < NSRulerView
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     self.clientView = scrollView.documentView
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
     @font = NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize))
     @textColor = NSColor.colorWithCalibratedWhite(0.42, alpha:1.0)
     @alternateTextColor = NSColor.whiteColor
+    updateTextAttributes
     self
-  end
-
-  def clientView=(textView)
-    super
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:textView.textStorage)
-    invalidateLineIndices
   end
 
   def lineIndices
@@ -25,12 +21,8 @@ class LineNumberRuler < NSRulerView
     @lineIndices
   end
 
-  def invalidateLineIndices
-    @lineIndices = nil
-  end
-
   def textDidChange(notification)
-    invalidateLineIndices
+    @lineIndices = nil
     self.needsDisplay = true
   end
 
@@ -103,15 +95,25 @@ class LineNumberRuler < NSRulerView
     end
     left
   end
+  
+  def font=(font)
+    @font = font
+    updateTextAttributes
+  end
 
-  def textAttributes
-    { NSFontAttributeName => @font, NSForegroundColorAttributeName => @textColor }
+  def textColor=(textColor)
+    @textColor = textColor
+    updateTextAttributes
+  end
+
+  def updateTextAttributes
+    @textAttributes = { NSFontAttributeName => @font, NSForegroundColorAttributeName => @textColor }
   end
 
   def requiredThickness
     digits = Math.log10(lineIndices.size + 1)
     sampleString = "8" * (digits + 2)
-    stringSize = sampleString.sizeWithAttributes(textAttributes)
+    stringSize = sampleString.sizeWithAttributes(@textAttributes)
     [DEFAULT_THICKNESS, 2 * RULER_MARGIN + stringSize.width].max.ceil
   end
 
@@ -132,8 +134,6 @@ class LineNumberRuler < NSRulerView
 
     yinset = view.textContainerInset.height
     visibleRect = self.scrollView.contentView.bounds
-
-    textAttributes = self.textAttributes
 
     lines = self.lineIndices
 
@@ -163,13 +163,17 @@ class LineNumberRuler < NSRulerView
 
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
-          stringSize = labelText.sizeWithAttributes(textAttributes)
-
-          currentTextAttributes = textAttributes
+          stringSize = labelText.sizeWithAttributes(@textAttributes)
 
           # Draw string flush right, centered vertically within the line
-          textRect = NSMakeRect(NSWidth(bounds) - stringSize.width - RULER_MARGIN, ypos + (NSHeight(rects[0]) - stringSize.height) / 2.0, NSWidth(bounds) - RULER_MARGIN * 2.0, NSHeight(rects[0]))
-          labelText.drawInRect(textRect, withAttributes:currentTextAttributes)
+          textRect = NSMakeRect(
+            NSWidth(bounds) - stringSize.width - RULER_MARGIN, 
+            ypos + (NSHeight(rects[0]) - stringSize.height) / 2.0,
+            NSWidth(bounds) - RULER_MARGIN * 2.0, 
+            NSHeight(rects[0])
+          )
+            
+          labelText.drawInRect(textRect, withAttributes:@textAttributes)
         end
       end
 
