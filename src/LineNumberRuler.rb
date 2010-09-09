@@ -3,99 +3,19 @@ class LineNumberRuler < NSRulerView
   DEFAULT_THICKNESS	= 32.0
   RULER_MARGIN		  = 5.0
 
-  attr_accessor :font, :textColor, :alternateTextColor, :backgroundColor
+  attr_accessor :font, :textColor
 
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
-    self.clientView = scrollView.documentView
+    setClientView(scrollView.documentView)
     NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
     @font = NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize))
     @textColor = NSColor.colorWithCalibratedWhite(0.42, alpha:1.0)
-    @alternateTextColor = NSColor.whiteColor
+    updateLineIndices
     updateTextAttributes
     self
   end
 
-  def lineIndices
-    calculateLines unless @lineIndices
-    @lineIndices
-  end
-
-  def textDidChange(notification)
-    @lineIndices = nil
-    self.needsDisplay = true
-  end
-
-  def lineNumberForLocation(location)
-    view = self.clientView
-    visibleRect = self.scrollView.contentView.bounds
-    location += NSMinY(visibleRect)
-    nullRange = NSMakeRange(NSNotFound, 0)
-    layoutManager = view.layoutManager
-    container = view.textContainer
-    self.lineIndices.each_with_index do |line, index|
-      rectCount = Pointer.new(:ulong_long)
-      rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(line, 0), withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
-      rects.each do |rect|
-        return (index + 1) if location >= NSMinY(rect) && location < NSMaxY(rect)
-      end
-    end
-    NSNotFound
-  end
-
-  def calculateLines
-    text = self.clientView.string
-    stringLength = text.length
-    @lineIndices = []
-
-    index = 0
-    numberOfLines = 0
-
-    loop do
-      @lineIndices << index
-      index = NSMaxRange(text.lineRangeForRange(NSMakeRange(index, 0)))
-      numberOfLines += 1
-      break if index >= stringLength
-    end
-
-    lineEnd = Pointer.new(:ulong_long)
-    contentEnd = Pointer.new(:ulong_long)
-
-    # check if text ends with a new line
-    text.getLineStart(nil, end:lineEnd, contentsEnd:contentEnd, forRange:NSMakeRange(@lineIndices.last, 0))
-
-    @lineIndices << index if contentEnd[0] < lineEnd[0]
-
-    oldThickness = self.ruleThickness    
-    @newThickness = self.requiredThickness
-
-    if (oldThickness - @newThickness).abs > 1
-      self.performSelector(:updateRulerThinkness, withObject:nil, afterDelay:0.0)      
-    end
-  end
-
-  def updateRulerThinkness
-    self.ruleThickness = @newThickness
-  end
-
-  def lineNumberForCharacterIndex(index, inText:text)
-    lines = self.lineIndices
-    left = 0
-    right = self.lineIndices.count
-    while right - left > 1
-      mid = (right + left) / 2
-      lineStart = lines[mid]
-      if index < lineStart
-        right = mid
-      elsif index > lineStart
-        left = mid
-      else
-        return mid
-      end
-    end
-    left
-  end
-  
   def font=(font)
     @font = font
     updateTextAttributes
@@ -106,36 +26,19 @@ class LineNumberRuler < NSRulerView
     updateTextAttributes
   end
 
-  def updateTextAttributes
-    @textAttributes = { NSFontAttributeName => @font, NSForegroundColorAttributeName => @textColor }
-  end
-
-  def requiredThickness
-    digits = Math.log10(lineIndices.size + 1)
-    sampleString = "8" * (digits + 2)
-    stringSize = sampleString.sizeWithAttributes(@textAttributes)
-    [DEFAULT_THICKNESS, 2 * RULER_MARGIN + stringSize.width].max.ceil
+  def textDidChange(notification)
+    updateLineIndices
+    setNeedsDisplay(true)
   end
 
   def drawHashMarksAndLabelsInRect(aRect)    
-    if @backgroundColor
-      @backgroundColor.set
-      NSRectFill(bounds)
-      NSColor.colorWithCalibratedWhite(0.58, alpha:1.0).set
-      NSBezierPath.strokeLineFromPoint(NSMakePoint((NSMaxX(bounds) - 0) / 5, NSMinY(bounds)), toPoint:NSMakePoint(NSMaxX(bounds) - 0.5, NSMaxY(bounds)))
-    end
-
-    view = self.clientView
-
-    layoutManager = view.layoutManager
-    container = view.textContainer
-    text = view.string
+    layoutManager = clientView.layoutManager
+    container = clientView.textContainer
+    text = clientView.string
     nullRange = NSMakeRange(NSNotFound, 0)
 
-    yinset = view.textContainerInset.height
-    visibleRect = self.scrollView.contentView.bounds
-
-    lines = self.lineIndices
+    yinset = clientView.textContainerInset.height
+    visibleRect = scrollView.contentView.bounds
 
     # Find the characters that are currently visible
     glyphRange = layoutManager.glyphRangeForBoundingRect(visibleRect, inTextContainer:container)
@@ -145,13 +48,13 @@ class LineNumberRuler < NSRulerView
     # It doesn't show up in the glyphs so would not be accounted for.
     range.length += 1
 
-    count = lines.count
+    count = @lineIndices.count
     index = 0
 
     line = lineNumberForCharacterIndex(range.location, inText:text)
 
     while line < count
-      index = lines[line]
+      index = @lineIndices[line]
 
       if NSLocationInRange(index, range)
         rectCount = Pointer.new(:ulong_long)
@@ -181,6 +84,89 @@ class LineNumberRuler < NSRulerView
 
       line += 1
     end
+  end
+
+  private
+
+  def lineNumberForLocation(location)
+    visibleRect = scrollView.contentView.bounds
+    location += NSMinY(visibleRect)
+    nullRange = NSMakeRange(NSNotFound, 0)
+    layoutManager = clientView.layoutManager
+    container = clientView.textContainer
+    @lineIndices.each_with_index do |line, index|
+      rectCount = Pointer.new(:ulong_long)
+      rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(line, 0), withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
+      rects.each do |rect|
+        if location >= NSMinY(rect) && location < NSMaxY(rect)
+          return (index + 1)
+        end
+      end
+    end
+    NSNotFound
+  end
+
+  def lineNumberForCharacterIndex(index, inText:text)
+    left = 0
+    right = @lineIndices.count
+    while right - left > 1
+      mid = (right + left) / 2
+      lineStart = @lineIndices[mid]
+      if index < lineStart
+        right = mid
+      elsif index > lineStart
+        left = mid
+      else
+        return mid
+      end
+    end
+    left
+  end
+  
+  def updateRulerThinkness(newThickness)
+    setRuleThickness(newThickness)
+  end
+
+  def updateTextAttributes
+    @textAttributes = { NSFontAttributeName => @font, NSForegroundColorAttributeName => @textColor }
+  end
+
+  def updateLineIndices
+    text = clientView.string
+    stringLength = text.length
+    @lineIndices = []
+
+    index = 0
+    numberOfLines = 0
+
+    loop do
+      @lineIndices << index
+      index = NSMaxRange(text.lineRangeForRange(NSMakeRange(index, 0)))
+      numberOfLines += 1
+      break if index >= stringLength
+    end
+
+    lineEnd = Pointer.new(:ulong_long)
+    contentEnd = Pointer.new(:ulong_long)
+
+    # check if text ends with a new line
+    text.getLineStart(nil, end:lineEnd, contentsEnd:contentEnd, forRange:NSMakeRange(@lineIndices.last, 0))
+
+    @lineIndices << index if contentEnd[0] < lineEnd[0]
+
+    oldThickness = ruleThickness    
+    newThickness = requiredThickness
+
+    if (oldThickness - newThickness).abs > 1
+      self.performSelector('updateRulerThinkness:', withObject:newThickness, afterDelay:0.0)      
+    end
+  end
+
+  def requiredThickness
+    digits = Math.log10(@lineIndices.size + 1)
+    sampleString = "8" * (digits + 2)
+    stringSize = sampleString.sizeWithAttributes(@textAttributes)
+    [DEFAULT_THICKNESS, 2 * RULER_MARGIN + stringSize.width].max.ceil
   end
 
 end
