@@ -3,7 +3,14 @@ TODO
 
 - change navigation src attribute UI to drop down menu
 - add HTML and CSS syntax highlighting
-
+- add line numbering to source view
+- Navigation: add, delete, reorder points
+- Validate navigation points
+- Spine: add, delete, reorder items
+- change control view to use tabs
+- add tidy output view to botton of source view
+- auto scroll source view on navigation changes
+- add webview forward/backward bunttons
 
 Hpricot Examples
 ===============

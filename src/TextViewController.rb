@@ -3,29 +3,22 @@ class TextViewController
   attr_accessor :item, :textView, :webView
 
   def awakeFromNib
-    # blue = NSDictionary.alloc.initWithObjectsAndKeys(NSFont.userFixedPitchFontOfSize(11.0), NSFontAttributeName, NSColor.blueColor, NSForegroundColorAttributeName, nil)
-    # string = NSMutableAttributedString.alloc.initWithString("Hello World", attributes:blue)
-    # @textView.textStorage.attributedString = string
-    # 
-    # range = NSMakeRange(0, 5)
-    # 
-    # red = NSDictionary.alloc.initWithObjectsAndKeys(NSFont.userFixedPitchFontOfSize(18.0), NSFontAttributeName, NSColor.redColor, NSForegroundColorAttributeName, nil)
-    # string = NSMutableAttributedString.alloc.initWithString("Hello", attributes:red)
-    # @textView.textStorage.replaceCharactersInRange(range, withAttributedString:string)
-
     scrollView = @textView.enclosingScrollView
     scrollView.verticalRulerView = LineNumberRuler.alloc.initWithScrollView(scrollView)
     scrollView.hasHorizontalRuler = false
     scrollView.hasVerticalRuler = true
     scrollView.rulersVisible = true
 	
-    @textView.delegate = self
+    # disable spell checking
+    @textView.setEnabledTextCheckingTypes(0)
+    @textView.delegate = self    
   end
 
   def item=(item)
     @item = item
     if @item && @item.editable?
-      string = NSAttributedString.alloc.initWithString(@item.content)
+      attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
+      string = NSAttributedString.alloc.initWithString(@item.content, attributes:attributes)
       # rangePiointer = Pointer.new(NSRange.type)
       # @textView.layoutManager.characterRangeForGlyphRange(N, actualGlyphRange:actualGlyphRange)
       # point = @textView.enclosingScrollView.contentView.bounds.origin
