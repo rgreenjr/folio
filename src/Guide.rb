@@ -12,8 +12,8 @@ class Guide
     @items[index]
   end
 
-  def each
-    @items.each {|i| yield i}
+  def each(&block)
+    @items.each(&block)
   end
 
   def <<(item)

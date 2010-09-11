@@ -9,7 +9,6 @@ class LineNumberRuler < NSRulerView
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     setClientView(scrollView.documentView)
     NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
-    # @font = NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize))
     @font = NSFont.labelFontOfSize(11.0)
     @textColor = NSColor.grayColor
     updateLineIndices
@@ -134,7 +133,7 @@ class LineNumberRuler < NSRulerView
     # lineEndIndex = Pointer.new(:ulong_long)
     # contentsEndIndex = Pointer.new(:ulong_long)
     # 
-    # check if text ends with a new line
+    # # check if text ends with a new line
     # text.getLineStart(nil, end:lineEndIndex[0], contentsEnd:contentsEndIndex[0], forRange:NSMakeRange(@lineIndices.last, 0))
     # 
     # if contentsEndIndex[0] < lineEndIndex[0]
@@ -155,4 +154,11 @@ class LineNumberRuler < NSRulerView
     [DEFAULT_THICKNESS, 2 * RULER_MARGIN + stringSize.width].max
   end
 
+  def requiredThickness	
+  digits = Math.log10(@lineIndices.size + 1)
+  sampleString = "8" * (digits + 2)
+  stringSize = sampleString.sizeWithAttributes(@textAttributes)
+  [DEFAULT_THICKNESS, 2 * RULER_MARGIN + stringSize.width].max.ceil
+  end
+   	
 end

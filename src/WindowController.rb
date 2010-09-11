@@ -100,7 +100,7 @@ class WindowController < NSWindowController
     @splitView.subviews.size > 2 ? hideSourceView : showSourceView
   end
   
-  def hideSourceView
+  def hideSourceView    
     left   = @splitView.subviews[0]
     middle = @splitView.subviews[1]
     right  = @splitView.subviews[2]
