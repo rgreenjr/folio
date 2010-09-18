@@ -32,7 +32,7 @@ class BookController
   def readBook(filename)
     showProgressWindow("Opening...")
     @book = Book.new(filename)
-    @spineController.spine = @book.spine
+    @spineController.book = @book
     @manifestController.manifest = @book.manifest
     @navigationController.book = @book
     @window.title = @book.title
