@@ -99,4 +99,10 @@ class Item
     "    <item id=\"#{@id}\" href=\"#{@href}\" media-type=\"#{@mediaType}\"/>"
   end
 
+  private
+  
+  def uuid
+    (1..4).map { (0..8).map{ rand(16).to_s(16) }.join }.join('-')
+  end
+
 end
