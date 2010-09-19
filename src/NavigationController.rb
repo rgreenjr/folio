@@ -68,26 +68,30 @@ class NavigationController
   end
 
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
-    puts "writeRowsWithIndexes"
-    @draggedItems = points
+    @draggedPoint = points.first
     pboard.declareTypes([NSStringPboardType], owner:self)
     pboard.setString(points.first.text, forType:NSStringPboardType)
     true
   end 
 
   def outlineView(outlineView, validateDrop:info, proposedItem:point, proposedChildIndex:childIndex)
-    puts "validateDrop"
+    return NSDragOperationNone unless point
+    puts "validateDrop point.id = #{point.id}, proposedChildIndex = #{childIndex}"
     NSDragOperationMove
   end
 
   def outlineView(outlineView, acceptDrop:info, item:point, childIndex:childIndex)
-    return false unless @draggedItems
-    puts "acceptDrop"
-    @raggedItems = nil
+    return false unless @draggedPoint
+    # puts "acceptDrop childIndex = #{childIndex}, point.id = #{point.id}"
+    @book.navigation.delete(@draggedPoint)
+    point.insert(childIndex, @draggedPoint)
     @outlineView.reloadData
+    row = @outlineView.rowForItem(@draggedPoint)
+    @outlineView.selectRowIndexes(NSIndexSet.indexSetWithIndex(row), byExtendingSelection:false)    
+    @draggedPoint = nil
     true
   end
-
+  
   def changeText(sender)
     updateAttribute('text', textCell)
   end

@@ -5,13 +5,6 @@ class BookController
   attr_accessor :navigationController, :spineController, :manifestController
 
   def awakeFromNib
-    
-    # file = '/Users/rgreen/code/ruby/css-parser/test/test1.css'
-    # parser = CSSParser.new
-    # result = parser.parse(IO.read(file))
-    # raise "Failed to parse CSS file: " + parser.failure_reason unless result
-    # p parser
-    
     path = NSBundle.mainBundle.pathForResource("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", ofType:"epub")
     readBook(path)
   end
@@ -24,6 +17,7 @@ class BookController
       begin
         readBook(panel.filename)
       rescue Exception => e
+        hideProgressWindow
         showAlert(e)
       end
     end
@@ -41,9 +35,6 @@ class BookController
     @window.makeKeyAndOrderFront(self)
   end
   
-  def saveBookAs(sender)
-  end
-
   def saveBook(sender)
     showProgressWindow("Saving...")
     @book.save("/Users/rgreen/Desktop/")

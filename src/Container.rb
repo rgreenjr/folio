@@ -11,7 +11,7 @@ class Container
     raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless @opfPath
     @base = File.dirname(@opfPath)
     @opfPath = "#{book.base}/#{@opfPath}"
-    @root = File.dirname(@opfPath)
+    @root = File.dirname(@opfPath)    
   end
 
   def opfDoc

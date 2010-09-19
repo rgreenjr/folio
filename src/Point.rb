@@ -3,8 +3,8 @@ class Point
   attr_accessor :id, :playOrder, :text
   attr_accessor :item, :fragment, :expanded
 
-  def initialize
-    @children = []
+  def initialize(expanded=false)
+    @expanded, @children = expanded, []
   end
   
   def src
@@ -45,7 +45,20 @@ class Point
   def <<(point)
     @children << point
   end
-
+  
+  def index(point)
+    each_with_index { |pt, index| return index if point.id == pt.id }
+    nil
+  end
+  
+  def insert(index, point)
+    @children.insert(index, point)
+  end
+  
+  def delete_at(index)
+    @children.delete_at(index)
+  end
+  
   def to_xml(indent=1)
     buffer = ""
     padding = "  " * indent

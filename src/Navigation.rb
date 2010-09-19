@@ -11,8 +11,7 @@ class Navigation
     @title = doc.elements["/#{prefix}ncx/#{prefix}docTitle/#{prefix}text"].text
     # @docAuthor = doc.elements["/ncx/docAuthor/text"].text
 
-    @root = Point.new
-    @root.expanded = true
+    @root = Point.new(true)
     
     point_stack = [@root]
     xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
@@ -37,28 +36,47 @@ class Navigation
         xml_stack.insert(i, e)
       end
     end
-
+  
   end
 
   def depth
     @root.depth - 1
   end
 
-  def [](index)
+  def each(&block)
     stack = [@root]
     while stack.size > 0
-      item = stack.shift
-      return item if index == -1
-      if item.expanded
-        item.each_with_index {|child, i| stack.insert(i, child)}
+      point = stack.shift
+      yield(point)
+      if point.expanded
+        point.each_with_index {|child, i| stack.insert(i, child)}
       end
-      index -= 1
+    end
+  end
+  
+  def each_with_index(&block)
+    index = 0
+    each do |point|
+      yield(point, index)
+      index += 1
     end
   end
 
+  def [](index)
+    each_with_index do |point, idx|
+      return point if index - idx == -1
+    end
+  end
+  
+  def delete(point)
+    each do |pt|
+      index = pt.index(point)
+      return pt.delete_at(index) if index
+    end
+  end
+  
   def save(directory)
     File.open("#{directory}/OEBPS/toc.ncx", 'w') {|f| f.write(to_xml)}
-    # system("mate #{directory}/OEBPS/toc.ncx")
   end
 
   def to_xml
