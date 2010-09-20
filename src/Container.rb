@@ -2,7 +2,7 @@ class Container
 
   CONTAINER_XML_PATH = "/META-INF/container.xml"
 
-  attr_reader :root, :base
+  attr_reader :root, :base, :opfPath
 
   def initialize(book)
     xmlPath = "#{book.base}/#{CONTAINER_XML_PATH}"
@@ -10,17 +10,24 @@ class Container
     @opfPath = REXML::Document.new(File.read(xmlPath)).root.elements["rootfiles/rootfile"].attributes["full-path"]
     raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless @opfPath
     @base = File.dirname(@opfPath)
-    @opfPath = "#{book.base}/#{@opfPath}"
-    @root = File.dirname(@opfPath)    
+    @opfFullPath = "#{book.base}/#{@opfPath}"
+    @root = File.dirname(@opfFullPath)
   end
 
   def opfDoc
-    raise "The OPF file is missing: #{File.basename(@opfPath)}" unless File.exists?(@opfPath)
-    @opfDoc ||= REXML::Document.new(File.read(@opfPath))
+    raise "The OPF file is missing: #{File.basename(@opfFullPath)}" unless File.exists?(@opfFullPath)
+    @opfDoc ||= REXML::Document.new(File.read(@opfFullPath))
   end
 
   def save(directory)
-    FileUtils.cp(NSBundle.mainBundle.pathForResource("container", ofType:"xml"), "#{directory}/#{CONTAINER_XML_PATH}")
+    FileUtils.mkdir_p("#{directory}/#{@base}")
+    FileUtils.mkdir_p("#{directory}/META-INF")
+    File.open("#{directory}/META-INF/container.xml", 'w') {|f| f.write(to_xml)}
+  end
+
+  def to_xml
+    @container = self
+    ERB.new(File.read(NSBundle.mainBundle.pathForResource("container.xml", ofType:"erb"))).result(binding)
   end
 
 end

@@ -76,7 +76,7 @@ class Navigation
   end
   
   def save(directory)
-    File.open("#{directory}/OEBPS/toc.ncx", 'w') {|f| f.write(to_xml)}
+    File.open("#{directory}/toc.ncx", 'w') {|f| f.write(to_xml)}
   end
 
   def to_xml

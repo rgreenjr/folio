@@ -53,8 +53,8 @@
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
 		CD0A2E5E123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5B123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub */; };
+		CD1354381246E4BB006761AF /* container.xml.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD1354371246E4BB006761AF /* container.xml.erb */; };
 		CD80EB7B1232BABB00CEC08F /* CSSParser.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD80EB7A1232BABB00CEC08F /* CSSParser.rb */; };
-		CD83F59D122B3E32005BB914 /* container.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD83F599122B3E32005BB914 /* container.xml */; };
 		CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59A122B3E32005BB914 /* content.opf.erb */; };
 		CD83F59F122B3E32005BB914 /* mimetype in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59B122B3E32005BB914 /* mimetype */; };
 		CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59C122B3E32005BB914 /* toc.ncx.erb */; };
@@ -116,8 +116,8 @@
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
 		CD0A2E5B123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub"; sourceTree = "<group>"; };
+		CD1354371246E4BB006761AF /* container.xml.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml.erb; sourceTree = "<group>"; };
 		CD80EB7A1232BABB00CEC08F /* CSSParser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CSSParser.rb; sourceTree = "<group>"; };
-		CD83F599122B3E32005BB914 /* container.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml; sourceTree = "<group>"; };
 		CD83F59A122B3E32005BB914 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD83F59B122B3E32005BB914 /* mimetype */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mimetype; sourceTree = "<group>"; };
 		CD83F59C122B3E32005BB914 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 		CD83F598122B3E32005BB914 /* templates */ = {
 			isa = PBXGroup;
 			children = (
-				CD83F599122B3E32005BB914 /* container.xml */,
+				CD1354371246E4BB006761AF /* container.xml.erb */,
 				CD83F59A122B3E32005BB914 /* content.opf.erb */,
 				CD83F59B122B3E32005BB914 /* mimetype */,
 				CD83F59C122B3E32005BB914 /* toc.ncx.erb */,
@@ -373,7 +373,6 @@
 				CDBDC8B3122AA9DA00844EAA /* pageUp.png in Resources */,
 				CDBDC8B4122AA9DA00844EAA /* window1.png in Resources */,
 				CDBDC8B5122AA9DA00844EAA /* window2.png in Resources */,
-				CD83F59D122B3E32005BB914 /* container.xml in Resources */,
 				CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */,
 				CD83F59F122B3E32005BB914 /* mimetype in Resources */,
 				CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */,
@@ -401,6 +400,7 @@
 				CD0A2E5E123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub in Resources */,
 				CD80EB7B1232BABB00CEC08F /* CSSParser.rb in Resources */,
 				CDD858AA12385B6900DD7E7A /* LineNumberRuler.rb in Resources */,
+				CD1354381246E4BB006761AF /* container.xml.erb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

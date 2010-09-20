@@ -75,14 +75,11 @@ class NavigationController
   end 
 
   def outlineView(outlineView, validateDrop:info, proposedItem:point, proposedChildIndex:childIndex)
-    return NSDragOperationNone unless point
-    puts "validateDrop point.id = #{point.id}, proposedChildIndex = #{childIndex}"
-    NSDragOperationMove
+    point ? NSDragOperationMove : NSDragOperationNone
   end
 
   def outlineView(outlineView, acceptDrop:info, item:point, childIndex:childIndex)
     return false unless @draggedPoint
-    # puts "acceptDrop childIndex = #{childIndex}, point.id = #{point.id}"
     @book.navigation.delete(@draggedPoint)
     point.insert(childIndex, @draggedPoint)
     @outlineView.reloadData

@@ -20,14 +20,12 @@ class Book
   def save(directory)
     tmp = Dir.mktmpdir("folio-zip-")
     epubFilename = "#{directory}/#{@title}.epub"
-    FileUtils.mkdir_p(["#{tmp}/META-INF", "#{tmp}/OEBPS"])
     FileUtils.cp(NSBundle.mainBundle.pathForResource("mimetype", ofType:nil), "#{tmp}/mimetype")
     @container.save(tmp)
     @manifest.save(tmp)
-    @navigation.save(tmp)
-    # `open #{tmp}`
-    File.open("#{tmp}/OEBPS/content.opf", "w") {|f| f.puts to_xml}
-    # system("mate #{tmp}/OEBPS/content.opf")
+    @navigation.save("#{tmp}/#{@container.base}")
+    `open #{tmp}`
+    File.open("#{tmp}/#{@container.base}/content.opf", "w") {|f| f.puts to_xml}
     system("cd '#{tmp}'; zip -qX0 '#{epubFilename}' mimetype")
     system("cd '#{tmp}'; zip -qX9urD '#{epubFilename}' *")
   end
