@@ -34,7 +34,7 @@ class Manifest
     while stack.size > 0
       item = stack.shift
       return item if index == -1
-      if item.expanded
+      if item.expanded?
         item.each_with_index {|child, i| stack.insert(i, child)}
       end
       index -= 1

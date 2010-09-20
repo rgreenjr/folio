@@ -2,7 +2,7 @@ require 'open-uri'
 
 class Item
 
-  attr_accessor :id, :href, :mediaType, :content, :name, :uri, :expanded
+  attr_accessor :id, :href, :mediaType, :content, :name, :uri
 
   def initialize(uri, href, id, mediaType, expanded=false)
     @id = id
@@ -67,6 +67,14 @@ class Item
     @children.empty?
   end
 
+  def expanded?
+    @expanded
+  end
+  
+  def expanded=(flag)
+    @expanded = flag
+  end
+  
   def size
     @children.size
   end

@@ -26,6 +26,14 @@ class Point
     1 + @children.inject(0) {|max, point| [point.depth, max].max}
   end
 
+  def expanded?
+    @expanded
+  end
+  
+  def expanded=(flag)
+    @expanded = flag
+  end
+  
   def size
     @children.size
   end
