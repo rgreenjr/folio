@@ -1,20 +1,21 @@
 class Point
 
-  attr_accessor :id, :playOrder, :text
-  attr_accessor :item, :fragment, :expanded
+  attr_accessor :id, :playOrder, :text, :item, :fragment
 
   def initialize(expanded=false)
     @expanded, @children = expanded, []
   end
   
-  def src
-    @fragment ? "#{@item.href}##{@fragment}" : @item.href
+  def uri
+    URI.join('file:/', @item.path, fragment)
   end
   
-  def uri
-    u = @item.uri.dup
-    u.fragment = @fragment
-    u
+  def src
+    "#{@item.href}#{fragment}"
+  end
+  
+  def fragment
+    @fragment ? "##{@fragment}" : ""
   end
   
   def text=(string)
@@ -30,8 +31,8 @@ class Point
     @expanded
   end
   
-  def expanded=(flag)
-    @expanded = flag
+  def expanded=(bool)
+    @expanded = bool
   end
   
   def size
@@ -53,7 +54,7 @@ class Point
   def <<(point)
     @children << point
   end
-  
+
   def index(point)
     each_with_index { |pt, index| return index if point.id == pt.id }
     nil
@@ -94,4 +95,3 @@ class Point
   end
 
 end
-

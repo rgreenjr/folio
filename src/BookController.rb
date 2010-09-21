@@ -46,7 +46,7 @@ class BookController
   end
 
   def showTemporaryDirectory(sender)
-    system("open #{@book.base}")
+    system("open #{@book.path}")
   end
 
   private

@@ -10,7 +10,7 @@ class Book
   attr_accessor :title, :language, :identifier
   attr_accessor :creator, :contributor, :publisher, :subject, :description
   attr_accessor :date, :type, :format, :source, :relation, :coverage, :rights
-  attr_accessor :container, :manifest, :spine, :guide, :navigation, :base
+  attr_accessor :container, :manifest, :spine, :guide, :navigation, :path
 
   def initialize(filepath)
     @filepath = filepath
@@ -19,13 +19,14 @@ class Book
 
   def save(directory)
     tmp = Dir.mktmpdir("folio-zip-")
+    `open #{tmp}`
     epubFilename = "#{directory}/#{@title}.epub"
     FileUtils.cp(NSBundle.mainBundle.pathForResource("mimetype", ofType:nil), "#{tmp}/mimetype")
     @container.save(tmp)
-    @manifest.save(tmp)
-    @navigation.save("#{tmp}/#{@container.base}")
-    `open #{tmp}`
-    File.open("#{tmp}/#{@container.base}/content.opf", "w") {|f| f.puts to_xml}
+    dest = File.join(tmp, @container.root)
+    @manifest.save(dest)
+    @navigation.save(dest)
+    File.open("#{tmp}/#{@container.root}/content.opf", "w") {|f| f.puts to_xml}
     system("cd '#{tmp}'; zip -qX0 '#{epubFilename}' mimetype")
     system("cd '#{tmp}'; zip -qX9urD '#{epubFilename}' *")
   end
@@ -43,10 +44,10 @@ class Book
   end
 
   def unzip
-    @base = Dir.mktmpdir("folio-unzip-")
-    system("unzip -q -d '#{@base}' '#{@filepath}'")
+    @path = Dir.mktmpdir("folio-unzip-")
+    system("unzip -q -d '#{@path}' '#{@filepath}'")
   end
-
+  
   def parseMetadata
     @container.opfDoc.elements.each("/package/metadata/*") do |e|
       case e.name

@@ -2,31 +2,38 @@ class Container
 
   CONTAINER_XML_PATH = "/META-INF/container.xml"
 
-  attr_reader :root, :base, :opfPath
+  # /var/tmp/foo/OEBPS => path
+  # OEBPS => root
+
+  attr_reader :root, :path, :opfDoc
 
   def initialize(book)
-    xmlPath = "#{book.base}/#{CONTAINER_XML_PATH}"
+    xmlPath = File.join(book.path, CONTAINER_XML_PATH)
     raise "The #{CONTAINER_XML_PATH} file is missing." unless File.exists?(xmlPath)
-    @opfPath = REXML::Document.new(File.read(xmlPath)).root.elements["rootfiles/rootfile"].attributes["full-path"]
-    raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless @opfPath
-    @base = File.dirname(@opfPath)
-    @opfFullPath = "#{book.base}/#{@opfPath}"
-    @root = File.dirname(@opfFullPath)
-  end
+    
+    xml = REXML::Document.new(File.read(xmlPath))
+    
+    opfPath = xml.root.elements["rootfiles/rootfile"].attributes["full-path"]
+    raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless opfPath
 
-  def opfDoc
-    raise "The OPF file is missing: #{File.basename(@opfFullPath)}" unless File.exists?(@opfFullPath)
-    @opfDoc ||= REXML::Document.new(File.read(@opfFullPath))
-  end
+    @root = File.dirname(opfPath).split('/').last
+    @root = '' if @root == '.'
+    
+    @path = File.join(book.path, @root)
 
+    opfPath = File.join(book.path, opfPath)
+    raise "The OPF file is missing: #{File.basename(opfPath)}" unless File.exists?(opfPath)
+    @opfDoc = REXML::Document.new(File.read(opfPath))
+  end
+  
   def save(directory)
-    FileUtils.mkdir_p("#{directory}/#{@base}")
+    FileUtils.mkdir_p("#{directory}/#{@root}")
     FileUtils.mkdir_p("#{directory}/META-INF")
     File.open("#{directory}/META-INF/container.xml", 'w') {|f| f.write(to_xml)}
   end
 
   def to_xml
-    @container = self
+    opfPath = @root == '' ? "content.opf" : "#{@root}/content.opf"
     ERB.new(File.read(NSBundle.mainBundle.pathForResource("container.xml", ofType:"erb"))).result(binding)
   end
 

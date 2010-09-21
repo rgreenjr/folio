@@ -22,7 +22,7 @@ class Navigation
 
         uri = URI.parse(e.elements["#{prefix}content"].attributes["src"])
         item = book.manifest.itemWithHref(uri.path)
-        raise "Navigation point src is missing: #{uri.path}" unless item
+        raise "Navigation point is missing: #{uri.path}" unless item
 
         child           = Point.new
         child.id        = e.attributes["id"]
@@ -43,20 +43,20 @@ class Navigation
     @root.depth - 1
   end
 
-  def each(&block)
+  def each(includeCollapsed=false, &block)
     stack = [@root]
     while stack.size > 0
       point = stack.shift
       yield(point)
-      if point.expanded
+      if point.expanded? || includeCollapsed
         point.each_with_index {|child, i| stack.insert(i, child)}
       end
     end
   end
   
-  def each_with_index(&block)
+  def each_with_index(includeCollapsed=false, &block)
     index = 0
-    each do |point|
+    each(includeCollapsed) do |point|
       yield(point, index)
       index += 1
     end

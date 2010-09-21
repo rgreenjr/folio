@@ -89,6 +89,17 @@ class NavigationController
     true
   end
   
+  def addPoint(sender)
+    point = Point.new
+    point.text = "New Table of Contents Entry"
+    point.id = 'foo'
+    point.item = @book.spine[-1]
+    @book.navigation.root.insert(-1, point)
+    @outlineView.reloadData
+    row = @outlineView.rowForItem(point)
+    @outlineView.selectRowIndexes(NSIndexSet.indexSetWithIndex(row), byExtendingSelection:false)    
+  end
+  
   def changeText(sender)
     updateAttribute('text', textCell)
   end

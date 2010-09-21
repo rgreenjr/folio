@@ -4,28 +4,36 @@ class Manifest
 
   def initialize(book)
     @hash  = {}
-    @root = Item.new("file://#{book.container.root}", book.container.base, 'ROOT', 'directory', true)
+    @root = Item.new(nil, book.container.path, 'ROOT', 'directory', true)
     book.container.opfDoc.elements.each("/package/manifest/item") do |e|
-      parts = e.attributes["href"].split('/')
       parent = @root
+      parts = e.attributes["href"].split('/')
       parts.each_with_index do |part, index|
         break if index == (parts.size - 1)
         directory = parent.find(part)
         if directory == nil
-          directory = Item.new("#{parent.uri}/#{part}", part, part, 'directory')
+          directory = Item.new(parent, part, "directory-#{part}", 'directory')
           parent << directory
         end
         parent = directory
       end
-      item = Item.new("#{parent.uri}/#{parts.last}", e.attributes["href"], e.attributes["id"], e.attributes["media-type"])
+      item = Item.new(parent, parts.last, e.attributes["id"], e.attributes["media-type"])
       if item.ncx?
-        ncxID = book.container.opfDoc.elements["/package/spine"].attributes["toc"]
-        @ncx = item if item.id == ncxID
+        @ncx = item
       else
         parent << item
-        raise "Manifest item id is not unique: #{item.id}" if @hash[item.id]      
+        raise "Manifest item already exists with id=#{item.id}" if @hash[item.id]      
         @hash[item.id] = item
       end
+    end
+  end
+
+  def each(dirs=false, &block)
+    stack = [@root]
+    while stack.size > 0
+      item = stack.shift
+      item.each {|child| stack << child}
+      yield item unless (item.directory? && !dirs) || item.ncx?
     end
   end
 
@@ -41,28 +49,21 @@ class Manifest
     end
   end
 
-  def each
-    stack = [@root]
-    while stack.size > 0
-      item = stack.shift
-      item.each {|child| stack << child}
-      yield item unless item.directory? || item.ncx?
-    end
-  end
-
   def itemWithId(identifier)
     @hash[identifier]
   end
 
   def itemWithHref(href)
-    each {|item| return item if item.href == href}
-    nil
+    current = @root
+    parts = href.split('/')
+    while !parts.empty? && current
+      current = current.find(parts.shift)
+    end
+    current
   end
   
   def save(directory)
-    src  = File.join(@root.uri.path, '.')
-    dest = File.join(directory, @root.href)
-    FileUtils.cp_r(src, dest)
+    each(true) {|item| item.save(directory)}
   end
 
 end

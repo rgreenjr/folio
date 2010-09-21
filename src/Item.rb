@@ -2,38 +2,42 @@ require 'open-uri'
 
 class Item
 
-  attr_accessor :id, :href, :mediaType, :content, :name, :uri
+  attr_accessor :id, :mediaType, :content, :name, :parent
 
-  def initialize(uri, href, id, mediaType, expanded=false)
-    @id = id
-    @uri = URI.parse(uri)
-    @href = href
-    @mediaType = mediaType
-    @name = @href.split('/').last
-    @children = []
-    @expanded = expanded
+  def initialize(parent, name, id, mediaType, expanded=false)
+    @parent, @name, @id, @mediaType, @expanded, @children = parent, name, id, mediaType, expanded, []
   end
   
-  def content
-    @content ||= File.read(@uri.path)
+  def path
+    @parent ? File.join(@parent.path, @name) : @name
+  end
+  
+  def href
+    return '' unless @parent
+    @parent.href == '' ? @name : "#{@parent.href}/#{@name}"
+  end
+  
+  def uri
+    URI.join('file:/', self.path)
   end
 
+  def content
+    @content ||= File.read(self.path)
+  end
+  
   def content=(content)
     @content = content
-    save
   end
-  
+
   def name=(string)
     string = string.strip.gsub(%r{[/"*:<>\?\\]}, '_')
     @name = string if string.size > 0
   end
   
   def links
-    puts @href
     REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
       puts element
     end
-    puts "-------------------"
   rescue
     nil
   end
@@ -56,7 +60,7 @@ class Item
 
   def tidy
     return unless tidyable?
-    self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{@href}'`
+    self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{href}'`
   end
 
   def directory?
@@ -71,8 +75,8 @@ class Item
     @expanded
   end
   
-  def expanded=(flag)
-    @expanded = flag
+  def expanded=(bool)
+    @expanded = bool
   end
   
   def size
@@ -99,16 +103,15 @@ class Item
     @children.find {|item| item.name == name}
   end
   
-  def save
-    File.open(@uri.path, 'wb') {|file| file.puts @content}
-  end
-  
-  def to_xml
-    "    <item id=\"#{@id}\" href=\"#{@href}\" media-type=\"#{@mediaType}\"/>"
+  def save(directory)
+    file = File.join(directory, href)
+    if directory?
+      FileUtils.mkdir_p(file)
+    else
+      File.open(file, 'wb') {|f| f.puts content}
+    end
   end
 
-  private
-  
   def uuid
     (1..4).map { (0..8).map{ rand(16).to_s(16) }.join }.join('-')
   end
