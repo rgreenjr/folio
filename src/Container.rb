@@ -10,10 +10,8 @@ class Container
   def initialize(book)
     xmlPath = File.join(book.path, CONTAINER_XML_PATH)
     raise "The #{CONTAINER_XML_PATH} file is missing." unless File.exists?(xmlPath)
-    
-    xml = REXML::Document.new(File.read(xmlPath))
-    
-    opfPath = xml.root.elements["rootfiles/rootfile"].attributes["full-path"]
+    doc = REXML::Document.new(File.read(xmlPath))
+    opfPath = doc.root.elements["rootfiles/rootfile"].attributes["full-path"]
     raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless opfPath
 
     @root = File.dirname(opfPath).split('/').last
@@ -22,6 +20,7 @@ class Container
     @path = File.join(book.path, @root)
 
     opfPath = File.join(book.path, opfPath)
+    
     raise "The OPF file is missing: #{File.basename(opfPath)}" unless File.exists?(opfPath)
     @opfDoc = REXML::Document.new(File.read(opfPath))
   end
@@ -33,7 +32,7 @@ class Container
   end
 
   def to_xml
-    opfPath = @root == '' ? "content.opf" : "#{@root}/content.opf"
+    opfPath = @root.emtpy? ? "content.opf" : "#{@root}/content.opf"
     ERB.new(File.read(NSBundle.mainBundle.pathForResource("container.xml", ofType:"erb"))).result(binding)
   end
 

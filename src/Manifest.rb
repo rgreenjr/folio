@@ -26,6 +26,7 @@ class Manifest
         @hash[item.id] = item
       end
     end
+    raise "The NCX is missing." unless @ncx
   end
 
   def each(dirs=false, &block)
@@ -52,7 +53,7 @@ class Manifest
   def itemWithId(identifier)
     @hash[identifier]
   end
-
+  
   def itemWithHref(href)
     current = @root
     parts = href.split('/')

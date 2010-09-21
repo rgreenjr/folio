@@ -22,17 +22,17 @@ class Navigation
       parent = point_stack.shift
       element = xml_stack.shift
       element.elements.each_with_index("#{prefix}navPoint") do |e, i|
+        href, fragment = e.elements["#{prefix}content"].attributes["src"].split('#')
 
-        uri = URI.parse(e.elements["#{prefix}content"].attributes["src"])
-        item = book.manifest.itemWithHref(uri.path)
-        raise "Navigation point is missing: #{uri.path}" unless item
+        item = book.manifest.itemWithHref(href)
+        raise "Navigation point is missing: src=#{href}" unless item
 
         child           = Point.new
         child.id        = e.attributes["id"]
         child.playOrder = e.attributes["playOrder"]
         child.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
         child.item      = item
-        child.fragment  = uri.fragment
+        child.fragment  = fragment
 
         parent << child
         point_stack.insert(i, child)

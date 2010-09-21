@@ -2,7 +2,6 @@ class Spine
 
   def initialize(book)
     @items = []
-    raise "The NCX file is missing." unless book.manifest.ncx
     book.container.opfDoc.elements.each("/package/spine/itemref") do |element|
       idref = element.attributes["idref"]
       item = book.manifest.itemWithId(idref)
@@ -13,10 +12,6 @@ class Spine
 
   def size
     @items.size
-  end
-
-  def first
-    @items.first
   end
 
   def each(&block)

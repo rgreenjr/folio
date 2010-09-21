@@ -12,12 +12,9 @@ class NavigationController
   end
 
   def book=(book)
-    @webViewController.item = nil
-    @textViewController.item = nil
+    renderPoint(nil)
     @book = book
     @outlineView.reloadData
-    @outlineView.expandItem(@book.navigation.root[0], expandChildren:true) # if @book.navigation.root.size > 0
-    # @outlineView.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection:false)
     disableProperties
   end
 
@@ -49,17 +46,14 @@ class NavigationController
   def outlineViewSelectionDidChange(notification)
     if @outlineView.selectedRow < 0
       disableProperties
-      @webViewController.item = nil
-      @textViewController.item = nil
+      renderPoint(nil)
     else
       point = @book.navigation[@outlineView.selectedRow]
-      @webViewController.item = point
-      @textViewController.item = point
+      renderPoint(point)
       textCell.stringValue = point.text
       idCell.stringValue = point.id
       sourceCell.stringValue = point.src
       enableProperties
-      # point.item.links
     end
   end
 
@@ -70,7 +64,7 @@ class NavigationController
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
     @draggedPoint = points.first
     pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setString(points.first.text, forType:NSStringPboardType)
+    pboard.setString(@draggedPoint.text, forType:NSStringPboardType)
     true
   end 
 
@@ -83,21 +77,23 @@ class NavigationController
     @book.navigation.delete(@draggedPoint)
     point.insert(childIndex, @draggedPoint)
     @outlineView.reloadData
-    row = @outlineView.rowForItem(@draggedPoint)
-    @outlineView.selectRowIndexes(NSIndexSet.indexSetWithIndex(row), byExtendingSelection:false)    
+    selectPoint(@draggedPoint)
     @draggedPoint = nil
     true
   end
   
+  def selectPoint(point)
+    row = @outlineView.rowForItem(point)
+    indices = NSIndexSet.indexSetWithIndex(row)
+    @outlineView.selectRowIndexes(indices, byExtendingSelection:false)    
+  end
+  
   def addPoint(sender)
     point = Point.new
-    point.text = "New Table of Contents Entry"
-    point.id = 'foo'
     point.item = @book.spine[-1]
     @book.navigation.root.insert(-1, point)
     @outlineView.reloadData
-    row = @outlineView.rowForItem(point)
-    @outlineView.selectRowIndexes(NSIndexSet.indexSetWithIndex(row), byExtendingSelection:false)    
+    selectPoint(point)
   end
   
   def changeText(sender)
@@ -111,23 +107,16 @@ class NavigationController
   def changeSource(sender)
     point = @book.navigation[@outlineView.selectedRow]
     return unless point
-    uri = URI.parse(sourceCell.stringValue)
-    item = @book.manifest.itemWithHref(uri.path)
-    
+    href, fragment = sourceCell.stringValue.split('#')
+    item = @book.manifest.itemWithHref(href)
     unless item
-      alert = NSAlert.alloc.init
-      alert.addButtonWithTitle "OK"
-      alert.messageText = "Error"
-      alert.informativeText = "Source is not valid: #{uri.to_s}"
-      alert.runModal
+      showAlert("Source is not valid: #{sourceCell.stringValue}")
       sourceCell.stringValue = point.src
       return
     end
-
     point.item = item
-    point.fragment = uri.fragment
-    @webViewController.item = point
-    @textViewController.item = point
+    point.fragment = fragment
+    renderPoint(point)
   end
 
   private
@@ -162,6 +151,19 @@ class NavigationController
   
   def propertyCells
     [textCell, idCell, sourceCell]
+  end
+  
+  def showAlert(message)
+    alert = NSAlert.alloc.init
+    alert.addButtonWithTitle "OK"
+    alert.messageText = "Error"
+    alert.informativeText = message
+    alert.runModal
+  end
+  
+  def renderPoint(item)
+    @webViewController.item = item
+    @textViewController.item = item
   end
 
 end

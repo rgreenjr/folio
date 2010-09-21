@@ -31,7 +31,7 @@ class SpineController
   def addPage(sender)
     index = @tableView.selectedRow
     index = @book.spine.size if index < 0
-    # item = Item.new("file://#{@book.container.root}/NewPage.xhtml", "#{@book.container.base}/NewPage.xhtml", Item.uuid, 'application/xhtml+xml')
+    # item = Item.new("file://#{@book.container.root}/NewPage.xhtml", "#{@book.container.base}/NewPage.xhtml", UUID.create, 'application/xhtml+xml')
     item.content = ''
     @book.spine.insert(index, item)
     @tableView.reloadData

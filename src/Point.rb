@@ -3,26 +3,26 @@ class Point
   attr_accessor :id, :playOrder, :text, :item, :fragment
 
   def initialize(expanded=false)
-    @expanded, @children = expanded, []
+    @id, @text, @expanded, @children = UUID.create, "New Point", expanded, []
   end
-  
+
   def uri
     URI.join('file:/', @item.path.gsub(/ /, '%20'), fragment)
   end
-  
+
   def src
     "#{@item.href}#{fragment}"
   end
-  
+
   def fragment
     @fragment ? "##{@fragment}" : ""
   end
-  
+
   def text=(string)
     string = string.strip
     @text = string if string.size > 0
   end
-  
+
   def depth
     1 + @children.inject(0) {|max, point| [point.depth, max].max}
   end
@@ -30,11 +30,11 @@ class Point
   def expanded?
     @expanded
   end
-  
+
   def expanded=(bool)
     @expanded = bool
   end
-  
+
   def size
     @children.size
   end
@@ -59,15 +59,15 @@ class Point
     each_with_index { |pt, index| return index if point.id == pt.id }
     nil
   end
-  
+
   def insert(index, point)
     @children.insert(index, point)
   end
-  
+
   def delete_at(index)
     @children.delete_at(index)
   end
-  
+
   def to_xml(indent=1)
     buffer = ""
     padding = "  " * indent
@@ -81,11 +81,11 @@ class Point
     end
     buffer << "#{padding}</navPoint>\n"
   end
-  
+
   def editable?
     @item.editable?
   end
-  
+
   def content
     @item.content
   end

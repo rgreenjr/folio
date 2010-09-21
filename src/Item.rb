@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class Item
 
   attr_accessor :id, :mediaType, :content, :name, :parent
@@ -59,16 +57,13 @@ class Item
   end
 
   def tidy
-    return unless tidyable?
-    self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{href}'`
+    if tidyable?
+      self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{href}'`
+    end
   end
 
   def directory?
     @mediaType == 'directory'
-  end
-
-  def leaf?
-    @children.empty?
   end
 
   def expanded?
@@ -110,10 +105,6 @@ class Item
     else
       File.open(file, 'wb') {|f| f.puts content}
     end
-  end
-
-  def uuid
-    (1..4).map { (0..8).map{ rand(16).to_s(16) }.join }.join('-')
   end
 
 end

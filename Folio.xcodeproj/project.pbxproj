@@ -49,6 +49,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD02D4C0124952C8007DC4B7 /* UUID.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD02D4BF124952C8007DC4B7 /* UUID.rb */; };
+		CD02D4D412496A1B007DC4B7 /* Metadata.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD02D4D312496A1B007DC4B7 /* Metadata.rb */; };
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
@@ -112,6 +114,8 @@
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Folio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Folio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD02D4BF124952C8007DC4B7 /* UUID.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = UUID.rb; sourceTree = "<group>"; };
+		CD02D4D312496A1B007DC4B7 /* Metadata.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Metadata.rb; sourceTree = "<group>"; };
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				CDD858A912385B6900DD7E7A /* LineNumberRuler.rb */,
 				CDE448F512305CA2001C69AE /* Manifest.rb */,
 				CDE448F612305CA2001C69AE /* ManifestController.rb */,
+				CD02D4D312496A1B007DC4B7 /* Metadata.rb */,
 				CDE448F712305CA2001C69AE /* Navigation.rb */,
 				CDE448F812305CA2001C69AE /* NavigationController.rb */,
 				CDE448F912305CA2001C69AE /* Point.rb */,
@@ -296,6 +301,7 @@
 				CDE448FC12305CA2001C69AE /* TextViewController.rb */,
 				CDE448FD12305CA2001C69AE /* WebViewController.rb */,
 				CDE448FE12305CA2001C69AE /* WindowController.rb */,
+				CD02D4BF124952C8007DC4B7 /* UUID.rb */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -401,6 +407,8 @@
 				CD80EB7B1232BABB00CEC08F /* CSSParser.rb in Resources */,
 				CDD858AA12385B6900DD7E7A /* LineNumberRuler.rb in Resources */,
 				CD1354381246E4BB006761AF /* container.xml.erb in Resources */,
+				CD02D4C0124952C8007DC4B7 /* UUID.rb in Resources */,
+				CD02D4D412496A1B007DC4B7 /* Metadata.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
