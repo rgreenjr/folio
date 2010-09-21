@@ -7,7 +7,7 @@ class Point
   end
   
   def uri
-    URI.join('file:/', @item.path, fragment)
+    URI.join('file:/', @item.path.gsub(/ /, '%20'), fragment)
   end
   
   def src

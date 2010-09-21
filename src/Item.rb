@@ -18,7 +18,7 @@ class Item
   end
   
   def uri
-    URI.join('file:/', self.path)
+    URI.join('file:/', self.path.gsub(/ /, '%20'))
   end
 
   def content

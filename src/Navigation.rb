@@ -3,16 +3,19 @@ class Navigation
   attr_accessor :id, :title, :creator, :docAuthor, :root
 
   def initialize(book)
-    doc = REXML::Document.new(book.manifest.ncx.content)    
+    doc = REXML::Document.new(book.manifest.ncx.content)
         
     prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
 
     @id = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:uid']"].attributes["content"]
     @title = doc.elements["/#{prefix}ncx/#{prefix}docTitle/#{prefix}text"].text
-    # @docAuthor = doc.elements["/ncx/docAuthor/text"].text
+    
+    if doc.elements["/ncx/docAuthor/text"]
+      @docAuthor = doc.elements["/ncx/docAuthor/text"].text
+    end
 
     @root = Point.new(true)
-    
+
     point_stack = [@root]
     xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
     while point_stack.size > 0
@@ -36,7 +39,7 @@ class Navigation
         xml_stack.insert(i, e)
       end
     end
-  
+
   end
 
   def depth
@@ -53,7 +56,7 @@ class Navigation
       end
     end
   end
-  
+
   def each_with_index(includeCollapsed=false, &block)
     index = 0
     each(includeCollapsed) do |point|
@@ -67,14 +70,14 @@ class Navigation
       return point if index - idx == -1
     end
   end
-  
+
   def delete(point)
     each do |pt|
       index = pt.index(point)
       return pt.delete_at(index) if index
     end
   end
-  
+
   def save(directory)
     File.open("#{directory}/toc.ncx", 'w') {|f| f.write(to_xml)}
   end

@@ -12,7 +12,7 @@ class WebViewController
       request = NSURLRequest.requestWithURL(NSURL.URLWithString(@item.uri.to_s))
       @webView.mainFrame.loadRequest(request)
     else
-      @webView.mainFrame.loadHTMLString('', baseURL:nil)      
+      @webView.mainFrame.loadHTMLString('', baseURL:nil)
     end
   end
 
