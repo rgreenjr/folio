@@ -16,11 +16,11 @@ class Item
   end
   
   def uri
-    URI.join('file:/', self.path.gsub(/ /, '%20'))
+    URI.join('file:/', path.gsub(/ /, '%20'))
   end
 
   def content
-    @content ||= File.read(self.path)
+    @content ||= File.read(path)
   end
   
   def content=(content)
@@ -29,7 +29,12 @@ class Item
 
   def name=(name)
     name = name.sanitize
-    @name = name unless name.empty?
+    unless name.empty?
+      old = path
+      @name = name
+      File.rename(old, path)
+    end
+    @name
   end
   
   def links
