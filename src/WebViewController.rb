@@ -3,7 +3,7 @@ class WebViewController
   attr_accessor :webView, :item
 
   def awakeFromNib
-    @webView.editable = true
+    @webView.editable = false
   end
 
   def item=(item)
