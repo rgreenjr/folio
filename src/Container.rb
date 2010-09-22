@@ -10,7 +10,9 @@ class Container
   def initialize(book)
     xmlPath = File.join(book.path, CONTAINER_XML_PATH)
     raise "The #{CONTAINER_XML_PATH} file is missing." unless File.exists?(xmlPath)
+    
     doc = REXML::Document.new(File.read(xmlPath))
+    
     opfPath = doc.root.elements["rootfiles/rootfile"].attributes["full-path"]
     raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless opfPath
 
@@ -28,11 +30,11 @@ class Container
   def save(directory)
     FileUtils.mkdir_p("#{directory}/#{@root}")
     FileUtils.mkdir_p("#{directory}/META-INF")
-    File.open("#{directory}/META-INF/container.xml", 'w') {|f| f.write(to_xml)}
+    File.open("#{directory}/META-INF/container.xml", "w") {|f| f.write(to_xml)}
   end
 
   def to_xml
-    opfPath = @root.emtpy? ? "content.opf" : "#{@root}/content.opf"
+    opfPath = @root.empty? ? "content.opf" : "#{@root}/content.opf"
     ERB.new(File.read(NSBundle.mainBundle.pathForResource("container.xml", ofType:"erb"))).result(binding)
   end
 

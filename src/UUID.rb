@@ -1,7 +1,7 @@
 class UUID
 
   def self.create
-    field(8) + '-' + field(4) + '-' + field(4) + '-' + field(4) + '-' + field(12)
+    [field(8), field(4), field(4), field(4), field(12)].join('-')
   end
   
   def self.field(length)

@@ -2,7 +2,7 @@ require "rexml/document"
 require "fileutils"
 require "erb"
 require "tempfile"
-require 'open-uri'
+require "open-uri"
 
 # http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html
 
@@ -23,21 +23,25 @@ class Book
 
   def save(directory)
     tmp = Dir.mktmpdir("folio-zip-")
-    `open #{tmp}`
-    epubFilename = "#{directory}/#{@title}.epub"
-    FileUtils.cp(NSBundle.mainBundle.pathForResource("mimetype", ofType:nil), "#{tmp}/mimetype")
+    system("open #{tmp}")
+    File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
     @container.save(tmp)
     dest = File.join(tmp, @container.root)
     @manifest.save(dest)
     @navigation.save(dest)
-    File.open("#{tmp}/#{@container.root}/content.opf", "w") {|f| f.puts to_xml}
-    system("cd '#{tmp}'; zip -qX0 '#{epubFilename}' mimetype")
-    system("cd '#{tmp}'; zip -qX9urD '#{epubFilename}' *")
+    File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opf_xml}
+    epub = File.join(directory, "#{title.sanitize}.epub")
+    system("cd '#{tmp}'; zip -qX0 '#{epub}' mimetype")
+    system("cd '#{tmp}'; zip -qX9urD '#{epub}' *")
   end
 
-  def to_xml
-    @book = self
+  def opf_xml
+    book = self
     ERB.new(File.read(NSBundle.mainBundle.pathForResource("content.opf", ofType:"erb"))).result(binding)
+  end
+  
+  def description
+    @metadata.description
   end
 
   def method_missing(method, *args)

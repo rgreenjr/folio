@@ -2,27 +2,27 @@
 <package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">
 
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title><%= @book.title %></dc:title>
+    <dc:title><%= book.title %></dc:title>
     <dc:language>en</dc:language>
-    <dc:identifier id="BookId" opf:scheme="ISBN"><%= @book.identifier %></dc:identifier>
-    <dc:creator opf:file-as="<%= @book.creator %>" opf:role="aut"><%= @book.creator %></dc:creator>
-    <dc:date opf:event="publication"><%= @book.date %></dc:date>
-    <dc:subject><%= @book.subject %></dc:subject>
-    <dc:description><%= @book.description %></dc:description>
-    <dc:subject><%= @book.subject %></dc:subject>
-    <dc:rights><%= @book.rights %></dc:rights>
+    <dc:identifier id="BookId" opf:scheme="ISBN"><%= book.identifier %></dc:identifier>
+    <dc:creator opf:file-as="<%= book.creator %>" opf:role="aut"><%= book.creator %></dc:creator>
+    <dc:date opf:event="publication"><%= book.date %></dc:date>
+    <dc:subject><%= book.subject %></dc:subject>
+    <dc:description><%= book.description %></dc:description>
+    <dc:subject><%= book.subject %></dc:subject>
+    <dc:rights><%= book.rights %></dc:rights>
   </metadata>
 
-  <manifest><% @book.manifest.each do |item| %>
+  <manifest><% book.manifest.each do |item| %>
     <item id="<%= item.id %>" href="<%= item.href %>" media-type="<%= item.mediaType %>" /><% end %>
-	<item id="ncx" href="<%= @book.manifest.ncx.href %>" media-type="<%= @book.manifest.ncx.mediaType %>" />
+	<item id="ncx" href="<%= book.manifest.ncx.href %>" media-type="<%= book.manifest.ncx.mediaType %>" />
   </manifest>
 
-  <spine toc="ncx"><% @book.spine.each do |item| %>
+  <spine toc="ncx"><% book.spine.each do |item| %>
     <itemref idref="<%= item.id %>" /><% end %>
   </spine>
 
-  <guide><% @book.guide.each do |item| %>
+  <guide><% book.guide.each do |item| %>
     <reference type="<%= item.referenceType %>" title="<%= item.referenceTitle %>" href="<%= item.href %>" /><% end %>
   </guide>
 

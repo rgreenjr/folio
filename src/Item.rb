@@ -27,9 +27,9 @@ class Item
     @content = content
   end
 
-  def name=(string)
-    string = string.strip.gsub(%r{[/"*:<>\?\\]}, '_')
-    @name = string if string.size > 0
+  def name=(name)
+    name = name.sanitize
+    @name = name unless name.empty?
   end
   
   def links
