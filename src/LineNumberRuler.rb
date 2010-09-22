@@ -9,7 +9,7 @@ class LineNumberRuler < NSRulerView
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     setClientView(scrollView.documentView)
     ctr = NSNotificationCenter.defaultCenter
-    ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:nil)
+    ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
     @font = NSFont.labelFontOfSize(11.0)
     @textColor = NSColor.grayColor
     updateLineIndices
