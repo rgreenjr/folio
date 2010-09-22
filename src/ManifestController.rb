@@ -51,6 +51,7 @@ class ManifestController
       @typePopUpButton.selectItemWithTitle('')
     else
       item = @manifest[@outlineView.selectedRow]
+      p item.path
       if item.directory?
         disableProperties
         @typePopUpButton.selectItemWithTitle(item.mediaType)

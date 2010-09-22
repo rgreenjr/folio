@@ -26,4 +26,12 @@ class Spine
     @items[index]
   end
 
+  def delete_at(index)
+    @items.delete_at(index)
+  end
+
+  def insert(index, item)
+    @items.insert(index, item)
+  end
+
 end

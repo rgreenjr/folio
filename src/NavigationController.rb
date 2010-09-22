@@ -90,6 +90,7 @@ class NavigationController
   
   def addPoint(sender)
     point = Point.new
+    point.text = "New Point"
     point.item = @book.spine[-1]
     @book.navigation.root.insert(-1, point)
     @outlineView.reloadData

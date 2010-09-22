@@ -5,6 +5,7 @@ class SpineController
   def awakeFromNib
     @tableView.delegate = self
     @tableView.dataSource = self
+    @tableView.registerForDraggedTypes([NSStringPboardType])
   end
 
   def book=(book)
@@ -26,6 +27,29 @@ class SpineController
     item = @book.spine[@tableView.selectedRow]
     @webViewController.item = item
     @textViewController.item = item
+  end
+
+  def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
+    @draggedRow = indexes.firstIndex
+    pboard.declareTypes([NSStringPboardType], owner:self)
+    pboard.setString(@draggedRow.to_s, forType:NSStringPboardType)
+    true
+  end 
+
+  def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:childIndex)
+    row ? NSDragOperationMove : NSDragOperationNone
+  end
+
+  def tableView(tableView, acceptDrop:info, row:row, dropOperation:operation)
+    return false unless @draggedRow
+    item = @book.spine.delete_at(@draggedRow.to_i)
+    row = -1 if row > @book.spine.size
+    @book.spine.insert(row, item)
+    @tableView.reloadData
+    indexes = NSIndexSet.indexSetWithIndex(row)
+    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)    
+    @draggedItem = nil
+    true
   end
   
   def addPage(sender)

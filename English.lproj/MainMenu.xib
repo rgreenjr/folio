@@ -21,7 +21,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="81"/>
+			<integer value="29"/>
+			<integer value="578"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1889,7 +1890,7 @@
 				<string key="NSClassName">SpineController</string>
 			</object>
 			<object class="NSScrollView" id="102175853">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1927,7 +1928,7 @@
 											<reference key="NSTextColor" ref="488695329"/>
 										</object>
 										<object class="NSTextFieldCell" key="NSDataCell" id="232531103">
-											<int key="NSCellFlags">337772096</int>
+											<int key="NSCellFlags">67239488</int>
 											<int key="NSCellFlags2">133120</int>
 											<string key="NSContents">Text Cell</string>
 											<reference key="NSSupport" ref="26"/>
@@ -1987,6 +1988,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{240, 135}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="66904470"/>
 				<int key="NSsFlags">560</int>
 				<reference key="NSVScroller" ref="619640200"/>

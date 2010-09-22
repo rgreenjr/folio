@@ -3,7 +3,7 @@ class Point
   attr_accessor :id, :playOrder, :text, :item, :fragment
 
   def initialize(expanded=false)
-    @id, @text, @expanded, @children = UUID.create, "New Point", expanded, []
+    @id, @text, @expanded, @children = UUID.create, "", expanded, []
   end
 
   def uri
@@ -19,8 +19,10 @@ class Point
   end
 
   def text=(string)
-    string = string.strip
-    @text = string if string.size > 0
+    if string
+      string = string.strip
+      @text = string if string.size > 0
+    end
   end
 
   def depth
