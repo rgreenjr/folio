@@ -8,7 +8,8 @@ class LineNumberRuler < NSRulerView
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     setClientView(scrollView.documentView)
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
+    ctr = NSNotificationCenter.defaultCenter
+    ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:nil)
     @font = NSFont.labelFontOfSize(11.0)
     @textColor = NSColor.grayColor
     updateLineIndices
@@ -52,7 +53,7 @@ class LineNumberRuler < NSRulerView
     index = 0
     count = @lineIndices.size
     line = lineNumberForCharacterIndex(range.location, inText:text)
-    
+
     while line < count
 
       index = @lineIndices[line]
@@ -71,10 +72,10 @@ class LineNumberRuler < NSRulerView
 
           # Draw string flush right, centered vertically within the line
           textRect = NSMakeRect(
-            NSWidth(bounds) - stringSize.width - RULER_MARGIN,
-            ypos + (NSHeight(rects[0]) - stringSize.height) / 2.0,
-            NSWidth(bounds) - RULER_MARGIN * 2.0,
-            NSHeight(rects[0])
+          NSWidth(bounds) - stringSize.width - RULER_MARGIN,
+          ypos + (NSHeight(rects[0]) - stringSize.height) / 2.0,
+          NSWidth(bounds) - RULER_MARGIN * 2.0,
+          NSHeight(rects[0])
           )
           labelText.drawInRect(textRect, withAttributes:@textAttributes)
         end
@@ -83,8 +84,8 @@ class LineNumberRuler < NSRulerView
       if index > NSMaxRange(range)
         break
       end
-      
-      line += 1      
+
+      line += 1
     end
 
   end
@@ -132,10 +133,10 @@ class LineNumberRuler < NSRulerView
 
     # lineEndIndex = Pointer.new(:ulong_long)
     # contentsEndIndex = Pointer.new(:ulong_long)
-    # 
+    #
     # # check if text ends with a new line
     # text.getLineStart(nil, end:lineEndIndex[0], contentsEnd:contentsEndIndex[0], forRange:NSMakeRange(@lineIndices.last, 0))
-    # 
+    #
     # if contentsEndIndex[0] < lineEndIndex[0]
     #   @lineIndices << index
     # end
@@ -151,14 +152,7 @@ class LineNumberRuler < NSRulerView
   def requiredThickness
     digits = Math.log10(@lineIndices.size + 1).ceil
     stringSize = ("8" * digits).sizeWithAttributes(@textAttributes)
-    [DEFAULT_THICKNESS, 2 * RULER_MARGIN + stringSize.width].max
+    [DEFAULT_THICKNESS, (2 * RULER_MARGIN + stringSize.width).ceil].max
   end
 
-  def requiredThickness	
-  digits = Math.log10(@lineIndices.size + 1)
-  sampleString = "8" * (digits + 2)
-  stringSize = sampleString.sizeWithAttributes(@textAttributes)
-  [DEFAULT_THICKNESS, 2 * RULER_MARGIN + stringSize.width].max.ceil
-  end
-   	
 end
