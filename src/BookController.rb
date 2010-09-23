@@ -29,7 +29,6 @@ class BookController
     @manifestController.book = @book
     @navigationController.book = @book
     @window.title = @book.title
-    # @window.delegate.toggleView(self)
     hideProgressWindow
     @window.makeKeyAndOrderFront(self)
   end

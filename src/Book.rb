@@ -33,6 +33,7 @@ class Book
     epub = File.join(directory, "#{title.sanitize}.epub")
     system("cd '#{tmp}'; zip -qX0 '#{epub}' mimetype")
     system("cd '#{tmp}'; zip -qX9urD '#{epub}' *")
+    FileUtils.rm_rf(tmp)
   end
 
   def opf_xml
