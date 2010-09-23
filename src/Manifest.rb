@@ -53,7 +53,6 @@ class Manifest
   def move(item, index, parent)
     FileUtils.mv(item.path, File.join(parent.path, item.name))
     item.parent.delete(item)
-    index = -1 if index > parent.size
     parent.insert(index, item)
   end
 

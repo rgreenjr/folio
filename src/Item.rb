@@ -110,6 +110,7 @@ class Item
   end
 
   def insert(index, item)
+    index = -1 if index > size
     item.parent = self
     @children.insert(index, item)
   end

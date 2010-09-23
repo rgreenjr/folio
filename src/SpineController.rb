@@ -43,7 +43,6 @@ class SpineController
   def tableView(tableView, acceptDrop:info, row:row, dropOperation:operation)
     return false unless @draggedRow
     item = @book.spine.delete_at(@draggedRow.to_i)
-    row = -1 if row > @book.spine.size
     @book.spine.insert(row, item)
     @tableView.reloadData
     indexes = NSIndexSet.indexSetWithIndex(row)
