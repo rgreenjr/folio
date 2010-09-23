@@ -18,10 +18,10 @@ class Point
     @fragment ? "##{@fragment}" : ""
   end
 
-  def text=(string)
-    if string
-      string = string.strip
-      @text = string if string.size > 0
+  def text=(text)
+    if text
+      text = text.strip
+      @text = text unless text.empty?
     end
   end
 
@@ -52,6 +52,12 @@ class Point
   def each_with_index(&block)
     @children.each_with_index(&block)
   end
+  
+  def contains?(point)
+    return true if point == self
+    each {|child| return true if child.contains?(point)}
+    false
+  end
 
   def <<(point)
     @children << point
@@ -63,13 +69,14 @@ class Point
   end
 
   def insert(index, point)
+    index = -1 if index > size
     @children.insert(index, point)
   end
 
   def delete_at(index)
     @children.delete_at(index)
   end
-
+  
   def to_xml(indent=1)
     buffer = ""
     padding = "  " * indent

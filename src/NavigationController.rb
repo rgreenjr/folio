@@ -68,14 +68,23 @@ class NavigationController
     true
   end 
 
-  def outlineView(outlineView, validateDrop:info, proposedItem:point, proposedChildIndex:childIndex)
-    point ? NSDragOperationMove : NSDragOperationNone
+  def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
+    if parent
+      !@draggedPoint.contains?(parent) ? NSDragOperationMove : NSDragOperationNone
+    elsif @book.navigation.root.size == 1 && @draggedPoint == @book.navigation.root[0]
+      NSDragOperationNone
+    else
+      index = @book.navigation.root.index(@draggedPoint)
+      index.nil? || index != childIndex ? NSDragOperationMove : NSDragOperationNone
+    end
   end
 
-  def outlineView(outlineView, acceptDrop:info, item:point, childIndex:childIndex)
+  def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
+    puts "accept"
+    parent = @book.navigation.root unless parent
     return false unless @draggedPoint
     @book.navigation.delete(@draggedPoint)
-    point.insert(childIndex, @draggedPoint)
+    parent.insert(childIndex, @draggedPoint)
     @outlineView.reloadData
     selectPoint(@draggedPoint)
     @draggedPoint = nil
