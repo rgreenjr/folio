@@ -80,7 +80,7 @@ class ManifestController
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
     if parent
-      parent.directory? && parent != @draggedItem.parent && parent != @draggedItem ? NSDragOperationMove : NSDragOperationNone
+      parent.directory? && parent != @draggedItem.parent && parent != @draggedItem && !@draggedItem.contains?(parent) ? NSDragOperationMove : NSDragOperationNone
     else
       @draggedItem.parent != @book.manifest.root ? NSDragOperationMove : NSDragOperationNone
     end
