@@ -84,7 +84,7 @@ class Navigation
 
   def to_xml
     navigation = self
-    ERB.new(File.read(NSBundle.mainBundle.pathForResource("toc.ncx", ofType:"erb"))).result(binding)
+    ERB.new(Bundle.template("toc.ncx")).result(binding)
   end
 
 end

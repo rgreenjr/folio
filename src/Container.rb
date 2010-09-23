@@ -35,7 +35,7 @@ class Container
 
   def to_xml
     opfPath = @root.empty? ? "content.opf" : "#{@root}/content.opf"
-    ERB.new(File.read(NSBundle.mainBundle.pathForResource("container.xml", ofType:"erb"))).result(binding)
+    ERB.new(Bundle.template("container.xml")).result(binding)
   end
 
 end

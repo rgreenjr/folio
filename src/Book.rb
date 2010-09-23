@@ -37,7 +37,7 @@ class Book
 
   def opf_xml
     book = self
-    ERB.new(File.read(NSBundle.mainBundle.pathForResource("content.opf", ofType:"erb"))).result(binding)
+    ERB.new(Bundle.template("content.opf")).result(binding)
   end
   
   def description
