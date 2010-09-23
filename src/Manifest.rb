@@ -57,13 +57,6 @@ class Manifest
     parent.insert(index, item)
   end
 
-  # def delete(item)
-  #   each(true) do |i|
-  #     index = i.index(item)
-  #     return i.delete_at(index) if index
-  #   end
-  # end
-
   def itemWithId(identifier)
     @hash[identifier]
   end

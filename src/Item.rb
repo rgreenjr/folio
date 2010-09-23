@@ -120,12 +120,7 @@ class Item
       @children.delete(item)
     end
   end
-
-  # def delete_at(index)
-  #   item = @children.delete_at(index)
-  #   item.parent = nil if item
-  # end
-
+  
   def save(directory)
     file = File.join(directory, href)
     if directory?

@@ -89,13 +89,7 @@ class ManifestController
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
     parent = @book.manifest.root if parent.nil?
     return false unless @draggedItem && parent.directory?
-    # if @draggedItem.parent == parent
-    #   @book.manifest.delete(@draggedItem)
-    #   childIndex = -1 if childIndex > parent.size
-    #   parent.insert(childIndex, @draggedItem)
-    # else
-      @book.manifest.move(@draggedItem, childIndex, parent)
-    # end
+    @book.manifest.move(@draggedItem, childIndex, parent)
     @outlineView.reloadData
     selectItem(@draggedItem)
     @draggedItem = nil
