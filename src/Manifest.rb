@@ -1,6 +1,6 @@
 class Manifest
 
-  attr_accessor :items, :root, :ncx
+  attr_accessor :root, :ncx
 
   def initialize(book)
     @hash  = {}
@@ -29,12 +29,12 @@ class Manifest
     raise "The NCX is missing." unless @ncx
   end
 
-  def each(dirs=false, &block)
+  def each(includeDirectories=false, &block)
     stack = [@root]
     while stack.size > 0
       item = stack.shift
       item.each {|child| stack << child}
-      yield item unless (item.directory? && !dirs) || item.ncx?
+      yield item unless item.directory? && !includeDirectories
     end
   end
 
@@ -49,6 +49,20 @@ class Manifest
       index -= 1
     end
   end
+  
+  def move(item, index, parent)
+    FileUtils.mv(item.path, File.join(parent.path, item.name))
+    item.parent.delete(item)
+    index = -1 if index > parent.size
+    parent.insert(index, item)
+  end
+
+  # def delete(item)
+  #   each(true) do |i|
+  #     index = i.index(item)
+  #     return i.delete_at(index) if index
+  #   end
+  # end
 
   def itemWithId(identifier)
     @hash[identifier]

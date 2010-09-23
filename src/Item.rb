@@ -96,6 +96,7 @@ class Item
   end
 
   def <<(item)
+    item.parent = self
     @children << item
   end
 
@@ -103,6 +104,28 @@ class Item
     @children.find {|item| item.name == name}
   end
   
+  def index(item)
+    each_with_index { |i, index| return index if item == i }
+    nil
+  end
+
+  def insert(index, item)
+    item.parent = self
+    @children.insert(index, item)
+  end
+
+  def delete(item)
+    if index(item)
+      item.parent = nil
+      @children.delete(item)
+    end
+  end
+
+  # def delete_at(index)
+  #   item = @children.delete_at(index)
+  #   item.parent = nil if item
+  # end
+
   def save(directory)
     file = File.join(directory, href)
     if directory?

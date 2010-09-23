@@ -27,7 +27,7 @@ class BookController
     showProgressWindow("Opening...")
     @book = Book.new(filename)
     @spineController.book = @book
-    @manifestController.manifest = @book.manifest
+    @manifestController.book = @book
     @navigationController.book = @book
     @window.title = @book.title
     # @window.delegate.toggleView(self)
