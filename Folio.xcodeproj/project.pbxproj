@@ -59,6 +59,7 @@
 		CD80EB7B1232BABB00CEC08F /* CSSParser.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD80EB7A1232BABB00CEC08F /* CSSParser.rb */; };
 		CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59A122B3E32005BB914 /* content.opf.erb */; };
 		CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59C122B3E32005BB914 /* toc.ncx.erb */; };
+		CD98FCE5124D132100D26653 /* SearchController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD98FCE4124D132100D26653 /* SearchController.rb */; };
 		CDADCC7A124BFF3E00553FC7 /* Bundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDADCC79124BFF3E00553FC7 /* Bundle.rb */; };
 		CDBC1CAB124AA26500BED071 /* Highlighter.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDBC1CAA124AA26500BED071 /* Highlighter.rb */; };
 		CDBDC8AF122AA9DA00844EAA /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8A8122AA9DA00844EAA /* book.png */; };
@@ -126,6 +127,7 @@
 		CD80EB7A1232BABB00CEC08F /* CSSParser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CSSParser.rb; sourceTree = "<group>"; };
 		CD83F59A122B3E32005BB914 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD83F59C122B3E32005BB914 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
+		CD98FCE4124D132100D26653 /* SearchController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SearchController.rb; sourceTree = "<group>"; };
 		CDADCC79124BFF3E00553FC7 /* Bundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Bundle.rb; sourceTree = "<group>"; };
 		CDBC1CAA124AA26500BED071 /* Highlighter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Highlighter.rb; sourceTree = "<group>"; };
 		CDBDC8A8122AA9DA00844EAA /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				CDE448F712305CA2001C69AE /* Navigation.rb */,
 				CDE448F812305CA2001C69AE /* NavigationController.rb */,
 				CDE448F912305CA2001C69AE /* Point.rb */,
+				CD98FCE4124D132100D26653 /* SearchController.rb */,
 				CDE448FA12305CA2001C69AE /* Spine.rb */,
 				CDE448FB12305CA2001C69AE /* SpineController.rb */,
 				CDDD0E1F124991ED00189172 /* String.rb */,
@@ -417,6 +420,7 @@
 				CDDD0E20124991ED00189172 /* String.rb in Resources */,
 				CDBC1CAB124AA26500BED071 /* Highlighter.rb in Resources */,
 				CDADCC7A124BFF3E00553FC7 /* Bundle.rb in Resources */,
+				CD98FCE5124D132100D26653 /* SearchController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,5 +31,9 @@ class TextViewController
     @item.content = @textView.textStorage.string
     @webView.reload(self)
   end
+  
+  def insertionPoint
+    @textView.selectedRanges.first.rangeValue.location
+  end
 
 end

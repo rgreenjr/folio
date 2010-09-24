@@ -2,7 +2,7 @@ class BookController
 
   attr_accessor :book, :window
   attr_accessor :progressWindow, :progressBar, :progressText
-  attr_accessor :navigationController, :spineController, :manifestController
+  attr_accessor :navigationController, :spineController, :manifestController, :searchController
 
   def awakeFromNib
     readBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
@@ -28,6 +28,7 @@ class BookController
     @spineController.book = @book
     @manifestController.book = @book
     @navigationController.book = @book
+    @searchController.book = @book
     @window.title = @book.title
     hideProgressWindow
     @window.makeKeyAndOrderFront(self)
