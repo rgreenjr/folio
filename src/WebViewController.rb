@@ -4,6 +4,7 @@ class WebViewController
 
   def awakeFromNib
     @webView.editable = false
+    @webView.preferences.defaultFontSize = 16
   end
 
   def item=(item)

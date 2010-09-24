@@ -171,9 +171,9 @@ class NavigationController
     alert.runModal
   end
   
-  def renderPoint(item)
-    @webViewController.item = item
-    @textViewController.item = item
+  def renderPoint(point)
+    @webViewController.item = point
+    @textViewController.item = point
   end
 
 end

@@ -40,12 +40,13 @@ class SpineController
     row ? NSDragOperationMove : NSDragOperationNone
   end
 
-  def tableView(tableView, acceptDrop:info, row:row, dropOperation:operation)
+  def tableView(tableView, acceptDrop:info, row:index, dropOperation:operation)
     return false unless @draggedRow
     item = @book.spine.delete_at(@draggedRow.to_i)
-    @book.spine.insert(row, item)
+    index = @book.spine.size if index > @book.spine.size
+    @book.spine.insert(index, item)
     @tableView.reloadData
-    indexes = NSIndexSet.indexSetWithIndex(row)
+    indexes = NSIndexSet.indexSetWithIndex(index)
     @tableView.selectRowIndexes(indexes, byExtendingSelection:false)    
     @draggedItem = nil
     true

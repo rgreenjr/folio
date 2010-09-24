@@ -46,23 +46,20 @@ class ManifestController
     if @outlineView.selectedRow < 0
       disableProperties
       item = nil
-      @webViewController.item = nil
-      @textViewController.item = nil
+      renderItem(nil)
       @typePopUpButton.selectItemWithTitle('')
     else
       item = @book.manifest[@outlineView.selectedRow]
       if item.directory?
         disableProperties
         @typePopUpButton.selectItemWithTitle(item.mediaType)
-        @webViewController.item = nil
-        @textViewController.item = nil
+        renderItem(nil)
       else
         enableProperties
         nameCell.stringValue = item.name
         idCell.stringValue = item.id
         @typePopUpButton.selectItemWithTitle(item.mediaType)
-        @webViewController.item = item
-        @textViewController.item = item
+        renderItem(item)
       end
     end
   end
@@ -150,6 +147,11 @@ class ManifestController
 
   def propertyCells
     [nameCell, idCell, typePopUpButton]
+  end
+
+  def renderItem(item)
+    @webViewController.item = item
+    @textViewController.item = item
   end
 
 end

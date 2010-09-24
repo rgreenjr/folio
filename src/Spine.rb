@@ -31,7 +31,6 @@ class Spine
   end
 
   def insert(index, item)
-    index = -1 if index > size
     @items.insert(index, item)
   end
 
