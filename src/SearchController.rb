@@ -15,13 +15,14 @@ class SearchController
 
   def search(sender)
     query = searchField.stringValue
-    regex = Regexp.new(query)
-    content = @textViewController.item.content
-    puts content
-    @matches = regex.match(content)
-    @matches.size.times do |i|
-      p @matches[i]
-      puts "matches.offset(#{i}) = #{@matches.offset(i)}"
+    item = @textViewController.item
+    return unless query && !query.empty? && item
+    content = item.content
+    offset = 0
+    @matches = []
+    while index = content.index(/#{query}/, offset)
+      @matches << index.to_s
+      offset += query.size + index
     end
     @tableView.reloadData
   end
@@ -32,12 +33,12 @@ class SearchController
   end
 
   def tableView(aTableView, objectValueForTableColumn:column, row:index)
-    @matches.begin(index).to_s
+    @matches[index]
   end
 
   def tableViewSelectionDidChange(aNotification)
     return if @tableView.selectedRow < 0
-    string = @matches[@tableView.selectedRow].to_s
+    string = @matches[@tableView.selectedRow]
     # @webViewController.item = item
     # @textViewController.item = item
   end
