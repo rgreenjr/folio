@@ -21,8 +21,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="875"/>
 			<integer value="29"/>
+			<integer value="371"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1386,7 +1386,7 @@
 						</object>
 						<object class="NSScrollView" id="678020174">
 							<reference key="NSNextResponder" ref="439893737"/>
-							<int key="NSvFlags">4364</int>
+							<int key="NSvFlags">4371</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSClipView" id="757823481">
@@ -1397,7 +1397,7 @@
 										<object class="NSTableView" id="901307166">
 											<reference key="NSNextResponder" ref="757823481"/>
 											<int key="NSvFlags">4370</int>
-											<string key="NSFrameSize">{240, 655}</string>
+											<string key="NSFrameSize">{240, 654}</string>
 											<reference key="NSSuperview" ref="757823481"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="_NSCornerView" key="NSCornerView">
@@ -1473,7 +1473,7 @@
 											<int key="NSTableViewDraggingDestinationStyle">0</int>
 										</object>
 									</object>
-									<string key="NSFrameSize">{240, 655}</string>
+									<string key="NSFrameSize">{240, 654}</string>
 									<reference key="NSSuperview" ref="678020174"/>
 									<reference key="NSNextKeyView" ref="901307166"/>
 									<reference key="NSDocView" ref="901307166"/>
@@ -1500,7 +1500,7 @@
 									<double key="NSPercent">0.91187739463601536</double>
 								</object>
 							</object>
-							<string key="NSFrame">{{1146, 32}, {240, 655}}</string>
+							<string key="NSFrame">{{1146, 33}, {240, 654}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="757823481"/>
 							<int key="NSsFlags">560</int>
@@ -2968,14 +2968,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">tableView</string>
-						<reference key="source" ref="714020600"/>
-						<reference key="destination" ref="901307166"/>
-					</object>
-					<int key="connectionID">886</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">searchController</string>
 						<reference key="source" ref="190618754"/>
 						<reference key="destination" ref="714020600"/>
@@ -2989,6 +2981,14 @@
 						<reference key="destination" ref="429776501"/>
 					</object>
 					<int key="connectionID">888</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">outlineView</string>
+						<reference key="source" ref="714020600"/>
+						<reference key="destination" ref="901307166"/>
+					</object>
+					<int key="connectionID">900</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4527,6 +4527,7 @@
 					<string>870.IBPluginDependency</string>
 					<string>871.IBPluginDependency</string>
 					<string>872.IBPluginDependency</string>
+					<string>873.CustomClassName</string>
 					<string>873.IBPluginDependency</string>
 					<string>875.IBPluginDependency</string>
 					<string>878.IBPluginDependency</string>
@@ -4676,9 +4677,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{0, 250}, {1385, 686}}</string>
+					<string>{{341, 234}, {1385, 686}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{0, 250}, {1385, 686}}</string>
+					<string>{{341, 234}, {1385, 686}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -4812,6 +4813,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>NSOutlineView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4838,7 +4840,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">888</int>
+			<int key="maxID">900</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5212,8 +5214,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>book</string>
+							<string>outlineView</string>
 							<string>searchField</string>
-							<string>tableView</string>
 							<string>textViewController</string>
 							<string>webViewController</string>
 						</object>
@@ -5231,8 +5233,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>book</string>
+							<string>outlineView</string>
 							<string>searchField</string>
-							<string>tableView</string>
 							<string>textViewController</string>
 							<string>webViewController</string>
 						</object>
@@ -5243,11 +5245,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">searchField</string>
+								<string key="name">outlineView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">tableView</string>
+								<string key="name">searchField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

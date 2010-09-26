@@ -1,54 +1,56 @@
 class SearchController
   
-  attr_accessor :book, :searchField, :tableView, :webViewController, :textViewController
+  attr_accessor :book, :searchField, :outlineView, :webViewController, :textViewController
   
   def awakeFromNib
-    @matches = []
-    @tableView.delegate = self
-    @tableView.dataSource = self
+    @outlineView.delegate = self
+    @outlineView.dataSource = self
   end
 
   def book=(book)
     @book = book
-    @tableView.reloadData
+    @outlineView.reloadData
   end
 
   def search(sender)
-    query = searchField.stringValue
-    return unless query && !query.empty?
-    @matches = []
-    @book.manifest.each do |item|
-      next unless item.editable?
-      puts "searching #{item.href}"
-      offset = 0
-      while index = item.content.index(query, offset)
-        puts "match index = #{index}"
-        @matches << Match.new(item, query, index)
-        offset = index + query.size
-      end
-      # break
-    end
-    puts "done"
-    # @searchField.label = "#{@m}"
-    @tableView.reloadData
+    @search = Search.new(searchField.stringValue, book)
+    @outlineView.reloadData
   end
   
-  def numberOfRowsInTableView(aTableView)
-    return 0 unless @tableView.dataSource && @book # guard against SDK bug
-    @matches ? @matches.size : 0
+  def outlineView(outlineView, numberOfChildrenOfItem:item)
+    return 0 unless @search
+    item ? item.size : @search.size
   end
 
-  def tableView(aTableView, objectValueForTableColumn:column, row:index)
-    @matches[index].message
+  def outlineView(outlineView, isItemExpandable:item)
+    item && !item.empty?
   end
 
-  def tableViewSelectionDidChange(aNotification)
-    return if @tableView.selectedRow < 0
-    match = @matches[@tableView.selectedRow]
+  def outlineView(outlineView, child:index, ofItem:item)
+    item ? item[index] : @search[index]
+  end
+
+  def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:item)
+    item.message
+  end
+
+  def outlineViewItemDidExpand(notification)
+    notification.userInfo['NSObject'].expanded = true
+  end
+
+  def outlineViewItemDidCollapse(notification)
+    notification.userInfo['NSObject'].expanded = false
+  end
+
+  def outlineViewSelectionDidChange(notification)
+    return if @outlineView.selectedRow < 0
+    match = @search[@outlineView.selectedRow]
     @textViewController.item = match.item
-    @textViewController.textView.scrollRangeToVisible(match.range)
-    @textViewController.textView.showFindIndicatorForRange(match.range)
-    # @webViewController.item = item
+    if match.empty?
+      @textViewController.textView.scrollRangeToVisible(match.range)
+      @textViewController.textView.showFindIndicatorForRange(match.range)
+      # @webViewController.item = item
+    end
   end
 
 end
