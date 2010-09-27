@@ -17,7 +17,7 @@ class SearchController
   def search(sender)
     @search = Search.new(searchField.stringValue, book)
     @outlineView.reloadData
-    @search.each {|match| match.expanded = true}
+    @search.each {|match| @outlineView.expandItem(match, expandChildren:false) }
   end
   
   def outlineView(outlineView, numberOfChildrenOfItem:item)
@@ -47,7 +47,7 @@ class SearchController
 
   def outlineViewSelectionDidChange(notification)
     return if @outlineView.selectedRow < 0
-    match = @search[@outlineView.selectedRow]
+    match = @search.walk(@outlineView.selectedRow)
     @textViewController.item = match.item
     # @webViewController.item = item
     if match.empty?

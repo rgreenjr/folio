@@ -1,6 +1,6 @@
 class Match
   
-  attr_accessor :item, :message, :range, :hits, :expanded
+  attr_accessor :item, :message, :range, :expanded
   
   def initialize(item, query=nil, index=nil)
     @hits = []
@@ -9,11 +9,9 @@ class Match
       start = [index - 15, 0].max
       stop = query.size + 30
       @range = NSRange.new(index, query.size)
-      @message = item.content[start, stop].gsub(/[\r\n\t]/, ' ')
-      # @expanded = false
+      @message = item.content[start, stop].gsub(/\s/, ' ')
     else
       @message = item.name
-      # @expanded = true
     end
   end
 
@@ -25,20 +23,16 @@ class Match
     @hits[index]
   end
   
+  def each_with_index(&block)
+    @hits.each_with_index(&block)
+  end
+  
   def <<(match)
     @hits << match
   end
   
   def empty?
-    size == 0
+    @hits.empty?
   end
   
-  # def expanded?
-  #   @expanded
-  # end
-  
-  def expanded=(bool)
-    @expanded = bool if !empty?
-  end
-
 end

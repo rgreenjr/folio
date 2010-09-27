@@ -16,6 +16,7 @@ class NavigationController
     @book = book
     @outlineView.reloadData
     disableProperties
+    expandRoot
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:point)
@@ -127,6 +128,12 @@ class NavigationController
     point.item = item
     point.fragment = fragment
     renderPoint(point)
+  end
+  
+  def expandRoot
+    if @book.navigation.root.size > 0
+      @outlineView.expandItem(@book.navigation.root[0], expandChildren:false)
+    end
   end
 
   private

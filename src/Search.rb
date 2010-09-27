@@ -24,19 +24,28 @@ class Search
   end
   
   def [](index)
+    @matches[index]
+  end
+  
+  def root
+    @matches.first
+  end
+  
+  def size
+    @matches.size
+  end
+  
+  def walk(index)
     stack = @matches.dup
     while stack.size > 0
       match = stack.shift
       return match if index == 0
       index -= 1
       if match.expanded
-        match.hits.each_with_index {|child, i| stack.insert(i, child)}
+        match.each_with_index {|hit, i| stack.insert(i, hit)}
       end
     end
-  end
-  
-  def size
-    @matches.size
+    nil
   end
   
 end
