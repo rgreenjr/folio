@@ -19,6 +19,10 @@ class Search
     end
   end
   
+  def each(&block)
+    @matches.each(&block)
+  end
+  
   def [](index)
     stack = @matches.dup
     while stack.size > 0

@@ -70,6 +70,7 @@
 		CDBDC8B3122AA9DA00844EAA /* pageUp.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8AC122AA9DA00844EAA /* pageUp.png */; };
 		CDBDC8B4122AA9DA00844EAA /* window1.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8AD122AA9DA00844EAA /* window1.png */; };
 		CDBDC8B5122AA9DA00844EAA /* window2.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8AE122AA9DA00844EAA /* window2.png */; };
+		CDC2B27C124FF54500082962 /* ProgressController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDC2B27B124FF54500082962 /* ProgressController.rb */; };
 		CDD858AA12385B6900DD7E7A /* LineNumberRuler.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDD858A912385B6900DD7E7A /* LineNumberRuler.rb */; };
 		CDDD0E20124991ED00189172 /* String.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0E1F124991ED00189172 /* String.rb */; };
 		CDDECB59124F9E8400604632 /* Search.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDECB58124F9E8400604632 /* Search.rb */; };
@@ -140,6 +141,7 @@
 		CDBDC8AC122AA9DA00844EAA /* pageUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageUp.png; sourceTree = "<group>"; };
 		CDBDC8AD122AA9DA00844EAA /* window1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = window1.png; sourceTree = "<group>"; };
 		CDBDC8AE122AA9DA00844EAA /* window2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = window2.png; sourceTree = "<group>"; };
+		CDC2B27B124FF54500082962 /* ProgressController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ProgressController.rb; sourceTree = "<group>"; };
 		CDD858A912385B6900DD7E7A /* LineNumberRuler.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LineNumberRuler.rb; sourceTree = "<group>"; };
 		CDDD0E1F124991ED00189172 /* String.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = String.rb; sourceTree = "<group>"; };
 		CDDECB58124F9E8400604632 /* Search.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Search.rb; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				CDE448F712305CA2001C69AE /* Navigation.rb */,
 				CDE448F812305CA2001C69AE /* NavigationController.rb */,
 				CDE448F912305CA2001C69AE /* Point.rb */,
+				CDC2B27B124FF54500082962 /* ProgressController.rb */,
 				CDDECB58124F9E8400604632 /* Search.rb */,
 				CD98FCE4124D132100D26653 /* SearchController.rb */,
 				CDE448FA12305CA2001C69AE /* Spine.rb */,
@@ -429,6 +432,7 @@
 				CD98FCE5124D132100D26653 /* SearchController.rb in Resources */,
 				CDA3FF2A124D8296003F6341 /* Match.rb in Resources */,
 				CDDECB59124F9E8400604632 /* Search.rb in Resources */,
+				CDC2B27C124FF54500082962 /* ProgressController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

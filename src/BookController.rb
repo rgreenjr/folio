@@ -1,8 +1,7 @@
 class BookController
 
   attr_accessor :book, :window
-  attr_accessor :progressWindow, :progressBar, :progressText
-  attr_accessor :navigationController, :spineController, :manifestController, :searchController
+  attr_accessor :navigationController, :spineController, :manifestController, :searchController, :progressController
 
   def awakeFromNib
     readBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
@@ -16,32 +15,28 @@ class BookController
       begin
         readBook(panel.filename)
       rescue Exception => e
-        hideProgressWindow
+        @progressController.hide
         showAlert(e)
       end
     end
   end
   
   def readBook(filename)
-    showProgressWindow("Opening...")
+    @progressController.show("Opening...")
     @book = Book.new(filename)
     @spineController.book = @book
     @manifestController.book = @book
     @navigationController.book = @book
     @searchController.book = @book
     @window.title = @book.title
-    hideProgressWindow
+    @progressController.hide
     @window.makeKeyAndOrderFront(self)
   end
   
   def saveBook(sender)
-    showProgressWindow("Saving...")
+    @progressController.show("Saving...")
     @book.save("/Users/rgreen/Desktop/")
-    hideProgressWindow
-  end
-
-  def tidy(sender)
-    # @currentItem.tidy if @currentItem && @currentItem.tidyable?
+    @progressController.hide
   end
 
   def showTemporaryDirectory(sender)
@@ -49,18 +44,6 @@ class BookController
   end
 
   private
-
-  def showProgressWindow(title)
-    @progressText.stringValue = title
-    @progressWindow.makeKeyAndOrderFront(self)
-    @progressBar.usesThreadedAnimation = true
-    @progressBar.startAnimation(self)
-  end
-  
-  def hideProgressWindow
-    @progressWindow.orderOut(self)
-    @progressBar.stopAnimation(self)
-  end
 
   def showAlert(exception)
     alert = NSAlert.alloc.init

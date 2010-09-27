@@ -8,6 +8,7 @@ class WebViewController
   end
 
   def item=(item)
+    return if item == @item
     @item = item
     if @item
       request = NSURLRequest.requestWithURL(NSURL.URLWithString(@item.uri.to_s))

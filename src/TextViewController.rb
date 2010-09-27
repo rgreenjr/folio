@@ -16,6 +16,7 @@ class TextViewController
   end
 
   def item=(item)
+    return if item == @item
     @item = item
     if @item && @item.editable?
       attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }

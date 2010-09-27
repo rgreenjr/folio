@@ -53,103 +53,103 @@ class WindowController < NSWindowController
     return proposedMax - MINIMUM_WIDTH
   end
 
-  def splitView(sender, resizeSubviewsWithOldSize:oldSize)
-    hasRight = @splitView.subviews.size > 2
-
-  	newFrame = @splitView.frame
-
-    left = @splitView.subviews[0]
-    leftFrame = left.frame
-
-    middle = @splitView.subviews[1]
-    middleFrame = middle.frame
-
-    if hasRight
-      right = @splitView.subviews[2]
-      rightFrame = right.frame
-    end
-
-    dividerThickness = @splitView.dividerThickness
-
-    leftFrame.size.height = newFrame.size.height
-
-    if hasRight
-      middleFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness - rightFrame.size.width - dividerThickness
-    else
-      middleFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness
-    end
-    middleFrame.size.width = MINIMUM_WIDTH if middleFrame.size.width < MINIMUM_WIDTH
-    middleFrame.size.height = newFrame.size.height
-    middleFrame.origin.x = leftFrame.size.width + dividerThickness
-
-    if hasRight
-      rightFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness - middleFrame.size.width - dividerThickness
-      rightFrame.size.width = MINIMUM_WIDTH if rightFrame.size.width < MINIMUM_WIDTH
-      rightFrame.size.height = newFrame.size.height
-      rightFrame.origin.x = leftFrame.size.width + dividerThickness + middleFrame.size.width + dividerThickness
-    end
-
-    left.setFrame(leftFrame)
-    middle.setFrame(middleFrame)
-    if hasRight
-      right.setFrame(rightFrame)
-    end
-  end
-
+  # def splitView(sender, resizeSubviewsWithOldSize:oldSize)
+  #   hasRight = @splitView.subviews.size > 2
+  # 
+  #   newFrame = @splitView.frame
+  # 
+  #   left = @splitView.subviews[0]
+  #   leftFrame = left.frame
+  # 
+  #   middle = @splitView.subviews[1]
+  #   middleFrame = middle.frame
+  # 
+  #   if hasRight
+  #     right = @splitView.subviews[2]
+  #     rightFrame = right.frame
+  #   end
+  # 
+  #   dividerThickness = @splitView.dividerThickness
+  # 
+  #   leftFrame.size.height = newFrame.size.height
+  # 
+  #   if hasRight
+  #     middleFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness - rightFrame.size.width - dividerThickness
+  #   else
+  #     middleFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness
+  #   end
+  #   middleFrame.size.width = MINIMUM_WIDTH if middleFrame.size.width < MINIMUM_WIDTH
+  #   middleFrame.size.height = newFrame.size.height
+  #   middleFrame.origin.x = leftFrame.size.width + dividerThickness
+  # 
+  #   if hasRight
+  #     rightFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness - middleFrame.size.width - dividerThickness
+  #     rightFrame.size.width = MINIMUM_WIDTH if rightFrame.size.width < MINIMUM_WIDTH
+  #     rightFrame.size.height = newFrame.size.height
+  #     rightFrame.origin.x = leftFrame.size.width + dividerThickness + middleFrame.size.width + dividerThickness
+  #   end
+  # 
+  #   left.setFrame(leftFrame)
+  #   middle.setFrame(middleFrame)
+  #   if hasRight
+  #     right.setFrame(rightFrame)
+  #   end
+  # end
+  
   def toggleSourceView(sender)
     @splitView.subviews.size > 2 ? hideSourceView : showSourceView
   end
   
-  def hideSourceView    
-    left   = @splitView.subviews[0]
-    middle = @splitView.subviews[1]
-    right  = @splitView.subviews[2]
-
-    leftFrame   = left.frame
-    middleFrame = middle.frame
-    rightFrame  = right.frame
-
-    dividerThickness = @splitView.dividerThickness
-
-    leftFrame.size.height = @splitView.frame.size.height
-    leftFrame.size.width = leftFrame.size.width
-
-    middleFrame.size.width = @splitView.frame.size.width - leftFrame.size.width - dividerThickness
-    middleFrame.origin.x = leftFrame.size.width + dividerThickness
-
-    rightFrame.size.width = 0
-    rightFrame.origin.x = leftFrame.size.width + dividerThickness + middleFrame.size.width + dividerThickness
-
-    left.setFrame(leftFrame)
-    middle.setFrame(middleFrame)
-
-    right.removeFromSuperview
-  end
-  
-  def showSourceView
-    left   = @splitView.subviews[0]
-    middle = @splitView.subviews[1]
-
-    leftFrame   = left.frame
-    middleFrame = middle.frame
-    rightFrame  = NSRect.new
-
-    dividerThickness = @splitView.dividerThickness
-
-    leftFrame.size.height = @splitView.frame.size.height
-    leftFrame.size.width = leftFrame.size.width
-
-    middleFrame.size.width = (@splitView.frame.size.width - leftFrame.size.width - dividerThickness) * 0.5
-    middleFrame.origin.x = leftFrame.size.width + dividerThickness
-
-    rightFrame.size.width = middleFrame.origin.x + 1 + dividerThickness
-    rightFrame.origin.x = middleFrame.size.width
-
-    left.setFrame(leftFrame)
-    middle.setFrame(middleFrame)
-    @textView.setFrame(middleFrame)
-
-    @splitView.addSubview(@textView)
-  end
+  # def hideSourceView    
+  #   left   = @splitView.subviews[0]
+  #   middle = @splitView.subviews[1]
+  #   right  = @splitView.subviews[2]
+  # 
+  #   leftFrame   = left.frame
+  #   middleFrame = middle.frame
+  #   rightFrame  = right.frame
+  # 
+  #   dividerThickness = @splitView.dividerThickness
+  # 
+  #   leftFrame.size.height = @splitView.frame.size.height
+  #   leftFrame.size.width = leftFrame.size.width
+  # 
+  #   middleFrame.size.width = @splitView.frame.size.width - leftFrame.size.width - dividerThickness
+  #   middleFrame.origin.x = leftFrame.size.width + dividerThickness
+  # 
+  #   rightFrame.size.width = 0
+  #   rightFrame.origin.x = leftFrame.size.width + dividerThickness + middleFrame.size.width + dividerThickness
+  # 
+  #   left.setFrame(leftFrame)
+  #   middle.setFrame(middleFrame)
+  # 
+  #   right.removeFromSuperview
+  # end
+  # 
+  # def showSourceView
+  #   left   = @splitView.subviews[0]
+  #   middle = @splitView.subviews[1]
+  # 
+  #   leftFrame   = left.frame
+  #   middleFrame = middle.frame
+  #   rightFrame  = NSRect.new
+  # 
+  #   dividerThickness = @splitView.dividerThickness
+  # 
+  #   leftFrame.size.height = @splitView.frame.size.height
+  #   leftFrame.size.width = leftFrame.size.width
+  # 
+  #   middleFrame.size.width = (@splitView.frame.size.width - leftFrame.size.width - dividerThickness) * 0.5
+  #   middleFrame.origin.x = leftFrame.size.width + dividerThickness
+  # 
+  #   rightFrame.size.width = middleFrame.origin.x + 1 + dividerThickness
+  #   rightFrame.origin.x = middleFrame.size.width
+  # 
+  #   left.setFrame(leftFrame)
+  #   middle.setFrame(middleFrame)
+  #   @textView.setFrame(middleFrame)
+  # 
+  #   @splitView.addSubview(@textView)
+  # end
 
 end

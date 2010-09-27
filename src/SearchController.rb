@@ -9,12 +9,15 @@ class SearchController
 
   def book=(book)
     @book = book
+    @search = nil
+    @searchField.stringValue = ''
     @outlineView.reloadData
   end
 
   def search(sender)
     @search = Search.new(searchField.stringValue, book)
     @outlineView.reloadData
+    @search.each {|match| match.expanded = true}
   end
   
   def outlineView(outlineView, numberOfChildrenOfItem:item)
@@ -46,10 +49,10 @@ class SearchController
     return if @outlineView.selectedRow < 0
     match = @search[@outlineView.selectedRow]
     @textViewController.item = match.item
+    # @webViewController.item = item
     if match.empty?
       @textViewController.textView.scrollRangeToVisible(match.range)
       @textViewController.textView.showFindIndicatorForRange(match.range)
-      # @webViewController.item = item
     end
   end
 
