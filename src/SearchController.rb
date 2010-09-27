@@ -49,7 +49,7 @@ class SearchController
     return if @outlineView.selectedRow < 0
     match = @search.walk(@outlineView.selectedRow)
     @textViewController.item = match.item
-    # @webViewController.item = item
+    @webViewController.item = match.item
     if match.empty?
       @textViewController.textView.scrollRangeToVisible(match.range)
       @textViewController.textView.showFindIndicatorForRange(match.range)
