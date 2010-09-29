@@ -17,5 +17,5 @@ class WebViewController
       @webView.mainFrame.loadHTMLString('', baseURL:nil)
     end
   end
-
+  
 end

@@ -37,4 +37,15 @@ class TextViewController
     @textView.selectedRanges.first.rangeValue.location
   end
 
+  def replace(range, replacement)
+    if @textView.shouldChangeTextInRange(range, replacementString:replacement)
+      @textView.textStorage.beginEditing    
+      @textView.textStorage.replaceCharactersInRange(range, withString:replacement)
+      @textView.textStorage.endEditing
+      @textView.didChangeText
+    else
+      NSBeep()
+    end
+  end
+  
 end

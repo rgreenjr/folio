@@ -94,6 +94,7 @@ class ManifestController
   end
 
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
+    cell.font = NSFont.systemFontOfSize(11.0)
     if item.directory?
       cell.image = NSImage.imageNamed('folder.png')
     else

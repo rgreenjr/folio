@@ -95,11 +95,11 @@ class WindowController < NSWindowController
   #     right.setFrame(rightFrame)
   #   end
   # end
-  
-  def toggleSourceView(sender)
-    @splitView.subviews.size > 2 ? hideSourceView : showSourceView
-  end
-  
+  # 
+  # def toggleSourceView(sender)
+  #   @splitView.subviews.size > 2 ? hideSourceView : showSourceView
+  # end
+  # 
   # def hideSourceView    
   #   left   = @splitView.subviews[0]
   #   middle = @splitView.subviews[1]

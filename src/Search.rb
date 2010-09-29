@@ -11,7 +11,7 @@ class Search
         offset = 0
         parent = Match.new(item)
         while index = item.content.index(query, offset)
-          parent << Match.new(item, query, index)
+          parent << Match.new(item, parent, query, index)
           offset = index + query.size
         end
         @matches << parent unless parent.empty?
@@ -27,12 +27,12 @@ class Search
     @matches[index]
   end
   
-  def root
-    @matches.first
-  end
-  
   def size
     @matches.size
+  end
+  
+  def total
+    @total ||= @matches.inject(0) {|sum, m| sum += m.size}
   end
   
   def walk(index)

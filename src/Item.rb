@@ -25,6 +25,7 @@ class Item
   
   def content=(content)
     @content = content
+    File.open(path, 'wb') {|f| f.puts @content}
   end
 
   def name=(name)
