@@ -24,7 +24,7 @@ class Point
       @text = text unless text.empty?
     end
   end
-
+  
   def depth
     1 + @children.inject(0) {|max, point| [point.depth, max].max}
   end
@@ -89,6 +89,10 @@ class Point
       buffer << p.to_xml(indent + 1)
     end
     buffer << "#{padding}</navPoint>\n"
+  end
+
+  def name
+    @item.name
   end
 
   def editable?

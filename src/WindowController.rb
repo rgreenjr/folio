@@ -3,10 +3,11 @@ class WindowController < NSWindowController
   NAVIGATION = 0
   SPINE      = 1
   MANIFEST   = 2
+  SEARCH     = 3
   MINIMUM_WIDTH = 250.0
 
   attr_accessor :splitView, :segementedControl
-  attr_accessor :placeHolderView, :navigationView, :spineView, :manifestView
+  attr_accessor :placeHolderView, :navigationView, :spineView, :manifestView, :searchView
   attr_accessor :textView
 
   def awakeFromNib
@@ -21,6 +22,8 @@ class WindowController < NSWindowController
       @currentScrollView = @spineView
     elsif @segementedControl.selectedSegment == MANIFEST && @currentScrollView != @manifestView
       @currentScrollView = @manifestView
+    elsif @segementedControl.selectedSegment == SEARCH && @currentScrollView != @searchView
+      @currentScrollView = @searchView
     end
     subviews = @placeHolderView.subviews
     subviews.objectAtIndex(0).removeFromSuperview if subviews.size > 0
@@ -40,6 +43,11 @@ class WindowController < NSWindowController
 
   def showManifest(sender)
     @segementedControl.selectedSegment = MANIFEST
+    toggleView(self)
+  end
+  
+  def showSearch(sender)
+    @segementedControl.selectedSegment = SEARCH
     toggleView(self)
   end
 

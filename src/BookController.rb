@@ -1,7 +1,8 @@
 class BookController
 
   attr_accessor :book, :window
-  attr_accessor :navigationController, :spineController, :manifestController, :searchController, :progressController
+  attr_accessor :navigationController, :spineController, :manifestController
+  attr_accessor :searchController, :progressController
 
   def awakeFromNib
     readBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
@@ -38,7 +39,7 @@ class BookController
     @book.save("/Users/rgreen/Desktop/")
     @progressController.hide
   end
-
+  
   def showTemporaryDirectory(sender)
     system("open #{@book.path}")
   end

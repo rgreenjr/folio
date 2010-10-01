@@ -1,7 +1,6 @@
 class NavigationController
 
-  attr_accessor :navigation, :outlineView, :propertiesForm
-  attr_accessor :webViewController, :textViewController
+  attr_accessor :navigation, :outlineView, :propertiesForm, :tabView
 
   def awakeFromNib
     @outlineView.delegate = self
@@ -179,8 +178,7 @@ class NavigationController
   end
   
   def renderPoint(point)
-    @webViewController.item = point
-    @textViewController.item = point
+    @tabView.addItem(point)
   end
 
 end
