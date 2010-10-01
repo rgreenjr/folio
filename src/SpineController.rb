@@ -1,6 +1,6 @@
 class SpineController
 
-  attr_accessor :book, :tableView, :webViewController, :textViewController
+  attr_accessor :book, :tableView, :tabView
 
   def awakeFromNib
     @tableView.delegate = self
@@ -24,9 +24,7 @@ class SpineController
 
   def tableViewSelectionDidChange(aNotification)
     return if @tableView.selectedRow < 0
-    item = @book.spine[@tableView.selectedRow]
-    @webViewController.item = item
-    @textViewController.item = item
+    @tabView.add(@book.spine[@tableView.selectedRow])
   end
 
   def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)

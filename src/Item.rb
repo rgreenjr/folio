@@ -24,8 +24,9 @@ class Item
   end
   
   def content=(content)
+    @originalContent = @content.dup unless @originalContent
     @content = content
-    File.open(path, 'wb') {|f| f.puts @content}
+    save
   end
 
   def name=(name)
@@ -129,13 +130,28 @@ class Item
     end
   end
   
-  def save(directory)
+  def save
+    File.open(path, 'wb') {|f| f.puts @content}
+  end
+  
+  def saveToDirectory(directory)
     file = File.join(directory, href)
     if directory?
       FileUtils.mkdir_p(file)
     else
       File.open(file, 'wb') {|f| f.puts content}
     end
+  end
+  
+  def revert
+    if @originalContent
+      @content = @originalContent
+      save
+    end
+  end
+  
+  def dirty?
+    @originalContent != nil
   end
 
 end

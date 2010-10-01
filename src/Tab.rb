@@ -2,7 +2,7 @@ class Tab
   
   LABEL_PADDING = 10.0
   
-  attr_accessor :item, :selected
+  attr_accessor :item, :selected, :dirty
   
   def initialize(item)
     @item = item
@@ -50,6 +50,14 @@ class Tab
     labelSize = @item.name.sizeWithAttributes(@labelAttributes)
     labelRect.origin.y -= ((aRect.size.height - labelSize.height) * 0.5).floor
     @item.name.drawInRect(labelRect, withAttributes:@labelAttributes)    
+  end
+  
+  def dirty?
+    @item.dirty?
+  end
+  
+  def selected?
+    @selected
   end
   
 end

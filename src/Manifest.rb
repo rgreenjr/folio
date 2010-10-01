@@ -70,7 +70,7 @@ class Manifest
   end
   
   def save(directory)
-    each(true) {|item| item.save(directory)}
+    each(true) {|item| item.saveToDirectory(directory)}
   end
 
 end

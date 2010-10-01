@@ -11,7 +11,7 @@ class NavigationController
   end
 
   def book=(book)
-    renderPoint(nil)
+    @tabView.add(nil)
     @book = book
     @outlineView.reloadData
     disableProperties
@@ -46,10 +46,10 @@ class NavigationController
   def outlineViewSelectionDidChange(notification)
     if @outlineView.selectedRow < 0
       disableProperties
-      renderPoint(nil)
+      @tabView.add(nil)
     else
       point = @book.navigation[@outlineView.selectedRow]
-      renderPoint(point)
+      @tabView.add(point)
       textCell.stringValue = point.text
       idCell.stringValue = point.id
       sourceCell.stringValue = point.src
@@ -126,7 +126,7 @@ class NavigationController
     end
     point.item = item
     point.fragment = fragment
-    renderPoint(point)
+    @tabView.add(point)
   end
   
   def expandRoot
@@ -177,8 +177,4 @@ class NavigationController
     alert.runModal
   end
   
-  def renderPoint(point)
-    @tabView.addItem(point)
-  end
-
 end

@@ -1,9 +1,8 @@
 class TabView < NSView
   
-  DEFAULT_TAB_WIDTH = 150.0
+  DEFAULT_TAB_WIDTH = 350.0
   
-  attr_accessor :tabs, :selectedTab
-  attr_accessor :tabs, :textViewController, :webViewController
+  attr_accessor :tabs, :selectedTab, :textViewController, :webViewController
   
   def initWithFrame(frameRect)
     @tabs = []
@@ -24,23 +23,21 @@ class TabView < NSView
     nil
   end
   
-  def addItem(item)
-    return unless item
-    point = nil
-    if item.is_a?(Point)
-      point = item
-      item = point.item
+  def add(object)
+    return unless object
+    if object.is_a?(Point)
+      point = object
+      item = object.item
+    else
+      point = nil
+      item = object
     end
     tab = tabForItem(item)
     unless tab
       tab = Tab.new(item)
       @tabs << tab
     end
-    self.selectTab(tab, point)
-  end
-  
-  def addPoint(point)
-    # 
+    selectTab(tab, point)
   end
   
   def drawRect(aRect)
@@ -70,20 +67,21 @@ class TabView < NSView
   end
   
   def mouseDown(event)
-    puts "event.clickCount = #{event.clickCount}"
     tab = tabAtPoint(convertPoint(event.locationInWindow, fromView:nil))
-    if tab
-      if event.clickCount == 1
-        self.selectTab(tab)
+    return unless tab
+    if event.clickCount == 1
+      selectTab(tab)
+    else
+      if @selectedTab.dirty?
+        showSaveAlert(@selectedTab)
       else
-        unselectTab(tab)
+        closeTab(tab)
       end
     end
   end
   
   def tabAtPoint(point)
     index = (point.x / @tabWidth).floor
-    puts "index = #{index}"
     index < @tabs.size ? @tabs[index] : nil
   end
 
@@ -100,7 +98,7 @@ class TabView < NSView
     end
   end
 
-  def unselectTab(tab)
+  def closeTab(tab)
     return unless @selectedTab == tab
     index = indexForTab(tab)
     @tabs.delete_at(index)
@@ -109,11 +107,29 @@ class TabView < NSView
       @selectedTab = nil
     else
       tab = @tabs[0]
-      tab.selected = true
-      @selectedTab = tab
-      @textViewController.item = tab.item
-      @webViewController.item = tab.item
+      selectTab(tab)
     end
   end
 
+  def showSaveAlert(tab)
+    puts "@selectedTab = #{@selectedTab}"
+    alert = NSAlert.alloc.init
+    alert.messageText = "Do you want to save the changes you made to \"#{tab.item.name}\"?"
+    alert.informativeText = "Your changes will be lost if you don't save them."
+    alert.addButtonWithTitle "Save"
+    alert.addButtonWithTitle "Cancel"
+    alert.addButtonWithTitle "Don't Save"
+    alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"saveAlertDidEnd:returnCode:contextInfo:", contextInfo:nil)
+  end
+  
+  def saveAlertDidEnd(alert, returnCode:code, contextInfo:info)
+    if code == NSAlertFirstButtonReturn
+      @selectedTab.item.save
+      closeTab(@selectedTab)
+    elsif code == NSAlertThirdButtonReturn
+      @selectedTab.item.revert
+      closeTab(@selectedTab)
+    end
+  end
+  
 end

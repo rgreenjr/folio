@@ -1,7 +1,6 @@
 class ManifestController
 
-  attr_accessor :outlineView, :propertiesForm, :typePopUpButton
-  attr_accessor :webViewController, :textViewController
+  attr_accessor :outlineView, :propertiesForm, :typePopUpButton, :tabView
 
   def awakeFromNib
     disableProperties
@@ -46,20 +45,20 @@ class ManifestController
     if @outlineView.selectedRow < 0
       disableProperties
       item = nil
-      renderItem(nil)
+      @tabView.add(nil)
       @typePopUpButton.selectItemWithTitle('')
     else
       item = @book.manifest[@outlineView.selectedRow]
       if item.directory?
         disableProperties
         @typePopUpButton.selectItemWithTitle(item.mediaType)
-        renderItem(nil)
+        @tabView.add(nil)
       else
         enableProperties
         nameCell.stringValue = item.name
         idCell.stringValue = item.id
         @typePopUpButton.selectItemWithTitle(item.mediaType)
-        renderItem(item)
+        @tabView.add(item)
       end
     end
   end
@@ -148,11 +147,6 @@ class ManifestController
 
   def propertyCells
     [nameCell, idCell, typePopUpButton]
-  end
-
-  def renderItem(item)
-    @webViewController.item = item
-    @textViewController.item = item
   end
 
 end
