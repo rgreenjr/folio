@@ -16,6 +16,7 @@ class TabView < NSView
     midColor  = NSColor.colorWithDeviceRed(0.871, green:0.871, blue:0.871, alpha:1.0)
     endColor  = NSColor.colorWithDeviceRed(0.820, green:0.820, blue:0.820, alpha:1.0)
     @gradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], [0.0, 0.5, 1.0], colorSpace:NSColorSpace.genericRGBColorSpace)
+	  @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)
     self
   end
 
@@ -58,6 +59,7 @@ class TabView < NSView
     # puts "TabView drawRect = #{NSStringFromRect(aRect)}"
     updateTabWidth
     drawBackground
+    drawBorder
     @tabs.each_with_index do |tab, index|
       tab.drawRect(rectForTabAtIndex(index))
     end
@@ -72,8 +74,13 @@ class TabView < NSView
   end
 
   def drawBackground
-    rect = NSMakeRect(bounds.origin.x + (@tabs.size * @tabWidth), bounds.origin.y, bounds.size.width, bounds.size.height)
-    @gradient.drawInRect(rect, angle:270.0)
+    # rect = NSMakeRect(bounds.origin.x + (@tabs.size * @tabWidth), bounds.origin.y, bounds.size.width, bounds.size.height)
+    @gradient.drawInRect(bounds, angle:270.0)
+  end
+
+  def drawBorder
+    @lineColor.set
+    NSBezierPath.strokeLineFromPoint(CGPoint.new(bounds.origin.x, bounds.origin.y), toPoint:CGPoint.new(bounds.size.width, bounds.origin.y))
   end
 
   def rectForTab(tab)
@@ -153,6 +160,8 @@ class TabView < NSView
     if @selectedTab == tab
       if @tabs.empty?
         @selectedTab = nil
+        @textViewController.item = nil
+        @webViewController.item = nil
       else
         index -= 1 if index >= @tabs.size
         tab = @tabs[index]

@@ -22,7 +22,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="29"/>
-			<integer value="1044"/>
+			<integer value="432"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1055,7 +1055,7 @@
 																					<string>public.url</string>
 																				</object>
 																			</object>
-																			<string key="NSFrameSize">{851, 15}</string>
+																			<string key="NSFrame">{{0, 1}, {851, 14}}</string>
 																			<reference key="NSSuperview" ref="15713991"/>
 																			<object class="NSTextContainer" key="NSTextContainer" id="129327803">
 																				<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1194,7 +1194,7 @@
 												<object class="NSCustomView" id="957870544">
 													<reference key="NSNextResponder" ref="221432474"/>
 													<int key="NSvFlags">266</int>
-													<string key="NSFrame">{{0, 753}, {662, 22}}</string>
+													<string key="NSFrame">{{0, 753}, {663, 22}}</string>
 													<reference key="NSSuperview" ref="221432474"/>
 													<string key="NSClassName">TabView</string>
 												</object>
