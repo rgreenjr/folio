@@ -78,6 +78,11 @@
 		CDDE4C5F1254F3C0004A18CF /* Tab.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDE4C5E1254F3C0004A18CF /* Tab.rb */; };
 		CDDE4C9B1254FB69004A18CF /* TabView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDE4C9A1254FB69004A18CF /* TabView.rb */; };
 		CDDECB59124F9E8400604632 /* Search.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDECB58124F9E8400604632 /* Search.rb */; };
+		CDE3FC52125A4A4F00D52C50 /* RoundCloseButtonCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FC51125A4A4F00D52C50 /* RoundCloseButtonCell.rb */; };
+		CDE3FD0C125A84C800D52C50 /* tab-close-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */; };
+		CDE3FD0D125A84C800D52C50 /* tab-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD09125A84C800D52C50 /* tab-close.png */; };
+		CDE3FD0E125A84C800D52C50 /* tab-edited-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */; };
+		CDE3FD0F125A84C800D52C50 /* tab-edited-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD0B125A84C800D52C50 /* tab-edited-pressed.png */; };
 		CDE448FF12305CA2001C69AE /* AppController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448EE12305CA2001C69AE /* AppController.rb */; };
 		CDE4490012305CA2001C69AE /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448EF12305CA2001C69AE /* Book.rb */; };
 		CDE4490112305CA2001C69AE /* BookController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448F012305CA2001C69AE /* BookController.rb */; };
@@ -153,6 +158,11 @@
 		CDDE4C5E1254F3C0004A18CF /* Tab.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Tab.rb; sourceTree = "<group>"; };
 		CDDE4C9A1254FB69004A18CF /* TabView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabView.rb; sourceTree = "<group>"; };
 		CDDECB58124F9E8400604632 /* Search.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Search.rb; sourceTree = "<group>"; };
+		CDE3FC51125A4A4F00D52C50 /* RoundCloseButtonCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = RoundCloseButtonCell.rb; sourceTree = "<group>"; };
+		CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close-pressed.png"; sourceTree = "<group>"; };
+		CDE3FD09125A84C800D52C50 /* tab-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close.png"; sourceTree = "<group>"; };
+		CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-edited-close.png"; sourceTree = "<group>"; };
+		CDE3FD0B125A84C800D52C50 /* tab-edited-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-edited-pressed.png"; sourceTree = "<group>"; };
 		CDE448EE12305CA2001C69AE /* AppController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AppController.rb; sourceTree = "<group>"; };
 		CDE448EF12305CA2001C69AE /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
 		CDE448F012305CA2001C69AE /* BookController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookController.rb; sourceTree = "<group>"; };
@@ -286,6 +296,10 @@
 		CDBDC8A7122AA9DA00844EAA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */,
+				CDE3FD09125A84C800D52C50 /* tab-close.png */,
+				CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */,
+				CDE3FD0B125A84C800D52C50 /* tab-edited-pressed.png */,
 				CD6F573512528776006959BF /* find-close-click.tif */,
 				CD6F573612528776006959BF /* find-close-rollover.tif */,
 				CDBDC8A8122AA9DA00844EAA /* book.png */,
@@ -321,6 +335,7 @@
 				CDE448F812305CA2001C69AE /* NavigationController.rb */,
 				CDE448F912305CA2001C69AE /* Point.rb */,
 				CDC2B27B124FF54500082962 /* ProgressController.rb */,
+				CDE3FC51125A4A4F00D52C50 /* RoundCloseButtonCell.rb */,
 				CDDECB58124F9E8400604632 /* Search.rb */,
 				CD98FCE4124D132100D26653 /* SearchController.rb */,
 				CDE448FA12305CA2001C69AE /* Spine.rb */,
@@ -449,6 +464,11 @@
 				CD6F573812528776006959BF /* find-close-rollover.tif in Resources */,
 				CDDE4C5F1254F3C0004A18CF /* Tab.rb in Resources */,
 				CDDE4C9B1254FB69004A18CF /* TabView.rb in Resources */,
+				CDE3FC52125A4A4F00D52C50 /* RoundCloseButtonCell.rb in Resources */,
+				CDE3FD0C125A84C800D52C50 /* tab-close-pressed.png in Resources */,
+				CDE3FD0D125A84C800D52C50 /* tab-close.png in Resources */,
+				CDE3FD0E125A84C800D52C50 /* tab-edited-close.png in Resources */,
+				CDE3FD0F125A84C800D52C50 /* tab-edited-pressed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

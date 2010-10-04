@@ -150,7 +150,7 @@ class Item
     end
   end
   
-  def dirty?
+  def edited?
     @originalContent != nil
   end
 

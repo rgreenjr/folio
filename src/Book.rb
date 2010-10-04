@@ -20,7 +20,7 @@ class Book
     @guide      = Guide.new(self)
     @navigation = Navigation.new(self)
   end
-
+  
   def save(directory)
     tmp = Dir.mktmpdir("folio-zip-")
     system("open #{tmp}")
@@ -34,6 +34,10 @@ class Book
     system("cd '#{tmp}'; zip -qX0 '#{epub}' mimetype")
     system("cd '#{tmp}'; zip -qX9urD '#{epub}' *")
     FileUtils.rm_rf(tmp)
+  end
+  
+  def close
+    FileUtils.rm_rf(@path)
   end
 
   def opf_xml
