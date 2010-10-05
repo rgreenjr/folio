@@ -28,4 +28,19 @@ class WindowController < NSWindowController
     return proposedMax - MINIMUM_WIDTH
   end
   
+  # keep left split pane from resizing as window resizes
+  def splitView(sender, resizeSubviewsWithOldSize:oldSize)
+  	newFrame = sender.frame
+  	left = sender.subviews[0]
+  	leftFrame = left.frame
+  	right = sender.subviews[1]
+  	rightFrame = right.frame
+  	leftFrame.size.height = newFrame.size.height
+  	rightFrame.size.width = newFrame.size.width - leftFrame.size.width - sender.dividerThickness
+  	rightFrame.size.height = newFrame.size.height
+  	rightFrame.origin.x = leftFrame.size.width + sender.dividerThickness
+  	left.setFrame(leftFrame)
+  	right.setFrame(rightFrame)
+  end
+  
 end

@@ -21,8 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="29"/>
-			<integer value="432"/>
+			<integer value="371"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2268,7 +2267,6 @@
 						</object>
 						<string key="NSFrameSize">{240, 135}</string>
 						<reference key="NSSuperview" ref="102175853"/>
-						<reference key="NSNextKeyView" ref="155038758"/>
 						<reference key="NSDocView" ref="155038758"/>
 						<reference key="NSBGColor" ref="764096244"/>
 						<int key="NScvFlags">4</int>
@@ -2285,7 +2283,7 @@
 					<object class="NSScroller" id="25837073">
 						<reference key="NSNextResponder" ref="102175853"/>
 						<int key="NSvFlags">-2147483392</int>
-						<string key="NSFrame">{{1, 119}, {223, 15}}</string>
+						<string key="NSFrame">{{-100, -100}, {223, 15}}</string>
 						<reference key="NSSuperview" ref="102175853"/>
 						<int key="NSsFlags">1</int>
 						<reference key="NSTarget" ref="102175853"/>
@@ -2294,8 +2292,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{240, 135}</string>
-				<reference key="NSNextKeyView" ref="66904470"/>
-				<int key="NSsFlags">560</int>
+				<int key="NSsFlags">528</int>
 				<reference key="NSVScroller" ref="619640200"/>
 				<reference key="NSHScroller" ref="25837073"/>
 				<reference key="NSContentView" ref="66904470"/>
