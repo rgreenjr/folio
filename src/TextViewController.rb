@@ -3,20 +3,20 @@ class TextViewController
   attr_accessor :item, :textView, :webView
 
   def awakeFromNib
-    scrollView = @textView.enclosingScrollView
-    scrollView.verticalRulerView = LineNumberRuler.alloc.initWithScrollView(scrollView)
-    scrollView.hasHorizontalRuler = false
-    scrollView.hasVerticalRuler = true
-    scrollView.rulersVisible = true
+    # scrollView = @textView.enclosingScrollView
+    # scrollView.verticalRulerView = LineNumberRuler.alloc.initWithScrollView(scrollView)
+    # scrollView.hasHorizontalRuler = false
+    # scrollView.hasVerticalRuler = true
+    # scrollView.rulersVisible = true
 
     @textView.delegate = self
     @textView.setEnabledTextCheckingTypes(0)
     
-    @highlighter = Highlighter.new(@textView)
+    # @highlighter = Highlighter.new(@textView)
   end
 
   def item=(item)
-    return if item == @item
+    # return if item == @item
     @item = item
     if @item && @item.editable?
       attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
@@ -26,7 +26,7 @@ class TextViewController
     end
     @textView.textStorage.attributedString = string
   end
-
+  
   def textDidChange(notification)
     return unless @item
     @item.content = @textView.textStorage.string

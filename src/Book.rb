@@ -39,7 +39,7 @@ class Book
   def close
     FileUtils.rm_rf(@path)
   end
-
+  
   def opf_xml
     book = self
     ERB.new(Bundle.template("content.opf")).result(binding)

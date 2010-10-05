@@ -56,10 +56,10 @@ class TabView < NSView
   end
 
   def drawRect(aRect)
-    # puts "TabView drawRect = #{NSStringFromRect(aRect)}"
     updateTabWidth
-    drawBackground
-    drawBorder
+    @gradient.drawInRect(bounds, angle:270.0)
+    @lineColor.set
+    NSBezierPath.strokeLineFromPoint(CGPoint.new(bounds.origin.x, bounds.origin.y), toPoint:CGPoint.new(bounds.size.width, bounds.origin.y))
     @tabs.each_with_index do |tab, index|
       tab.drawRect(rectForTabAtIndex(index))
     end
@@ -71,16 +71,6 @@ class TabView < NSView
     else
       @tabWidth = (bounds.size.width / @tabs.size).floor
     end
-  end
-
-  def drawBackground
-    # rect = NSMakeRect(bounds.origin.x + (@tabs.size * @tabWidth), bounds.origin.y, bounds.size.width, bounds.size.height)
-    @gradient.drawInRect(bounds, angle:270.0)
-  end
-
-  def drawBorder
-    @lineColor.set
-    NSBezierPath.strokeLineFromPoint(CGPoint.new(bounds.origin.x, bounds.origin.y), toPoint:CGPoint.new(bounds.size.width, bounds.origin.y))
   end
 
   def rectForTab(tab)
@@ -120,16 +110,9 @@ class TabView < NSView
     point = convertPoint(event.locationInWindow, fromView:nil)
     tab = tabAtPoint(point)
     if tab && tab == @clickedTab
-      puts "tab is clicked tab"
       if tab.closeButtonHit?(point, rectForTab(tab))
-        puts "closing"
-        if tab.item.edited?
-          showSaveAlert(@selectedTab)
-        else
-          closeTab(tab)
-        end
+        saveOrCloseTab(@selectedTab)
       else
-        puts "selecting"
         selectTab(tab)
       end
     end
@@ -145,12 +128,31 @@ class TabView < NSView
     @selectedTab.selected = false if @selectedTab
     tab.selected = true
     @selectedTab = tab
-    setNeedsDisplay true
     @textViewController.item = tab.item
     if point
       @webViewController.item = point
     else
       @webViewController.item = tab.item
+    end
+    setNeedsDisplay true
+  end
+  
+  def save(sender)
+    if @selectedTab
+      @selectedTab.item.save
+      setNeedsDisplay(true)
+    end
+  end
+  
+  def close(sender)
+    saveOrCloseTab(@selectedTab) if @selectedTab
+  end
+  
+  def saveOrCloseTab(tab)
+    if tab.item.edited?
+      showSaveAlert(@selectedTab)
+    else
+      closeTab(tab)
     end
   end
 
@@ -170,9 +172,17 @@ class TabView < NSView
     end
     setNeedsDisplay true
   end
-
+  
+  def closeAllTabs
+    @tabs.each {|tab| closeTab(tab)}
+  end
+  
+  def hasEditedTabs?
+    @tabs.each {|tab| return true if tab.item.edited?}
+    false
+  end
+  
   def showSaveAlert(tab)
-    puts "@selectedTab = #{@selectedTab}"
     alert = NSAlert.alloc.init
     alert.messageText = "Do you want to save the changes you made to \"#{tab.item.name}\"?"
     alert.informativeText = "Your changes will be lost if you don't save them."

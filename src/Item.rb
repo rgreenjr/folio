@@ -23,10 +23,10 @@ class Item
     @content ||= File.read(path)
   end
   
-  def content=(content)
-    @originalContent = @content.dup unless @originalContent
-    @content = content
-    save
+  def content=(string)
+    @lastSavedContent = @content.dup unless @lastSavedContent
+    @content = string
+    File.open(path, 'wb') {|f| f.puts @content}
   end
 
   def name=(name)
@@ -131,7 +131,9 @@ class Item
   end
   
   def save
+    puts "save"
     File.open(path, 'wb') {|f| f.puts @content}
+    @lastSavedContent = nil
   end
   
   def saveToDirectory(directory)
@@ -144,14 +146,14 @@ class Item
   end
   
   def revert
-    if @originalContent
-      @content = @originalContent
-      save
+    if @lastSavedContent
+      @content = @lastSavedContent
+      @lastSavedContent = nil
     end
   end
   
   def edited?
-    @originalContent != nil
+    @lastSavedContent != nil
   end
 
 end
