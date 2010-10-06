@@ -173,13 +173,8 @@ class TabView < NSView
     setNeedsDisplay true
   end
   
-  def closeAllTabs
-    @tabs.each {|tab| closeTab(tab)}
-  end
-  
-  def hasEditedTabs?
-    @tabs.each {|tab| return true if tab.item.edited?}
-    false
+  def editedItems
+    @tabs.inject([]) {|array, tab| array << tab.item if tab.item.edited?; array }
   end
   
   def showSaveAlert(tab)

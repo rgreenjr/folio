@@ -41,14 +41,15 @@ class BookController
   end
   
   def closeBook(sender)
-    if @tabView.hasEditedTabs?
-      title = "Do you want to save the changes you made to \"#{@book.title}\"?"
+    editedItems = @tabView.editedItems
+    unless editedItems.empty?
+      title = "You have #{pluralize(editedItems.size, "document")} with unsaved changes in \"#{@book.title}\". Do you want to save these changes before quiting?"
       message = "Your changes will be lost if you don't save them."
-      # response = NSRunAlertPanel(title, message, "Review Changes...", "Discard Changes", "Cancel") # NSAlertOtherReturn
-      response = NSRunAlertPanel(title, message, "Cancel", "Discard Changes", nil)
+      response = NSRunAlertPanel(title, message, "Save Changes", "Discard Changes", "Cancel")
       case response
       when NSAlertDefaultReturn
-        # @tabView.closeAllTabs
+        editedItems.each { |item| item.save }
+      when NSAlertOtherReturn
         return false
       end        
     end

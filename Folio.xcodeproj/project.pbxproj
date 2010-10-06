@@ -65,6 +65,7 @@
 		CDA3FF2A124D8296003F6341 /* Match.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA3FF29124D8296003F6341 /* Match.rb */; };
 		CDADCC7A124BFF3E00553FC7 /* Bundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDADCC79124BFF3E00553FC7 /* Bundle.rb */; };
 		CDBC1CAB124AA26500BED071 /* Highlighter.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDBC1CAA124AA26500BED071 /* Highlighter.rb */; };
+		CDBCAB58125D292400833604 /* Kernel.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDBCAB57125D292400833604 /* Kernel.rb */; };
 		CDBDC8AF122AA9DA00844EAA /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8A8122AA9DA00844EAA /* book.png */; };
 		CDBDC8B0122AA9DA00844EAA /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8A9122AA9DA00844EAA /* folder.png */; };
 		CDBDC8B1122AA9DA00844EAA /* items.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBDC8AA122AA9DA00844EAA /* items.png */; };
@@ -145,6 +146,7 @@
 		CDA3FF29124D8296003F6341 /* Match.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Match.rb; sourceTree = "<group>"; };
 		CDADCC79124BFF3E00553FC7 /* Bundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Bundle.rb; sourceTree = "<group>"; };
 		CDBC1CAA124AA26500BED071 /* Highlighter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Highlighter.rb; sourceTree = "<group>"; };
+		CDBCAB57125D292400833604 /* Kernel.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Kernel.rb; sourceTree = "<group>"; };
 		CDBDC8A8122AA9DA00844EAA /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
 		CDBDC8A9122AA9DA00844EAA /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		CDBDC8AA122AA9DA00844EAA /* items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = items.png; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				CDBC1CAA124AA26500BED071 /* Highlighter.rb */,
 				CDE448F312305CA2001C69AE /* ImageCell.rb */,
 				CDE448F412305CA2001C69AE /* Item.rb */,
+				CDBCAB57125D292400833604 /* Kernel.rb */,
 				CDD858A912385B6900DD7E7A /* LineNumberRuler.rb */,
 				CDE448F512305CA2001C69AE /* Manifest.rb */,
 				CDE448F612305CA2001C69AE /* ManifestController.rb */,
@@ -469,6 +472,7 @@
 				CDE3FD0D125A84C800D52C50 /* tab-close.png in Resources */,
 				CDE3FD0E125A84C800D52C50 /* tab-edited-close.png in Resources */,
 				CDE3FD0F125A84C800D52C50 /* tab-edited-pressed.png in Resources */,
+				CDBCAB58125D292400833604 /* Kernel.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
