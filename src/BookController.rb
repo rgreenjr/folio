@@ -13,7 +13,7 @@ class BookController
     panel.title = "Open Book"
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
-    if (panel.runModalForDirectory(nil, file:nil, types:['epub']) == NSOKButton)
+    if panel.runModalForDirectory(nil, file:nil, types:['epub']) == NSOKButton
       readBook(panel.filename)
     end
   end

@@ -108,7 +108,6 @@ class ManifestController
 
   def selectItem(item)
     if item
-      # expandPath(item)
       row = @outlineView.rowForItem(item)
       indices = NSIndexSet.indexSetWithIndex(row)
       @outlineView.selectRowIndexes(indices, byExtendingSelection:false)
@@ -116,14 +115,6 @@ class ManifestController
       @outlineView.deselectAll(nil)
     end
   end
-  
-  # def expandPath(item)
-  #   parent = item.parent
-  #   while parent
-  #     @outlineView.expandItem(parent, expandChildren:false)
-  #     parent = parent.parent
-  #   end
-  # end
   
   def changeName(sender)
     updateAttribute('name', nameCell)

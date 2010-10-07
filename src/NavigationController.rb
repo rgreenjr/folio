@@ -8,7 +8,6 @@ class NavigationController
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
     disableProperties    
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
   end
 
   def book=(book)
@@ -19,14 +18,6 @@ class NavigationController
     expandRoot
   end
   
-  def tabViewSelectionDidChange(notification)
-    # item = notification.object.selectItem
-    # selectedPoint = @book.navigation[@outlineView.selectedRow]
-    # unless item && selectedPoint && item == selectedPoint.item
-    #   selectPoint()
-    # end
-  end
-
   def outlineView(outlineView, numberOfChildrenOfItem:point)
     return 0 unless @outlineView.dataSource && @book # guard against SDK bug
     point ? point.size : @book.navigation.root.size

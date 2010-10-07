@@ -2,7 +2,7 @@ class TabView < NSView
 
   DEFAULT_TAB_WIDTH = 350.0
 
-  attr_accessor :tabs, :selectedTab, :textViewController
+  attr_accessor :tabs, :selectedTab, :textViewController, :webViewController
 
   def awakeFromNib
     ctr = NSNotificationCenter.defaultCenter
@@ -130,8 +130,16 @@ class TabView < NSView
 
   def selectTab(tab, point=nil)
     @selectedTab.selected = false if @selectedTab
-    tab.selected = true if tab
-    @selectedTab = tab
+    if tab
+      tab.selected = true
+      @selectedTab = tab
+      item = tab.item
+      point = point ? point : item      
+    else
+      item = nil
+    end
+    @textViewController.item = item
+    @webViewController.item = point
     setNeedsDisplay true
     NSNotificationCenter.defaultCenter.postNotificationName("TabViewSelectionDidChange", object:self)
   end
