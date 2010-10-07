@@ -10,18 +10,14 @@ class BookController
 
   def showOpenBookPanel(sender)
     panel = NSOpenPanel.openPanel
+    panel.title = "Open Book"
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
     if (panel.runModalForDirectory(nil, file:nil, types:['epub']) == NSOKButton)
-      begin
-        readBook(panel.filename)
-      rescue Exception => e
-        @progressController.hide
-        showErrorAlert(e)
-      end
+      readBook(panel.filename)
     end
   end
-  
+
   def readBook(filename)
     @progressController.show("Opening...")
     @book = Book.new(filename)
@@ -32,14 +28,17 @@ class BookController
     @window.title = @book.title
     @progressController.hide
     @window.makeKeyAndOrderFront(self)
+  rescue Exception => e
+    @progressController.hide
+    showErrorAlert(e)
   end
-  
+
   def saveBook(sender)
     @progressController.show("Saving...")
     @book.save("/Users/rgreen/Desktop/")
     @progressController.hide
   end
-  
+
   def closeBook(sender)
     editedItems = @tabView.editedItems
     unless editedItems.empty?
@@ -56,7 +55,7 @@ class BookController
     @book.close
     true
   end
-  
+
   def showTemporaryDirectory(sender)
     system("open #{@book.path}")
   end
