@@ -7,7 +7,8 @@ class NavigationController
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
-    disableProperties
+    disableProperties    
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
   end
 
   def book=(book)
@@ -16,6 +17,14 @@ class NavigationController
     @outlineView.reloadData
     disableProperties
     expandRoot
+  end
+  
+  def tabViewSelectionDidChange(notification)
+    # item = notification.object.selectItem
+    # selectedPoint = @book.navigation[@outlineView.selectedRow]
+    # unless item && selectedPoint && item == selectedPoint.item
+    #   selectPoint()
+    # end
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:point)
@@ -80,7 +89,6 @@ class NavigationController
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    puts "accept"
     parent = @book.navigation.root unless parent
     return false unless @draggedPoint
     @book.navigation.delete(@draggedPoint)
@@ -92,9 +100,13 @@ class NavigationController
   end
   
   def selectPoint(point)
-    row = @outlineView.rowForItem(point)
-    indices = NSIndexSet.indexSetWithIndex(row)
-    @outlineView.selectRowIndexes(indices, byExtendingSelection:false)    
+    if point
+      row = @outlineView.rowForItem(point)
+      indices = NSIndexSet.indexSetWithIndex(row)
+      @outlineView.selectRowIndexes(indices, byExtendingSelection:false)      
+    else
+      @outlineView.deselectAll(nil)
+    end
   end
   
   def addPoint(sender)
@@ -120,7 +132,7 @@ class NavigationController
     href, fragment = sourceCell.stringValue.split('#')
     item = @book.manifest.itemWithHref(href)
     unless item
-      showAlert("Source is not valid: #{sourceCell.stringValue}")
+      showErrorAlert("Source is not valid: #{sourceCell.stringValue}")
       sourceCell.stringValue = point.src
       return
     end
@@ -169,7 +181,7 @@ class NavigationController
     [textCell, idCell, sourceCell]
   end
   
-  def showAlert(message)
+  def showErrorAlert(message)
     alert = NSAlert.alloc.init
     alert.addButtonWithTitle "OK"
     alert.messageText = "Error"

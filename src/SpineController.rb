@@ -6,11 +6,16 @@ class SpineController
     @tableView.delegate = self
     @tableView.dataSource = self
     @tableView.registerForDraggedTypes([NSStringPboardType])
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
   end
 
   def book=(book)
     @book = book
     @tableView.reloadData
+  end
+
+  def tabViewSelectionDidChange(notification)
+    selectItem(notification.object.selectedItem)
   end
 
   def numberOfRowsInTableView(aTableView)
@@ -32,7 +37,7 @@ class SpineController
     pboard.declareTypes([NSStringPboardType], owner:self)
     pboard.setString(@draggedRow.to_s, forType:NSStringPboardType)
     true
-  end 
+  end
 
   def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:childIndex)
     row ? NSDragOperationMove : NSDragOperationNone
@@ -44,12 +49,23 @@ class SpineController
     index = @book.spine.size if index > @book.spine.size
     @book.spine.insert(index, item)
     @tableView.reloadData
-    indexes = NSIndexSet.indexSetWithIndex(index)
-    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)    
+    selectItem(item)
     @draggedItem = nil
     true
   end
-  
+
+  def selectItem(item)
+    if item
+      row = @book.spine.index(item)
+      if row
+        indices = NSIndexSet.indexSetWithIndex(row)
+        @tableView.selectRowIndexes(indices, byExtendingSelection:false)
+        return
+      end
+    end
+    @tableView.deselectAll(nil)
+  end
+
   def addPage(sender)
     index = @tableView.selectedRow
     index = @book.spine.size if index < 0
@@ -58,5 +74,5 @@ class SpineController
     @book.spine.insert(index, item)
     @tableView.reloadData
   end
-  
+
 end

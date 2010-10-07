@@ -9,11 +9,16 @@ class ManifestController
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
   end
 
   def book=(book)
     @book = book
     @outlineView.reloadData
+  end
+
+  def tabViewSelectionDidChange(notification)
+    selectItem(notification.object.selectedItem)
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:item)
@@ -102,10 +107,23 @@ class ManifestController
   end
 
   def selectItem(item)
-    row = @outlineView.rowForItem(item)
-    indices = NSIndexSet.indexSetWithIndex(row)
-    @outlineView.selectRowIndexes(indices, byExtendingSelection:false)    
+    if item
+      # expandPath(item)
+      row = @outlineView.rowForItem(item)
+      indices = NSIndexSet.indexSetWithIndex(row)
+      @outlineView.selectRowIndexes(indices, byExtendingSelection:false)
+    else
+      @outlineView.deselectAll(nil)
+    end
   end
+  
+  # def expandPath(item)
+  #   parent = item.parent
+  #   while parent
+  #     @outlineView.expandItem(parent, expandChildren:false)
+  #     parent = parent.parent
+  #   end
+  # end
   
   def changeName(sender)
     updateAttribute('name', nameCell)

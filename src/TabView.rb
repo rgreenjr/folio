@@ -2,7 +2,7 @@ class TabView < NSView
 
   DEFAULT_TAB_WIDTH = 350.0
 
-  attr_accessor :tabs, :selectedTab, :textViewController, :webViewController
+  attr_accessor :tabs, :selectedTab, :textViewController
 
   def awakeFromNib
     ctr = NSNotificationCenter.defaultCenter
@@ -16,7 +16,7 @@ class TabView < NSView
     midColor  = NSColor.colorWithDeviceRed(0.871, green:0.871, blue:0.871, alpha:1.0)
     endColor  = NSColor.colorWithDeviceRed(0.820, green:0.820, blue:0.820, alpha:1.0)
     @gradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], [0.0, 0.5, 1.0], colorSpace:NSColorSpace.genericRGBColorSpace)
-	  @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)
+	  @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)    
     self
   end
 
@@ -27,7 +27,11 @@ class TabView < NSView
   def textDidChange(notification)
     setNeedsDisplay true
   end
-
+  
+  def selectedItem
+    @selectedTab ? @selectedTab.item : nil
+  end
+  
   def tabForItem(item)
     @tabs.each_with_index {|tab, index| return tab if tab.item == item}
     nil
@@ -126,15 +130,10 @@ class TabView < NSView
 
   def selectTab(tab, point=nil)
     @selectedTab.selected = false if @selectedTab
-    tab.selected = true
+    tab.selected = true if tab
     @selectedTab = tab
-    @textViewController.item = tab.item
-    if point
-      @webViewController.item = point
-    else
-      @webViewController.item = tab.item
-    end
     setNeedsDisplay true
+    NSNotificationCenter.defaultCenter.postNotificationName("TabViewSelectionDidChange", object:self)
   end
   
   def save(sender)
@@ -161,9 +160,7 @@ class TabView < NSView
     @tabs.delete_at(index)
     if @selectedTab == tab
       if @tabs.empty?
-        @selectedTab = nil
-        @textViewController.item = nil
-        @webViewController.item = nil
+        selectTab(nil)
       else
         index -= 1 if index >= @tabs.size
         tab = @tabs[index]

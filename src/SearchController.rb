@@ -6,6 +6,11 @@ class SearchController
   def awakeFromNib
     @outlineView.delegate = self
     @outlineView.dataSource = self
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
+  end
+
+  def tabViewSelectionDidChange(tabView)
+    # puts "SearchController.tabViewSelectionDidChange"
   end
 
   def book=(book)

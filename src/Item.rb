@@ -81,6 +81,10 @@ class Item
     @expanded = bool
   end
   
+  def leaf?
+    @children.empty?
+  end
+  
   def size
     @children.size
   end
