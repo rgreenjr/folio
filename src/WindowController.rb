@@ -6,7 +6,8 @@ class WindowController < NSWindowController
   attr_accessor :navigationView, :spineView, :manifestView, :searchView
 
   def awakeFromNib
-    @views = [@navigationView, @spineView, @manifestView, @searchView]
+    @views  = [@navigationView, @spineView, @manifestView, @searchView]
+    @titles = ["Navigation", "Spine", "Manifest", "Search"]
     toggleView(nil)
   end
 
@@ -14,11 +15,11 @@ class WindowController < NSWindowController
     index = sender ? sender.tag : 0
     unless @activeView == @views[index]
       @activeView = @views[index]
+      @headerView.title = @titles[index]
       subviews = @placeHolderView.subviews
       subviews[0].removeFromSuperview unless subviews.empty?
       @placeHolderView.addSubview(@activeView)
       @activeView.frame = @activeView.superview.frame
-      @headerView.title = "Fooooo"
     end
   end
 

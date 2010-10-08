@@ -1,6 +1,4 @@
 class HeaderView < NSView
-  
-  attr_accessor :title
 
   def initWithFrame(frameRect)
     super
@@ -15,6 +13,11 @@ class HeaderView < NSView
       NSForegroundColorAttributeName => NSColor.blackColor
     }
     self
+  end
+  
+  def title=(title)
+    @title = title
+    setNeedsDisplay true
   end
 
   def drawRect(frame)
