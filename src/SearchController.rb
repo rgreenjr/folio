@@ -19,21 +19,25 @@ class SearchController
 
   def show(sender)
     box = @tabView.superview
-
+    
     if box.subviews.size == 2
       box.addSubview(@searchBox, positioned:NSWindowBelow, relativeTo:@tabView)
     end
+    
+    return if @searchBox.frame.origin.y == @tabView.frame.origin.y - SEARCH_BOX_HEIGHT
 
     splitView = @tabView.superview.subviews[2]    
     splitRect = splitView.frame
-    splitRect.size.height -= SEARCH_BOX_HEIGHT
+    splitRect.size.height = box.frame.size.height - @tabView.frame.size.height - SEARCH_BOX_HEIGHT
     splitView.animator.frame = splitRect
     
+    # place at tabview
     searchRect = @tabView.frame
     searchRect.size.height = SEARCH_BOX_HEIGHT
     @searchBox.frame = searchRect
 
-    searchRect.origin.y -= SEARCH_BOX_HEIGHT
+    # animate down
+    searchRect.origin.y = @tabView.frame.origin.y - SEARCH_BOX_HEIGHT
     @searchBox.animator.frame = searchRect
     
     @searchField.selectText nil
@@ -52,6 +56,9 @@ class SearchController
   end
 
   def search(sender)
+    puts "search"
+    query = searchField.stringValue
+    return unless query.size > 0
     @search = Search.new(searchField.stringValue, book)
     @outlineView.reloadData
     @windowController.showSearchResults

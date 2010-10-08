@@ -58,11 +58,12 @@
 		CD0A304D125E775500AA3EF2 /* table-header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0A304C125E775500AA3EF2 /* table-header-bg.png */; };
 		CD0A30C2125E874F00AA3EF2 /* HeaderView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */; };
 		CD1354381246E4BB006761AF /* container.xml.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD1354371246E4BB006761AF /* container.xml.erb */; };
-		CD6F573712528776006959BF /* find-close-click.tif in Resources */ = {isa = PBXBuildFile; fileRef = CD6F573512528776006959BF /* find-close-click.tif */; };
-		CD6F573812528776006959BF /* find-close-rollover.tif in Resources */ = {isa = PBXBuildFile; fileRef = CD6F573612528776006959BF /* find-close-rollover.tif */; };
 		CD80EB7B1232BABB00CEC08F /* CSSParser.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD80EB7A1232BABB00CEC08F /* CSSParser.rb */; };
 		CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59A122B3E32005BB914 /* content.opf.erb */; };
 		CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59C122B3E32005BB914 /* toc.ncx.erb */; };
+		CD890C4E125FDE3B00FD262A /* find-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CD890C4D125FDE3B00FD262A /* find-close.png */; };
+		CD890C52125FDF2700FD262A /* find-close-click.png in Resources */ = {isa = PBXBuildFile; fileRef = CD890C51125FDF2700FD262A /* find-close-click.png */; };
+		CD890C54125FDF5D00FD262A /* find-close-rollover.png in Resources */ = {isa = PBXBuildFile; fileRef = CD890C53125FDF5D00FD262A /* find-close-rollover.png */; };
 		CD98FCE5124D132100D26653 /* SearchController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD98FCE4124D132100D26653 /* SearchController.rb */; };
 		CDA3FF2A124D8296003F6341 /* Match.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA3FF29124D8296003F6341 /* Match.rb */; };
 		CDADCC7A124BFF3E00553FC7 /* Bundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDADCC79124BFF3E00553FC7 /* Bundle.rb */; };
@@ -140,11 +141,12 @@
 		CD0A304C125E775500AA3EF2 /* table-header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table-header-bg.png"; sourceTree = "<group>"; };
 		CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HeaderView.rb; sourceTree = "<group>"; };
 		CD1354371246E4BB006761AF /* container.xml.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml.erb; sourceTree = "<group>"; };
-		CD6F573512528776006959BF /* find-close-click.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "find-close-click.tif"; sourceTree = "<group>"; };
-		CD6F573612528776006959BF /* find-close-rollover.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "find-close-rollover.tif"; sourceTree = "<group>"; };
 		CD80EB7A1232BABB00CEC08F /* CSSParser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CSSParser.rb; sourceTree = "<group>"; };
 		CD83F59A122B3E32005BB914 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD83F59C122B3E32005BB914 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
+		CD890C4D125FDE3B00FD262A /* find-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close.png"; sourceTree = "<group>"; };
+		CD890C51125FDF2700FD262A /* find-close-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-click.png"; sourceTree = "<group>"; };
+		CD890C53125FDF5D00FD262A /* find-close-rollover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-rollover.png"; sourceTree = "<group>"; };
 		CD98FCE4124D132100D26653 /* SearchController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SearchController.rb; sourceTree = "<group>"; };
 		CDA3FF29124D8296003F6341 /* Match.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Match.rb; sourceTree = "<group>"; };
 		CDADCC79124BFF3E00553FC7 /* Bundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Bundle.rb; sourceTree = "<group>"; };
@@ -300,13 +302,14 @@
 		CDBDC8A7122AA9DA00844EAA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD890C53125FDF5D00FD262A /* find-close-rollover.png */,
+				CD890C51125FDF2700FD262A /* find-close-click.png */,
+				CD890C4D125FDE3B00FD262A /* find-close.png */,
 				CD0A304C125E775500AA3EF2 /* table-header-bg.png */,
 				CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */,
 				CDE3FD09125A84C800D52C50 /* tab-close.png */,
 				CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */,
 				CDE3FD0B125A84C800D52C50 /* tab-edited-pressed.png */,
-				CD6F573512528776006959BF /* find-close-click.tif */,
-				CD6F573612528776006959BF /* find-close-rollover.tif */,
 				CDBDC8A8122AA9DA00844EAA /* book.png */,
 				CDBDC8A9122AA9DA00844EAA /* folder.png */,
 				CDBDC8AA122AA9DA00844EAA /* items.png */,
@@ -466,8 +469,6 @@
 				CDA3FF2A124D8296003F6341 /* Match.rb in Resources */,
 				CDDECB59124F9E8400604632 /* Search.rb in Resources */,
 				CDC2B27C124FF54500082962 /* ProgressController.rb in Resources */,
-				CD6F573712528776006959BF /* find-close-click.tif in Resources */,
-				CD6F573812528776006959BF /* find-close-rollover.tif in Resources */,
 				CDDE4C5F1254F3C0004A18CF /* Tab.rb in Resources */,
 				CDDE4C9B1254FB69004A18CF /* TabView.rb in Resources */,
 				CDE3FD0C125A84C800D52C50 /* tab-close-pressed.png in Resources */,
@@ -477,6 +478,9 @@
 				CDBCAB58125D292400833604 /* Kernel.rb in Resources */,
 				CD0A304D125E775500AA3EF2 /* table-header-bg.png in Resources */,
 				CD0A30C2125E874F00AA3EF2 /* HeaderView.rb in Resources */,
+				CD890C4E125FDE3B00FD262A /* find-close.png in Resources */,
+				CD890C52125FDF2700FD262A /* find-close-click.png in Resources */,
+				CD890C54125FDF5D00FD262A /* find-close-rollover.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
