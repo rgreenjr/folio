@@ -1,16 +1,17 @@
 class HeaderView < NSView
+  
+  TITLE_PADDING = 10.0
 
   def initWithFrame(frameRect)
     super
-    @title = ""
+    @title = "Title"
     @image = NSImage.imageNamed("table-header-bg.png")
     style = NSMutableParagraphStyle.alloc.init
     style.alignment = NSCenterTextAlignment
     style.lineBreakMode = NSLineBreakByTruncatingTail
     @textAttributes = {
-      NSParagraphStyleAttributeName  => style,
-      NSFontAttributeName            => NSFont.systemFontOfSize(11.0),
-      NSForegroundColorAttributeName => NSColor.blackColor
+      NSParagraphStyleAttributeName => style,
+      NSFontAttributeName => NSFont.systemFontOfSize(11.0),
     }
     self
   end
@@ -21,25 +22,26 @@ class HeaderView < NSView
   end
 
   def drawRect(frame)
-    # draw background image
-    imageRect = NSZeroRect
-    imageRect.size = @image.size        
-    @image.drawInRect(frame, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
+    drawBackground(frame)
+    drawLabel(frame, NSColor.darkGrayColor, 0.5)
+    drawLabel(frame, NSColor.whiteColor)
+  end
+  
+  private
 
-    # draw black text centered, but offset down-left
-    offset = 0.5
-    @textAttributes["NSColor"] = NSColor.blackColor
-    centeredRect = frame
-    centeredRect.size = @title.sizeWithAttributes(@textAttributes)
-    centeredRect.origin.x += ((frame.size.width - centeredRect.size.width)   / 2.0) - offset
-    centeredRect.origin.y  = ((frame.size.height - centeredRect.size.height) / 2.0) + offset
-    @title.drawInRect(centeredRect, withAttributes:@textAttributes)
+  def drawBackground(rect)
+    imageRect = NSMakeRect(0, 0, @image.size.width, @image.size.height)
+    @image.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
+  end
 
-    # draw white text centered
-    @textAttributes["NSColor"] = NSColor.whiteColor
-    centeredRect.origin.x += offset
-    centeredRect.origin.y -= offset
-    @title.drawInRect(centeredRect, withAttributes:@textAttributes)
+  def drawLabel(rect, color, offset=0.0)    
+    @textAttributes[NSForegroundColorAttributeName] = color
+    titleSize = @title.sizeWithAttributes(@textAttributes)
+    titleRect = NSInsetRect(rect, TITLE_PADDING, 0.0)
+    titleRect.origin.y -= ((rect.size.height - titleSize.height) * 0.5).floor
+    titleRect.origin.x += offset 
+    titleRect.origin.y -= offset 
+    @title.drawInRect(titleRect, withAttributes:@textAttributes)
   end
   
 end

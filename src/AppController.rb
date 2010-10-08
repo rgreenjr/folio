@@ -7,13 +7,7 @@ class AppController
   end
   
   def applicationShouldTerminate(application)
-    puts "applicationShouldTerminate"
     @bookController.closeBook(self)
   end
   
-  def applicationWillTerminate(notification)
-    puts "applicationWillTerminate"
-    # @bookController.closeBook(self)
-  end
-
 end
