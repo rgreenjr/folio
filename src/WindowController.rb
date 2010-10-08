@@ -1,6 +1,11 @@
 class WindowController < NSWindowController
 
-  MINIMUM_WIDTH = 250.0
+  MINIMUM_WIDTH = 150.0
+  
+  NAVIGATION    = 0
+  SPINE         = 1
+  MANIFEST      = 2
+  SEARCH        = 3
 
   attr_accessor :placeHolderView, :headerView
   attr_accessor :navigationView, :spineView, :manifestView, :searchView
@@ -13,6 +18,10 @@ class WindowController < NSWindowController
 
   def toggleView(sender)
     index = sender ? sender.tag : 0
+    changeView(index)
+  end
+  
+  def changeView(index)
     unless @activeView == @views[index]
       @activeView = @views[index]
       @headerView.title = @titles[index]
@@ -21,6 +30,10 @@ class WindowController < NSWindowController
       @placeHolderView.addSubview(@activeView)
       @activeView.frame = @activeView.superview.frame
     end
+  end
+  
+  def showSearchResults
+    changeView(SEARCH)
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)

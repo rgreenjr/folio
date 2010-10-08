@@ -1,7 +1,9 @@
 class SearchController
+  
+  SEARCH_BOX_HEIGHT = 36.0
 
-  attr_accessor :book, :searchField, :replaceField
-  attr_accessor :outlineView, :tabView, :textViewController
+  attr_accessor :book, :searchField, :replaceField, :windowController
+  attr_accessor :outlineView, :tabView, :textViewController, :searchBox
 
   def awakeFromNib
     @outlineView.delegate = self
@@ -16,15 +18,43 @@ class SearchController
   end
 
   def show(sender)
+    box = @tabView.superview
+
+    if box.subviews.size == 2
+      box.addSubview(@searchBox, positioned:NSWindowBelow, relativeTo:@tabView)
+    end
+
+    splitView = @tabView.superview.subviews[2]    
+    splitRect = splitView.frame
+    splitRect.size.height -= SEARCH_BOX_HEIGHT
+    splitView.animator.frame = splitRect
+    
+    searchRect = @tabView.frame
+    searchRect.size.height = SEARCH_BOX_HEIGHT
+    @searchBox.frame = searchRect
+
+    searchRect.origin.y -= SEARCH_BOX_HEIGHT
+    @searchBox.animator.frame = searchRect
+    
+    @searchField.selectText nil
   end
 
   def hide(sender)
-    puts "hide"
+    box = @tabView.superview
+    searchRect = @searchBox.frame
+    searchRect.origin.y += SEARCH_BOX_HEIGHT
+    @searchBox.animator.frame = searchRect
+
+    splitView = @tabView.superview.subviews[2]
+    splitRect = splitView.frame
+    splitRect.size.height += SEARCH_BOX_HEIGHT
+    splitView.animator.frame = splitRect
   end
 
   def search(sender)
     @search = Search.new(searchField.stringValue, book)
     @outlineView.reloadData
+    @windowController.showSearchResults
     # @search.each {|match| @outlineView.expandItem(match, expandChildren:false) }
   end
 

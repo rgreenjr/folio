@@ -55,7 +55,7 @@ class ImageCell < NSTextFieldCell
 
   def badgeSize
     badgeSize = badgeString.sizeWithAttributes(badgeAttributes)
-    badgeSize.width = badgeSize.width.ceil
+    badgeSize.width = badgeSize.width.ceil + 2 * PADDING
     badgeSize.width = [badgeSize.width, MIN_BADGE_WIDTH].max
     badgeSize
   end

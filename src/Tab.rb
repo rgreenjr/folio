@@ -63,6 +63,16 @@ class Tab
   end
   
   def drawBorder(rect)
+    # NSFrameRect
+    # NSRectEdge mySides[] = {NSMinYEdge, NSMaxXEdge, NSMaxYEdge, NSMinXEdge,
+    #                         NSMinYEdge, NSMaxXEdge};
+    # float myGrays[] = {NSBlack, NSBlack, NSWhite, NSWhite,
+    #                         NSDarkGray, NSDarkGray};
+    # NSRect aRect, clipRect; // Assume exists
+    # 
+    # aRect = NSDrawTiledRects(aRect, clipRect, mySides, myGrays, 6);
+    # [[NSColor grayColor] set];
+    # NSRectFill(aRect);
     @lineColor.set
     NSBezierPath.strokeLineFromPoint(CGPoint.new(rect.origin.x + rect.size.width, rect.origin.y), toPoint:CGPoint.new(rect.origin.x + rect.size.width, rect.size.height))
     NSBezierPath.strokeLineFromPoint(CGPoint.new(rect.origin.x, rect.origin.y), toPoint:CGPoint.new(rect.origin.x + rect.size.width, rect.origin.y))
