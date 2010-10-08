@@ -1,16 +1,11 @@
 class SearchController
-  
+
   attr_accessor :book, :searchField, :replaceField
-  attr_accessor :outlineView, :webViewController, :textViewController
-  
+  attr_accessor :outlineView, :tabView, :textViewController
+
   def awakeFromNib
     @outlineView.delegate = self
     @outlineView.dataSource = self
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
-  end
-
-  def tabViewSelectionDidChange(tabView)
-    # puts "SearchController.tabViewSelectionDidChange"
   end
 
   def book=(book)
@@ -19,11 +14,10 @@ class SearchController
     @searchField.stringValue = ''
     @outlineView.reloadData
   end
-  
+
   def show(sender)
-    
   end
-  
+
   def hide(sender)
     puts "hide"
   end
@@ -33,24 +27,24 @@ class SearchController
     @outlineView.reloadData
     # @search.each {|match| @outlineView.expandItem(match, expandChildren:false) }
   end
-  
+
   def previousMatch(sender)
     return unless @search && @search.size > 0
     row = @outlineView.selectedRow
-    return if row - 1 < 0    
+    return if row - 1 < 0
     indices = NSIndexSet.indexSetWithIndex(row - 1)
-    @outlineView.selectRowIndexes(indices, byExtendingSelection:false)    
+    @outlineView.selectRowIndexes(indices, byExtendingSelection:false)
   end
-  
+
   def nextMatch(sender)
     return unless @search && @search.size > 0
     row = @outlineView.selectedRow
     row = 0 if row < 0
     return if row + 1 >= @search.total
     indices = NSIndexSet.indexSetWithIndex(row + 1)
-    @outlineView.selectRowIndexes(indices, byExtendingSelection:false)    
+    @outlineView.selectRowIndexes(indices, byExtendingSelection:false)
   end
-  
+
   def replace(sender)
     puts "replace"
     return unless @search && @search.size > 0
@@ -69,16 +63,16 @@ class SearchController
       m.slide(replacement.size - match.range.length)
     end
   end
-  
+
   def replaceAll(sender)
     puts "replaceAll"
     # replacement = replaceField.stringValue
     # return if replacement.empty?
-    # @search.each do |match| 
+    # @search.each do |match|
     #   @textViewController.replace(match.range, replacement) unless match.leaf?
     # end
   end
-  
+
   def enableSearch
     @search && !@search.empty? && !replaceField.stringValue.empty?
   end
@@ -111,14 +105,13 @@ class SearchController
   def outlineViewSelectionDidChange(notification)
     return if @outlineView.selectedRow < 0
     match = @search.walk(@outlineView.selectedRow)
-    @textViewController.item = match.item
-    @webViewController.item = match.item
-    if match.empty?
+    @tabView.add(match.item)
+    if match.leaf?
       @textViewController.textView.scrollRangeToVisible(match.range)
       @textViewController.textView.showFindIndicatorForRange(match.range)
     end
   end
-  
+
   def outlineView(outlineView, dataCellForTableColumn:tableColumn, item:match)
     match.leaf? ? NSTextFieldCell.alloc.init : ImageCell.new
   end
@@ -132,5 +125,5 @@ class SearchController
       cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(match.item.name))
     end
   end
-    
+
 end
