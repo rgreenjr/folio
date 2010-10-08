@@ -55,6 +55,8 @@
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
 		CD0A2E5E123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5B123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub */; };
+		CD0A304D125E775500AA3EF2 /* table-header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0A304C125E775500AA3EF2 /* table-header-bg.png */; };
+		CD0A30C2125E874F00AA3EF2 /* HeaderView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */; };
 		CD1354381246E4BB006761AF /* container.xml.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD1354371246E4BB006761AF /* container.xml.erb */; };
 		CD6F573712528776006959BF /* find-close-click.tif in Resources */ = {isa = PBXBuildFile; fileRef = CD6F573512528776006959BF /* find-close-click.tif */; };
 		CD6F573812528776006959BF /* find-close-rollover.tif in Resources */ = {isa = PBXBuildFile; fileRef = CD6F573612528776006959BF /* find-close-rollover.tif */; };
@@ -79,7 +81,6 @@
 		CDDE4C5F1254F3C0004A18CF /* Tab.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDE4C5E1254F3C0004A18CF /* Tab.rb */; };
 		CDDE4C9B1254FB69004A18CF /* TabView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDE4C9A1254FB69004A18CF /* TabView.rb */; };
 		CDDECB59124F9E8400604632 /* Search.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDECB58124F9E8400604632 /* Search.rb */; };
-		CDE3FC52125A4A4F00D52C50 /* RoundCloseButtonCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FC51125A4A4F00D52C50 /* RoundCloseButtonCell.rb */; };
 		CDE3FD0C125A84C800D52C50 /* tab-close-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */; };
 		CDE3FD0D125A84C800D52C50 /* tab-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD09125A84C800D52C50 /* tab-close.png */; };
 		CDE3FD0E125A84C800D52C50 /* tab-edited-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */; };
@@ -136,6 +137,8 @@
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
 		CD0A2E5B123140FA00A67BFB /* The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire_ A New History of Rome and the Barbarians.epub"; sourceTree = "<group>"; };
+		CD0A304C125E775500AA3EF2 /* table-header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table-header-bg.png"; sourceTree = "<group>"; };
+		CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HeaderView.rb; sourceTree = "<group>"; };
 		CD1354371246E4BB006761AF /* container.xml.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml.erb; sourceTree = "<group>"; };
 		CD6F573512528776006959BF /* find-close-click.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "find-close-click.tif"; sourceTree = "<group>"; };
 		CD6F573612528776006959BF /* find-close-rollover.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "find-close-rollover.tif"; sourceTree = "<group>"; };
@@ -160,7 +163,6 @@
 		CDDE4C5E1254F3C0004A18CF /* Tab.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Tab.rb; sourceTree = "<group>"; };
 		CDDE4C9A1254FB69004A18CF /* TabView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabView.rb; sourceTree = "<group>"; };
 		CDDECB58124F9E8400604632 /* Search.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Search.rb; sourceTree = "<group>"; };
-		CDE3FC51125A4A4F00D52C50 /* RoundCloseButtonCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = RoundCloseButtonCell.rb; sourceTree = "<group>"; };
 		CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close-pressed.png"; sourceTree = "<group>"; };
 		CDE3FD09125A84C800D52C50 /* tab-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close.png"; sourceTree = "<group>"; };
 		CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-edited-close.png"; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 		CDBDC8A7122AA9DA00844EAA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD0A304C125E775500AA3EF2 /* table-header-bg.png */,
 				CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */,
 				CDE3FD09125A84C800D52C50 /* tab-close.png */,
 				CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */,
@@ -328,6 +331,7 @@
 				CDBC1CAA124AA26500BED071 /* Highlighter.rb */,
 				CDE448F312305CA2001C69AE /* ImageCell.rb */,
 				CDE448F412305CA2001C69AE /* Item.rb */,
+				CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */,
 				CDBCAB57125D292400833604 /* Kernel.rb */,
 				CDD858A912385B6900DD7E7A /* LineNumberRuler.rb */,
 				CDE448F512305CA2001C69AE /* Manifest.rb */,
@@ -338,7 +342,6 @@
 				CDE448F812305CA2001C69AE /* NavigationController.rb */,
 				CDE448F912305CA2001C69AE /* Point.rb */,
 				CDC2B27B124FF54500082962 /* ProgressController.rb */,
-				CDE3FC51125A4A4F00D52C50 /* RoundCloseButtonCell.rb */,
 				CDDECB58124F9E8400604632 /* Search.rb */,
 				CD98FCE4124D132100D26653 /* SearchController.rb */,
 				CDE448FA12305CA2001C69AE /* Spine.rb */,
@@ -467,12 +470,13 @@
 				CD6F573812528776006959BF /* find-close-rollover.tif in Resources */,
 				CDDE4C5F1254F3C0004A18CF /* Tab.rb in Resources */,
 				CDDE4C9B1254FB69004A18CF /* TabView.rb in Resources */,
-				CDE3FC52125A4A4F00D52C50 /* RoundCloseButtonCell.rb in Resources */,
 				CDE3FD0C125A84C800D52C50 /* tab-close-pressed.png in Resources */,
 				CDE3FD0D125A84C800D52C50 /* tab-close.png in Resources */,
 				CDE3FD0E125A84C800D52C50 /* tab-edited-close.png in Resources */,
 				CDE3FD0F125A84C800D52C50 /* tab-edited-pressed.png in Resources */,
 				CDBCAB58125D292400833604 /* Kernel.rb in Resources */,
+				CD0A304D125E775500AA3EF2 /* table-header-bg.png in Resources */,
+				CD0A30C2125E874F00AA3EF2 /* HeaderView.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

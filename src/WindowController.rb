@@ -2,7 +2,8 @@ class WindowController < NSWindowController
 
   MINIMUM_WIDTH = 250.0
 
-  attr_accessor :placeHolderView, :navigationView, :spineView, :manifestView, :searchView
+  attr_accessor :placeHolderView, :headerView
+  attr_accessor :navigationView, :spineView, :manifestView, :searchView
 
   def awakeFromNib
     @views = [@navigationView, @spineView, @manifestView, @searchView]
@@ -17,6 +18,7 @@ class WindowController < NSWindowController
       subviews[0].removeFromSuperview unless subviews.empty?
       @placeHolderView.addSubview(@activeView)
       @activeView.frame = @activeView.superview.frame
+      @headerView.title = "Fooooo"
     end
   end
 
