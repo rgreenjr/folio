@@ -12,7 +12,7 @@ class WindowController < NSWindowController
 
   def awakeFromNib
     @views  = [@navigationView, @spineView, @manifestView, @searchView]
-    @titles = ["Navigation", "Spine", "Manifest", "Search"]
+    @titles = ["Navigation", "Spine", "Manifest", "Search Results"]
     toggleView(nil)
   end
 

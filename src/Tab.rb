@@ -7,16 +7,9 @@ class Tab
 
   def initialize(item)
     @item = item
-
-    begColor  = NSColor.colorWithDeviceRed(0.921, green:0.921, blue:0.921, alpha:1.0)
-    midColor  = NSColor.colorWithDeviceRed(0.871, green:0.871, blue:0.871, alpha:1.0)
-    endColor  = NSColor.colorWithDeviceRed(0.820, green:0.820, blue:0.820, alpha:1.0)
-    @unselectedGradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], colorSpace:NSColorSpace.genericRGBColorSpace)
-
-    begColor  = NSColor.colorWithDeviceRed(0.734, green:0.734, blue:0.734, alpha:1.0)
-    midColor  = NSColor.colorWithDeviceRed(0.816, green:0.816, blue:0.816, alpha:1.0)
-    endColor  = NSColor.colorWithDeviceRed(0.894, green:0.894, blue:0.894, alpha:1.0)
-    @selectedGradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], colorSpace:NSColorSpace.genericRGBColorSpace)
+    
+    @backgroundImage = NSImage.imageNamed("tab-bg.png")
+    @backgroundSelectedImage = NSImage.imageNamed("tab-selected-bg.png")
 
     style = NSMutableParagraphStyle.alloc.init
     style.alignment = NSCenterTextAlignment
@@ -27,7 +20,7 @@ class Tab
 	    NSForegroundColorAttributeName => NSColor.blackColor
 	  }
 
-	  @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)
+	  @lineColor = NSColor.colorWithDeviceRed(0.535, green:0.535, blue:0.535, alpha:1.0)
 	  
 	  @closeImage = NSImage.imageNamed('tab-close.png')
 	  @closePressedImage = NSImage.imageNamed('tab-close-pressed.png')
@@ -37,7 +30,7 @@ class Tab
   end
 
   def drawRect(rect)
-    drawGradient(rect)
+    drawBackground(rect)
     drawBorder(rect)
     drawLabel(rect)
     drawButton(rect)        
@@ -53,29 +46,19 @@ class Tab
   end
   
   private
-  
-  def drawGradient(rect)
+
+  def drawBackground(rect)
+    imageRect = NSMakeRect(0, 0, @backgroundImage.size.width, @backgroundImage.size.height)
     if @selected
-      @selectedGradient.drawInRect(rect, angle:270.0)
+      @backgroundSelectedImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
     else
-      @unselectedGradient.drawInRect(rect, angle:270.0)
+      @backgroundImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)      
     end
   end
   
   def drawBorder(rect)
-    # NSFrameRect
-    # NSRectEdge mySides[] = {NSMinYEdge, NSMaxXEdge, NSMaxYEdge, NSMinXEdge,
-    #                         NSMinYEdge, NSMaxXEdge};
-    # float myGrays[] = {NSBlack, NSBlack, NSWhite, NSWhite,
-    #                         NSDarkGray, NSDarkGray};
-    # NSRect aRect, clipRect; // Assume exists
-    # 
-    # aRect = NSDrawTiledRects(aRect, clipRect, mySides, myGrays, 6);
-    # [[NSColor grayColor] set];
-    # NSRectFill(aRect);
     @lineColor.set
     NSBezierPath.strokeLineFromPoint(CGPoint.new(rect.origin.x + rect.size.width, rect.origin.y), toPoint:CGPoint.new(rect.origin.x + rect.size.width, rect.size.height))
-    NSBezierPath.strokeLineFromPoint(CGPoint.new(rect.origin.x, rect.origin.y), toPoint:CGPoint.new(rect.origin.x + rect.size.width, rect.origin.y))
   end
   
   def buttonImage

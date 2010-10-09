@@ -5,9 +5,26 @@ class SearchController
   attr_accessor :book, :searchField, :replaceField, :windowController
   attr_accessor :outlineView, :tabView, :textViewController, :searchBox
 
+  # def NSOffsetRectX(rect, dx)
+  #   NSMakeRect(rect.origin.x + dx, rect.origin.y, rect.size.width, rect.size.height)
+  # end
+  # 
+  # def NSOffsetRectY(rect, dy)
+  #   NSMakeRect(rect.origin.x, rect.origin.y + dy, rect.size.width, rect.size.height)
+  # end
+  # 
+  # def NSOffsetRectWidth(rect, dw)
+  #   NSMakeRect(rect.origin.x, rect.origin.y, rect.size.width + dw, rect.size.height)
+  # end
+  # 
+  # def NSOffsetRectHeight(rect, dh)
+  #   NSMakeRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height + dh)
+  # end
+  # 
   def awakeFromNib
     @outlineView.delegate = self
     @outlineView.dataSource = self
+    @tabView.superview.addSubview(@searchBox, positioned:NSWindowBelow, relativeTo:@tabView)
   end
 
   def book=(book)
@@ -17,14 +34,11 @@ class SearchController
     @outlineView.reloadData
   end
 
-  def show(sender)
+  def show(sender)    
+    destination = @tabView.frame.origin.y - SEARCH_BOX_HEIGHT
+    return if @searchBox.frame.origin.y == destination
+
     box = @tabView.superview
-    
-    if box.subviews.size == 2
-      box.addSubview(@searchBox, positioned:NSWindowBelow, relativeTo:@tabView)
-    end
-    
-    return if @searchBox.frame.origin.y == @tabView.frame.origin.y - SEARCH_BOX_HEIGHT
 
     splitView = @tabView.superview.subviews[2]    
     splitRect = splitView.frame
@@ -37,7 +51,7 @@ class SearchController
     @searchBox.frame = searchRect
 
     # animate down
-    searchRect.origin.y = @tabView.frame.origin.y - SEARCH_BOX_HEIGHT
+    searchRect.origin.y = destination
     @searchBox.animator.frame = searchRect
     
     @searchField.selectText nil
@@ -46,17 +60,15 @@ class SearchController
   def hide(sender)
     box = @tabView.superview
     searchRect = @searchBox.frame
-    searchRect.origin.y += SEARCH_BOX_HEIGHT
+    searchRect.origin.y = @tabView.frame.origin.y
     @searchBox.animator.frame = searchRect
-
     splitView = @tabView.superview.subviews[2]
     splitRect = splitView.frame
-    splitRect.size.height += SEARCH_BOX_HEIGHT
+    splitRect.size.height = box.frame.size.height - @tabView.frame.size.height
     splitView.animator.frame = splitRect
   end
 
   def search(sender)
-    puts "search"
     query = searchField.stringValue
     return unless query.size > 0
     @search = Search.new(searchField.stringValue, book)

@@ -65,6 +65,9 @@
 		CD890C52125FDF2700FD262A /* find-close-click.png in Resources */ = {isa = PBXBuildFile; fileRef = CD890C51125FDF2700FD262A /* find-close-click.png */; };
 		CD890C54125FDF5D00FD262A /* find-close-rollover.png in Resources */ = {isa = PBXBuildFile; fileRef = CD890C53125FDF5D00FD262A /* find-close-rollover.png */; };
 		CD98FCE5124D132100D26653 /* SearchController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD98FCE4124D132100D26653 /* SearchController.rb */; };
+		CD994AC11260A23600AAD4DE /* table-header-bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = CD994AC01260A23600AAD4DE /* table-header-bg1.png */; };
+		CD994B041260B42100AAD4DE /* tab-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD994B031260B42100AAD4DE /* tab-bg.png */; };
+		CD994B0E1260B57100AAD4DE /* tab-selected-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */; };
 		CDA3FF2A124D8296003F6341 /* Match.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA3FF29124D8296003F6341 /* Match.rb */; };
 		CDADCC7A124BFF3E00553FC7 /* Bundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDADCC79124BFF3E00553FC7 /* Bundle.rb */; };
 		CDBC1CAB124AA26500BED071 /* Highlighter.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDBC1CAA124AA26500BED071 /* Highlighter.rb */; };
@@ -148,6 +151,9 @@
 		CD890C51125FDF2700FD262A /* find-close-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-click.png"; sourceTree = "<group>"; };
 		CD890C53125FDF5D00FD262A /* find-close-rollover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-rollover.png"; sourceTree = "<group>"; };
 		CD98FCE4124D132100D26653 /* SearchController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SearchController.rb; sourceTree = "<group>"; };
+		CD994AC01260A23600AAD4DE /* table-header-bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table-header-bg1.png"; sourceTree = "<group>"; };
+		CD994B031260B42100AAD4DE /* tab-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-bg.png"; sourceTree = "<group>"; };
+		CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-selected-bg.png"; sourceTree = "<group>"; };
 		CDA3FF29124D8296003F6341 /* Match.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Match.rb; sourceTree = "<group>"; };
 		CDADCC79124BFF3E00553FC7 /* Bundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Bundle.rb; sourceTree = "<group>"; };
 		CDBC1CAA124AA26500BED071 /* Highlighter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Highlighter.rb; sourceTree = "<group>"; };
@@ -302,6 +308,9 @@
 		CDBDC8A7122AA9DA00844EAA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */,
+				CD994B031260B42100AAD4DE /* tab-bg.png */,
+				CD994AC01260A23600AAD4DE /* table-header-bg1.png */,
 				CD890C53125FDF5D00FD262A /* find-close-rollover.png */,
 				CD890C51125FDF2700FD262A /* find-close-click.png */,
 				CD890C4D125FDE3B00FD262A /* find-close.png */,
@@ -481,6 +490,9 @@
 				CD890C4E125FDE3B00FD262A /* find-close.png in Resources */,
 				CD890C52125FDF2700FD262A /* find-close-click.png in Resources */,
 				CD890C54125FDF5D00FD262A /* find-close-rollover.png in Resources */,
+				CD994AC11260A23600AAD4DE /* table-header-bg1.png in Resources */,
+				CD994B041260B42100AAD4DE /* tab-bg.png in Resources */,
+				CD994B0E1260B57100AAD4DE /* tab-selected-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
