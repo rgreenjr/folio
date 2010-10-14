@@ -5,25 +5,10 @@ class SearchController
   attr_accessor :book, :searchField, :replaceField, :windowController
   attr_accessor :outlineView, :tabView, :textViewController, :searchBox
 
-  # def NSOffsetRectX(rect, dx)
-  #   NSMakeRect(rect.origin.x + dx, rect.origin.y, rect.size.width, rect.size.height)
-  # end
-  # 
-  # def NSOffsetRectY(rect, dy)
-  #   NSMakeRect(rect.origin.x, rect.origin.y + dy, rect.size.width, rect.size.height)
-  # end
-  # 
-  # def NSOffsetRectWidth(rect, dw)
-  #   NSMakeRect(rect.origin.x, rect.origin.y, rect.size.width + dw, rect.size.height)
-  # end
-  # 
-  # def NSOffsetRectHeight(rect, dh)
-  #   NSMakeRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height + dh)
-  # end
-  # 
   def awakeFromNib
     @outlineView.delegate = self
     @outlineView.dataSource = self
+    @searchField.delegate = self    
     @tabView.superview.addSubview(@searchBox, positioned:NSWindowBelow, relativeTo:@tabView)
   end
 
@@ -76,7 +61,13 @@ class SearchController
     @windowController.showSearchResults
     # @search.each {|match| @outlineView.expandItem(match, expandChildren:false) }
   end
-
+  
+  # searchField delegate method
+  def control(control, textView:textView, doCommandBySelector:command) 
+    hide(nil) if command.to_s == "cancelOperation:"
+    false
+  end
+  
   def previousMatch(sender)
     return unless @search && @search.size > 0
     row = @outlineView.selectedRow
