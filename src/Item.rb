@@ -110,9 +110,9 @@ class Item
     @children.find {|item| item.name == name}
   end
   
-  def contains?(item)
+  def ancestor?(item)
     return true if item == self
-    each {|child| return true if child.contains?(item)}
+    each {|child| return true if child.ancestor?(item)}
     false
   end
   

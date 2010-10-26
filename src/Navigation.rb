@@ -70,6 +70,13 @@ class Navigation
       return point if index - idx == -1
     end
   end
+  
+  def parentFor(point)
+    each do |pt|
+      return pt if pt.index(point)
+    end
+    nil
+  end
 
   def delete(point)
     each do |pt|

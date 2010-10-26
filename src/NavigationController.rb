@@ -7,9 +7,16 @@ class NavigationController
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
+        
+    @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
+    @menu.insertItemWithTitle("Add...", action:'addPoint:', keyEquivalent:"", atIndex:0).target = self
+    item = @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:1)
+    item.target = self
+    @outlineView.menu = @menu
+
     disableProperties    
   end
-
+  
   def book=(book)
     @tabView.add(nil)
     @book = book
@@ -70,7 +77,7 @@ class NavigationController
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
     if parent
-      !@draggedPoint.contains?(parent) ? NSDragOperationMove : NSDragOperationNone
+      !@draggedPoint.ancestor?(parent) ? NSDragOperationMove : NSDragOperationNone
     elsif @book.navigation.root.size == 1 && @draggedPoint == @book.navigation.root[0]
       NSDragOperationNone
     else
@@ -101,14 +108,23 @@ class NavigationController
   end
   
   def addPoint(sender)
+    current = @book.navigation[@outlineView.selectedRow]
     point = Point.new
-    point.text = "New Point"
-    point.item = @book.spine[-1]
-    @book.navigation.root.insert(-1, point)
+    point.text = current.text.dup
+    point.item = current.item
+    parent = @book.navigation.parentFor(current)
+    parent.insert(parent.index(current) + 1, point)
     @outlineView.reloadData
     selectPoint(point)
   end
   
+  def deletePoint(sender)
+    current = @book.navigation[@outlineView.selectedRow]
+    parent = @book.navigation.parentFor(current)
+    parent.delete(current)
+    @outlineView.reloadData
+  end
+
   def changeText(sender)
     updateAttribute('text', textCell)
   end

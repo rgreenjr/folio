@@ -53,12 +53,12 @@ class Point
     @children.each_with_index(&block)
   end
   
-  def contains?(point)
+  def ancestor?(point)
     return true if point == self
-    each {|child| return true if child.contains?(point)}
+    each {|child| return true if child.ancestor?(point)}
     false
   end
-
+  
   def <<(point)
     @children << point
   end
@@ -72,7 +72,11 @@ class Point
     index = -1 if index > size
     @children.insert(index, point)
   end
-
+  
+  def delete(point)
+    delete_at(index(point))
+  end
+  
   def delete_at(index)
     @children.delete_at(index)
   end
