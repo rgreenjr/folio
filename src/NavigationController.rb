@@ -3,16 +3,15 @@ class NavigationController
   attr_accessor :navigation, :outlineView, :propertiesForm, :tabView
 
   def awakeFromNib
+    @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
+    @menu.insertItemWithTitle("Add...", action:'addPoint:', keyEquivalent:"", atIndex:0).target = self
+    @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:1).target = self
+    @outlineView.menu = @menu
+
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
-        
-    @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
-    @menu.insertItemWithTitle("Add...", action:'addPoint:', keyEquivalent:"", atIndex:0).target = self
-    item = @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:1)
-    item.target = self
-    @outlineView.menu = @menu
 
     disableProperties    
   end

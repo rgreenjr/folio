@@ -1,15 +1,24 @@
 class ManifestController
 
-  attr_accessor :outlineView, :propertiesForm, :typePopUpButton, :tabView
+  attr_accessor :outlineView, :propertiesForm, :mediaTypePopUpButton, :tabView
 
   def awakeFromNib
-    disableProperties
+    @menu = NSMenu.alloc.initWithTitle("Manifest Contextual Menu")
+    @menu.insertItemWithTitle("Add...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
+    @menu.insertItemWithTitle("Delete", action:"deleteItem:", keyEquivalent:"", atIndex:1).target = self
+    @menu.insertItemWithTitle("New Folder", action:"addDirectory:", keyEquivalent:"", atIndex:2).target = self
+    @outlineView.menu = @menu
+
     @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
+    
+    Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
+    
+    disableProperties
   end
 
   def book=(book)
@@ -27,7 +36,7 @@ class ManifestController
   end
 
   def outlineView(outlineView, isItemExpandable:item)
-    item && item.size > 0
+    item && item.directory?
   end
 
   def outlineView(outlineView, child:index, ofItem:item)
@@ -51,18 +60,18 @@ class ManifestController
       disableProperties
       item = nil
       @tabView.add(nil)
-      @typePopUpButton.selectItemWithTitle('')
+      @mediaTypePopUpButton.selectItemWithTitle('')
     else
       item = @book.manifest[@outlineView.selectedRow]
       if item.directory?
         disableProperties
-        @typePopUpButton.selectItemWithTitle(item.mediaType)
+        @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
         @tabView.add(nil)
       else
         enableProperties
         nameCell.stringValue = item.name
         idCell.stringValue = item.id
-        @typePopUpButton.selectItemWithTitle(item.mediaType)
+        @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
         @tabView.add(item)
       end
     end
@@ -105,6 +114,46 @@ class ManifestController
       cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
     end
   end
+  
+  def currentSelectionParentAndIndex
+    if @outlineView.selectedRow == -1
+      [@book.manifest.root, -1]
+    else
+      item = @book.manifest[@outlineView.selectedRow]
+      [item.parent, item.parent.index(item)]
+    end
+  end
+
+  def showAddItemPanel(sender)
+    panel = NSOpenPanel.openPanel
+    panel.title = "Add Item"
+    panel.setPrompt("Select")
+    panel.setAllowsMultipleSelection(false)
+    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window, modalDelegate:self, didEndSelector:"addItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
+  end
+  
+  def addItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
+    return unless code == NSOKButton
+    path = panel.URLs[0].path
+    parent, index = currentSelectionParentAndIndex
+    item = Item.new(parent, File.basename(path))
+    item.content = File.read(path)  
+    parent.insert(index, item)
+    @outlineView.reloadData
+    selectItem(item)
+  end
+  
+  def deleteItem(sender)
+    
+  end
+
+  def addDirectory(sender)
+    parent, index = currentSelectionParentAndIndex    
+    item = Item.new(parent, "New Directory", nil, "directory")
+    parent.insert(index, item)
+    @outlineView.reloadData
+    selectItem(item)
+  end
 
   def selectItem(item)
     if item
@@ -125,7 +174,7 @@ class ManifestController
   end
 
   def changeMediaType(sender)
-    @book.manifest[@outlineView.selectedRow].mediaType = @typePopUpButton.title
+    @book.manifest[@outlineView.selectedRow].mediaType = @mediaTypePopUpButton.title
   end
 
   private
@@ -155,7 +204,7 @@ class ManifestController
   end
 
   def propertyCells
-    [nameCell, idCell, typePopUpButton]
+    [nameCell, idCell, mediaTypePopUpButton]
   end
 
 end

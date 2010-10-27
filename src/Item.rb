@@ -2,8 +2,15 @@ class Item
 
   attr_accessor :id, :mediaType, :content, :name, :parent
 
-  def initialize(parent, name, id, mediaType, expanded=false)
-    @parent, @name, @id, @mediaType, @expanded, @children = parent, name, id, mediaType, expanded, []
+  def initialize(parent, name, id=nil, mediaType=nil, expanded=false)
+    @parent = parent
+    @name = name
+    @id = id || UUID.create
+    @mediaType = mediaType || Media.guessType(File.extname(name))
+    @expanded = expanded
+    @children = []
+    
+    FileUtils.mkdir(path) if directory? && !File.exists?(path)
   end
   
   def path
@@ -24,7 +31,7 @@ class Item
   end
   
   def content=(string)
-    @lastSavedContent = @content.dup unless @lastSavedContent
+    @lastSavedContent = @content.dup unless @lastSavedContent || @content.nil?
     @content = string
     File.open(path, 'wb') {|f| f.puts @content}
   end
@@ -158,6 +165,10 @@ class Item
   
   def edited?
     @lastSavedContent != nil
+  end
+
+  def guessMediaType
+    
   end
 
 end
