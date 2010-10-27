@@ -5,7 +5,7 @@ class ManifestController
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("Manifest Contextual Menu")
     @menu.insertItemWithTitle("Add...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
-    @menu.insertItemWithTitle("Delete", action:"deleteItem:", keyEquivalent:"", atIndex:1).target = self
+    @menu.insertItemWithTitle("Delete", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:1).target = self
     @menu.insertItemWithTitle("New Folder", action:"addDirectory:", keyEquivalent:"", atIndex:2).target = self
     @outlineView.menu = @menu
 
@@ -143,8 +143,18 @@ class ManifestController
     selectItem(item)
   end
   
-  def deleteItem(sender)
-    
+  def showDeleteItemPanel(sender)
+    return if @outlineView.selectedRow == -1
+    item = @book.manifest[@outlineView.selectedRow]
+    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the item \"#{item.name}\"?", defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"")    
+    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"showDeleteItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)    
+  end
+  
+  def showDeleteItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
+    return unless code == NSOKButton
+    parent, index = currentSelectionParentAndIndex
+    parent.delete_at(index)
+    @outlineView.reloadData
   end
 
   def addDirectory(sender)

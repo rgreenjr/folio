@@ -141,6 +141,11 @@ class Item
     end
   end
   
+  def delete_at(index)
+    @children[index].parent = nil
+    @children.delete_at(index)
+  end
+  
   def save
     puts "save"
     File.open(path, 'wb') {|f| f.puts @content}
