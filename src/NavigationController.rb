@@ -4,8 +4,9 @@ class NavigationController
 
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
-    @menu.insertItemWithTitle("Add...", action:'addPoint:', keyEquivalent:"", atIndex:0).target = self
-    @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:1).target = self
+    @menu.insertItemWithTitle("Add Point...", action:"addPoint:", keyEquivalent:"", atIndex:0).target = self
+    @menu.insertItemWithTitle("Duplicate Point", action:"duplicatePoint:", keyEquivalent:"", atIndex:1).target = self
+    @menu.insertItemWithTitle("Delete Point", action:"deletePoint:", keyEquivalent:"", atIndex:2).target = self
     @outlineView.menu = @menu
 
     @outlineView.delegate = self
@@ -107,20 +108,22 @@ class NavigationController
   end
   
   def addPoint(sender)
+  end
+  
+  def duplicatePoint(sender)
+    return if @book.navigation[@outlineView.selectedRow] == -1
     current = @book.navigation[@outlineView.selectedRow]
-    point = Point.new
+    point = Point.new(current.parent)
     point.text = current.text.dup
     point.item = current.item
-    parent = @book.navigation.parentFor(current)
-    parent.insert(parent.index(current) + 1, point)
+    current.parent.insert(current.parent.index(current) + 1, point)
     @outlineView.reloadData
     selectPoint(point)
   end
   
   def deletePoint(sender)
-    current = @book.navigation[@outlineView.selectedRow]
-    parent = @book.navigation.parentFor(current)
-    parent.delete(current)
+    return if @book.navigation[@outlineView.selectedRow] == -1
+    @book.navigation[@outlineView.selectedRow].parent.delete(current)
     @outlineView.reloadData
   end
 

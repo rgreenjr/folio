@@ -14,7 +14,7 @@ class Navigation
       @docAuthor = doc.elements["/ncx/docAuthor/text"].text
     end
 
-    @root = Point.new(true)
+    @root = Point.new(nil, true)
 
     point_stack = [@root]
     xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
@@ -27,7 +27,7 @@ class Navigation
         item = book.manifest.itemWithHref(href)
         raise "Navigation point is missing: src=#{href}" unless item
 
-        child           = Point.new
+        child           = Point.new(parent)
         child.id        = e.attributes["id"]
         child.playOrder = e.attributes["playOrder"]
         child.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
@@ -71,13 +71,6 @@ class Navigation
     end
   end
   
-  def parentFor(point)
-    each do |pt|
-      return pt if pt.index(point)
-    end
-    nil
-  end
-
   def delete(point)
     each do |pt|
       index = pt.index(point)
