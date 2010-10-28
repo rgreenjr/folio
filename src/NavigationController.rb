@@ -14,15 +14,29 @@ class NavigationController
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
 
-    disableProperties    
+    displayPointProperties(nil)
   end
   
   def book=(book)
     @tabView.add(nil)
     @book = book
     @outlineView.reloadData
-    disableProperties
+    displayPointProperties(nil)
     expandRoot
+  end
+  
+  def selectedPoint
+    @outlineView.selectedRow == -1 ? nil : @book.navigation[@outlineView.selectedRow]
+  end
+  
+  def selectPoint(point)
+    if point
+      row = @outlineView.rowForItem(point)
+      indices = NSIndexSet.indexSetWithIndex(row)
+      @outlineView.selectRowIndexes(indices, byExtendingSelection:false)      
+    else
+      @outlineView.deselectAll(nil)
+    end
   end
   
   def outlineView(outlineView, numberOfChildrenOfItem:point)
@@ -51,17 +65,7 @@ class NavigationController
   end
 
   def outlineViewSelectionDidChange(notification)
-    if @outlineView.selectedRow < 0
-      disableProperties
-      @tabView.add(nil)
-    else
-      point = @book.navigation[@outlineView.selectedRow]
-      @tabView.add(point)
-      textCell.stringValue = point.text
-      idCell.stringValue = point.id
-      sourceCell.stringValue = point.src
-      enableProperties
-    end
+    displayPointProperties(selectedPoint)
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
@@ -87,8 +91,8 @@ class NavigationController
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    parent = @book.navigation.root unless parent
     return false unless @draggedPoint
+    parent = @book.navigation.root unless parent
     @book.navigation.delete(@draggedPoint)
     parent.insert(childIndex, @draggedPoint)
     @outlineView.reloadData
@@ -97,22 +101,12 @@ class NavigationController
     true
   end
   
-  def selectPoint(point)
-    if point
-      row = @outlineView.rowForItem(point)
-      indices = NSIndexSet.indexSetWithIndex(row)
-      @outlineView.selectRowIndexes(indices, byExtendingSelection:false)      
-    else
-      @outlineView.deselectAll(nil)
-    end
-  end
-  
   def addPoint(sender)
   end
   
   def duplicatePoint(sender)
-    return if @book.navigation[@outlineView.selectedRow] == -1
-    current = @book.navigation[@outlineView.selectedRow]
+    current = selectedPoint
+    return unless current
     point = Point.new(current.parent)
     point.text = current.text.dup
     point.item = current.item
@@ -122,8 +116,9 @@ class NavigationController
   end
   
   def deletePoint(sender)
-    return if @book.navigation[@outlineView.selectedRow] == -1
-    @book.navigation[@outlineView.selectedRow].parent.delete(current)
+    point = selectedPoint
+    return unless point
+    point.parent.delete(point)
     @outlineView.reloadData
   end
 
@@ -136,7 +131,7 @@ class NavigationController
   end
 
   def changeSource(sender)
-    point = @book.navigation[@outlineView.selectedRow]
+    point = selectedPoint
     return unless point
     href, fragment = sourceCell.stringValue.split('#')
     item = @book.manifest.itemWithHref(href)
@@ -158,11 +153,23 @@ class NavigationController
 
   private
 
-  def updateAttribute(attribuute, cell)
-    point = @book.navigation[@outlineView.selectedRow]
+  def displayPointProperties(point)
+    if point
+      propertyCells.each {|cell| cell.enabled = true}
+      textCell.stringValue = point.name
+      idCell.stringValue = point.id
+      sourceCell.stringValue = point.src
+    else
+      propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
+    end
+    @tabView.add(point)
+  end
+
+  def updateAttribute(attribute, cell)
+    point = selectedPoint
     return unless point
-    point.send("#{attribuute}=", cell.stringValue)
-    cell.stringValue = point.send(attribuute)
+    point.send("#{attribute}=", cell.stringValue)
+    cell.stringValue = point.send(attribute)
     @outlineView.needsDisplay = true
   end
 
@@ -178,14 +185,6 @@ class NavigationController
     @propertiesForm.cellAtIndex(2)
   end
 
-  def disableProperties
-    propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
-  end
-
-  def enableProperties
-    propertyCells.each {|cell| cell.enabled = true}
-  end
-  
   def propertyCells
     [textCell, idCell, sourceCell]
   end
