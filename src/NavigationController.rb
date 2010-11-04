@@ -29,16 +29,6 @@ class NavigationController
     @outlineView.selectedRow == -1 ? nil : @book.navigation[@outlineView.selectedRow]
   end
   
-  def selectPoint(point)
-    if point
-      row = @outlineView.rowForItem(point)
-      indices = NSIndexSet.indexSetWithIndex(row)
-      @outlineView.selectRowIndexes(indices, byExtendingSelection:false)      
-    else
-      @outlineView.deselectAll(nil)
-    end
-  end
-  
   def outlineView(outlineView, numberOfChildrenOfItem:point)
     return 0 unless @outlineView.dataSource && @book # guard against SDK bug
     point ? point.size : @book.navigation.root.size
@@ -96,7 +86,7 @@ class NavigationController
     @book.navigation.delete(@draggedPoint)
     parent.insert(childIndex, @draggedPoint)
     @outlineView.reloadData
-    selectPoint(@draggedPoint)
+    @outlineView.selectItem(@draggedPoint)
     @draggedPoint = nil
     true
   end
@@ -112,7 +102,7 @@ class NavigationController
     point.item = current.item
     current.parent.insert(current.parent.index(current) + 1, point)
     @outlineView.reloadData
-    selectPoint(point)
+    @outlineView.selectItem(point)
   end
   
   def deletePoint(sender)

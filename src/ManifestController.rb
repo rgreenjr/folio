@@ -30,7 +30,7 @@ class ManifestController
   end
 
   def tabViewSelectionDidChange(notification)
-    selectItem(notification.object.selectedItem)
+    @outlineView.selectItem(notification.object.selectedItem)
   end
   
   def selectedItem
@@ -91,7 +91,7 @@ class ManifestController
     return false unless @draggedItem && parent.directory?
     @book.manifest.move(@draggedItem, childIndex, parent)
     @outlineView.reloadData
-    selectItem(@draggedItem)
+    @outlineView.selectItem(@draggedItem)
     @draggedItem = nil
     true
   end
@@ -126,7 +126,7 @@ class ManifestController
     item.content = File.read(path)  
     parent.insert(index, item)
     @outlineView.reloadData
-    selectItem(item)
+    @outlineView.selectItem(item)
   end
   
   def showDeleteItemPanel(sender)
@@ -155,20 +155,10 @@ class ManifestController
     item = Item.new(parent, name, nil, "directory")
     parent.insert(index, item)
     @outlineView.reloadData
-    selectItem(item)
+    @outlineView.selectItem(item)
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)
   end
 
-  def selectItem(item)
-    if item
-      row = @outlineView.rowForItem(item)
-      indices = NSIndexSet.indexSetWithIndex(row)
-      @outlineView.selectRowIndexes(indices, byExtendingSelection:false)
-    else
-      @outlineView.deselectAll(nil)
-    end
-  end
-  
   def changeName(sender)
     puts "changeName"
     updateAttribute('name', nameCell)

@@ -55,15 +55,7 @@ class SpineController
   end
 
   def selectItem(item)
-    if item
-      row = @book.spine.index(item)
-      if row
-        indices = NSIndexSet.indexSetWithIndex(row)
-        @tableView.selectRowIndexes(indices, byExtendingSelection:false)
-        return
-      end
-    end
-    @tableView.deselectAll(nil)
+    @tableView.selectRow(@book.spine.index(item))
   end
 
   def addPage(sender)
