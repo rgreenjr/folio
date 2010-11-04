@@ -5,7 +5,7 @@ class BookController
   attr_accessor :searchController, :progressController, :tabView
 
   def awakeFromNib
-    readBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
+    openBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
   end
 
   def showOpenBookPanel(sender)
@@ -14,11 +14,11 @@ class BookController
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
     if panel.runModalForDirectory(nil, file:nil, types:['epub']) == NSOKButton
-      readBook(panel.filename)
+      openBook(panel.filename)
     end
   end
 
-  def readBook(filename)
+  def openBook(filename)
     @progressController.show("Opening...")
     @book = Book.new(filename)
     @spineController.book = @book

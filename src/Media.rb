@@ -1,6 +1,6 @@
 class Media
   
-  TPYE_HASH = {
+  TYPE_HASH = {
     "css"   => "text/css",
     "gif"   => "image/gif",
     "htm"   => "text/html",
@@ -16,11 +16,11 @@ class Media
   }
   
   def self.guessType(extension)
-    TPYE_HASH[extension.gsub(/^\./, "")] || "unknown"
+    TYPE_HASH[extension.gsub(/^\./, "")] || "unknown"
   end
   
   def self.types
-    TPYE_HASH.values.sort
+    TYPE_HASH.values.sort
   end
   
 end
