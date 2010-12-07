@@ -137,6 +137,7 @@ class TabView < NSView
       point = point ? point : item      
     else
       item = nil
+      @selectedTab = nil
     end
     @textViewController.item = item
     @webViewController.item = point
