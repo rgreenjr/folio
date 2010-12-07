@@ -32,7 +32,7 @@ class Item
   
   def content=(string)
     @lastSavedContent = @content.dup unless @lastSavedContent || @content.nil?
-    @content = string
+    @content = string.dup
     File.open(path, 'wb') {|f| f.puts @content}
   end
 
@@ -147,8 +147,7 @@ class Item
   end
   
   def save
-    puts "save"
-    File.open(path, 'wb') {|f| f.puts @content}
+    File.open(path, 'wb') {|f| f.puts content}
     @lastSavedContent = nil
   end
   
@@ -163,7 +162,7 @@ class Item
   
   def revert
     if @lastSavedContent
-      @content = @lastSavedContent
+      @content = @lastSavedContent.dup
       @lastSavedContent = nil
     end
   end
