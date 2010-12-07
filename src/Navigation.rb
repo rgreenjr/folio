@@ -4,6 +4,8 @@ class Navigation
 
   def initialize(book)
     doc = REXML::Document.new(book.manifest.ncx.content)
+    
+    @ncx_name = book.manifest.ncx.name
         
     prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
 
@@ -79,7 +81,7 @@ class Navigation
   end
 
   def save(directory)
-    File.open("#{directory}/toc.ncx", 'w') {|f| f.write(to_xml)}
+    File.open("#{directory}/#{@ncx_name}", 'w') {|f| f.write(to_xml)}
   end
 
   def to_xml
