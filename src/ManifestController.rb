@@ -8,7 +8,9 @@ class ManifestController
     @menu.insertItemWithTitle("Add Item...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
     @menu.insertItemWithTitle("Add Directory...", action:"addDirectory:", keyEquivalent:"", atIndex:1).target = self
     @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Delete", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:3).target = self
+    @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:3).target = self
+    @menu.addItem(NSMenuItem.separatorItem)
+    @menu.insertItemWithTitle("Delete", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:5).target = self
     @outlineView.menu = @menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new
@@ -141,6 +143,12 @@ class ManifestController
     parent, index = currentSelectionParentAndIndex
     parent.delete_at(index)
     @outlineView.reloadData
+  end
+  
+  def markAsCover(sender)
+    item = selectedItem
+    return unless item && !item.directory?
+    @book.metadata.cover = item
   end
 
   def addDirectory(sender)

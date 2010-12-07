@@ -11,7 +11,7 @@ class BookTest < Test::Unit::TestCase
   end
   
   def test_title
-    assert_equal("The Fall of the Roman Empire: A New History of Rome and the Barbarians", @book.title)
+    assert_equal("The Fall of the Roman Empire: A New History of Rome and the Barbarians", @book.metadata.title)
   end
   
   def test_depth

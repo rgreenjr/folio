@@ -58,6 +58,8 @@
 		CD0A304D125E775500AA3EF2 /* table-header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0A304C125E775500AA3EF2 /* table-header-bg.png */; };
 		CD0A30C2125E874F00AA3EF2 /* HeaderView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */; };
 		CD1354381246E4BB006761AF /* container.xml.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD1354371246E4BB006761AF /* container.xml.erb */; };
+		CD2F101B12AEA56D00B2AC6D /* Language.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101912AEA56D00B2AC6D /* Language.rb */; };
+		CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */; };
 		CD5B1ED71283084C00681880 /* IndexSet.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1ED51283084C00681880 /* IndexSet.rb */; };
 		CD5B1ED81283084C00681880 /* TableView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1ED61283084C00681880 /* TableView.rb */; };
 		CD5B1EE41283114000681880 /* OutlineView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1EE31283114000681880 /* OutlineView.rb */; };
@@ -148,6 +150,8 @@
 		CD0A304C125E775500AA3EF2 /* table-header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table-header-bg.png"; sourceTree = "<group>"; };
 		CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HeaderView.rb; sourceTree = "<group>"; };
 		CD1354371246E4BB006761AF /* container.xml.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml.erb; sourceTree = "<group>"; };
+		CD2F101912AEA56D00B2AC6D /* Language.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Language.rb; sourceTree = "<group>"; };
+		CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MetadataController.rb; sourceTree = "<group>"; };
 		CD5B1ED51283084C00681880 /* IndexSet.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IndexSet.rb; sourceTree = "<group>"; };
 		CD5B1ED61283084C00681880 /* TableView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TableView.rb; sourceTree = "<group>"; };
 		CD5B1EE31283114000681880 /* OutlineView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = OutlineView.rb; sourceTree = "<group>"; };
@@ -359,6 +363,8 @@
 				CDA3FF29124D8296003F6341 /* Match.rb */,
 				CD89EF5C12789A8F009E4DE1 /* Media.rb */,
 				CD02D4D312496A1B007DC4B7 /* Metadata.rb */,
+				CD2F101912AEA56D00B2AC6D /* Language.rb */,
+				CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */,
 				CDE448F712305CA2001C69AE /* Navigation.rb */,
 				CDE448F812305CA2001C69AE /* NavigationController.rb */,
 				CD5B1EE31283114000681880 /* OutlineView.rb */,
@@ -509,6 +515,8 @@
 				CD5B1ED71283084C00681880 /* IndexSet.rb in Resources */,
 				CD5B1ED81283084C00681880 /* TableView.rb in Resources */,
 				CD5B1EE41283114000681880 /* OutlineView.rb in Resources */,
+				CD2F101B12AEA56D00B2AC6D /* Language.rb in Resources */,
+				CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

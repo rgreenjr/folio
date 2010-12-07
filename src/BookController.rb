@@ -1,7 +1,7 @@
 class BookController
 
   attr_accessor :book, :window
-  attr_accessor :navigationController, :spineController, :manifestController
+  attr_accessor :navigationController, :spineController, :manifestController, :metadataController
   attr_accessor :searchController, :progressController, :tabView
 
   def awakeFromNib
@@ -21,11 +21,12 @@ class BookController
   def openBook(filename)
     @progressController.show("Opening...")
     @book = Book.new(filename)
+    @metadataController.book = @book
     @spineController.book = @book
     @manifestController.book = @book
     @navigationController.book = @book
     @searchController.book = @book
-    @window.title = @book.title
+    @window.title = @book.metadata.title
     @progressController.hide
     @window.makeKeyAndOrderFront(self)
   rescue Exception => e
@@ -42,7 +43,7 @@ class BookController
   def closeBook(sender)
     editedItems = @tabView.editedItems
     unless editedItems.empty?
-      title = "You have #{pluralize(editedItems.size, "document")} with unsaved changes in \"#{@book.title}\". Do you want to save these changes before quiting?"
+      title = "You have #{pluralize(editedItems.size, "document")} with unsaved changes in \"#{@book.metadata.title}\". Do you want to save these changes before quiting?"
       message = "Your changes will be lost if you don't save them."
       response = NSRunAlertPanel(title, message, "Save Changes", "Discard Changes", "Cancel")
       case response

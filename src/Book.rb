@@ -14,8 +14,8 @@ class Book
     @path = Dir.mktmpdir("folio-unzip-")
     system("unzip -q -d '#{@path}' '#{filepath}'")
     @container  = Container.new(self)
-    @metadata   = Metadata.new(self)
     @manifest   = Manifest.new(self)
+    @metadata   = Metadata.new(self)
     @spine      = Spine.new(self)
     @guide      = Guide.new(self)
     @navigation = Navigation.new(self)
@@ -30,10 +30,10 @@ class Book
     @manifest.save(dest)
     @navigation.save(dest)
     File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opf_xml}
-    epub = File.join(directory, "#{title.sanitize}.epub")
+    epub = File.join(directory, "#{metadata.title.sanitize}.epub")
     system("cd '#{tmp}'; zip -qX0 '#{epub}' mimetype")
     system("cd '#{tmp}'; zip -qX9urD '#{epub}' *")
-    FileUtils.rm_rf(tmp)
+    # FileUtils.rm_rf(tmp)
   end
   
   def close
@@ -43,18 +43,6 @@ class Book
   def opf_xml
     book = self
     ERB.new(Bundle.template("content.opf")).result(binding)
-  end
-  
-  def description
-    @metadata.description
-  end
-
-  def method_missing(method, *args)
-    if @metadata.respond_to?(method.to_sym)
-      @metadata.send(method, *args)
-    else
-      super
-    end
   end
     
 end

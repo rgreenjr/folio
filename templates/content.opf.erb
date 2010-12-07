@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
-<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
 
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title><%= book.title %></dc:title>
+    <dc:title><%= book.metadata.title %></dc:title>
     <dc:language>en</dc:language>
-    <dc:identifier id="BookId" opf:scheme="ISBN"><%= book.identifier %></dc:identifier>
-    <dc:creator opf:file-as="<%= book.creator %>" opf:role="aut"><%= book.creator %></dc:creator>
-    <dc:date opf:event="publication"><%= book.date %></dc:date>
-    <dc:subject><%= book.subject %></dc:subject>
-    <dc:description><%= book.description %></dc:description>
-    <dc:subject><%= book.subject %></dc:subject>
-    <dc:rights><%= book.rights %></dc:rights>
+    <dc:identifier id="BookId" opf:scheme="ISBN"><%= book.metadata.identifier %></dc:identifier>
+    <dc:creator opf:file-as="<%= book.metadata.creator %>" opf:role="aut"><%= book.metadata.creator %></dc:creator>
+    <dc:date opf:event="publication"><%= book.metadata.date %></dc:date>
+    <dc:subject><%= book.metadata.subject %></dc:subject>
+    <dc:description><%= book.metadata.description %></dc:description>
+    <dc:subject><%= book.metadata.subject %></dc:subject>
+    <dc:rights><%= book.metadata.rights %></dc:rights>
+    <meta name="cover" content="<%= book.metadata.cover.id %>"/>
   </metadata>
 
   <manifest><% book.manifest.each do |item| %>
