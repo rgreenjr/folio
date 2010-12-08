@@ -3,22 +3,31 @@ class MetadataController
   attr_accessor :book, :window
   attr_accessor :titleField, :dateField, :identifierField, :languagePopup
   attr_accessor :descriptionField, :creatorField, :publisherField
-  attr_accessor :subjectField, :sourceField, :rightsField
+  attr_accessor :subjectField, :sourceField, :rightsField, :coverImageView
   
   def awakeFromNib
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
   end
   
   def showWindow(sender)
-    @titleField.stringValue  = @book.metadata.title
-    @descriptionField.stringValue  = @book.metadata.description if @book.metadata.description
-    @dateField.stringValue  = @book.metadata.date if @book.metadata.date
-    @identifierField.stringValue  = @book.metadata.identifier if @book.metadata.identifier
-    @creatorField.stringValue  = @book.metadata.creator if @book.metadata.creator
-    @publisherField.stringValue  = @book.metadata.publisher if @book.metadata.publisher
-    @subjectField.stringValue  = @book.metadata.subject if @book.metadata.subject
-    @rightsField.stringValue  = @book.metadata.rights if @book.metadata.rights
+    @titleField.stringValue  = @book.metadata.title || ''
+    @descriptionField.stringValue  = @book.metadata.description || ''
+    @dateField.stringValue  = @book.metadata.date || ''
+    @identifierField.stringValue  = @book.metadata.identifier || ''
+    @creatorField.stringValue  = @book.metadata.creator || ''
+    @publisherField.stringValue  = @book.metadata.publisher || ''
+    @subjectField.stringValue  = @book.metadata.subject || ''
+    @rightsField.stringValue  = @book.metadata.rights || ''
+    
     @languagePopup.selectItemWithTitle(Language.name_for(@book.metadata.language))
+    
+    if @book.metadata.cover
+      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@book.metadata.cover.path)
+    else
+      @coverImageView.image = nil
+    end
+    
+    @window.center
     @window.makeKeyAndOrderFront(self)
   end
   

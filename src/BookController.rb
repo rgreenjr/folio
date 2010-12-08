@@ -5,6 +5,7 @@ class BookController
   attr_accessor :searchController, :progressController, :tabView
 
   def awakeFromNib
+    @window.center
     openBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
   end
 
