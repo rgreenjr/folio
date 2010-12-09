@@ -16,7 +16,6 @@ class TextViewController
   end
 
   def item=(item)
-    # return if item == @item
     @item = item
     if @item && @item.editable?
       attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
@@ -36,7 +35,7 @@ class TextViewController
   def insertionPoint
     @textView.selectedRanges.first.rangeValue.location
   end
-
+  
   def replace(range, replacement)
     if @textView.shouldChangeTextInRange(range, replacementString:replacement)
       @textView.textStorage.beginEditing    
@@ -46,6 +45,33 @@ class TextViewController
     else
       NSBeep()
     end
+  end
+  
+  def strongSelectedText(sender)
+    selectedRange = @textView.selectedRange
+    selectedText = @textView.string.substringWithRange(selectedRange)
+    replace(selectedRange, "<strong>#{selectedText}</strong>")
+  end
+  
+  def emphasizeSelectedText(sender)
+    selectedRange = @textView.selectedRange
+    selectedText = @textView.string.substringWithRange(selectedRange)
+    replace(selectedRange, "<em>#{selectedText}</em>")
+  end
+  
+  def stripHTMLTagsFromSelection(sender)
+    selectedRange = @textView.selectedRange
+    selectedText = @textView.string.substringWithRange(selectedRange)
+    tmp_file = Tempfile.new('folio-tmp-file')
+    File.open(tmp_file, "w") {|f| f.print selectedText}
+    replace(selectedRange, `php -r 'echo strip_tags( file_get_contents("#{tmp_file.path}") );'`)
+    tmp_file.delete
+  end
+  
+  def paragraphSelectedLines(sender)
+    selectedRange = @textView.selectedRange
+    selectedText = @textView.string.substringWithRange(selectedRange)
+    replace(selectedRange, selectedText.split.map {|line| "<p>#{line}<p/>\n"}.join)
   end
   
 end
