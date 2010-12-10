@@ -83,28 +83,19 @@ class ManifestController
     if info.draggingSource == @outlineView
       load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |path|
         item = @book.manifest.itemWithHref(path)
-        if parent
-          operation = parent.ancestor?(item) || !parent.directory? ? NSDragOperationNone : NSDragOperationMove
-        else
-          operation = item.parent == @book.manifest.root ? NSDragOperationNone : NSDragOperationMove
-        end
-        if operation == NSDragOperationNone
+        if (!parent && item.parent == @book.manifest.root) || (parent && (!parent.directory? || parent.ancestor?(item)))
           return NSDragOperationNone
         end
       end
+      NSDragOperationMove
     else
-      if info.draggingPasteboard.types.containsObject(NSFilenamesPboardType)
-        if parent && !parent.directory?
-          operation = NSDragOperationNone
-        else
-          @outlineView.setDropRow(-1, dropOperation:NSTableViewDropAbove)
-          operation = NSDragOperationCopy
-        end
+      if info.draggingPasteboard.types.containsObject(NSFilenamesPboardType) && (!parent || parent.directory?)
+        @outlineView.setDropRow(-1, dropOperation:NSTableViewDropAbove)
+        NSDragOperationCopy
       else
-        operation = NSDragOperationNone
+        NSDragOperationNone
       end
     end
-    operation
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)

@@ -63,34 +63,40 @@ class NavigationController
   end
 
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
-    @draggedPoint = points.first
     pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setString(@draggedPoint.text, forType:NSStringPboardType)
+    pboard.setPropertyList(points.map {|item| item.id}.to_plist, forType:NSStringPboardType)
     true
-  end 
+  end
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
-    if parent
-      !@draggedPoint.ancestor?(parent) ? NSDragOperationMove : NSDragOperationNone
-    elsif @book.navigation.root.size == 1 && @draggedPoint == @book.navigation.root[0]
-      NSDragOperationNone
-    else
-      index = @book.navigation.root.index(@draggedPoint)
-      index.nil? || index != childIndex ? NSDragOperationMove : NSDragOperationNone
+    return NSDragOperationNone unless info.draggingSource == @outlineView
+    operation = NSDragOperationNone
+    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |id|
+      point = @book.navigation.pointWithId(id)
+      if parent
+        operation = !point.ancestor?(parent) ? NSDragOperationMove : NSDragOperationNone
+      elsif @book.navigation.root.size == 1 && point == @book.navigation.root[0]
+        operation = NSDragOperationNone
+      else
+        index = @book.navigation.root.index(point)
+        operation = index.nil? || index != childIndex ? NSDragOperationMove : NSDragOperationNone
+      end
     end
+    operation
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    return false unless @draggedPoint
     parent = @book.navigation.root unless parent
-    @book.navigation.delete(@draggedPoint)
-    parent.insert(childIndex, @draggedPoint)
+    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |id|
+      point = @book.navigation.pointWithId(id)
+      @book.navigation.delete(point)
+      parent.insert(childIndex, point)
+    end
+    @outlineView.deselectAll(nil)
     @outlineView.reloadData
-    @outlineView.selectItem(@draggedPoint)
-    @draggedPoint = nil
     true
   end
-  
+
   def addPoint(sender)
   end
   

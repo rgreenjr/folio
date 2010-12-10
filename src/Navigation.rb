@@ -3,6 +3,8 @@ class Navigation
   attr_accessor :id, :title, :creator, :docAuthor, :root
 
   def initialize(book)
+    @hash  = {}
+    
     doc = REXML::Document.new(book.manifest.ncx.content)
     
     @ncx_name = book.manifest.ncx.name
@@ -35,6 +37,9 @@ class Navigation
         child.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
         child.item      = item
         child.fragment  = fragment
+
+        raise "Navigation point ID already exists: id=#{child.id}" if @hash[child.id]      
+        @hash[child.id] = child
 
         parent << child
         point_stack.insert(i, child)
@@ -80,6 +85,10 @@ class Navigation
     end
   end
 
+  def pointWithId(identifier)
+    @hash[identifier]
+  end
+  
   def save(directory)
     File.open("#{directory}/#{@ncx_name}", 'w') {|f| f.write(to_xml)}
   end
