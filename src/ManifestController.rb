@@ -139,21 +139,22 @@ class ManifestController
 
   def showAddItemPanel(sender)
     panel = NSOpenPanel.openPanel
-    panel.title = "Add Item"
+    panel.title = "Add Files"
     panel.setPrompt("Select")
-    panel.setAllowsMultipleSelection(false) # TODO all multiple selection support
+    panel.setAllowsMultipleSelection(true)
     panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window, modalDelegate:self, didEndSelector:"addItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
   def addItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
     return unless code == NSOKButton
-    path = panel.URLs[0].path
-    parent, index = currentSelectionParentAndIndex
-    item = Item.new(parent, File.basename(path))
-    item.content = File.read(path)  
-    parent.insert(index, item)
+    panel.URLs.each do |url|
+      parent, index = currentSelectionParentAndIndex
+      item = Item.new(parent, File.basename(url.path))
+      item.content = File.read(url.path)  
+      parent.insert(index, item)
+    end
     @outlineView.reloadData
-    @outlineView.selectItem(item)
+    @outlineView.deselectAll(nil)
   end
 
   def showDeleteItemPanel(sender)
