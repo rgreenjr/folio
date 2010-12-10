@@ -74,52 +74,57 @@ class ManifestController
   end
 
   def outlineView(outlineView, writeItems:items, toPasteboard:pboard)
-    @draggedItem = items.first
     pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setString(@draggedItem.href, forType:NSStringPboardType)
+    pboard.setPropertyList(items.map {|item| item.href}.to_plist, forType:NSStringPboardType)
     true
   end 
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
     if info.draggingSource == @outlineView
-      if parent
-        @draggedItem.ancestor?(parent) ? NSDragOperationNone : NSDragOperationMove
-      else
-        @draggedItem.parent == @book.manifest.root ? NSDragOperationNone : NSDragOperationMove
+      load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |path|
+        item = @book.manifest.itemWithHref(path)
+        if parent
+          operation = parent.ancestor?(item) || !parent.directory? ? NSDragOperationNone : NSDragOperationMove
+        else
+          operation = item.parent == @book.manifest.root ? NSDragOperationNone : NSDragOperationMove
+        end
+        if operation == NSDragOperationNone
+          return NSDragOperationNone
+        end
       end
     else
       if info.draggingPasteboard.types.containsObject(NSFilenamesPboardType)
         if parent && !parent.directory?
-          NSDragOperationNone
+          operation = NSDragOperationNone
         else
           @outlineView.setDropRow(-1, dropOperation:NSTableViewDropAbove)
-          NSDragOperationCopy
+          operation = NSDragOperationCopy
         end
       else
-        NSDragOperationNone
+        operation = NSDragOperationNone
       end
     end
+    operation
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
+    parent = @book.manifest.root unless parent
+    return false unless parent.directory?
     if @outlineView == info.draggingSource
-      parent = @book.manifest.root unless parent
-      return false unless @draggedItem && parent.directory?
-      @book.manifest.move(@draggedItem, childIndex, parent)
-      @outlineView.reloadData
-      @outlineView.selectItem(@draggedItem)
-      @draggedItem = nil
+      load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |path|
+        item = @book.manifest.itemWithHref(path)
+        @book.manifest.move(item, childIndex, parent)
+      end
     else
-      parent = @book.manifest.root unless parent
-      return false unless parent.directory?
       info.draggingPasteboard.propertyListForType(NSFilenamesPboardType).each do |path|
         # TODO check for name collisions
         item = Item.new(parent, File.basename(path))
         item.content = File.read(path)
         parent.insert(childIndex, item)        
       end
-      @outlineView.reloadData
     end
+    @outlineView.deselectAll(nil)
+    @outlineView.reloadData
     true
   end
 
