@@ -3,6 +3,11 @@ class SpineController
   attr_accessor :book, :tableView, :tabView
 
   def awakeFromNib
+    # configure popup menu
+    @menu = NSMenu.alloc.initWithTitle("Spine Contextual Menu")
+    @menu.insertItemWithTitle("Delete", action:"deleteItem:", keyEquivalent:"", atIndex:0).target = self
+    @tableView.menu = @menu
+
     @tableView.delegate = self
     @tableView.dataSource = self
     @tableView.registerForDraggedTypes([NSStringPboardType])
@@ -57,13 +62,9 @@ class SpineController
   def selectItem(item)
     @tableView.selectRow(@book.spine.index(item))
   end
-
-  def addPage(sender)
-    index = @tableView.selectedRow
-    index = @book.spine.size if index < 0
-    # item = Item.new("file://#{@book.container.root}/NewPage.xhtml", "#{@book.container.base}/NewPage.xhtml", UUID.create, 'application/xhtml+xml')
-    item.content = ''
-    @book.spine.insert(index, item)
+  
+  def deleteItem(sender)
+    @book.spine.delete_at(@tableView.selectedRow)
     @tableView.reloadData
   end
 

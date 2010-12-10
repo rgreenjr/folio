@@ -8,9 +8,11 @@ class ManifestController
     @menu.insertItemWithTitle("Add File...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
     @menu.insertItemWithTitle("Add Directory...", action:"addDirectory:", keyEquivalent:"", atIndex:1).target = self
     @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:3).target = self
+    @menu.insertItemWithTitle("Delete...", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:3).target = self
     @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Delete...", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:5).target = self
+    @menu.insertItemWithTitle("Add to Spine", action:"addToSpine:", keyEquivalent:"", atIndex:5).target = self
+    @menu.addItem(NSMenuItem.separatorItem)
+    @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:7).target = self
     @outlineView.menu = @menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new
@@ -169,6 +171,13 @@ class ManifestController
       parent.delete_at(item.parent.index(item))
     end
     @outlineView.reloadData
+  end
+  
+  def addToSpine(sender)
+    @outlineView.selectedRowIndexes.each do |index|
+      item = @book.manifest[index]
+      @book.spine.insert(-1, item)
+    end
   end
 
   def markAsCover(sender)
