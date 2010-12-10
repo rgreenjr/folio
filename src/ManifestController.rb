@@ -141,7 +141,7 @@ class ManifestController
     panel = NSOpenPanel.openPanel
     panel.title = "Add Item"
     panel.setPrompt("Select")
-    panel.setAllowsMultipleSelection(false)
+    panel.setAllowsMultipleSelection(false) # TODO all multiple selection support
     panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window, modalDelegate:self, didEndSelector:"addItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
@@ -168,6 +168,7 @@ class ManifestController
       item = @book.manifest[index]
       @tabView.remove(item)
       parent = item.parent
+      NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:[item.url], withObject:nil)
       parent.delete_at(item.parent.index(item))
     end
     @outlineView.reloadData
