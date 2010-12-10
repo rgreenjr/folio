@@ -16,7 +16,7 @@ class ManifestController
     @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.delegate = self
     @outlineView.dataSource = self
-    @outlineView.registerForDraggedTypes([NSStringPboardType])
+    @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
     @outlineView.reloadData
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
     
@@ -81,20 +81,45 @@ class ManifestController
   end 
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
-    if parent
-      @draggedItem.ancestor?(parent) ? NSDragOperationNone : NSDragOperationMove
+    if info.draggingSource == @outlineView
+      if parent
+        @draggedItem.ancestor?(parent) ? NSDragOperationNone : NSDragOperationMove
+      else
+        @draggedItem.parent == @book.manifest.root ? NSDragOperationNone : NSDragOperationMove
+      end
     else
-      @draggedItem.parent == @book.manifest.root ? NSDragOperationNone : NSDragOperationMove
+      if info.draggingPasteboard.types.containsObject(NSFilenamesPboardType)
+        if parent && !parent.directory?
+          NSDragOperationNone
+        else
+          @outlineView.setDropRow(-1, dropOperation:NSTableViewDropAbove)
+          NSDragOperationCopy
+        end
+      else
+        NSDragOperationNone
+      end
     end
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    parent = @book.manifest.root unless parent
-    return false unless @draggedItem && parent.directory?
-    @book.manifest.move(@draggedItem, childIndex, parent)
-    @outlineView.reloadData
-    @outlineView.selectItem(@draggedItem)
-    @draggedItem = nil
+    if @outlineView == info.draggingSource
+      parent = @book.manifest.root unless parent
+      return false unless @draggedItem && parent.directory?
+      @book.manifest.move(@draggedItem, childIndex, parent)
+      @outlineView.reloadData
+      @outlineView.selectItem(@draggedItem)
+      @draggedItem = nil
+    else
+      parent = @book.manifest.root unless parent
+      return false unless parent.directory?
+      info.draggingPasteboard.propertyListForType(NSFilenamesPboardType).each do |path|
+        # TODO check for name collisions
+        item = Item.new(parent, File.basename(path))
+        item.content = File.read(path)
+        parent.insert(childIndex, item)        
+      end
+      @outlineView.reloadData
+    end
     true
   end
 
