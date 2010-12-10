@@ -10,7 +10,7 @@ class ManifestController
     @menu.addItem(NSMenuItem.separatorItem)
     @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:3).target = self
     @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Delete", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:5).target = self
+    @menu.insertItemWithTitle("Delete...", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:5).target = self
     @outlineView.menu = @menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new
@@ -19,11 +19,11 @@ class ManifestController
     @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
     @outlineView.reloadData
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
-    
+
     # configure media types popup button
     Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
-    
-    displayItemProperties(nil)
+
+    displayItemProperties
   end
 
   def book=(book)
@@ -34,7 +34,7 @@ class ManifestController
   def tabViewSelectionDidChange(notification)
     @outlineView.selectItem(notification.object.selectedItem)
   end
-  
+
   def selectedItem
     @outlineView.selectedRow == -1 ? nil : @book.manifest[@outlineView.selectedRow]
   end
@@ -63,9 +63,9 @@ class ManifestController
   def outlineViewItemDidCollapse(notification)
     notification.userInfo['NSObject'].expanded = false
   end
-  
+
   def outlineViewSelectionDidChange(notification)
-    displayItemProperties(selectedItem)
+    displayItemProperties
   end
 
   def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
@@ -131,7 +131,7 @@ class ManifestController
       cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
     end
   end
-  
+
   def currentSelectionParentAndIndex
     item = selectedItem
     item ? [item.parent, item.parent.index(item)] : [@book.manifest.root, -1]
@@ -144,7 +144,7 @@ class ManifestController
     panel.setAllowsMultipleSelection(false)
     panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window, modalDelegate:self, didEndSelector:"addItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
-  
+
   def addItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
     return unless code == NSOKButton
     path = panel.URLs[0].path
@@ -155,21 +155,24 @@ class ManifestController
     @outlineView.reloadData
     @outlineView.selectItem(item)
   end
-  
+
   def showDeleteItemPanel(sender)
-    item = selectedItem
-    return unless item
-    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the item \"#{item.name}\"?", defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"")    
+    return if @outlineView.numberOfSelectedRows == 0
+    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected files?", defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"")    
     alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"showDeleteItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)    
   end
-  
+
   def showDeleteItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
     return unless code == NSOKButton
-    parent, index = currentSelectionParentAndIndex
-    parent.delete_at(index)
+    @outlineView.selectedRowIndexes.reverse_each do |index|
+      item = @book.manifest[index]
+      @tabView.remove(item)
+      parent = item.parent
+      parent.delete_at(item.parent.index(item))
+    end
     @outlineView.reloadData
   end
-  
+
   def markAsCover(sender)
     item = selectedItem
     return unless item && !item.directory?
@@ -223,15 +226,14 @@ class ManifestController
     @propertiesForm.cellAtIndex(1)
   end
 
-  def displayItemProperties(item)
-    if item
-      unless item.directory?
-        propertyCells.each {|cell| cell.enabled = true}
-        @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
-        nameCell.stringValue = item.name
-        idCell.stringValue = item.id
-        @tabView.add(item)
-      end
+  def displayItemProperties
+    item = selectedItem
+    if @outlineView.numberOfSelectedRows == 1 && !item.directory?
+      propertyCells.each {|cell| cell.enabled = true}
+      @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
+      nameCell.stringValue = item.name
+      idCell.stringValue = item.id
+      @tabView.add(item)
     else
       propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
       @mediaTypePopUpButton.selectItemWithTitle('')
@@ -241,7 +243,7 @@ class ManifestController
   def propertyCells
     [nameCell, idCell, mediaTypePopUpButton]
   end
-  
+
   def showNameErrorAlert(name)
     alert = NSAlert.alloc.init
     alert.addButtonWithTitle "OK"

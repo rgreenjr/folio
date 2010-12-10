@@ -58,6 +58,19 @@ class TabView < NSView
     end
     selectTab(tab, point)
   end
+  
+  def remove(object)
+    return unless object
+    if object.is_a?(Point)
+      point = object
+      item = point.item
+    else
+      point = nil
+      item = object
+    end
+    tab = tabForItem(item)
+    closeTab(tab) if tab
+  end
 
   def drawRect(aRect)
     updateTabWidth

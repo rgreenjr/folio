@@ -1,7 +1,11 @@
 class NSOutlineView
   
   def selectItem(item)
-    selectRow(rowForItem(item))
+    if item
+      selectRow(rowForItem(item))
+    else
+      deselectAll(nil)
+    end
   end
   
 end
