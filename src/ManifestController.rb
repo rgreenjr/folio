@@ -5,7 +5,7 @@ class ManifestController
   def awakeFromNib
     # configure popup menu
     @menu = NSMenu.alloc.initWithTitle("Manifest Contextual Menu")
-    @menu.insertItemWithTitle("Add Item...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
+    @menu.insertItemWithTitle("Add File...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
     @menu.insertItemWithTitle("Add Directory...", action:"addDirectory:", keyEquivalent:"", atIndex:1).target = self
     @menu.addItem(NSMenuItem.separatorItem)
     @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:3).target = self
@@ -224,16 +224,18 @@ class ManifestController
   end
 
   def displayItemProperties(item)
-    if item && !item.directory?
-      propertyCells.each {|cell| cell.enabled = true}
-      @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
-      nameCell.stringValue = item.name
-      idCell.stringValue = item.id
+    if item
+      unless item.directory?
+        propertyCells.each {|cell| cell.enabled = true}
+        @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
+        nameCell.stringValue = item.name
+        idCell.stringValue = item.id
+        @tabView.add(item)
+      end
     else
       propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
       @mediaTypePopUpButton.selectItemWithTitle('')
     end
-    @tabView.add(item)
   end
 
   def propertyCells
