@@ -11,7 +11,7 @@ class WebViewController
     return if item == @item
     @item = item
     if @item
-      request = NSURLRequest.requestWithURL(NSURL.URLWithString(@item.uri.to_s))
+      request = NSURLRequest.requestWithURL(@item.url)
       @webView.mainFrame.loadRequest(request)
     else
       @webView.mainFrame.loadHTMLString('', baseURL:nil)

@@ -10,6 +10,10 @@ class Point
     URI.join('file:/', @item.path.gsub(/ /, '%20'), fragment)
   end
 
+  def url
+    NSURL.URLWithString(uri.to_s)
+  end
+
   def src
     "#{@item.href}#{fragment}"
   end

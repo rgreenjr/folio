@@ -25,6 +25,10 @@ class Item
   def uri
     URI.join('file:/', path.gsub(/ /, '%20'))
   end
+  
+  def url
+    NSURL.URLWithString(uri.to_s)
+  end
 
   def content
     @content ||= File.read(path)
