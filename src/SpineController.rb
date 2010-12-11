@@ -45,22 +45,23 @@ class SpineController
     true
   end
 
-  def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:childIndex)
+  def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:operation)
     row ? NSDragOperationMove : NSDragOperationNone
   end
 
-  # TODO fix reordering bug
-  def tableView(tableView, acceptDrop:info, row:index, dropOperation:operation)
-    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).reverse_each do |indx|
-      puts "indx = #{indx}"
-      item = @book.spine.delete_at(indx)
-      puts "item.name = #{item.name}"
-      index = @book.spine.size if index > @book.spine.size
-      puts "destination index = #{index}"
-      @book.spine.insert(index, item)
+  def tableView(tableView, acceptDrop:info, row:destinationIndex, dropOperation:operation)
+    array = []
+    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).reverse_each do |index|
+      array << @book.spine.delete_at(index)
+      destinationIndex -= 1 if index < destinationIndex
+    end
+    array.each do |item|
+      @book.spine.insert(destinationIndex, item)
     end
     @tableView.reloadData
-    @tableView.deselectAll(nil)
+    range = NSRange.new(destinationIndex, array.size)
+    indexes = NSIndexSet.indexSetWithIndexesInRange(range)
+    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
     true
   end
 
