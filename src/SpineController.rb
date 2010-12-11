@@ -20,7 +20,7 @@ class SpineController
   end
 
   def tabViewSelectionDidChange(notification)
-    selectItem(notification.object.selectedItem)
+    # selectItem(notification.object.selectedItem)
   end
 
   def numberOfRowsInTableView(aTableView)
@@ -38,9 +38,10 @@ class SpineController
   end
 
   def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
-    @draggedRow = indexes.firstIndex
     pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setString(@draggedRow.to_s, forType:NSStringPboardType)
+    array = []
+    indexes.each { |index| array << index }
+    pboard.setPropertyList(array.to_plist, forType:NSStringPboardType)
     true
   end
 
@@ -48,14 +49,18 @@ class SpineController
     row ? NSDragOperationMove : NSDragOperationNone
   end
 
+  # TODO fix reordering bug
   def tableView(tableView, acceptDrop:info, row:index, dropOperation:operation)
-    return false unless @draggedRow
-    item = @book.spine.delete_at(@draggedRow.to_i)
-    index = @book.spine.size if index > @book.spine.size
-    @book.spine.insert(index, item)
+    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).reverse_each do |indx|
+      puts "indx = #{indx}"
+      item = @book.spine.delete_at(indx)
+      puts "item.name = #{item.name}"
+      index = @book.spine.size if index > @book.spine.size
+      puts "destination index = #{index}"
+      @book.spine.insert(index, item)
+    end
     @tableView.reloadData
-    selectItem(item)
-    @draggedItem = nil
+    @tableView.deselectAll(nil)
     true
   end
 
@@ -64,7 +69,9 @@ class SpineController
   end
   
   def deleteItem(sender)
-    @book.spine.delete_at(@tableView.selectedRow)
+    @tableView.selectedRowIndexes.reverse_each do |index|
+      @book.spine.delete_at(index)
+    end
     @tableView.reloadData
   end
 
