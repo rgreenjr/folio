@@ -83,7 +83,8 @@ class ManifestController
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
     if info.draggingSource == @outlineView
-      load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |path|
+      plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
+      plist.each do |path|
         item = @book.manifest.itemWithHref(path)
         if (!parent && item.parent == @book.manifest.root) || (parent && (!parent.directory? || parent.ancestor?(item)))
           return NSDragOperationNone
@@ -172,7 +173,7 @@ class ManifestController
     end
     @outlineView.reloadData
   end
-  
+
   def addToSpine(sender)
     @outlineView.selectedRowIndexes.each do |index|
       item = @book.manifest[index]
@@ -256,6 +257,18 @@ class ManifestController
     alert.addButtonWithTitle "OK"
     alert.messageText = "The name \"#{name}\" is already taken. Please choose a different name."
     alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
+  end
+
+  def validateUserInterfaceItem(menuItem)
+    case menuItem.action
+    when :"showDeleteItemPanel:"
+      return false if @outlineView.numberOfSelectedRows < 1
+    when :"addToSpine:"
+      return false if @outlineView.numberOfSelectedRows != 1 || !selectedItem.flowable?
+    when :"markAsCover:"
+      return false if @outlineView.numberOfSelectedRows != 1 || !selectedItem.imageable?
+    end
+    true
   end
 
 end

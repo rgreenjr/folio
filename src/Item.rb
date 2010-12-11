@@ -69,6 +69,14 @@ class Item
   def renderable?
     %w{application/xml application/xhtml+xml image/jpeg image/png image/gif image/svg+xml text/css}.include?(@mediaType)
   end
+  
+  def imageable?
+    %w{image/jpeg image/png image/gif image/svg+xml}.include?(@mediaType)
+  end
+  
+  def flowable?
+    %w{application/xml application/xhtml+xml}.include?(@mediaType)
+  end
 
   def ncx?
     @mediaType == "application/x-dtbncx+xml"

@@ -3,7 +3,6 @@ class SpineController
   attr_accessor :book, :tableView, :tabView
 
   def awakeFromNib
-    # configure popup menu
     @menu = NSMenu.alloc.initWithTitle("Spine Contextual Menu")
     @menu.insertItemWithTitle("Delete", action:"deleteItem:", keyEquivalent:"", atIndex:0).target = self
     @tableView.menu = @menu
@@ -39,8 +38,7 @@ class SpineController
 
   def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
     pboard.declareTypes([NSStringPboardType], owner:self)
-    array = []
-    indexes.each { |index| array << index }
+    array = indexes.inject([]) { |array, index| array << index }
     pboard.setPropertyList(array.to_plist, forType:NSStringPboardType)
     true
   end
@@ -49,31 +47,42 @@ class SpineController
     row ? NSDragOperationMove : NSDragOperationNone
   end
 
-  def tableView(tableView, acceptDrop:info, row:destinationIndex, dropOperation:operation)
-    array = []
-    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).reverse_each do |index|
-      array << @book.spine.delete_at(index)
-      destinationIndex -= 1 if index < destinationIndex
+  def tableView(tableView, acceptDrop:info, row:rowIndex, dropOperation:operation)
+    reorderedItems = []
+    plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
+    plist.reverse_each do |index|
+      reorderedItems << @book.spine.delete_at(index)
+      rowIndex -= 1 if index < rowIndex
     end
-    array.each do |item|
-      @book.spine.insert(destinationIndex, item)
+    reorderedItems.each do |item|
+      @book.spine.insert(rowIndex, item)
     end
     @tableView.reloadData
-    range = NSRange.new(destinationIndex, array.size)
+    range = NSRange.new(rowIndex, reorderedItems.size)
     indexes = NSIndexSet.indexSetWithIndexesInRange(range)
     @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
     true
   end
 
-  def selectItem(item)
-    @tableView.selectRow(@book.spine.index(item))
-  end
+  # def selectItem(item)
+  #   @tableView.selectRow(@book.spine.index(item))
+  # end
   
   def deleteItem(sender)
     @tableView.selectedRowIndexes.reverse_each do |index|
       @book.spine.delete_at(index)
     end
     @tableView.reloadData
+  end
+
+  def validateUserInterfaceItem(menuItem)
+    case menuItem.action
+    when :"showDeleteItemPanel:"
+      return false if @outlineView.numberOfSelectedRows < 1
+    when :"markAsCover:"
+      return false if @outlineView.numberOfSelectedRows != 1 || !selectedItem.imageable?
+    end
+    true
   end
 
 end

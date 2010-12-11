@@ -5,8 +5,8 @@ class NavigationController
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
     @menu.insertItemWithTitle("Add Point...", action:"addPoint:", keyEquivalent:"", atIndex:0).target = self
-    @menu.insertItemWithTitle("Duplicate Point", action:"duplicatePoint:", keyEquivalent:"", atIndex:1).target = self
-    @menu.insertItemWithTitle("Delete Point", action:"deletePoint:", keyEquivalent:"", atIndex:2).target = self
+    @menu.insertItemWithTitle("Duplicate", action:"duplicatePoint:", keyEquivalent:"", atIndex:1).target = self
+    @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:2).target = self
     @outlineView.menu = @menu
 
     @outlineView.delegate = self
@@ -87,13 +87,17 @@ class NavigationController
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
     parent = @book.navigation.root unless parent
-    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |id|
+    plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
+    plist.each do |id|
       point = @book.navigation.pointWithId(id)
       @book.navigation.delete(point)
       parent.insert(childIndex, point)
     end
-    @outlineView.deselectAll(nil)
     @outlineView.reloadData
+    @outlineView.deselectAll(nil)
+    # range = NSRange.new(childIndex, plist.size)
+    # indexes = NSIndexSet.indexSetWithIndexesInRange(range)
+    # @outlineView.selectRowIndexes(indexes, byExtendingSelection:false)
     true
   end
 
@@ -193,4 +197,16 @@ class NavigationController
     alert.runModal
   end
   
+  def validateUserInterfaceItem(menuItem)
+    case menuItem.action
+    when :"deletePoint:"
+      return false if @outlineView.numberOfSelectedRows < 1
+    when :"duplicatePoint:"
+      return false if @outlineView.numberOfSelectedRows < 1
+    when :"addPoint:"
+      return false
+    end
+    true
+  end
+
 end
