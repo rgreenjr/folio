@@ -4,7 +4,9 @@ class SpineController
 
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("Spine Contextual Menu")
-    @menu.insertItemWithTitle("Delete", action:"deleteItem:", keyEquivalent:"", atIndex:0).target = self
+    @menu.insertItemWithTitle("Add to Navigation", action:"addToNavigation:", keyEquivalent:"", atIndex:0).target = self
+    @menu.addItem(NSMenuItem.separatorItem)
+    @menu.insertItemWithTitle("Remove", action:"removeItem:", keyEquivalent:"", atIndex:2).target = self
     @tableView.menu = @menu
 
     @tableView.delegate = self
@@ -68,19 +70,26 @@ class SpineController
   #   @tableView.selectRow(@book.spine.index(item))
   # end
   
-  def deleteItem(sender)
+  def removeItem(sender)
     @tableView.selectedRowIndexes.reverse_each do |index|
-      @book.spine.delete_at(index)
+      item = @book.spine.delete_at(index)
+      @tabView.remove(item)
     end
     @tableView.reloadData
+  end
+  
+  def addToNavigation(sender)
+    @tableView.selectedRowIndexes.each do |index|
+      @book.navigation.appendItem(@book.spine[index])
+    end
   end
 
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
-    when :"showDeleteItemPanel:"
-      return false if @outlineView.numberOfSelectedRows < 1
-    when :"markAsCover:"
-      return false if @outlineView.numberOfSelectedRows != 1 || !selectedItem.imageable?
+    when :"addToNavigation:"
+      return false if @tableView.numberOfSelectedRows < 1
+    when :"removeItem:"
+      return false if @tableView.numberOfSelectedRows < 1
     end
     true
   end

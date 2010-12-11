@@ -264,7 +264,9 @@ class ManifestController
     when :"showDeleteItemPanel:"
       return false if @outlineView.numberOfSelectedRows < 1
     when :"addToSpine:"
-      return false if @outlineView.numberOfSelectedRows != 1 || !selectedItem.flowable?
+      @outlineView.selectedRowIndexes.each do |index|
+        return false unless @book.manifest[index].flowable?
+      end
     when :"markAsCover:"
       return false if @outlineView.numberOfSelectedRows != 1 || !selectedItem.imageable?
     end

@@ -18,7 +18,7 @@ class Navigation
       @docAuthor = doc.elements["/ncx/docAuthor/text"].text
     end
 
-    @root = Point.new(nil, true)
+    @root = Point.new
 
     point_stack = [@root]
     xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
@@ -30,19 +30,20 @@ class Navigation
 
         item = book.manifest.itemWithHref(href)
         raise "Navigation point is missing: src=#{href}" unless item
+        
+        id = e.attributes["id"]
+        raise "Navigation point ID already exists: id=#{id}" if @hash[id]      
 
-        child           = Point.new(parent)
-        child.id        = e.attributes["id"]
-        child.playOrder = e.attributes["playOrder"]
-        child.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
-        child.item      = item
-        child.fragment  = fragment
+        childPoint           = Point.new(parent)
+        childPoint.id        = id
+        childPoint.playOrder = e.attributes["playOrder"]
+        childPoint.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
+        childPoint.item      = item
+        childPoint.fragment  = fragment
 
-        raise "Navigation point ID already exists: id=#{child.id}" if @hash[child.id]      
-        @hash[child.id] = child
-
-        parent << child
-        point_stack.insert(i, child)
+        @hash[childPoint.id] = childPoint
+        
+        point_stack.insert(i, childPoint)
         xml_stack.insert(i, e)
       end
     end
@@ -59,7 +60,7 @@ class Navigation
       point = stack.shift
       yield(point)
       if point.expanded? || includeCollapsed
-        point.each_with_index {|child, i| stack.insert(i, child)}
+        point.each_with_index {|childPoint, i| stack.insert(i, childPoint)}
       end
     end
   end
@@ -76,6 +77,18 @@ class Navigation
     each_with_index do |point, idx|
       return point if index - idx == -1
     end
+  end
+  
+  def appendItem(item)
+    point = Point.new(@root, item, item.name)
+    @hash[point.id] = point
+    point
+  end
+  
+  def duplicate(point)
+    new_point = Point.new(point.parent, point.item, point.text)
+    @hash[new_point.id] = new_point
+    new_point
   end
   
   def delete(point)

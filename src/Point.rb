@@ -2,8 +2,18 @@ class Point
 
   attr_accessor :parent, :id, :playOrder, :text, :item, :fragment
 
-  def initialize(parent, expanded=false)
-    @parent, @id, @text, @expanded, @children = parent, UUID.create, "", expanded, []
+  def initialize(parent=nil, item=nil, text=nil)
+    @parent = parent
+    @item = item
+    if text
+      @text = text
+    else
+      @text = item ? item.name : ""
+    end
+    @id = UUID.create
+    @expanded = parent ? false : true
+    @children = []
+    @parent << self if @parent
   end
 
   def uri

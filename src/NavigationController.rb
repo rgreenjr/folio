@@ -14,14 +14,14 @@ class NavigationController
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
 
-    displayPointProperties(nil)
+    displayPointProperties
   end
   
   def book=(book)
     @tabView.add(nil)
     @book = book
     @outlineView.reloadData
-    displayPointProperties(nil)
+    displayPointProperties
     expandRoot
   end
   
@@ -55,7 +55,7 @@ class NavigationController
   end
 
   def outlineViewSelectionDidChange(notification)
-    displayPointProperties(selectedPoint)
+    displayPointProperties
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
@@ -104,22 +104,25 @@ class NavigationController
   def addPoint(sender)
   end
   
-  def duplicatePoint(sender)
-    current = selectedPoint
-    return unless current
-    point = Point.new(current.parent)
-    point.text = current.text.dup
-    point.item = current.item
-    current.parent.insert(current.parent.index(current) + 1, point)
+  def appendItem(item)
+    point = @book.navigation.insertItem(item)
     @outlineView.reloadData
     @outlineView.selectItem(point)
   end
   
-  def deletePoint(sender)
-    point = selectedPoint
-    return unless point
-    point.parent.delete(point)
+  def duplicatePoint(sender)
+    new_point = @book.navigation.duplicate(selectedPoint)
     @outlineView.reloadData
+    @outlineView.selectItem(new_point)
+  end
+  
+  def deletePoint(sender)
+    @outlineView.selectedRowIndexes.reverse_each do |index|
+      point = @book.navigation[index]
+      point.parent.delete(point)
+    end
+    @outlineView.reloadData
+    @outlineView.deselectAll(nil)
   end
 
   def changeText(sender)
@@ -153,16 +156,17 @@ class NavigationController
 
   private
 
-  def displayPointProperties(point)
-    if point
+  def displayPointProperties
+    point = selectedPoint
+    if @outlineView.numberOfSelectedRows == 1
       propertyCells.each {|cell| cell.enabled = true}
       textCell.stringValue = point.name
       idCell.stringValue = point.id
       sourceCell.stringValue = point.src
+      @tabView.add(point)
     else
       propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
     end
-    @tabView.add(point)
   end
 
   def updateAttribute(attribute, cell)
@@ -202,7 +206,7 @@ class NavigationController
     when :"deletePoint:"
       return false if @outlineView.numberOfSelectedRows < 1
     when :"duplicatePoint:"
-      return false if @outlineView.numberOfSelectedRows < 1
+      return false if @outlineView.numberOfSelectedRows != 1
     when :"addPoint:"
       return false
     end
