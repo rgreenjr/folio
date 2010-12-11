@@ -10,5 +10,9 @@ class Spine < DelegateClass(Array)
       @items << item
     end
   end
+  
+  def insert(index, item)
+    super unless include?(item)
+  end
 
 end
