@@ -23,7 +23,7 @@ class Book
   
   def save(directory)
     tmp = Dir.mktmpdir("folio-zip-")
-    system("open #{tmp}")
+    # system("open #{tmp}")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
     @container.save(tmp)
     dest = File.join(tmp, @container.root)
@@ -33,7 +33,7 @@ class Book
     epub = File.join(directory, "#{metadata.title.sanitize}.epub")
     system("cd '#{tmp}'; zip -qX0 '#{epub}' mimetype")
     system("cd '#{tmp}'; zip -qX9urD '#{epub}' *")
-    # FileUtils.rm_rf(tmp)
+    FileUtils.rm_rf(tmp)
   end
   
   def close
