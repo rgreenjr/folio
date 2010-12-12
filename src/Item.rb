@@ -183,6 +183,15 @@ class Item
     @lastSavedContent != nil
   end
 
+  def sort
+    @children.sort!
+    @children.each { |item| item.sort }
+  end
+  
+  def <=>(other)
+    @name <=> other.name
+  end
+
   def guessMediaType
     
   end

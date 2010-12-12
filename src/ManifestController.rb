@@ -8,11 +8,11 @@ class ManifestController
     @menu.insertItemWithTitle("Add File...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
     @menu.insertItemWithTitle("Add Directory...", action:"addDirectory:", keyEquivalent:"", atIndex:1).target = self
     @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Delete...", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:3).target = self
+    @menu.insertItemWithTitle("Add to Spine", action:"addToSpine:", keyEquivalent:"", atIndex:3).target = self
     @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Add to Spine", action:"addToSpine:", keyEquivalent:"", atIndex:5).target = self
+    @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:5).target = self
     @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:7).target = self
+    @menu.insertItemWithTitle("Delete...", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:7).target = self
     @outlineView.menu = @menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new
@@ -104,9 +104,11 @@ class ManifestController
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
     parent = @book.manifest.root unless parent
     return false unless parent.directory?
+    items = []
     if @outlineView == info.draggingSource
       load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |path|
         item = @book.manifest.itemWithHref(path)
+        items << item
         @book.manifest.move(item, childIndex, parent)
       end
     else
@@ -114,11 +116,13 @@ class ManifestController
         # TODO check for name collisions
         item = Item.new(parent, File.basename(path))
         item.content = File.read(path)
+        items << item
         parent.insert(childIndex, item)        
       end
     end
-    @outlineView.deselectAll(nil)
+    @book.manifest.sort
     @outlineView.reloadData
+    @outlineView.selectItems(items)
     true
   end
 
@@ -146,14 +150,17 @@ class ManifestController
 
   def addItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
     return unless code == NSOKButton
+    items = []
     panel.URLs.each do |url|
       parent, index = currentSelectionParentAndIndex
       item = Item.new(parent, File.basename(url.path))
       item.content = File.read(url.path)  
+      items << item
       parent.insert(index, item)
     end
+    @book.manifest.sort
     @outlineView.reloadData
-    @outlineView.deselectAll(nil)
+    @outlineView.selectItems(items)
   end
 
   def showDeleteItemPanel(sender)
@@ -171,6 +178,7 @@ class ManifestController
       NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:[item.url], withObject:nil)
       parent.delete_at(item.parent.index(item))
     end
+    @book.manifest.sort
     @outlineView.reloadData
   end
 
@@ -198,6 +206,7 @@ class ManifestController
     end
     item = Item.new(parent, name, nil, "directory")
     parent.insert(index, item)
+    @book.manifest.sort
     @outlineView.reloadData
     @outlineView.selectItem(item)
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)

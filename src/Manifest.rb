@@ -27,6 +27,7 @@ class Manifest
       end
     end
     raise "The NCX is missing." unless @ncx
+    self.sort
   end
 
   def each(includeDirectories=false, &block)
@@ -69,8 +70,12 @@ class Manifest
     current
   end
   
+  def sort
+    @root.sort
+  end
+
   def save(directory)
     each(true) {|item| item.saveToDirectory(directory)}
   end
-
+  
 end
