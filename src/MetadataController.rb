@@ -24,7 +24,7 @@ class MetadataController
     if @book.metadata.cover
       @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@book.metadata.cover.path)
     else
-      @coverImageView.image = nil
+      @coverImageView.image = noCoverImage
     end
     
     @window.center
@@ -46,6 +46,12 @@ class MetadataController
   
   def cancel(sender)
     @window.orderOut(self)
+  end
+  
+  private
+  
+  def noCoverImage
+    @noCoverImage ||= NSImage.imageNamed("no-cover.png")
   end
 
 end

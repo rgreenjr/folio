@@ -90,6 +90,7 @@
 		CDDD0E20124991ED00189172 /* String.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0E1F124991ED00189172 /* String.rb */; };
 		CDDE4C5F1254F3C0004A18CF /* Tab.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDE4C5E1254F3C0004A18CF /* Tab.rb */; };
 		CDDE4C9B1254FB69004A18CF /* TabView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDE4C9A1254FB69004A18CF /* TabView.rb */; };
+		CDDEAAF012B58A7300A27602 /* no-cover.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDEAAEF12B58A7300A27602 /* no-cover.png */; };
 		CDDECB59124F9E8400604632 /* Search.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDECB58124F9E8400604632 /* Search.rb */; };
 		CDE3FD0C125A84C800D52C50 /* tab-close-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */; };
 		CDE3FD0D125A84C800D52C50 /* tab-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD09125A84C800D52C50 /* tab-close.png */; };
@@ -182,6 +183,7 @@
 		CDDD0E1F124991ED00189172 /* String.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = String.rb; sourceTree = "<group>"; };
 		CDDE4C5E1254F3C0004A18CF /* Tab.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Tab.rb; sourceTree = "<group>"; };
 		CDDE4C9A1254FB69004A18CF /* TabView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabView.rb; sourceTree = "<group>"; };
+		CDDEAAEF12B58A7300A27602 /* no-cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-cover.png"; sourceTree = "<group>"; };
 		CDDECB58124F9E8400604632 /* Search.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Search.rb; sourceTree = "<group>"; };
 		CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close-pressed.png"; sourceTree = "<group>"; };
 		CDE3FD09125A84C800D52C50 /* tab-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close.png"; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */,
 				CD994B031260B42100AAD4DE /* tab-bg.png */,
 				CD994AC01260A23600AAD4DE /* table-header-bg1.png */,
+				CDDEAAEF12B58A7300A27602 /* no-cover.png */,
 				CD890C53125FDF5D00FD262A /* find-close-rollover.png */,
 				CD890C51125FDF2700FD262A /* find-close-click.png */,
 				CD890C4D125FDE3B00FD262A /* find-close.png */,
@@ -517,6 +520,7 @@
 				CD5B1EE41283114000681880 /* OutlineView.rb in Resources */,
 				CD2F101B12AEA56D00B2AC6D /* Language.rb in Resources */,
 				CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */,
+				CDDEAAF012B58A7300A27602 /* no-cover.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
