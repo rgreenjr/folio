@@ -6,7 +6,6 @@ class BookController
 
   def awakeFromNib
     @window.center
-    openBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
   end
 
   def showOpenBookPanel(sender)
