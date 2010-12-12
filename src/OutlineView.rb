@@ -12,7 +12,10 @@ class NSOutlineView
     deselectAll(nil)
     unless array.empty?
       indexes = NSMutableIndexSet.alloc.init
-      array.each { |item| indexes.addIndex(rowForItem(item)) }
+      array.each do |item| 
+        row = rowForItem(item)
+        indexes.addIndex(row) if row > 0
+      end
       selectRowIndexes(indexes, byExtendingSelection:false)      
       scrollRowToVisible(indexes.firstIndex)
     end

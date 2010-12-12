@@ -6,7 +6,8 @@ class NavigationController
     @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
     @menu.insertItemWithTitle("Add Point...", action:"addPoint:", keyEquivalent:"", atIndex:0).target = self
     @menu.insertItemWithTitle("Duplicate", action:"duplicatePoint:", keyEquivalent:"", atIndex:1).target = self
-    @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:2).target = self
+    @menu.addItem(NSMenuItem.separatorItem)
+    @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:3).target = self
     @outlineView.menu = @menu
 
     @outlineView.delegate = self
@@ -87,17 +88,21 @@ class NavigationController
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
     parent = @book.navigation.root unless parent
+    points = []
+    parents = []
     plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
     plist.each do |id|
       point = @book.navigation.pointWithId(id)
       @book.navigation.delete(point)
       parent.insert(childIndex, point)
+      points << point
+      parents << parent
     end
     @outlineView.reloadData
-    @outlineView.deselectAll(nil)
-    # range = NSRange.new(childIndex, plist.size)
-    # indexes = NSIndexSet.indexSetWithIndexesInRange(range)
-    # @outlineView.selectRowIndexes(indexes, byExtendingSelection:false)
+    parents.each do |parent|
+      @outlineView.expandItem(parent)
+    end
+    @outlineView.selectItems(points)
     true
   end
 
@@ -119,7 +124,7 @@ class NavigationController
   def deletePoint(sender)
     @outlineView.selectedRowIndexes.reverse_each do |index|
       point = @book.navigation[index]
-      point.parent.delete(point)
+      @book.navigation.delete(point)
     end
     @outlineView.reloadData
     @outlineView.deselectAll(nil)
