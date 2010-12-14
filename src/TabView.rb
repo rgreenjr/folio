@@ -103,13 +103,9 @@ class TabView < NSView
     point = convertPoint(event.locationInWindow, fromView:nil)
     tab = tabAtPoint(point)
     return unless tab
-    if event.clickCount == 1
-      if tab.closeButtonHit?(point, rectForTab(tab))
-        tab.closeButtonPressed = true
-      end
-      @clickedTab = tab
-      setNeedsDisplay true
-    end
+    tab.closeButtonPressed = tab.closeButtonHit?(point, rectForTab(tab))
+    @clickedTab = tab
+    setNeedsDisplay true
   end
 
   def mouseDragged(event)
@@ -128,7 +124,7 @@ class TabView < NSView
     tab = tabAtPoint(point)
     if tab && tab == @clickedTab
       if tab.closeButtonHit?(point, rectForTab(tab))
-        saveOrCloseTab(@selectedTab)
+        saveOrCloseTab(tab)
       else
         selectTab(tab)
       end
