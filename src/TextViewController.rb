@@ -11,7 +11,7 @@ class TextViewController
 
     @textView.delegate = self
     @textView.setEnabledTextCheckingTypes(0)
-    
+
     # @highlighter = Highlighter.new(@textView)
   end
 
@@ -25,17 +25,13 @@ class TextViewController
     end
     @textView.textStorage.attributedString = string
   end
-  
+
   def textDidChange(notification)
     return unless @item
     @item.content = @textView.textStorage.string
     @webView.reload(self)
   end
-  
-  def insertionPoint
-    @textView.selectedRanges.first.rangeValue.location
-  end
-  
+
   def replace(range, replacement)
     if @textView.shouldChangeTextInRange(range, replacementString:replacement)
       @textView.textStorage.beginEditing    
@@ -46,32 +42,81 @@ class TextViewController
       NSBeep()
     end
   end
-  
+
+  def selectWord(sender)  
+  end
+
+  def selectLine(sender)
+    paragraphRange = @textView.textStorage.string.paragraphRangeForRange(selectedRange)
+    @textView.setSelectedRange(paragraphRange)
+  end
+
+  def selectEnclosingBrackets(sender)
+  end
+
+  def insertCloseTag(sender)
+    empty_tags = "br|hr|meta|link|base|link|meta|img|embed|param|area|col|input|frame|isindex"
+    
+    before = /(.){#{caretLocation}}/m.match(@textView.string)[0]
+
+    before.gsub!(/<[^>]+\/\s*>/i, '')
+
+    # remove all self-closing tags
+    before.gsub!(/<(#{empty_tags})\b[^>]*>/i, '')
+
+    # remove all comments
+    before.gsub!(/<!--.*?-->/m, '')
+
+    stack = []
+    before.scan(/<\s*(\/)?\s*(\w[\w:-]*)[^>]*>/) do |match|
+      if match[0].nil? then
+        stack << match[1]
+      else
+        until stack.empty? do
+          close_tag = stack.pop
+          break if close_tag == match[1]
+        end
+      end
+    end
+
+    if stack.empty?
+      NSBeep()
+    else
+      replace(NSRange.new(caretLocation, 0), "</#{stack.pop}>")
+    end
+  end
+
   def strongSelectedText(sender)
-    selectedRange = @textView.selectedRange
-    selectedText = @textView.string.substringWithRange(selectedRange)
     replace(selectedRange, "<strong>#{selectedText}</strong>")
   end
-  
+
   def emphasizeSelectedText(sender)
-    selectedRange = @textView.selectedRange
-    selectedText = @textView.string.substringWithRange(selectedRange)
     replace(selectedRange, "<em>#{selectedText}</em>")
   end
-  
+
   def stripHTMLTagsFromSelection(sender)
-    selectedRange = @textView.selectedRange
-    selectedText = @textView.string.substringWithRange(selectedRange)
     tmp_file = Tempfile.new('folio-tmp-file')
     File.open(tmp_file, "w") {|f| f.print selectedText}
     replace(selectedRange, `php -r 'echo strip_tags( file_get_contents("#{tmp_file.path}") );'`)
     tmp_file.delete
   end
-  
+
   def paragraphSelectedLines(sender)
-    selectedRange = @textView.selectedRange
-    selectedText = @textView.string.substringWithRange(selectedRange)
     replace(selectedRange, selectedText.split.map {|line| "<p>#{line}<p/>\n"}.join)
   end
-  
+
+  private
+
+  def selectedRange
+    @textView.selectedRange
+  end
+
+  def selectedText
+    @textView.string.substringWithRange(selectedRange)
+  end
+
+  def caretLocation
+    selectedRange.location
+  end
+
 end
