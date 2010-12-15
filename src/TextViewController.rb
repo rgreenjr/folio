@@ -54,11 +54,33 @@ class TextViewController
   def selectEnclosingBrackets(sender)
   end
 
+  def uppercase(sender)
+    modifySelection {|text| text.upcase}
+  end
+
+  def lowercase(sender)
+    modifySelection {|text| text.downcase}
+  end
+
+  def titlecase(sender)
+    modifySelection {|text| text.titleize.downcasePrepositions }
+  end
+
+  def strongify(sender)
+    modifySelection {|text| "<strong>#{text}</strong>" }
+  end
+
+  def emphasize(sender)
+    modifySelection {|text| "<em>#{text}</em>" }
+  end
+
   def insertCloseTag(sender)
     emptyTags = "br|hr|meta|link|base|link|meta|img|embed|param|area|col|input|frame|isindex"
-        
+
+    text = @textView.string.substringToIndex(caretLocation)
+
     # remove all self-closing tags
-    text = @textView.string.substringToIndex(caretLocation).gsub(/<[^>]+\/\s*>/i, '')
+    text = text.gsub(/<[^>]+\/\s*>/i, '')
 
     # remove all empty tags
     text.gsub!(/<(#{emptyTags})\b[^>]*>/i, '')
@@ -84,31 +106,27 @@ class TextViewController
       replace(NSRange.new(caretLocation, 0), "</#{stack.pop}>")
     end
   end
-  
-  def convertToUppercase(sender)
-    modifySelection {|text| text.upcase}
+
+  def stripTags(sender)
+    tmp = Tempfile.new('folio-tmp-file')
+    text = selectedText
+    text = @textView.string if text.size == 0
+    File.open(tmp, "w") {|f| f.print text}
+    replace(NSRange.new(0, text.size), `php -r 'echo strip_tags( file_get_contents("#{tmp.path}") );'`)
+    tmp.delete
   end
 
-  def convertToLowercase(sender)
-    modifySelection {|text| text.downcase}
-  end
-
-  def convertToTitlecase(sender)
-    modifySelection {|text| text.titleize.downcasePrepositions }
-  end
-
-  def strongSelectedText(sender)
-    modifySelection {|text| "<strong>#{text}</strong>" }
-  end
-
-  def emphasizeSelectedText(sender)
-    modifySelection {|text| "<em>#{text}</em>" }
-  end
-
-  def stripHTMLTagsFromSelection(sender)
+  def tidy(sender)
     tmp = Tempfile.new('folio-tmp-file')
     File.open(tmp, "w") {|f| f.print selectedText}
-    replace(selectedRange, `php -r 'echo strip_tags( file_get_contents("#{tmp.path}") );'`)
+    output = `xmllint --format #{tmp.path} 2>&1`
+    if $?.success?
+      replace(selectedRange, output)
+    else
+      output.gsub!(tmp.path + ':', 'Line ')
+      output.gsub!("^", '')
+      showValidationAlert(output)
+    end
     tmp.delete
   end
 
@@ -129,7 +147,7 @@ class TextViewController
   def caretLocation
     selectedRange.location
   end
-  
+
   def modifySelection(&block)
     range = selectedRange
     text = selectedText
@@ -137,6 +155,14 @@ class TextViewController
     replace(range, modifedText)
     modifiedRange = NSRange.new(range.location, range.length + (modifedText.size - text.size))
     @textView.setSelectedRange(modifiedRange)
+  end
+
+  def showValidationAlert(message)
+    alert = NSAlert.alloc.init
+    alert.addButtonWithTitle "OK"
+    alert.messageText = "Validation Failed"
+    alert.informativeText = message
+    alert.runModal
   end
 
 end

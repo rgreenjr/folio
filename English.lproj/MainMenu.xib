@@ -135,7 +135,7 @@
 								</object>
 								<object class="NSMenuItem" id="755159360">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Hide NewApplication</string>
+									<string key="NSTitle">Hide Folio</string>
 									<string key="NSKeyEquiv">h</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -173,7 +173,7 @@
 								</object>
 								<object class="NSMenuItem" id="632727374">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Quit NewApplication</string>
+									<string key="NSTitle">Quit Folio</string>
 									<string key="NSKeyEquiv">q</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -804,9 +804,19 @@
 												<reference key="NSOnImage" ref="35465992"/>
 												<reference key="NSMixedImage" ref="807125248"/>
 											</object>
+											<object class="NSMenuItem" id="617292261">
+												<reference key="NSMenu" ref="40911255"/>
+												<bool key="NSIsDisabled">YES</bool>
+												<bool key="NSIsSeparator">YES</bool>
+												<string key="NSTitle"/>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="807125248"/>
+											</object>
 											<object class="NSMenuItem" id="522852610">
 												<reference key="NSMenu" ref="40911255"/>
-												<string key="NSTitle">Strip HTML Tags</string>
+												<string key="NSTitle">Strip Tags</string>
 												<string key="NSKeyEquiv">y</string>
 												<int key="NSKeyEquivModMask">1572864</int>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -818,6 +828,15 @@
 												<string key="NSTitle">Insert Close Tag</string>
 												<string key="NSKeyEquiv">.</string>
 												<int key="NSKeyEquivModMask">1572864</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="807125248"/>
+											</object>
+											<object class="NSMenuItem" id="952208924">
+												<reference key="NSMenu" ref="40911255"/>
+												<string key="NSTitle">Tidy</string>
+												<string key="NSKeyEquiv">H</string>
+												<int key="NSKeyEquivModMask">262144</int>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="35465992"/>
 												<reference key="NSMixedImage" ref="807125248"/>
@@ -1448,7 +1467,7 @@
 				<string key="NSClassName">ManifestController</string>
 			</object>
 			<object class="NSCustomView" id="1051294961">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">4374</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1457,7 +1476,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{15, 13}, {38, 14}}</string>
 						<reference key="NSSuperview" ref="1051294961"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1045256464">
 							<int key="NSCellFlags">68288064</int>
@@ -1484,7 +1502,6 @@
 						<int key="NSvFlags">262</int>
 						<string key="NSFrame">{{49, 6}, {295, 22}}</string>
 						<reference key="NSSuperview" ref="1051294961"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="547205258">
 							<int key="NSCellFlags">-2076049856</int>
@@ -1522,7 +1539,6 @@
 						<int key="NSvFlags">262</int>
 						<string key="NSFrame">{{-1, 91}, {354, 20}}</string>
 						<reference key="NSSuperview" ref="1051294961"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="580598025">
 							<int key="NSCellFlags">-2080244224</int>
@@ -1543,7 +1559,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{10, 38}, {331, 46}}</string>
 						<reference key="NSSuperview" ref="1051294961"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<int key="NSNumRows">2</int>
 						<int key="NSNumCols">1</int>
@@ -1619,7 +1634,6 @@
 										<int key="NSvFlags">4352</int>
 										<string key="NSFrameSize">{351, 311}</string>
 										<reference key="NSSuperview" ref="1053197812"/>
-										<reference key="NSWindow"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="_NSCornerView" key="NSCornerView">
 											<nil key="NSNextResponder"/>
@@ -1696,7 +1710,6 @@
 								</object>
 								<string key="NSFrameSize">{351, 311}</string>
 								<reference key="NSSuperview" ref="931882186"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="679424491"/>
 								<reference key="NSDocView" ref="679424491"/>
 								<reference key="NSBGColor" ref="764096244"/>
@@ -1707,7 +1720,6 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{521, 17}, {15, 152}}</string>
 								<reference key="NSSuperview" ref="931882186"/>
-								<reference key="NSWindow"/>
 								<reference key="NSTarget" ref="931882186"/>
 								<string key="NSAction">_doScroller:</string>
 								<double key="NSPercent">0.99679487179487181</double>
@@ -1717,7 +1729,6 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-100, -100}, {0, 15}}</string>
 								<reference key="NSSuperview" ref="931882186"/>
-								<reference key="NSWindow"/>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="931882186"/>
 								<string key="NSAction">_doScroller:</string>
@@ -1726,7 +1737,6 @@
 						</object>
 						<string key="NSFrame">{{0, 111}, {351, 311}}</string>
 						<reference key="NSSuperview" ref="1051294961"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1053197812"/>
 						<int key="NSsFlags">528</int>
 						<reference key="NSVScroller" ref="474764631"/>
@@ -1736,8 +1746,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{351, 422}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomObject" id="92331049">
@@ -1924,6 +1932,7 @@
 								</object>
 								<string key="NSFrameSize">{351, 311}</string>
 								<reference key="NSSuperview" ref="1041398416"/>
+								<reference key="NSNextKeyView" ref="195450137"/>
 								<reference key="NSDocView" ref="195450137"/>
 								<reference key="NSBGColor" ref="764096244"/>
 								<int key="NScvFlags">4</int>
@@ -1950,6 +1959,7 @@
 						</object>
 						<string key="NSFrame">{{0, 111}, {351, 311}}</string>
 						<reference key="NSSuperview" ref="31214201"/>
+						<reference key="NSNextKeyView" ref="806732036"/>
 						<int key="NSsFlags">528</int>
 						<reference key="NSVScroller" ref="770807481"/>
 						<reference key="NSHScroller" ref="1046136208"/>
@@ -3788,38 +3798,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">emphasizeSelectedText:</string>
-						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="731305162"/>
-					</object>
-					<int key="connectionID">1201</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">stripHTMLTagsFromSelection:</string>
-						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="522852610"/>
-					</object>
-					<int key="connectionID">1206</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">paragraphSelectedLines:</string>
-						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="943012212"/>
-					</object>
-					<int key="connectionID">1208</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">strongSelectedText:</string>
-						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="227733128"/>
-					</object>
-					<int key="connectionID">1210</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">centerSelectionInVisibleArea:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="183555411"/>
@@ -3876,27 +3854,67 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">convertToUppercase:</string>
+						<string key="label">tidy:</string>
 						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="89153952"/>
+						<reference key="destination" ref="952208924"/>
 					</object>
-					<int key="connectionID">1296</int>
+					<int key="connectionID">1301</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">convertToLowercase:</string>
-						<reference key="source" ref="429776501"/>
-						<reference key="destination" ref="9398147"/>
-					</object>
-					<int key="connectionID">1297</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">convertToTitlecase:</string>
+						<string key="label">titlecase:</string>
 						<reference key="source" ref="429776501"/>
 						<reference key="destination" ref="264471769"/>
 					</object>
-					<int key="connectionID">1298</int>
+					<int key="connectionID">1303</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">lowercase:</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="9398147"/>
+					</object>
+					<int key="connectionID">1304</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">uppercase:</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="89153952"/>
+					</object>
+					<int key="connectionID">1305</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">emphasize:</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="731305162"/>
+					</object>
+					<int key="connectionID">1306</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">paragraphSelectedLines:</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="943012212"/>
+					</object>
+					<int key="connectionID">1307</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">stripTags:</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="522852610"/>
+					</object>
+					<int key="connectionID">1308</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">strongify:</string>
+						<reference key="source" ref="429776501"/>
+						<reference key="destination" ref="227733128"/>
+					</object>
+					<int key="connectionID">1309</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5588,6 +5606,8 @@
 							<reference ref="522852610"/>
 							<reference ref="227733128"/>
 							<reference ref="838982629"/>
+							<reference ref="952208924"/>
+							<reference ref="617292261"/>
 						</object>
 						<reference key="parent" ref="1050807385"/>
 					</object>
@@ -5717,6 +5737,16 @@
 						<int key="objectID">1265</int>
 						<reference key="object" ref="264471769"/>
 						<reference key="parent" ref="702178359"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1299</int>
+						<reference key="object" ref="952208924"/>
+						<reference key="parent" ref="40911255"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1302</int>
+						<reference key="object" ref="617292261"/>
+						<reference key="parent" ref="40911255"/>
 					</object>
 				</object>
 			</object>
@@ -5882,9 +5912,12 @@
 					<string>1265.IBPluginDependency</string>
 					<string>129.IBPluginDependency</string>
 					<string>129.ImportedFromIB2</string>
+					<string>1299.IBPluginDependency</string>
+					<string>130.IBEditorWindowLastContentRect</string>
 					<string>130.IBPluginDependency</string>
 					<string>130.ImportedFromIB2</string>
 					<string>130.editorWindowContentRectSynchronizationRect</string>
+					<string>1302.IBPluginDependency</string>
 					<string>131.IBPluginDependency</string>
 					<string>131.ImportedFromIB2</string>
 					<string>134.IBPluginDependency</string>
@@ -6301,7 +6334,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{593, 1006}, {200, 103}}</string>
+					<string>{{593, 976}, {200, 133}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6349,8 +6382,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{531, 1063}, {64, 6}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{436, 809}, {64, 6}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6481,7 +6517,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{333, 886}, {232, 183}}</string>
+					<string>{{348, 946}, {183, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -6641,7 +6677,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1298</int>
+			<int key="maxID">1309</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7574,20 +7610,22 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>convertToLowercase:</string>
-							<string>convertToTitlecase:</string>
-							<string>convertToUppercase:</string>
-							<string>emphasizeSelectedText:</string>
+							<string>emphasize:</string>
 							<string>insertCloseTag:</string>
+							<string>lowercase:</string>
 							<string>paragraphSelectedLines:</string>
 							<string>selectEnclosingBrackets:</string>
 							<string>selectLine:</string>
 							<string>selectWord:</string>
-							<string>stripHTMLTagsFromSelection:</string>
-							<string>strongSelectedText:</string>
+							<string>stripTags:</string>
+							<string>strongify:</string>
+							<string>tidy:</string>
+							<string>titlecase:</string>
+							<string>uppercase:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -7605,38 +7643,31 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>convertToLowercase:</string>
-							<string>convertToTitlecase:</string>
-							<string>convertToUppercase:</string>
-							<string>emphasizeSelectedText:</string>
+							<string>emphasize:</string>
 							<string>insertCloseTag:</string>
+							<string>lowercase:</string>
 							<string>paragraphSelectedLines:</string>
 							<string>selectEnclosingBrackets:</string>
 							<string>selectLine:</string>
 							<string>selectWord:</string>
-							<string>stripHTMLTagsFromSelection:</string>
-							<string>strongSelectedText:</string>
+							<string>stripTags:</string>
+							<string>strongify:</string>
+							<string>tidy:</string>
+							<string>titlecase:</string>
+							<string>uppercase:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">convertToLowercase:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">convertToTitlecase:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">convertToUppercase:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">emphasizeSelectedText:</string>
+								<string key="name">emphasize:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">insertCloseTag:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">lowercase:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -7656,11 +7687,23 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">stripHTMLTagsFromSelection:</string>
+								<string key="name">stripTags:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">strongSelectedText:</string>
+								<string key="name">strongify:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">tidy:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">titlecase:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">uppercase:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
