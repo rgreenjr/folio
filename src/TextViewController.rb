@@ -43,7 +43,7 @@ class TextViewController
     end
   end
 
-  def selectWord(sender)  
+  def selectWord(sender)
   end
 
   def selectLine(sender)
@@ -56,19 +56,18 @@ class TextViewController
 
   def insertCloseTag(sender)
     emptyTags = "br|hr|meta|link|base|link|meta|img|embed|param|area|col|input|frame|isindex"
-    
-    before = /(.){#{caretLocation}}/m.match(@textView.string)[0]
-
-    before.gsub!(/<[^>]+\/\s*>/i, '')
-
+        
     # remove all self-closing tags
-    before.gsub!(/<(#{emptyTags})\b[^>]*>/i, '')
+    text = @textView.string.substringToIndex(caretLocation).gsub(/<[^>]+\/\s*>/i, '')
+
+    # remove all empty tags
+    text.gsub!(/<(#{emptyTags})\b[^>]*>/i, '')
 
     # remove all comments
-    before.gsub!(/<!--.*?-->/m, '')
+    text.gsub!(/<!--.*?-->/m, '')
 
     stack = []
-    before.scan(/<\s*(\/)?\s*(\w[\w:-]*)[^>]*>/) do |match|
+    text.scan(/<\s*(\/)?\s*(\w[\w:-]*)[^>]*>/) do |match|
       if match[0].nil? then
         stack << match[1]
       else
