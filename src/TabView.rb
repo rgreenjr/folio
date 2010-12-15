@@ -103,18 +103,23 @@ class TabView < NSView
     point = convertPoint(event.locationInWindow, fromView:nil)
     tab = tabAtPoint(point)
     return unless tab
-    tab.closeButtonPressed = tab.closeButtonHit?(point, rectForTab(tab))
-    @clickedTab = tab
+    if tab.closeButtonHit?(point, rectForTab(tab))
+      tab.closeButtonPressed = true
+      @mouseDownType = :close
+    else
+      @mouseDownType = :select
+    end
+    @mouseDownTab = tab
     setNeedsDisplay true
   end
 
   def mouseDragged(event)
-    return unless @clickedTab
+    return unless @mouseDownTab
     point = convertPoint(event.locationInWindow, fromView:nil)    
-    if @clickedTab.closeButtonHit?(point, rectForTab(@clickedTab))
-       @clickedTab.closeButtonPressed = true
+    if @mouseDownTab.closeButtonHit?(point, rectForTab(@mouseDownTab))
+       @mouseDownTab.closeButtonPressed = true
     else
-       @clickedTab.closeButtonPressed = false
+       @mouseDownTab.closeButtonPressed = false
     end
     setNeedsDisplay true
   end
@@ -122,14 +127,14 @@ class TabView < NSView
   def mouseUp(event)
     point = convertPoint(event.locationInWindow, fromView:nil)
     tab = tabAtPoint(point)
-    if tab && tab == @clickedTab
-      if tab.closeButtonHit?(point, rectForTab(tab))
-        saveOrCloseTab(tab)
+    if tab == @mouseDownTab
+      if @mouseDownType == :close
+        saveOrCloseTab(tab) if tab.closeButtonHit?(point, rectForTab(tab))
       else
         selectTab(tab)
       end
     end
-    @clickedTab = nil
+    @mouseDownTab = nil
   end
 
   def tabAtPoint(point)
