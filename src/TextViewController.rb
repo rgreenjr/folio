@@ -99,11 +99,11 @@ class TextViewController
   end
 
   def strongSelectedText(sender)
-    replace(selectedRange, "<strong>#{selectedText}</strong>")
+    modifySelection {|text| "<strong>#{text}</strong>" }
   end
 
   def emphasizeSelectedText(sender)
-    replace(selectedRange, "<em>#{selectedText}</em>")
+    modifySelection {|text| "<em>#{text}</em>" }
   end
 
   def stripHTMLTagsFromSelection(sender)
@@ -133,8 +133,11 @@ class TextViewController
   
   def modifySelection(&block)
     range = selectedRange
-    replace(range, yield(selectedText))
-    @textView.setSelectedRange(range)
+    text = selectedText
+    modifedText = yield(text)
+    replace(range, modifedText)
+    modifiedRange = NSRange.new(range.location, range.length + (modifedText.size - text.size))
+    @textView.setSelectedRange(modifiedRange)
   end
 
 end
