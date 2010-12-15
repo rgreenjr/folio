@@ -55,14 +55,14 @@ class TextViewController
   end
 
   def insertCloseTag(sender)
-    empty_tags = "br|hr|meta|link|base|link|meta|img|embed|param|area|col|input|frame|isindex"
+    emptyTags = "br|hr|meta|link|base|link|meta|img|embed|param|area|col|input|frame|isindex"
     
     before = /(.){#{caretLocation}}/m.match(@textView.string)[0]
 
     before.gsub!(/<[^>]+\/\s*>/i, '')
 
     # remove all self-closing tags
-    before.gsub!(/<(#{empty_tags})\b[^>]*>/i, '')
+    before.gsub!(/<(#{emptyTags})\b[^>]*>/i, '')
 
     # remove all comments
     before.gsub!(/<!--.*?-->/m, '')
@@ -73,8 +73,8 @@ class TextViewController
         stack << match[1]
       else
         until stack.empty? do
-          close_tag = stack.pop
-          break if close_tag == match[1]
+          closeTag = stack.pop
+          break if closeTag == match[1]
         end
       end
     end
@@ -84,6 +84,18 @@ class TextViewController
     else
       replace(NSRange.new(caretLocation, 0), "</#{stack.pop}>")
     end
+  end
+  
+  def convertToUppercase(sender)
+    modifySelection {|text| text.upcase}
+  end
+
+  def convertToLowercase(sender)
+    modifySelection {|text| text.downcase}
+  end
+
+  def convertToTitlecase(sender)
+    modifySelection {|text| text.titleize.downcasePrepositions }
   end
 
   def strongSelectedText(sender)
@@ -95,10 +107,10 @@ class TextViewController
   end
 
   def stripHTMLTagsFromSelection(sender)
-    tmp_file = Tempfile.new('folio-tmp-file')
-    File.open(tmp_file, "w") {|f| f.print selectedText}
-    replace(selectedRange, `php -r 'echo strip_tags( file_get_contents("#{tmp_file.path}") );'`)
-    tmp_file.delete
+    tmp = Tempfile.new('folio-tmp-file')
+    File.open(tmp, "w") {|f| f.print selectedText}
+    replace(selectedRange, `php -r 'echo strip_tags( file_get_contents("#{tmp.path}") );'`)
+    tmp.delete
   end
 
   def paragraphSelectedLines(sender)
@@ -117,6 +129,12 @@ class TextViewController
 
   def caretLocation
     selectedRange.location
+  end
+  
+  def modifySelection(&block)
+    range = selectedRange
+    replace(range, yield(selectedText))
+    @textView.setSelectedRange(range)
   end
 
 end

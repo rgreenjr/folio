@@ -1,14 +1,10 @@
 TODO
 ====
 
-- change navigation src attribute UI to drop down menu
-- add HTML and CSS syntax highlighting
-- add line numbering to source view
-- Navigation: add, delete, reorder points
-- Validate navigation points
-- Spine: add, delete, reorder items
-- change control view to use tabs
-- add tidy output view to botton of source view
+- Fix last tab drawing bug
+- Warn on close when navigation, spine or manifest have been edited
+- Navigation: add points
+- Spine: add items
 - auto scroll source view on navigation changes
 - add webview forward/backward bunttons
 
