@@ -172,7 +172,7 @@ class TabView < NSView
   
   def saveOrCloseTab(tab)
     if tab.item.edited?
-      showSaveAlert(@selectedTab)
+      showSaveAlert(tab)
     else
       closeTab(tab)
     end
@@ -198,6 +198,7 @@ class TabView < NSView
   end
   
   def showSaveAlert(tab)
+    @saveTab = tab
     alert = NSAlert.alloc.init
     alert.messageText = "Do you want to save the changes you made to \"#{tab.item.name}\"?"
     alert.informativeText = "Your changes will be lost if you don't save them."
@@ -209,11 +210,11 @@ class TabView < NSView
 
   def saveAlertDidEnd(alert, returnCode:code, contextInfo:info)
     if code == NSAlertFirstButtonReturn
-      @selectedTab.item.save
-      closeTab(@selectedTab)
+      @saveTab.item.save
+      closeTab(@saveTab)
     elsif code == NSAlertThirdButtonReturn
-      @selectedTab.item.revert
-      closeTab(@selectedTab)
+      @saveTab.item.revert
+      closeTab(@saveTab)
     end
   end
 
