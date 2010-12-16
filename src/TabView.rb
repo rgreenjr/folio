@@ -23,6 +23,10 @@ class TabView < NSView
   def acceptsFirstResponder
     true
   end
+  
+  def isOpaque
+    true
+  end
 
   def textDidChange(notification)
     setNeedsDisplay true
