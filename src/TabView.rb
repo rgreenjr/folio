@@ -192,6 +192,18 @@ class TabView < NSView
     end
     setNeedsDisplay true
   end
+
+  def selectNextTab(sender)
+    return unless @selectedTab
+    index = indexForTab(@selectedTab)
+    selectTab(@tabs[index + 1]) if index + 1 < @tabs.size
+  end
+  
+  def selectPreviousTab(sender)
+    return unless @selectedTab
+    index = indexForTab(@selectedTab)
+    selectTab(@tabs[index - 1]) if index - 1 >= 0
+  end  
   
   def editedItems
     @tabs.inject([]) {|array, tab| array << tab.item if tab.item.edited?; array }
