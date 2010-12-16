@@ -15,6 +15,9 @@ TODO
 - Drag to desktop
 - Fix last tab drawing bug
 
+Graceful Application Termination
+http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/AppArchitecture/Tasks/GracefulAppTermination.html%23//apple_ref/doc/uid/20001280
+
 Hpricot Examples
 ===============
 
