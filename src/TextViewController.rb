@@ -118,10 +118,11 @@ class TextViewController
 
   def tidy(sender)
     tmp = Tempfile.new('folio-tmp-file')
-    File.open(tmp, "w") {|f| f.print selectedText}
+    text = @textView.string
+    File.open(tmp, "w") { |f| f.print text }
     output = `xmllint --format #{tmp.path} 2>&1`
     if $?.success?
-      replace(selectedRange, output)
+      replace(NSRange.new(0, text.length), output)
     else
       output.gsub!(tmp.path + ':', 'Line ')
       output.gsub!("^", '')
