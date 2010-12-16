@@ -212,6 +212,9 @@ class TabView < NSView
     if code == NSAlertFirstButtonReturn
       @saveTab.item.save
       closeTab(@saveTab)
+    elsif code == NSAlertSecondButtonReturn
+      @saveTab.closeButtonPressed = false
+      setNeedsDisplay true
     elsif code == NSAlertThirdButtonReturn
       @saveTab.item.revert
       closeTab(@saveTab)
