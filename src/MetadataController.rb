@@ -42,6 +42,7 @@ class MetadataController
     @book.metadata.rights = @rightsField.stringValue
     @book.metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
     @window.orderOut(self)
+    postChangeNotification
   end
   
   def cancel(sender)
@@ -52,6 +53,10 @@ class MetadataController
   
   def noCoverImage
     @noCoverImage ||= NSImage.imageNamed("no-cover.png")
+  end
+
+  def postChangeNotification
+    NSNotificationCenter.defaultCenter.postNotificationName("MetadataDidChange", object:self)
   end
 
 end

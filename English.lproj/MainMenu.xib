@@ -21,7 +21,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="296"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -782,7 +781,7 @@
 									<reference key="NSMixedImage" ref="807125248"/>
 									<int key="NSTag">3</int>
 								</object>
-								<object class="NSMenuItem" id="952342861">
+								<object class="NSMenuItem" id="301042860">
 									<reference key="NSMenu" ref="466310130"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -792,7 +791,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
-								<object class="NSMenuItem" id="803616860">
+								<object class="NSMenuItem" id="156276626">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Show Temporary Directory</string>
 									<string key="NSKeyEquiv">/</string>
@@ -3977,7 +3976,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showTemporaryDirectory:</string>
 						<reference key="source" ref="190618754"/>
-						<reference key="destination" ref="803616860"/>
+						<reference key="destination" ref="156276626"/>
 					</object>
 					<int key="connectionID">1317</int>
 				</object>
@@ -4459,8 +4458,8 @@
 							<reference ref="359948803"/>
 							<reference ref="189943304"/>
 							<reference ref="99729994"/>
-							<reference ref="803616860"/>
-							<reference ref="952342861"/>
+							<reference ref="156276626"/>
+							<reference ref="301042860"/>
 						</object>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -5843,12 +5842,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1316</int>
-						<reference key="object" ref="803616860"/>
+						<reference key="object" ref="156276626"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1318</int>
-						<reference key="object" ref="952342861"/>
+						<reference key="object" ref="301042860"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 				</object>
@@ -6796,7 +6795,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1319</int>
+			<int key="maxID">1320</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7940,14 +7939,35 @@
 					<string key="className">WindowController</string>
 					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">toggleView:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>toggleView:</string>
+							<string>windowShouldClose:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">toggleView:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">toggleView:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>toggleView:</string>
+							<string>windowShouldClose:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">toggleView:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">windowShouldClose:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">

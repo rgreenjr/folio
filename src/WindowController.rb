@@ -59,4 +59,8 @@ class WindowController < NSWindowController
   	right.setFrame(rightFrame)
   end
   
+  def windowShouldClose(sender)
+    NSApp.terminate(sender)
+  end
+  
 end

@@ -1,12 +1,19 @@
 TODO
 ====
 
-- Fix last tab drawing bug
-- Warn on close when navigation, spine or manifest have been edited
+- Tracked edited state for book
 - Navigation: add points
 - Spine: add items
-- auto scroll source view on navigation changes
+- Outline undo
+- ePub validation
 - add webview forward/backward bunttons
+- Metadata assignments (marks as TOC, prefaces, etc)
+- Move to NSDocument model
+- auto scroll source view on navigation changes
+- TabViewController redesign
+- Guide generation
+- Drag to desktop
+- Fix last tab drawing bug
 
 Hpricot Examples
 ===============

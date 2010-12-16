@@ -63,6 +63,7 @@ class SpineController
     range = NSRange.new(rowIndex, reorderedItems.size)
     indexes = NSIndexSet.indexSetWithIndexesInRange(range)
     @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
+    postChangeNotification
     true
   end
 
@@ -76,12 +77,14 @@ class SpineController
       @tabView.remove(item)
     end
     @tableView.reloadData
+    postChangeNotification
   end
   
   def addToNavigation(sender)
     @tableView.selectedRowIndexes.each do |index|
       @book.navigation.appendItem(@book.spine[index])
     end
+    postChangeNotification
   end
 
   def validateUserInterfaceItem(menuItem)
@@ -92,6 +95,10 @@ class SpineController
       return false if @tableView.numberOfSelectedRows < 1
     end
     true
+  end
+
+  def postChangeNotification
+    NSNotificationCenter.defaultCenter.postNotificationName("SpineDidChange", object:self)
   end
 
 end

@@ -73,6 +73,7 @@ class ManifestController
   def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
     value = value.sanitize
     item.parent.find(value) ? showNameErrorAlert(value) : item.name = value
+    postChangeNotification
   end
 
   def outlineView(outlineView, writeItems:items, toPasteboard:pboard)
@@ -123,6 +124,7 @@ class ManifestController
     @book.manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
+    postChangeNotification
     true
   end
 
@@ -161,6 +163,7 @@ class ManifestController
     @book.manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
+    postChangeNotification
   end
 
   def showDeleteItemPanel(sender)
@@ -180,6 +183,7 @@ class ManifestController
     end
     @book.manifest.sort
     @outlineView.reloadData
+    postChangeNotification
   end
 
   def addToSpine(sender)
@@ -187,12 +191,14 @@ class ManifestController
       item = @book.manifest[index]
       @book.spine.insert(-1, item)
     end
+    postChangeNotification
   end
 
   def markAsCover(sender)
     item = selectedItem
     return unless item && !item.directory?
     @book.metadata.cover = item
+    postChangeNotification
   end
 
   def addDirectory(sender)
@@ -210,6 +216,7 @@ class ManifestController
     @outlineView.reloadData
     @outlineView.selectItem(item)
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)
+    postChangeNotification
   end
 
   def changeName(sender)
@@ -223,6 +230,7 @@ class ManifestController
 
   def changeMediaType(sender)
     selectedItem.mediaType = @mediaTypePopUpButton.title
+    postChangeNotification
   end
 
   private
@@ -233,6 +241,7 @@ class ManifestController
     item.send("#{attribute}=", cell.stringValue)
     cell.stringValue = item.send(attribute)
     @outlineView.needsDisplay = true
+    postChangeNotification
   end
 
   def nameCell
@@ -273,6 +282,7 @@ class ManifestController
     when :"showDeleteItemPanel:"
       return false if @outlineView.numberOfSelectedRows < 1
     when :"addToSpine:"
+      return false if @outlineView.selectedRowIndexes.empty?
       @outlineView.selectedRowIndexes.each do |index|
         return false unless @book.manifest[index].flowable?
       end
@@ -280,6 +290,10 @@ class ManifestController
       return false if @outlineView.numberOfSelectedRows != 1 || !selectedItem.imageable?
     end
     true
+  end
+
+  def postChangeNotification
+    NSNotificationCenter.defaultCenter.postNotificationName("ManifestDidChange", object:self)
   end
 
 end

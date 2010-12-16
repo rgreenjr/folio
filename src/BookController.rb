@@ -6,6 +6,11 @@ class BookController
 
   def awakeFromNib
     @window.center
+    ctr = NSNotificationCenter.defaultCenter
+    ctr.addObserver(self, selector:('markBookEdited:'), name:"NavigationDidChange", object:nil)
+    ctr.addObserver(self, selector:('markBookEdited:'), name:"SpineDidChange", object:nil)
+    ctr.addObserver(self, selector:('markBookEdited:'), name:"ManifestDidChange", object:nil)
+    ctr.addObserver(self, selector:('markBookEdited:'), name:"MetadataDidChange", object:nil)
   end
 
   def showOpenBookPanel(sender)
@@ -38,23 +43,31 @@ class BookController
     @progressController.show("Saving...")
     @book.save("/Users/rgreen/Desktop/")
     @progressController.hide
+    @book.edited = false
   end
 
-  def closeBook(sender)
+  def closeBook(sender)    
     editedItems = @tabView.editedItems
-    unless editedItems.empty?
-      title = "You have #{pluralize(editedItems.size, "document")} with unsaved changes in \"#{@book.metadata.title}\". Do you want to save these changes before quiting?"
+    if @book.edited? || !editedItems.empty?
+      title = "You have unsaved changes in the book \"#{@book.metadata.title}\". Do you want to save these changes before quiting?"
+      # #{pluralize(editedItems.size, "document")} with
       message = "Your changes will be lost if you don't save them."
       response = NSRunAlertPanel(title, message, "Save Changes", "Discard Changes", "Cancel")
       case response
       when NSAlertDefaultReturn
         editedItems.each { |item| item.save }
+        saveBook(nil)
       when NSAlertOtherReturn
         return false
       end        
     end
     @book.close
     true
+  end
+  
+  def markBookEdited(notification)
+    @book.edited = true
+    @window.documentEdited = true
   end
 
   def showTemporaryDirectory(sender)

@@ -8,7 +8,8 @@ require "open-uri"
 
 class Book
 
-  attr_accessor :container, :metadata, :manifest, :spine, :guide, :navigation, :path
+  attr_accessor :navigation, :manifest, :spine
+  attr_accessor :container, :metadata, :guide, :path, :edited
 
   def initialize(filepath)
     @path = Dir.mktmpdir("folio-unzip-")
@@ -19,6 +20,10 @@ class Book
     @spine      = Spine.new(self)
     @guide      = Guide.new(self)
     @navigation = Navigation.new(self)
+  end
+  
+  def edited?
+    @edited
   end
   
   def save(directory)
@@ -39,6 +44,8 @@ class Book
   def close
     FileUtils.rm_rf(@path)
   end
+  
+  private
   
   def opf_xml
     book = self

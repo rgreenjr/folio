@@ -61,6 +61,7 @@ class NavigationController
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
     point.text = object
+    postChangeNotification
   end
 
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
@@ -103,6 +104,7 @@ class NavigationController
       @outlineView.expandItem(parent)
     end
     @outlineView.selectItems(points)
+    postChangeNotification
     true
   end
 
@@ -113,12 +115,14 @@ class NavigationController
     point = @book.navigation.insertItem(item)
     @outlineView.reloadData
     @outlineView.selectItem(point)
+    postChangeNotification
   end
   
   def duplicatePoint(sender)
     new_point = @book.navigation.duplicate(selectedPoint)
     @outlineView.reloadData
     @outlineView.selectItem(new_point)
+    postChangeNotification
   end
   
   def deletePoint(sender)
@@ -128,6 +132,7 @@ class NavigationController
     end
     @outlineView.reloadData
     @outlineView.deselectAll(nil)
+    postChangeNotification
   end
 
   def changeText(sender)
@@ -151,6 +156,7 @@ class NavigationController
     point.item = item
     point.fragment = fragment
     @tabView.add(point)
+    postChangeNotification
   end
   
   def expandRoot
@@ -180,6 +186,7 @@ class NavigationController
     point.send("#{attribute}=", cell.stringValue)
     cell.stringValue = point.send(attribute)
     @outlineView.needsDisplay = true
+    postChangeNotification
   end
 
   def textCell
@@ -216,6 +223,10 @@ class NavigationController
       return false
     end
     true
+  end
+  
+  def postChangeNotification
+    NSNotificationCenter.defaultCenter.postNotificationName("NavigationDidChange", object:self)
   end
 
 end

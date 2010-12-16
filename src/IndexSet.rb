@@ -7,6 +7,10 @@ class NSIndexSet
       i = indexGreaterThanIndex(i)
     end
   end
+  
+  def empty?
+    count == 0
+  end
 
   include Enumerable
 end
