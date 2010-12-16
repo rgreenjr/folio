@@ -1,7 +1,6 @@
 TODO
 ====
 
-- Tracked edited state for book
 - Navigation: add points
 - Spine: add items
 - Outline undo
