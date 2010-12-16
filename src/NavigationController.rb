@@ -17,7 +17,7 @@ class NavigationController
 
     displayPointProperties
   end
-  
+
   def book=(book)
     @tabView.add(nil)
     @book = book
@@ -25,11 +25,11 @@ class NavigationController
     displayPointProperties
     expandRoot
   end
-  
+
   def selectedPoint
     @outlineView.selectedRow == -1 ? nil : @book.navigation[@outlineView.selectedRow]
   end
-  
+
   def outlineView(outlineView, numberOfChildrenOfItem:point)
     return 0 unless @outlineView.dataSource && @book # guard against SDK bug
     point ? point.size : @book.navigation.root.size
@@ -60,8 +60,7 @@ class NavigationController
   end
 
   def outlineView(outlineView, setObjectValue:object, forTableColumn:tableColumn, byItem:point)
-    point.text = object
-    postChangeNotification
+    changePointText(point, object)
   end
 
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
@@ -110,22 +109,22 @@ class NavigationController
 
   def addPoint(sender)
   end
-  
+
   def appendItem(item)
     point = @book.navigation.insertItem(item)
     @outlineView.reloadData
     @outlineView.selectItem(point)
     postChangeNotification
   end
-  
+
   def duplicatePoint(sender)
     new_point = @book.navigation.duplicate(selectedPoint)
     @outlineView.reloadData
     @outlineView.selectItem(new_point)
     postChangeNotification
   end
-  
-  def deletePoint(sender)
+
+  def deletePoint(sender)  	
     @outlineView.selectedRowIndexes.reverse_each do |index|
       point = @book.navigation[index]
       @book.navigation.delete(point)
@@ -135,27 +134,62 @@ class NavigationController
     postChangeNotification
   end
 
+  def undoManager
+    @outlineView.window.undoManager
+  end
+
   def changeText(sender)
-    updateAttribute('text', textCell)
+    return if selectedPoint.text == textCell.stringValue
+    changePointText(selectedPoint, textCell.stringValue)
+  end
+
+  def changePointText(point, text)
+    undoManager.prepareWithInvocationTarget(self).changePointText(point, point.text)
+    undoManager.actionName = "Title Change"
+    point.text = text
+    displayPointProperties
+    @outlineView.needsDisplay = true
+    postChangeNotification
   end
 
   def changeID(sender)
-    updateAttribute('id', idCell)
+    return if selectedPoint.id == idCell.stringValue
+    changePointID(selectedPoint, idCell.stringValue)
+  end
+
+  def changePointID(point, id)
+    undoManager.prepareWithInvocationTarget(self).changePointID(point, point.id)
+    undoManager.actionName = "ID Change"
+    point.id = id
+    displayPointProperties
+    @outlineView.needsDisplay = true
+    postChangeNotification
   end
 
   def changeSource(sender)
     point = selectedPoint
     return unless point
     href, fragment = sourceCell.stringValue.split('#')
+    fragment = "" unless fragment
     item = @book.manifest.itemWithHref(href)
-    unless item
+    if item
+      if point.item != item || point.fragment != fragment
+        changePointSource(point, item, fragment)
+      end
+    else
       showErrorAlert("Source is not valid: #{sourceCell.stringValue}")
       sourceCell.stringValue = point.src
-      return
     end
+  end
+
+  def changePointSource(point, item, fragment)
+    undoManager.prepareWithInvocationTarget(self).changePointSource(point, point.item, point.fragment)
+    undoManager.actionName = "Source Change"
     point.item = item
     point.fragment = fragment
     @tabView.add(point)
+    displayPointProperties
+    @outlineView.needsDisplay = true
     postChangeNotification
   end
   
@@ -171,22 +205,13 @@ class NavigationController
     point = selectedPoint
     if @outlineView.numberOfSelectedRows == 1
       propertyCells.each {|cell| cell.enabled = true}
-      textCell.stringValue = point.name
+      textCell.stringValue = point.text
       idCell.stringValue = point.id
       sourceCell.stringValue = point.src
       @tabView.add(point)
     else
       propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
     end
-  end
-
-  def updateAttribute(attribute, cell)
-    point = selectedPoint
-    return unless point
-    point.send("#{attribute}=", cell.stringValue)
-    cell.stringValue = point.send(attribute)
-    @outlineView.needsDisplay = true
-    postChangeNotification
   end
 
   def textCell
@@ -204,7 +229,7 @@ class NavigationController
   def propertyCells
     [textCell, idCell, sourceCell]
   end
-  
+
   def showErrorAlert(message)
     alert = NSAlert.alloc.init
     alert.addButtonWithTitle "OK"
@@ -212,7 +237,7 @@ class NavigationController
     alert.informativeText = message
     alert.runModal
   end
-  
+
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
     when :"deletePoint:"
@@ -224,7 +249,7 @@ class NavigationController
     end
     true
   end
-  
+
   def postChangeNotification
     NSNotificationCenter.defaultCenter.postNotificationName("NavigationDidChange", object:self)
   end
