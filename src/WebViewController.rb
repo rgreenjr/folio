@@ -5,6 +5,7 @@ class WebViewController
   def awakeFromNib
     @webView.editable = false
     @webView.preferences.defaultFontSize = 16
+    @webView.preferences.usesPageCache = false
   end
 
   def item=(item)
@@ -16,6 +17,10 @@ class WebViewController
     else
       @webView.mainFrame.loadHTMLString('', baseURL:nil)
     end
+  end
+  
+  def reload(sender)
+    @webView.reload(nil)
   end
   
 end

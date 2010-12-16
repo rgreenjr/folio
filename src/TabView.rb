@@ -195,14 +195,14 @@ class TabView < NSView
 
   def selectNextTab(sender)
     return unless @selectedTab
-    index = indexForTab(@selectedTab)
-    selectTab(@tabs[index + 1]) if index + 1 < @tabs.size
+    index = indexForTab(@selectedTab) + 1
+    selectTab(@tabs[index]) if index < @tabs.size
   end
-  
+
   def selectPreviousTab(sender)
     return unless @selectedTab
-    index = indexForTab(@selectedTab)
-    selectTab(@tabs[index - 1]) if index - 1 >= 0
+    index = indexForTab(@selectedTab) - 1
+    selectTab(@tabs[index]) if index >= 0
   end  
   
   def editedItems
