@@ -29,7 +29,7 @@ class Point
   end
 
   def fragment
-    @fragment ? "##{@fragment}" : ""
+    @fragment.empty? ? "" : "##{@fragment}"
   end
 
   def text=(text)
