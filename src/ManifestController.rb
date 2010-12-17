@@ -4,7 +4,7 @@ class ManifestController
 
   def awakeFromNib
     # configure popup menu
-    @menu = NSMenu.alloc.initWithTitle("Manifest Contextual Menu")
+    @menu = NSMenu.alloc.initWithTitle("")
     @menu.addAction("Add File...", "showAddItemPanel:", self)
     @menu.addAction("Add Directory...", "addDirectory:", self)
     @menu.addSeparator

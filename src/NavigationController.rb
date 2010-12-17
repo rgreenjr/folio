@@ -3,7 +3,7 @@ class NavigationController
   attr_accessor :navigation, :outlineView, :propertiesForm, :tabView
 
   def awakeFromNib
-    @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
+    @menu = NSMenu.alloc.initWithTitle("")
     @menu.addAction("Add Point...", "addPoint:", self)
     @menu.addAction("Duplicate", "duplicatePoint:", self)
     @menu.addSeparator
@@ -94,9 +94,10 @@ class NavigationController
     true
   end
   
-  def movePoints(points)    
+  def movePoints(points)
     undoPoints = points.map do |point, newIndex, newParent|
-      [point, point.parent.index(point), point.parent]
+      index, parent = @book.navigation.index_and_parent(point)
+      [point, index, parent]
     end
 
     undoManager.prepareWithInvocationTarget(self).movePoints(undoPoints)
@@ -117,20 +118,14 @@ class NavigationController
   end
 
   def addPoint(sender)
-    addPointToParent(selectedPoint, -1, "text", "id", selectedPoint.item, "fragment")
+    addPoints([[Point.new(selectedPoint.item, "text", "id"), -1, selectedPoint]])
   end
   
-  def addPoints(points)
+  def addPoints(array)
     undoPoints = []
     parents = []
-    points.reverse_each do |parent, index, text, id, item, fragment|
-      point = Point.new
-      point.item = item
-      point.text = text
-      point.id = id
-      point.fragment = fragment
+    array.reverse_each do |point, index, parent|
       @book.navigation.insert(point, index, parent)
-      
       undoPoints << point
       parents << parent
     end
@@ -167,17 +162,17 @@ class NavigationController
     deletePoints(points)
   end
   
-  # TODO need to handle point's children !!!!
-  def deletePoints(points)
+  # TODO need to handle points with children !!!!
+  def deletePoints(points)    
     undoPoints = points.map do |point|
-      [point.parent, point.parent.index(point), point.text, point.id, point.item, point.fragment]
+      index, parent = @book.navigation.index_and_parent(point)
+      [point, index, parent]
     end
     
     undoManager.prepareWithInvocationTarget(self).addPoints(undoPoints)
     undoManager.actionName = "Delete"
 
     points.each do |point|
-      puts "deleting #{point.text}"
       @book.navigation.delete(point)
     end
     

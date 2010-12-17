@@ -19,6 +19,7 @@ class Navigation
     end
 
     @root = Point.new
+    @root.expanded = true
 
     point_stack = [@root]
     xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
@@ -26,20 +27,20 @@ class Navigation
       parent = point_stack.shift
       element = xml_stack.shift
       element.elements.each_with_index("#{prefix}navPoint") do |e, i|
-        href, fragment = e.elements["#{prefix}content"].attributes["src"].split('#')
-
+        
+        href, fragment = e.elements["#{prefix}content"].attributes["src"].split("#")
+        
         item = book.manifest.itemWithHref(href)
-        raise "Navigation point is missing: src=#{href}" unless item
+        raise "Navigation point reference not found: src=#{href}" unless item
                 
-        childPoint           = Point.new(parent)
+        childPoint           = Point.new
         childPoint.id        = e.attributes["id"]
         childPoint.playOrder = e.attributes["playOrder"]
         childPoint.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
         childPoint.item      = item
         childPoint.fragment  = fragment
 
-        hashPoint(childPoint)
-        # @hash[childPoint.id] = childPoint
+        insert(childPoint, -1, parent)
         
         point_stack.insert(i, childPoint)
         xml_stack.insert(i, e)
@@ -77,32 +78,41 @@ class Navigation
     end
   end
   
+  def index_and_parent(point)
+    each do |parent|
+      index = parent.index(point)
+      return index, parent if index
+    end
+  end
+  
   def insert(point, index, parent)
-    hashPoint(point) 
+    raise "Navigation point ID already exists: id=#{point.id}" if @hash[id]      
+    @hash[point.id] = point
     parent.insert(index, point)
   end
   
   def move(point, index, parent)
-    point.parent.delete(point)
-    parent.insert(index, point)
+    delete(point)
+    insert(point, index, parent)
   end
   
   def appendItem(item)
-    point = Point.new(@root, item, item.name)
-    hashPoint(point)
+    point = Point.new(item, item.name)
+    insert(point, -1, @root)
   end
   
-  def duplicate(point)
-    new_point = Point.new(point.parent, point.item, point.text)
-    @hash[new_point.id] = new_point
-    new_point
-  end
+  # def duplicate(point)
+  #   new_point = Point.new
+  #   new_point.item = point.item
+  #   new_point.text = point.text
+  #   @hash[new_point.id] = new_point
+  #   new_point
+  # end
   
   def delete(point)
-    each do |pt|
-      index = pt.index(point)
-      return dehashPoint(pt.delete_at(index)) if index
-    end
+    index, parent = index_and_parent(point)
+    parent.delete_at(index)
+    @hash[point.id] = nil
   end
 
   def pointWithId(identifier)
@@ -116,19 +126,6 @@ class Navigation
   def to_xml
     navigation = self
     ERB.new(Bundle.template("toc.ncx")).result(binding)
-  end
-  
-  private
-  
-  def hashPoint(point)
-    raise "Navigation point ID already exists: id=#{point.id}" if @hash[id]      
-    @hash[point.id] = point
-    point
-  end
-  
-  def dehashPoint(point)
-    @hash[point.id] = nil
-    point
   end
 
 end

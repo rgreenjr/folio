@@ -1,37 +1,31 @@
 class Point
 
-  attr_accessor :parent, :id, :playOrder, :text, :item, :fragment
+  attr_accessor :id, :playOrder, :text, :item, :fragment
 
-  def initialize(parent=nil, item=nil, text=nil)
-    @parent = parent
+  def initialize(item=nil, text=nil, id=nil)
     @item = item
     if text
       @text = text
     else
-      @text = item ? item.name : ""
+      @text = @item ? @item.name : ""
     end
-    @id = UUID.create
-    @expanded = parent ? false : true
+    @id = id || UUID.create
+    @fragment = ""
     @children = []
-    @parent << self if @parent
   end
 
   def uri
-    URI.join('file:/', @item.path.gsub(/ /, '%20'), fragment)
+    URI.join('file:/', @item.path.gsub(/ /, '%20'), fragmentWithHash)
   end
 
   def url
     NSURL.URLWithString(uri.to_s)
   end
-
+  
   def src
-    "#{@item.href}#{fragment}"
+    @item.href + fragmentWithHash
   end
-
-  def fragment
-    @fragment.empty? ? "" : "##{@fragment}"
-  end
-
+  
   def text=(text)
     if text
       text = text.strip
@@ -69,8 +63,7 @@ class Point
   
   def ancestor?(point)
     return true if point == self
-    each {|child| return true if child.ancestor?(point)}
-    false
+    @children.any? { |child| child.ancestor?(point) }
   end
   
   def <<(point)
@@ -83,17 +76,15 @@ class Point
   end
 
   def insert(index, point)
-    index = -1 if index > size
-    point.parent = self # does this need to be done elsewhere in Point ???!!!!???
     @children.insert(index, point)
-  end
-  
-  def delete(point)
-    delete_at(index(point))
   end
   
   def delete_at(index)
     @children.delete_at(index)
+  end
+  
+  def to_s
+    "@id = #{@id}, @text = #{@text}, @item = #{@item.name}, @expanded = #{@expanded}"
   end
   
   def to_xml(indent=1)
@@ -124,6 +115,12 @@ class Point
 
   def content=(string)
     @item.content = string
+  end
+  
+  private
+  
+  def fragmentWithHash
+    @fragment.empty? ? "" : "##{fragment}"
   end
 
 end
