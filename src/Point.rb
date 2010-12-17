@@ -84,6 +84,7 @@ class Point
 
   def insert(index, point)
     index = -1 if index > size
+    point.parent = self # does this need to be done elsewhere in Point ???!!!!???
     @children.insert(index, point)
   end
   

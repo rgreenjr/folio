@@ -86,39 +86,54 @@ class NavigationController
     operation
   end
 
-  def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
+  def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:index)
     parent = @book.navigation.root unless parent
-    points = []
-    parents = []
     plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-    plist.each do |id|
-      point = @book.navigation.pointWithId(id)
-      @book.navigation.delete(point)
-      parent.insert(childIndex, point)
-      points << point
-      parents << parent
+    points = plist.map { |id| @book.navigation.pointWithId(id) }
+    movePoints(points, index, parent)
+    true
+  end
+  
+  def movePoints(points, index, parent)
+    points.each do |point|
+      undoManager.prepareWithInvocationTarget(self).movePoints([point], point.parent.index(point), point.parent)
+      undoManager.actionName = "Move"
+      @book.navigation.move(point, index, parent)
     end
     @outlineView.reloadData
-    parents.each do |parent|
-      @outlineView.expandItem(parent)
-    end
+    @outlineView.expandItem(parent)
     @outlineView.selectItems(points)
     postChangeNotification
-    true
   end
 
   def addPoint(sender)
+    addPointToParent(selectedPoint, -1, "text", "id", selectedPoint.item, "fragment")
   end
-
-  def appendItem(item)
-    point = @book.navigation.insertItem(item)
+  
+  def addPointToParent(parent, index, text, id, item, fragment)
+    point = Point.new
+    point.item = item
+    point.text = text
+    point.id = id
+    point.fragment = fragment
+    undoManager.prepareWithInvocationTarget(self).deletePointNow(point)
+    @book.navigation.insert(point, index, parent)
+    undoManager.actionName = "Add"
     @outlineView.reloadData
+    @outlineView.expandItem(parent)
     @outlineView.selectItem(point)
     postChangeNotification
   end
 
   def duplicatePoint(sender)
-    new_point = @book.navigation.duplicate(selectedPoint)
+    point = selectedPoint
+    duplicatePointNow(point)
+  end
+  
+  def duplicatePointNow(point)
+    new_point = @book.navigation.duplicate(point)
+    undoManager.prepareWithInvocationTarget(self).deletePointNow(new_point)
+    undoManager.actionName = "Duplicate"
     @outlineView.reloadData
     @outlineView.selectItem(new_point)
     postChangeNotification
@@ -126,16 +141,20 @@ class NavigationController
 
   def deletePoint(sender)  	
     @outlineView.selectedRowIndexes.reverse_each do |index|
-      point = @book.navigation[index]
-      @book.navigation.delete(point)
+      deletePointNow(@book.navigation[index])
     end
+  end
+  
+  # TODO need to handle point's children !!!!
+  def deletePointNow(point)
+    index = point.parent.index(point)
+    return unless index
+    undoManager.prepareWithInvocationTarget(self).addPointToParent(point.parent, index, point.text, point.id, point.item, point.fragment)
+    undoManager.actionName = "Delete"
+    @book.navigation.delete(point)
     @outlineView.reloadData
     @outlineView.deselectAll(nil)
     postChangeNotification
-  end
-
-  def undoManager
-    @outlineView.window.undoManager
   end
 
   def changeText(sender)
@@ -160,6 +179,7 @@ class NavigationController
   def changePointID(point, id)
     undoManager.prepareWithInvocationTarget(self).changePointID(point, point.id)
     undoManager.actionName = "ID Change"
+    # TODO need to check for collisions and dehash/hash
     point.id = id
     displayPointProperties
     @outlineView.needsDisplay = true
@@ -245,13 +265,17 @@ class NavigationController
     when :"duplicatePoint:"
       return false if @outlineView.numberOfSelectedRows != 1
     when :"addPoint:"
-      return false
+      return false if @outlineView.numberOfSelectedRows != 1
     end
     true
   end
 
   def postChangeNotification
     NSNotificationCenter.defaultCenter.postNotificationName("NavigationDidChange", object:self)
+  end
+
+  def undoManager
+    @undoManager ||= @outlineView.window.undoManager
   end
 
 end

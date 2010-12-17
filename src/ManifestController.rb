@@ -296,4 +296,8 @@ class ManifestController
     NSNotificationCenter.defaultCenter.postNotificationName("ManifestDidChange", object:self)
   end
 
+  def undoManager
+    @undoManager ||= @outlineView.window.undoManager
+  end
+
 end

@@ -21,7 +21,7 @@ class SpineController
   end
 
   def tabViewSelectionDidChange(notification)
-    # selectItem(notification.object.selectedItem)
+    # @tableView.selectRow(@book.spine.index(notification.object.selectedItem))
   end
 
   def numberOfRowsInTableView(aTableView)
@@ -50,33 +50,61 @@ class SpineController
   end
 
   def tableView(tableView, acceptDrop:info, row:rowIndex, dropOperation:operation)
-    reorderedItems = []
+    hash = {}
     plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
     plist.reverse_each do |index|
-      reorderedItems << @book.spine.delete_at(index)
       rowIndex -= 1 if index < rowIndex
+      hash[index] = rowIndex
     end
-    reorderedItems.each do |item|
-      @book.spine.insert(rowIndex, item)
-    end
-    @tableView.reloadData
-    range = NSRange.new(rowIndex, reorderedItems.size)
-    indexes = NSIndexSet.indexSetWithIndexesInRange(range)
-    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
-    postChangeNotification
+    moveItems(hash)
     true
   end
-
-  # def selectItem(item)
-  #   @tableView.selectRow(@book.spine.index(item))
-  # end
+  
+  def addItems(hash)
+    indexes = NSMutableIndexSet.alloc.init
+    hash.reverse_each do |index, item|
+      next if @book.spine.include?(item)
+      @book.spine.insert(index, item)
+      indexes.addIndex(index)
+    end
+    undoManager.prepareWithInvocationTarget(self).removeItemsNow(indexes)
+    undoManager.actionName = "Remove #{pluralize(indexes.size, "Item")}"
+    @tableView.reloadData
+    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
+    postChangeNotification
+  end
   
   def removeItem(sender)
-    @tableView.selectedRowIndexes.reverse_each do |index|
-      item = @book.spine.delete_at(index)
-      @tabView.remove(item)
+    removeItemsNow(@tableView.selectedRowIndexes)
+  end
+  
+  def moveItems(hash)
+    reversedHash = {}
+    hash.reverse_each { |fromIndex, toIndex| reversedHash[toIndex] = fromIndex }
+    undoManager.prepareWithInvocationTarget(self).moveItems(reversedHash)
+    undoManager.actionName = "Move #{pluralize(hash.size, "Item")}"
+    indexes = NSMutableIndexSet.alloc.init
+    hash.each do |fromIndex, toIndex|
+      item = @book.spine.delete_at(fromIndex)
+      @book.spine.insert(toIndex, item)
+      indexes.addIndex(toIndex)
     end
     @tableView.reloadData
+    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
+    postChangeNotification
+  end
+  
+  def removeItemsNow(indexes)
+    hash = {}
+    indexes.reverse_each do |index|
+      item = @book.spine.delete_at(index)
+      @tabView.remove(item)
+      hash[index] = item
+    end
+    undoManager.prepareWithInvocationTarget(self).addItems(hash)
+    undoManager.actionName = "Remove #{pluralize(hash.size, "Item")}"
+    @tableView.reloadData
+    @tableView.deselectAll(nil)
     postChangeNotification
   end
   
@@ -99,6 +127,10 @@ class SpineController
 
   def postChangeNotification
     NSNotificationCenter.defaultCenter.postNotificationName("SpineDidChange", object:self)
+  end
+
+  def undoManager
+    @undoManager ||= @tableView.window.undoManager
   end
 
 end
