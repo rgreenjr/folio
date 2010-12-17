@@ -4,10 +4,10 @@ class NavigationController
 
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("Navigation Contextual Menu")
-    @menu.insertItemWithTitle("Add Point...", action:"addPoint:", keyEquivalent:"", atIndex:0).target = self
-    @menu.insertItemWithTitle("Duplicate", action:"duplicatePoint:", keyEquivalent:"", atIndex:1).target = self
-    @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Delete", action:"deletePoint:", keyEquivalent:"", atIndex:3).target = self
+    @menu.addAction("Add Point...", "addPoint:", self)
+    @menu.addAction("Duplicate", "duplicatePoint:", self)
+    @menu.addSeparator
+    @menu.addAction("Delete", "deletePoint:", self)
     @outlineView.menu = @menu
 
     @outlineView.delegate = self

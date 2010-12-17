@@ -3,10 +3,10 @@ class SpineController
   attr_accessor :book, :tableView, :tabView
 
   def awakeFromNib
-    @menu = NSMenu.alloc.initWithTitle("Spine Contextual Menu")
-    @menu.insertItemWithTitle("Add to Navigation", action:"addToNavigation:", keyEquivalent:"", atIndex:0).target = self
-    @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Remove", action:"removeItem:", keyEquivalent:"", atIndex:2).target = self
+    @menu = NSMenu.alloc.initWithTitle("")
+    @menu.addAction("Add to Navigation", "addToNavigation:", self)
+    @menu.addSeparator
+    @menu.addAction("Remove", "removeItem:", self)
     @tableView.menu = @menu
 
     @tableView.delegate = self

@@ -5,14 +5,14 @@ class ManifestController
   def awakeFromNib
     # configure popup menu
     @menu = NSMenu.alloc.initWithTitle("Manifest Contextual Menu")
-    @menu.insertItemWithTitle("Add File...", action:"showAddItemPanel:", keyEquivalent:"", atIndex:0).target = self
-    @menu.insertItemWithTitle("Add Directory...", action:"addDirectory:", keyEquivalent:"", atIndex:1).target = self
-    @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Add to Spine", action:"addToSpine:", keyEquivalent:"", atIndex:3).target = self
-    @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Mark as Cover", action:"markAsCover:", keyEquivalent:"", atIndex:5).target = self
-    @menu.addItem(NSMenuItem.separatorItem)
-    @menu.insertItemWithTitle("Delete...", action:"showDeleteItemPanel:", keyEquivalent:"", atIndex:7).target = self
+    @menu.addAction("Add File...", "showAddItemPanel:", self)
+    @menu.addAction("Add Directory...", "addDirectory:", self)
+    @menu.addSeparator
+    @menu.addAction("Add to Spine", "addToSpine:", self)
+    @menu.addSeparator
+    @menu.addAction("Mark as Cover", "markAsCover:", self)
+    @menu.addSeparator
+    @menu.addAction("Delete...", "showDeleteItemPanel:", self)
     @outlineView.menu = @menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new

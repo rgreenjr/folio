@@ -61,6 +61,7 @@
 		CD2340DD12BA939D0019FB07 /* NilClass.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2340DC12BA939D0019FB07 /* NilClass.rb */; };
 		CD2F101B12AEA56D00B2AC6D /* Language.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101912AEA56D00B2AC6D /* Language.rb */; };
 		CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */; };
+		CD318B8912BBBE4500B4692F /* Menu.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD318B8812BBBE4500B4692F /* Menu.rb */; };
 		CD5B1ED71283084C00681880 /* IndexSet.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1ED51283084C00681880 /* IndexSet.rb */; };
 		CD5B1ED81283084C00681880 /* TableView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1ED61283084C00681880 /* TableView.rb */; };
 		CD5B1EE41283114000681880 /* OutlineView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1EE31283114000681880 /* OutlineView.rb */; };
@@ -155,6 +156,7 @@
 		CD2340DC12BA939D0019FB07 /* NilClass.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NilClass.rb; sourceTree = "<group>"; };
 		CD2F101912AEA56D00B2AC6D /* Language.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Language.rb; sourceTree = "<group>"; };
 		CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MetadataController.rb; sourceTree = "<group>"; };
+		CD318B8812BBBE4500B4692F /* Menu.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Menu.rb; sourceTree = "<group>"; };
 		CD5B1ED51283084C00681880 /* IndexSet.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IndexSet.rb; sourceTree = "<group>"; };
 		CD5B1ED61283084C00681880 /* TableView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TableView.rb; sourceTree = "<group>"; };
 		CD5B1EE31283114000681880 /* OutlineView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = OutlineView.rb; sourceTree = "<group>"; };
@@ -362,13 +364,14 @@
 				CDE448F412305CA2001C69AE /* Item.rb */,
 				CD0A30C1125E874F00AA3EF2 /* HeaderView.rb */,
 				CDBCAB57125D292400833604 /* Kernel.rb */,
+				CD2F101912AEA56D00B2AC6D /* Language.rb */,
 				CDD858A912385B6900DD7E7A /* LineNumberRuler.rb */,
 				CDE448F512305CA2001C69AE /* Manifest.rb */,
 				CDE448F612305CA2001C69AE /* ManifestController.rb */,
 				CDA3FF29124D8296003F6341 /* Match.rb */,
 				CD89EF5C12789A8F009E4DE1 /* Media.rb */,
+				CD318B8812BBBE4500B4692F /* Menu.rb */,
 				CD02D4D312496A1B007DC4B7 /* Metadata.rb */,
-				CD2F101912AEA56D00B2AC6D /* Language.rb */,
 				CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */,
 				CDE448F712305CA2001C69AE /* Navigation.rb */,
 				CDE448F812305CA2001C69AE /* NavigationController.rb */,
@@ -525,6 +528,7 @@
 				CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */,
 				CDDEAAF012B58A7300A27602 /* no-cover.png in Resources */,
 				CD2340DD12BA939D0019FB07 /* NilClass.rb in Resources */,
+				CD318B8912BBBE4500B4692F /* Menu.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
