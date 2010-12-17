@@ -11,6 +11,10 @@ class NSIndexSet
   def empty?
     count == 0
   end
+  
+  def size
+    count
+  end
 
   include Enumerable
 end
