@@ -133,10 +133,8 @@ class NavigationController
     undoManager.prepareWithInvocationTarget(self).deletePoints(undoPoints)
     undoManager.actionName = "Add"
 
-    @outlineView.reloadData
-    
-    parents.each { |parent| @outlineView.expandItem(parent) }
-    
+    @outlineView.reloadData    
+    @outlineView.expandItems(parents)
     @outlineView.selectItems(undoPoints)
     postChangeNotification
   end
@@ -146,11 +144,11 @@ class NavigationController
   end
   
   def duplicatePointNow(point)
-    new_point = @book.navigation.duplicate(point)
-    undoManager.prepareWithInvocationTarget(self).deletePoints([new_point])
+    clone = @book.navigation.duplicate(point)
+    undoManager.prepareWithInvocationTarget(self).deletePoints([clone])
     undoManager.actionName = "Duplicate"
     @outlineView.reloadData
-    @outlineView.selectItem(new_point)
+    @outlineView.selectItem(clone)
     postChangeNotification
   end
 
@@ -163,16 +161,25 @@ class NavigationController
   end
   
   # TODO need to handle points with children !!!!
-  def deletePoints(points)    
-    undoPoints = points.map do |point|
+  def deletePoints(array)
+
+    # recursively delete all children first
+    array.each do |point|
+      point.each do |child|
+        deletePoints([child])
+      end
+    end
+    
+    # create undo data
+    undoPoints = array.map do |point|
       index, parent = @book.navigation.index_and_parent(point)
       [point, index, parent]
     end
-    
     undoManager.prepareWithInvocationTarget(self).addPoints(undoPoints)
     undoManager.actionName = "Delete"
 
-    points.each do |point|
+    # perfrom actual deletion
+    array.each do |point|
       @book.navigation.delete(point)
     end
     

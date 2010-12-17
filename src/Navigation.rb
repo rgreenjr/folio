@@ -101,13 +101,13 @@ class Navigation
     insert(point, -1, @root)
   end
   
-  # def duplicate(point)
-  #   new_point = Point.new
-  #   new_point.item = point.item
-  #   new_point.text = point.text
-  #   @hash[new_point.id] = new_point
-  #   new_point
-  # end
+  def duplicate(point)
+    index, parent = index_and_parent(point)
+    clone = Point.new(point.item, point.text)
+    parent.insert(index + 1, clone)
+    @hash[clone.id] = clone
+    clone
+  end
   
   def delete(point)
     index, parent = index_and_parent(point)

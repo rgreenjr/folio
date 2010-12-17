@@ -8,11 +8,11 @@ class NSOutlineView
     end
   end
 
-  def selectItems(array)
+  def selectItems(items)
     deselectAll(nil)
-    unless array.empty?
+    unless items.empty?
       indexes = NSMutableIndexSet.alloc.init
-      array.each do |item| 
+      items.each do |item| 
         row = rowForItem(item)
         indexes.addIndex(row) if row > 0
       end
@@ -21,4 +21,9 @@ class NSOutlineView
     end
   end
 
+  def expandItems(items)
+    unless items.empty?
+      items.each { |item| expandItem(item) }
+    end
+  end
 end
