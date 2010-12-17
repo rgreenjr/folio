@@ -89,20 +89,30 @@ class NavigationController
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:index)
     parent = @book.navigation.root unless parent
     plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-    points = plist.map { |id| @book.navigation.pointWithId(id) }
-    movePoints(points, index, parent)
+    points = plist.map { |id| [@book.navigation.pointWithId(id), index, parent] }
+    movePoints(points)
     true
   end
   
-  def movePoints(points, index, parent)
-    points.each do |point|
-      undoManager.prepareWithInvocationTarget(self).movePoints([point], point.parent.index(point), point.parent)
-      undoManager.actionName = "Move"
-      @book.navigation.move(point, index, parent)
+  def movePoints(points)    
+    undoPoints = points.map do |point, newIndex, newParent|
+      [point, point.parent.index(point), point.parent]
     end
+
+    undoManager.prepareWithInvocationTarget(self).movePoints(undoPoints)
+    points.each do |point, newIndex, newParent|
+      @book.navigation.move(point, newIndex, newParent)
+    end
+    undoManager.actionName = "Move"
+
     @outlineView.reloadData
-    @outlineView.expandItem(parent)
-    @outlineView.selectItems(points)
+
+    points.each do |point, newIndex, newParent|
+      @outlineView.expandItem(newParent)
+    end
+
+    @outlineView.selectItems(points.map{|point, newIndex, newParent| point})
+
     postChangeNotification
   end
 
@@ -110,48 +120,67 @@ class NavigationController
     addPointToParent(selectedPoint, -1, "text", "id", selectedPoint.item, "fragment")
   end
   
-  def addPointToParent(parent, index, text, id, item, fragment)
-    point = Point.new
-    point.item = item
-    point.text = text
-    point.id = id
-    point.fragment = fragment
-    undoManager.prepareWithInvocationTarget(self).deletePointNow(point)
-    @book.navigation.insert(point, index, parent)
+  def addPoints(points)
+    undoPoints = []
+    parents = []
+    points.reverse_each do |parent, index, text, id, item, fragment|
+      point = Point.new
+      point.item = item
+      point.text = text
+      point.id = id
+      point.fragment = fragment
+      @book.navigation.insert(point, index, parent)
+      
+      undoPoints << point
+      parents << parent
+    end
+
+    undoManager.prepareWithInvocationTarget(self).deletePoints(undoPoints)
     undoManager.actionName = "Add"
+
     @outlineView.reloadData
-    @outlineView.expandItem(parent)
-    @outlineView.selectItem(point)
+    
+    parents.each { |parent| @outlineView.expandItem(parent) }
+    
+    @outlineView.selectItems(undoPoints)
     postChangeNotification
   end
 
   def duplicatePoint(sender)
-    point = selectedPoint
-    duplicatePointNow(point)
+    duplicatePointNow(selectedPoint)
   end
   
   def duplicatePointNow(point)
     new_point = @book.navigation.duplicate(point)
-    undoManager.prepareWithInvocationTarget(self).deletePointNow(new_point)
+    undoManager.prepareWithInvocationTarget(self).deletePoints([new_point])
     undoManager.actionName = "Duplicate"
     @outlineView.reloadData
     @outlineView.selectItem(new_point)
     postChangeNotification
   end
 
-  def deletePoint(sender)  	
+  def deletePoint(sender)
+    points = []
     @outlineView.selectedRowIndexes.reverse_each do |index|
-      deletePointNow(@book.navigation[index])
+      points << @book.navigation[index]
     end
+    deletePoints(points)
   end
   
   # TODO need to handle point's children !!!!
-  def deletePointNow(point)
-    index = point.parent.index(point)
-    return unless index
-    undoManager.prepareWithInvocationTarget(self).addPointToParent(point.parent, index, point.text, point.id, point.item, point.fragment)
+  def deletePoints(points)
+    undoPoints = points.map do |point|
+      [point.parent, point.parent.index(point), point.text, point.id, point.item, point.fragment]
+    end
+    
+    undoManager.prepareWithInvocationTarget(self).addPoints(undoPoints)
     undoManager.actionName = "Delete"
-    @book.navigation.delete(point)
+
+    points.each do |point|
+      puts "deleting #{point.text}"
+      @book.navigation.delete(point)
+    end
+    
     @outlineView.reloadData
     @outlineView.deselectAll(nil)
     postChangeNotification
