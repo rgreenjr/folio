@@ -8,12 +8,13 @@ require "open-uri"
 
 class Book
 
-  attr_accessor :navigation, :manifest, :spine
-  attr_accessor :container, :metadata, :guide, :path, :edited
+  attr_accessor :navigation, :manifest, :spine, :container, :metadata, :guide
+  attr_accessor :filepath, :unzippath, :edited
 
   def initialize(filepath)
-    @path = Dir.mktmpdir("folio-unzip-")
-    system("unzip -q -d '#{@path}' '#{filepath}'")
+    @filepath = filepath
+    @unzippath = Dir.mktmpdir("folio-unzip-")
+    system("unzip -q -d '#{@unzippath}' '#{@filepath}'")
     @container  = Container.new(self)
     @manifest   = Manifest.new(self)
     @metadata   = Metadata.new(self)
@@ -26,7 +27,11 @@ class Book
     @edited
   end
   
-  def save(directory)
+  def basename
+    File.basename(@filepath)
+  end
+  
+  def save
     tmp = Dir.mktmpdir("folio-zip-")
     # system("open #{tmp}")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
@@ -35,14 +40,19 @@ class Book
     @manifest.save(dest)
     @navigation.save(dest)
     File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opf_xml}
-    epub = File.join(directory, "#{metadata.title.sanitize}.epub")
-    system("cd '#{tmp}'; zip -qX0 '#{epub}' mimetype")
-    system("cd '#{tmp}'; zip -qX9urD '#{epub}' *")
+    system("cd '#{tmp}'; zip -qX0 '#{@filepath}' mimetype")
+    system("cd '#{tmp}'; zip -qX9urD '#{@filepath}' *")
     FileUtils.rm_rf(tmp)
+  end  
+  
+  def saveAs(filepath)
+    filepath = filepath + '.epub' unless File.extname(filepath) == '.epub'
+    @filepath = filepath
+    save
   end
   
   def close
-    FileUtils.rm_rf(@path)
+    FileUtils.rm_rf(@unzippath)
   end
   
   private

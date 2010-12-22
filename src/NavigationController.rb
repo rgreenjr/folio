@@ -5,8 +5,7 @@ class NavigationController
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("")
     @menu.addAction("Add Point...", "addPoint:", self)
-    @menu.addAction("Duplicate", "duplicatePoint:", self)
-    @menu.addSeparator
+    @menu.addActionWithSeparator("Duplicate", "duplicatePoint:", self)
     @menu.addAction("Delete", "deletePoint:", self)
     @outlineView.menu = @menu
 

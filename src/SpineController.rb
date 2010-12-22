@@ -4,8 +4,7 @@ class SpineController
 
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addAction("Add to Navigation", "addToNavigation:", self)
-    @menu.addSeparator
+    @menu.addActionWithSeparator("Add to Navigation", "addToNavigation:", self)
     @menu.addAction("Remove", "removeItem:", self)
     @tableView.menu = @menu
 

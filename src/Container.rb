@@ -8,7 +8,7 @@ class Container
   attr_reader :root, :path, :opfDoc
 
   def initialize(book)
-    xmlPath = File.join(book.path, CONTAINER_XML_PATH)
+    xmlPath = File.join(book.unzippath, CONTAINER_XML_PATH)
     raise "The #{CONTAINER_XML_PATH} file is missing." unless File.exists?(xmlPath)
     
     doc = REXML::Document.new(File.read(xmlPath))
@@ -19,9 +19,9 @@ class Container
     @root = File.dirname(opfPath).split('/').last
     @root = '' if @root == '.'
     
-    @path = File.join(book.path, @root)
+    @path = File.join(book.unzippath, @root)
 
-    opfPath = File.join(book.path, opfPath)
+    opfPath = File.join(book.unzippath, opfPath)
     
     raise "The OPF file is missing: #{File.basename(opfPath)}" unless File.exists?(opfPath)
     @opfDoc = REXML::Document.new(File.read(opfPath))

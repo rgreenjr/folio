@@ -209,8 +209,13 @@ class TabView < NSView
     selectTab(@tabs[index]) if index >= 0
   end  
   
-  def editedItems
-    @tabs.inject([]) {|array, tab| array << tab.item if tab.item.edited?; array }
+  def editedTabs
+    @tabs.inject([]) {|array, tab| array << tab if tab.item.edited?; array }
+  end
+  
+  def saveTab(tab)
+    tab.item.save
+    setNeedsDisplay(true)
   end
   
   def showSaveAlert(tab)

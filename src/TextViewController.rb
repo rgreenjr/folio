@@ -134,7 +134,7 @@ class TextViewController
   def paragraphSelectedLines(sender)
     replace(selectedRange, selectedText.split.map {|line| "<p>#{line}<p/>\n"}.join)
   end
-
+  
   private
 
   def selectedRange

@@ -6,12 +6,9 @@ class ManifestController
     # configure popup menu
     @menu = NSMenu.alloc.initWithTitle("")
     @menu.addAction("Add File...", "showAddItemPanel:", self)
-    @menu.addAction("Add Directory...", "addDirectory:", self)
-    @menu.addSeparator
-    @menu.addAction("Add to Spine", "addToSpine:", self)
-    @menu.addSeparator
-    @menu.addAction("Mark as Cover", "markAsCover:", self)
-    @menu.addSeparator
+    @menu.addActionWithSeparator("Add Directory...", "addDirectory:", self)
+    @menu.addActionWithSeparator("Add to Spine", "addToSpine:", self)
+    @menu.addActionWithSeparator("Mark as Cover", "markAsCover:", self)
     @menu.addAction("Delete...", "showDeleteItemPanel:", self)
     @outlineView.menu = @menu
 

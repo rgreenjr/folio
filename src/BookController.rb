@@ -41,22 +41,43 @@ class BookController
 
   def saveBook(sender)
     @progressController.show("Saving...")
-    @book.save("/Users/rgreen/Desktop/")
+    @book.save
     @progressController.hide
     @book.edited = false
+    @window.documentEdited = false
+  end
+  
+  def showSaveBookAsPanel(sender)
+    panel = NSSavePanel.savePanel
+    panel.title = "Save Book As..."
+    panel.beginSheetForDirectory(File.dirname(@book.filepath), file:File.basename(@book.filepath), 
+        modalForWindow:@window, modalDelegate:self, didEndSelector:"saveBookAsPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
+  def saveBookAsPanelDidEnd(panel, returnCode:code, contextInfo:info)
+    return unless code == NSOKButton
+    @book.saveAs(panel.URL.path)
+    @book.edited = false
+    @window.documentEdited = false
+  end
+  
+  def saveAll(sender)
+    tabs = @tabView.editedTabs
+    unless tabs.empty?
+      tabs.each { |tab| tabView.saveTab(tab) }
+      saveBook(nil)
+    end
+  end
+  
   def closeBook(sender)    
-    editedItems = @tabView.editedItems
-    if @book.edited? || !editedItems.empty?
+    tabs = @tabView.editedTabs
+    if @book.edited? || !tabs.empty?
       title = "You have unsaved changes in the book \"#{@book.metadata.title}\". Do you want to save these changes before quiting?"
-      # #{pluralize(editedItems.size, "document")} with
       message = "Your changes will be lost if you don't save them."
       response = NSRunAlertPanel(title, message, "Save Changes", "Discard Changes", "Cancel")
       case response
       when NSAlertDefaultReturn
-        editedItems.each { |item| item.save }
-        saveBook(nil)
+        saveAll(nil)
       when NSAlertOtherReturn
         return false
       end        
@@ -71,7 +92,15 @@ class BookController
   end
 
   def showTemporaryDirectory(sender)
-    system("open #{@book.path}")
+    system("open #{@book.unzippath}")
+  end
+
+  def validate(sender)
+    @progressController.show("Validating...")
+    result = Validator.validate(@book)
+    # puts result
+    puts "done"
+    @progressController.hide
   end
 
   private
