@@ -135,13 +135,13 @@ class LineNumberRuler < NSRulerView
       break if index >= stringLength
     end
 
-    # lineEndIndex = Pointer.new(:ulong_long)
-    # contentsEndIndex = Pointer.new(:ulong_long)
-    #
+    # lineEnd = Pointer.new(:ulong_long)
+    # contentsEnd = Pointer.new(:ulong_long)
+    # 
     # # check if text ends with a new line
-    # text.getLineStart(nil, end:lineEndIndex[0], contentsEnd:contentsEndIndex[0], forRange:NSMakeRange(@lineIndices.last, 0))
-    #
-    # if contentsEndIndex[0] < lineEndIndex[0]
+    # text.getLineStart(nil, end:lineEnd, contentsEnd:contentsEnd, forRange:NSMakeRange(@lineIndices.last, 0))
+    # 
+    # if contentsEnd[0] < lineEnd[0]
     #   @lineIndices << index
     # end
 
