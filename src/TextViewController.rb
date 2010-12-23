@@ -27,7 +27,13 @@ class TextViewController
   end
   
   def toggleRuler(sender)
-    @textView.enclosingScrollView.rulersVisible = !@textView.enclosingScrollView.rulersVisible
+    if sender.title == 'Hide Line Numbers'
+      sender.title = 'Show Line Numbers'
+      @textView.enclosingScrollView.rulersVisible = false
+    else
+      sender.title = 'Hide Line Numbers'
+      @textView.enclosingScrollView.rulersVisible = true
+    end
   end
 
   def textDidChange(notification)

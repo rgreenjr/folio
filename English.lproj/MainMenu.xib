@@ -804,7 +804,7 @@
 								</object>
 								<object class="NSMenuItem" id="156276626">
 									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Toggle Line Numbers</string>
+									<string key="NSTitle">Hide Line Numbers</string>
 									<string key="NSKeyEquiv">l</string>
 									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
