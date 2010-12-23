@@ -21,6 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="296"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -803,8 +804,8 @@
 								</object>
 								<object class="NSMenuItem" id="156276626">
 									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Toggle Ruler</string>
-									<string key="NSKeyEquiv">t</string>
+									<string key="NSTitle">Toggle Line Numbers</string>
+									<string key="NSKeyEquiv">l</string>
 									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1300,6 +1301,7 @@
 															</object>
 															<string key="NSFrameSize">{658, 412}</string>
 															<reference key="NSSuperview" ref="494743677"/>
+															<reference key="NSNextKeyView"/>
 															<int key="NSViewLayerContentsRedrawPolicy">2</int>
 															<string key="FrameName"/>
 															<string key="GroupName"/>
@@ -1424,6 +1426,7 @@
 																	</object>
 																	<string key="NSFrameSize">{643, 130}</string>
 																	<reference key="NSSuperview" ref="158798636"/>
+																	<reference key="NSNextKeyView" ref="276967906"/>
 																	<reference key="NSDocView" ref="276967906"/>
 																	<reference key="NSBGColor" ref="376101766"/>
 																	<object class="NSCursor" key="NSCursor">
@@ -1457,6 +1460,7 @@
 															</object>
 															<string key="NSFrame">{{0, 422}, {658, 130}}</string>
 															<reference key="NSSuperview" ref="494743677"/>
+															<reference key="NSNextKeyView" ref="1052202328"/>
 															<int key="NSsFlags">144</int>
 															<reference key="NSVScroller" ref="690501008"/>
 															<reference key="NSHScroller" ref="360548345"/>

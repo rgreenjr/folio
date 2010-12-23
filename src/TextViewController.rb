@@ -7,7 +7,7 @@ class TextViewController
     scrollView.verticalRulerView = LineNumberRuler.alloc.initWithScrollView(scrollView)
     scrollView.hasHorizontalRuler = false
     scrollView.hasVerticalRuler = true
-    scrollView.rulersVisible = false
+    scrollView.rulersVisible = true
 
     @textView.delegate = self
     @textView.setEnabledTextCheckingTypes(0)
