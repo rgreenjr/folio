@@ -99,32 +99,28 @@ class LineNumberRuler < NSRulerView
   end
 
   def indexOfPhysicalLine(lineNumber)
-    return if lineNumber == 1
-    index = 0
-    numberOfLines = 0
+    return 0 if lineNumber == 1
+    index = lineCount = 0
     string = clientView.string
     length = string.length
     while index < length
       index = NSMaxRange(string.lineRangeForRange(NSMakeRange(index, 0)))
-      break if numberOfLines == lineNumber - 2
-      numberOfLines += 1
+      break if lineCount == lineNumber - 2
+      lineCount += 1
     end
     index
   end
   
   def logicalLineIndexAtPhysicalCharacterIndex(physicalIndex)
-    index = 0
-    numberOfLines = 0
+    index = lineCount = 0
     layoutManager = clientView.layoutManager
     numberOfGlyphs = NSMaxRange(layoutManager.glyphRangeForCharacterRange(NSMakeRange(0, physicalIndex), actualCharacterRange:nil))
-    
     while index < numberOfGlyphs
       lineRange = Pointer.new(NSRange.type)
       layoutManager.lineFragmentRectForGlyphAtIndex(index, effectiveRange:lineRange)
       index = NSMaxRange(lineRange[0])
-      numberOfLines += 1
+      lineCount += 1
     end
-
     index
   end
 
