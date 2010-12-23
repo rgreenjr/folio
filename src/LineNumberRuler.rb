@@ -10,7 +10,7 @@ class LineNumberRuler < NSRulerView
     setClientView(scrollView.documentView)
     ctr = NSNotificationCenter.defaultCenter
     ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
-    @font = NSFont.labelFontOfSize(11.0)
+    @font = NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize))
     @textColor = NSColor.grayColor
     updateLineIndices
     updateTextAttributes
@@ -37,7 +37,7 @@ class LineNumberRuler < NSRulerView
     container = clientView.textContainer
     layoutManager = clientView.layoutManager
 
-    yinset = clientView.textContainerInset.height
+    yinset = clientView.textContainerInset.height    
     visibleRect = scrollView.contentView.bounds
 
     nullRange = NSMakeRange(NSNotFound, 0)
@@ -53,37 +53,41 @@ class LineNumberRuler < NSRulerView
     index = 0
     count = @lineIndices.size
     line = lineNumberForCharacterIndex(range.location, inText:text)
-
+    
+    # puts "count = #{count}"
+    # puts "line = #{line}"
+    
     while line < count
 
       index = @lineIndices[line]
 
       if NSLocationInRange(index, range)
         rectCount = Pointer.new(:ulong_long)
-        rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0), withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
+        rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0), 
+          withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
 
         if rectCount[0] > 0
-          # Note that the ruler view is only as tall as the visible portion. Need to compensate for the clipview's coordinates.
+          # Note that the ruler view is only as tall as the visible portion.
+          # Need to compensate for the clipview's coordinates.
           ypos = yinset + NSMinY(rects[0]) - NSMinY(visibleRect)
-
+                              
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
           stringSize = labelText.sizeWithAttributes(@textAttributes)
 
           # Draw string flush right, centered vertically within the line
           textRect = NSMakeRect(
-          NSWidth(bounds) - stringSize.width - RULER_MARGIN,
-          ypos + (NSHeight(rects[0]) - stringSize.height) / 2.0,
-          NSWidth(bounds) - RULER_MARGIN * 2.0,
-          NSHeight(rects[0])
+            NSWidth(bounds) - stringSize.width - RULER_MARGIN,
+            ypos + (NSHeight(rects[0]) - stringSize.height) / 2.0,
+            NSWidth(bounds) - RULER_MARGIN * 2.0,
+            NSHeight(rects[0])
           )
+                    
           labelText.drawInRect(textRect, withAttributes:@textAttributes)
         end
       end
 
-      if index > NSMaxRange(range)
-        break
-      end
+      break if index > NSMaxRange(range)
 
       line += 1
     end

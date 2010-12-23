@@ -3,11 +3,11 @@ class TextViewController
   attr_accessor :item, :textView, :webView
 
   def awakeFromNib
-    # scrollView = @textView.enclosingScrollView
-    # scrollView.verticalRulerView = LineNumberRuler.alloc.initWithScrollView(scrollView)
-    # scrollView.hasHorizontalRuler = false
-    # scrollView.hasVerticalRuler = true
-    # scrollView.rulersVisible = true
+    scrollView = @textView.enclosingScrollView
+    scrollView.verticalRulerView = LineNumberRuler.alloc.initWithScrollView(scrollView)
+    scrollView.hasHorizontalRuler = false
+    scrollView.hasVerticalRuler = true
+    scrollView.rulersVisible = false
 
     @textView.delegate = self
     @textView.setEnabledTextCheckingTypes(0)
@@ -24,6 +24,10 @@ class TextViewController
       string = NSAttributedString.alloc.initWithString('')
     end
     @textView.textStorage.attributedString = string
+  end
+  
+  def toggleRuler(sender)
+    @textView.enclosingScrollView.rulersVisible = !@textView.enclosingScrollView.rulersVisible
   end
 
   def textDidChange(notification)
