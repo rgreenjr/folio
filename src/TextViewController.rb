@@ -39,6 +39,7 @@ class TextViewController
   
   def showGotoLineWindow(sender)
     @gotoLineWindow.center
+    @gotoLineField.selectText(self)
     @gotoLineWindow.makeKeyAndOrderFront(self)
   end
 
