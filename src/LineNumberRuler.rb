@@ -37,7 +37,7 @@ class LineNumberRuler < NSRulerView
     container = clientView.textContainer
     layoutManager = clientView.layoutManager
 
-    yinset = clientView.textContainerInset.height    
+    yinset = clientView.textContainerInset.height
     visibleRect = scrollView.contentView.bounds
 
     nullRange = NSMakeRange(NSNotFound, 0)
@@ -53,24 +53,24 @@ class LineNumberRuler < NSRulerView
     index = 0
     count = @lineIndices.size
     line = lineNumberForCharacterIndex(range.location, inText:text)
-    
+
     # puts "count = #{count}"
     # puts "line = #{line}"
-    
+
     while line < count
 
       index = @lineIndices[line]
 
       if NSLocationInRange(index, range)
         rectCount = Pointer.new(:ulong_long)
-        rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0), 
+        rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0),
           withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
 
         if rectCount[0] > 0
           # Note that the ruler view is only as tall as the visible portion.
           # Need to compensate for the clipview's coordinates.
           ypos = yinset + NSMinY(rects[0]) - NSMinY(visibleRect)
-                              
+
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
           stringSize = labelText.sizeWithAttributes(@textAttributes)
@@ -82,7 +82,7 @@ class LineNumberRuler < NSRulerView
             NSWidth(bounds) - RULER_MARGIN * 2.0,
             NSHeight(rects[0])
           )
-                    
+
           labelText.drawInRect(textRect, withAttributes:@textAttributes)
         end
       end
@@ -91,7 +91,47 @@ class LineNumberRuler < NSRulerView
 
       line += 1
     end
+    
+  end
 
+  def physicalLineAtInsertion
+    lineNumberForCharacterIndex(clientView.selectedRange.location, inText:clientView.string) + 1
+  end
+
+  def indexOfPhysicalLine(lineNumber)
+    return if lineNumber == 1
+    index = 0
+    numberOfLines = 0
+    string = clientView.string
+    length = string.length
+    while index < length
+      index = NSMaxRange(string.lineRangeForRange(NSMakeRange(index, 0)))
+      break if numberOfLines == lineNumber - 2
+      numberOfLines += 1
+    end
+    index
+  end
+  
+  def logicalLineIndexAtPhysicalCharacterIndex(physicalIndex)
+    index = 0
+    numberOfLines = 0
+    layoutManager = clientView.layoutManager
+    numberOfGlyphs = NSMaxRange(layoutManager.glyphRangeForCharacterRange(NSMakeRange(0, physicalIndex), actualCharacterRange:nil))
+    
+    while index < numberOfGlyphs
+      lineRange = Pointer.new(NSRange.type)
+      layoutManager.lineFragmentRectForGlyphAtIndex(index, effectiveRange:lineRange)
+      index = NSMaxRange(lineRange[0])
+      numberOfLines += 1
+    end
+
+    index
+  end
+
+  def gotoLine(lineNumber)
+    insertionLocation = logicalLineIndexAtPhysicalCharacterIndex(indexOfPhysicalLine(lineNumber))
+    clientView.selectedRange = NSMakeRange(insertionLocation, 0)
+    clientView.scrollRangeToVisible(NSMakeRange(insertionLocation, 0))
   end
 
   private
@@ -137,10 +177,10 @@ class LineNumberRuler < NSRulerView
 
     # lineEnd = Pointer.new(:ulong_long)
     # contentsEnd = Pointer.new(:ulong_long)
-    # 
+    #
     # # check if text ends with a new line
     # text.getLineStart(nil, end:lineEnd, contentsEnd:contentsEnd, forRange:NSMakeRange(@lineIndices.last, 0))
-    # 
+    #
     # if contentsEnd[0] < lineEnd[0]
     #   @lineIndices << index
     # end

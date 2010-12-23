@@ -1,6 +1,7 @@
 class TextViewController
 
   attr_accessor :item, :textView, :webView
+  attr_accessor :gotoLineWindow, :gotoLineField
 
   def awakeFromNib
     scrollView = @textView.enclosingScrollView
@@ -34,6 +35,20 @@ class TextViewController
       sender.title = 'Hide Line Numbers'
       @textView.enclosingScrollView.rulersVisible = true
     end
+  end
+  
+  def showGotoLineWindow(sender)
+    @gotoLineWindow.center
+    @gotoLineWindow.makeKeyAndOrderFront(self)
+  end
+
+  def gotoLine(sender)
+    lineNumber = @gotoLineField.stringValue.to_i
+    if lineNumber > 0
+      @textView.enclosingScrollView.verticalRulerView.gotoLine(lineNumber)
+      @textView.window.makeFirstResponder(@textView)
+    end
+    @gotoLineWindow.performClose(self)
   end
 
   def textDidChange(notification)
