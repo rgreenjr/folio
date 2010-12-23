@@ -21,7 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="296"/>
+			<integer value="205"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -707,15 +707,6 @@
 											</object>
 										</object>
 									</object>
-								</object>
-								<object class="NSMenuItem" id="47649641">
-									<reference key="NSMenu" ref="789758025"/>
-									<string key="NSTitle">Tidy</string>
-									<string key="NSKeyEquiv">T</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
 							</object>
 						</object>
@@ -4220,7 +4211,6 @@
 							<reference ref="972420730"/>
 							<reference ref="676164635"/>
 							<reference ref="507821607"/>
-							<reference ref="47649641"/>
 							<reference ref="934126560"/>
 							<reference ref="212016141"/>
 							<reference ref="29570534"/>
@@ -4608,11 +4598,6 @@
 						<int key="objectID">390</int>
 						<reference key="object" ref="190618754"/>
 						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">437</int>
-						<reference key="object" ref="47649641"/>
-						<reference key="parent" ref="789758025"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">458</int>
@@ -6199,7 +6184,6 @@
 					<string>372.IBPluginDependency</string>
 					<string>389.IBPluginDependency</string>
 					<string>389.IBViewBoundsToFrameTransform</string>
-					<string>437.IBPluginDependency</string>
 					<string>465.IBEditorWindowLastContentRect</string>
 					<string>465.IBPluginDependency</string>
 					<string>478.IBPluginDependency</string>
@@ -6601,7 +6585,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{444, 856}, {240, 273}}</string>
+					<string>{{444, 876}, {240, 253}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{187, 434}, {243, 243}}</string>
@@ -6682,7 +6666,6 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUOAgABD6YAAA</bytes>
 					</object>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{581, 1019}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
