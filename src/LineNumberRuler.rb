@@ -260,7 +260,7 @@ class LineNumberRuler < NSRulerView
   end
   
   def mouseExited(event)
-    puts "mouseExited"
+    # puts "mouseExited"
     @hudWindow.close
   end
   

@@ -159,9 +159,9 @@ class TextViewController
       output.gsub!("^", '')
       output.split(/\n/).each do |line|
         if line =~ /^Line ([0-9]+): (.*)/
-          puts $1
-          puts $2
-          marker = LineNumberMarker.alloc.initWithRulerView(@lineNumberView, lineNumber:($1.to_i - 1), message:$2)
+          lineNumber = $1.to_i - 1
+          message = $2
+          marker = LineNumberMarker.alloc.initWithRulerView(@lineNumberView, lineNumber:lineNumber, message:message)
           @item.addMarker(marker) 
         end
       end
@@ -195,14 +195,6 @@ class TextViewController
     replace(range, modifedText)
     modifiedRange = NSRange.new(range.location, range.length + (modifedText.size - text.size))
     @textView.setSelectedRange(modifiedRange)
-  end
-
-  def showTidyAlert(message)
-    alert = NSAlert.alloc.init
-    alert.addButtonWithTitle "OK"
-    alert.messageText = "Tidy Failed"
-    alert.informativeText = message
-    alert.runModal
   end
 
 end
