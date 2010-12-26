@@ -9,6 +9,7 @@ class Item
     @mediaType = mediaType || Media.guessType(File.extname(name))
     @expanded = expanded
     @children = []
+    @markers = {}
     
     FileUtils.mkdir(path) if directory? && !File.exists?(path)
   end
@@ -193,7 +194,28 @@ class Item
   end
 
   def guessMediaType
-    
+  end
+  
+  def markers
+    @markers
   end
 
+  def eachMarkerWithLineNumber(&block)
+    @markers.each do |lineNumber, marker|
+      yield marker, lineNumber
+    end
+  end
+
+  def clearMarkers
+    @markers.clear
+  end
+  
+  def addMarker(marker)
+    @markers[marker.lineNumber] = marker
+  end
+  
+  def removeMarker(lineNumber)
+    @markers[marker.lineNumber] = nil
+  end
+  
 end

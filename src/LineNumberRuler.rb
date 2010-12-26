@@ -2,21 +2,26 @@ class LineNumberRuler < NSRulerView
 
   DEFAULT_THICKNESS	= 22.0
   RULER_MARGIN		  = 5.0
+  CORNER_RADIUS	    = 3.0
+  MARKER_HEIGHT	    = 13.0
 
-  attr_accessor :font, :textColor
+  attr_accessor :font, :textColor, :markerImage, :markers
 
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     setClientView(scrollView.documentView)
     ctr = NSNotificationCenter.defaultCenter
     ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
+    @markers = {}
     @font = NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize))
     @textColor = NSColor.grayColor
+    @markerTextColor = NSColor.whiteColor
+    updateMarkerImage
     updateLineIndices
-    updateTextAttributes
+    updateTextAttributes    
     self
   end
-
+  
   def font=(font)
     @font = font
     updateTextAttributes
@@ -27,16 +32,34 @@ class LineNumberRuler < NSRulerView
     updateTextAttributes
   end
 
+  def markerTextColor=(textColor)
+    @markerTextColor = textColor
+    updateTextAttributes
+  end
+
+  def markerImageOrigin
+    NSMakePoint(0, MARKER_HEIGHT / 2)
+  end
+  
+  def markerImage
+    @markerImage
+  end
+  
+  def markers=(markers)
+    @markers = markers
+    setNeedsDisplay true
+  end
+
   def textDidChange(notification)
     updateLineIndices
-    setNeedsDisplay(true)
+    setNeedsDisplay true
   end
 
   def drawHashMarksAndLabelsInRect(aRect)
     text = clientView.string
     container = clientView.textContainer
     layoutManager = clientView.layoutManager
-
+    
     yinset = clientView.textContainerInset.height
     visibleRect = scrollView.contentView.bounds
 
@@ -54,8 +77,8 @@ class LineNumberRuler < NSRulerView
     count = @lineIndices.size
     line = lineNumberForCharacterIndex(range.location, inText:text)
 
-    # puts "count = #{count}"
-    # puts "line = #{line}"
+    # remove any tracking areas
+    trackingAreas.each { |area| removeTrackingArea(area) }
 
     while line < count
 
@@ -71,6 +94,26 @@ class LineNumberRuler < NSRulerView
           # Need to compensate for the clipview's coordinates.
           ypos = yinset + NSMinY(rects[0]) - NSMinY(visibleRect)
 
+					marker = @markers[line]
+					
+					if marker
+						markerImage = marker.image
+						markerSize = markerImage.size
+						markerRect = NSMakeRect(0.0, 0.0, markerSize.width, markerSize.height)
+
+						# marker is flush right and centered vertically within the line.
+						markerRect.origin.x = NSWidth(bounds) - markerImage.size.width - 1.0
+						markerRect.origin.y = ypos + NSHeight(rects[0]) / 2.0 - marker.imageOrigin.y
+
+            fromRect = NSMakeRect(0, 0, markerSize.width, markerSize.height)
+						markerImage.drawInRect(markerRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:1.0)
+						
+            # add tracking area for this marker
+						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
+						trackingArea = NSTrackingArea.alloc.initWithRect(markerRect, options:trackingOptions, owner:self, userInfo:nil)
+            addTrackingArea(trackingArea)
+					end
+
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
           stringSize = labelText.sizeWithAttributes(@textAttributes)
@@ -83,21 +126,71 @@ class LineNumberRuler < NSRulerView
             NSHeight(rects[0])
           )
 
-          labelText.drawInRect(textRect, withAttributes:@textAttributes)
+          if marker
+            labelText.drawInRect(textRect, withAttributes:@markerTextAttributes)
+          else
+            labelText.drawInRect(textRect, withAttributes:@textAttributes)
+          end
+          
         end
       end
 
       break if index > NSMaxRange(range)
-
       line += 1
     end
     
   end
+  
+  def lineNumberForLocation(location)
+  	visibleRect = scrollView.contentView.bounds
+  	location += NSMinY(visibleRect)
 
+		nullRange = NSMakeRange(NSNotFound, 0)
+		layoutManager = clientView.layoutManager
+		container = clientView.textContainer
+		count = @lineIndices.count
+    line = 0
+    
+		while line < count
+			index = @lineIndices[line]
+
+      rectCount = Pointer.new(:ulong_long)
+			rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0), 
+			    withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
+
+      i = 0
+			while i < rectCount[0]
+				if location >= NSMinY(rects[i]) && location < NSMaxY(rects[i])
+					return line + 1
+				end
+				i += 1
+			end
+			line += 1
+		end
+  	
+  	NSNotFound
+  end
+  
+  # returns the logical (wrapped) line of the current caret location
+  def logicalLineAtInsertion
+    lineCount = index = 0
+    lineRange = Pointer.new(NSRange.type)
+    layoutManager = clientView.layoutManager
+    glyphCount = NSMaxRange(layoutManager.glyphRangeForCharacterRange(NSMakeRange(0, clientView.selectedRange.location), actualCharacterRange:nil))
+    while index < glyphCount
+      layoutManager.lineFragmentRectForGlyphAtIndex(index, effectiveRange:lineRange)
+      index = NSMaxRange(lineRange[0])
+      lineCount += 1
+    end
+    lineCount
+  end
+  
+  # returns the physical (actual) line number for the current caret location
   def physicalLineAtInsertion
     lineNumberForCharacterIndex(clientView.selectedRange.location, inText:clientView.string) + 1
   end
 
+  # returns the character index of line corresponding to line number
   def indexOfPhysicalLine(lineNumber)
     return 0 if lineNumber == 1
     index = lineCount = 0
@@ -111,12 +204,13 @@ class LineNumberRuler < NSRulerView
     index
   end
   
+  # returns the index of the logical (wrapped) line corresponding to the physical line index return by indexOfPhysicalLine
   def logicalLineIndexAtPhysicalCharacterIndex(physicalIndex)
     index = lineCount = 0
+    lineRange = Pointer.new(NSRange.type)
     layoutManager = clientView.layoutManager
-    numberOfGlyphs = NSMaxRange(layoutManager.glyphRangeForCharacterRange(NSMakeRange(0, physicalIndex), actualCharacterRange:nil))
-    while index < numberOfGlyphs
-      lineRange = Pointer.new(NSRange.type)
+    glyphCount = NSMaxRange(layoutManager.glyphRangeForCharacterRange(NSMakeRange(0, physicalIndex), actualCharacterRange:nil))
+    while index < glyphCount
       layoutManager.lineFragmentRectForGlyphAtIndex(index, effectiveRange:lineRange)
       index = NSMaxRange(lineRange[0])
       lineCount += 1
@@ -124,10 +218,49 @@ class LineNumberRuler < NSRulerView
     index
   end
 
+  # places the caret at the start of the specified line and scrolls to make it visible
   def gotoLine(lineNumber)
     insertionLocation = logicalLineIndexAtPhysicalCharacterIndex(indexOfPhysicalLine(lineNumber))
     clientView.selectedRange = NSMakeRange(insertionLocation, 0)
     clientView.scrollRangeToVisible(NSMakeRange(insertionLocation, 0))
+  end
+  
+  # overridden to reset the size of the marker image forcing it to redraw with the new width
+  def setRuleThickness(thickness)
+    super  
+    @markerImage.setSize(NSMakeSize(thickness, MARKER_HEIGHT))
+  end
+  
+  def acceptsFirstResponder
+    true
+  end
+  
+  def mouseEntered(event)
+    marker = markerForEvent(event)
+    showHUDWindowForMarker(marker, NSEvent.mouseLocation) if marker
+  end
+  
+  def markerForEvent(event)
+    location = convertPoint(event.locationInWindow, fromView:nil)
+    line = lineNumberForLocation(location.y)
+    return nil if line == NSNotFound
+    @markers[line - 1]
+  end
+  
+  def showHUDWindowForMarker(marker, location)
+    size = HUDMessageView.sizeForMessage(marker.message)
+    contentRect = NSMakeRect(location.x, location.y, size.width, 20.0);
+    @hudWindow = HUDWindow.alloc.initWithContentRect(contentRect, message:marker.message)
+    @hudWindow.orderFront(NSApp)    
+  end
+  
+  def mouseExited(event)
+    puts "mouseExited"
+    @hudWindow.close
+  end
+  
+  def mouseDown(event)
+    # must override to prevent interactions
   end
 
   private
@@ -155,6 +288,10 @@ class LineNumberRuler < NSRulerView
 
   def updateTextAttributes
     @textAttributes = { NSFontAttributeName => @font, NSForegroundColorAttributeName => @textColor }
+    @markerTextAttributes = { NSFontAttributeName => @font, NSForegroundColorAttributeName => @markerTextColor }
+  end
+
+  def updateMarkerTextAttributes
   end
 
   def updateLineIndices
@@ -193,6 +330,36 @@ class LineNumberRuler < NSRulerView
     digits = Math.log10(@lineIndices.size + 1).ceil
     stringSize = ("8" * digits).sizeWithAttributes(@textAttributes)
     [DEFAULT_THICKNESS, (2 * RULER_MARGIN + stringSize.width).ceil].max
+  end
+
+  def updateMarkerImage
+    size = NSMakeSize(DEFAULT_THICKNESS, MARKER_HEIGHT)
+    @markerImage = NSImage.alloc.initWithSize(size)
+    rep = NSCustomImageRep.alloc.initWithDrawSelector("drawMarkerImageIntoRep:", delegate:self)
+    rep.size = size
+    @markerImage.addRepresentation(rep)
+  end
+
+  def drawMarkerImageIntoRep(rep)
+    rect = NSMakeRect(1.0, 2.0, rep.size.width - 2.0, rep.size.height - 3.0)
+
+    path = NSBezierPath.bezierPath
+    path.moveToPoint(NSMakePoint(NSMaxX(rect), NSMinY(rect) + NSHeight(rect) / 2))
+    path.lineToPoint(NSMakePoint(NSMaxX(rect) - 5.0, NSMaxY(rect)))
+
+    path.appendBezierPathWithArcWithCenter(NSMakePoint(NSMinX(rect) + CORNER_RADIUS, NSMaxY(rect) - CORNER_RADIUS), radius:CORNER_RADIUS, startAngle:90, endAngle:180)
+
+    path.appendBezierPathWithArcWithCenter(NSMakePoint(NSMinX(rect) + CORNER_RADIUS, NSMinY(rect) + CORNER_RADIUS), radius:CORNER_RADIUS, startAngle:180, endAngle:270)
+    path.lineToPoint(NSMakePoint(NSMaxX(rect) - 5.0, NSMinY(rect)))
+    path.closePath
+
+    NSColor.colorWithCalibratedRed(0.003, green:0.56, blue:0.85, alpha:1.0).set
+    path.fill
+
+    # NSColor.colorWithCalibratedRed(0, green:0.44, blue:0.8, alpha:1.0).set
+
+    path.lineWidth = 2.0
+    path.stroke
   end
 
 end

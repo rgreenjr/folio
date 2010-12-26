@@ -18,6 +18,15 @@ class TextViewController
 
   def item=(item)
     @item = item
+    
+    puts "printing markers..."
+    @item.eachMarkerWithLineNumber do |maker, lineNumber|
+      p maker
+      p lineNumber
+    end
+    
+    @textView.enclosingScrollView.verticalRulerView.markers = @item.markers
+    
     if @item && @item.editable?
       attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:attributes)
@@ -147,14 +156,23 @@ class TextViewController
     text = @textView.string
     File.open(tmp, "w") { |f| f.print text }
     output = `xmllint --format #{tmp.path} 2>&1`
+    @item.clearMarkers
     if $?.success?
       replace(NSRange.new(0, text.length), output)
     else
       output.gsub!(tmp.path + ':', 'Line ')
       output.gsub!("^", '')
-      showValidationAlert(output)
+      output.split(/\n/).each do |line|
+        if line =~ /^Line ([0-9]+): (.*)/
+          puts $1
+          puts $2
+          marker = LineNumberMarker.alloc.initWithRulerView(@textView.enclosingScrollView.verticalRulerView, lineNumber:($1.to_i - 1), message:$2)
+          @item.addMarker(marker) 
+        end
+      end
     end
     tmp.delete
+    @textView.enclosingScrollView.verticalRulerView.setNeedsDisplay true
   end
 
   def paragraphSelectedLines(sender)
@@ -184,10 +202,10 @@ class TextViewController
     @textView.setSelectedRange(modifiedRange)
   end
 
-  def showValidationAlert(message)
+  def showTidyAlert(message)
     alert = NSAlert.alloc.init
     alert.addButtonWithTitle "OK"
-    alert.messageText = "Validation Failed"
+    alert.messageText = "Tidy Failed"
     alert.informativeText = message
     alert.runModal
   end
