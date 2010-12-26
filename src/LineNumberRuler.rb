@@ -84,6 +84,9 @@ class LineNumberRuler < NSRulerView
 
     # remove any tracking areas
     trackingAreas.each { |area| removeTrackingArea(area) }
+    
+    # close HUD window
+    @hudWindow.close if @hudWindow
 
     while line < count
 
