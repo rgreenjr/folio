@@ -1,0 +1,102 @@
+grammar Css
+
+  rule stylesheet
+    whitespace smt:statement* whitespace {
+      def statements
+        smt.elements
+      end
+      def rulesets
+        statements.select { |e| e.selector? }
+      end
+      def comments
+        statements.select { |e| e.comment? }
+      end
+      def to_s
+        statements.join("\n")
+      end
+    }
+  end
+  
+  rule statement
+    comment / ruleset
+  end
+
+  rule comment
+    whitespace '/*' comment_body '*/' whitespace {
+      def to_s
+        "/* #{comment_body} */"
+      end
+      def rule?
+        false
+      end
+    }
+  end
+  
+  rule comment_body
+    [a-zA-Z0-9,;:+\'\"\!\/\(\)\-\. ]* {
+      def to_s
+        text_value
+      end
+    }
+  end
+  
+  rule ruleset
+    whitespace sel:selector+ whitespace '{' whitespace dec:declaration* whitespace '}' {
+	    def selectors
+	      sel.elements.sort_by {|x| x.text_value}
+	    end	
+	    def declarations
+	      dec.elements.sort_by {|x| x.text_value}
+	    end
+	    def rule?
+	     true
+	    end
+	    def to_s
+	     selectors.join(", ") + " {\n  " + declarations.join(";\n  ") + ";\n}\n"
+	    end
+    }
+  end
+
+  rule selector
+    key:[a-zA-Z0-9_#.:+~>=\[\]\.\-\*\\\" ]+ [,]? whitespace {
+	  def to_s
+	    key.text_value.strip
+	  end
+    }
+  end
+
+  rule declaration
+    declaration_property whitespace ':' whitespace declaration_value ';' whitespace {
+      def property
+        declaration_property
+      end
+      def value
+        declaration_value
+      end
+      def to_s
+        "#{property}: #{value}"
+      end
+    }
+  end
+
+  rule declaration_property
+    [a-zA-Z0-9-]+ {
+	  def to_s
+	    text_value
+	  end
+    }
+  end
+
+  rule declaration_value
+    [a-zA-Z0-9%#,!:\/\.\-\'\(\) ]+ {
+	  def to_s
+	    text_value
+	  end
+    }
+  end
+
+  rule whitespace
+    [\s]*
+  end
+
+end
