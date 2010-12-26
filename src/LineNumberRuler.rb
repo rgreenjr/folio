@@ -49,6 +49,11 @@ class LineNumberRuler < NSRulerView
     @markers = markers
     setNeedsDisplay true
   end
+  
+  def clearMarkers
+    @markers = {}
+    setNeedsDisplay true
+  end
 
   def textDidChange(notification)
     updateLineIndices

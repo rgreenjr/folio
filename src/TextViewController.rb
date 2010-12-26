@@ -5,10 +5,12 @@ class TextViewController
 
   def awakeFromNib
     scrollView = @textView.enclosingScrollView
-    scrollView.verticalRulerView = LineNumberRuler.alloc.initWithScrollView(scrollView)
+    @lineNumberView = LineNumberRuler.alloc.initWithScrollView(scrollView)
+    scrollView.verticalRulerView = @lineNumberView
     scrollView.hasHorizontalRuler = false
     scrollView.hasVerticalRuler = true
     scrollView.rulersVisible = true
+    
 
     @textView.delegate = self
     @textView.setEnabledTextCheckingTypes(0)
@@ -17,20 +19,13 @@ class TextViewController
   end
 
   def item=(item)
-    @item = item
-    
-    puts "printing markers..."
-    @item.eachMarkerWithLineNumber do |maker, lineNumber|
-      p maker
-      p lineNumber
-    end
-    
-    @textView.enclosingScrollView.verticalRulerView.markers = @item.markers
-    
+    @item = item    
     if @item && @item.editable?
+      @lineNumberView.markers = @item.markers      
       attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:attributes)
     else
+      @lineNumberView.clearMarkers
       string = NSAttributedString.alloc.initWithString('')
     end
     @textView.textStorage.attributedString = string
@@ -55,7 +50,7 @@ class TextViewController
   def gotoLine(sender)
     lineNumber = @gotoLineField.stringValue.to_i
     if lineNumber > 0
-      @textView.enclosingScrollView.verticalRulerView.gotoLine(lineNumber)
+      @lineNumberView.gotoLine(lineNumber)
       @textView.window.makeFirstResponder(@textView)
     end
     @gotoLineWindow.performClose(self)
@@ -166,13 +161,13 @@ class TextViewController
         if line =~ /^Line ([0-9]+): (.*)/
           puts $1
           puts $2
-          marker = LineNumberMarker.alloc.initWithRulerView(@textView.enclosingScrollView.verticalRulerView, lineNumber:($1.to_i - 1), message:$2)
+          marker = LineNumberMarker.alloc.initWithRulerView(@lineNumberView, lineNumber:($1.to_i - 1), message:$2)
           @item.addMarker(marker) 
         end
       end
     end
     tmp.delete
-    @textView.enclosingScrollView.verticalRulerView.setNeedsDisplay true
+    @lineNumberView.setNeedsDisplay true
   end
 
   def paragraphSelectedLines(sender)
@@ -180,7 +175,7 @@ class TextViewController
   end
   
   private
-
+  
   def selectedRange
     @textView.selectedRange
   end
