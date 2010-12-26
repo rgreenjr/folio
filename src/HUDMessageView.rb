@@ -6,7 +6,9 @@ class HUDMessageView < NSView
   attr_accessor :message
 
   def self.sizeForMessage(msg)
-    msg.sizeWithAttributes(messageAttributes)
+    size = msg.sizeWithAttributes(messageAttributes)
+    size.width += MESSAGE_PADDING * 3
+    size
   end
   
   def self.messageAttributes
@@ -57,7 +59,7 @@ class HUDMessageView < NSView
     bgPath.fill
 
     messageRect = NSInsetRect(rect, MESSAGE_PADDING, 0.0)
-    messageRect.origin.x += MESSAGE_PADDING
+    # messageRect.origin.x += MESSAGE_PADDING
     messageRect.size.width -= MESSAGE_PADDING    
     messageSize = @message.sizeWithAttributes(HUDMessageView.messageAttributes)
     messageRect.origin.y -= ((rect.size.height - messageSize.height) * 0.5).floor
