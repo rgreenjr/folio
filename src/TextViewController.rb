@@ -146,7 +146,7 @@ class TextViewController
     tmp.delete
   end
 
-  def tidy(sender)
+  def formatMarkup(sender)
     tmp = Tempfile.new('folio-tmp-file')
     text = @textView.string
     File.open(tmp, "w") { |f| f.print text }
@@ -160,7 +160,7 @@ class TextViewController
       output.split(/\n/).each do |line|
         if line =~ /^Line ([0-9]+): (.*)/
           lineNumber = $1.to_i - 1
-          message = $2
+          message = $2.gsub("parser error : ", "")
           marker = LineNumberMarker.alloc.initWithRulerView(@lineNumberView, lineNumber:lineNumber, message:message)
           @item.addMarker(marker) 
         end
