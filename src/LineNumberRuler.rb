@@ -209,7 +209,7 @@ class LineNumberRuler < NSRulerView
   end
   
   def acceptsFirstResponder
-    true
+    false
   end
   
   def mouseEntered(event)
@@ -235,8 +235,16 @@ class LineNumberRuler < NSRulerView
     @hudWindow.close if @hudWindow
   end
   
+  # selects the corresponding line
   def mouseDown(event)
     @hudWindow.close if @hudWindow
+    location = convertPoint(event.locationInWindow, fromView:nil)
+    line = lineNumberForLocation(location.y)
+    return if line == NSNotFound
+    gotoLine(line)
+    paragraphRange = clientView.string.paragraphRangeForRange(clientView.selectedRange)
+    clientView.setSelectedRange(paragraphRange)
+    window.makeFirstResponder(clientView)
   end
 
   private
