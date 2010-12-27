@@ -2,10 +2,6 @@ class LineNumberRuler < NSRulerView
 
   DEFAULT_THICKNESS	= 22.0
   RULER_MARGIN		  = 5.0
-  CORNER_RADIUS	    = 3.0
-  MARKER_HEIGHT	    = 13.0
-
-  attr_accessor :font, :textColor, :markerImage, :markers
 
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
@@ -13,36 +9,12 @@ class LineNumberRuler < NSRulerView
     ctr = NSNotificationCenter.defaultCenter
     ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
     @markers = {}
-    @font = NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize))
-    @textColor = NSColor.grayColor
-    @markerTextColor = NSColor.whiteColor
-    updateMarkerImage
+    @textAttributes = {
+      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
+      NSForegroundColorAttributeName => NSColor.grayColor
+    }
     updateLineIndices
-    updateTextAttributes    
     self
-  end
-  
-  def font=(font)
-    @font = font
-    updateTextAttributes
-  end
-
-  def textColor=(textColor)
-    @textColor = textColor
-    updateTextAttributes
-  end
-
-  def markerTextColor=(textColor)
-    @markerTextColor = textColor
-    updateTextAttributes
-  end
-
-  def markerImageOrigin
-    NSMakePoint(0, MARKER_HEIGHT / 2)
-  end
-  
-  def markerImage
-    @markerImage
   end
   
   def markers=(markers)
@@ -102,26 +74,6 @@ class LineNumberRuler < NSRulerView
           # Need to compensate for the clipview's coordinates.
           ypos = yinset + NSMinY(rects[0]) - NSMinY(visibleRect)
 
-					marker = @markers[line]
-					
-					if marker
-						markerImage = marker.image
-						markerSize = markerImage.size
-						markerRect = NSMakeRect(0.0, 0.0, markerSize.width, markerSize.height)
-
-						# marker is flush right and centered vertically within the line.
-						markerRect.origin.x = NSWidth(bounds) - markerImage.size.width - 1.0
-						markerRect.origin.y = ypos + NSHeight(rects[0]) / 2.0 - marker.imageOrigin.y
-
-            fromRect = NSMakeRect(0, 0, markerSize.width, markerSize.height)
-						markerImage.drawInRect(markerRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:1.0)
-						
-            # add tracking area for this marker
-						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
-						trackingArea = NSTrackingArea.alloc.initWithRect(markerRect, options:trackingOptions, owner:self, userInfo:nil)
-            addTrackingArea(trackingArea)
-					end
-
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
           stringSize = labelText.sizeWithAttributes(@textAttributes)
@@ -134,8 +86,31 @@ class LineNumberRuler < NSRulerView
             NSHeight(rects[0])
           )
 
+          # check if there is a marker to draw for this line number
+					marker = @markers[line]
+					
+					if marker
+					  # update marker width incase ruler width changed
+					  marker.image.size = NSMakeSize(ruleThickness, marker.image.size.height)
+					  
+            # markerImage = marker.image
+						markerRect = NSMakeRect(0.0, 0.0, marker.image.size.width - 1.0, marker.image.size.height)
+
+						# marker is flush right and centered vertically within the line.
+						markerRect.origin.x = 0#NSWidth(bounds) - marker.image.size.width - 1.0
+						markerRect.origin.y = ypos + NSHeight(rects[0]) / 2.0 - marker.imageOrigin.y
+
+            fromRect = NSMakeRect(0, 0, marker.image.size.width, marker.image.size.height)
+						marker.image.drawInRect(markerRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:1.0)
+						
+            # add tracking area for this marker
+						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
+						trackingArea = NSTrackingArea.alloc.initWithRect(markerRect, options:trackingOptions, owner:self, userInfo:nil)
+            addTrackingArea(trackingArea)
+					end
+
           if marker
-            labelText.drawInRect(textRect, withAttributes:@markerTextAttributes)
+            labelText.drawInRect(textRect, withAttributes:marker.textAttributes)
           else
             labelText.drawInRect(textRect, withAttributes:@textAttributes)
           end
@@ -233,12 +208,6 @@ class LineNumberRuler < NSRulerView
     clientView.scrollRangeToVisible(NSMakeRange(insertionLocation, 0))
   end
   
-  # overridden to reset the size of the marker image forcing it to redraw with the new width
-  def setRuleThickness(thickness)
-    super  
-    @markerImage.setSize(NSMakeSize(thickness, MARKER_HEIGHT))
-  end
-  
   def acceptsFirstResponder
     true
   end
@@ -256,19 +225,18 @@ class LineNumberRuler < NSRulerView
   end
   
   def showHUDWindowForMarker(marker, location)
-    size = HUDMessageView.sizeForMessage(marker.message)
-    contentRect = NSMakeRect(location.x, location.y, size.width, 20.0);
+    size = HUDMessageView.sizeForMessage(marker.message)    
+    contentRect = NSMakeRect(location.x, location.y, size.width, 20.0);    
     @hudWindow = HUDWindow.alloc.initWithContentRect(contentRect, message:marker.message)
     @hudWindow.orderFront(NSApp)    
   end
   
   def mouseExited(event)
-    # puts "mouseExited"
-    @hudWindow.close
+    @hudWindow.close if @hudWindow
   end
   
   def mouseDown(event)
-    # must override to prevent interactions
+    @hudWindow.close if @hudWindow
   end
 
   private
@@ -292,14 +260,6 @@ class LineNumberRuler < NSRulerView
 
   def updateRulerThinkness(newThickness)
     setRuleThickness(newThickness)
-  end
-
-  def updateTextAttributes
-    @textAttributes = { NSFontAttributeName => @font, NSForegroundColorAttributeName => @textColor }
-    @markerTextAttributes = { NSFontAttributeName => @font, NSForegroundColorAttributeName => @markerTextColor }
-  end
-
-  def updateMarkerTextAttributes
   end
 
   def updateLineIndices
@@ -338,36 +298,6 @@ class LineNumberRuler < NSRulerView
     digits = Math.log10(@lineIndices.size + 1).ceil
     stringSize = ("8" * digits).sizeWithAttributes(@textAttributes)
     [DEFAULT_THICKNESS, (2 * RULER_MARGIN + stringSize.width).ceil].max
-  end
-
-  def updateMarkerImage
-    size = NSMakeSize(DEFAULT_THICKNESS, MARKER_HEIGHT)
-    @markerImage = NSImage.alloc.initWithSize(size)
-    rep = NSCustomImageRep.alloc.initWithDrawSelector("drawMarkerImageIntoRep:", delegate:self)
-    rep.size = size
-    @markerImage.addRepresentation(rep)
-  end
-
-  def drawMarkerImageIntoRep(rep)
-    rect = NSMakeRect(1.0, 2.0, rep.size.width - 2.0, rep.size.height - 3.0)
-
-    path = NSBezierPath.bezierPath
-    path.moveToPoint(NSMakePoint(NSMaxX(rect), NSMinY(rect) + NSHeight(rect) / 2))
-    path.lineToPoint(NSMakePoint(NSMaxX(rect) - 5.0, NSMaxY(rect)))
-
-    path.appendBezierPathWithArcWithCenter(NSMakePoint(NSMinX(rect) + CORNER_RADIUS, NSMaxY(rect) - CORNER_RADIUS), radius:CORNER_RADIUS, startAngle:90, endAngle:180)
-
-    path.appendBezierPathWithArcWithCenter(NSMakePoint(NSMinX(rect) + CORNER_RADIUS, NSMinY(rect) + CORNER_RADIUS), radius:CORNER_RADIUS, startAngle:180, endAngle:270)
-    path.lineToPoint(NSMakePoint(NSMaxX(rect) - 5.0, NSMinY(rect)))
-    path.closePath
-
-    NSColor.colorWithCalibratedRed(0.003, green:0.56, blue:0.85, alpha:1.0).set
-    path.fill
-
-    # NSColor.colorWithCalibratedRed(0, green:0.44, blue:0.8, alpha:1.0).set
-
-    path.lineWidth = 2.0
-    path.stroke
   end
 
 end
