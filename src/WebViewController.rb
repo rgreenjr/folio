@@ -18,9 +18,13 @@ class WebViewController
       @webView.mainFrame.loadHTMLString('', baseURL:nil)
     end
   end
-  
+
   def reload(sender)
     @webView.reload(nil)
   end
-  
+
+  def validateUserInterfaceItem(menuItem)
+    @item != nil
+  end
+
 end

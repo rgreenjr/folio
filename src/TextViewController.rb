@@ -182,6 +182,10 @@ class TextViewController
     replace(selectedRange, selectedText.split.map {|line| "<p>#{line}<p/>\n"}.join)
   end
   
+  def validateUserInterfaceItem(menuItem)
+    @item != nil
+  end
+  
   private
   
   def selectedRange

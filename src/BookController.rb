@@ -103,6 +103,10 @@ class BookController
     @progressController.hide
   end
 
+  def validateUserInterfaceItem(menuItem)
+    @book != nil
+  end
+  
   private
 
   def showErrorAlert(exception)
