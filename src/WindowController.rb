@@ -7,13 +7,27 @@ class WindowController < NSWindowController
   MANIFEST      = 2
   SEARCH        = 3
 
-  attr_accessor :placeHolderView, :headerView
+  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView
   attr_accessor :navigationView, :spineView, :manifestView, :searchView
 
   def awakeFromNib
     @views  = [@navigationView, @spineView, @manifestView, @searchView]
     @titles = ["Navigation", "Spine", "Manifest", "Search Results"]
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
     toggleView(nil)
+  end
+
+  def tabViewSelectionDidChange(notification)
+    tabView = notification.object
+    if tabView.selectedTab
+      if @contentPlaceholder.subviews.count == 0
+        @contentPlaceholder.addSubview(@contentView)
+        @contentView.frame = @contentPlaceholder.frame
+        @contentView.frameOrigin = NSPoint.new(0, 0)
+      end
+    else
+      @contentView.removeFromSuperview
+    end
   end
 
   def toggleView(sender)
@@ -28,7 +42,7 @@ class WindowController < NSWindowController
       subviews = @placeHolderView.subviews
       subviews[0].removeFromSuperview unless subviews.empty?
       @placeHolderView.addSubview(@activeView)
-      @activeView.frame = @activeView.superview.frame
+      @activeView.frame = @placeHolderView.frame
     end
   end
   
