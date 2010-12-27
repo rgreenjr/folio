@@ -8,7 +8,7 @@ class LineNumberRuler < NSRulerView
     setClientView(scrollView.documentView)
     ctr = NSNotificationCenter.defaultCenter
     ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
-    @markers = {}
+    @markerHash = {}
     @textAttributes = {
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
       NSForegroundColorAttributeName => NSColor.grayColor
@@ -17,13 +17,13 @@ class LineNumberRuler < NSRulerView
     self
   end
   
-  def markers=(markers)
-    @markers = markers
+  def markerHash=(markerHash)
+    @markerHash = markerHash
     setNeedsDisplay true
   end
   
   def clearMarkers
-    @markers = {}
+    @markerHash = {}
     setNeedsDisplay true
   end
 
@@ -87,9 +87,10 @@ class LineNumberRuler < NSRulerView
           )
 
           # check if there is a marker to draw for this line number
-					marker = @markers[line]
+					marker = @markerHash[line]
 					
 					if marker
+					  
 					  # update marker width incase ruler width changed
 					  marker.image.size = NSMakeSize(ruleThickness, marker.image.size.height)
 					  
@@ -221,7 +222,7 @@ class LineNumberRuler < NSRulerView
     location = convertPoint(event.locationInWindow, fromView:nil)
     line = lineNumberForLocation(location.y)
     return nil if line == NSNotFound
-    @markers[line - 1]
+    @markerHash[line - 1]
   end
   
   def showHUDWindowForMarker(marker, location)

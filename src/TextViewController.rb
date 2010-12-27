@@ -21,7 +21,7 @@ class TextViewController
   def item=(item)
     @item = item    
     if @item && @item.editable?
-      @lineNumberView.markers = @item.markers      
+      @lineNumberView.markerHash = @item.markerHash      
       attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:attributes)
     else
@@ -48,12 +48,15 @@ class TextViewController
   end
 
   def gotoLine(sender)
-    lineNumber = @gotoLineField.stringValue.to_i
+    gotoLineNumber(@gotoLineField.stringValue.to_i)
+    @gotoLineWindow.performClose(self)
+  end
+
+  def gotoLineNumber(lineNumber)
     if lineNumber > 0
       @lineNumberView.gotoLine(lineNumber)
       @textView.window.makeFirstResponder(@textView)
     end
-    @gotoLineWindow.performClose(self)
   end
 
   def textDidChange(notification)
@@ -164,6 +167,11 @@ class TextViewController
           marker = LineNumberMarker.alloc.initWithRulerView(@lineNumberView, lineNumber:lineNumber, message:message)
           @item.addMarker(marker) 
         end
+      end
+      # goto the first marker
+      @item.markers.each do |marker|
+        gotoLineNumber(marker.lineNumber + 1)
+        break
       end
     end
     tmp.delete
