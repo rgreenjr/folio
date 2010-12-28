@@ -1,20 +1,20 @@
 class WindowController < NSWindowController
 
   MINIMUM_WIDTH = 150.0
-  
+
   NAVIGATION    = 0
   SPINE         = 1
   MANIFEST      = 2
   SEARCH        = 3
 
   attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView
-  attr_accessor :navigationView, :spineView, :manifestView, :searchView
+  attr_accessor :navigationView, :spineView, :manifestView, :searchView, :segmentedControl
 
   def awakeFromNib
     @views  = [@navigationView, @spineView, @manifestView, @searchView]
     @titles = ["Navigation", "Spine", "Manifest", "Search Results"]
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
-    toggleView(nil)
+    changeView(NAVIGATION)
   end
 
   def tabViewSelectionDidChange(notification)
@@ -23,7 +23,7 @@ class WindowController < NSWindowController
       if @contentPlaceholder.subviews.count == 0
         @contentPlaceholder.addSubview(@contentView)
         @contentView.frame = @contentPlaceholder.frame
-        @contentView.frameOrigin = NSPoint.new(0, 0)
+        @contentView.frameOrigin = NSZeroPoint
       end
     else
       @contentView.removeFromSuperview
@@ -31,21 +31,26 @@ class WindowController < NSWindowController
   end
 
   def toggleView(sender)
-    index = sender ? sender.tag : 0
-    changeView(index)
-  end
-  
-  def changeView(index)
-    unless @activeView == @views[index]
-      @activeView = @views[index]
-      @headerView.title = @titles[index]
-      subviews = @placeHolderView.subviews
-      subviews[0].removeFromSuperview unless subviews.empty?
-      @placeHolderView.addSubview(@activeView)
-      @activeView.frame = @placeHolderView.frame
+    if sender.class == NSSegmentedControl
+      changeView(sender.selectedSegment)
+    else
+      changeView(sender.tag)
+      @segmentedControl.selectedSegment = sender.tag
     end
   end
-  
+
+  def changeView(index)
+    return if @activeView == @views[index]
+    oldView = @activeView if @activeView
+    @activeView = @views[index]
+    @activeView.frame = @placeHolderView.frame
+    oldView.animator.alphaValue = 0.0 if oldView
+    # oldView.animator.removeFromSuperview if oldView
+    @placeHolderView.animator.addSubview(@activeView)
+    @activeView.animator.alphaValue = 1.0
+    @headerView.title = @titles[index]
+  end
+
   def showSearchResults
     changeView(SEARCH)
   end
@@ -57,7 +62,7 @@ class WindowController < NSWindowController
   def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
     return proposedMax - MINIMUM_WIDTH
   end
-  
+
   # keep left split pane from resizing as window resizes
   def splitView(sender, resizeSubviewsWithOldSize:oldSize)
   	newFrame = sender.frame
@@ -72,9 +77,9 @@ class WindowController < NSWindowController
   	left.setFrame(leftFrame)
   	right.setFrame(rightFrame)
   end
-  
+
   def windowShouldClose(sender)
     NSApp.terminate(sender)
   end
-  
+
 end
