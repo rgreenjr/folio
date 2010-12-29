@@ -20,7 +20,7 @@ class Tab
 	    NSForegroundColorAttributeName => NSColor.blackColor
 	  }
 
-	  @lineColor = NSColor.colorWithDeviceRed(0.535, green:0.535, blue:0.535, alpha:1.0)
+	  @borderColor = NSColor.colorWithDeviceRed(0.535, green:0.535, blue:0.535, alpha:1.0)
 	  
 	  @closeImage = NSImage.imageNamed('tab-close.png')
 	  @closePressedImage = NSImage.imageNamed('tab-close-pressed.png')
@@ -33,7 +33,7 @@ class Tab
     drawBackground(rect)
     drawBorder(rect)
     drawLabel(rect)
-    drawButton(rect)        
+    drawButton(rect)       
   end
 
   def closeButtonHit?(point, rect)
@@ -48,6 +48,7 @@ class Tab
   private
 
   def drawBackground(rect)
+    rect.size.width -= 1.0
     imageRect = NSMakeRect(0, 0, @backgroundImage.size.width, @backgroundImage.size.height)
     if @selected
       @backgroundSelectedImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
@@ -57,8 +58,9 @@ class Tab
   end
   
   def drawBorder(rect)
-    @lineColor.set
-    NSBezierPath.strokeLineFromPoint(CGPoint.new(rect.origin.x + rect.size.width, rect.origin.y), toPoint:CGPoint.new(rect.origin.x + rect.size.width, rect.size.height))
+    @borderColor.set
+    NSBezierPath.defaultLineWidth = 1.0
+    NSBezierPath.strokeLineFromPoint(CGPoint.new(rect.origin.x + rect.size.width + 0.5, rect.origin.y), toPoint:CGPoint.new(rect.origin.x + rect.size.width + 0.5, rect.size.height))
   end
   
   def buttonImage
