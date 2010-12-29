@@ -227,7 +227,7 @@ class NavigationController
         changePointSource(point, item, fragment)
       end
     else
-      showErrorAlert("Source is not valid: #{sourceCell.stringValue}")
+      Alert.runModal("Error", "Source is not valid: #{sourceCell.stringValue}")
       sourceCell.stringValue = point.src
     end
   end
@@ -278,14 +278,6 @@ class NavigationController
 
   def propertyCells
     [textCell, idCell, sourceCell]
-  end
-
-  def showErrorAlert(message)
-    alert = NSAlert.alloc.init
-    alert.addButtonWithTitle "OK"
-    alert.messageText = "Error"
-    alert.informativeText = message
-    alert.runModal
   end
 
   def validateUserInterfaceItem(menuItem)

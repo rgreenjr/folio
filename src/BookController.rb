@@ -36,7 +36,7 @@ class BookController
     @window.makeKeyAndOrderFront(self)
   rescue Exception => e
     @progressController.hide
-    showErrorAlert(e)
+    Alert.runModal("Unable to Open Book", exception.message)
   end
 
   def saveBook(sender)
@@ -107,14 +107,4 @@ class BookController
     @book != nil
   end
   
-  private
-
-  def showErrorAlert(exception)
-    alert = NSAlert.alloc.init
-    alert.addButtonWithTitle "OK"
-    alert.messageText = "Unable to Open Book"
-    alert.informativeText = exception.message
-    alert.runModal
-  end
-
 end
