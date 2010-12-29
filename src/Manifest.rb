@@ -3,6 +3,7 @@ class Manifest
   attr_accessor :root, :ncx
 
   def initialize(book)
+    @book = book
     @hash  = {}
     @root = Item.new(nil, book.container.path, 'ROOT', 'directory', true)
     book.container.opfDoc.elements.each("/package/manifest/item") do |e|
@@ -62,6 +63,7 @@ class Manifest
   end
   
   def itemWithHref(href)
+    href = href.gsub(@book.container.path + '/', '') # strip container prefix
     current = @root
     parts = href.split('/')
     while !parts.empty? && current
