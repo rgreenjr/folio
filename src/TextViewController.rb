@@ -186,6 +186,12 @@ class TextViewController
     @item != nil
   end
   
+  def textView(view, menu:menu, forEvent:event, atIndex:charIndex)
+    unsupported = menu.itemArray.select { |item| unsupportedMenuTitles.include?(item.title) }
+    unsupported.each { |item| menu.removeItem(item) }
+    menu
+  end
+  
   private
   
   def selectedRange
@@ -207,6 +213,10 @@ class TextViewController
     replace(range, modifedText)
     modifiedRange = NSRange.new(range.location, range.length + (modifedText.size - text.size))
     @textView.setSelectedRange(modifiedRange)
+  end
+  
+  def unsupportedMenuTitles
+    @unsupportedMenuTitles ||= ["Spelling and Grammar", "Transformations", "Substitutions"]
   end
 
 end
