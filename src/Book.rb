@@ -14,7 +14,7 @@ class Book
   def initialize(filepath)
     @filepath = filepath
     @unzippath = Dir.mktmpdir("folio-unzip-")
-    system("unzip -q -d '#{@unzippath}' '#{@filepath}'")
+    system("unzip -q -d '#{@unzippath}' \"#{@filepath}\"")
     @container  = Container.new(self)
     @manifest   = Manifest.new(self)
     @metadata   = Metadata.new(self)
