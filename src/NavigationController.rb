@@ -227,7 +227,7 @@ class NavigationController
         changePointSource(point, item, fragment)
       end
     else
-      Alert.runModal("Error", "Source is not valid: #{sourceCell.stringValue}")
+      Alert.runModal("Unable to Locate Source", "Please make sure the file is included in the manifest.\n\n#{sourceCell.stringValue}")
       sourceCell.stringValue = point.src
     end
   end
@@ -244,7 +244,7 @@ class NavigationController
   end
   
   def expandRoot
-    if @book.navigation.root.size > 0
+    if @book && @book.navigation.root.size > 0
       @outlineView.expandItem(@book.navigation.root[0], expandChildren:false)
     end
   end

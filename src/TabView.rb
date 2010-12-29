@@ -196,6 +196,12 @@ class TabView < NSView
     end
     setNeedsDisplay true
   end
+  
+  def closeAllTabs
+    while @selectedTab
+      closeTab(@selectedTab)
+    end
+  end
 
   def selectNextTab(sender)
     return unless @selectedTab

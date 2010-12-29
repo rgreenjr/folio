@@ -18,20 +18,21 @@ class BookController
     panel.title = "Open Book"
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
+    panel.delegate = self
     if panel.runModalForDirectory(nil, file:nil, types:['epub']) == NSOKButton
+      return if @book && !closeBook(nil)
       openBook(panel.filename)
     end
+  end
+
+  def panel(sender, shouldEnableURL:url)
+    @book.nil? || url.path != @book.filepath # disable selection of current book
   end
 
   def openBook(filename)
     @progressController.show("Opening...")
     @book = Book.new(filename)
-    @metadataController.book = @book
-    @spineController.book = @book
-    @manifestController.book = @book
-    @navigationController.book = @book
-    @searchController.book = @book
-    @window.title = @book.metadata.title
+    assignBookToControllers(@book)
     @progressController.hide
     @window.makeKeyAndOrderFront(self)
   rescue Exception => e
@@ -46,11 +47,11 @@ class BookController
     @book.edited = false
     @window.documentEdited = false
   end
-  
+
   def showSaveBookAsPanel(sender)
     panel = NSSavePanel.savePanel
     panel.title = "Save Book As..."
-    panel.beginSheetForDirectory(File.dirname(@book.filepath), file:File.basename(@book.filepath), 
+    panel.beginSheetForDirectory(File.dirname(@book.filepath), file:File.basename(@book.filepath),
         modalForWindow:@window, modalDelegate:self, didEndSelector:"saveBookAsPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
@@ -60,7 +61,7 @@ class BookController
     @book.edited = false
     @window.documentEdited = false
   end
-  
+
   def saveAll(sender)
     tabs = @tabView.editedTabs
     unless tabs.empty?
@@ -68,8 +69,8 @@ class BookController
       saveBook(nil)
     end
   end
-  
-  def closeBook(sender)    
+
+  def closeBook(sender)
     tabs = @tabView.editedTabs
     if @book.edited? || !tabs.empty?
       title = "You have unsaved changes in the book \"#{@book.metadata.title}\". Do you want to save these changes before quiting?"
@@ -80,12 +81,14 @@ class BookController
         saveAll(nil)
       when NSAlertOtherReturn
         return false
-      end        
+      end
     end
+    assignBookToControllers(nil)
+    @tabView.closeAllTabs
     @book.close
     true
   end
-  
+
   def markBookEdited(notification)
     @book.edited = true
     @window.documentEdited = true
@@ -97,14 +100,24 @@ class BookController
 
   def validate(sender)
     @progressController.show("Validating...")
-    result = Validator.validate(@book)
+    # result = Validator.validate(@book)
     # puts result
-    puts "done"
     @progressController.hide
   end
 
   def validateUserInterfaceItem(menuItem)
     @book != nil
   end
-  
+
+  private
+
+  def assignBookToControllers(book)
+    @metadataController.book = book
+    @spineController.book = book
+    @manifestController.book = book
+    @navigationController.book = book
+    @searchController.book = book
+    @window.title = book ? book.metadata.title : ''
+  end
+
 end
