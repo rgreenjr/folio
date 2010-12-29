@@ -41,14 +41,21 @@ class WebViewController
     menuItems = defaultMenuItems.mutableCopy
     unsupported = menuItems.select { |item| unsupportedMenuTags.include?(item.tag) }
     unsupported.each { |item| menuItems.delete(item) }
+    
+    puts element[WebElementDOMNodeKey]
 
-    # menuItem = NSMenuItem.alloc.init
-    # menuItem.title = "Create Navigation Link"
-    # menuItem.target =self
-    # menuItem.action ="createNavigationLink:"
-    # menuItems.addObject(menuItem)
+    menuItem = NSMenuItem.alloc.init
+    menuItem.title = "Create Navigation Link"
+    menuItem.target =self
+    menuItem.action ="createNavigationLink:"
+    menuItems.addObject(menuItem)
 
     menuItems
+  end
+  
+  def createNavigationLink(sender)
+    puts "createNavigationLink"
+    @bookController.navigationController.addPoint(nil)
   end
 
   def webView(webView, decidePolicyForNavigationAction:actionInformation, request:request, frame:frame, decisionListener:listener)
@@ -57,17 +64,13 @@ class WebViewController
       system("open #{request.URL.absoluteString}")
     elsif @item.nil?
       listener.use
-    else
+    else      
       href = request.URL.path
       fragment = request.URL.fragment || ""
       item = @bookController.book.manifest.itemWithHref(href)
       if item.nil?
         listener.ignore
-        alert = NSAlert.alloc.init
-        alert.addButtonWithTitle "OK"
-        alert.messageText = "Cannot Open Link"
-        alert.informativeText = "The link could not be opened:\n\n#{request.URL.path}\n\nPlease make sure the referenced file is included in the manifest."
-        alert.runModal
+        Alert.runModal("Cannot Open Link", "Please make sure the file is included in the manifest.\n\n#{request.URL.path}")
       elsif @item.name == item.name
         listener.use
       else

@@ -63,7 +63,7 @@ class Manifest
   end
   
   def itemWithHref(href)
-    href = href.gsub(@book.container.path + '/', '') # strip container prefix
+    href = @book.container.relativePathFor(href)
     current = @root
     parts = href.split('/')
     while !parts.empty? && current
@@ -78,6 +78,15 @@ class Manifest
 
   def save(directory)
     each(true) {|item| item.saveToDirectory(directory)}
+  end
+  
+  def to_s
+    buffer = "@manifest = {\n"
+    @hash.each do |id, item|
+      buffer << "  id=#{id} => href=#{item.href}\n"
+    end
+    buffer << "}"
+    buffer
   end
   
 end

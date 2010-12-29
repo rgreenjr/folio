@@ -20,11 +20,16 @@ class Container
     @root = '' if @root == '.'
     
     @path = File.join(book.unzippath, @root)
+    @path = @path.stringByStandardizingPath + '/'
 
     opfPath = File.join(book.unzippath, opfPath)
     
     raise "The OPF file is missing: #{File.basename(opfPath)}" unless File.exists?(opfPath)
     @opfDoc = REXML::Document.new(File.read(opfPath))
+  end
+  
+  def relativePathFor(filepath)
+    filepath.gsub(@path, '')
   end
   
   def save(directory)
