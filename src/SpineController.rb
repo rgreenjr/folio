@@ -11,16 +11,14 @@ class SpineController
     @tableView.delegate = self
     @tableView.dataSource = self
     @tableView.registerForDraggedTypes([NSStringPboardType])
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
+
+    # @fileSearchString = nil
+    # NSNotificationCenter.defaultCenter.addObserver(self, selector:"fileSearchTextDidChange:", name:"FileSearchTextDidChange", object:nil)
   end
 
   def book=(book)
     @book = book
     @tableView.reloadData
-  end
-
-  def tabViewSelectionDidChange(notification)
-    # @tableView.selectRow(@book.spine.index(notification.object.selectedItem))
   end
 
   def numberOfRowsInTableView(aTableView)
@@ -131,5 +129,10 @@ class SpineController
   def undoManager
     @undoManager ||= @tableView.window.undoManager
   end
+  
+  # def fileSearchTextDidChange(notification)
+  #   @fileSearchString = notification.object
+  #   @tableView.reloadData
+  # end
 
 end

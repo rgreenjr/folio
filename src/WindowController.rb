@@ -7,13 +7,15 @@ class WindowController < NSWindowController
   MANIFEST      = 2
   SEARCH        = 3
 
-  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView, :logoImageWell, :splitView
+  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView, :logoImageWell
+  attr_accessor :splitView, :fileSearchField
   attr_accessor :navigationView, :spineView, :manifestView, :searchView, :segmentedControl
 
   def awakeFromNib
     @views  = [@navigationView, @spineView, @manifestView, @searchView]
     @titles = ["Navigation", "Spine", "Manifest", "Search Results"]
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:'fileSearchFieldTextDidChange:', name:NSControlTextDidChangeNotification, object:@fileSearchField)
     changeView(NAVIGATION)
     showLogoImage
   end
@@ -98,6 +100,12 @@ class WindowController < NSWindowController
 
   def windowShouldClose(sender)
     NSApp.terminate(sender)
+  end
+  
+  def fileSearchFieldTextDidChange(notification)
+    value = @fileSearchField.stringValue
+    value = nil if value.empty?
+    NSNotificationCenter.defaultCenter.postNotificationName("FileSearchTextDidChange", object:value)
   end
 
 end
