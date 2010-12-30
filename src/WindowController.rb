@@ -7,7 +7,7 @@ class WindowController < NSWindowController
   MANIFEST      = 2
   SEARCH        = 3
 
-  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView, :logoImageWell
+  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView, :logoImageWell, :splitView
   attr_accessor :navigationView, :spineView, :manifestView, :searchView, :segmentedControl
 
   def awakeFromNib
@@ -56,6 +56,17 @@ class WindowController < NSWindowController
     @placeHolderView.animator.addSubview(@activeView)
     @activeView.animator.alphaValue = 1.0
     @headerView.title = @titles[index]
+  end
+  
+  def toggleSourceViewLocation(sender)
+    if sender.title == 'Source on Bottom'
+      sender.title = 'Source on Right'
+      @splitView.vertical = false
+    else
+      sender.title = 'Source on Bottom'
+      @splitView.vertical = true
+    end
+    @splitView.adjustSubviews
   end
 
   def showSearchResults
