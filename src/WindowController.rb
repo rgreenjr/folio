@@ -7,7 +7,7 @@ class WindowController < NSWindowController
   MANIFEST      = 2
   SEARCH        = 3
 
-  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView
+  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView, :logoImageWell
   attr_accessor :navigationView, :spineView, :manifestView, :searchView, :segmentedControl
 
   def awakeFromNib
@@ -15,19 +15,26 @@ class WindowController < NSWindowController
     @titles = ["Navigation", "Spine", "Manifest", "Search Results"]
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
     changeView(NAVIGATION)
+    showLogoImage
   end
 
   def tabViewSelectionDidChange(notification)
     tabView = notification.object
-    if tabView.selectedTab
-      if @contentPlaceholder.subviews.count == 0
-        @contentPlaceholder.addSubview(@contentView)
-        @contentView.frame = @contentPlaceholder.frame
-        @contentView.frameOrigin = NSZeroPoint
-      end
-    else
-      @contentView.removeFromSuperview
-    end
+    tabView.selectedTab ? showContentView : showLogoImage
+  end
+
+  def showContentView
+    @logoImageWell.removeFromSuperview
+    @contentPlaceholder.addSubview(@contentView)
+    @contentView.frame = @contentPlaceholder.frame
+    @contentView.frameOrigin = NSZeroPoint
+  end
+
+  def showLogoImage
+    @contentView.removeFromSuperview unless @contentPlaceholder.subviews.count == 0
+    @logoImageWell.frame = @contentPlaceholder.frame
+    @logoImageWell.frameOrigin = NSZeroPoint
+    @contentPlaceholder.addSubview(@logoImageWell)
   end
 
   def toggleView(sender)
@@ -65,17 +72,17 @@ class WindowController < NSWindowController
 
   # keep left split pane from resizing as window resizes
   def splitView(sender, resizeSubviewsWithOldSize:oldSize)
-  	newFrame = sender.frame
-  	left = sender.subviews[0]
-  	leftFrame = left.frame
-  	right = sender.subviews[1]
-  	rightFrame = right.frame
-  	leftFrame.size.height = newFrame.size.height
-  	rightFrame.size.width = newFrame.size.width - leftFrame.size.width - sender.dividerThickness
-  	rightFrame.size.height = newFrame.size.height
-  	rightFrame.origin.x = leftFrame.size.width + sender.dividerThickness
-  	left.setFrame(leftFrame)
-  	right.setFrame(rightFrame)
+    newFrame = sender.frame
+    left = sender.subviews[0]
+    leftFrame = left.frame
+    right = sender.subviews[1]
+    rightFrame = right.frame
+    leftFrame.size.height = newFrame.size.height
+    rightFrame.size.width = newFrame.size.width - leftFrame.size.width - sender.dividerThickness
+    rightFrame.size.height = newFrame.size.height
+    rightFrame.origin.x = leftFrame.size.width + sender.dividerThickness
+    left.setFrame(leftFrame)
+    right.setFrame(rightFrame)
   end
 
   def windowShouldClose(sender)

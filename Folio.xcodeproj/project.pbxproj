@@ -127,6 +127,7 @@
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
 		CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF6EA12CC2CAA001AE172 /* Folio.icns */; };
+		CDEDF71912CC2FD8001AE172 /* backgroud-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
 		CDFBF5D212C3EF8C00750746 /* LineNumberMarker.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDFBF5D012C3EF8C00750746 /* LineNumberMarker.rb */; };
 /* End PBXBuildFile section */
@@ -233,6 +234,7 @@
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
 		CDEDF6EA12CC2CAA001AE172 /* Folio.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Folio.icns; sourceTree = "<group>"; };
+		CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroud-logo.png"; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		CDFBF5D012C3EF8C00750746 /* LineNumberMarker.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LineNumberMarker.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -351,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */,
+				CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */,
 				CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */,
 				CD994B031260B42100AAD4DE /* tab-bg.png */,
 				CD994AC01260A23600AAD4DE /* table-header-bg1.png */,
@@ -573,6 +576,7 @@
 				CD5C2B3612CB9485000DB287 /* URL.rb in Resources */,
 				CD5C2BFA12CBBD15000DB287 /* Alert.rb in Resources */,
 				CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */,
+				CDEDF71912CC2FD8001AE172 /* backgroud-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

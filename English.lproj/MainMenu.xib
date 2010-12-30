@@ -22,7 +22,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="296"/>
-			<integer value="371"/>
+			<integer value="1397"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1153,11 +1153,9 @@
 								<string key="NSToolbarItemPaletteLabel">View</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="768859003">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {98, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="566765480">
 										<int key="NSCellFlags">67239424</int>
@@ -3181,6 +3179,39 @@
 			<object class="NSCustomObject" id="370279384">
 				<string key="NSClassName">NSFontManager</string>
 			</object>
+			<object class="NSImageView" id="261633910">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">274</int>
+				<object class="NSMutableSet" key="NSDragTypes">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSArray" key="set.sortedObjects">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<string>Apple PDF pasteboard type</string>
+						<string>Apple PICT pasteboard type</string>
+						<string>Apple PNG pasteboard type</string>
+						<string>NSFilenamesPboardType</string>
+						<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
+						<string>NeXT TIFF v4.0 pasteboard type</string>
+					</object>
+				</object>
+				<string key="NSFrameSize">{510, 457}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<bool key="NSEnabled">YES</bool>
+				<object class="NSImageCell" key="NSCell" id="698870092">
+					<int key="NSCellFlags">537001472</int>
+					<int key="NSCellFlags2">0</int>
+					<object class="NSCustomResource" key="NSContents">
+						<string key="NSClassName">NSImage</string>
+						<string key="NSResourceName">backgroud-logo</string>
+					</object>
+					<int key="NSAlign">0</int>
+					<int key="NSScale">0</int>
+					<int key="NSStyle">0</int>
+					<bool key="NSAnimates">NO</bool>
+				</object>
+				<bool key="NSEditable">YES</bool>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -4376,6 +4407,14 @@
 						<reference key="destination" ref="190618754"/>
 					</object>
 					<int key="connectionID">1598</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">logoImageWell</string>
+						<reference key="source" ref="1069398854"/>
+						<reference key="destination" ref="261633910"/>
+					</object>
+					<int key="connectionID">1602</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6427,6 +6466,20 @@
 						<reference key="object" ref="907211212"/>
 						<reference key="parent" ref="502084290"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1600</int>
+						<reference key="object" ref="261633910"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="698870092"/>
+						</object>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1601</int>
+						<reference key="object" ref="698870092"/>
+						<reference key="parent" ref="261633910"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -6655,6 +6708,9 @@
 					<string>1591.IBPluginDependency</string>
 					<string>1593.IBPluginDependency</string>
 					<string>1595.IBPluginDependency</string>
+					<string>1600.IBEditorWindowLastContentRect</string>
+					<string>1600.IBPluginDependency</string>
+					<string>1601.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>19.ImportedFromIB2</string>
 					<string>195.IBPluginDependency</string>
@@ -7174,6 +7230,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{341, 688}, {510, 457}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7446,7 +7505,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1598</int>
+			<int key="maxID">1602</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -8607,9 +8666,9 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>back:</string>
+							<string>createNavigationLink:</string>
 							<string>forward:</string>
 							<string>reload:</string>
-							<string>unsupportedMenuTags:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -8624,9 +8683,9 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>back:</string>
+							<string>createNavigationLink:</string>
 							<string>forward:</string>
 							<string>reload:</string>
-							<string>unsupportedMenuTags:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -8635,15 +8694,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">createNavigationLink:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">forward:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">reload:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">unsupportedMenuTags:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -8734,6 +8793,7 @@
 							<string>contentPlaceholder</string>
 							<string>contentView</string>
 							<string>headerView</string>
+							<string>logoImageWell</string>
 							<string>manifestView</string>
 							<string>navigationView</string>
 							<string>placeHolderView</string>
@@ -8752,6 +8812,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -8761,6 +8822,7 @@
 							<string>contentPlaceholder</string>
 							<string>contentView</string>
 							<string>headerView</string>
+							<string>logoImageWell</string>
 							<string>manifestView</string>
 							<string>navigationView</string>
 							<string>placeHolderView</string>
@@ -8780,6 +8842,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">headerView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">logoImageWell</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -9773,6 +9839,7 @@
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
 				<string>NSPathTemplate</string>
+				<string>backgroud-logo</string>
 				<string>find-close</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
@@ -9782,6 +9849,7 @@
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
 				<string>{16, 9}</string>
+				<string>{512, 512}</string>
 				<string>{14, 15}</string>
 			</object>
 		</object>
