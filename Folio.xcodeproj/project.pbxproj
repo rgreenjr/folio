@@ -126,6 +126,7 @@
 		CDE4490F12305CA2001C69AE /* WindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448FE12305CA2001C69AE /* WindowController.rb */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
+		CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF6EA12CC2CAA001AE172 /* Folio.icns */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
 		CDFBF5D212C3EF8C00750746 /* LineNumberMarker.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDFBF5D012C3EF8C00750746 /* LineNumberMarker.rb */; };
 /* End PBXBuildFile section */
@@ -231,6 +232,7 @@
 		CDE448FE12305CA2001C69AE /* WindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WindowController.rb; sourceTree = "<group>"; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
+		CDEDF6EA12CC2CAA001AE172 /* Folio.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Folio.icns; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		CDFBF5D012C3EF8C00750746 /* LineNumberMarker.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LineNumberMarker.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -305,6 +307,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDEDF6EA12CC2CAA001AE172 /* Folio.icns */,
 				CDBDC8A7122AA9DA00844EAA /* images */,
 				CD83F598122B3E32005BB914 /* templates */,
 				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
@@ -569,6 +572,7 @@
 				CD98EA2B12C95AB000FDB4CB /* NavigationIcon.png in Resources */,
 				CD5C2B3612CB9485000DB287 /* URL.rb in Resources */,
 				CD5C2BFA12CBBD15000DB287 /* Alert.rb in Resources */,
+				CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

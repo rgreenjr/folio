@@ -34,7 +34,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Folio</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>Folio</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.yourcompany.Folio</string>
 	<key>CFBundleInfoDictionaryVersion</key>
