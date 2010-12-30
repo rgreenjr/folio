@@ -11,7 +11,6 @@ class TextViewController
     scrollView.hasVerticalRuler = true
     scrollView.rulersVisible = true
     
-
     @textView.delegate = self
     @textView.setEnabledTextCheckingTypes(0)
 
@@ -183,7 +182,7 @@ class TextViewController
   end
   
   def validateUserInterfaceItem(menuItem)
-    @item != nil
+    @item != nil # disable menus when no item
   end
   
   def textView(view, menu:menu, forEvent:event, atIndex:charIndex)
