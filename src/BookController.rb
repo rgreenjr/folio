@@ -35,7 +35,7 @@ class BookController
     assignBookToControllers(@book)
     @progressController.hide
     @window.makeKeyAndOrderFront(self)
-  rescue Exception => e
+  rescue Exception => exception
     @progressController.hide
     Alert.runModal("Unable to Open Book", exception.message)
   end
