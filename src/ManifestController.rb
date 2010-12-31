@@ -29,7 +29,7 @@ class ManifestController
     @book = book
     @outlineView.reloadData
   end
-
+  
   def tabViewSelectionDidChange(notification)
     @outlineView.selectItem(notification.object.selectedItem)
   end
@@ -227,14 +227,13 @@ class ManifestController
       @unregistered << entry unless @book.manifest.itemWithHref(entry)
     end
     if @unregistered.empty?
-      Alert.runModal("Unregistered Files", "All files are registered in the book's manifest.")
+      Alert.runModal("All files are registered in the book's manifest.")
     else
       relativePaths = @unregistered.map {|entry| @book.relativePathFor(entry) }
-      alert = NSAlert.alertWithMessageText("Unregistered Files", defaultButton:"Move to Trash", 
-        alternateButton:"Cancel", otherButton:nil, 
-        informativeTextWithFormat:"These files are present but not registered in the book's manifest:\n\n#{relativePaths.join("\n")}\n")
+      alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.", defaultButton:"Move to Trash", 
+        alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
 
-      alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self,
+      alert.beginSheetModalForWindow(NSApp.mainWindow, modalDelegate:self,
         didEndSelector:"deleteUnregisteredFilesSheetDidEnd:returnCode:contextInfo:",
         contextInfo:nil)
     end
