@@ -22,15 +22,15 @@ class Book
     @guide      = Guide.new(self)
     @navigation = Navigation.new(self)
   end
-  
+
   def edited?
     @edited
   end
-  
+
   def basename
     File.basename(@filepath)
   end
-  
+
   def save
     tmp = Dir.mktmpdir("folio-zip-")
     # system("open #{tmp}")
@@ -40,44 +40,44 @@ class Book
     @manifest.save(dest)
     @navigation.save(dest)
     File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opf_xml}
-    result = `cd '#{tmp}'; zip -qX0 ./folio-book.epub mimetype 2>&1`
-    unless $?.success?
-      showSaveErrorAlert(result)
-      return
-    end
-    result = `cd '#{tmp}'; zip -qX9urD ./folio-book.epub * 2>&1`
-    unless $?.success?
-      showSaveErrorAlert(result)
-      return
-    end
+    runCommand("cd '#{tmp}'; zip -qX0 ./folio-book.epub mimetype 2>&1")
+    runCommand("cd '#{tmp}'; zip -qX9urD ./folio-book.epub * 2>&1")
     FileUtils.rm_rf(@filepath)
     FileUtils.mv(File.join(tmp, 'folio-book.epub'), @filepath)
     FileUtils.rm_rf(tmp)
+  rescue Exception => exception
+    showSaveErrorAlert(exception.message)
   end  
-  
+
   def saveAs(filepath)
     filepath = filepath + '.epub' unless File.extname(filepath) == '.epub'
     @filepath = filepath
     save
   end
-  
+
   def close
     FileUtils.rm_rf(@unzippath)
   end
-  
+
   def relativePathFor(filepath)
     filepath.gsub(@unzippath, '')
   end
-  
+
   private
-  
+
   def opf_xml
     book = self
     ERB.new(Bundle.template("content.opf")).result(binding)
   end
-  
+
+  def runCommand(command)
+    result = `#{command}`
+    raise result unless $?.success? 
+    result
+  end
+
   def showSaveErrorAlert(message)
     Alert.runModal("The book \"#{@metadata.title}\" could not be save because and error occurred.", message)
   end
-    
+
 end
