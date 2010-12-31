@@ -26,6 +26,9 @@ class Container
     
     raise "The OPF file is missing: #{File.basename(@opfPath)}" unless File.exists?(@opfPath)
     @opfDoc = REXML::Document.new(File.read(@opfPath))
+    
+  rescue Exception => exception
+    Alert.runModal("Unable to open #{book.filepath} because an error occurred while parsing #{CONTAINER_XML_PATH}.")
   end
   
   def relativePathFor(filepath)
