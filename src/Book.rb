@@ -40,8 +40,18 @@ class Book
     @manifest.save(dest)
     @navigation.save(dest)
     File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opf_xml}
-    system("cd '#{tmp}'; zip -qX0 '#{@filepath}' mimetype")
-    system("cd '#{tmp}'; zip -qX9urD '#{@filepath}' *")
+    result = `cd '#{tmp}'; zip -qX0 ./folio-book.epub mimetype 2>&1`
+    unless $?.success?
+      showSaveErrorAlert(result)
+      return
+    end
+    result = `cd '#{tmp}'; zip -qX9urD ./folio-book.epub * 2>&1`
+    unless $?.success?
+      showSaveErrorAlert(result)
+      return
+    end
+    FileUtils.rm_rf(@filepath)
+    FileUtils.mv(File.join(tmp, 'folio-book.epub'), @filepath)
     FileUtils.rm_rf(tmp)
   end  
   
@@ -64,6 +74,10 @@ class Book
   def opf_xml
     book = self
     ERB.new(Bundle.template("content.opf")).result(binding)
+  end
+  
+  def showSaveErrorAlert(message)
+    Alert.runModal("The book \"#{@metadata.title}\" could not be save because and error occurred.", message)
   end
     
 end
