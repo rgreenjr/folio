@@ -5,7 +5,7 @@ class Container
   # /var/tmp/foo/OEBPS => path
   # OEBPS => root
 
-  attr_reader :root, :path, :opfDoc
+  attr_reader :root, :path, :opfDoc, :opfPath
 
   def initialize(book)
     xmlPath = File.join(book.unzippath, CONTAINER_XML_PATH)
@@ -13,19 +13,19 @@ class Container
     
     doc = REXML::Document.new(File.read(xmlPath))
     
-    opfPath = doc.root.elements["rootfiles/rootfile"].attributes["full-path"]
-    raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless opfPath
+    @opfPath = doc.root.elements["rootfiles/rootfile"].attributes["full-path"]
+    raise "The #{CONTAINER_XML_PATH} does not specify an OPF file." unless @opfPath
 
-    @root = File.dirname(opfPath).split('/').last
+    @root = File.dirname(@opfPath).split('/').last
     @root = '' if @root == '.'
     
     @path = File.join(book.unzippath, @root)
     @path = @path.stringByStandardizingPath + '/'
 
-    opfPath = File.join(book.unzippath, opfPath)
+    @opfPath = File.join(book.unzippath, @opfPath)
     
-    raise "The OPF file is missing: #{File.basename(opfPath)}" unless File.exists?(opfPath)
-    @opfDoc = REXML::Document.new(File.read(opfPath))
+    raise "The OPF file is missing: #{File.basename(@opfPath)}" unless File.exists?(@opfPath)
+    @opfDoc = REXML::Document.new(File.read(@opfPath))
   end
   
   def relativePathFor(filepath)

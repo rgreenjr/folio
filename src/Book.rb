@@ -55,6 +55,10 @@ class Book
     FileUtils.rm_rf(@unzippath)
   end
   
+  def relativePathFor(filepath)
+    filepath.gsub(@unzippath, '')
+  end
+  
   private
   
   def opf_xml

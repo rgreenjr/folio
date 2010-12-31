@@ -26,7 +26,7 @@ class ManifestController
   end
 
   def book=(book)
-    @book = book  
+    @book = book
     @outlineView.reloadData
   end
 
@@ -77,7 +77,7 @@ class ManifestController
     pboard.declareTypes([NSStringPboardType], owner:self)
     pboard.setPropertyList(items.map {|item| item.href}.to_plist, forType:NSStringPboardType)
     true
-  end 
+  end
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
     if info.draggingSource == @outlineView
@@ -115,7 +115,7 @@ class ManifestController
         item = Item.new(parent, File.basename(path))
         item.content = File.read(path)
         items << item
-        parent.insert(childIndex, item)        
+        parent.insert(childIndex, item)
       end
     end
     @book.manifest.sort
@@ -153,7 +153,7 @@ class ManifestController
     panel.URLs.each do |url|
       parent, index = currentSelectionParentAndIndex
       item = Item.new(parent, File.basename(url.path))
-      item.content = File.read(url.path)  
+      item.content = File.read(url.path)
       items << item
       parent.insert(index, item)
     end
@@ -165,8 +165,8 @@ class ManifestController
 
   def showDeleteItemPanel(sender)
     return if @outlineView.numberOfSelectedRows == 0
-    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected files?", defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"")    
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"showDeleteItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)    
+    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected files?", defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"")
+    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"showDeleteItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
   def showDeleteItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
@@ -214,6 +214,38 @@ class ManifestController
     @outlineView.selectItem(item)
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)
     postChangeNotification
+  end
+
+  def deleteUnregisteredFiles(sender)
+    ignore = %w{META-INF/container.xml mimetype}
+    ignore = ignore.map { |item| "#{@book.unzippath}/#{item}" }
+    ignore << @book.container.opfPath
+    ignore << @book.manifest.ncx.path
+    @unregistered = []
+    Dir.glob("#{@book.unzippath}/**/*").each do |entry|
+      next if ignore.include?(entry) || File.directory?(entry)
+      @unregistered << entry unless @book.manifest.itemWithHref(entry)
+    end
+    if @unregistered.empty?
+      Alert.runModal("Unregistered Files", "All files are registered in the book's manifest.")
+    else
+      relativePaths = @unregistered.map {|entry| @book.relativePathFor(entry) }
+      alert = NSAlert.alertWithMessageText("Unregistered Files", defaultButton:"Move to Trash", 
+        alternateButton:"Cancel", otherButton:nil, 
+        informativeTextWithFormat:"These files are present but not registered in the book's manifest:\n\n#{relativePaths.join("\n")}\n")
+
+      alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self,
+        didEndSelector:"deleteUnregisteredFilesSheetDidEnd:returnCode:contextInfo:",
+        contextInfo:nil)
+    end
+  end
+  
+  def deleteUnregisteredFilesSheetDidEnd(alert, returnCode:code, contextInfo:info)
+    if code == NSAlertDefaultReturn
+      urls = @unregistered.map { |filepath| NSURL.fileURLWithPath(filepath) }
+      NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:urls, withObject:nil)
+      postChangeNotification
+    end
   end
 
   def changeName(sender)
