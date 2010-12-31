@@ -1,6 +1,6 @@
 class Alert
   
-  def self.runModal(messageText, informativeText)
+  def self.runModal(messageText, informativeText="")
     alert = NSAlert.alloc.init
     alert.addButtonWithTitle "OK"
     alert.messageText = messageText
