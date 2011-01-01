@@ -611,16 +611,6 @@
 									<reference key="NSMixedImage" ref="807125248"/>
 									<int key="NSTag">2</int>
 								</object>
-								<object class="NSMenuItem" id="99729994">
-									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Search</string>
-									<string key="NSKeyEquiv">4</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-									<int key="NSTag">3</int>
-								</object>
 								<object class="NSMenuItem" id="721782328">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Metadata</string>
@@ -1039,11 +1029,9 @@
 								<string key="NSToolbarItemPaletteLabel">View</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="768859003">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {98, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="566765480">
 										<int key="NSCellFlags">67239424</int>
@@ -1105,11 +1093,9 @@
 								<string key="NSToolbarItemPaletteLabel">Search Files</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSearchField" key="NSToolbarItemView" id="374673445">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {96, 22}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSearchFieldCell" key="NSCell" id="324178139">
 										<int key="NSCellFlags">343014976</int>
@@ -2419,14 +2405,6 @@
 					<int key="connectionID">1655</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showSearchView:</string>
-						<reference key="source" ref="270813506"/>
-						<reference key="destination" ref="99729994"/>
-					</object>
-					<int key="connectionID">1656</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">selectionViewController</string>
 						<reference key="source" ref="190618754"/>
@@ -2828,7 +2806,6 @@
 							<reference ref="740024945"/>
 							<reference ref="950022410"/>
 							<reference ref="359948803"/>
-							<reference ref="99729994"/>
 							<reference ref="721782328"/>
 							<reference ref="189943304"/>
 							<reference ref="699664344"/>
@@ -2978,11 +2955,6 @@
 						<int key="objectID">470</int>
 						<reference key="object" ref="160458536"/>
 						<reference key="parent" ref="591462991"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1016</int>
-						<reference key="object" ref="99729994"/>
-						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1066</int>
@@ -3528,7 +3500,6 @@
 				<object class="NSArray" key="dict.sortedKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-3.IBPluginDependency</string>
-					<string>1016.IBPluginDependency</string>
 					<string>103.IBPluginDependency</string>
 					<string>103.ImportedFromIB2</string>
 					<string>1047.IBPluginDependency</string>
@@ -3782,7 +3753,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
@@ -3951,7 +3921,7 @@
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{547, 854}, {228, 213}}</string>
+					<string>{{547, 874}, {228, 193}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4744,7 +4714,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">WebViewController</string>
-					<string key="superclassName">NSViewController</string>
+					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -4797,9 +4767,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>item</string>
+							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -4810,6 +4782,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>item</string>
+							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4819,6 +4792,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">webView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
