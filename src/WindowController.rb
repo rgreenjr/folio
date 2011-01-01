@@ -29,11 +29,11 @@ class WindowController < NSWindowController
   end
 
   def toggleSourceViewLocation(sender)
-    if sender.title == 'Source on Bottom'
-      sender.title = 'Source on Right'
+    if sender.title == 'Split Views Horizontally'
+      sender.title = 'Split Views Vertically'
       @splitView.vertical = false
     else
-      sender.title = 'Source on Bottom'
+      sender.title = 'Split Views Horizontally'
       @splitView.vertical = true
     end
     @splitView.adjustSubviews
