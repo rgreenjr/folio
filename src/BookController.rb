@@ -30,20 +30,20 @@ class BookController
   end
 
   def openBook(filename)
-    @progressController.show("Opening...")
-    @book = Book.new(filename)
-    assignBookToControllers(@book)
-    @progressController.hide
-    @window.makeKeyAndOrderFront(self)
-  rescue Exception => exception
-    @progressController.hide
-    Alert.runModal("Unable to Open Book", exception.message)
+    showProgressWindow("Opening...") do
+      begin
+        @book = Book.new(filename)
+        assignBookToControllers(@book)
+        @progressController.hide
+        @window.makeKeyAndOrderFront(self)
+      rescue Exception => exception
+        Alert.runModal("Unable to Open Book", exception.message)
+      end
+    end
   end
 
   def saveBook(sender)
-    @progressController.show("Saving...")
-    @book.save
-    @progressController.hide
+    showProgressWindow("Saving...") { @book.save }
     @book.edited = false
     @window.documentEdited = false
   end
@@ -52,7 +52,7 @@ class BookController
     panel = NSSavePanel.savePanel
     panel.title = "Save Book As..."
     panel.beginSheetForDirectory(File.dirname(@book.filepath), file:File.basename(@book.filepath),
-        modalForWindow:@window, modalDelegate:self, didEndSelector:"saveBookAsPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    modalForWindow:@window, modalDelegate:self, didEndSelector:"saveBookAsPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
   def saveBookAsPanelDidEnd(panel, returnCode:code, contextInfo:info)
@@ -95,7 +95,7 @@ class BookController
     @metadataController.window # force window to load
     @metadataController.showWindow(self)
   end
-  
+
   def markBookEdited(notification)
     @book.edited = true
     @window.documentEdited = true
@@ -106,10 +106,10 @@ class BookController
   end
 
   def validate(sender)
-    @progressController.show("Validating...")
-    # result = Validator.validate(@book)
-    # puts result
-    @progressController.hide
+    showProgressWindow("Validating...") do
+      # result = Validator.validate(@book)
+      # puts result
+    end
   end
 
   def validateUserInterfaceItem(menuItem)
@@ -125,6 +125,17 @@ class BookController
     @navigationController.book = book
     @searchController.book = book
     @window.title = book ? book.metadata.title : ''
+  end
+
+  def showProgressWindow(message)
+    @progressController ||= ProgressController.alloc.init
+    @progressController.window
+    begin
+      @progressController.show(message)
+      yield
+    ensure
+      @progressController.hide
+    end
   end
 
 end

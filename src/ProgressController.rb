@@ -1,7 +1,11 @@
-class ProgressController
+class ProgressController < NSWindowController
   
   attr_accessor :progressWindow, :progressBar, :progressText
   
+  def init
+    initWithWindowNibName("Progress")
+  end
+
   def show(title)
     @progressText.stringValue = title
     @progressWindow.makeKeyAndOrderFront(self)
