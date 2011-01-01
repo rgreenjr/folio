@@ -1,21 +1,22 @@
 class ProgressController < NSWindowController
   
-  attr_accessor :progressWindow, :progressBar, :progressText
+  attr_accessor :progressBar, :progressText
   
   def init
     initWithWindowNibName("Progress")
   end
 
-  def show(title)
-    @progressText.stringValue = title
-    @progressWindow.makeKeyAndOrderFront(self)
-    @progressBar.usesThreadedAnimation = true
-    @progressBar.startAnimation(self)
+  def showWindow(title)
+    begin
+      @progressText.stringValue = title
+      @progressBar.usesThreadedAnimation = true
+      @progressBar.startAnimation(self)
+      window.makeKeyAndOrderFront(self)
+      yield
+    ensure
+      window.orderOut(self)
+      @progressBar.stopAnimation(self)
+    end
   end
-  
-  def hide
-    @progressWindow.orderOut(self)
-    @progressBar.stopAnimation(self)
-  end
-  
+
 end

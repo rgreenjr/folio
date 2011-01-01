@@ -86,13 +86,6 @@ class BookController
     true
   end
 
-  def showMetadataPanel(sender)
-    @metadataController ||= MetadataController.alloc.init
-    @metadataController.book = book
-    @metadataController.window # force window to load
-    @metadataController.showWindow(self)
-  end
-
   def markBookEdited(notification)
     @book.edited = true
     @window.documentEdited = true
@@ -113,6 +106,19 @@ class BookController
     @book != nil
   end
 
+  def showMetadataPanel(sender)
+    @metadataController ||= MetadataController.alloc.init
+    @metadataController.book = book
+    @metadataController.window
+    @metadataController.showWindow(self)
+  end
+
+  def showProgressWindow(title, &block)
+    @progressController ||= ProgressController.alloc.init
+    @progressController.window
+    @progressController.showWindow(title, &block)
+  end
+
   private
 
   def assignBookToControllers(book)
@@ -122,17 +128,6 @@ class BookController
     @navigationController.book = book
     @searchController.book = book
     @window.title = book ? book.metadata.title : ''
-  end
-
-  def showProgressWindow(message)
-    @progressController ||= ProgressController.alloc.init
-    @progressController.window
-    begin
-      @progressController.show(message)
-      yield
-    ensure
-      @progressController.hide
-    end
   end
 
 end
