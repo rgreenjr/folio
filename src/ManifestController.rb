@@ -1,16 +1,20 @@
-class ManifestController
+class ManifestController < NSViewController
 
-  attr_accessor :outlineView, :propertiesForm, :mediaTypePopUpButton, :tabView
+  attr_accessor :outlineView, :propertiesForm, :mediaTypePopUpButton, :tabView, :headerView
+
+  def init
+    initWithNibName("Manifest", bundle:nil)
+  end
 
   def awakeFromNib
     # configure popup menu
-    @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addAction("Add File...", "showAddItemPanel:", self)
-    @menu.addActionWithSeparator("Add Directory...", "addDirectory:", self)
-    @menu.addActionWithSeparator("Add to Spine", "addToSpine:", self)
-    @menu.addActionWithSeparator("Mark as Cover", "markAsCover:", self)
-    @menu.addAction("Delete...", "showDeleteItemPanel:", self)
-    @outlineView.menu = @menu
+    menu = NSMenu.alloc.initWithTitle("")
+    menu.addAction("Add File...", "showAddItemPanel:", self)
+    menu.addActionWithSeparator("Add Directory...", "addDirectory:", self)
+    menu.addActionWithSeparator("Add to Spine", "addToSpine:", self)
+    menu.addActionWithSeparator("Mark as Cover", "markAsCover:", self)
+    menu.addAction("Delete...", "showDeleteItemPanel:", self)
+    @outlineView.menu = menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.delegate = self
@@ -21,6 +25,8 @@ class ManifestController
 
     # configure media types popup button
     Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
+
+    @headerView.title = "Manifest"
 
     displayItemProperties
   end

@@ -1,14 +1,19 @@
-class SearchController
+class SearchController < NSViewController
   
   SEARCH_BOX_HEIGHT = 36.0
 
-  attr_accessor :book, :searchField, :replaceField, :windowController
+  attr_accessor :headerView, :searchField, :replaceField, :windowController
   attr_accessor :outlineView, :tabView, :textViewController, :searchBox
+
+  def init
+    initWithNibName("Search", bundle:nil)
+  end
 
   def awakeFromNib
     @outlineView.delegate = self
     @outlineView.dataSource = self
-    @searchField.delegate = self    
+    @searchField.delegate = self
+    @headerView.title = "Search Results"
     @tabView.superview.addSubview(@searchBox, positioned:NSWindowBelow, relativeTo:@tabView)
   end
 

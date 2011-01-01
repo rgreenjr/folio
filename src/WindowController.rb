@@ -1,22 +1,11 @@
 class WindowController < NSWindowController
 
-  MINIMUM_WIDTH = 150.0
-
-  NAVIGATION    = 0
-  SPINE         = 1
-  MANIFEST      = 2
-  SEARCH        = 3
-
-  attr_accessor :placeHolderView, :headerView, :contentPlaceholder, :contentView, :logoImageWell
+  attr_accessor :contentPlaceholder, :contentView, :logoImageWell
   attr_accessor :splitView, :fileSearchField
-  attr_accessor :navigationView, :spineView, :manifestView, :searchView, :segmentedControl
 
   def awakeFromNib
-    @views  = [@navigationView, @spineView, @manifestView, @searchView]
-    @titles = ["Navigation", "Spine", "Manifest", "Search Results"]
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
     NSNotificationCenter.defaultCenter.addObserver(self, selector:'fileSearchFieldTextDidChange:', name:NSControlTextDidChangeNotification, object:@fileSearchField)
-    changeView(NAVIGATION)
     showLogoImage
   end
 
@@ -39,27 +28,6 @@ class WindowController < NSWindowController
     @contentPlaceholder.addSubview(@logoImageWell)
   end
 
-  def toggleView(sender)
-    if sender.class == NSSegmentedControl
-      changeView(sender.selectedSegment)
-    else
-      changeView(sender.tag)
-      @segmentedControl.selectedSegment = sender.tag
-    end
-  end
-
-  def changeView(index)
-    return if @activeView == @views[index]
-    oldView = @activeView if @activeView
-    @activeView = @views[index]
-    @activeView.frame = @placeHolderView.frame
-    oldView.animator.alphaValue = 0.0 if oldView
-    # oldView.animator.removeFromSuperview if oldView
-    @placeHolderView.animator.addSubview(@activeView)
-    @activeView.animator.alphaValue = 1.0
-    @headerView.title = @titles[index]
-  end
-  
   def toggleSourceViewLocation(sender)
     if sender.title == 'Source on Bottom'
       sender.title = 'Source on Right'
@@ -69,43 +37,6 @@ class WindowController < NSWindowController
       @splitView.vertical = true
     end
     @splitView.adjustSubviews
-  end
-
-  def showSearchResults
-    changeView(SEARCH)
-  end
-
-  def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
-    return proposedMin + MINIMUM_WIDTH
-  end
-
-  def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
-    return proposedMax - MINIMUM_WIDTH
-  end
-
-  # keep left split pane from resizing as window resizes
-  def splitView(sender, resizeSubviewsWithOldSize:oldSize)
-    newFrame = sender.frame
-    left = sender.subviews[0]
-    leftFrame = left.frame
-    right = sender.subviews[1]
-    rightFrame = right.frame
-    leftFrame.size.height = newFrame.size.height
-    rightFrame.size.width = newFrame.size.width - leftFrame.size.width - sender.dividerThickness
-    rightFrame.size.height = newFrame.size.height
-    rightFrame.origin.x = leftFrame.size.width + sender.dividerThickness
-    left.setFrame(leftFrame)
-    right.setFrame(rightFrame)
-  end
-
-  def windowShouldClose(sender)
-    NSApp.terminate(sender)
-  end
-  
-  def fileSearchFieldTextDidChange(notification)
-    value = @fileSearchField.stringValue
-    value = nil if value.empty?
-    NSNotificationCenter.defaultCenter.postNotificationName("FileSearchTextDidChange", object:value)
   end
 
 end

@@ -4,7 +4,7 @@ class HeaderView < NSView
 
   def initWithFrame(frameRect)
     super
-    @title = "Title"
+    @title = "Untitled"
     @image = NSImage.imageNamed("table-header-bg1.png")
     style = NSMutableParagraphStyle.alloc.init
     style.alignment = NSCenterTextAlignment
@@ -17,8 +17,10 @@ class HeaderView < NSView
   end
   
   def title=(title)
-    @title = title
-    setNeedsDisplay true
+    if title
+      @title = title 
+      setNeedsDisplay true
+    end
   end
 
   def drawRect(frame)

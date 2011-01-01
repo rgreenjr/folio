@@ -1,16 +1,22 @@
-class SpineController
+class SpineController < NSViewController
 
-  attr_accessor :book, :tableView, :tabView
+  attr_accessor :tableView, :tabView, :headerView
+  
+  def init
+    initWithNibName("Spine", bundle:nil)
+  end
 
   def awakeFromNib
-    @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addActionWithSeparator("Add to Navigation", "addToNavigation:", self)
-    @menu.addAction("Remove", "removeItem:", self)
-    @tableView.menu = @menu
+    menu = NSMenu.alloc.initWithTitle("")
+    menu.addActionWithSeparator("Add to Navigation", "addToNavigation:", self)
+    menu.addAction("Remove", "removeItem:", self)
+    @tableView.menu = menu
 
     @tableView.delegate = self
     @tableView.dataSource = self
     @tableView.registerForDraggedTypes([NSStringPboardType])
+
+    @headerView.title = "Spine"
 
     # @fileSearchString = nil
     # NSNotificationCenter.defaultCenter.addObserver(self, selector:"fileSearchTextDidChange:", name:"FileSearchTextDidChange", object:nil)

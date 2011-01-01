@@ -1,18 +1,24 @@
-class NavigationController
+class NavigationController < NSViewController
 
-  attr_accessor :navigation, :outlineView, :propertiesForm, :tabView
+  attr_accessor :outlineView, :propertiesForm, :tabView, :headerView
+
+  def init
+    initWithNibName("Navigation", bundle:nil)
+  end
 
   def awakeFromNib
-    @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addAction("Add Point...", "addPoint:", self)
-    @menu.addActionWithSeparator("Duplicate", "duplicatePoint:", self)
-    @menu.addAction("Delete", "deletePoint:", self)
-    @outlineView.menu = @menu
+    menu = NSMenu.alloc.initWithTitle("")
+    menu.addAction("Add Point...", "addPoint:", self)
+    menu.addActionWithSeparator("Duplicate", "duplicatePoint:", self)
+    menu.addAction("Delete", "deletePoint:", self)
+    @outlineView.menu = menu
 
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
+
+    @headerView.title = "Navigation"
 
     displayPointProperties
   end
@@ -24,7 +30,7 @@ class NavigationController
     displayPointProperties
     expandRoot
   end
-
+  
   def selectedPoint
     @outlineView.selectedRow == -1 ? nil : @book.navigation[@outlineView.selectedRow]
   end
@@ -260,7 +266,7 @@ class NavigationController
       sourceCell.stringValue = point.src
       @tabView.add(point)
     else
-      propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
+      # propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
     end
   end
 
@@ -277,7 +283,7 @@ class NavigationController
   end
 
   def propertyCells
-    [textCell, idCell, sourceCell]
+    @propertyCells ||= [textCell, idCell, sourceCell]
   end
 
   def validateUserInterfaceItem(menuItem)

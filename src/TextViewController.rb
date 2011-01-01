@@ -1,7 +1,6 @@
 class TextViewController
 
   attr_accessor :item, :textView, :webView
-  attr_accessor :gotoLineWindow, :gotoLineField
 
   def awakeFromNib
     scrollView = @textView.enclosingScrollView
@@ -41,16 +40,11 @@ class TextViewController
   end
   
   def showGotoLineWindow(sender)
-    @gotoLineWindow.center
-    @gotoLineField.selectText(self)
-    @gotoLineWindow.makeKeyAndOrderFront(self)
+    @gotoLineController ||= GotoLineController.alloc.init
+    @gotoLineController.window
+    @gotoLineController.showWindowWithTarget(self)
   end
-
-  def gotoLine(sender)
-    gotoLineNumber(@gotoLineField.stringValue.to_i)
-    @gotoLineWindow.performClose(self)
-  end
-
+  
   def gotoLineNumber(lineNumber)
     if lineNumber > 0
       @lineNumberView.gotoLine(lineNumber)

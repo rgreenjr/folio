@@ -1,11 +1,11 @@
-class BookController
+class BookController < NSWindowController
+  
+  MINIMUM_WIDTH = 150.0
 
-  attr_accessor :book, :window
-  attr_accessor :navigationController, :spineController, :manifestController, :metadataController
-  attr_accessor :searchController, :progressController, :tabView
+  attr_accessor :book, :selectionViewController, :metadataController, :progressController, :tabView
 
   def awakeFromNib
-    @window.center
+    window.center
     ctr = NSNotificationCenter.defaultCenter
     ctr.addObserver(self, selector:('markBookEdited:'), name:"NavigationDidChange", object:nil)
     ctr.addObserver(self, selector:('markBookEdited:'), name:"SpineDidChange", object:nil)
@@ -33,9 +33,10 @@ class BookController
   def openBook(filename)
     showProgressWindow("Opening...") do
       @book = Book.new(filename)
-      assignBookToControllers(@book)
+      @selectionViewController.book = @book
+      window.title = @book ? @book.metadata.title : ''
     end
-    @window.makeKeyAndOrderFront(self)
+    window.makeKeyAndOrderFront(self)
   rescue Exception => exception
     Alert.runModal("Unable to Open Book", exception.message)
   end
@@ -43,7 +44,7 @@ class BookController
   def saveBook(sender)
     showProgressWindow("Saving...") { @book.save }
     @book.edited = false
-    @window.documentEdited = false
+    window.documentEdited = false
   end
 
   def showSaveBookAsPanel(sender)
@@ -57,7 +58,7 @@ class BookController
     return unless code == NSOKButton
     @book.saveAs(panel.URL.path)
     @book.edited = false
-    @window.documentEdited = false
+    window.documentEdited = false
   end
 
   def saveAll(sender)
@@ -81,7 +82,8 @@ class BookController
         return false
       end
     end
-    assignBookToControllers(nil)
+    @selectionViewController.book = nil
+    window.title = ''
     @tabView.closeAllTabs
     @book.close
     true
@@ -89,7 +91,7 @@ class BookController
 
   def markBookEdited(notification)
     @book.edited = true
-    @window.documentEdited = true
+    window.documentEdited = true
   end
 
   def showTemporaryDirectory(sender)
@@ -109,7 +111,7 @@ class BookController
 
   def showMetadataPanel(sender)
     @metadataController ||= MetadataController.alloc.init
-    @metadataController.book = book
+    @metadataController.book = @book
     @metadataController.window
     @metadataController.showWindow(self)
   end
@@ -120,15 +122,31 @@ class BookController
     @progressController.showWindow(title, &block)
   end
 
-  private
-
-  def assignBookToControllers(book)
-    @metadataController.book = book if @metadataController
-    @spineController.book = book
-    @manifestController.book = book
-    @navigationController.book = book
-    @searchController.book = book
-    @window.title = book ? book.metadata.title : ''
+  def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
+    return proposedMin + MINIMUM_WIDTH
   end
 
+  def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
+    return proposedMax - MINIMUM_WIDTH
+  end
+
+  # keep left split pane from resizing as window resizes
+  def splitView(sender, resizeSubviewsWithOldSize:oldSize)
+    newFrame = sender.frame
+    left = sender.subviews[0]
+    leftFrame = left.frame
+    right = sender.subviews[1]
+    rightFrame = right.frame
+    leftFrame.size.height = newFrame.size.height
+    rightFrame.size.width = newFrame.size.width - leftFrame.size.width - sender.dividerThickness
+    rightFrame.size.height = newFrame.size.height
+    rightFrame.origin.x = leftFrame.size.width + sender.dividerThickness
+    left.setFrame(leftFrame)
+    right.setFrame(rightFrame)
+  end
+
+  def windowShouldClose(sender)
+    NSApp.terminate(sender)
+  end
+  
 end

@@ -80,6 +80,7 @@
 		CD89EF5D12789A8F009E4DE1 /* Media.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD89EF5C12789A8F009E4DE1 /* Media.rb */; };
 		CD8C454D12CEB1B200B9A6B2 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */; };
 		CD8C45CA12CF832B00B9A6B2 /* Progress.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8C45C912CF832B00B9A6B2 /* Progress.xib */; };
+		CD8C45DC12CF8CD700B9A6B2 /* Spine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8C45DB12CF8CD700B9A6B2 /* Spine.xib */; };
 		CD93487512BFFCBD008811CA /* Validator.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD93487412BFFCBD008811CA /* Validator.rb */; };
 		CD98EA2B12C95AB000FDB4CB /* NavigationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */; };
 		CD98FCE5124D132100D26653 /* SearchController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD98FCE4124D132100D26653 /* SearchController.rb */; };
@@ -87,6 +88,12 @@
 		CD994B041260B42100AAD4DE /* tab-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD994B031260B42100AAD4DE /* tab-bg.png */; };
 		CD994B0E1260B57100AAD4DE /* tab-selected-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */; };
 		CDA3FF2A124D8296003F6341 /* Match.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA3FF29124D8296003F6341 /* Match.rb */; };
+		CDA86B4512CF93CB00AD5C00 /* SelectionViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA86B4412CF93CB00AD5C00 /* SelectionViewController.rb */; };
+		CDA86B4912CF96C700AD5C00 /* Navigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86B4812CF96C700AD5C00 /* Navigation.xib */; };
+		CDA86B4D12CF96CE00AD5C00 /* Manifest.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */; };
+		CDA86B5112CF96D600AD5C00 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86B5012CF96D600AD5C00 /* Search.xib */; };
+		CDA86C0212CFAED000AD5C00 /* GotoLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86C0112CFAED000AD5C00 /* GotoLine.xib */; };
+		CDA86C0612CFAFED00AD5C00 /* GotoLineController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA86C0512CFAFED00AD5C00 /* GotoLineController.rb */; };
 		CDADCC7A124BFF3E00553FC7 /* Bundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDADCC79124BFF3E00553FC7 /* Bundle.rb */; };
 		CDB8C39412C7FD4700598DCF /* CSS.treetop in Resources */ = {isa = PBXBuildFile; fileRef = CDB8C39312C7FD4700598DCF /* CSS.treetop */; };
 		CDBC1CAB124AA26500BED071 /* Highlighter.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDBC1CAA124AA26500BED071 /* Highlighter.rb */; };
@@ -189,6 +196,7 @@
 		CD89EF5C12789A8F009E4DE1 /* Media.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Media.rb; sourceTree = "<group>"; };
 		CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Metadata.xib; sourceTree = "<group>"; };
 		CD8C45C912CF832B00B9A6B2 /* Progress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Progress.xib; sourceTree = "<group>"; };
+		CD8C45DB12CF8CD700B9A6B2 /* Spine.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Spine.xib; sourceTree = "<group>"; };
 		CD93487412BFFCBD008811CA /* Validator.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Validator.rb; sourceTree = "<group>"; };
 		CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationIcon.png; sourceTree = "<group>"; };
 		CD98FCE4124D132100D26653 /* SearchController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SearchController.rb; sourceTree = "<group>"; };
@@ -196,6 +204,12 @@
 		CD994B031260B42100AAD4DE /* tab-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-bg.png"; sourceTree = "<group>"; };
 		CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-selected-bg.png"; sourceTree = "<group>"; };
 		CDA3FF29124D8296003F6341 /* Match.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Match.rb; sourceTree = "<group>"; };
+		CDA86B4412CF93CB00AD5C00 /* SelectionViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SelectionViewController.rb; sourceTree = "<group>"; };
+		CDA86B4812CF96C700AD5C00 /* Navigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Navigation.xib; sourceTree = "<group>"; };
+		CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Manifest.xib; sourceTree = "<group>"; };
+		CDA86B5012CF96D600AD5C00 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
+		CDA86C0112CFAED000AD5C00 /* GotoLine.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GotoLine.xib; sourceTree = "<group>"; };
+		CDA86C0512CFAFED00AD5C00 /* GotoLineController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = GotoLineController.rb; sourceTree = "<group>"; };
 		CDADCC79124BFF3E00553FC7 /* Bundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Bundle.rb; sourceTree = "<group>"; };
 		CDB8C39312C7FD4700598DCF /* CSS.treetop */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSS.treetop; sourceTree = "<group>"; };
 		CDBC1CAA124AA26500BED071 /* Highlighter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Highlighter.rb; sourceTree = "<group>"; };
@@ -317,8 +331,13 @@
 				CDBDC8A7122AA9DA00844EAA /* images */,
 				CD83F598122B3E32005BB914 /* templates */,
 				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
+				CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */,
 				CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */,
+				CDA86B4812CF96C700AD5C00 /* Navigation.xib */,
 				CD8C45C912CF832B00B9A6B2 /* Progress.xib */,
+				CDA86B5012CF96D600AD5C00 /* Search.xib */,
+				CDA86C0112CFAED000AD5C00 /* GotoLine.xib */,
+				CD8C45DB12CF8CD700B9A6B2 /* Spine.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
@@ -394,6 +413,7 @@
 				CDE448F112305CA2001C69AE /* Container.rb */,
 				CDB8C39312C7FD4700598DCF /* CSS.treetop */,
 				CD80EB7A1232BABB00CEC08F /* CSSParser.rb */,
+				CDA86C0512CFAFED00AD5C00 /* GotoLineController.rb */,
 				CDE448F212305CA2001C69AE /* Guide.rb */,
 				CDBC1CAA124AA26500BED071 /* Highlighter.rb */,
 				CDE448F312305CA2001C69AE /* ImageCell.rb */,
@@ -420,6 +440,7 @@
 				CDC2B27B124FF54500082962 /* ProgressController.rb */,
 				CDDECB58124F9E8400604632 /* Search.rb */,
 				CD98FCE4124D132100D26653 /* SearchController.rb */,
+				CDA86B4412CF93CB00AD5C00 /* SelectionViewController.rb */,
 				CDE448FA12305CA2001C69AE /* Spine.rb */,
 				CDE448FB12305CA2001C69AE /* SpineController.rb */,
 				CDDD0E1F124991ED00189172 /* String.rb */,
@@ -585,6 +606,13 @@
 				CDEDF71912CC2FD8001AE172 /* backgroud-logo.png in Resources */,
 				CD8C454D12CEB1B200B9A6B2 /* Metadata.xib in Resources */,
 				CD8C45CA12CF832B00B9A6B2 /* Progress.xib in Resources */,
+				CD8C45DC12CF8CD700B9A6B2 /* Spine.xib in Resources */,
+				CDA86B4512CF93CB00AD5C00 /* SelectionViewController.rb in Resources */,
+				CDA86B4912CF96C700AD5C00 /* Navigation.xib in Resources */,
+				CDA86B4D12CF96CE00AD5C00 /* Manifest.xib in Resources */,
+				CDA86B5112CF96D600AD5C00 /* Search.xib in Resources */,
+				CDA86C0212CFAED000AD5C00 /* GotoLine.xib in Resources */,
+				CDA86C0612CFAFED00AD5C00 /* GotoLineController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
