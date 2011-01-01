@@ -670,7 +670,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
-								<object class="NSMenuItem" id="717142724">
+								<object class="NSMenuItem" id="1069910774">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Unregistered Files...</string>
 									<string key="NSKeyEquiv"/>
@@ -679,7 +679,7 @@
 									<reference key="NSMixedImage" ref="807125248"/>
 									<int key="NSTag">3</int>
 								</object>
-								<object class="NSMenuItem" id="336877176">
+								<object class="NSMenuItem" id="840523017">
 									<reference key="NSMenu" ref="466310130"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -3694,7 +3694,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">deleteUnregisteredFiles:</string>
 						<reference key="source" ref="505361772"/>
-						<reference key="destination" ref="717142724"/>
+						<reference key="destination" ref="1069910774"/>
 					</object>
 					<int key="connectionID">1642</int>
 				</object>
@@ -4098,8 +4098,8 @@
 							<reference ref="699664344"/>
 							<reference ref="156276626"/>
 							<reference ref="301042860"/>
-							<reference ref="336877176"/>
-							<reference ref="717142724"/>
+							<reference ref="840523017"/>
+							<reference ref="1069910774"/>
 						</object>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -5267,12 +5267,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1641</int>
-						<reference key="object" ref="717142724"/>
+						<reference key="object" ref="1069910774"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1643</int>
-						<reference key="object" ref="336877176"/>
+						<reference key="object" ref="840523017"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 				</object>

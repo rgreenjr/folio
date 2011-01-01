@@ -25,6 +25,7 @@ class BookController
     end
   end
 
+  # runModalForDirectory delegate method
   def panel(sender, shouldEnableURL:url)
     @book.nil? || url.path != @book.filepath # disable selection of current book
   end

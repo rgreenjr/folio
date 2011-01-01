@@ -317,10 +317,10 @@
 				CDBDC8A7122AA9DA00844EAA /* images */,
 				CD83F598122B3E32005BB914 /* templates */,
 				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
-				8D1107310486CEB800E47090 /* Info.plist */,
-				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */,
 				CD8C45C912CF832B00B9A6B2 /* Progress.xib */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
