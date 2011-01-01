@@ -2,12 +2,7 @@ class TabView < NSView
 
   DEFAULT_TAB_WIDTH = 350.0
 
-  attr_accessor :tabs, :selectedTab, :textViewController, :webViewController
-
-  def awakeFromNib
-    ctr = NSNotificationCenter.defaultCenter
-    ctr.addObserver(self, selector:('textDidChange:'), name:NSTextStorageDidProcessEditingNotification, object:@textViewController.textView.textStorage)
-  end
+  attr_accessor :tabs, :selectedTab, :delegate
 
   def initWithFrame(frameRect)
     super
@@ -28,10 +23,6 @@ class TabView < NSView
     true
   end
 
-  def textDidChange(notification)
-    setNeedsDisplay true
-  end
-  
   def selectedItem
     @selectedTab ? @selectedTab.item : nil
   end
@@ -157,8 +148,7 @@ class TabView < NSView
       item = nil
       @selectedTab = nil
     end
-    @textViewController.item = item
-    @webViewController.item = point
+    @delegate.tabView(self, selectionDidChange:@selectedTab, item:item, point:point) if @delegate
     setNeedsDisplay true
     NSNotificationCenter.defaultCenter.postNotificationName("TabViewSelectionDidChange", object:self)
   end

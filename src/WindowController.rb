@@ -1,7 +1,6 @@
 class WindowController < NSWindowController
 
-  attr_accessor :contentPlaceholder, :contentView, :logoImageWell
-  attr_accessor :splitView, :fileSearchField
+  attr_accessor :contentPlaceholder, :contentView, :logoImageWell, :fileSearchField
 
   def awakeFromNib
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
@@ -26,17 +25,6 @@ class WindowController < NSWindowController
     @logoImageWell.frame = @contentPlaceholder.frame
     @logoImageWell.frameOrigin = NSZeroPoint
     @contentPlaceholder.addSubview(@logoImageWell)
-  end
-
-  def toggleSourceViewLocation(sender)
-    if sender.title == 'Split Views Horizontally'
-      sender.title = 'Split Views Vertically'
-      @splitView.vertical = false
-    else
-      sender.title = 'Split Views Horizontally'
-      @splitView.vertical = true
-    end
-    @splitView.adjustSubviews
   end
 
 end

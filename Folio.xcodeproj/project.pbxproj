@@ -51,6 +51,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CD02D4C0124952C8007DC4B7 /* UUID.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD02D4BF124952C8007DC4B7 /* UUID.rb */; };
 		CD02D4D412496A1B007DC4B7 /* Metadata.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD02D4D312496A1B007DC4B7 /* Metadata.rb */; };
+		CD03902012CFCCD300A6FACA /* TabViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD03901F12CFCCD300A6FACA /* TabViewController.rb */; };
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
@@ -167,6 +168,7 @@
 		8D1107320486CEB800E47090 /* Folio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Folio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD02D4BF124952C8007DC4B7 /* UUID.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = UUID.rb; sourceTree = "<group>"; };
 		CD02D4D312496A1B007DC4B7 /* Metadata.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Metadata.rb; sourceTree = "<group>"; };
+		CD03901F12CFCCD300A6FACA /* TabViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabViewController.rb; sourceTree = "<group>"; };
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				CD5B1ED51283084C00681880 /* IndexSet.rb */,
 				CD5B1ED61283084C00681880 /* TableView.rb */,
 				CDDE4C9A1254FB69004A18CF /* TabView.rb */,
+				CD03901F12CFCCD300A6FACA /* TabViewController.rb */,
 				CDE448FC12305CA2001C69AE /* TextViewController.rb */,
 				CD7E996B12C79F17006F611B /* TransparentWindow.rb */,
 				CD93487412BFFCBD008811CA /* Validator.rb */,
@@ -613,6 +616,7 @@
 				CDA86B5112CF96D600AD5C00 /* Search.xib in Resources */,
 				CDA86C0212CFAED000AD5C00 /* GotoLine.xib in Resources */,
 				CDA86C0612CFAFED00AD5C00 /* GotoLineController.rb in Resources */,
+				CD03902012CFCCD300A6FACA /* TabViewController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
