@@ -63,10 +63,6 @@ class Item
     %w{application/xml application/xhtml+xml text/css application/x-dtbncx+xml}.include?(@mediaType)
   end
 
-  def tidyable?
-    %w{application/xml application/xhtml+xml}.include?(@mediaType)
-  end
-
   def renderable?
     %w{application/xml application/xhtml+xml image/jpeg image/png image/gif image/svg+xml text/css}.include?(@mediaType)
   end
@@ -81,12 +77,6 @@ class Item
 
   def ncx?
     @mediaType == "application/x-dtbncx+xml"
-  end
-
-  def tidy
-    if tidyable?
-      self.content = `tidy -iq -raw -wrap 0 --tidy-mark no -f /Users/rgreen/Desktop/extract/tidy_errors.txt '#{href}'`
-    end
   end
 
   def directory?
