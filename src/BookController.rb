@@ -89,6 +89,13 @@ class BookController
     true
   end
 
+  def showMetadataPanel(sender)
+    @metadataController ||= MetadataController.alloc.init
+    @metadataController.book = book
+    @metadataController.window # force window to load
+    @metadataController.showWindow(self)
+  end
+  
   def markBookEdited(notification)
     @book.edited = true
     @window.documentEdited = true
@@ -112,7 +119,7 @@ class BookController
   private
 
   def assignBookToControllers(book)
-    @metadataController.book = book
+    @metadataController.book = book if @metadataController
     @spineController.book = book
     @manifestController.book = book
     @navigationController.book = book

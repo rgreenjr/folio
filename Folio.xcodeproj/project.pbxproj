@@ -78,6 +78,7 @@
 		CD890C52125FDF2700FD262A /* find-close-click.png in Resources */ = {isa = PBXBuildFile; fileRef = CD890C51125FDF2700FD262A /* find-close-click.png */; };
 		CD890C54125FDF5D00FD262A /* find-close-rollover.png in Resources */ = {isa = PBXBuildFile; fileRef = CD890C53125FDF5D00FD262A /* find-close-rollover.png */; };
 		CD89EF5D12789A8F009E4DE1 /* Media.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD89EF5C12789A8F009E4DE1 /* Media.rb */; };
+		CD8C454D12CEB1B200B9A6B2 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */; };
 		CD93487512BFFCBD008811CA /* Validator.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD93487412BFFCBD008811CA /* Validator.rb */; };
 		CD98EA2B12C95AB000FDB4CB /* NavigationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */; };
 		CD98FCE5124D132100D26653 /* SearchController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD98FCE4124D132100D26653 /* SearchController.rb */; };
@@ -185,6 +186,7 @@
 		CD890C51125FDF2700FD262A /* find-close-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-click.png"; sourceTree = "<group>"; };
 		CD890C53125FDF5D00FD262A /* find-close-rollover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-rollover.png"; sourceTree = "<group>"; };
 		CD89EF5C12789A8F009E4DE1 /* Media.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Media.rb; sourceTree = "<group>"; };
+		CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Metadata.xib; sourceTree = "<group>"; };
 		CD93487412BFFCBD008811CA /* Validator.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Validator.rb; sourceTree = "<group>"; };
 		CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationIcon.png; sourceTree = "<group>"; };
 		CD98FCE4124D132100D26653 /* SearchController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SearchController.rb; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				CD5C2BFA12CBBD15000DB287 /* Alert.rb in Resources */,
 				CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */,
 				CDEDF71912CC2FD8001AE172 /* backgroud-logo.png in Resources */,
+				CD8C454D12CEB1B200B9A6B2 /* Metadata.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

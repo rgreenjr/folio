@@ -1,11 +1,15 @@
-class MetadataController
+class MetadataController < NSWindowController
   
-  attr_accessor :book, :window
+  attr_accessor :book
   attr_accessor :titleField, :dateField, :identifierField, :languagePopup
   attr_accessor :descriptionField, :creatorField, :publisherField
-  attr_accessor :subjectField, :sourceField, :rightsField, :coverImageView
+  attr_accessor :subjectField, :rightsField, :coverImageView
   
-  def awakeFromNib
+  def init
+    initWithWindowNibName("Metadata")
+  end
+
+  def windowDidLoad
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
   end
   
@@ -27,8 +31,8 @@ class MetadataController
       @coverImageView.image = noCoverImage
     end
     
-    @window.center
-    @window.makeKeyAndOrderFront(self)
+    window.center
+    window.makeKeyAndOrderFront(self)
   end
   
   def save(sender)
@@ -41,12 +45,12 @@ class MetadataController
     @book.metadata.subject = @subjectField.stringValue
     @book.metadata.rights = @rightsField.stringValue
     @book.metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
-    @window.orderOut(self)
+    window.orderOut(self)
     postChangeNotification
   end
   
   def cancel(sender)
-    @window.orderOut(self)
+    window.orderOut(self)
   end
   
   private
