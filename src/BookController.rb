@@ -31,15 +31,12 @@ class BookController
 
   def openBook(filename)
     showProgressWindow("Opening...") do
-      begin
-        @book = Book.new(filename)
-        assignBookToControllers(@book)
-        @progressController.hide
-        @window.makeKeyAndOrderFront(self)
-      rescue Exception => exception
-        Alert.runModal("Unable to Open Book", exception.message)
-      end
+      @book = Book.new(filename)
+      assignBookToControllers(@book)
     end
+    @window.makeKeyAndOrderFront(self)
+  rescue Exception => exception
+    Alert.runModal("Unable to Open Book", exception.message)
   end
 
   def saveBook(sender)
