@@ -11,7 +11,9 @@
     <dc:description><%= book.metadata.description %></dc:description>
     <dc:subject><%= book.metadata.subject %></dc:subject>
     <dc:rights><%= book.metadata.rights %></dc:rights>
+    <% if book.metadata.cover %>
     <meta name="cover" content="<%= book.metadata.cover.id %>"/>
+    <% end %>
   </metadata>
 
   <manifest><% book.manifest.each do |item| %>
