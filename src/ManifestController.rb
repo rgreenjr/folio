@@ -222,7 +222,7 @@ class ManifestController < NSViewController
     postChangeNotification
   end
 
-  def deleteUnregisteredFiles(sender)
+  def showUnregisteredFiles
     ignore = %w{META-INF/container.xml mimetype}
     ignore = ignore.map { |item| "#{@book.unzippath}/#{item}" }
     ignore << @book.container.opfPath

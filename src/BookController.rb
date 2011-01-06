@@ -2,7 +2,7 @@ class BookController < NSWindowController
   
   MINIMUM_WIDTH = 150.0
 
-  attr_accessor :book, :selectionViewController, :metadataController, :progressController, :tabView
+  attr_accessor :book, :seletionView, :tabView, :segmentedControl
 
   def awakeFromNib
     window.center
@@ -11,6 +11,7 @@ class BookController < NSWindowController
     ctr.addObserver(self, selector:('markBookEdited:'), name:"SpineDidChange", object:nil)
     ctr.addObserver(self, selector:('markBookEdited:'), name:"ManifestDidChange", object:nil)
     ctr.addObserver(self, selector:('markBookEdited:'), name:"MetadataDidChange", object:nil)
+    showNavigationView(self)
   end
 
   def showOpenBookPanel(sender)
@@ -33,7 +34,10 @@ class BookController < NSWindowController
   def openBook(filename)
     showProgressWindow("Opening...") do
       @book = Book.new(filename)
-      @selectionViewController.book = @book
+      navigationController.book = book if @navigationController
+      spineController.book = book if @spineController
+      manifestController.book = book if @manifestController
+      searchController.book = book if @searchController
       window.title = @book ? @book.metadata.title : ''
     end
     window.makeKeyAndOrderFront(self)
@@ -82,7 +86,6 @@ class BookController < NSWindowController
         return false
       end
     end
-    @selectionViewController.book = nil
     window.title = ''
     @tabView.closeAllTabs
     @book.close
@@ -107,19 +110,6 @@ class BookController < NSWindowController
 
   def validateUserInterfaceItem(menuItem)
     @book != nil
-  end
-
-  def showMetadataPanel(sender)
-    @metadataController ||= MetadataController.alloc.init
-    @metadataController.book = @book
-    @metadataController.window
-    @metadataController.showWindow(self)
-  end
-
-  def showProgressWindow(title, &block)
-    @progressController ||= ProgressController.alloc.init
-    @progressController.window
-    @progressController.showWindow(title, &block)
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
@@ -147,6 +137,87 @@ class BookController < NSWindowController
 
   def windowShouldClose(sender)
     NSApp.terminate(sender)
+  end
+  
+  def showMetadataPanel(sender)
+    @metadataController ||= MetadataController.alloc.init
+    @metadataController.book = @book
+    @metadataController.window
+    @metadataController.showWindow(self)
+  end
+
+  def showProgressWindow(title, &block)
+    @progressController ||= ProgressController.alloc.init
+    @progressController.window
+    @progressController.showWindow(title, &block)
+  end
+  
+  def navigationController
+    unless @navigationController
+      @navigationController ||= NavigationController.alloc.init
+      @navigationController.loadView
+      @navigationController.tabView = @tabView
+      @navigationController.book = @book
+    end
+    @navigationController
+  end
+
+  def spineController
+    unless @spineController
+      @spineController ||= SpineController.alloc.init
+      @spineController.loadView
+      @spineController.tabView = @tabView
+      @spineController.book = @book
+    end
+    @spineController
+  end
+
+  def manifestController
+    unless @manifestController
+      @manifestController ||= ManifestController.alloc.init
+      @manifestController.loadView
+      @manifestController.tabView = @tabView
+      @manifestController.book = @book
+    end
+    @manifestController
+  end
+
+  def searchController
+    unless @searchController
+      @searchController ||= SearchController.alloc.init
+      @searchController.loadView
+      @searchController.tabView = @tabView
+      @searchController.book = @book
+    end
+    @searchController
+  end
+  
+  def showNavigationView(sender)
+    changeController(navigationController)
+  end
+
+  def showSpineView(sender)
+    changeController(spineController)
+  end
+
+  def showManifestView(sender)
+    changeController(manifestController)
+  end
+
+  def showSearchView(sender)
+    changeController(searchController)
+  end
+  
+  def showUnregisteredFiles(sender)
+    manifestController.showUnregisteredFiles
+  end
+
+  private
+
+  def changeController(controller)
+    controller.view.frame = @seletionView.frame
+    @seletionView.subviews.first.removeFromSuperview unless @seletionView.subviews.empty?
+    @seletionView.animator.addSubview(controller.view)
   end
   
 end

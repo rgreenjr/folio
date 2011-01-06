@@ -6,7 +6,7 @@ require "open-uri"
 
 # http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html
 
-class Book
+class Book #< NSDocument
 
   attr_accessor :navigation, :manifest, :spine, :container, :metadata, :guide
   attr_accessor :filepath, :unzippath, :edited
