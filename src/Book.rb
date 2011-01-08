@@ -11,7 +11,6 @@ class Book < NSDocument
   attr_accessor :navigation, :manifest, :spine, :container, :metadata, :guide, :unzippath
   
   def init
-    puts "Book.init"
     super
     @metadata = Metadata.new
     @container = Container.new
@@ -23,7 +22,6 @@ class Book < NSDocument
   end
 
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)    
-    puts "Book.readFromURL #{absoluteURL.path}"
     @unzippath = Dir.mktmpdir("folio-unzip-")
     runCommand("unzip -q -d '#{@unzippath}' \"#{absoluteURL.path}\"")
     @container  = Container.new(self)
@@ -40,7 +38,6 @@ class Book < NSDocument
   end
 
   def writeToURL(absoluteURL, ofType:inTypeName, error:outError)
-    puts "Book.writeToURL #{absoluteURL.path}"
     tmp = Dir.mktmpdir("folio-zip-")
     # system("open #{tmp}")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
@@ -61,7 +58,6 @@ class Book < NSDocument
   end
 
   def makeWindowControllers
-    puts "Book.makeWindowControllers"
     bookWindowController = BookWindowController.alloc.init
     addWindowController(bookWindowController)
   end
