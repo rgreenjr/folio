@@ -2,10 +2,16 @@ class Manifest
 
   attr_accessor :root, :ncx
 
-  def initialize(book)
+  def initialize(book=nil)
     @book = book
-    @hash  = {}
+    @itemsMap  = {}
+    @root = Item.new(nil, 'OEBPS', 'ROOT', 'directory', true)
+    @ncx = Item.new(nil, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
+    
+    return unless book
+    
     @root = Item.new(nil, book.container.path, 'ROOT', 'directory', true)
+
     book.container.opfDoc.elements.each("/package/manifest/item") do |e|
       parent = @root
       parts = e.attributes["href"].split('/')
@@ -23,8 +29,8 @@ class Manifest
         @ncx = item
       else
         parent << item
-        raise "Manifest item already exists with id=#{item.id}" if @hash[item.id]      
-        @hash[item.id] = item
+        raise "Manifest item already exists with id=#{item.id}" if @itemsMap[item.id]      
+        @itemsMap[item.id] = item
       end
     end
     raise "The NCX is missing." unless @ncx
@@ -59,7 +65,7 @@ class Manifest
   end
 
   def itemWithId(identifier)
-    @hash[identifier]
+    @itemsMap[identifier]
   end
   
   def itemWithHref(href)
@@ -82,7 +88,7 @@ class Manifest
   
   def to_s
     buffer = "@manifest = {\n"
-    @hash.each do |id, item|
+    @itemsMap.each do |id, item|
       buffer << "  id=#{id} => href=#{item.href}\n"
     end
     buffer << "}"

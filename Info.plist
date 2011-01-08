@@ -26,7 +26,7 @@
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
-			<string></string>
+			<string>Book</string>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>

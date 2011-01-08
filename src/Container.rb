@@ -1,13 +1,21 @@
 class Container
 
   CONTAINER_XML_PATH = "/META-INF/container.xml"
-
+  
   # /var/tmp/foo/OEBPS => path
   # OEBPS => root
 
   attr_reader :root, :path, :opfDoc, :opfPath
 
-  def initialize(book)
+  def initialize(book=nil)
+    @root = ''
+    @path = ''
+    @opfPath = ''
+    @opfDoc = nil
+    
+    return unless book
+    
+    
     xmlPath = File.join(book.unzippath, CONTAINER_XML_PATH)
     raise "The #{CONTAINER_XML_PATH} file is missing." unless File.exists?(xmlPath)
     
@@ -28,7 +36,7 @@ class Container
     @opfDoc = REXML::Document.new(File.read(@opfPath))
     
   rescue Exception => exception
-    Alert.runModal("Unable to open #{book.filepath} because an error occurred while parsing #{CONTAINER_XML_PATH}.")
+    Alert.runModal("Unable to open #{book.fileURL.path} because an error occurred while parsing #{CONTAINER_XML_PATH}.")
   end
   
   def relativePathFor(filepath)

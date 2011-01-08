@@ -4,7 +4,9 @@ class Metadata
   attr_accessor :creator, :contributor, :publisher, :subject, :description
   attr_accessor :date, :type, :format, :source, :relation, :coverage, :rights, :cover
   
-  def initialize(book)
+  def initialize(book=nil)
+    @title = 'untitled'
+    return unless book
     book.container.opfDoc.elements.each("/package/metadata/*") do |e|
       if e.name == "meta"
         if e.attributes["name"] == "cover"

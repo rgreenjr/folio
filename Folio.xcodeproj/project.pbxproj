@@ -119,7 +119,6 @@
 		CDE3FD0F125A84C800D52C50 /* tab-edited-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD0B125A84C800D52C50 /* tab-edited-pressed.png */; };
 		CDE448FF12305CA2001C69AE /* AppController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448EE12305CA2001C69AE /* AppController.rb */; };
 		CDE4490012305CA2001C69AE /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448EF12305CA2001C69AE /* Book.rb */; };
-		CDE4490112305CA2001C69AE /* BookController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448F012305CA2001C69AE /* BookController.rb */; };
 		CDE4490212305CA2001C69AE /* Container.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448F112305CA2001C69AE /* Container.rb */; };
 		CDE4490312305CA2001C69AE /* Guide.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448F212305CA2001C69AE /* Guide.rb */; };
 		CDE4490412305CA2001C69AE /* ImageCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448F312305CA2001C69AE /* ImageCell.rb */; };
@@ -133,9 +132,10 @@
 		CDE4490C12305CA2001C69AE /* SpineController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448FB12305CA2001C69AE /* SpineController.rb */; };
 		CDE4490D12305CA2001C69AE /* TextViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448FC12305CA2001C69AE /* TextViewController.rb */; };
 		CDE4490E12305CA2001C69AE /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448FD12305CA2001C69AE /* WebViewController.rb */; };
-		CDE4490F12305CA2001C69AE /* WindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448FE12305CA2001C69AE /* WindowController.rb */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
+		CDED8D5C12D766FA0097EBE2 /* BookWindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDED8D5B12D766FA0097EBE2 /* BookWindowController.rb */; };
+		CDED8FD012D7C65B0097EBE2 /* Book.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDED8FCF12D7C65B0097EBE2 /* Book.xib */; };
 		CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF6EA12CC2CAA001AE172 /* Folio.icns */; };
 		CDEDF71912CC2FD8001AE172 /* backgroud-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
@@ -236,7 +236,6 @@
 		CDE3FD0B125A84C800D52C50 /* tab-edited-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-edited-pressed.png"; sourceTree = "<group>"; };
 		CDE448EE12305CA2001C69AE /* AppController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AppController.rb; sourceTree = "<group>"; };
 		CDE448EF12305CA2001C69AE /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
-		CDE448F012305CA2001C69AE /* BookController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookController.rb; sourceTree = "<group>"; };
 		CDE448F112305CA2001C69AE /* Container.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Container.rb; sourceTree = "<group>"; };
 		CDE448F212305CA2001C69AE /* Guide.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Guide.rb; sourceTree = "<group>"; };
 		CDE448F312305CA2001C69AE /* ImageCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageCell.rb; sourceTree = "<group>"; };
@@ -250,9 +249,10 @@
 		CDE448FB12305CA2001C69AE /* SpineController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SpineController.rb; sourceTree = "<group>"; };
 		CDE448FC12305CA2001C69AE /* TextViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TextViewController.rb; sourceTree = "<group>"; };
 		CDE448FD12305CA2001C69AE /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
-		CDE448FE12305CA2001C69AE /* WindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WindowController.rb; sourceTree = "<group>"; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
+		CDED8D5B12D766FA0097EBE2 /* BookWindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookWindowController.rb; sourceTree = "<group>"; };
+		CDED8FCF12D7C65B0097EBE2 /* Book.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Book.xib; sourceTree = "<group>"; };
 		CDEDF6EA12CC2CAA001AE172 /* Folio.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Folio.icns; sourceTree = "<group>"; };
 		CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroud-logo.png"; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -332,13 +332,14 @@
 				CDEDF6EA12CC2CAA001AE172 /* Folio.icns */,
 				CDBDC8A7122AA9DA00844EAA /* images */,
 				CD83F598122B3E32005BB914 /* templates */,
+				CDED8FCF12D7C65B0097EBE2 /* Book.xib */,
+				CDA86C0112CFAED000AD5C00 /* GotoLine.xib */,
 				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
 				CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */,
 				CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */,
 				CDA86B4812CF96C700AD5C00 /* Navigation.xib */,
 				CD8C45C912CF832B00B9A6B2 /* Progress.xib */,
 				CDA86B5012CF96D600AD5C00 /* Search.xib */,
-				CDA86C0112CFAED000AD5C00 /* GotoLine.xib */,
 				CD8C45DB12CF8CD700B9A6B2 /* Spine.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -410,7 +411,7 @@
 				CD5C2BF912CBBD15000DB287 /* Alert.rb */,
 				CDE448EE12305CA2001C69AE /* AppController.rb */,
 				CDE448EF12305CA2001C69AE /* Book.rb */,
-				CDE448F012305CA2001C69AE /* BookController.rb */,
+				CDED8D5B12D766FA0097EBE2 /* BookWindowController.rb */,
 				CDADCC79124BFF3E00553FC7 /* Bundle.rb */,
 				CDE448F112305CA2001C69AE /* Container.rb */,
 				CDB8C39312C7FD4700598DCF /* CSS.treetop */,
@@ -455,7 +456,6 @@
 				CD7E996B12C79F17006F611B /* TransparentWindow.rb */,
 				CD93487412BFFCBD008811CA /* Validator.rb */,
 				CDE448FD12305CA2001C69AE /* WebViewController.rb */,
-				CDE448FE12305CA2001C69AE /* WindowController.rb */,
 				CD5C2B3512CB9485000DB287 /* URL.rb */,
 				CD02D4BF124952C8007DC4B7 /* UUID.rb */,
 			);
@@ -539,7 +539,6 @@
 				CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */,
 				CDE448FF12305CA2001C69AE /* AppController.rb in Resources */,
 				CDE4490012305CA2001C69AE /* Book.rb in Resources */,
-				CDE4490112305CA2001C69AE /* BookController.rb in Resources */,
 				CDE4490212305CA2001C69AE /* Container.rb in Resources */,
 				CDE4490312305CA2001C69AE /* Guide.rb in Resources */,
 				CDE4490412305CA2001C69AE /* ImageCell.rb in Resources */,
@@ -553,7 +552,6 @@
 				CDE4490C12305CA2001C69AE /* SpineController.rb in Resources */,
 				CDE4490D12305CA2001C69AE /* TextViewController.rb in Resources */,
 				CDE4490E12305CA2001C69AE /* WebViewController.rb in Resources */,
-				CDE4490F12305CA2001C69AE /* WindowController.rb in Resources */,
 				CDE4491312305CAD001C69AE /* book_test.rb in Resources */,
 				CDE4491412305CAD001C69AE /* run_suite.rb in Resources */,
 				CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */,
@@ -617,6 +615,8 @@
 				CDA86C0212CFAED000AD5C00 /* GotoLine.xib in Resources */,
 				CDA86C0612CFAFED00AD5C00 /* GotoLineController.rb in Resources */,
 				CD03902012CFCCD300A6FACA /* TabViewController.rb in Resources */,
+				CDED8D5C12D766FA0097EBE2 /* BookWindowController.rb in Resources */,
+				CDED8FD012D7C65B0097EBE2 /* Book.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,32 +6,41 @@ require "open-uri"
 
 # http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html
 
-class Book #< NSDocument
+class Book < NSDocument
 
-  attr_accessor :navigation, :manifest, :spine, :container, :metadata, :guide
-  attr_accessor :filepath, :unzippath, :edited
+  attr_accessor :navigation, :manifest, :spine, :container, :metadata, :guide, :unzippath
+  
+  def init
+    puts "Book.init"
+    super
+    @metadata = Metadata.new
+    @container = Container.new
+    @manifest = Manifest.new
+    @spine = Spine.new
+    @navigation = Navigation.new
+    @guide = Guide.new
+    self
+  end
 
-  def initialize(filepath)
-    @filepath = filepath
+  def readFromURL(absoluteURL, ofType:inTypeName, error:outError)    
+    puts "Book.readFromURL #{absoluteURL.path}"
     @unzippath = Dir.mktmpdir("folio-unzip-")
-    system("unzip -q -d '#{@unzippath}' \"#{@filepath}\"")
+    runCommand("unzip -q -d '#{@unzippath}' \"#{absoluteURL.path}\"")
     @container  = Container.new(self)
     @manifest   = Manifest.new(self)
     @metadata   = Metadata.new(self)
     @spine      = Spine.new(self)
     @guide      = Guide.new(self)
     @navigation = Navigation.new(self)
+    true
+  rescue Exception => exception
+    info = { NSLocalizedFailureReasonErrorKey => exception.message }
+    outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
+    false
   end
 
-  def edited?
-    @edited
-  end
-
-  def basename
-    File.basename(@filepath)
-  end
-
-  def save
+  def writeToURL(absoluteURL, ofType:inTypeName, error:outError)
+    puts "Book.writeToURL #{absoluteURL.path}"
     tmp = Dir.mktmpdir("folio-zip-")
     # system("open #{tmp}")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
@@ -39,45 +48,39 @@ class Book #< NSDocument
     dest = File.join(tmp, @container.root)
     @manifest.save(dest)
     @navigation.save(dest)
-    File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opf_xml}
-    runCommand("cd '#{tmp}'; zip -qX0 ./folio-book.epub mimetype 2>&1")
-    runCommand("cd '#{tmp}'; zip -qX9urD ./folio-book.epub * 2>&1")
-    FileUtils.rm_rf(@filepath)
-    FileUtils.mv(File.join(tmp, 'folio-book.epub'), @filepath)
+    File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opfXML}
+    runCommand("cd '#{tmp}'; zip -qX0 ./folio-book.epub mimetype")
+    runCommand("cd '#{tmp}'; zip -qX9urD ./folio-book.epub *")
+    FileUtils.mv(File.join(tmp, 'folio-book.epub'), absoluteURL.path)
     FileUtils.rm_rf(tmp)
+    true
   rescue Exception => exception
-    showSaveErrorAlert(exception.message)
-  end  
-
-  def saveAs(filepath)
-    filepath = filepath + '.epub' unless File.extname(filepath) == '.epub'
-    @filepath = filepath
-    save
+    info = { NSLocalizedFailureReasonErrorKey => exception.message }
+    outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
+    false
   end
 
-  def close
-    FileUtils.rm_rf(@unzippath)
+  def makeWindowControllers
+    puts "Book.makeWindowControllers"
+    bookWindowController = BookWindowController.alloc.init
+    addWindowController(bookWindowController)
   end
 
   def relativePathFor(filepath)
     filepath.gsub(@unzippath, '')
   end
-
+  
   private
 
-  def opf_xml
+  def opfXML
     book = self
     ERB.new(Bundle.template("content.opf")).result(binding)
   end
 
   def runCommand(command)
-    result = `#{command}`
+    result = `#{command}  2>&1`
     raise result unless $?.success? 
     result
-  end
-
-  def showSaveErrorAlert(message)
-    Alert.runModal("The book \"#{@metadata.title}\" could not be save because and error occurred.", message)
   end
 
 end

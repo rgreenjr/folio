@@ -1,16 +1,30 @@
-class TabViewController
+class TabViewController < NSViewController
 
-  attr_accessor :tabView, :splitView, :textViewController, :webViewController
+  attr_accessor :splitView, :textViewController, :webViewController
 
   def awakeFromNib
-    @tabView.delegate = self
+    view.delegate = self
     NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), 
-    name:NSTextStorageDidProcessEditingNotification, object:@textViewController.textView.textStorage)
+        name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
   end
 
   def textDidChange(notification)
     # required to update edited status
-    @tabView.needsDisplay = true
+    view.needsDisplay = true
+  end
+  
+  def saveTab(sender)
+    view.save(self)
+  end
+  
+  def saveAllTabs(sender)
+    view.editedTabs.each do |tab|
+      view.saveTab(tab)
+    end
+  end
+
+  def closeTab(sender)
+    view.close(self)
   end
 
   def toggleSplitViewOrientation(sender)
@@ -22,6 +36,23 @@ class TabViewController
       @splitView.vertical = true
     end
     @splitView.adjustSubviews
+  end
+
+  def selectNextTab(sender)
+    view.selectNextTab
+  end
+
+  def selectPreviousTab(sender)
+    view.selectPreviousTab
+  end  
+
+  def validateUserInterfaceItem(menuItem)
+    case menuItem.title
+    when 'Select Next Tab', 'Select Previous Tab'
+      view.size > 1
+    else
+      true
+    end
   end
 
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)

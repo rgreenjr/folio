@@ -1,13 +1,14 @@
-class WebViewController
+class WebViewController < NSViewController
 
-  attr_accessor :webView, :item, :bookController
+  attr_accessor :item
 
   def awakeFromNib
-    @webView.editable = false
-    @webView.preferences.defaultFontSize = 16
-    @webView.preferences.usesPageCache = false
-    @webView.setUIDelegate(self)
-    @webView.setPolicyDelegate(self)
+    view.editable = false
+    view.frameLoadDelegate = self
+    view.preferences.defaultFontSize = 16
+    view.preferences.usesPageCache = false
+    view.setUIDelegate(self)
+    view.setPolicyDelegate(self)
   end
 
   def item=(item)
@@ -15,22 +16,22 @@ class WebViewController
     @item = item
     if @item
       request = NSURLRequest.requestWithURL(@item.url)
-      @webView.mainFrame.loadRequest(request)
+      view.mainFrame.loadRequest(request)
     else
-      @webView.mainFrame.loadHTMLString('', baseURL:nil)
+      view.mainFrame.loadHTMLString('', baseURL:nil)
     end
   end
 
   def back(sender)
-    @webView.goBack(sender)
+    view.goBack(sender)
   end
 
   def forward(sender)
-    @webView.goForward(sender)
+    view.goForward(sender)
   end
 
   def reload(sender)
-    @webView.reload(nil)
+    view.reload(nil)
   end
 
   def validateUserInterfaceItem(menuItem)
@@ -55,7 +56,7 @@ class WebViewController
   
   def createNavigationLink(sender)
     puts "createNavigationLink"
-    @bookController.navigationController.addPoint(nil)
+    # @bookWindowController.document.navigationController.addPoint(nil)
   end
 
   def webView(webView, decidePolicyForNavigationAction:actionInformation, request:request, frame:frame, decisionListener:listener)
@@ -67,7 +68,7 @@ class WebViewController
     else      
       href = request.URL.path
       fragment = request.URL.fragment || ""
-      item = @bookController.book.manifest.itemWithHref(href)
+      # item = @bookWindowController.document.manifest.itemWithHref(href)
       if item.nil?
         listener.ignore
         Alert.runModal("Cannot Open Link", "Please make sure the file is included in the manifest.\n\n#{request.URL.path}")
@@ -77,7 +78,7 @@ class WebViewController
         listener.ignore
         point = Point.new(item)
         point.fragment = fragment
-        @bookController.tabView.add(point)
+        @bookWindowController.tabView.add(point)
       end
     end
   end

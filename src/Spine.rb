@@ -1,8 +1,11 @@
 class Spine < DelegateClass(Array)
 
-  def initialize(book)
+  def initialize(book=nil)
     @items = []
     super(@items)
+    
+    return unless book
+    
     book.container.opfDoc.elements.each("/package/spine/itemref") do |element|
       idref = element.attributes["idref"]
       item = book.manifest.itemWithId(idref)

@@ -21,7 +21,7 @@ class ManifestController < NSViewController
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
     @outlineView.reloadData
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:nil)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:@tabView)
 
     # configure media types popup button
     Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}

@@ -1,6 +1,6 @@
 class Guide
   
-  def initialize(book)
+  def initialize(book=nil)
     @items = []
   end
 

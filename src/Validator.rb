@@ -2,7 +2,7 @@ class Validator
 
   def self.validate(book)
     tmpdir = Dir.mktmpdir("folio-validation-")
-    epub_filepath = "#{tmpdir}/#{book.basename}"
+    epub_filepath = "#{tmpdir}/#{book.fileURL.path.lastPathComponent}"
     book.saveAs(epub_filepath)
     
     prefix = "#{NSBundle.mainBundle.bundlePath}/Contents/Resources/lib/epubcheck"

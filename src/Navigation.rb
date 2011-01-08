@@ -2,8 +2,17 @@ class Navigation
 
   attr_accessor :id, :title, :creator, :docAuthor, :root
 
-  def initialize(book)
+  def initialize(book=nil)
     @hash  = {}
+    @id = UUID.create
+    @ncx_name = "toc.ncx"
+    @title = "untitled"
+    @docAuthor = ""
+    @root = Point.new
+    @root.expanded = true
+
+    return unless book
+
     doc = REXML::Document.new(book.manifest.ncx.content)
     @ncx_name = book.manifest.ncx.name
     prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
@@ -17,9 +26,6 @@ class Navigation
     if doc.elements["/ncx/docAuthor/text"]
       @docAuthor = doc.elements["/ncx/docAuthor/text"].text
     end
-
-    @root = Point.new
-    @root.expanded = true
 
     point_stack = [@root]
     xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
@@ -48,7 +54,7 @@ class Navigation
       end
     end
   rescue Exception => exception
-    Alert.runModal("Unable to open #{book.filepath} because an error occurred while parsing NCX.", exception.message)
+    Alert.runModal("Unable to open #{book.fileURL.path} because an error occurred while parsing NCX.", exception.message)
   end
 
   def depth

@@ -14,9 +14,13 @@ class TabView < NSView
 	  @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)    
     self
   end
+  
+  def size
+    @tabs.size
+  end
 
   def acceptsFirstResponder
-    true
+    true # ???
   end
   
   def isOpaque
@@ -193,13 +197,13 @@ class TabView < NSView
     end
   end
 
-  def selectNextTab(sender)
+  def selectNextTab
     return unless @selectedTab
     index = indexForTab(@selectedTab) + 1
     selectTab(@tabs[index]) if index < @tabs.size
   end
 
-  def selectPreviousTab(sender)
+  def selectPreviousTab
     return unless @selectedTab
     index = indexForTab(@selectedTab) - 1
     selectTab(@tabs[index]) if index >= 0
