@@ -1,5 +1,5 @@
 class TabViewController < NSViewController
-  
+
   HORIZONTAL_ORIENTATION_TAG = 0
   VERTICAL_ORIENTATION_TAG   = 1
 
@@ -8,7 +8,7 @@ class TabViewController < NSViewController
 
   def awakeFromNib
     view.delegate = self
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), 
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'),
         name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
   end
 
@@ -16,11 +16,11 @@ class TabViewController < NSViewController
     # required to update edited status
     view.needsDisplay = true
   end
-  
+
   def saveTab(sender)
     view.save(self)
   end
-  
+
   def saveAllTabs(sender)
     view.editedTabs.each do |tab|
       view.saveTab(tab)
@@ -30,7 +30,7 @@ class TabViewController < NSViewController
   def closeTab(sender)
     view.close(self)
   end
-  
+
   def undoManagerForItem(item)
     view.tabForItem(item).undoManager
   end
@@ -42,7 +42,7 @@ class TabViewController < NSViewController
       @splitViewSegementedControl.selectedSegment == HORIZONTAL_ORIENTATION_TAG ? makeSplitViewOrientationHorizontal : makeSplitViewOrientationVertical
     end
   end
-  
+
   def makeSplitViewOrientationVertical
     @splitViewSegementedControl.selectSegmentWithTag(HORIZONTAL_ORIENTATION_TAG)
     @splitView.vertical = false
@@ -61,7 +61,7 @@ class TabViewController < NSViewController
 
   def selectPreviousTab(sender)
     view.selectPreviousTab
-  end  
+  end
 
   def validateUserInterfaceItem(menuItem)
     case menuItem.title
@@ -87,7 +87,7 @@ class TabViewController < NSViewController
   #     @splitView.adjustSubviews
   #   end
   # end
-  # 
+  #
   # def removeTextView
   #   if @splitView.subviews.size == 2
   #     # @splitView.subviews.last.removeFromSuperview

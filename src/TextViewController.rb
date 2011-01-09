@@ -56,6 +56,9 @@ class TextViewController < NSViewController
     return unless @item
     @item.content = view.textStorage.string
     @webViewController.reload(self)
+
+    # update document change count so user will be prompted to save book
+    view.window.document.updateChangeCount(NSSaveOperation)    
   end
   
   def undoManagerForTextView(textView)
@@ -183,9 +186,10 @@ class TextViewController < NSViewController
     return false unless @item
     case menuItem.title
     when 'Strong', 'Emphasize', 'Paragraph', 'Uppercase', 'Lowercase', 'Titlecase', 'Strip Tags'
-      return selectedRange.length > 0
+      selectedRange.length > 0
+    else
+      true
     end
-    true
   end
   
   def textView(view, menu:menu, forEvent:event, atIndex:charIndex)

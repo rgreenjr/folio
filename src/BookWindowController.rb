@@ -40,7 +40,7 @@ class BookWindowController < NSWindowController
     right.frame = rightFrame
     sender.adjustSubviews
   end
-
+  
   def tabViewSelectionDidChange(notification)
     @tabView.selectedTab ? showContentView : showLogoImage
   end

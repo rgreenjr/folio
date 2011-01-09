@@ -21,7 +21,7 @@ class Book < NSDocument
     self
   end
 
-  def readFromURL(absoluteURL, ofType:inTypeName, error:outError)    
+  def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
     @unzippath = Dir.mktmpdir("folio-unzip-")
     runCommand("unzip -q -d '#{@unzippath}' \"#{absoluteURL.path}\"")
     @container  = Container.new(self)

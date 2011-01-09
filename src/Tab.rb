@@ -40,13 +40,17 @@ class Tab
     buttonRect = NSMakeRect(rect.origin.x + (BUTTON_PADDING * 0.5), (rect.size.height * 0.5) - (buttonImage.size.height * 0.5), buttonImage.size.width, buttonImage.size.height)
     NSPointInRect(point, buttonRect)
   end
+  
+  def save
+    @item.save
+  end
 
   def selected?
     @selected
   end
-  
+
   def edited?
-    undoManager.canUndo
+    @item.edited?
   end
 
   def undoManager

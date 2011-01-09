@@ -155,7 +155,7 @@ class TabView < NSView
   
   def save(sender)
     if @selectedTab
-      @selectedTab.item.save
+      @selectedTab.save
       setNeedsDisplay(true)
     end
   end
@@ -210,7 +210,7 @@ class TabView < NSView
   end
   
   def saveTab(tab)
-    tab.item.save
+    tab.save
     setNeedsDisplay(true)
   end
   
@@ -227,7 +227,7 @@ class TabView < NSView
 
   def saveAlertDidEnd(alert, returnCode:code, contextInfo:info)
     if code == NSAlertFirstButtonReturn
-      @saveTab.item.save
+      @saveTab.save
       closeTab(@saveTab)
     elsif code == NSAlertSecondButtonReturn
       @saveTab.closeButtonPressed = false
