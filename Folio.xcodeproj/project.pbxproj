@@ -63,6 +63,8 @@
 		CD2F101B12AEA56D00B2AC6D /* Language.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101912AEA56D00B2AC6D /* Language.rb */; };
 		CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */; };
 		CD318B8912BBBE4500B4692F /* Menu.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD318B8812BBBE4500B4692F /* Menu.rb */; };
+		CD4EE39B12DA213E00A18681 /* horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = CD4EE39A12DA213E00A18681 /* horizontal.png */; };
+		CD4EE3CA12DA255700A18681 /* vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = CD4EE3C912DA255700A18681 /* vertical.png */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
 		CD5B1ED71283084C00681880 /* IndexSet.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1ED51283084C00681880 /* IndexSet.rb */; };
 		CD5B1ED81283084C00681880 /* TableView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD5B1ED61283084C00681880 /* TableView.rb */; };
@@ -180,6 +182,8 @@
 		CD2F101912AEA56D00B2AC6D /* Language.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Language.rb; sourceTree = "<group>"; };
 		CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MetadataController.rb; sourceTree = "<group>"; };
 		CD318B8812BBBE4500B4692F /* Menu.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Menu.rb; sourceTree = "<group>"; };
+		CD4EE39A12DA213E00A18681 /* horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horizontal.png; sourceTree = "<group>"; };
+		CD4EE3C912DA255700A18681 /* vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vertical.png; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		CD5B1ED51283084C00681880 /* IndexSet.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IndexSet.rb; sourceTree = "<group>"; };
 		CD5B1ED61283084C00681880 /* TableView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TableView.rb; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 			isa = PBXGroup;
 			children = (
 				CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */,
+				CD4EE39A12DA213E00A18681 /* horizontal.png */,
+				CD4EE3C912DA255700A18681 /* vertical.png */,
 				CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */,
 				CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */,
 				CD994B031260B42100AAD4DE /* tab-bg.png */,
@@ -617,6 +623,8 @@
 				CD03902012CFCCD300A6FACA /* TabViewController.rb in Resources */,
 				CDED8D5C12D766FA0097EBE2 /* BookWindowController.rb in Resources */,
 				CDED8FD012D7C65B0097EBE2 /* Book.xib in Resources */,
+				CD4EE39B12DA213E00A18681 /* horizontal.png in Resources */,
+				CD4EE3CA12DA255700A18681 /* vertical.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
