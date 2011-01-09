@@ -45,6 +45,10 @@ class Tab
     @selected
   end
   
+  def undoManager
+    @undoManager ||= NSUndoManager.alloc.init
+  end
+  
   private
 
   def drawBackground(rect)

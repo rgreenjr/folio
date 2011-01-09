@@ -30,6 +30,10 @@ class TabViewController < NSViewController
   def closeTab(sender)
     view.close(self)
   end
+  
+  def undoManagerForItem(item)
+    view.tabForItem(item).undoManager
+  end
 
   def toggleSplitViewOrientation(sender)
     if sender == @splitViewSegementedControl

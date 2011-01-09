@@ -18,10 +18,6 @@ class TabView < NSView
   def size
     @tabs.size
   end
-
-  def acceptsFirstResponder
-    true # ???
-  end
   
   def isOpaque
     true

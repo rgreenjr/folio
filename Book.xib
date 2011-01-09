@@ -142,23 +142,23 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="947358600">
+							<object class="NSToolbarItem" id="316066178">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">25027E3B-ABA9-4F6B-B52B-3E2C816F253A</characters>
 								</object>
 								<string key="NSToolbarItemLabel">Editor</string>
 								<string key="NSToolbarItemPaletteLabel">Editor</string>
 								<nil key="NSToolbarItemToolTip"/>
-								<object class="NSSegmentedControl" key="NSToolbarItemView" id="59486996">
+								<object class="NSSegmentedControl" key="NSToolbarItemView" id="594508771">
 									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {71, 25}}</string>
 									<bool key="NSEnabled">YES</bool>
-									<object class="NSSegmentedCell" key="NSCell" id="388805897">
+									<object class="NSSegmentedCell" key="NSCell" id="98382472">
 										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">0</int>
 										<reference key="NSSupport" ref="902485450"/>
-										<reference key="NSControlView" ref="59486996"/>
+										<reference key="NSControlView" ref="594508771"/>
 										<object class="NSMutableArray" key="NSSegmentImages">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSSegmentItem">
@@ -362,13 +362,13 @@
 						<reference ref="192817359"/>
 						<reference ref="121153377"/>
 						<reference ref="869047117"/>
-						<reference ref="947358600"/>
+						<reference ref="316066178"/>
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="121153377"/>
 						<reference ref="287252432"/>
-						<reference ref="947358600"/>
+						<reference ref="316066178"/>
 						<reference ref="192817359"/>
 						<reference ref="869047117"/>
 					</object>
@@ -1078,7 +1078,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">orientationSegementedControl</string>
 						<reference key="source" ref="134124511"/>
-						<reference key="destination" ref="59486996"/>
+						<reference key="destination" ref="594508771"/>
 					</object>
 					<int key="connectionID">96</int>
 				</object>
@@ -1086,7 +1086,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleSplitViewOrientation:</string>
 						<reference key="source" ref="134124511"/>
-						<reference key="destination" ref="947358600"/>
+						<reference key="destination" ref="316066178"/>
 					</object>
 					<int key="connectionID">97</int>
 				</object>
@@ -1094,9 +1094,17 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">splitViewSegementedControl</string>
 						<reference key="source" ref="134124511"/>
-						<reference key="destination" ref="59486996"/>
+						<reference key="destination" ref="594508771"/>
 					</object>
 					<int key="connectionID">98</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">tabViewController</string>
+						<reference key="source" ref="820190714"/>
+						<reference key="destination" ref="134124511"/>
+					</object>
+					<int key="connectionID">99</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1146,7 +1154,7 @@
 							<reference ref="121153377"/>
 							<reference ref="192817359"/>
 							<reference ref="287252432"/>
-							<reference ref="947358600"/>
+							<reference ref="316066178"/>
 						</object>
 						<reference key="parent" ref="53791894"/>
 					</object>
@@ -1447,26 +1455,26 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">94</int>
-						<reference key="object" ref="947358600"/>
+						<reference key="object" ref="316066178"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="59486996"/>
+							<reference ref="594508771"/>
 						</object>
 						<reference key="parent" ref="1014419714"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">92</int>
-						<reference key="object" ref="59486996"/>
+						<reference key="object" ref="594508771"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="388805897"/>
+							<reference ref="98382472"/>
 						</object>
-						<reference key="parent" ref="947358600"/>
+						<reference key="parent" ref="316066178"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">93</int>
-						<reference key="object" ref="388805897"/>
-						<reference key="parent" ref="59486996"/>
+						<reference key="object" ref="98382472"/>
+						<reference key="parent" ref="594508771"/>
 					</object>
 				</object>
 			</object>
@@ -1647,7 +1655,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">98</int>
+			<int key="maxID">99</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2154,10 +2162,12 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>item</string>
+							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -2167,12 +2177,17 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>item</string>
+							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">tabViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

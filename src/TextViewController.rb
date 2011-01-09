@@ -1,6 +1,6 @@
 class TextViewController < NSViewController
 
-  attr_accessor :item, :webViewController
+  attr_accessor :item, :webViewController, :tabViewController
 
   def awakeFromNib
     scrollView = view.enclosingScrollView
@@ -56,6 +56,10 @@ class TextViewController < NSViewController
     return unless @item
     @item.content = view.textStorage.string
     @webViewController.reload(self)
+  end
+  
+  def undoManagerForTextView(textView)
+    @tabViewController.undoManagerForItem(@item)
   end
 
   def replace(range, replacement)
