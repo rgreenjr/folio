@@ -180,7 +180,12 @@ class TextViewController < NSViewController
   end
 
   def validateUserInterfaceItem(menuItem)
-    @item != nil
+    return false unless @item
+    case menuItem.title
+    when 'Strong', 'Emphasize', 'Paragraph', 'Uppercase', 'Lowercase', 'Titlecase', 'Strip Tags'
+      return selectedRange.length > 0
+    end
+    true
   end
   
   def textView(view, menu:menu, forEvent:event, atIndex:charIndex)
