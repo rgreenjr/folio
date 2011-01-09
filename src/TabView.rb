@@ -165,7 +165,7 @@ class TabView < NSView
   end
   
   def saveOrCloseTab(tab)
-    if tab.item.edited?
+    if tab.edited?
       showSaveAlert(tab)
     else
       closeTab(tab)

@@ -7,7 +7,7 @@ class Tab
 
   def initialize(item)
     @item = item
-    
+
     @backgroundImage = NSImage.imageNamed("tab-bg.png")
     @backgroundSelectedImage = NSImage.imageNamed("tab-selected-bg.png")
 
@@ -21,10 +21,10 @@ class Tab
 	  }
 
 	  @borderColor = NSColor.colorWithDeviceRed(0.535, green:0.535, blue:0.535, alpha:1.0)
-	  
+
 	  @closeImage = NSImage.imageNamed('tab-close.png')
 	  @closePressedImage = NSImage.imageNamed('tab-close-pressed.png')
-	  
+
 	  @editedClosedImage = NSImage.imageNamed('tab-edited-close.png')
 	  @editedPressedImage = NSImage.imageNamed('tab-edited-pressed.png')
   end
@@ -33,7 +33,7 @@ class Tab
     drawBackground(rect)
     drawBorder(rect)
     drawLabel(rect)
-    drawButton(rect)       
+    drawButton(rect)
   end
 
   def closeButtonHit?(point, rect)
@@ -45,10 +45,14 @@ class Tab
     @selected
   end
   
+  def edited?
+    undoManager.canUndo
+  end
+
   def undoManager
     @undoManager ||= NSUndoManager.alloc.init
   end
-  
+
   private
 
   def drawBackground(rect)
@@ -57,35 +61,35 @@ class Tab
     if @selected
       @backgroundSelectedImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
     else
-      @backgroundImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)      
+      @backgroundImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
     end
   end
-  
+
   def drawBorder(rect)
     @borderColor.set
     NSBezierPath.defaultLineWidth = 1.0
     NSBezierPath.strokeLineFromPoint(CGPoint.new(rect.origin.x + rect.size.width + 0.5, rect.origin.y), toPoint:CGPoint.new(rect.origin.x + rect.size.width + 0.5, rect.size.height))
   end
-  
+
   def buttonImage
     if @closeButtonPressed
-      @item.edited? ? @editedPressedImage : @closePressedImage
+      edited? ? @editedPressedImage : @closePressedImage
     else
-      @item.edited? ? @editedClosedImage : @closeImage
+      edited? ? @editedClosedImage : @closeImage
     end
   end
-  
+
   def drawLabel(rect)
     labelRect = NSInsetRect(rect, LABEL_PADDING, 0.0)
     labelRect.origin.x += BUTTON_PADDING
-    labelRect.size.width -= BUTTON_PADDING    
+    labelRect.size.width -= BUTTON_PADDING
     labelSize = @item.name.sizeWithAttributes(@labelAttributes)
     labelRect.origin.y -= ((rect.size.height - labelSize.height) * 0.5).floor
     @item.name.drawInRect(labelRect, withAttributes:@labelAttributes)
   end
-  
+
   def drawButton(rect)
-    buttonPoint = CGPoint.new(rect.origin.x + (BUTTON_PADDING * 0.5), ((rect.size.height - buttonImage.size.height) * 0.5).floor)    
+    buttonPoint = CGPoint.new(rect.origin.x + (BUTTON_PADDING * 0.5), ((rect.size.height - buttonImage.size.height) * 0.5).floor)
     buttonImage.compositeToPoint(buttonPoint, operation:NSCompositeSourceOver)
   end
 

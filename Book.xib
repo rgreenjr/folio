@@ -21,7 +21,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -142,23 +141,23 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="316066178">
+							<object class="NSToolbarItem" id="920946173">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">25027E3B-ABA9-4F6B-B52B-3E2C816F253A</characters>
 								</object>
 								<string key="NSToolbarItemLabel">Editor</string>
 								<string key="NSToolbarItemPaletteLabel">Editor</string>
 								<nil key="NSToolbarItemToolTip"/>
-								<object class="NSSegmentedControl" key="NSToolbarItemView" id="594508771">
+								<object class="NSSegmentedControl" key="NSToolbarItemView" id="480683765">
 									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {71, 25}}</string>
 									<bool key="NSEnabled">YES</bool>
-									<object class="NSSegmentedCell" key="NSCell" id="98382472">
+									<object class="NSSegmentedCell" key="NSCell" id="136210616">
 										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">0</int>
 										<reference key="NSSupport" ref="902485450"/>
-										<reference key="NSControlView" ref="594508771"/>
+										<reference key="NSControlView" ref="480683765"/>
 										<object class="NSMutableArray" key="NSSegmentImages">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSSegmentItem">
@@ -362,13 +361,13 @@
 						<reference ref="192817359"/>
 						<reference ref="121153377"/>
 						<reference ref="869047117"/>
-						<reference ref="316066178"/>
+						<reference ref="920946173"/>
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="121153377"/>
 						<reference ref="287252432"/>
-						<reference ref="316066178"/>
+						<reference ref="920946173"/>
 						<reference ref="192817359"/>
 						<reference ref="869047117"/>
 					</object>
@@ -393,6 +392,7 @@
 									<int key="NSvFlags">274</int>
 									<string key="NSFrameSize">{296, 574}</string>
 									<reference key="NSSuperview" ref="540888369"/>
+									<reference key="NSWindow"/>
 									<string key="NSClassName">NSView</string>
 								</object>
 								<object class="NSCustomView" id="426908954">
@@ -400,17 +400,20 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{297, 0}, {600, 574}}</string>
 									<reference key="NSSuperview" ref="540888369"/>
+									<reference key="NSWindow"/>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
 							<string key="NSFrame">{{0, 24}, {897, 574}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
+							<reference key="NSWindow"/>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">2</int>
 						</object>
 					</object>
 					<string key="NSFrameSize">{897, 598}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{897, 669}</string>
@@ -1078,7 +1081,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">orientationSegementedControl</string>
 						<reference key="source" ref="134124511"/>
-						<reference key="destination" ref="594508771"/>
+						<reference key="destination" ref="480683765"/>
 					</object>
 					<int key="connectionID">96</int>
 				</object>
@@ -1086,7 +1089,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleSplitViewOrientation:</string>
 						<reference key="source" ref="134124511"/>
-						<reference key="destination" ref="316066178"/>
+						<reference key="destination" ref="920946173"/>
 					</object>
 					<int key="connectionID">97</int>
 				</object>
@@ -1094,7 +1097,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">splitViewSegementedControl</string>
 						<reference key="source" ref="134124511"/>
-						<reference key="destination" ref="594508771"/>
+						<reference key="destination" ref="480683765"/>
 					</object>
 					<int key="connectionID">98</int>
 				</object>
@@ -1154,7 +1157,7 @@
 							<reference ref="121153377"/>
 							<reference ref="192817359"/>
 							<reference ref="287252432"/>
-							<reference ref="316066178"/>
+							<reference ref="920946173"/>
 						</object>
 						<reference key="parent" ref="53791894"/>
 					</object>
@@ -1455,26 +1458,26 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">94</int>
-						<reference key="object" ref="316066178"/>
+						<reference key="object" ref="920946173"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="594508771"/>
+							<reference ref="480683765"/>
 						</object>
 						<reference key="parent" ref="1014419714"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">92</int>
-						<reference key="object" ref="594508771"/>
+						<reference key="object" ref="480683765"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="98382472"/>
+							<reference ref="136210616"/>
 						</object>
-						<reference key="parent" ref="316066178"/>
+						<reference key="parent" ref="920946173"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">93</int>
-						<reference key="object" ref="98382472"/>
-						<reference key="parent" ref="594508771"/>
+						<reference key="object" ref="136210616"/>
+						<reference key="parent" ref="480683765"/>
 					</object>
 				</object>
 			</object>
