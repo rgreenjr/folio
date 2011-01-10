@@ -10,6 +10,7 @@
     <dc:subject><%= book.metadata.subject.escapeHTML %></dc:subject>
     <dc:description><%= book.metadata.description.escapeHTML %></dc:description>
     <dc:subject><%= book.metadata.subject.escapeHTML %></dc:subject>
+    <dc:publisher><%= book.metadata.publisher.escapeHTML %></dc:publisher>
     <dc:rights><%= book.metadata.rights.escapeHTML %></dc:rights>
     <% if book.metadata.cover %>
     <meta name="cover" content="<%= book.metadata.cover.id %>"/>
