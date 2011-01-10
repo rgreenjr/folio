@@ -3,6 +3,7 @@ require "fileutils"
 require "erb"
 require "tempfile"
 require "open-uri"
+require "cgi"
 
 # http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html
 
