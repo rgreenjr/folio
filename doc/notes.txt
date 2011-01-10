@@ -7,20 +7,20 @@ TODO
 - ePub validation
 - add webview forward/backward bunttons
 - Metadata assignments (marks as TOC, prefaces, etc)
-- Move to NSDocument model
 - auto scroll source view on navigation changes
 - TabViewController redesign
 - Guide generation
 - Drag to desktop
-- Fix last tab drawing bug
 
 - Navigation view updates
 - Add plus/minus buttons
 - Add view transitions
 - Preferences
 
-Graceful Application Termination
-http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/AppArchitecture/Tasks/GracefulAppTermination.html%23//apple_ref/doc/uid/20001280
+Bugs
+====
+
+- Fix delete undo of nested navigation points
 
 Hpricot Examples
 ===============
