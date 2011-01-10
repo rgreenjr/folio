@@ -92,7 +92,7 @@ class Point
     padding = "  " * indent
     buffer << "#{padding}<navPoint id=\"#{@id}\" playOrder=\"#{@playOrder}\">\n"
     buffer << "#{padding}  <navLabel>\n"
-    buffer << "#{padding}    <text>#{@text}</text>\n"
+    buffer << "#{padding}    <text>#{@text.escapeHTML}</text>\n"
     buffer << "#{padding}  </navLabel>\n"
     buffer << "#{padding}  <content src=\"#{src}\"/>\n"
     @children.each do |p|
