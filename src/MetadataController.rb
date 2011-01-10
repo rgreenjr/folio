@@ -25,6 +25,7 @@ class MetadataController < NSWindowController
     @languagePopup.selectItemWithTitle(Language.name_for(@book.metadata.language))
     displayCoverImage
     window.center
+    window.level = NSModalPanelWindowLevel
     window.makeKeyAndOrderFront(self)
   end
 
@@ -38,10 +39,12 @@ class MetadataController < NSWindowController
     changeAttribute('subject')
     changeAttribute('rights')
     @book.metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
-    updateCoverImage
+    changeCoverImage
     window.orderOut(self)
   end
   
+  private
+
   def displayCoverImage
     if @book.metadata.cover
       @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@book.metadata.cover.path)
@@ -49,15 +52,6 @@ class MetadataController < NSWindowController
       @coverImageView.image = noCoverImage
     end
     @stashedImagePath = nil
-  end
-  
-  def updateCoverImage
-    return unless @stashedImagePath
-    item = @book.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
-    @book.controller.manifestController.deleteItems([item]) if item
-    item = @book.controller.manifestController.addFile(@stashedImagePath)
-    @book.metadata.cover = item
-    displayCoverImage
   end
   
   def	coverImageChanged(sender)
@@ -87,7 +81,14 @@ class MetadataController < NSWindowController
     end
   end
 
-  private
+  def changeCoverImage
+    return unless @stashedImagePath
+    item = @book.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
+    @book.controller.manifestController.deleteItems([item]) if item
+    item = @book.controller.manifestController.addFile(@stashedImagePath)
+    @book.metadata.cover = item
+    displayCoverImage
+  end
 
   def noCoverImage
     @noCoverImage ||= NSImage.imageNamed("no-cover.png")

@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1258,7 +1258,6 @@
 							<string>dateField</string>
 							<string>descriptionField</string>
 							<string>identifierField</string>
-							<string>imagePathField</string>
 							<string>imageWell</string>
 							<string>languagePopup</string>
 							<string>publisherField</string>
@@ -1268,7 +1267,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1293,7 +1291,6 @@
 							<string>dateField</string>
 							<string>descriptionField</string>
 							<string>identifierField</string>
-							<string>imagePathField</string>
 							<string>imageWell</string>
 							<string>languagePopup</string>
 							<string>publisherField</string>
@@ -1325,10 +1322,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">identifierField</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">imagePathField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
