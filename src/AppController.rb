@@ -8,9 +8,4 @@ class AppController
   #   end
   # end
 
-  def applicationShouldTerminate(application)
-    puts "applicationShouldTerminate"
-    true
-  end
-  
 end
