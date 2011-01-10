@@ -1,9 +1,9 @@
 class MetadataController < NSWindowController
   
-  attr_accessor :book, :imageWell
+  attr_accessor :book, :imageWell, :coverImageView
   attr_accessor :titleField, :dateField, :identifierField, :languagePopup
-  attr_accessor :descriptionField, :creatorField, :publisherField
-  attr_accessor :subjectField, :rightsField, :coverImageView
+  attr_accessor :descriptionField, :creatorField, :sortCreatorField, :publisherField
+  attr_accessor :subjectField, :rightsField
 
   def init
     initWithWindowNibName("Metadata")
@@ -19,6 +19,7 @@ class MetadataController < NSWindowController
     displayAttribute('date')
     displayAttribute('identifier')
     displayAttribute('creator')
+    displayAttribute('sortCreator')
     displayAttribute('publisher')
     displayAttribute('subject')
     displayAttribute('rights')
@@ -35,6 +36,7 @@ class MetadataController < NSWindowController
     changeAttribute('date')
     changeAttribute('identifier')
     changeAttribute('creator')
+    changeAttribute('sortCreator')
     changeAttribute('publisher')
     changeAttribute('subject')
     changeAttribute('rights')
