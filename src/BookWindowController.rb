@@ -133,7 +133,7 @@ class BookWindowController < NSWindowController
   end
 
   def showTemporaryDirectory(sender)
-    system("open #{document.unzippath}")
+    system("open \"#{document.unzippath}\"")
   end
 
   def validate(sender)

@@ -36,6 +36,19 @@ class Manifest
     raise "The NCX is missing." unless @ncx
     self.sort
   end
+  
+  def insertFileAtPath(filepath, parent, index)
+    item = Item.new(parent, File.basename(filepath))
+    item.content = File.read(filepath)
+    parent.insert(index, item)    
+    item
+  end
+  
+  def delete(item)
+    parent = item.parent
+    NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:[item.url], withObject:nil)
+    parent.delete_at(item.parent.index(item))
+  end
 
   def each(includeDirectories=false, &block)
     stack = [@root]

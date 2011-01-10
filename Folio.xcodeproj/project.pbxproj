@@ -95,7 +95,6 @@
 		CDA86B4912CF96C700AD5C00 /* Navigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86B4812CF96C700AD5C00 /* Navigation.xib */; };
 		CDA86B4D12CF96CE00AD5C00 /* Manifest.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */; };
 		CDA86B5112CF96D600AD5C00 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86B5012CF96D600AD5C00 /* Search.xib */; };
-		CDA86C0212CFAED000AD5C00 /* GotoLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA86C0112CFAED000AD5C00 /* GotoLine.xib */; };
 		CDA86C0612CFAFED00AD5C00 /* GotoLineController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA86C0512CFAFED00AD5C00 /* GotoLineController.rb */; };
 		CDADCC7A124BFF3E00553FC7 /* Bundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDADCC79124BFF3E00553FC7 /* Bundle.rb */; };
 		CDB8C39412C7FD4700598DCF /* CSS.treetop in Resources */ = {isa = PBXBuildFile; fileRef = CDB8C39312C7FD4700598DCF /* CSS.treetop */; };
@@ -140,6 +139,8 @@
 		CDED8FD012D7C65B0097EBE2 /* Book.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDED8FCF12D7C65B0097EBE2 /* Book.xib */; };
 		CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF6EA12CC2CAA001AE172 /* Folio.icns */; };
 		CDEDF71912CC2FD8001AE172 /* backgroud-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */; };
+		CDF0E92F12DB5A5800D5ABBF /* ImageWell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDF0E92E12DB5A5800D5ABBF /* ImageWell.rb */; };
+		CDF0E93C12DB66C200D5ABBF /* GotoLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF0E93B12DB66C200D5ABBF /* GotoLine.xib */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
 		CDFBF5D212C3EF8C00750746 /* LineNumberMarker.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDFBF5D012C3EF8C00750746 /* LineNumberMarker.rb */; };
 /* End PBXBuildFile section */
@@ -214,7 +215,6 @@
 		CDA86B4812CF96C700AD5C00 /* Navigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Navigation.xib; sourceTree = "<group>"; };
 		CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Manifest.xib; sourceTree = "<group>"; };
 		CDA86B5012CF96D600AD5C00 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
-		CDA86C0112CFAED000AD5C00 /* GotoLine.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GotoLine.xib; sourceTree = "<group>"; };
 		CDA86C0512CFAFED00AD5C00 /* GotoLineController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = GotoLineController.rb; sourceTree = "<group>"; };
 		CDADCC79124BFF3E00553FC7 /* Bundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Bundle.rb; sourceTree = "<group>"; };
 		CDB8C39312C7FD4700598DCF /* CSS.treetop */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSS.treetop; sourceTree = "<group>"; };
@@ -259,6 +259,8 @@
 		CDED8FCF12D7C65B0097EBE2 /* Book.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Book.xib; sourceTree = "<group>"; };
 		CDEDF6EA12CC2CAA001AE172 /* Folio.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Folio.icns; sourceTree = "<group>"; };
 		CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroud-logo.png"; sourceTree = "<group>"; };
+		CDF0E92E12DB5A5800D5ABBF /* ImageWell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageWell.rb; sourceTree = "<group>"; };
+		CDF0E93B12DB66C200D5ABBF /* GotoLine.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GotoLine.xib; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		CDFBF5D012C3EF8C00750746 /* LineNumberMarker.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LineNumberMarker.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -337,9 +339,9 @@
 				CDBDC8A7122AA9DA00844EAA /* images */,
 				CD83F598122B3E32005BB914 /* templates */,
 				CDED8FCF12D7C65B0097EBE2 /* Book.xib */,
-				CDA86C0112CFAED000AD5C00 /* GotoLine.xib */,
 				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
 				CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */,
+				CDF0E93B12DB66C200D5ABBF /* GotoLine.xib */,
 				CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */,
 				CDA86B4812CF96C700AD5C00 /* Navigation.xib */,
 				CD8C45C912CF832B00B9A6B2 /* Progress.xib */,
@@ -437,6 +439,7 @@
 				CDE448F612305CA2001C69AE /* ManifestController.rb */,
 				CDFBF5D012C3EF8C00750746 /* LineNumberMarker.rb */,
 				CDA3FF29124D8296003F6341 /* Match.rb */,
+				CDF0E92E12DB5A5800D5ABBF /* ImageWell.rb */,
 				CD89EF5C12789A8F009E4DE1 /* Media.rb */,
 				CD318B8812BBBE4500B4692F /* Menu.rb */,
 				CD02D4D312496A1B007DC4B7 /* Metadata.rb */,
@@ -618,13 +621,14 @@
 				CDA86B4912CF96C700AD5C00 /* Navigation.xib in Resources */,
 				CDA86B4D12CF96CE00AD5C00 /* Manifest.xib in Resources */,
 				CDA86B5112CF96D600AD5C00 /* Search.xib in Resources */,
-				CDA86C0212CFAED000AD5C00 /* GotoLine.xib in Resources */,
 				CDA86C0612CFAFED00AD5C00 /* GotoLineController.rb in Resources */,
 				CD03902012CFCCD300A6FACA /* TabViewController.rb in Resources */,
 				CDED8D5C12D766FA0097EBE2 /* BookWindowController.rb in Resources */,
 				CDED8FD012D7C65B0097EBE2 /* Book.xib in Resources */,
 				CD4EE39B12DA213E00A18681 /* horizontal.png in Resources */,
 				CD4EE3CA12DA255700A18681 /* vertical.png in Resources */,
+				CDF0E92F12DB5A5800D5ABBF /* ImageWell.rb in Resources */,
+				CDF0E93C12DB66C200D5ABBF /* GotoLine.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

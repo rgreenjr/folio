@@ -8,7 +8,8 @@ require "open-uri"
 
 class Book < NSDocument
 
-  attr_accessor :navigation, :manifest, :spine, :container, :metadata, :guide, :unzippath
+  attr_reader :controller, :unzippath
+  attr_reader :navigation, :manifest, :spine, :container, :metadata, :guide
   
   def init
     super
@@ -58,10 +59,10 @@ class Book < NSDocument
   end
 
   def makeWindowControllers
-    bookWindowController = BookWindowController.alloc.init
-    addWindowController(bookWindowController)
+    @controller = BookWindowController.alloc.init
+    addWindowController(@controller)
   end
-
+  
   def relativePathFor(filepath)
     filepath.gsub(@unzippath, '')
   end

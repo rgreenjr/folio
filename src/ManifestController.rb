@@ -9,11 +9,11 @@ class ManifestController < NSViewController
   def awakeFromNib
     # configure popup menu
     menu = NSMenu.alloc.initWithTitle("")
-    menu.addAction("Add File...", "showAddItemPanel:", self)
-    menu.addActionWithSeparator("Add Directory...", "addDirectory:", self)
+    menu.addAction("Add File...", "showAddFilesSheet:", self)
+    menu.addActionWithSeparator("New Directory...", "newDirectory:", self)
     menu.addActionWithSeparator("Add to Spine", "addToSpine:", self)
     menu.addActionWithSeparator("Mark as Cover", "markAsCover:", self)
-    menu.addAction("Delete...", "showDeleteItemPanel:", self)
+    menu.addAction("Delete...", "showDeleteItemsSheet:", self)
     @outlineView.menu = menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new
@@ -145,44 +145,53 @@ class ManifestController < NSViewController
     item ? [item.parent, item.parent.index(item)] : [@book.manifest.root, -1]
   end
 
-  def showAddItemPanel(sender)
+  def showAddFilesSheet(sender)
     panel = NSOpenPanel.openPanel
     panel.title = "Add Files"
     panel.setPrompt("Select")
     panel.setAllowsMultipleSelection(true)
-    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window, modalDelegate:self, didEndSelector:"addItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window, modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
-  def addItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
+  def addFilesSheetDidEnd(panel, returnCode:code, contextInfo:info)
     return unless code == NSOKButton
-    items = []
-    panel.URLs.each do |url|
-      parent, index = currentSelectionParentAndIndex
-      item = Item.new(parent, File.basename(url.path))
-      item.content = File.read(url.path)
-      items << item
-      parent.insert(index, item)
-    end
+    filepaths = panel.URLs.map { |url| url.path }
+    addFiles(filepaths)
+  end
+  
+  def addFiles(filepaths)
+    parent, index = currentSelectionParentAndIndex
+    items = filepaths.map { |path| @book.manifest.insertFileAtPath(path, parent, index) }      
     @book.manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
     postChangeNotification
+    items
   end
 
-  def showDeleteItemPanel(sender)
+  def addFile(filepath)
+    addFiles([filepath]).first
+  end
+
+  def showDeleteItemsSheet(sender)
     return if @outlineView.numberOfSelectedRows == 0
     alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected files?", defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"")
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"showDeleteItemPanelDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"showDeleteItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
-  def showDeleteItemPanelDidEnd(panel, returnCode:code, contextInfo:info)
+  def showDeleteItemsSheetDidEnd(panel, returnCode:code, contextInfo:info)
     return unless code == NSOKButton
+    items = []
     @outlineView.selectedRowIndexes.reverse_each do |index|
-      item = @book.manifest[index]
+      items << @book.manifest[index]
+    end
+    deleteItems(items)
+  end
+  
+  def deleteItems(items)
+    items.each do |item|
       @tabView.remove(item)
-      parent = item.parent
-      NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:[item.url], withObject:nil)
-      parent.delete_at(item.parent.index(item))
+      @book.manifest.delete(item)
     end
     @book.manifest.sort
     @outlineView.reloadData
@@ -204,7 +213,7 @@ class ManifestController < NSViewController
     postChangeNotification
   end
 
-  def addDirectory(sender)
+  def newDirectory(sender)
     parent, index = currentSelectionParentAndIndex
     name = "New Directory"
     i = 1
@@ -313,7 +322,7 @@ class ManifestController < NSViewController
 
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
-    when :"showDeleteItemPanel:"
+    when :"showDeleteItemsSheet:"
       return false if @outlineView.numberOfSelectedRows < 1
     when :"addToSpine:"
       return false if @outlineView.selectedRowIndexes.empty?

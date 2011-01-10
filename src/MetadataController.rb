@@ -1,6 +1,6 @@
 class MetadataController < NSWindowController
   
-  attr_accessor :book
+  attr_accessor :book, :imageWell
   attr_accessor :titleField, :dateField, :identifierField, :languagePopup
   attr_accessor :descriptionField, :creatorField, :publisherField
   attr_accessor :subjectField, :rightsField, :coverImageView
@@ -14,58 +14,93 @@ class MetadataController < NSWindowController
   end
 
   def showWindow(sender)
-    @titleField.stringValue        = @book.metadata.title || ''
-    @descriptionField.stringValue  = @book.metadata.description || ''
-    @dateField.stringValue         = @book.metadata.date || ''
-    @identifierField.stringValue   = @book.metadata.identifier || ''
-    @creatorField.stringValue      = @book.metadata.creator || ''
-    @publisherField.stringValue    = @book.metadata.publisher || ''
-    @subjectField.stringValue      = @book.metadata.subject || ''
-    @rightsField.stringValue       = @book.metadata.rights || ''
-
+    displayAttribute('title')
+    displayAttribute('description')
+    displayAttribute('date')
+    displayAttribute('identifier')
+    displayAttribute('creator')
+    displayAttribute('publisher')
+    displayAttribute('subject')
+    displayAttribute('rights')
     @languagePopup.selectItemWithTitle(Language.name_for(@book.metadata.language))
-
-    if @book.metadata.cover
-      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@book.metadata.cover.path)
-    else
-      @coverImageView.image = noCoverImage
-    end
-
+    displayCoverImage
     window.center
     window.makeKeyAndOrderFront(self)
   end
 
   def save(sender)
-    @book.undoManager.beginUndoGrouping
-    changeAttribute("title",       @titleField.stringValue)
-    changeAttribute("description", @descriptionField.stringValue)
-    changeAttribute("date",        @dateField.stringValue)
-    changeAttribute("identifier",  @identifierField.stringValue)    
-    changeAttribute("creator",     @creatorField.stringValue)
-    changeAttribute("publisher",   @publisherField.stringValue)
-    changeAttribute("subject",     @subjectField.stringValue)
-    changeAttribute("rights",      @rightsField.stringValue)
-    changeAttribute("language",    Language.code_for(@languagePopup.titleOfSelectedItem))
-    @book.undoManager.endUndoGrouping
-    window.orderOut(self)
-  end
-
-  def cancel(sender)
+    changeAttribute('title')
+    changeAttribute('description')
+    changeAttribute('date')
+    changeAttribute('identifier')
+    changeAttribute('creator')
+    changeAttribute('publisher')
+    changeAttribute('subject')
+    changeAttribute('rights')
+    @book.metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
+    updateCoverImage
     window.orderOut(self)
   end
   
+  def displayCoverImage
+    if @book.metadata.cover
+      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@book.metadata.cover.path)
+    else
+      @coverImageView.image = noCoverImage
+    end
+    @stashedImagePath = nil
+  end
+  
+  def updateCoverImage
+    return unless @stashedImagePath
+    item = @book.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
+    @book.controller.manifestController.deleteItems([item]) if item
+    item = @book.controller.manifestController.addFile(@stashedImagePath)
+    @book.metadata.cover = item
+    displayCoverImage
+  end
+  
+  def	coverImageChanged(sender)
+    imagePath = sender.imagePath
+    if imagePath.nil?
+      displayCoverImage
+    elsif @book.manifest.itemWithHref(imagePath.lastPathComponent)
+      showCoverImageCollisionWarning(imagePath)
+    else
+      @stashedImagePath = imagePath
+    end
+  end
+
+  def showCoverImageCollisionWarning(imagePath)
+    alert = NSAlert.alloc.init
+    alert.messageText = "An image named \"#{imagePath.lastPathComponent}\" already exists. Do you want to replace it?"
+    alert.addButtonWithTitle "Replace"
+    alert.addButtonWithTitle "Cancel"
+    alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"coverImageCollisionWarningSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+  end
+
+  def coverImageCollisionWarningSheetDidEnd(alert, returnCode:code, contextInfo:info)
+    if code == NSAlertFirstButtonReturn
+      @stashedImagePath = @imageWell.imagePath
+    else
+      displayCoverImage
+    end
+  end
+
   private
 
   def noCoverImage
     @noCoverImage ||= NSImage.imageNamed("no-cover.png")
   end
 
-  def changeAttribute(attribute, value)
-    currentValue = @book.metadata.send(attribute)
-    return if currentValue == value
-    @book.undoManager.prepareWithInvocationTarget(self).changeAttribute(attribute, currentValue)
-    @book.undoManager.actionName = "Metadata Change"
+  def displayAttribute(attribute)
+    value = @book.metadata.send(attribute) || ''
+    eval("@#{attribute}Field.stringValue = value")
+  end
+  
+  def changeAttribute(attribute)
+    value = eval("@#{attribute}Field.stringValue")
     @book.metadata.send("#{attribute}=", value)
   end
-
+  
 end
