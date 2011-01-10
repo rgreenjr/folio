@@ -99,9 +99,8 @@ class MetadataController < NSWindowController
     eval("@#{attribute}Field.stringValue = value")
   end
   
-  def changeAttribute(attribute, escape=false)
+  def changeAttribute(attribute)
     value = eval("@#{attribute}Field.stringValue")
-    value = CGI.escapeHTML(value)
     @book.metadata.send("#{attribute}=", value)
   end
   

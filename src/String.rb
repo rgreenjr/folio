@@ -12,6 +12,10 @@ module StringEnhancements
       string.gsub(/(\w) #{word} /i) { "#{$1} #{word.downcase} " }
     end
   end
+  
+  def escapeHTML
+     CGI.escapeHTML(self)
+  end
 end
 
 class String

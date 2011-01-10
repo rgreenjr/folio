@@ -2,15 +2,15 @@
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
 
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title><%= book.metadata.title %></dc:title>
-    <dc:language>en</dc:language>
-    <dc:identifier id="BookId" opf:scheme="ISBN"><%= book.metadata.identifier %></dc:identifier>
-    <dc:creator opf:file-as="<%= book.metadata.creator %>" opf:role="aut"><%= book.metadata.creator %></dc:creator>
-    <dc:date opf:event="publication"><%= book.metadata.date %></dc:date>
-    <dc:subject><%= book.metadata.subject %></dc:subject>
-    <dc:description><%= book.metadata.description %></dc:description>
-    <dc:subject><%= book.metadata.subject %></dc:subject>
-    <dc:rights><%= book.metadata.rights %></dc:rights>
+    <dc:title><%= book.metadata.title.escapeHTML %></dc:title>
+    <dc:language><%= book.metadata.language.escapeHTML %></dc:language>
+    <dc:identifier id="BookId" opf:scheme="ISBN"><%= book.metadata.identifier.escapeHTML %></dc:identifier>
+    <dc:creator opf:file-as="<%= book.metadata.creator.escapeHTML %>" opf:role="aut"><%= book.metadata.creator.escapeHTML %></dc:creator>
+    <dc:date opf:event="publication"><%= book.metadata.date.escapeHTML %></dc:date>
+    <dc:subject><%= book.metadata.subject.escapeHTML %></dc:subject>
+    <dc:description><%= book.metadata.description.escapeHTML %></dc:description>
+    <dc:subject><%= book.metadata.subject.escapeHTML %></dc:subject>
+    <dc:rights><%= book.metadata.rights.escapeHTML %></dc:rights>
     <% if book.metadata.cover %>
     <meta name="cover" content="<%= book.metadata.cover.id %>"/>
     <% end %>
