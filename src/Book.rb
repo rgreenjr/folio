@@ -14,12 +14,12 @@ class Book < NSDocument
   
   def init
     super
-    @metadata = Metadata.new
     @container = Container.new
     @manifest = Manifest.new
+    @metadata = Metadata.new
     @spine = Spine.new
-    @navigation = Navigation.new
     @guide = Guide.new
+    @navigation = Navigation.new
     self
   end
 
