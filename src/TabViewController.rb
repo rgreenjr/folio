@@ -4,12 +4,12 @@ class TabViewController < NSViewController
   VERTICAL_ORIENTATION_TAG   = 1
 
   attr_accessor :splitView, :textViewController, :webViewController
-  attr_accessor :splitViewSegementedControl
+  attr_accessor :splitViewSegementedControl, :renderImageView
 
   def awakeFromNib
     view.delegate = self
     NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'),
-        name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
+    name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
   end
 
   def textDidChange(notification)
@@ -73,27 +73,13 @@ class TabViewController < NSViewController
   end
 
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
-    @textViewController.item = item
-    @webViewController.item = point
-    # if item
-    #   item.editable? ? addTextView : removeTextView
-    # end
+    return unless item
+    if item.imageable?
+      @renderImageView.image = selectedTab.item.imageRep
+    else
+      @textViewController.item = item
+      @webViewController.item = point
+    end
   end
-
-  # def addTextView
-  #   if @splitView.subviews.size == 1
-  #     @splitView.setPosition(10.0, ofDividerAtIndex:0)
-  #     # @splitView.addSubview(@textViewController.textView, positioned:NSWindowBelow, relativeTo:@splitView.subviews.first)
-  #     @splitView.adjustSubviews
-  #   end
-  # end
-  #
-  # def removeTextView
-  #   if @splitView.subviews.size == 2
-  #     # @splitView.subviews.last.removeFromSuperview
-  #     @splitView.setPosition(100.0, ofDividerAtIndex:0)
-  #     @splitView.adjustSubviews
-  #   end
-  # end
 
 end

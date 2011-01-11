@@ -5,6 +5,8 @@ class BookWindowController < NSWindowController
   attr_accessor :seletionView, :contentView, :tabView, :contentPlaceholder
   attr_accessor :segmentedControl, :logoImageWell, :fileSearchField
   attr_accessor :textViewController, :webViewController, :tabViewControler
+  
+  attr_accessor :renderView, :renderSplitView, :renderImageView
 
   def init
     initWithWindowNibName("Book")
@@ -50,6 +52,17 @@ class BookWindowController < NSWindowController
     @contentPlaceholder.addSubview(@contentView)
     @contentView.frame = @contentPlaceholder.frame
     @contentView.frameOrigin = NSZeroPoint
+    if @tabView.selectedTab.item.imageable?
+      @renderSplitView.removeFromSuperview
+      @renderView.addSubview(@renderImageView)
+      @renderImageView.frame = @renderView.frame
+      @renderImageView.frameOrigin = NSZeroPoint
+    else
+      @renderImageView.removeFromSuperview
+      @renderView.addSubview(@renderSplitView)
+      @renderSplitView.frame = @renderView.frame
+      @renderSplitView.frameOrigin = NSZeroPoint
+    end
   end
 
   def showLogoImage
@@ -156,5 +169,5 @@ class BookWindowController < NSWindowController
     window.nextResponder = controller
     controller.nextResponder = current
   end
-
+  
 end
