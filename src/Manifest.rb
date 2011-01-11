@@ -6,7 +6,7 @@ class Manifest
     @book = book
     @itemsMap  = {}
     @root = Item.new(nil, 'OEBPS', 'ROOT', 'directory', true)
-    @ncx = Item.new(nil, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
+    @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
     
     return unless book
     
