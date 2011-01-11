@@ -258,6 +258,10 @@ class ManifestController < NSViewController
     if code == NSAlertDefaultReturn
       urls = @unregistered.map { |filepath| NSURL.fileURLWithPath(filepath) }
       NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:urls, withObject:nil)
+
+      # update document change count so user will be prompted to save book
+      NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)    
+
       postChangeNotification
     end
   end
