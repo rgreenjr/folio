@@ -43,6 +43,9 @@ class MetadataController < NSWindowController
     @book.metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
     changeCoverImage
     window.orderOut(self)
+
+    # update document change count so user will be prompted to save book
+    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)    
   end
   
   private
