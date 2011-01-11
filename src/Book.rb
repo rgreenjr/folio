@@ -9,7 +9,7 @@ require "cgi"
 
 class Book < NSDocument
 
-  attr_reader :controller, :unzippath
+  attr_reader :controller
   attr_reader :navigation, :manifest, :spine, :container, :metadata, :guide
   
   def init
@@ -24,8 +24,7 @@ class Book < NSDocument
   end
 
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
-    @unzippath = Dir.mktmpdir("folio-unzip-")
-    runCommand("unzip -q -d '#{@unzippath}' \"#{absoluteURL.path}\"")
+    runCommand("unzip -q -d '#{unzippath}' \"#{absoluteURL.path}\"")
     @container  = Container.new(self)
     @manifest   = Manifest.new(self)
     @metadata   = Metadata.new(self)
@@ -65,7 +64,11 @@ class Book < NSDocument
   end
   
   def relativePathFor(filepath)
-    filepath.gsub(@unzippath, '')
+    filepath.gsub(unzippath, '')
+  end
+  
+  def unzippath
+    @unzippath ||= Dir.mktmpdir("folio-unzip-")
   end
   
   private
