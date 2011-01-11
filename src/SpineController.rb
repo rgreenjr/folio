@@ -129,6 +129,7 @@ class SpineController < NSViewController
   end
 
   def postChangeNotification
+    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)
     NSNotificationCenter.defaultCenter.postNotificationName("SpineDidChange", object:self)
   end
 

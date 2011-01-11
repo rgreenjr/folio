@@ -299,6 +299,7 @@ class NavigationController < NSViewController
   end
 
   def postChangeNotification
+    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)
     NSNotificationCenter.defaultCenter.postNotificationName("NavigationDidChange", object:self)
   end
 
