@@ -7,10 +7,7 @@ Bugs
 Features
 ========
 
-- Consolidate New menu items
-- TabViewController redesign (should handle notification of selection changes)
-- Metadata assignments (marks as TOC, prefaces, etc)
-
+- Manifest move undo
 - Navigation: add points
 - Spine: add items
 - ePub validation

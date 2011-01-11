@@ -8,7 +8,7 @@ class NavigationController < NSViewController
 
   def awakeFromNib
     menu = NSMenu.alloc.initWithTitle("")
-    menu.addAction("Add Point...", "addPoint:", self)
+    menu.addAction("New Point...", "newPoint:", self)
     menu.addActionWithSeparator("Duplicate", "duplicatePoint:", self)
     menu.addAction("Delete", "deletePoint:", self)
     @outlineView.menu = menu
@@ -61,7 +61,6 @@ class NavigationController < NSViewController
   end
 
   def outlineViewSelectionDidChange(notification)
-    puts "outlineViewSelectionDidChange"
     displayPointProperties
   end
 
@@ -123,8 +122,10 @@ class NavigationController < NSViewController
     postChangeNotification
   end
 
-  def addPoint(sender)
-    addPoints([[Point.new(selectedPoint.item, "text", "id"), -1, selectedPoint]])
+  def newPoint(sender)
+    # return unless selectedPoint
+    # parent, index = currentSelectionParentAndIndex
+    # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
   end
 
   def addPoints(array)

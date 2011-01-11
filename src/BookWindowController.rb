@@ -3,7 +3,7 @@ class BookWindowController < NSWindowController
   SPLIT_VIEW_MINIMUM_WIDTH = 150.0
 
   attr_accessor :seletionView, :contentView, :tabView, :contentPlaceholder
-  attr_accessor :segmentedControl, :logoImageWell, :fileSearchField
+  attr_accessor :segmentedControl, :logoImageWell
   attr_accessor :textViewController, :webViewController, :tabViewControler
   
   attr_accessor :renderView, :renderSplitView, :renderImageView
@@ -17,7 +17,6 @@ class BookWindowController < NSWindowController
     makeResponder(@webViewController)
     makeResponder(@tabViewControler)
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:@tabView)
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:'fileSearchFieldTextDidChange:', name:NSControlTextDidChangeNotification, object:@fileSearchField)
     showLogoImage
     showNavigationView(self)
   end
@@ -46,6 +45,21 @@ class BookWindowController < NSWindowController
   def tabViewSelectionDidChange(notification)
     @tabView.selectedTab ? showContentView : showLogoImage
   end
+  
+  def addFiles(sender)
+    showManifestView(self)
+    manifestController.showAddFilesSheet(sender)
+  end
+
+  def newDirectory(sender)
+    showManifestView(self)
+    manifestController.newDirectory(sender)
+  end
+
+  def newPoint(sender)
+    showNavigationView(self)
+    navigationController.newPoint(sender)
+  end
 
   def showContentView
     @logoImageWell.removeFromSuperview
@@ -54,15 +68,14 @@ class BookWindowController < NSWindowController
     @contentView.frameOrigin = NSZeroPoint
     if @tabView.selectedTab.item.imageable?
       @renderSplitView.removeFromSuperview
-      @renderView.addSubview(@renderImageView)
-      @renderImageView.frame = @renderView.frame
-      @renderImageView.frameOrigin = NSZeroPoint
+      newView = @renderImageView
     else
       @renderImageView.removeFromSuperview
-      @renderView.addSubview(@renderSplitView)
-      @renderSplitView.frame = @renderView.frame
-      @renderSplitView.frameOrigin = NSZeroPoint
+      newView = @renderSplitView
     end
+    @renderView.addSubview(newView)
+    newView.frame = @renderView.frame
+    newView.frameOrigin = NSZeroPoint
   end
 
   def showLogoImage
@@ -79,51 +92,21 @@ class BookWindowController < NSWindowController
     @metadataController.showWindow(self)
   end
 
-  def showProgressWindow(title, &block)
-    @progressController ||= ProgressController.alloc.init
-    @progressController.window
-    @progressController.showWindow(title, &block)
-  end
-
   def navigationController
-    unless @navigationController
-      @navigationController = NavigationController.alloc.init
-      @navigationController.loadView
-      @navigationController.tabView = @tabView
-      @navigationController.book = document
-    end
-    @navigationController
+    @navigationController ||= configViewController(NavigationController)
   end
 
   def spineController
-    unless @spineController
-      @spineController = SpineController.alloc.init
-      @spineController.loadView
-      @spineController.tabView = @tabView
-      @spineController.book = document
-    end
-    @spineController
+    @spineController ||= configViewController(SpineController)
   end
 
   def manifestController
-    unless @manifestController
-      @manifestController = ManifestController.alloc.init
-      @manifestController.loadView
-      @manifestController.tabView = @tabView
-      @manifestController.book = document
-    end
-    @manifestController
+    @manifestController ||= configViewController(ManifestController)
   end
 
-  def searchController
-    unless @searchController
-      @searchController = SearchController.alloc.init
-      @searchController.loadView
-      @searchController.tabView = @tabView
-      @searchController.book = document
-    end
-    @searchController
-  end
+  # def searchController
+  #   @searchController ||= configViewController(SearchController)
+  # end
 
   def showNavigationView(sender)
     changeSelectionView(navigationController)
@@ -149,6 +132,12 @@ class BookWindowController < NSWindowController
     system("open \"#{document.unzippath}\"")
   end
 
+  def showProgressWindow(title, &block)
+    @progressController ||= ProgressController.alloc.init
+    @progressController.window
+    @progressController.showWindow(title, &block)
+  end
+
   def validate(sender)
     # showProgressWindow("Validating...") do
     #   result = Validator.validate(@book)
@@ -157,6 +146,14 @@ class BookWindowController < NSWindowController
   end
 
   private
+  
+  def configViewController(controller_klass)
+    controller = controller_klass.alloc.init    
+    controller.loadView
+    controller.tabView = @tabView
+    controller.book = document
+    controller
+  end
 
   def changeSelectionView(controller)
     controller.view.frame = @seletionView.frame

@@ -9,7 +9,7 @@ class ManifestController < NSViewController
   def awakeFromNib
     # configure popup menu
     menu = NSMenu.alloc.initWithTitle("")
-    menu.addAction("Add File...", "showAddFilesSheet:", self)
+    menu.addAction("Add Files...", "showAddFilesSheet:", self)
     menu.addActionWithSeparator("New Directory...", "newDirectory:", self)
     menu.addActionWithSeparator("Add to Spine", "addToSpine:", self)
     menu.addActionWithSeparator("Mark as Cover", "markAsCover:", self)
@@ -75,7 +75,7 @@ class ManifestController < NSViewController
 
   def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
     value = value.sanitize
-    item.parent.find(value) ? showNameErrorAlert(value) : item.name = value
+    item.parent.find(value) ? showNameCollisionAlert(value) : item.name = value
     postChangeNotification
   end
 
@@ -88,8 +88,8 @@ class ManifestController < NSViewController
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
     if info.draggingSource == @outlineView
       plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-      plist.each do |path|
-        item = @book.manifest.itemWithHref(path)
+      plist.each do |href|
+        item = @book.manifest.itemWithHref(href)
         if (!parent && item.parent == @book.manifest.root) || (parent && (!parent.directory? || parent.ancestor?(item)))
           return NSDragOperationNone
         end
@@ -118,10 +118,7 @@ class ManifestController < NSViewController
     else
       info.draggingPasteboard.propertyListForType(NSFilenamesPboardType).each do |path|
         # TODO check for name collisions
-        item = Item.new(parent, File.basename(path))
-        item.content = File.read(path)
-        items << item
-        parent.insert(childIndex, item)
+        items << @book.manifest.insertFileAtPath(path, parent, childIndex)
       end
     end
     @book.manifest.sort
@@ -223,7 +220,7 @@ class ManifestController < NSViewController
       name = "New Directory #{i}"
     end
     item = Item.new(parent, name, nil, "directory")
-    parent.insert(index, item)
+    @book.manifest.insert(index, item, parent)
     @book.manifest.sort
     @outlineView.reloadData
     @outlineView.selectItem(item)
@@ -313,7 +310,7 @@ class ManifestController < NSViewController
     [nameCell, idCell, mediaTypePopUpButton]
   end
 
-  def showNameErrorAlert(name)
+  def showNameCollisionAlert(name)
     alert = NSAlert.alloc.init
     alert.addButtonWithTitle "OK"
     alert.messageText = "The name \"#{name}\" is already taken. Please choose a different name."
