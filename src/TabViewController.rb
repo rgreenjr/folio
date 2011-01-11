@@ -16,6 +16,10 @@ class TabViewController < NSViewController
     # required to update edited status
     view.needsDisplay = true
   end
+  
+  def addItemOrPoint(object)
+    view.add(object)
+  end
 
   def saveTab(sender)
     view.save(self)

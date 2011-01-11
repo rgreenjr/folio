@@ -1,6 +1,6 @@
 class WebViewController < NSViewController
 
-  attr_accessor :item
+  attr_accessor :item, :tabViewController
 
   def awakeFromNib
     view.editable = false
@@ -65,20 +65,20 @@ class WebViewController < NSViewController
       system("open #{request.URL.absoluteString}")
     elsif @item.nil?
       listener.use
-    else      
+    else
       href = request.URL.path
       fragment = request.URL.fragment || ""
-      # item = @bookWindowController.document.manifest.itemWithHref(href)
-      if item.nil?
+      targetItem = NSDocumentController.sharedDocumentController.currentDocument.manifest.itemWithHref(href)
+      if targetItem.nil?
         listener.ignore
         Alert.runModal("Cannot Open Link", "Please make sure the file is included in the manifest.\n\n#{request.URL.path}")
-      elsif @item.name == item.name
+      elsif @item.name == targetItem.name
         listener.use
       else
         listener.ignore
-        point = Point.new(item)
+        point = Point.new(targetItem)
         point.fragment = fragment
-        @bookWindowController.tabView.add(point)
+        @tabViewController.addItemOrPoint(point)
       end
     end
   end
