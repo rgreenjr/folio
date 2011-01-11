@@ -60,6 +60,16 @@ class BookWindowController < NSWindowController
     showNavigationView(self)
     navigationController.newPoint(sender)
   end
+  
+  def newPointsFromItems(items)
+    showNavigationView(self)
+    navigationController.newPointsFromItems(items)
+  end
+  
+  def addItemsToSpine(items)
+    showSpineView(self)
+    spineController.appendItems(items)
+  end
 
   def showContentView
     @logoImageWell.removeFromSuperview

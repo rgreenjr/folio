@@ -9,8 +9,8 @@ class NavigationController < NSViewController
   def awakeFromNib
     menu = NSMenu.alloc.initWithTitle("")
     menu.addAction("New Point...", "newPoint:", self)
-    menu.addActionWithSeparator("Duplicate", "duplicatePoint:", self)
-    menu.addAction("Delete", "deletePoint:", self)
+    menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
+    menu.addAction("Delete", "deleteSelectedPoints:", self)
     @outlineView.menu = menu
 
     @outlineView.delegate = self
@@ -127,6 +127,14 @@ class NavigationController < NSViewController
     # parent, index = currentSelectionParentAndIndex
     # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
   end
+  
+  def newPointsFromItems(items)
+    points = items.map do |item| 
+      point = Point.new(item, item.name)
+      [point, -1, @book.navigation.root]
+    end
+    addPoints(points)
+  end
 
   def addPoints(array)
     undoPoints = []
@@ -143,14 +151,15 @@ class NavigationController < NSViewController
     @outlineView.reloadData
     @outlineView.expandItems(parents)
     @outlineView.selectItems(undoPoints)
+    NSApp.mainWindow.makeFirstResponder(@outlineView)
     postChangeNotification
   end
 
-  def duplicatePoint(sender)
-    duplicatePointNow(selectedPoint)
+  def duplicateSelectedPoint(sender)
+    duplicatePoint(selectedPoint)
   end
 
-  def duplicatePointNow(point)
+  def duplicatePoint(point)
     clone = @book.navigation.duplicate(point)
     undoManager.prepareWithInvocationTarget(self).deletePoints([clone])
     undoManager.actionName = "Duplicate"
@@ -159,7 +168,7 @@ class NavigationController < NSViewController
     postChangeNotification
   end
 
-  def deletePoint(sender)
+  def deleteSelectedPoints(sender)
     points = []
     @outlineView.selectedRowIndexes.reverse_each do |index|
       points << @book.navigation[index]
@@ -290,9 +299,9 @@ class NavigationController < NSViewController
 
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
-    when :"deletePoint:"
+    when :"deleteSelectedPoints:"
       return false if @outlineView.numberOfSelectedRows < 1
-    when :"duplicatePoint:"
+    when :"duplicateSelectedPoint:"
       return false if @outlineView.numberOfSelectedRows != 1
     when :"addPoint:"
       return false if @outlineView.numberOfSelectedRows != 1

@@ -10,10 +10,10 @@ class ManifestController < NSViewController
     # configure popup menu
     menu = NSMenu.alloc.initWithTitle("")
     menu.addAction("Add Files...", "showAddFilesSheet:", self)
-    menu.addActionWithSeparator("New Directory...", "newDirectory:", self)
-    menu.addActionWithSeparator("Add to Spine", "addToSpine:", self)
+    menu.addActionWithSeparator("New Directory", "newDirectory:", self)
+    menu.addActionWithSeparator("Add to Spine", "appendSelectedItemsToSpine:", self)
     menu.addActionWithSeparator("Mark as Cover", "markAsCover:", self)
-    menu.addAction("Delete...", "showDeleteItemsSheet:", self)
+    menu.addAction("Delete...", "showDeleteSelectedItemsSheet:", self)
     @outlineView.menu = menu
 
     @outlineView.tableColumns.first.dataCell = ImageCell.new
@@ -118,12 +118,13 @@ class ManifestController < NSViewController
     else
       info.draggingPasteboard.propertyListForType(NSFilenamesPboardType).each do |path|
         # TODO check for name collisions
-        items << @book.manifest.insertFileAtPath(path, parent, childIndex)
+        items << @book.manifest.addFileAtPath(path, parent, childIndex)
       end
     end
     @book.manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
+    NSApp.mainWindow.makeFirstResponder(@outlineView)
     postChangeNotification
     true
   end
@@ -158,10 +159,11 @@ class ManifestController < NSViewController
   
   def addFiles(filepaths)
     parent, index = currentSelectionParentAndIndex
-    items = filepaths.map { |path| @book.manifest.insertFileAtPath(path, parent, index) }      
+    items = filepaths.map { |path| @book.manifest.addFileAtPath(path, parent, index) }      
     @book.manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
+    NSApp.mainWindow.makeFirstResponder(@outlineView)
     postChangeNotification
     items
   end
@@ -170,13 +172,13 @@ class ManifestController < NSViewController
     addFiles([filepath]).first
   end
 
-  def showDeleteItemsSheet(sender)
+  def showDeleteSelectedItemsSheet(sender)
     return if @outlineView.numberOfSelectedRows == 0
     alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected files?", defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"")
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"showDeleteItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"eleteItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
-  def showDeleteItemsSheetDidEnd(panel, returnCode:code, contextInfo:info)
+  def deleteItemsSheetDidEnd(panel, returnCode:code, contextInfo:info)
     return unless code == NSOKButton
     items = []
     @outlineView.selectedRowIndexes.reverse_each do |index|
@@ -195,12 +197,9 @@ class ManifestController < NSViewController
     postChangeNotification
   end
 
-  def addToSpine(sender)
-    @outlineView.selectedRowIndexes.each do |index|
-      item = @book.manifest[index]
-      @book.spine.insert(-1, item)
-    end
-    postChangeNotification
+  def appendSelectedItemsToSpine(sender)
+    items = @outlineView.selectedRowIndexes.map { |index| @book.manifest[index] }
+    @book.controller.addItemsToSpine(items)
   end
 
   def markAsCover(sender)
@@ -319,9 +318,9 @@ class ManifestController < NSViewController
 
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
-    when :"showDeleteItemsSheet:"
+    when :"showDeleteSelectedItemsSheet:"
       return false if @outlineView.numberOfSelectedRows < 1
-    when :"addToSpine:"
+    when :"appendSelectedItemsToSpine:"
       return false if @outlineView.selectedRowIndexes.empty?
       @outlineView.selectedRowIndexes.each do |index|
         return false unless @book.manifest[index].flowable?

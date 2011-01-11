@@ -63,6 +63,16 @@ class SpineController < NSViewController
     true
   end
   
+  # TODO fix method
+  def appendItems(items)
+    hash = {}
+    size = @book.spine.size
+    items.each_with_index do |item, index|
+      hash[index] = item
+    end
+    addItems(hash)
+  end
+  
   def addItems(hash)
     indexes = NSMutableIndexSet.alloc.init
     hash.reverse_each do |index, item|
@@ -112,10 +122,8 @@ class SpineController < NSViewController
   end
   
   def addToNavigation(sender)
-    @tableView.selectedRowIndexes.each do |index|
-      @book.navigation.appendItem(@book.spine[index])
-    end
-    postChangeNotification
+    items = @tableView.selectedRowIndexes.map { |index| @book.spine[index] }
+    @book.controller.newPointsFromItems(items)
   end
 
   def validateUserInterfaceItem(menuItem)

@@ -34,7 +34,7 @@ class Manifest
     end
   end
   
-  def insertFileAtPath(filepath, parent, index)
+  def addFileAtPath(filepath, parent, index)
     item = Item.new(parent, File.basename(filepath))
     item.content = File.read(filepath)
     parent.insert(index, item)    
