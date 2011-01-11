@@ -67,6 +67,8 @@ class TabViewController < NSViewController
     case menuItem.title
     when 'Select Next Tab', 'Select Previous Tab'
       view.size > 1
+    when 'Close Tab', 'Save Tab', 'Save All Tabs'
+      view.size > 0
     else
       true
     end
