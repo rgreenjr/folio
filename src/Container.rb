@@ -36,7 +36,7 @@ class Container
     @opfDoc = REXML::Document.new(File.read(@opfPath))
     
   rescue Exception => exception
-    Alert.runModal("Unable to open #{book.fileURL.path} because an error occurred while parsing #{CONTAINER_XML_PATH}.")
+    Alert.runModal("Unable to open #{book.fileURL.lastPathComponent} because an error occurred while parsing #{CONTAINER_XML_PATH}.")
   end
   
   def relativePathFor(filepath)

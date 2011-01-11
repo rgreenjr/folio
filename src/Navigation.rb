@@ -54,7 +54,7 @@ class Navigation
       end
     end
   rescue Exception => exception
-    Alert.runModal("Unable to open #{book.fileURL.path} because an error occurred while parsing NCX.", exception.message)
+    Alert.runModal("Unable to open #{book.fileURL.lastPathComponent} because an error occurred while parsing the NCX.", exception.message)
   end
 
   def depth
