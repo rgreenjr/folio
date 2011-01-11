@@ -94,7 +94,7 @@ class Point
     buffer << "#{padding}  <navLabel>\n"
     buffer << "#{padding}    <text>#{@text.escapeHTML}</text>\n"
     buffer << "#{padding}  </navLabel>\n"
-    buffer << "#{padding}  <content src=\"#{src}\"/>\n"
+    buffer << "#{padding}  <content src=\"#{src.escapeHTML}\"/>\n"
     @children.each do |p|
       buffer << p.to_xml(indent + 1)
     end
