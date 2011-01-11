@@ -26,9 +26,7 @@ class Manifest
         if item.ncx?
           @ncx = item
         else
-          parent << item
-          raise "Manifest item already exists with id=#{item.id}" if @itemsMap[item.id]      
-          @itemsMap[item.id] = item
+          insert(-1, item, parent)
         end
       end
       raise "An NCX was not specified in the manifest." unless @ncx
@@ -41,6 +39,14 @@ class Manifest
     item.content = File.read(filepath)
     parent.insert(index, item)    
     item
+  end
+  
+  def insert(index, item, parent)
+    unless item.directory?
+      raise "A manifest item already exists with the id=#{item.id}" if @itemsMap[item.id]
+    end
+    @itemsMap[item.id] = item
+    parent.insert(index, item)
   end
   
   def delete(item)
@@ -81,7 +87,6 @@ class Manifest
   end
   
   def itemWithHref(href)
-    return nil unless @book
     href = @book.container.relativePathFor(href)
     current = @root
     parts = href.split('/')
