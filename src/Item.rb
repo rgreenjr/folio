@@ -183,6 +183,14 @@ class Item
     @name <=> other.name
   end
 
+  def imageRep
+    if imageable?
+      @image ||= NSImage.alloc.initWithContentsOfFile(path)
+    else
+      nil
+    end
+  end
+
   def guessMediaType
   end
   
