@@ -18,8 +18,8 @@
   </metadata>
 
   <manifest><% book.manifest.each do |item| %>
-    <item id="<%= item.id %>" href="<%= item.href %>" media-type="<%= item.mediaType %>" /><% end %>
-	<item id="ncx" href="<%= book.manifest.ncx.href %>" media-type="<%= book.manifest.ncx.mediaType %>" />
+    <item id="<%= item.id %>" href="<%= item.href.escapeHTML %>" media-type="<%= item.mediaType %>" /><% end %>
+	<item id="ncx" href="<%= book.manifest.ncx.href.escapeHTML %>" media-type="<%= book.manifest.ncx.mediaType %>" />
   </manifest>
 
   <spine toc="ncx"><% book.spine.each do |item| %>
@@ -27,7 +27,7 @@
   </spine>
 
   <guide><% book.guide.each do |item| %>
-    <reference type="<%= item.referenceType %>" title="<%= item.referenceTitle %>" href="<%= item.href %>" /><% end %>
+    <reference type="<%= item.referenceType %>" title="<%= item.referenceTitle.escapeHTML %>" href="<%= item.href.escapeHTML %>" /><% end %>
   </guide>
 
 </package>
