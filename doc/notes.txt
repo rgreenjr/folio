@@ -2,14 +2,11 @@ Bugs
 ====
 
 - Fix undo delete of nested navigation points
-- HTML escape href attributes on save
-- Update Navigation view on modificaiton
+- Update Navigation view on modification
 
 Features
 ========
 
-- Switch to NSImageView when showing imageable an item
-- Creation of new empty document
 - Consolidate New menu items
 - TabViewController redesign (should handle notification of selection changes)
 - Metadata assignments (marks as TOC, prefaces, etc)
@@ -28,6 +25,6 @@ Enhancements
 - Preferences
 - Add view transitions
 - Search filtering of selection views
-- Drag to desktop
+- Ability to drag to manifest items to the desktop
 - Add WebView forward/backward buttons
 - Support remote images by using default name and getting image data directly from NSImageView

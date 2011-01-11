@@ -3,38 +3,37 @@ class Manifest
   attr_accessor :root, :ncx
 
   def initialize(book=nil)
-    @book = book
     @itemsMap  = {}
-    @root = Item.new(nil, 'OEBPS', 'ROOT', 'directory', true)
-    @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
-    
-    return unless book
-    
-    @root = Item.new(nil, book.container.path, 'ROOT', 'directory', true)
-
-    book.container.opfDoc.elements.each("/package/manifest/item") do |e|
-      parent = @root
-      parts = e.attributes["href"].split('/')
-      parts.each_with_index do |part, index|
-        break if index == (parts.size - 1)
-        directory = parent.find(part)
-        if directory == nil
-          directory = Item.new(parent, part, "directory-#{part}", 'directory')
-          parent << directory
+    if book.nil?
+      @root = Item.new(nil, 'OEBPS', 'ROOT', 'directory', true)
+      @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
+    else
+      @book = book
+      @root = Item.new(nil, book.container.path, 'ROOT', 'directory', true)
+      book.container.opfDoc.elements.each("/package/manifest/item") do |e|
+        parent = @root
+        parts = e.attributes["href"].split('/')
+        parts.each_with_index do |part, index|
+          break if index == (parts.size - 1)
+          directory = parent.find(part)
+          if directory == nil
+            directory = Item.new(parent, part, "directory-#{part}", 'directory')
+            parent << directory
+          end
+          parent = directory
         end
-        parent = directory
+        item = Item.new(parent, parts.last, e.attributes["id"], e.attributes["media-type"])
+        if item.ncx?
+          @ncx = item
+        else
+          parent << item
+          raise "Manifest item already exists with id=#{item.id}" if @itemsMap[item.id]      
+          @itemsMap[item.id] = item
+        end
       end
-      item = Item.new(parent, parts.last, e.attributes["id"], e.attributes["media-type"])
-      if item.ncx?
-        @ncx = item
-      else
-        parent << item
-        raise "Manifest item already exists with id=#{item.id}" if @itemsMap[item.id]      
-        @itemsMap[item.id] = item
-      end
+      raise "An NCX was not specified in the manifest." unless @ncx
+      self.sort
     end
-    raise "The NCX is missing." unless @ncx
-    self.sort
   end
   
   def insertFileAtPath(filepath, parent, index)
@@ -82,6 +81,7 @@ class Manifest
   end
   
   def itemWithHref(href)
+    return nil unless @book
     href = @book.container.relativePathFor(href)
     current = @root
     parts = href.split('/')

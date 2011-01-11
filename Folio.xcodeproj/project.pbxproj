@@ -71,6 +71,7 @@
 		CD7E994C12C79C58006F611B /* HUDMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD7E994B12C79C58006F611B /* HUDMessageView.rb */; };
 		CD7E994E12C79C61006F611B /* HUDWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD7E994D12C79C61006F611B /* HUDWindow.rb */; };
 		CD7E996C12C79F17006F611B /* TransparentWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD7E996B12C79F17006F611B /* TransparentWindow.rb */; };
+		CD7F76BA12DCD7440038F462 /* ParseException.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD7F76B912DCD7440038F462 /* ParseException.rb */; };
 		CD80EB7B1232BABB00CEC08F /* CSSParser.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD80EB7A1232BABB00CEC08F /* CSSParser.rb */; };
 		CD83F59E122B3E32005BB914 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59A122B3E32005BB914 /* content.opf.erb */; };
 		CD83F5A0122B3E32005BB914 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD83F59C122B3E32005BB914 /* toc.ncx.erb */; };
@@ -191,6 +192,7 @@
 		CD7E994B12C79C58006F611B /* HUDMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HUDMessageView.rb; sourceTree = "<group>"; };
 		CD7E994D12C79C61006F611B /* HUDWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HUDWindow.rb; sourceTree = "<group>"; };
 		CD7E996B12C79F17006F611B /* TransparentWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TransparentWindow.rb; sourceTree = "<group>"; };
+		CD7F76B912DCD7440038F462 /* ParseException.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ParseException.rb; sourceTree = "<group>"; };
 		CD80EB7A1232BABB00CEC08F /* CSSParser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CSSParser.rb; sourceTree = "<group>"; };
 		CD83F59A122B3E32005BB914 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD83F59C122B3E32005BB914 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 		CDE448ED12305CA2001C69AE /* src */ = {
 			isa = PBXGroup;
 			children = (
+				CD7F76B912DCD7440038F462 /* ParseException.rb */,
 				CDB11D8F12DBBF55008E59EB /* NSIndexSet.rb */,
 				CDB11D9012DBBF55008E59EB /* NSOutlineView.rb */,
 				CDB11D8B12DBBE5A008E59EB /* NSMenu.rb */,
@@ -629,6 +632,7 @@
 				CDB11D8C12DBBE5A008E59EB /* NSMenu.rb in Resources */,
 				CDB11D9112DBBF55008E59EB /* NSIndexSet.rb in Resources */,
 				CDB11D9212DBBF55008E59EB /* NSOutlineView.rb in Resources */,
+				CD7F76BA12DCD7440038F462 /* ParseException.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
