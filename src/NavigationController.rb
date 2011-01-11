@@ -30,7 +30,7 @@ class NavigationController < NSViewController
     displayPointProperties
     expandRoot
   end
-  
+
   def selectedPoint
     @outlineView.selectedRow == -1 ? nil : @book.navigation[@outlineView.selectedRow]
   end
@@ -61,6 +61,7 @@ class NavigationController < NSViewController
   end
 
   def outlineViewSelectionDidChange(notification)
+    puts "outlineViewSelectionDidChange"
     displayPointProperties
   end
 
@@ -98,7 +99,7 @@ class NavigationController < NSViewController
     movePoints(points)
     true
   end
-  
+
   def movePoints(points)
     undoPoints = points.map do |point, newIndex, newParent|
       index, parent = @book.navigation.index_and_parent(point)
@@ -125,7 +126,7 @@ class NavigationController < NSViewController
   def addPoint(sender)
     addPoints([[Point.new(selectedPoint.item, "text", "id"), -1, selectedPoint]])
   end
-  
+
   def addPoints(array)
     undoPoints = []
     parents = []
@@ -138,7 +139,7 @@ class NavigationController < NSViewController
     undoManager.prepareWithInvocationTarget(self).deletePoints(undoPoints)
     undoManager.actionName = "Add"
 
-    @outlineView.reloadData    
+    @outlineView.reloadData
     @outlineView.expandItems(parents)
     @outlineView.selectItems(undoPoints)
     postChangeNotification
@@ -147,7 +148,7 @@ class NavigationController < NSViewController
   def duplicatePoint(sender)
     duplicatePointNow(selectedPoint)
   end
-  
+
   def duplicatePointNow(point)
     clone = @book.navigation.duplicate(point)
     undoManager.prepareWithInvocationTarget(self).deletePoints([clone])
@@ -164,7 +165,7 @@ class NavigationController < NSViewController
     end
     deletePoints(points)
   end
-  
+
   # TODO need to handle points with children !!!!
   def deletePoints(array)
 
@@ -174,7 +175,7 @@ class NavigationController < NSViewController
         deletePoints([child])
       end
     end
-    
+
     # create undo data
     undoPoints = array.map do |point|
       index, parent = @book.navigation.index_and_parent(point)
@@ -187,7 +188,7 @@ class NavigationController < NSViewController
     array.each do |point|
       @book.navigation.delete(point)
     end
-    
+
     @outlineView.reloadData
     @outlineView.deselectAll(nil)
     postChangeNotification
@@ -248,7 +249,7 @@ class NavigationController < NSViewController
     @outlineView.needsDisplay = true
     postChangeNotification
   end
-  
+
   def expandRoot
     if @book && @book.navigation.root.size > 0
       @outlineView.expandItem(@book.navigation.root[0], expandChildren:false)
@@ -258,15 +259,15 @@ class NavigationController < NSViewController
   private
 
   def displayPointProperties
-    point = selectedPoint
     if @outlineView.numberOfSelectedRows == 1
       propertyCells.each {|cell| cell.enabled = true}
+      point = selectedPoint
       textCell.stringValue = point.text
       idCell.stringValue = point.id
       sourceCell.stringValue = point.src
       @tabView.add(point)
     else
-      # propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
+      propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
     end
   end
 
