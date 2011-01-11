@@ -3,7 +3,7 @@ class Navigation
   attr_accessor :id, :title, :creator, :docAuthor, :root
 
   def initialize(book=nil)
-    @hash  = {}
+    @pointIdMap  = {}
     @id = UUID.create
     @ncx_name = "toc.ncx"
     @title = "untitled"
@@ -53,8 +53,8 @@ class Navigation
         xml_stack.insert(i, e)
       end
     end
-  rescue Exception => exception
-    Alert.runModal("Unable to open #{book.fileURL.lastPathComponent} because an error occurred while parsing the NCX.", exception.message)
+  rescue REXML::ParseException => exception
+    raise StandardError, "An error occurred while parsing #{book.manifest.ncx.href}: #{exception.explain}"
   end
 
   def depth
@@ -94,8 +94,8 @@ class Navigation
   end
 
   def insert(point, index, parent)
-    raise "Navigation point ID already exists: id=#{point.id}" if @hash[id]      
-    @hash[point.id] = point
+    raise "Navigation point ID already exists: id=#{point.id}" if @pointIdMap[id]      
+    @pointIdMap[point.id] = point
     parent.insert(index, point)
   end
 
@@ -113,18 +113,18 @@ class Navigation
     index, parent = index_and_parent(point)
     clone = Point.new(point.item, point.text)
     parent.insert(index + 1, clone)
-    @hash[clone.id] = clone
+    @pointIdMap[clone.id] = clone
     clone
   end
 
   def delete(point)
     index, parent = index_and_parent(point)
     parent.delete_at(index)
-    @hash[point.id] = nil
+    @pointIdMap[point.id] = nil
   end
 
   def pointWithId(identifier)
-    @hash[identifier]
+    @pointIdMap[identifier]
   end
 
   def save(directory)
@@ -138,7 +138,7 @@ class Navigation
 
   def to_s
     buffer = "@navigation = {\n"
-    @hash.each do |id, point|
+    @pointIdMap.each do |id, point|
       buffer << "  id=#{id} => href=#{point.item.href}\n"
     end
     buffer << "}"

@@ -15,7 +15,6 @@ class Container
     
     return unless book
     
-    
     xmlPath = File.join(book.unzippath, CONTAINER_XML_PATH)
     raise "The #{CONTAINER_XML_PATH} file is missing." unless File.exists?(xmlPath)
     
@@ -35,8 +34,8 @@ class Container
     raise "The OPF file is missing: #{File.basename(@opfPath)}" unless File.exists?(@opfPath)
     @opfDoc = REXML::Document.new(File.read(@opfPath))
     
-  rescue Exception => exception
-    Alert.runModal("Unable to open #{book.fileURL.lastPathComponent} because an error occurred while parsing #{CONTAINER_XML_PATH}.")
+  rescue REXML::ParseException => exception
+    raise StandardError, "An error occurred while parsing #{CONTAINER_XML_PATH}: #{exception.explain}"
   end
   
   def relativePathFor(filepath)
