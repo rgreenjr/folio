@@ -738,7 +738,7 @@
 				</object>
 			</object>
 			<object class="NSImageView" id="1024435796">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableSet" key="NSDragTypes">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -753,8 +753,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{300, 300}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<bool key="NSEnabled">YES</bool>
 				<object class="NSImageCell" key="NSCell" id="62374702">
 					<int key="NSCellFlags">130560</int>
@@ -767,7 +765,7 @@
 				<bool key="NSEditable">YES</bool>
 			</object>
 			<object class="NSSplitView" id="378248105">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -797,7 +795,7 @@
 						</object>
 						<string key="NSFrameSize">{500, 245}</string>
 						<reference key="NSSuperview" ref="378248105"/>
-						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<int key="NSViewLayerContentsRedrawPolicy">2</int>
 						<string key="FrameName"/>
 						<string key="GroupName"/>
@@ -860,7 +858,6 @@
 										</object>
 										<string key="NSFrameSize">{10, 14}</string>
 										<reference key="NSSuperview" ref="1029383980"/>
-										<reference key="NSWindow"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="323839122">
 											<object class="NSLayoutManager" key="NSLayoutManager">
 												<object class="NSTextStorage" key="NSTextStorage">
@@ -943,7 +940,7 @@
 								</object>
 								<string key="NSFrameSize">{485, 245}</string>
 								<reference key="NSSuperview" ref="681355134"/>
-								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="960628820"/>
 								<reference key="NSDocView" ref="960628820"/>
 								<reference key="NSBGColor" ref="759085599"/>
 								<object class="NSCursor" key="NSCursor">
@@ -957,7 +954,6 @@
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{485, 0}, {15, 230}}</string>
 								<reference key="NSSuperview" ref="681355134"/>
-								<reference key="NSWindow"/>
 								<reference key="NSTarget" ref="681355134"/>
 								<string key="NSAction">_doScroller:</string>
 								<double key="NSCurValue">1</double>
@@ -968,7 +964,6 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 								<reference key="NSSuperview" ref="681355134"/>
-								<reference key="NSWindow"/>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="681355134"/>
 								<string key="NSAction">_doScroller:</string>
@@ -978,7 +973,7 @@
 						</object>
 						<string key="NSFrame">{{0, 255}, {500, 245}}</string>
 						<reference key="NSSuperview" ref="378248105"/>
-						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1029383980"/>
 						<int key="NSsFlags">16</int>
 						<reference key="NSVScroller" ref="771267258"/>
 						<reference key="NSHScroller" ref="737697456"/>
@@ -986,8 +981,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 500}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<int key="NSDividerStyle">3</int>
 			</object>
 		</object>
@@ -1209,14 +1202,6 @@
 						<reference key="destination" ref="261364791"/>
 					</object>
 					<int key="connectionID">108</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">imageView</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1024435796"/>
-					</object>
-					<int key="connectionID">113</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
