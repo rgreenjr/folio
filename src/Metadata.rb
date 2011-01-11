@@ -6,6 +6,7 @@ class Metadata
   
   def initialize(book=nil)
     @title = 'untitled'
+    @language = 'en'
     return unless book
     book.container.opfDoc.elements.each("/package/metadata/*") do |e|
       case e.name
