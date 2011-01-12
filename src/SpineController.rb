@@ -8,7 +8,7 @@ class SpineController < NSViewController
 
   def awakeFromNib
     menu = NSMenu.alloc.initWithTitle("")
-    menu.addActionWithSeparator("Add to Navigation", "addToNavigation:", self)
+    menu.addActionWithSeparator("Add to Navigation", "addSelectedItemsToNavigation:", self)
     menu.addAction("Remove", "removeSelectedItems:", self)
     @tableView.menu = menu
     @tableView.delegate = self
@@ -20,6 +20,10 @@ class SpineController < NSViewController
   def book=(book)
     @book = book
     @tableView.reloadData
+  end
+  
+  def selectedItems
+    @tableView.selectedRowIndexes.map { |index| @book.spine[index] }
   end
 
   def numberOfRowsInTableView(tableView)
@@ -67,15 +71,15 @@ class SpineController < NSViewController
     end    
     undoManager.prepareWithInvocationTarget(self).removeItems(items)
     undoManager.actionName = "Remove #{pluralize(indexes.size, "Item")}"
-    @tableView.reloadData
-    @tableView.selectItems(items)
+    reloadDataAndSelectItems(items)
   end
   
+  def addSelectedItemsToNavigation(sender)
+    @book.controller.newPointsFromItems(selectedItems)
+  end
+
   def removeSelectedItems(sender)
-    items = @tableView.selectedRowIndexes.map do |index|
-      @book.spine[index]
-    end
-    removeItems(items)
+    removeItems(selectedItems)
   end
   
   def removeItems(items)
@@ -87,8 +91,7 @@ class SpineController < NSViewController
     end
     undoManager.prepareWithInvocationTarget(self).addItems(items.reverse, indexes.reverse)
     undoManager.actionName = "Remove #{pluralize(items.size, "Item")}"
-    @tableView.reloadData
-    @tableView.selectItems(nil)
+    reloadDataAndSelectItems(nil)
   end
   
   def moveItems(items, newIndexes)
@@ -101,23 +104,16 @@ class SpineController < NSViewController
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldIndexes.reverse)
     undoManager.actionName = "Move #{pluralize(hash.size, "Item")}"
-    @tableView.reloadData
-    @tableView.selectItems(items)
+    reloadDataAndSelectItems(items)
   end
   
-  def addToNavigation(sender)
-    items = @tableView.selectedRowIndexes.map { |index| @book.spine[index] }
-    @book.controller.newPointsFromItems(items)
-  end
-
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
-    when :"addToNavigation:"
-      return false if @tableView.numberOfSelectedRows < 1
-    when :"removeSelectedItems:"
-      return false if @tableView.numberOfSelectedRows < 1
+    when :"addSelectedItemsToNavigation:", :"removeSelectedItems:"
+      @tableView.numberOfSelectedRows > 0
+    else
+      true
     end
-    true
   end
 
   def undoManager
@@ -127,6 +123,9 @@ class SpineController < NSViewController
   private
   
   def reloadDataAndSelectItems(items)
+    @tableView.reloadData
+    @tableView.selectItems(items)
+    NSApp.mainWindow.makeFirstResponder(@tableView)
   end
   
 end

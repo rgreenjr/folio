@@ -53,6 +53,7 @@ class Tab
     @item.edited?
   end
 
+  # each tab has its own NSUndoManager to isolate NSTextView undo stacks
   def undoManager
     @undoManager ||= NSUndoManager.alloc.init
   end

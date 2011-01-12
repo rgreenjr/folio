@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="81"/>
+			<integer value="296"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1347,14 +1347,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showUnregisteredFiles:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="561797124"/>
-					</object>
-					<int key="connectionID">1720</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleLineNumbers:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="156276626"/>
@@ -1528,6 +1520,14 @@
 						<reference key="destination" ref="1058985916"/>
 					</object>
 					<int key="connectionID">1765</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showUnregisteredFiles:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="561797124"/>
+					</object>
+					<int key="connectionID">1768</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2639,7 +2639,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{449, 621}, {137, 213}}</string>
+					<string>{{413, 788}, {137, 213}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{187, 434}, {243, 243}}</string>
@@ -2681,7 +2681,7 @@
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{493, 661}, {264, 173}}</string>
+					<string>{{457, 828}, {264, 173}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2740,7 +2740,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1765</int>
+			<int key="maxID">1768</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2965,19 +2965,15 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addToSpine:</string>
-							<string>changeID:</string>
-							<string>changeMediaType:</string>
-							<string>changeName:</string>
+							<string>addSelectedItemsToSpine:</string>
+							<string>changeSelectedItemProperties:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
 							<string>showAddFilesSheet:</string>
-							<string>showDeleteItemsSheet:</string>
+							<string>showDeleteSelectedItemsSheet:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2990,31 +2986,21 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addToSpine:</string>
-							<string>changeID:</string>
-							<string>changeMediaType:</string>
-							<string>changeName:</string>
+							<string>addSelectedItemsToSpine:</string>
+							<string>changeSelectedItemProperties:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
 							<string>showAddFilesSheet:</string>
-							<string>showDeleteItemsSheet:</string>
+							<string>showDeleteSelectedItemsSheet:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">addToSpine:</string>
+								<string key="name">addSelectedItemsToSpine:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">changeID:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">changeMediaType:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">changeName:</string>
+								<string key="name">changeSelectedItemProperties:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3030,7 +3016,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showDeleteItemsSheet:</string>
+								<string key="name">showDeleteSelectedItemsSheet:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -3099,6 +3085,120 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/NSMenu.rb</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NavigationController</string>
+					<string key="superclassName">NSViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>changeID:</string>
+							<string>changeSource:</string>
+							<string>changeText:</string>
+							<string>deleteSelectedPoints:</string>
+							<string>duplicateSelectedPoint:</string>
+							<string>newPoint:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>changeID:</string>
+							<string>changeSource:</string>
+							<string>changeText:</string>
+							<string>deleteSelectedPoints:</string>
+							<string>duplicateSelectedPoint:</string>
+							<string>newPoint:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">changeID:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">changeSource:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">changeText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">deleteSelectedPoints:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">duplicateSelectedPoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">newPoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>headerView</string>
+							<string>outlineView</string>
+							<string>propertiesForm</string>
+							<string>tabView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>headerView</string>
+							<string>outlineView</string>
+							<string>propertiesForm</string>
+							<string>tabView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">headerView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">outlineView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">propertiesForm</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">tabView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/NavigationController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

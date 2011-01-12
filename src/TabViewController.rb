@@ -3,7 +3,7 @@ class TabViewController < NSViewController
   HORIZONTAL_ORIENTATION_TAG = 0
   VERTICAL_ORIENTATION_TAG   = 1
 
-  attr_accessor :splitView, :textViewController, :webViewController
+  attr_accessor :splitView, :textViewController, :webViewController, :bookController
   attr_accessor :splitViewSegementedControl, :renderImageView
 
   def awakeFromNib

@@ -15,7 +15,7 @@ class Manifest
         parts = e.attributes["href"].split('/')
         parts.each_with_index do |part, index|
           break if index == (parts.size - 1)
-          directory = parent.find(part)
+          directory = parent.childWithName(part)
           if directory == nil
             directory = Item.new(parent, part, "directory-#{part}", 'directory')
             parent << directory
@@ -34,8 +34,10 @@ class Manifest
     end
   end
   
-  def addFileAtPath(filepath, parent, index)
-    item = Item.new(parent, File.basename(filepath))
+  def addFile(filepath, parent, index)
+    name = File.basename(filepath)
+    return nil if parent.childWithName(name)
+    item = Item.new(parent, name)
     item.content = File.read(filepath)
     parent.insert(index, item)    
     item
@@ -91,7 +93,7 @@ class Manifest
     current = @root
     parts = href.split('/')
     while !parts.empty? && current
-      current = current.find(parts.shift)
+      current = current.childWithName(parts.shift)
     end
     current
   end

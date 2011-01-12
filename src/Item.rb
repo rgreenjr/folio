@@ -112,7 +112,7 @@ class Item
     @children << item
   end
 
-  def find(name)
+  def childWithName(name)
     @children.find {|item| item.name == name}
   end
   
@@ -174,7 +174,8 @@ class Item
     @children.sort!
     @children.each { |item| item.sort }
   end
-  
+
+  # used for sorting
   def <=>(other)
     @name <=> other.name
   end

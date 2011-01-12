@@ -68,7 +68,7 @@ class BookWindowController < NSWindowController
   
   def addItemsToSpine(items)
     showSpineView(self)
-    spineController.appendItems(items)
+    spineController.addItems(items)
   end
 
   def showContentView
@@ -135,7 +135,7 @@ class BookWindowController < NSWindowController
   end
 
   def showUnregisteredFiles(sender)
-    manifestController.showUnregisteredFiles
+    manifestController.showUnregisteredFilesSheet
   end
 
   def showTemporaryDirectory(sender)
@@ -175,6 +175,7 @@ class BookWindowController < NSWindowController
     current = window.nextResponder
     window.nextResponder = controller
     controller.nextResponder = current
+    controller.bookController = self
   end
   
 end
