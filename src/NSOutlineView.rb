@@ -26,4 +26,5 @@ class NSOutlineView
       items.each { |item| expandItem(item) }
     end
   end
+
 end

@@ -9,17 +9,12 @@ class SpineController < NSViewController
   def awakeFromNib
     menu = NSMenu.alloc.initWithTitle("")
     menu.addActionWithSeparator("Add to Navigation", "addToNavigation:", self)
-    menu.addAction("Remove", "removeItem:", self)
+    menu.addAction("Remove", "removeSelectedItems:", self)
     @tableView.menu = menu
-
     @tableView.delegate = self
     @tableView.dataSource = self
     @tableView.registerForDraggedTypes([NSStringPboardType])
-
     @headerView.title = "Spine"
-
-    # @fileSearchString = nil
-    # NSNotificationCenter.defaultCenter.addObserver(self, selector:"fileSearchTextDidChange:", name:"FileSearchTextDidChange", object:nil)
   end
 
   def book=(book)
@@ -27,24 +22,22 @@ class SpineController < NSViewController
     @tableView.reloadData
   end
 
-  def numberOfRowsInTableView(aTableView)
-    return 0 unless @tableView.dataSource && @book # guard against SDK bug
-    @book.spine ? @book.spine.size : 0
+  def numberOfRowsInTableView(tableView)
+    @tableView.dataSource && @book && @book.spine ? @book.spine.size : 0
   end
 
-  def tableView(aTableView, objectValueForTableColumn:column, row:index)
+  def tableView(tableView, objectValueForTableColumn:column, row:index)
     @book.spine[index].name
   end
 
-  def tableViewSelectionDidChange(aNotification)
-    return if @tableView.selectedRow < 0
-    @tabView.add(@book.spine[@tableView.selectedRow])
+  def tableViewSelectionDidChange(notification)
+    @tabView.add(@book.spine[@tableView.selectedRow]) if @tableView.selectedRow >= 0
   end
 
   def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
+    itemIds = indexes.map { |index| @book.spine[index].id }
     pboard.declareTypes([NSStringPboardType], owner:self)
-    array = indexes.inject([]) { |array, index| array << index }
-    pboard.setPropertyList(array.to_plist, forType:NSStringPboardType)
+    pboard.setPropertyList(itemIds.to_plist, forType:NSStringPboardType)
     true
   end
 
@@ -53,72 +46,63 @@ class SpineController < NSViewController
   end
 
   def tableView(tableView, acceptDrop:info, row:rowIndex, dropOperation:operation)
-    hash = {}
-    plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-    plist.reverse_each do |index|
-      rowIndex -= 1 if index < rowIndex
-      hash[index] = rowIndex
+    itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
+    items = itemIds.reverse.map do |id|
+      @book.spine.find { |item| item.id == id }
     end
-    moveItems(hash)
+    newIndexes = Array.new(items.size, rowIndex)
+    moveItems(items, newIndexes)
     true
   end
   
-  # TODO fix method
-  def appendItems(items)
-    hash = {}
-    size = @book.spine.size
-    items.each_with_index do |item, index|
-      hash[index] = item
-    end
-    addItems(hash)
+  def tableView(tableView, rowForItem:item)
+    @book.spine.index(item)
   end
-  
-  def addItems(hash)
-    indexes = NSMutableIndexSet.alloc.init
-    hash.reverse_each do |index, item|
-      next if @book.spine.include?(item)
+
+  def addItems(items, indexes=nil)
+    indexes ||= Array.new(items.size, -1)
+    items.each_with_index do |item, i|
+      index = indexes[i]
       @book.spine.insert(index, item)
-      indexes.addIndex(index)
-    end
-    undoManager.prepareWithInvocationTarget(self).removeItemsNow(indexes)
+    end    
+    undoManager.prepareWithInvocationTarget(self).removeItems(items)
     undoManager.actionName = "Remove #{pluralize(indexes.size, "Item")}"
     @tableView.reloadData
-    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
-    postChangeNotification
+    @tableView.selectItems(items)
   end
   
-  def removeItem(sender)
-    removeItemsNow(@tableView.selectedRowIndexes)
+  def removeSelectedItems(sender)
+    items = @tableView.selectedRowIndexes.map do |index|
+      @book.spine[index]
+    end
+    removeItems(items)
   end
   
-  def moveItems(hash)
-    reversedHash = {}
-    hash.reverse_each { |fromIndex, toIndex| reversedHash[toIndex] = fromIndex }
-    undoManager.prepareWithInvocationTarget(self).moveItems(reversedHash)
+  def removeItems(items)
+    indexes = []
+    items.each do |item|
+      index = @book.spine.index(item)
+      @book.spine.delete_at(index)
+      indexes << index
+    end
+    undoManager.prepareWithInvocationTarget(self).addItems(items.reverse, indexes.reverse)
+    undoManager.actionName = "Remove #{pluralize(items.size, "Item")}"
+    @tableView.reloadData
+    @tableView.selectItems(nil)
+  end
+  
+  def moveItems(items, newIndexes)
+    oldIndexes = []
+    items.each_with_index do |item, index|
+      oldIndex = @book.spine.index(item)
+      @book.spine.delete_at(oldIndex)
+      @book.spine.insert(newIndexes[index], item)
+      oldIndexes << oldIndex
+    end
+    undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldIndexes.reverse)
     undoManager.actionName = "Move #{pluralize(hash.size, "Item")}"
-    indexes = NSMutableIndexSet.alloc.init
-    hash.each do |fromIndex, toIndex|
-      item = @book.spine.delete_at(fromIndex)
-      @book.spine.insert(toIndex, item)
-      indexes.addIndex(toIndex)
-    end
     @tableView.reloadData
-    @tableView.selectRowIndexes(indexes, byExtendingSelection:false)
-    postChangeNotification
-  end
-  
-  def removeItemsNow(indexes)
-    hash = {}
-    indexes.reverse_each do |index|
-      item = @book.spine.delete_at(index)
-      @tabView.remove(item)
-      hash[index] = item
-    end
-    undoManager.prepareWithInvocationTarget(self).addItems(hash)
-    undoManager.actionName = "Remove #{pluralize(hash.size, "Item")}"
-    @tableView.reloadData
-    @tableView.deselectAll(nil)
-    postChangeNotification
+    @tableView.selectItems(items)
   end
   
   def addToNavigation(sender)
@@ -130,24 +114,19 @@ class SpineController < NSViewController
     case menuItem.action
     when :"addToNavigation:"
       return false if @tableView.numberOfSelectedRows < 1
-    when :"removeItem:"
+    when :"removeSelectedItems:"
       return false if @tableView.numberOfSelectedRows < 1
     end
     true
   end
 
-  def postChangeNotification
-    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)
-    NSNotificationCenter.defaultCenter.postNotificationName("SpineDidChange", object:self)
-  end
-
   def undoManager
     @undoManager ||= @tableView.window.undoManager
   end
-  
-  # def fileSearchTextDidChange(notification)
-  #   @fileSearchString = notification.object
-  #   @tableView.reloadData
-  # end
 
+  private
+  
+  def reloadDataAndSelectItems(items)
+  end
+  
 end
