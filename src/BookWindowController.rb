@@ -4,7 +4,7 @@ class BookWindowController < NSWindowController
 
   attr_accessor :seletionView, :contentView, :tabView, :contentPlaceholder
   attr_accessor :segmentedControl, :logoImageWell
-  attr_accessor :textViewController, :webViewController, :tabViewControler
+  attr_accessor :textViewController, :webViewController, :tabViewController
   
   attr_accessor :renderView, :renderSplitView, :renderImageView
 
@@ -15,7 +15,7 @@ class BookWindowController < NSWindowController
   def awakeFromNib
     makeResponder(@textViewController)
     makeResponder(@webViewController)
-    makeResponder(@tabViewControler)
+    makeResponder(@tabViewController)
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:@tabView)
     showLogoImage
     showNavigationView(self)
@@ -165,10 +165,37 @@ class BookWindowController < NSWindowController
     controller
   end
 
-  def changeSelectionView(controller)
+  def changeSelectionViewXXX(controller)
     controller.view.frame = @seletionView.frame
     @seletionView.subviews.first.removeFromSuperview unless @seletionView.subviews.empty?
     @seletionView.addSubview(controller.view)
+  end
+
+  def changeSelectionView(controller)
+    if @seletionView.subviews.empty?
+      rect = @seletionView.frame    
+      controller.view.frame = rect
+      @seletionView.addSubview(controller.view)
+    else
+      currentView = @seletionView.subviews.first
+      if controller.view != currentView
+        rect = @seletionView.frame    
+        rect.origin.x = @seletionView.frame.size.width
+        controller.view.frame = rect
+        @seletionView.addSubview(controller.view)
+
+        # animate in new view
+        rect.origin.x = 0
+        controller.view.animator.frame = rect
+
+        # animate out old view
+        rect = currentView.frame
+        rect.origin.x = -@seletionView.frame.size.width
+        currentView.animator.frame = rect
+
+        currentView.animator.removeFromSuperview
+      end
+    end
   end
 
   def makeResponder(controller)
