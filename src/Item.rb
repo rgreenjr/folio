@@ -23,12 +23,8 @@ class Item
     @parent.href == '' ? @name : "#{@parent.href}/#{@name}"
   end
   
-  def uri
-    URI.join('file:/', path.gsub(/ /, '%20'))
-  end
-  
   def url
-    NSURL.URLWithString(uri.to_s)
+    NSURL.fileURLWithPath(path)
   end
 
   def content

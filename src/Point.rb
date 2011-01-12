@@ -14,12 +14,8 @@ class Point
     @children = []
   end
 
-  def uri
-    URI.join('file:/', @item.path.gsub(/ /, '%20'), fragmentWithHash)
-  end
-
   def url
-    NSURL.URLWithString(uri.to_s)
+    NSURL.URLWithString(@item.path + fragmentWithHash)
   end
   
   def src
@@ -120,7 +116,7 @@ class Point
   private
   
   def fragmentWithHash
-    @fragment.empty? ? "" : "##{fragment}"
+    @fragment.empty? ? '' : "##{fragment}"
   end
 
 end
