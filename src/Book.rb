@@ -2,7 +2,6 @@ require "rexml/document"
 require "fileutils"
 require "erb"
 require "tempfile"
-require "open-uri"
 require "cgi"
 
 # http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html
@@ -14,11 +13,11 @@ class Book < NSDocument
   
   def init
     super
-    @container = Container.new
-    @manifest = Manifest.new
-    @metadata = Metadata.new
-    @spine = Spine.new
-    @guide = Guide.new
+    @container  = Container.new
+    @manifest   = Manifest.new
+    @metadata   = Metadata.new
+    @spine      = Spine.new
+    @guide      = Guide.new
     @navigation = Navigation.new
     self
   end
@@ -40,7 +39,6 @@ class Book < NSDocument
 
   def writeToURL(absoluteURL, ofType:inTypeName, error:outError)
     tmp = Dir.mktmpdir("folio-zip-")
-    # system("open #{tmp}")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
     @container.save(tmp)
     dest = File.join(tmp, @container.root)
@@ -69,6 +67,11 @@ class Book < NSDocument
   
   def unzippath
     @unzippath ||= Dir.mktmpdir("folio-unzip-")
+  end
+  
+  def close
+    super
+    FileUtils.rm_rf(unzippath)
   end
   
   private
