@@ -168,7 +168,9 @@ class ManifestController < NSViewController
       end
     end
     undoManager.prepareWithInvocationTarget(self).deleteItems(items)
-    undoManager.actionName = "Add Files"
+    unless undoManager.isUndoing
+      undoManager.actionName = "Add #{pluralize(items.size, "Item")} to Manifest"
+    end
     reloadDataAndSelectItems(items)
     showAddFilesCollisionAlert(collisionFilenames) unless collisionFilenames.empty?
   end
@@ -199,7 +201,9 @@ class ManifestController < NSViewController
       @book.manifest.move(item, newIndexes[i], newParents[i])
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldParents.reverse, oldIndexes.reverse)
-    undoManager.actionName = "Move #{pluralize(items.size, "Item")}"
+    unless undoManager.isUndoing
+      undoManager.actionName = "Move #{pluralize(items.size, "Item")} in Manifest"
+    end
     reloadDataAndSelectItems(items)
   end
 
@@ -377,11 +381,11 @@ class ManifestController < NSViewController
     @outlineView.reloadData
     @outlineView.selectItems(items)
     displaySelectedItemProperties
-    @outlineView.window.makeFirstResponder(@outlineView)
+    NSApp.keyWindow.makeFirstResponder(@outlineView)
   end
 
   def markBookEdited
-    @outlineView.window.delegate.document.updateChangeCount(NSSaveOperation)
+    NSApp.keyWindow.delegate.document.updateChangeCount(NSSaveOperation)
   end
 
   def undoManager
