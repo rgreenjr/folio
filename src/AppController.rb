@@ -1,11 +1,16 @@
 class AppController
-  
-  # def applicationDidFinishLaunching(notification)
-  #   if @filename
-  #     @bookWindowController.openBook(@filename)
-  #   else
-  #     @bookWindowController.openBook(Bundle.path("The Fall of the Roman Empire_ A New History of Rome and the Barbarians", "epub"))
-  #   end
-  # end
+
+  def applicationShouldOpenUntitledFile(application)
+    recentURLs = NSDocumentController.sharedDocumentController.recentDocumentURLs
+    unless recentURLs.empty?
+      url = recentURLs.first
+      if File.exists?(url.path)
+        if NSDocumentController.sharedDocumentController.openDocumentWithContentsOfURL(url, display:true, error:nil)
+          return false
+        end
+      end
+    end
+    true
+  end
 
 end
