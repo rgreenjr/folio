@@ -162,6 +162,7 @@ class BookWindowController < NSWindowController
     controller.loadView
     controller.tabView = @tabView
     controller.book = document
+    makeResponder(controller)
     controller
   end
 
