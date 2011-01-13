@@ -70,7 +70,7 @@ class SpineController < NSViewController
       @book.spine.insert(index, item)
     end    
     undoManager.prepareWithInvocationTarget(self).removeItems(items)
-    undoManager.actionName = "Remove #{pluralize(indexes.size, "Item")}"
+    # undoManager.actionName = "Add #{pluralize(items.size, "Item")} from Spine"
     reloadDataAndSelectItems(items)
   end
   
@@ -90,7 +90,7 @@ class SpineController < NSViewController
       indexes << index
     end
     undoManager.prepareWithInvocationTarget(self).addItems(items.reverse, indexes.reverse)
-    undoManager.actionName = "Remove #{pluralize(items.size, "Item")}"
+    # undoManager.actionName = "Remove #{pluralize(items.size, "Item")} to Spine"
     reloadDataAndSelectItems(nil)
   end
   
@@ -103,7 +103,7 @@ class SpineController < NSViewController
       oldIndexes << oldIndex
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldIndexes.reverse)
-    undoManager.actionName = "Move #{pluralize(hash.size, "Item")}"
+    undoManager.actionName = "Move #{pluralize(items.size, "Item")}"
     reloadDataAndSelectItems(items)
   end
   
