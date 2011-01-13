@@ -1,5 +1,6 @@
 class ManifestController < NSViewController
 
+  attr_accessor :bookController
   attr_accessor :outlineView, :propertiesForm, :mediaTypePopUpButton, :tabView, :headerView
 
   def init
@@ -206,6 +207,10 @@ class ManifestController < NSViewController
     end
     reloadDataAndSelectItems(items)
   end
+  
+  def delete(sender)
+    showDeleteSelectedItemsSheet(sender)
+  end
 
   def showDeleteSelectedItemsSheet(sender)
     alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected files?", 
@@ -271,7 +276,7 @@ class ManifestController < NSViewController
       alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.", 
           defaultButton:"Move to Trash", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
 
-      alert.beginSheetModalForWindow(NSApp.mainWindow, modalDelegate:self, 
+      alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self, 
           didEndSelector:"deleteUnregisteredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     end
   end
@@ -317,7 +322,7 @@ class ManifestController < NSViewController
   
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
-    when :"showDeleteSelectedItemsSheet:"
+    when :"showDeleteSelectedItemsSheet:", :"delete:"
       @outlineView.numberOfSelectedRows > 0
     when :"addSelectedItemsToSpine:"
       selectedItems.reject { |item| item.flowable? }.empty?
@@ -381,11 +386,11 @@ class ManifestController < NSViewController
     @outlineView.reloadData
     @outlineView.selectItems(items)
     displaySelectedItemProperties
-    NSApp.keyWindow.makeFirstResponder(@outlineView)
+    @bookController.window.makeFirstResponder(@outlineView)
   end
 
   def markBookEdited
-    NSApp.keyWindow.delegate.document.updateChangeCount(NSSaveOperation)
+    @bookController.document.updateChangeCount(NSSaveOperation)
   end
 
   def undoManager

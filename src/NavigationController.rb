@@ -1,5 +1,6 @@
 class NavigationController < NSViewController
 
+  attr_accessor :bookController
   attr_accessor :outlineView, :propertiesForm, :tabView, :headerView
 
   def init
@@ -151,7 +152,7 @@ class NavigationController < NSViewController
     @outlineView.reloadData
     @outlineView.expandItems(parents)
     @outlineView.selectItems(undoPoints)
-    NSApp.mainWindow.makeFirstResponder(@outlineView)
+    @bookController.window.makeFirstResponder(@outlineView)
     postChangeNotification
   end
 
@@ -310,7 +311,7 @@ class NavigationController < NSViewController
   end
 
   def postChangeNotification
-    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)
+    @bookController.document.updateChangeCount(NSSaveOperation)
     NSNotificationCenter.defaultCenter.postNotificationName("NavigationDidChange", object:self)
   end
 
