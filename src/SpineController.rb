@@ -1,7 +1,7 @@
 class SpineController < NSViewController
 
   attr_accessor :tableView, :tabView, :headerView
-  
+
   def init
     initWithNibName("Spine", bundle:nil)
   end
@@ -21,7 +21,7 @@ class SpineController < NSViewController
     @book = book
     @tableView.reloadData
   end
-  
+
   def selectedItems
     @tableView.selectedRowIndexes.map { |index| @book.spine[index] }
   end
@@ -58,7 +58,7 @@ class SpineController < NSViewController
     moveItems(items, newIndexes)
     true
   end
-  
+
   def tableView(tableView, rowForItem:item)
     @book.spine.index(item)
   end
@@ -68,12 +68,14 @@ class SpineController < NSViewController
     items.each_with_index do |item, i|
       index = indexes[i]
       @book.spine.insert(index, item)
-    end    
+    end
     undoManager.prepareWithInvocationTarget(self).removeItems(items)
-    # undoManager.actionName = "Add #{pluralize(items.size, "Item")} from Spine"
+    unless undoManager.isUndoing
+      undoManager.actionName = "Add #{pluralize(items.size, "Item")} to Spine"
+    end
     reloadDataAndSelectItems(items)
   end
-  
+
   def addSelectedItemsToNavigation(sender)
     @book.controller.newPointsFromItems(selectedItems)
   end
@@ -81,7 +83,7 @@ class SpineController < NSViewController
   def removeSelectedItems(sender)
     removeItems(selectedItems)
   end
-  
+
   def removeItems(items)
     indexes = []
     items.each do |item|
@@ -90,10 +92,12 @@ class SpineController < NSViewController
       indexes << index
     end
     undoManager.prepareWithInvocationTarget(self).addItems(items.reverse, indexes.reverse)
-    # undoManager.actionName = "Remove #{pluralize(items.size, "Item")} to Spine"
+    unless undoManager.isUndoing
+      undoManager.actionName = "Remove #{pluralize(items.size, "Item")} from Spine"
+    end
     reloadDataAndSelectItems(nil)
   end
-  
+
   def moveItems(items, newIndexes)
     oldIndexes = []
     items.each_with_index do |item, index|
@@ -103,10 +107,12 @@ class SpineController < NSViewController
       oldIndexes << oldIndex
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldIndexes.reverse)
-    undoManager.actionName = "Move #{pluralize(items.size, "Item")}"
+    unless undoManager.isUndoing
+      undoManager.actionName = "Move #{pluralize(items.size, "Item")} in Spine"
+    end
     reloadDataAndSelectItems(items)
   end
-  
+
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
     when :"addSelectedItemsToNavigation:", :"removeSelectedItems:"
@@ -121,11 +127,11 @@ class SpineController < NSViewController
   end
 
   private
-  
+
   def reloadDataAndSelectItems(items)
     @tableView.reloadData
     @tableView.selectItems(items)
     NSApp.mainWindow.makeFirstResponder(@tableView)
   end
-  
+
 end
