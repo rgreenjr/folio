@@ -115,6 +115,7 @@
 		CDDE4C9B1254FB69004A18CF /* TabView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDE4C9A1254FB69004A18CF /* TabView.rb */; };
 		CDDEAAF012B58A7300A27602 /* no-cover.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDEAAEF12B58A7300A27602 /* no-cover.png */; };
 		CDDECB59124F9E8400604632 /* Search.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDECB58124F9E8400604632 /* Search.rb */; };
+		CDE105F612DFA58000E1518B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE105F512DFA58000E1518B /* QuartzCore.framework */; };
 		CDE3FD0C125A84C800D52C50 /* tab-close-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */; };
 		CDE3FD0D125A84C800D52C50 /* tab-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD09125A84C800D52C50 /* tab-close.png */; };
 		CDE3FD0E125A84C800D52C50 /* tab-edited-close.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */; };
@@ -236,6 +237,7 @@
 		CDDE4C9A1254FB69004A18CF /* TabView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabView.rb; sourceTree = "<group>"; };
 		CDDEAAEF12B58A7300A27602 /* no-cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-cover.png"; sourceTree = "<group>"; };
 		CDDECB58124F9E8400604632 /* Search.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Search.rb; sourceTree = "<group>"; };
+		CDE105F512DFA58000E1518B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CDE3FD08125A84C800D52C50 /* tab-close-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close-pressed.png"; sourceTree = "<group>"; };
 		CDE3FD09125A84C800D52C50 /* tab-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-close.png"; sourceTree = "<group>"; };
 		CDE3FD0A125A84C800D52C50 /* tab-edited-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-edited-close.png"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */,
 				CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */,
 				CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */,
+				CDE105F612DFA58000E1518B /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +290,7 @@
 			children = (
 				4DE3BE130D8651D900ECA448 /* MacRuby.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				CDE105F512DFA58000E1518B /* QuartzCore.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -341,10 +345,10 @@
 				CDBDC8A7122AA9DA00844EAA /* images */,
 				CD83F598122B3E32005BB914 /* templates */,
 				CDED8FCF12D7C65B0097EBE2 /* Book.xib */,
-				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
-				CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */,
 				CDF0E93B12DB66C200D5ABBF /* GotoLine.xib */,
+				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
 				CD8C454C12CEB1B200B9A6B2 /* Metadata.xib */,
+				CDA86B4C12CF96CE00AD5C00 /* Manifest.xib */,
 				CDA86B4812CF96C700AD5C00 /* Navigation.xib */,
 				CD8C45C912CF832B00B9A6B2 /* Progress.xib */,
 				CDA86B5012CF96D600AD5C00 /* Search.xib */,

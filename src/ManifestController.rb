@@ -270,7 +270,7 @@ class ManifestController < NSViewController
       @unregistered << entry unless @book.manifest.itemWithHref(entry)
     end
     if @unregistered.empty?
-      Alert.runModal("All files are registered in the book's manifest.")
+      @bookController.runModalAlert("All files are registered in the book's manifest.")
     else
       relativePaths = @unregistered.map {|entry| @book.relativePathFor(entry) }
       alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.", 
@@ -335,12 +335,12 @@ class ManifestController < NSViewController
 
   private
 
-  def nameCell
-    @propertiesForm.cellAtIndex(0)
-  end
-
-  def idCell
-    @propertiesForm.cellAtIndex(1)
+  def reloadDataAndSelectItems(items)
+    @book.manifest.sort
+    @outlineView.reloadData
+    @outlineView.selectItems(items)
+    displaySelectedItemProperties
+    @bookController.window.makeFirstResponder(@outlineView)
   end
 
   def displaySelectedItemProperties
@@ -357,8 +357,16 @@ class ManifestController < NSViewController
     end
   end
 
+  def nameCell
+    @propertiesForm.cellAtIndex(0)
+  end
+
+  def idCell
+    @propertiesForm.cellAtIndex(1)
+  end
+
   def propertyCells
-    [nameCell, idCell, mediaTypePopUpButton]
+    @propertyCells ||= [nameCell, idCell, mediaTypePopUpButton]
   end
 
   def showChangeNameCollisionAlert(name)
@@ -379,14 +387,6 @@ class ManifestController < NSViewController
     alert.messageText = messageText
     alert.informativeText = informativeText
     alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
-  end
-
-  def reloadDataAndSelectItems(items)
-    @book.manifest.sort
-    @outlineView.reloadData
-    @outlineView.selectItems(items)
-    displaySelectedItemProperties
-    @bookController.window.makeFirstResponder(@outlineView)
   end
 
   def markBookEdited

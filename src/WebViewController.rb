@@ -71,7 +71,7 @@ class WebViewController < NSViewController
       targetItem = @bookController.document.manifest.itemWithHref(href)
       if targetItem.nil?
         listener.ignore
-        Alert.runModal("Cannot Open Link", "Please make sure the file is included in the manifest.\n\n#{request.URL.path}")
+        @bookController.runModalAlert("Cannot Open Link", "Please make sure the file is included in the manifest.\n\n#{request.URL.path}")
       elsif @item.name == targetItem.name
         listener.use
       else

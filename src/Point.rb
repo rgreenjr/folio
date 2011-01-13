@@ -49,6 +49,10 @@ class Point
     @children[index]
   end
 
+  def children
+    @children
+  end
+
   def each(&block)
     @children.each(&block)
   end

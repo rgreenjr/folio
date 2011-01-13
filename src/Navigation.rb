@@ -126,6 +126,15 @@ class Navigation
   def pointWithId(identifier)
     @pointIdMap[identifier]
   end
+  
+  def changePointId(point, newID)
+    return nil if pointWithId(newID)
+    @pointIdMap[point.id] = nil
+    oldID = point.id
+    point.id = newID
+    @pointIdMap[point.id] = point
+    oldID
+  end
 
   def save(directory)
     File.open("#{directory}/#{@ncx_name}", 'w') {|f| f.write(to_xml)}

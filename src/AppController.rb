@@ -1,11 +1,12 @@
 class AppController
 
   def applicationShouldOpenUntitledFile(application)
-    recentURLs = NSDocumentController.sharedDocumentController.recentDocumentURLs
+    controller = NSDocumentController.sharedDocumentController
+    recentURLs = controller.recentDocumentURLs
     unless recentURLs.empty?
       url = recentURLs.first
       if File.exists?(url.path)
-        if NSDocumentController.sharedDocumentController.openDocumentWithContentsOfURL(url, display:true, error:nil)
+        if controller.openDocumentWithContentsOfURL(url, display:true, error:nil)
           return false
         end
       end

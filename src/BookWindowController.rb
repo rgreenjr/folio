@@ -154,6 +154,10 @@ class BookWindowController < NSWindowController
     #   puts result
     # end
   end
+  
+  def runModalAlert(messageText, informativeText='')
+    Alert.runModal(window, messageText, informativeText)
+  end
 
   private
   
@@ -174,27 +178,13 @@ class BookWindowController < NSWindowController
 
   def changeSelectionView(controller)
     if @seletionView.subviews.empty?
-      rect = @seletionView.frame    
-      controller.view.frame = rect
+      controller.view.frame = @seletionView.frame
       @seletionView.addSubview(controller.view)
     else
       currentView = @seletionView.subviews.first
       if controller.view != currentView
-        rect = @seletionView.frame    
-        rect.origin.x = @seletionView.frame.size.width
-        controller.view.frame = rect
-        @seletionView.addSubview(controller.view)
-
-        # animate in new view
-        rect.origin.x = 0
-        controller.view.animator.frame = rect
-
-        # animate out old view
-        rect = currentView.frame
-        rect.origin.x = -@seletionView.frame.size.width
-        currentView.animator.frame = rect
-
-        currentView.animator.removeFromSuperview
+        controller.view.frame = @seletionView.frame
+        @seletionView.animator.replaceSubview(currentView, with:controller.view)
       end
     end
   end
