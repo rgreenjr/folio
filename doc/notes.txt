@@ -3,18 +3,22 @@ Bugs
 
 - Fix undo delete of nested navigation points
 - Update Navigation view on modification
+- Drag and drop of directories into Manifest
 
 Features
 ========
 
-- Manifest move undo
 - Navigation: add points
-- Spine: add items
+- Add Navigation, Spine and Manifest icons to toolbar
+- Add Validate icon to toolbar
+- Add Re-Format icon to toolbar
 - ePub validation
-- Auto scroll source view on navigation changes
+- Add "Show in Manifest" and "Show in Spine" to context menu
 - Guide generation
 
-- Add plus/minus buttons
+- Add plus/minus buttons for Navigation points
+- Add plus/minus buttons for Spine items
+
 
 Enhancements
 ============
@@ -25,3 +29,13 @@ Enhancements
 - Ability to drag to manifest items to the desktop
 - Add WebView forward/backward buttons
 - Support remote images by using default name and getting image data directly from NSImageView
+- Better error handling of ill-formed XML documents
+- Switch TableView and OutlineView to use Source Highlight style
+- Highlight entire line of XML validation errors
+- Perform background scan of XML for linkable elements
+
+Refactoring
+===========
+
+- Use "box" in view placeholder names
+- 

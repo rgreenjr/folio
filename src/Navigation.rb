@@ -79,6 +79,14 @@ class Navigation
       index += 1
     end
   end
+  
+  def select(&block)
+    points = []
+    each(true) do |point| 
+      points << point if yield(point)
+    end
+    points
+  end
 
   def [](index)
     each_with_index do |point, idx|

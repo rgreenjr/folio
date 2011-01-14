@@ -38,7 +38,7 @@ class NavigationController < NSViewController
   def selectedPoint
     @outlineView.selectedRow == -1 ? nil : @book.navigation[@outlineView.selectedRow]
   end
-  
+
   def selectedPoints
     @outlineView.selectedRowIndexes.map { |index| @book.navigation[index] }
   end
@@ -119,14 +119,14 @@ class NavigationController < NSViewController
       oldParents << parent
       @book.navigation.move(point, newIndexes[i], newParents[i])
     end
-    
+
     undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldParents.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
       undoManager.actionName = "Move #{pluralize(points.size, "Points")} in Navigation"
     end
 
-    reloadDataAndSelectPoints(points)    
-    
+    reloadDataAndSelectPoints(points)
+
     points.each_with_index do |point, i|
       @outlineView.expandItem(newParents[i])
     end
@@ -139,9 +139,9 @@ class NavigationController < NSViewController
     # parent, index = currentSelectionParentAndIndex
     # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
   end
-  
+
   def newPointsFromItems(items)
-    points = items.map do |item| 
+    points = items.map do |item|
       point = Point.new(item, item.name)
       [point, -1, @book.navigation.root]
     end
@@ -153,14 +153,14 @@ class NavigationController < NSViewController
       puts "adding #{point.text}"
       @book.navigation.insert(point, newIndexes[i], newParents[i])
     end
-    
+
     puts "---"
 
     undoManager.prepareWithInvocationTarget(self).deletePoints(points)
     unless undoManager.isUndoing
       undoManager.actionName = "Add #{pluralize(points.size, "Point")} to Navigation"
     end
-    
+
     reloadDataAndSelectPoints(points)
   end
 
@@ -184,12 +184,12 @@ class NavigationController < NSViewController
   end
 
   # TODO need to handle points with children
-  def deletePoints(points)
+  def deletePoints(points, allowUndo=true)
     # recursively delete children first
-    points.each do |point|
-      deletePoints(point.children)
-    end
-    
+    # points.each do |point|
+    #   deletePoints(point.children)
+    # end
+
     parents = []
     indexes = []
     undoPoints = []
@@ -201,15 +201,22 @@ class NavigationController < NSViewController
       puts "deleting #{point.text}"
       @book.navigation.delete(point)
     end
-    
+
     puts "---"
 
-    undoManager.prepareWithInvocationTarget(self).addPoints(undoPoints, parents, indexes)
-    unless undoManager.isUndoing
-      undoManager.actionName = "Delete #{pluralize(points.size, "Point")} from Navigation"
+    if allowUndo
+      undoManager.prepareWithInvocationTarget(self).addPoints(undoPoints, parents, indexes)
+      unless undoManager.isUndoing
+        undoManager.actionName = "Delete #{pluralize(points.size, "Point")} from Navigation"
+      end
     end
 
     reloadDataAndSelectPoints(points)
+  end
+
+  def deletePointsReferencingItem(item)
+    points = @book.navigation.select { |point| point.item == item }
+    deletePoints(points, false)
   end
 
   def changeSelectedPointProperties(sender)

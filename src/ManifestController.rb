@@ -21,7 +21,7 @@ class ManifestController < NSViewController
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
     @outlineView.reloadData
-    
+
     # configure media types popup button
     Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
 
@@ -144,7 +144,7 @@ class ManifestController < NSViewController
     panel.title = "Add Files"
     panel.setPrompt("Select")
     panel.setAllowsMultipleSelection(true)
-    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window, 
+    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window,
         modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
@@ -174,7 +174,7 @@ class ManifestController < NSViewController
     reloadDataAndSelectItems(items)
     showAddFilesCollisionAlert(collisionFilenames) unless collisionFilenames.empty?
   end
-  
+
   def addFile(filepath, parent=nil, childIndex=nil)
     addFiles([filepath], parent, childIndex).first
   end
@@ -185,13 +185,13 @@ class ManifestController < NSViewController
     items.each_with_index do |item, i|
       collisionFilenames << item.name if newParents[i].childWithName(item.name)
     end
-    
+
     # warn about collisions and return
     unless collisionFilenames.empty?
       showMoveFilesCollisionAlert(collisionFilenames)
       return
     end
-  
+
     # no filename collisions so proceed with moving items
     oldParents = []
     oldIndexes = []
@@ -206,15 +206,15 @@ class ManifestController < NSViewController
     end
     reloadDataAndSelectItems(items)
   end
-  
+
   def delete(sender)
     showDeleteSelectedItemsSheet(sender)
   end
 
   def showDeleteSelectedItemsSheet(sender)
-    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected files?", 
-        defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"You can’t undo this action.")
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, 
+    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected items? Any references will be removed from the Navigation and Spine.",
+        defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"You can't undo this action.")
+    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self,
         didEndSelector:"deleteSelectedItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
@@ -225,6 +225,8 @@ class ManifestController < NSViewController
   def deleteItems(items)
     items.each do |item|
       @bookController.tabViewController.removeObject(item)
+      @bookController.spineController.deleteItem(item, false)
+      @bookController.navigationController.deletePointsReferencingItem(item)
       @book.manifest.delete(item)
     end
     reloadDataAndSelectItems(nil)
@@ -272,10 +274,10 @@ class ManifestController < NSViewController
       @bookController.runModalAlert("All files are registered in the book's manifest.")
     else
       relativePaths = @unregistered.map {|entry| @book.relativePathFor(entry) }
-      alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.", 
+      alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.",
           defaultButton:"Move to Trash", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
 
-      alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self, 
+      alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self,
           didEndSelector:"deleteUnregisteredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     end
   end
@@ -318,7 +320,7 @@ class ManifestController < NSViewController
     item.mediaType = value
     reloadDataAndSelectItems([item])
   end
-  
+
   def validateUserInterfaceItem(menuItem)
     case menuItem.action
     when :"showDeleteSelectedItemsSheet:", :"delete:"
@@ -375,11 +377,11 @@ class ManifestController < NSViewController
   def showAddFilesCollisionAlert(filenames)
     showAlertSheet("The following files were not added because items with the same names already exist.", filenames.join("\n"))
   end
-  
+
   def showMoveFilesCollisionAlert(filenames)
     showAlertSheet("The following files were not moved because items with the same names already exist.", filenames.join("\n"))
   end
-  
+
   def showAlertSheet(messageText, informativeText='')
     alert = NSAlert.alloc.init
     alert.addButtonWithTitle "OK"

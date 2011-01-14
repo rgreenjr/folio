@@ -88,7 +88,11 @@ class SpineController < NSViewController
     deleteItems(selectedItems)
   end
 
-  def deleteItems(items)
+  def deleteItem(item, allowUndo=true)
+    deleteItems([item], allowUndo)
+  end
+
+  def deleteItems(items, allowUndo=true)
     return unless items && !items.empty?
     indexes = []
     items.each do |item|
@@ -96,10 +100,14 @@ class SpineController < NSViewController
       @book.spine.delete_at(index)
       indexes << index
     end
-    undoManager.prepareWithInvocationTarget(self).addItems(items.reverse, indexes.reverse)
-    unless undoManager.isUndoing
-      undoManager.actionName = "Delete #{pluralize(items.size, "Item")} from Spine"
+
+    if allowUndo
+      undoManager.prepareWithInvocationTarget(self).addItems(items.reverse, indexes.reverse)
+      unless undoManager.isUndoing
+        undoManager.actionName = "Delete #{pluralize(items.size, "Item")} from Spine"
+      end
     end
+
     reloadDataAndSelectItems(nil)
   end
 
