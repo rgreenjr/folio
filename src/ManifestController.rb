@@ -173,6 +173,7 @@ class ManifestController < NSViewController
     end
     reloadDataAndSelectItems(items)
     showAddFilesCollisionAlert(collisionFilenames) unless collisionFilenames.empty?
+    items
   end
 
   def addFile(filepath, parent=nil, childIndex=nil)
