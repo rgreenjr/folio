@@ -395,7 +395,7 @@ class ManifestController < NSViewController
   end
 
   def undoManager
-    @undoManager ||= @outlineView.window.undoManager
+    @undoManager ||= @bookController.window.undoManager
   end
 
 end

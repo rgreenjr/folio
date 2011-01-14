@@ -136,7 +136,7 @@ class SpineController < NSViewController
   end
 
   def undoManager
-    @undoManager ||= @tableView.window.undoManager
+    @undoManager ||= @bookController.window.undoManager
   end
 
   private
