@@ -9,6 +9,7 @@ class Navigation
     @title = "untitled"
     @docAuthor = ""
     @root = Point.new
+    @root.text = "__ROOT__"
     @root.expanded = true
 
     return unless book
@@ -94,7 +95,7 @@ class Navigation
     end
   end
 
-  def index_and_parent(point)
+  def indexAndParent(point)
     each do |parent|
       index = parent.index(point)
       return index, parent if index
@@ -118,7 +119,7 @@ class Navigation
   end
 
   def duplicate(point)
-    index, parent = index_and_parent(point)
+    index, parent = indexAndParent(point)
     clone = Point.new(point.item, point.text)
     parent.insert(index + 1, clone)
     @pointIdMap[clone.id] = clone
@@ -126,7 +127,7 @@ class Navigation
   end
 
   def delete(point)
-    index, parent = index_and_parent(point)
+    index, parent = indexAndParent(point)
     parent.delete_at(index)
     @pointIdMap[point.id] = nil
   end

@@ -106,21 +106,21 @@ class NavigationController < NSViewController
     points = plist.map { |id| @book.navigation.pointWithId(id) }
     newParents = Array.new(points.size, parent)
     newIndexes = Array.new(points.size, childIndex)
-    movePoints(points, newParents, newIndexes)
+    movePoints(points, newIndexes, newParents)
     true
   end
 
-  def movePoints(points, newParents, newIndexes)
+  def movePoints(points, newIndexes, newParents)
     oldParents = []
     oldIndexes = []
     points.each_with_index do |point, i|
-      index, parent = @book.navigation.index_and_parent(point)
+      index, parent = @book.navigation.indexAndParent(point)
       oldIndexes << index
       oldParents << parent
       @book.navigation.move(point, newIndexes[i], newParents[i])
     end
 
-    undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldParents.reverse, oldIndexes.reverse)
+    undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldIndexes.reverse, oldParents.reverse)
     unless undoManager.isUndoing
       undoManager.actionName = "Move #{pluralize(points.size, "Points")} in Navigation"
     end
@@ -148,15 +148,13 @@ class NavigationController < NSViewController
     addPoints(points)
   end
 
-  def addPoints(points, newParents, newIndexes)
+  def addPoints(points, newIndexes, newParents)
     points.each_with_index do |point, i|
-      puts "adding #{point.text}"
+      puts "adding #{point.text}, index = #{newIndexes[i]}, parent = #{newParents[i].text}"
       @book.navigation.insert(point, newIndexes[i], newParents[i])
     end
 
-    puts "---"
-
-    undoManager.prepareWithInvocationTarget(self).deletePoints(points)
+    undoManager.prepareWithInvocationTarget(self).deletePoints(points, true, 0)
     unless undoManager.isUndoing
       undoManager.actionName = "Add #{pluralize(points.size, "Point")} to Navigation"
     end
@@ -184,34 +182,37 @@ class NavigationController < NSViewController
   end
 
   # TODO need to handle points with children
-  def deletePoints(points, allowUndo=true)
+  def deletePoints(points, allowUndo=true, level=0)
     # recursively delete children first
-    # points.each do |point|
-    #   deletePoints(point.children)
-    # end
-
-    parents = []
-    indexes = []
-    undoPoints = []
-    points.reverse_each do |point|
-      index, parent = @book.navigation.index_and_parent(point)
-      indexes << index
-      parents << parent
-      undoPoints << point
-      puts "deleting #{point.text}"
-      @book.navigation.delete(point)
+    points.each do |point|
+      deletePoints(point.children.reverse, allowUndo, level + 1)
     end
 
+    indexes = []
+    parents = []
+    points.each do |point|
+      index, parent = @book.navigation.indexAndParent(point)
+      indexes << index
+      if parent
+        parents << parent
+        indent = "   " * level
+        puts "#{indent}deleting #{point.text}, parent = #{parent.text}, index = #{index}"
+        @book.navigation.delete(point)
+      else
+        raise "unable to delete parentless point #{point.text}, index = #{index}"
+      end
+    end
+    
     puts "---"
 
-    if allowUndo
-      undoManager.prepareWithInvocationTarget(self).addPoints(undoPoints, parents, indexes)
+     if allowUndo
+      undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
       unless undoManager.isUndoing
         undoManager.actionName = "Delete #{pluralize(points.size, "Point")} from Navigation"
       end
     end
 
-    reloadDataAndSelectPoints(points)
+    reloadDataAndSelectPoints(nil)
   end
 
   def deletePointsReferencingItem(item)
