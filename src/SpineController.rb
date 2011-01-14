@@ -1,7 +1,6 @@
 class SpineController < NSViewController
 
-  attr_accessor :bookController
-  attr_accessor :tableView, :tabView, :headerView
+  attr_accessor :bookController, :tableView, :headerView
 
   def init
     initWithNibName("Spine", bundle:nil)
@@ -36,7 +35,7 @@ class SpineController < NSViewController
   end
 
   def tableViewSelectionDidChange(notification)
-    @tabView.add(@book.spine[@tableView.selectedRow]) if @tableView.selectedRow >= 0
+    @bookController.tabViewController.addObject(@book.spine[@tableView.selectedRow]) if @tableView.selectedRow >= 0
   end
 
   def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)

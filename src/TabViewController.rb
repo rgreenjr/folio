@@ -9,7 +9,7 @@ class TabViewController < NSViewController
   def awakeFromNib
     view.delegate = self
     NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'),
-    name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
+        name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
   end
 
   def textDidChange(notification)
@@ -17,12 +17,24 @@ class TabViewController < NSViewController
     view.needsDisplay = true
   end
   
-  def addItemOrPoint(object)
-    view.add(object)
+  def addObject(object)
+    view.addObject(object)
+  end
+  
+  def removeObject(object)
+    view.removeObject(object)
+  end
+
+  def selectedTab
+    view.selectedTab
+  end
+
+  def selectedItem
+    view.selectedTab ? view.selectedTab.item : nil
   end
 
   def saveTab(sender)
-    view.save(self)
+    view.saveSelectedTab
   end
 
   def saveAllTabs(sender)
@@ -32,7 +44,7 @@ class TabViewController < NSViewController
   end
 
   def closeTab(sender)
-    view.close(self)
+    view.closeSelectedTab
   end
 
   def undoManagerForItem(item)
@@ -70,9 +82,9 @@ class TabViewController < NSViewController
   def validateUserInterfaceItem(menuItem)
     case menuItem.title
     when 'Select Next Tab', 'Select Previous Tab'
-      view.size > 1
+      view.numberOfTabs > 1
     when 'Close Tab', 'Save Tab', 'Save All Tabs'
-      view.size > 0
+      view.numberOfTabs > 0
     else
       true
     end

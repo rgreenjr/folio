@@ -1,7 +1,6 @@
 class ManifestController < NSViewController
 
-  attr_accessor :bookController
-  attr_accessor :outlineView, :propertiesForm, :mediaTypePopUpButton, :tabView, :headerView
+  attr_accessor :bookController, :outlineView, :propertiesForm, :mediaTypePopUpButton, :headerView
 
   def init
     initWithNibName("Manifest", bundle:nil)
@@ -225,7 +224,7 @@ class ManifestController < NSViewController
 
   def deleteItems(items)
     items.each do |item|
-      @tabView.remove(item)
+      @bookController.tabViewController.removeObject(item)
       @book.manifest.delete(item)
     end
     reloadDataAndSelectItems(nil)
@@ -350,7 +349,7 @@ class ManifestController < NSViewController
       @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
       nameCell.stringValue = item.name
       idCell.stringValue = item.id
-      @tabView.add(item)
+      @bookController.tabViewController.addObject(item)
     else
       propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
       @mediaTypePopUpButton.selectItemWithTitle('')

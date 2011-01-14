@@ -78,7 +78,7 @@ class WebViewController < NSViewController
         listener.ignore
         point = Point.new(targetItem)
         point.fragment = fragment
-        @bookController.tabViewController.addItemOrPoint(point)
+        @bookController.tabViewController.addObject(point)
       end
     end
   end

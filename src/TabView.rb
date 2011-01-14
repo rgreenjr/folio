@@ -2,42 +2,62 @@ class TabView < NSView
 
   DEFAULT_TAB_WIDTH = 350.0
 
-  attr_accessor :tabs, :selectedTab, :delegate
+  attr_accessor :tabCells, :selectedTabCell, :delegate
 
   def initWithFrame(frameRect)
     super
-    @tabs = []
+    @tabCells = []
     begColor  = NSColor.colorWithDeviceRed(0.921, green:0.921, blue:0.921, alpha:1.0)
     midColor  = NSColor.colorWithDeviceRed(0.871, green:0.871, blue:0.871, alpha:1.0)
     endColor  = NSColor.colorWithDeviceRed(0.820, green:0.820, blue:0.820, alpha:1.0)
     @gradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], [0.0, 0.5, 1.0], colorSpace:NSColorSpace.genericRGBColorSpace)
-	  @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)    
+    @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)    
     self
   end
-  
-  def size
-    @tabs.size
+
+  def drawRect(aRect)
+    updateTabCellWidth
+    @gradient.drawInRect(bounds, angle:270.0)
+    @lineColor.set
+    NSBezierPath.strokeLineFromPoint(CGPoint.new(bounds.origin.x, bounds.origin.y), toPoint:CGPoint.new(bounds.size.width, bounds.origin.y))
+    @tabCells.each_with_index do |tabCell, index|
+      tabCell.drawRect(rectForTabCellAtIndex(index))
+    end
   end
-  
+
   def isOpaque
     true
   end
 
-  def selectedItem
-    @selectedTab ? @selectedTab.item : nil
+  def numberOfTabs
+    @tabCells.size
   end
-  
+
+  def selectedTab
+    @selectedTabCell ? @selectedTabCell : nil
+  end
+
+  def selectNextTab
+    return unless @selectedTabCell
+    index = indexForTabCell(@selectedTabCell) + 1
+    selectTabCell(@tabCells[index]) if index < @tabCells.size
+  end
+
+  def selectPreviousTab
+    return unless @selectedTabCell
+    index = indexForTabCell(@selectedTabCell) - 1
+    selectTabCell(@tabCells[index]) if index >= 0
+  end  
+
+  def editedTabs
+    @tabCells.select { |tabCell| tabCell.edited? }
+  end
+
   def tabForItem(item)
-    @tabs.each_with_index {|tab, index| return tab if tab.item == item}
-    nil
+    @tabCells.find { |tabCell| tabCell.item == item }
   end
 
-  def indexForTab(tab)
-    @tabs.each_with_index {|t, index| return index if tab == t}
-    nil
-  end
-
-  def add(object)
+  def addObject(object)
     return unless object
     if object.is_a?(Point)
       point = object
@@ -46,15 +66,15 @@ class TabView < NSView
       point = nil
       item = object
     end
-    tab = tabForItem(item)
-    unless tab
-      tab = Tab.new(item)
-      @tabs << tab
+    tabCell = tabForItem(item)
+    unless tabCell
+      tabCell = TabCell.new(item)
+      @tabCells << tabCell
     end
-    selectTab(tab, point)
+    selectTabCell(tabCell, point)
   end
-  
-  def remove(object)
+
+  def removeObject(object)
     return unless object
     if object.is_a?(Point)
       point = object
@@ -63,161 +83,146 @@ class TabView < NSView
       point = nil
       item = object
     end
-    tab = tabForItem(item)
-    closeTab(tab) if tab
-  end
+    tabCell = tabForItem(item)
+    closeTabCell(tabCell) if tabCell
+  end  
 
-  def drawRect(aRect)
-    updateTabWidth
-    @gradient.drawInRect(bounds, angle:270.0)
-    @lineColor.set
-    NSBezierPath.strokeLineFromPoint(CGPoint.new(bounds.origin.x, bounds.origin.y), toPoint:CGPoint.new(bounds.size.width, bounds.origin.y))
-    @tabs.each_with_index do |tab, index|
-      tab.drawRect(rectForTabAtIndex(index))
+  def saveSelectedTab
+    if @selectedTabCell
+      @selectedTabCell.save
+      setNeedsDisplay(true)
     end
   end
 
-  def updateTabWidth
-    if @tabs.size * DEFAULT_TAB_WIDTH < bounds.size.width
-      @tabWidth = DEFAULT_TAB_WIDTH
+  def saveTab(tabCell)
+    tabCell.save
+    setNeedsDisplay(true)
+  end
+
+  def closeSelectedTab
+    saveOrCloseTabCell(@selectedTabCell) if @selectedTabCell
+  end
+
+  def closeAllTabs
+    while @selectedTabCell
+      closeTabCell(@selectedTabCell)
+    end
+  end
+
+  def validateUserInterfaceItem(menuItem)
+    @tabCells.size > 0
+  end
+
+  private
+
+  def indexForTabCell(tab)
+    @tabCells.each_with_index {|t, index| return index if tab == t}
+    nil
+  end
+
+  def updateTabCellWidth
+    if @tabCells.size * DEFAULT_TAB_WIDTH < bounds.size.width
+      @tabCellWidth = DEFAULT_TAB_WIDTH
     else
-      @tabWidth = (bounds.size.width / @tabs.size).floor
+      @tabCellWidth = (bounds.size.width / @tabCells.size).floor
     end
   end
 
-  def rectForTab(tab)
-    index = indexForTab(tab)
-    NSMakeRect(bounds.origin.x + (index * @tabWidth), bounds.origin.y, @tabWidth, bounds.size.height)
+  def rectForTabCell(tab)
+    index = indexForTabCell(tab)
+    NSMakeRect(bounds.origin.x + (index * @tabCellWidth), bounds.origin.y, @tabCellWidth, bounds.size.height)
   end
 
-  def rectForTabAtIndex(index)
-    NSMakeRect(bounds.origin.x + (index * @tabWidth), bounds.origin.y, @tabWidth, bounds.size.height)
+  def rectForTabCellAtIndex(index)
+    NSMakeRect(bounds.origin.x + (index * @tabCellWidth), bounds.origin.y, @tabCellWidth, bounds.size.height)
   end
 
   def mouseDown(event)
     point = convertPoint(event.locationInWindow, fromView:nil)
-    tab = tabAtPoint(point)
-    return unless tab
-    if tab.closeButtonHit?(point, rectForTab(tab))
-      tab.closeButtonPressed = true
+    tabCell = tabCellAtPoint(point)
+    return unless tabCell
+    if tabCell.closeButtonHit?(point, rectForTabCell(tabCell))
+      tabCell.closeButtonPressed = true
       @mouseDownType = :close
     else
       @mouseDownType = :select
     end
-    @mouseDownTab = tab
+    @mouseDownTabCell = tabCell
     setNeedsDisplay true
   end
 
   def mouseDragged(event)
-    return unless @mouseDownTab
+    return unless @mouseDownTabCell
     point = convertPoint(event.locationInWindow, fromView:nil)    
-    if @mouseDownTab.closeButtonHit?(point, rectForTab(@mouseDownTab))
-       @mouseDownTab.closeButtonPressed = true
+    if @mouseDownTabCell.closeButtonHit?(point, rectForTabCell(@mouseDownTabCell))
+      @mouseDownTabCell.closeButtonPressed = true
     else
-       @mouseDownTab.closeButtonPressed = false
+      @mouseDownTabCell.closeButtonPressed = false
     end
     setNeedsDisplay true
   end
 
   def mouseUp(event)
     point = convertPoint(event.locationInWindow, fromView:nil)
-    tab = tabAtPoint(point)
-    if tab == @mouseDownTab
+    tabCell = tabCellAtPoint(point)
+    if tabCell == @mouseDownTabCell
       if @mouseDownType == :close
-        saveOrCloseTab(tab) if tab.closeButtonHit?(point, rectForTab(tab))
+        saveOrCloseTabCell(tabCell) if tabCell.closeButtonHit?(point, rectForTabCell(tabCell))
       else
-        selectTab(tab)
+        selectTabCell(tabCell)
       end
     end
-    @mouseDownTab = nil
+    @mouseDownTabCell = nil
   end
 
-  def tabAtPoint(point)
-    index = (point.x / @tabWidth).floor
-    index < @tabs.size ? @tabs[index] : nil
+  def tabCellAtPoint(point)
+    index = (point.x / @tabCellWidth).floor
+    index < @tabCells.size ? @tabCells[index] : nil
   end
 
-  def selectTab(tab, point=nil)
-    @selectedTab.selected = false if @selectedTab
-    if tab
-      tab.selected = true
-      @selectedTab = tab
-      item = tab.item
+  def selectTabCell(tabCell, point=nil)
+    @selectedTabCell.selected = false if @selectedTabCell
+    if tabCell
+      tabCell.selected = true
+      @selectedTabCell = tabCell
+      item = tabCell.item
       point = point ? point : item      
     else
       item = nil
-      @selectedTab = nil
+      @selectedTabCell = nil
     end
-    @delegate.tabView(self, selectionDidChange:@selectedTab, item:item, point:point) if @delegate
+    @delegate.tabView(self, selectionDidChange:@selectedTabCell, item:item, point:point) if @delegate
     setNeedsDisplay true
     NSNotificationCenter.defaultCenter.postNotificationName("TabViewSelectionDidChange", object:self)
   end
-  
-  def save(sender)
-    if @selectedTab
-      @selectedTab.save
-      setNeedsDisplay(true)
-    end
-  end
-  
-  def close(sender)
-    saveOrCloseTab(@selectedTab) if @selectedTab
-  end
-  
-  def saveOrCloseTab(tab)
-    if tab.edited?
-      showSaveAlert(tab)
+
+  def saveOrCloseTabCell(tabCell)
+    if tabCell.edited?
+      showSaveAlert(tabCell)
     else
-      closeTab(tab)
+      closeTabCell(tabCell)
     end
   end
 
-  def closeTab(tab)
-    index = indexForTab(tab)
-    @tabs.delete_at(index)
-    if @selectedTab == tab
-      if @tabs.empty?
-        selectTab(nil)
+  def closeTabCell(tabCell)
+    index = indexForTabCell(tabCell)
+    @tabCells.delete_at(index)
+    if @selectedTabCell == tabCell
+      if @tabCells.empty?
+        selectTabCell(nil)
       else
-        index -= 1 if index >= @tabs.size
-        tab = @tabs[index]
-        selectTab(tab)
+        index -= 1 if index >= @tabCells.size
+        tabCell = @tabCells[index]
+        selectTabCell(tabCell)
       end
     end
     setNeedsDisplay true
   end
-  
-  def closeAllTabs
-    while @selectedTab
-      closeTab(@selectedTab)
-    end
-  end
 
-  def selectNextTab
-    return unless @selectedTab
-    index = indexForTab(@selectedTab) + 1
-    selectTab(@tabs[index]) if index < @tabs.size
-  end
-
-  def selectPreviousTab
-    return unless @selectedTab
-    index = indexForTab(@selectedTab) - 1
-    selectTab(@tabs[index]) if index >= 0
-  end  
-  
-  def editedTabs
-    @tabs.inject([]) {|array, tab| array << tab if tab.item.edited?; array }
-  end
-  
-  def saveTab(tab)
-    tab.save
-    setNeedsDisplay(true)
-  end
-  
-  def showSaveAlert(tab)
-    @saveTab = tab
+  def showSaveAlert(tabCell)
+    @saveTabCell = tabCell
     alert = NSAlert.alloc.init
-    alert.messageText = "Do you want to save the changes you made to \"#{tab.item.name}\"?"
+    alert.messageText = "Do you want to save the changes you made to \"#{tabCell.item.name}\"?"
     alert.informativeText = "Your changes will be lost if you don't save them."
     alert.addButtonWithTitle "Save"
     alert.addButtonWithTitle "Cancel"
@@ -227,19 +232,15 @@ class TabView < NSView
 
   def saveAlertDidEnd(alert, returnCode:code, contextInfo:info)
     if code == NSAlertFirstButtonReturn
-      @saveTab.save
-      closeTab(@saveTab)
+      @saveTabCell.save
+      closeTabCell(@saveTabCell)
     elsif code == NSAlertSecondButtonReturn
-      @saveTab.closeButtonPressed = false
+      @saveTabCell.closeButtonPressed = false
       setNeedsDisplay true
     elsif code == NSAlertThirdButtonReturn
-      @saveTab.item.revert
-      closeTab(@saveTab)
+      @saveTabCell.item.revert
+      closeTabCell(@saveTabCell)
     end
   end
 
-  def validateUserInterfaceItem(menuItem)
-    @tabs.size > 0
-  end
-  
 end

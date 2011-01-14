@@ -1,7 +1,6 @@
 class NavigationController < NSViewController
 
-  attr_accessor :bookController
-  attr_accessor :outlineView, :propertiesForm, :tabView, :headerView
+  attr_accessor :bookController, :outlineView, :propertiesForm, :headerView
 
   def init
     initWithNibName("Navigation", bundle:nil)
@@ -25,7 +24,7 @@ class NavigationController < NSViewController
   end
 
   def book=(book)
-    @tabView.add(nil)
+    # @bookController.tabViewController.addObject(nil)
     @book = book
     @outlineView.reloadData
     displaySelectedPointProperties
@@ -273,7 +272,7 @@ class NavigationController < NSViewController
       textCell.stringValue = point.text
       idCell.stringValue = point.id
       sourceCell.stringValue = point.src
-      @tabView.add(point)
+      @bookController.tabViewController.addObject(point)
     else
       propertyCells.each { |cell| cell.enabled = false; cell.stringValue = '' }
     end

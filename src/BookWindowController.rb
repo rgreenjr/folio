@@ -76,7 +76,7 @@ class BookWindowController < NSWindowController
     @contentPlaceholder.addSubview(@contentView)
     @contentView.frame = @contentPlaceholder.frame
     @contentView.frameOrigin = NSZeroPoint
-    if @tabView.selectedTab.item.imageable?
+    if @tabViewController.selectedItem.imageable?
       @renderSplitView.removeFromSuperview
       newView = @renderImageView
     else
@@ -164,7 +164,6 @@ class BookWindowController < NSWindowController
   def configViewController(controller_klass)
     controller = controller_klass.alloc.init    
     controller.loadView
-    controller.tabView = @tabView
     controller.book = document
     makeResponder(controller)
     controller

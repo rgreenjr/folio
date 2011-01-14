@@ -150,7 +150,7 @@ class SearchController < NSViewController
   def outlineViewSelectionDidChange(notification)
     return if @outlineView.selectedRow < 0
     match = @search.walk(@outlineView.selectedRow)
-    @tabView.add(match.item)
+    @tabView.addObject(match.item)
     if match.leaf?
       @textViewController.textView.scrollRangeToVisible(match.range)
       @textViewController.textView.showFindIndicatorForRange(match.range)
