@@ -62,6 +62,7 @@
 		CD2340DD12BA939D0019FB07 /* NilClass.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2340DC12BA939D0019FB07 /* NilClass.rb */; };
 		CD2F101B12AEA56D00B2AC6D /* Language.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101912AEA56D00B2AC6D /* Language.rb */; };
 		CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */; };
+		CD3D02BA12E0E4060002BB38 /* Validate.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CD3D02B912E0E4060002BB38 /* Validate.tiff */; };
 		CD4EE39B12DA213E00A18681 /* horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = CD4EE39A12DA213E00A18681 /* horizontal.png */; };
 		CD4EE3CA12DA255700A18681 /* vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = CD4EE3C912DA255700A18681 /* vertical.png */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
@@ -184,6 +185,7 @@
 		CD2340DC12BA939D0019FB07 /* NilClass.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NilClass.rb; sourceTree = "<group>"; };
 		CD2F101912AEA56D00B2AC6D /* Language.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Language.rb; sourceTree = "<group>"; };
 		CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MetadataController.rb; sourceTree = "<group>"; };
+		CD3D02B912E0E4060002BB38 /* Validate.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Validate.tiff; sourceTree = "<group>"; };
 		CD4EE39A12DA213E00A18681 /* horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horizontal.png; sourceTree = "<group>"; };
 		CD4EE3C912DA255700A18681 /* vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vertical.png; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 		CDBDC8A7122AA9DA00844EAA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD3D02B912E0E4060002BB38 /* Validate.tiff */,
 				CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */,
 				CD4EE39A12DA213E00A18681 /* horizontal.png */,
 				CD4EE3C912DA255700A18681 /* vertical.png */,
@@ -637,6 +640,7 @@
 				CD86F3C012DCE031003755D4 /* NSURL.rb in Resources */,
 				CD9A295712DE03EB00D92D10 /* NSTableView.rb in Resources */,
 				CDB526B212DFFCAB00681700 /* TabCell.rb in Resources */,
+				CD3D02BA12E0E4060002BB38 /* Validate.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

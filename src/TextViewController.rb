@@ -184,8 +184,8 @@ class TextViewController < NSViewController
 
   def validateUserInterfaceItem(menuItem)
     return false unless @item
-    case menuItem.title
-    when 'Strong', 'Emphasize', 'Paragraph', 'Uppercase', 'Lowercase', 'Titlecase', 'Strip Tags'
+    case menuItem.action
+    when :"strongify:", :"emphasize:", :"paragraphSelectedLines:", :"uppercase:", :"lowercase:", :"titlecase:", :"stripTags:"
       selectedRange.length > 0
     else
       true

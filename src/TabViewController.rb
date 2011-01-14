@@ -80,10 +80,10 @@ class TabViewController < NSViewController
   end
 
   def validateUserInterfaceItem(menuItem)
-    case menuItem.title
-    when 'Select Next Tab', 'Select Previous Tab'
+    case menuItem.action
+    when :"selectNextTab:", :"selectPreviousTab:"
       view.numberOfTabs > 1
-    when 'Close Tab', 'Save Tab', 'Save All Tabs'
+    when :"saveTab:", :"saveAllTabs:", :"closeTab:"
       view.numberOfTabs > 0
     else
       true
@@ -91,12 +91,20 @@ class TabViewController < NSViewController
   end
 
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
-    return unless item
-    if item.imageable?
-      @renderImageView.image = selectedTab.item.imageRep
+    if item
+      if item.imageable?
+        @renderImageView.image = selectedTab.item.imageRep
+        @textViewController.item = nil
+        @webViewController.item = nil
+      else
+        @renderImageView.image = nil
+        @textViewController.item = item
+        @webViewController.item = point
+      end
     else
-      @textViewController.item = item
-      @webViewController.item = point
+      @renderImageView.image = nil
+      @textViewController.item = nil
+      @webViewController.item = nil
     end
   end
 
