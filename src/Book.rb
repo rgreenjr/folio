@@ -1,9 +1,3 @@
-require "rexml/document"
-require "fileutils"
-require "erb"
-require "tempfile"
-require "cgi"
-
 # http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html
 
 class Book < NSDocument
