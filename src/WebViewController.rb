@@ -62,7 +62,7 @@ class WebViewController < NSViewController
   def webView(webView, decidePolicyForNavigationAction:actionInformation, request:request, frame:frame, decisionListener:listener)
     if request.URL.remote?
       listener.ignore
-      system("open #{request.URL.absoluteString}")
+      NSWorkspace.sharedWorkspace.openURL(request.URL)
     elsif @item.nil?
       listener.use
     else
