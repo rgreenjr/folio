@@ -92,6 +92,7 @@ class SpineController < NSViewController
     deleteItems([item], allowUndo)
   end
 
+  # TODO this method can be called by other controllers, so check if items are in spine before deleting
   def deleteItems(items, allowUndo=true)
     return unless items && !items.empty?
     indexes = []
