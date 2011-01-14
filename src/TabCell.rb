@@ -1,4 +1,4 @@
-class Tab
+class TabCell
 
   LABEL_PADDING  = 10.0
   BUTTON_PADDING = 10.0
