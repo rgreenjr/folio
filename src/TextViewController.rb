@@ -58,7 +58,7 @@ class TextViewController < NSViewController
     @webViewController.reload(self)
 
     # update document change count so user will be prompted to save book
-    view.window.document.updateChangeCount(NSSaveOperation)    
+    @bookController.document.updateChangeCount(NSSaveOperation)    
   end
   
   def undoManagerForTextView(textView)
