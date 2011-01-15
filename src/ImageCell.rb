@@ -12,9 +12,9 @@ class ImageCell < NSTextFieldCell
 
   def initTextCell(text)
     super
-    self.editable = true
-    self.selectable = true
-    self.lineBreakMode = NSLineBreakByTruncatingTail
+    editable = true
+    selectable = true
+    lineBreakMode = NSLineBreakByTruncatingTail
 
     style = NSMutableParagraphStyle.alloc.init
     style.alignment = NSCenterTextAlignment
@@ -37,11 +37,11 @@ class ImageCell < NSTextFieldCell
   end
 
   def badgeColor
-    self.isHighlighted ? @baseColor : @highlightColor
+    isHighlighted ? @baseColor : @highlightColor
   end
 
   def badgeAttributes
-    if self.isHighlighted
+    if isHighlighted
       @badgeAttributes[NSForegroundColorAttributeName] = @highlightColor
     else
       @badgeAttributes[NSForegroundColorAttributeName] = @baseColor
@@ -68,7 +68,7 @@ class ImageCell < NSTextFieldCell
   def drawWithFrame(cellFrame, inView:controlView)
     if @image
       imageFrame, cellFrame, badgeFrame = divideFrame(cellFrame)
-      if self.drawsBackground
+      if drawsBackground
         backgroundColor.set
         NSRectFill(imageFrame)
       end
