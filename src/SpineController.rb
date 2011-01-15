@@ -92,9 +92,12 @@ class SpineController < NSViewController
     deleteItems([item], allowUndo)
   end
 
-  # TODO this method can be called by other controllers, so check if items are in spine before deleting
   def deleteItems(items, allowUndo=true)
     return unless items && !items.empty?
+    
+    # remove any items not included in the spine
+    items = items.select { |item| @book.spine.include?(item) }
+    
     indexes = []
     items.each do |item|
       index = @book.spine.index(item)
