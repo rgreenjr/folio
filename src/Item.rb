@@ -70,6 +70,10 @@ class Item
   def flowable?
     %w{application/xml application/xhtml+xml}.include?(@mediaType)
   end
+  
+  def formatable?
+    %w{application/xml application/xhtml+xml}.include?(@mediaType)
+  end
 
   def ncx?
     @mediaType == "application/x-dtbncx+xml"
@@ -181,11 +185,8 @@ class Item
   end
 
   def imageRep
-    if imageable?
-      @image ||= NSImage.alloc.initWithContentsOfFile(path)
-    else
-      nil
-    end
+    return nil unless imageable?
+    @image ||= NSImage.alloc.initWithContentsOfFile(path)
   end
 
   def guessMediaType
