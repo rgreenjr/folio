@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">823</string>
+		<string key="IBDocument.InterfaceBuilderVersion">804</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">823</string>
+			<string key="NS.object.0">804</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -633,14 +633,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">coverImageChanged:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="108380847"/>
-					</object>
-					<int key="connectionID">76</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">orderOut:</string>
 						<reference key="source" ref="9643255"/>
 						<reference key="destination" ref="838458484"/>
@@ -654,6 +646,14 @@
 						<reference key="destination" ref="794095930"/>
 					</object>
 					<int key="connectionID">89</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">imageWellReceivedImage:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="108380847"/>
+					</object>
+					<int key="connectionID">92</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1161,9 +1161,9 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{260, 245}, {879, 479}}</string>
+					<string>{{341, 245}, {879, 479}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{260, 245}, {879, 479}}</string>
+					<string>{{341, 245}, {879, 479}}</string>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
 					<string>{0, 0}</string>
@@ -1309,7 +1309,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">91</int>
+			<int key="maxID">92</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1318,13 +1318,13 @@
 					<string key="className">ImageWell</string>
 					<string key="superclassName">NSImageView</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">imagePath</string>
+						<string key="NS.key.0">imageURL</string>
 						<string key="NS.object.0">id</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">imagePath</string>
+						<string key="NS.key.0">imageURL</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">imagePath</string>
+							<string key="name">imageURL</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</object>
@@ -1340,7 +1340,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>coverImageChanged:</string>
+							<string>imageWellReceivedImage:</string>
 							<string>save:</string>
 							<string>showWindow:</string>
 						</object>
@@ -1355,14 +1355,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>coverImageChanged:</string>
+							<string>imageWellReceivedImage:</string>
 							<string>save:</string>
 							<string>showWindow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">coverImageChanged:</string>
+								<string key="name">imageWellReceivedImage:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

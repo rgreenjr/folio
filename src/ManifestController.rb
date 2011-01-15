@@ -342,7 +342,7 @@ class ManifestController < NSViewController
     @outlineView.reloadData
     @outlineView.selectItems(items)
     displaySelectedItemProperties
-    @bookController.window.makeFirstResponder(@outlineView)
+    # @bookController.window.makeFirstResponder(@outlineView)
   end
 
   def displaySelectedItemProperties

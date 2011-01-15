@@ -1,5 +1,5 @@
 class MetadataController < NSWindowController
-  
+
   attr_accessor :book, :imageWell, :coverImageView
   attr_accessor :titleField, :dateField, :identifierField, :languagePopup
   attr_accessor :descriptionField, :creatorField, :sortCreatorField, :publisherField
@@ -45,9 +45,9 @@ class MetadataController < NSWindowController
     window.orderOut(self)
 
     # update document change count so user will be prompted to save book
-    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)    
+    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)
   end
-  
+
   private
 
   def displayCoverImage
@@ -58,9 +58,9 @@ class MetadataController < NSWindowController
     end
     @stashedImagePath = nil
   end
-  
-  def	coverImageChanged(sender)
-    imagePath = sender.imagePath
+
+  def	imageWellReceivedImage(sender)
+    imagePath = @imageWell.imagePath
     if imagePath.nil?
       displayCoverImage
     elsif @book.manifest.itemWithHref(imagePath.lastPathComponent)
@@ -91,7 +91,7 @@ class MetadataController < NSWindowController
     item = @book.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
     @book.controller.manifestController.deleteItems([item]) if item
     item = @book.controller.manifestController.addFile(@stashedImagePath)
-    @book.metadata.cover = item
+    @book.metadata.cover = item if item
     displayCoverImage
   end
 
@@ -103,10 +103,10 @@ class MetadataController < NSWindowController
     value = @book.metadata.send(attribute) || ''
     eval("@#{attribute}Field.stringValue = value")
   end
-  
+
   def changeAttribute(attribute)
     value = eval("@#{attribute}Field.stringValue")
     @book.metadata.send("#{attribute}=", value)
   end
-  
+
 end

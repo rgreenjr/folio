@@ -1,6 +1,7 @@
 Bugs
 ====
 
+- Navigation should check for inclusion of objects prior to deleting
 - Fix undo delete of nested navigation points
 - Update Navigation view on modification
 - Drag and drop of directories into Manifest
@@ -8,6 +9,8 @@ Bugs
 Features
 ========
 
+- Web only view
+- Text only view
 - Navigation: add points
 - Add Navigation, Spine and Manifest icons to toolbar
 - Add Validate icon to toolbar
