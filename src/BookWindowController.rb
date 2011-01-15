@@ -169,12 +169,6 @@ class BookWindowController < NSWindowController
     controller
   end
 
-  def changeSelectionViewXXX(controller)
-    controller.view.frame = @seletionView.frame
-    @seletionView.subviews.first.removeFromSuperview unless @seletionView.subviews.empty?
-    @seletionView.addSubview(controller.view)
-  end
-
   def changeSelectionView(controller)
     if @seletionView.subviews.empty?
       controller.view.frame = @seletionView.frame
