@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="205"/>
+			<integer value="296"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -690,11 +690,41 @@
 									<reference key="NSMixedImage" ref="807125248"/>
 									<int key="NSTag">3</int>
 								</object>
+								<object class="NSMenuItem" id="79428097">
+									<reference key="NSMenu" ref="466310130"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
 								<object class="NSMenuItem" id="699664344">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Toggle Editor Orientation</string>
 									<string key="NSKeyEquiv">E</string>
 									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+									<int key="NSTag">3</int>
+								</object>
+								<object class="NSMenuItem" id="162980144">
+									<reference key="NSMenu" ref="466310130"/>
+									<string key="NSTitle">Toggle Preview</string>
+									<string key="NSKeyEquiv">p</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+									<int key="NSTag">3</int>
+								</object>
+								<object class="NSMenuItem" id="518041451">
+									<reference key="NSMenu" ref="466310130"/>
+									<string key="NSTitle">Toggle Source View</string>
+									<string key="NSKeyEquiv">j</string>
+									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
@@ -1529,6 +1559,22 @@
 					</object>
 					<int key="connectionID">1768</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleWebView:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="162980144"/>
+					</object>
+					<int key="connectionID">1774</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleTextView:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="518041451"/>
+					</object>
+					<int key="connectionID">1776</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1922,6 +1968,9 @@
 							<reference ref="301042860"/>
 							<reference ref="638372788"/>
 							<reference ref="561797124"/>
+							<reference ref="162980144"/>
+							<reference ref="518041451"/>
+							<reference ref="79428097"/>
 						</object>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -2313,6 +2362,21 @@
 						<reference key="parent" ref="720053764"/>
 						<string key="objectName">7</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1769</int>
+						<reference key="object" ref="162980144"/>
+						<reference key="parent" ref="466310130"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1771</int>
+						<reference key="object" ref="518041451"/>
+						<reference key="parent" ref="466310130"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1773</int>
+						<reference key="object" ref="79428097"/>
+						<reference key="parent" ref="466310130"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2422,6 +2486,9 @@
 					<string>1761.ImportedFromIB2</string>
 					<string>1763.IBPluginDependency</string>
 					<string>1763.ImportedFromIB2</string>
+					<string>1769.IBPluginDependency</string>
+					<string>1771.IBPluginDependency</string>
+					<string>1773.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>19.ImportedFromIB2</string>
 					<string>195.IBPluginDependency</string>
@@ -2626,6 +2693,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -2681,7 +2751,7 @@
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{474, 632}, {264, 173}}</string>
+					<string>{{564, 821}, {264, 223}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2740,7 +2810,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1768</int>
+			<int key="maxID">1776</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3037,11 +3107,9 @@
 							<string>mediaTypePopUpButton</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
-							<string>tabView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3058,7 +3126,6 @@
 							<string>mediaTypePopUpButton</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
-							<string>tabView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3080,10 +3147,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">propertiesForm</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -3165,11 +3228,9 @@
 							<string>headerView</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
-							<string>tabView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3184,7 +3245,6 @@
 							<string>headerView</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
-							<string>tabView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3202,10 +3262,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">propertiesForm</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -3412,12 +3468,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>headerView</string>
-							<string>tabView</string>
 							<string>tableView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3429,7 +3483,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>headerView</string>
-							<string>tabView</string>
 							<string>tableView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3440,10 +3493,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">headerView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3470,9 +3519,13 @@
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleSplitViewOrientation:</string>
+							<string>toggleTextView:</string>
+							<string>toggleWebView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3491,6 +3544,8 @@
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleSplitViewOrientation:</string>
+							<string>toggleTextView:</string>
+							<string>toggleWebView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3516,6 +3571,14 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">toggleSplitViewOrientation:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleTextView:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleWebView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

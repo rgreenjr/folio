@@ -187,6 +187,8 @@ class TextViewController < NSViewController
     case menuItem.action
     when :"strongify:", :"emphasize:", :"paragraphSelectedLines:", :"uppercase:", :"lowercase:", :"titlecase:", :"stripTags:"
       selectedRange.length > 0
+    when :"formatMarkup:"
+      item.formatable?
     else
       true
     end
