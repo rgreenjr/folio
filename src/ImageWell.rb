@@ -16,15 +16,12 @@ class ImageWell < NSImageView
     dragSucceeded
   end
 
-  # TODO auto detect image type representation
   def imagePath
     return nil unless @imageURL
     unless @imagePath
-      imageRep = image.representations[0]
-      data = imageRep.representationUsingType(NSJPEGFileType, properties:nil)
       tmpDir = Dir.mktmpdir("folio-cover-image-")
       @imagePath = File.join(tmpDir, @imageURL.path.lastPathComponent)
-      data.writeToFile(@imagePath, atomically:false)
+      image.TIFFRepresentation.writeToFile(@imagePath, atomically:false)
     end
     @imagePath
   end
