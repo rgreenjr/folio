@@ -263,11 +263,11 @@ class ManifestController < NSViewController
 
   def showUnregisteredFilesSheet
     ignore = %w{META-INF/container.xml mimetype}
-    ignore = ignore.map { |item| "#{@book.unzippath}/#{item}" }
+    ignore = ignore.map { |item| "#{@book.unzipPath}/#{item}" }
     ignore << @book.container.opfPath
     ignore << @book.manifest.ncx.path
     @unregistered = []
-    Dir.glob("#{@book.unzippath}/**/*").each do |entry|
+    Dir.glob("#{@book.unzipPath}/**/*").each do |entry|
       next if ignore.include?(entry) || File.directory?(entry)
       @unregistered << entry unless @book.manifest.itemWithHref(entry)
     end

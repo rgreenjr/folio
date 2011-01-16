@@ -141,7 +141,7 @@ class BookWindowController < NSWindowController
   end
 
   def showTemporaryDirectory(sender)
-    system("open \"#{document.unzippath}\"")
+    system("open \"#{document.unzipPath}\"")
   end
 
   def showProgressWindow(title, &block)

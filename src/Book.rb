@@ -5,21 +5,21 @@ class Book < NSDocument
   attr_reader :controller
   attr_reader :navigation, :manifest, :spine, :container, :metadata, :guide
   
-  def init
+  def initWithType(typeName, error:outError)
     super
-    @container  = Container.new
-    @manifest   = Manifest.new
+    @container  = Container.new(unzipPath)
+    @manifest   = Manifest.new(unzipPath)
     @metadata   = Metadata.new
     @spine      = Spine.new
     @guide      = Guide.new
     @navigation = Navigation.new
     self
   end
-
+  
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
-    runCommand("unzip -q -d '#{unzippath}' \"#{absoluteURL.path}\"")
-    @container  = Container.new(self)
-    @manifest   = Manifest.new(self)
+    runCommand("unzip -q -d '#{unzipPath}' \"#{absoluteURL.path}\"")
+    @container  = Container.new(unzipPath, self)
+    @manifest   = Manifest.new(unzipPath, self)
     @metadata   = Metadata.new(self)
     @spine      = Spine.new(self)
     @guide      = Guide.new(self)
@@ -56,16 +56,20 @@ class Book < NSDocument
   end
   
   def relativePathFor(filepath)
-    filepath.gsub(unzippath, '')
+    puts "relativePathFor #{filepath}"
+    filepath = filepath.gsub(unzipPath + '/', '')
+    filepath = filepath.stringByStandardizingPath
+    puts "         #{filepath}"
+    filepath
   end
   
-  def unzippath
-    @unzippath ||= Dir.mktmpdir("folio-unzip-")
+  def unzipPath
+    @unzipPath ||= Dir.mktmpdir("folio-unzip-")
   end
   
   def close
     super
-    FileUtils.rm_rf(unzippath)
+    FileUtils.rm_rf(unzipPath)
   end
   
   private

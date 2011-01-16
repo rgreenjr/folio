@@ -12,7 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -39,7 +38,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="1007689495">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">4370</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -343,7 +342,6 @@
 								</object>
 								<string key="NSFrameSize">{351, 363}</string>
 								<reference key="NSSuperview" ref="1057686651"/>
-								<reference key="NSNextKeyView" ref="1026368583"/>
 								<reference key="NSDocView" ref="1026368583"/>
 								<reference key="NSBGColor" ref="421435052"/>
 								<int key="NScvFlags">4</int>
@@ -370,7 +368,6 @@
 						</object>
 						<string key="NSFrame">{{0, 115}, {351, 363}}</string>
 						<reference key="NSSuperview" ref="1007689495"/>
-						<reference key="NSNextKeyView" ref="391742089"/>
 						<int key="NSsFlags">528</int>
 						<reference key="NSVScroller" ref="389974831"/>
 						<reference key="NSHScroller" ref="138659414"/>
@@ -379,7 +376,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{351, 500}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 		</object>
@@ -480,7 +476,7 @@
 							<reference ref="718989421"/>
 						</object>
 						<reference key="parent" ref="0"/>
-						<string key="objectName">View</string>
+						<string key="objectName">Manifest View</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2</int>

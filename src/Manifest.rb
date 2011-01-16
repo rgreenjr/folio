@@ -1,15 +1,15 @@
 class Manifest
 
   attr_accessor :root, :ncx
-
-  def initialize(book=nil)
+  
+  def initialize(unzipPath, book=nil)
     @itemsMap  = {}
+    @unzipPath = unzipPath
+    @root = Item.new(nil, @unzipPath, 'ROOT', 'directory', true)
     if book.nil?
-      @root = Item.new(nil, 'OEBPS', 'ROOT', 'directory', true)
       @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
     else
-      @book = book
-      @root = Item.new(nil, book.container.path, 'ROOT', 'directory', true)
+      @unzipPath = unzipPath
       book.container.opfDoc.elements.each("/package/manifest/item") do |e|
         parent = @root
         parts = e.attributes["href"].split('/')
@@ -37,7 +37,7 @@ class Manifest
   def addFile(filepath, parent, index)
     name = File.basename(filepath)
     return nil if parent.childWithName(name)
-    item = Item.new(parent, name)
+    item = Item.new(parent, name, generateUniqueID(name))
     item.content = File.read(filepath)
     parent.insert(index, item)    
     item
@@ -89,7 +89,7 @@ class Manifest
   end
   
   def itemWithHref(href)
-    href = @book.container.relativePathFor(href)
+    href = href.gsub(@unzipPath + "/", '')
     current = @root
     parts = href.split('/')
     while !parts.empty? && current
@@ -115,4 +115,19 @@ class Manifest
     buffer
   end
   
+  private
+  
+  def generateUniqueID(name)
+    name = name.stringByDeletingPathExtension
+    puts "name = #{name}"
+    i = 1
+    while true
+      break unless itemWithId(name)
+      i += 1
+      name = "##{name}-#{i}"
+    end
+    name
+  end
+
 end
+
