@@ -1,6 +1,8 @@
 class BookWindowController < NSWindowController
 
   SPLIT_VIEW_MINIMUM_WIDTH = 150.0
+  
+  attr_accessor :masterSplitView
 
   attr_accessor :seletionView, :contentView, :tabView, :contentPlaceholder
   attr_accessor :segmentedControl, :logoImageWell
@@ -35,11 +37,11 @@ class BookWindowController < NSWindowController
 
   # keep left split pane from resizing as window resizes
   def splitView(sender, resizeSubviewsWithOldSize:oldSize)
-    right = sender.subviews[1]
+    right = @masterSplitView.subviews[1]
     rightFrame = right.frame
-    rightFrame.size.width += sender.frame.size.width - oldSize.width
+    rightFrame.size.width += @masterSplitView.frame.size.width - oldSize.width
     right.frame = rightFrame
-    sender.adjustSubviews
+    @masterSplitView.adjustSubviews
   end
   
   def tabViewSelectionDidChange(notification)
@@ -86,6 +88,7 @@ class BookWindowController < NSWindowController
     @renderView.addSubview(newView)
     newView.frame = @renderView.frame
     newView.frameOrigin = NSZeroPoint
+    @masterSplitView.adjustSubviews
   end
 
   def showLogoImage
@@ -97,9 +100,8 @@ class BookWindowController < NSWindowController
 
   def showMetadataPanel(sender)
     @metadataController ||= MetadataController.alloc.init
-    @metadataController.book = document
-    @metadataController.window
-    @metadataController.showWindow(self)
+    @metadataController.bookController = self
+    @metadataController.showMetadataSheet(self)
   end
 
   def navigationController

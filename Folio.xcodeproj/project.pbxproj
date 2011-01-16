@@ -138,6 +138,10 @@
 		CDE4490E12305CA2001C69AE /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE448FD12305CA2001C69AE /* WebViewController.rb */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
+		CDE5F27812E25B4E008DC528 /* SourceView.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDE5F27712E25B4E008DC528 /* SourceView.tiff */; };
+		CDE5F29B12E264D3008DC528 /* WebView.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDE5F29A12E264D3008DC528 /* WebView.tiff */; };
+		CDE5F29E12E26550008DC528 /* Metadata.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDE5F29D12E26550008DC528 /* Metadata.tiff */; };
+		CDE5F2A012E26575008DC528 /* Reformat.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDE5F29F12E26575008DC528 /* Reformat.tiff */; };
 		CDED8D5C12D766FA0097EBE2 /* BookWindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDED8D5B12D766FA0097EBE2 /* BookWindowController.rb */; };
 		CDED8FD012D7C65B0097EBE2 /* Book.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDED8FCF12D7C65B0097EBE2 /* Book.xib */; };
 		CDEDF6EB12CC2CAA001AE172 /* Folio.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDEDF6EA12CC2CAA001AE172 /* Folio.icns */; };
@@ -261,6 +265,10 @@
 		CDE448FD12305CA2001C69AE /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
+		CDE5F27712E25B4E008DC528 /* SourceView.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SourceView.tiff; sourceTree = "<group>"; };
+		CDE5F29A12E264D3008DC528 /* WebView.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = WebView.tiff; sourceTree = "<group>"; };
+		CDE5F29D12E26550008DC528 /* Metadata.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Metadata.tiff; sourceTree = "<group>"; };
+		CDE5F29F12E26575008DC528 /* Reformat.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Reformat.tiff; sourceTree = "<group>"; };
 		CDED8D5B12D766FA0097EBE2 /* BookWindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookWindowController.rb; sourceTree = "<group>"; };
 		CDED8FCF12D7C65B0097EBE2 /* Book.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Book.xib; sourceTree = "<group>"; };
 		CDEDF6EA12CC2CAA001AE172 /* Folio.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Folio.icns; sourceTree = "<group>"; };
@@ -394,14 +402,18 @@
 		CDBDC8A7122AA9DA00844EAA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CDE5F29A12E264D3008DC528 /* WebView.tiff */,
+				CDE5F27712E25B4E008DC528 /* SourceView.tiff */,
 				CD3D02B912E0E4060002BB38 /* Validate.tiff */,
 				CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */,
+				CDE5F29F12E26575008DC528 /* Reformat.tiff */,
 				CD4EE39A12DA213E00A18681 /* horizontal.png */,
 				CD4EE3C912DA255700A18681 /* vertical.png */,
 				CDEDF71812CC2FD8001AE172 /* backgroud-logo.png */,
 				CD994B0D1260B57100AAD4DE /* tab-selected-bg.png */,
 				CD994B031260B42100AAD4DE /* tab-bg.png */,
 				CD994AC01260A23600AAD4DE /* table-header-bg1.png */,
+				CDE5F29D12E26550008DC528 /* Metadata.tiff */,
 				CDDEAAEF12B58A7300A27602 /* no-cover.png */,
 				CD890C53125FDF5D00FD262A /* find-close-rollover.png */,
 				CD890C51125FDF2700FD262A /* find-close-click.png */,
@@ -641,6 +653,10 @@
 				CD9A295712DE03EB00D92D10 /* NSTableView.rb in Resources */,
 				CDB526B212DFFCAB00681700 /* TabCell.rb in Resources */,
 				CD3D02BA12E0E4060002BB38 /* Validate.tiff in Resources */,
+				CDE5F27812E25B4E008DC528 /* SourceView.tiff in Resources */,
+				CDE5F29B12E264D3008DC528 /* WebView.tiff in Resources */,
+				CDE5F29E12E26550008DC528 /* Metadata.tiff in Resources */,
+				CDE5F2A012E26575008DC528 /* Reformat.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

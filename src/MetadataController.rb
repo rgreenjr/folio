@@ -1,6 +1,6 @@
 class MetadataController < NSWindowController
 
-  attr_accessor :book, :imageWell, :coverImageView
+  attr_accessor :bookController, :imageWell, :coverImageView
   attr_accessor :titleField, :dateField, :identifierField, :languagePopup
   attr_accessor :descriptionField, :creatorField, :sortCreatorField, :publisherField
   attr_accessor :subjectField, :rightsField
@@ -13,7 +13,8 @@ class MetadataController < NSWindowController
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
   end
 
-  def showWindow(sender)
+  def showMetadataSheet(sender)
+    window # force window load
     displayAttribute('title')
     displayAttribute('description')
     displayAttribute('date')
@@ -23,14 +24,13 @@ class MetadataController < NSWindowController
     displayAttribute('publisher')
     displayAttribute('subject')
     displayAttribute('rights')
-    @languagePopup.selectItemWithTitle(Language.name_for(@book.metadata.language))
+    @languagePopup.selectItemWithTitle(Language.name_for(metadata.language))
     displayCoverImage
-    window.center
-    window.level = NSModalPanelWindowLevel
-    window.makeKeyAndOrderFront(self)
+    NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:"saveMetadata:", contextInfo:nil)
   end
 
-  def save(sender)
+  def saveMetadata(sender)
+    closeMetadataSheet(sender)
     changeAttribute('title')
     changeAttribute('description')
     changeAttribute('date')
@@ -40,19 +40,23 @@ class MetadataController < NSWindowController
     changeAttribute('publisher')
     changeAttribute('subject')
     changeAttribute('rights')
-    @book.metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
+    metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
     changeCoverImage
-    window.orderOut(self)
-
-    # update document change count so user will be prompted to save book
-    NSDocumentController.sharedDocumentController.currentDocument.updateChangeCount(NSSaveOperation)
+    @bookController.document.updateChangeCount(NSSaveOperation)
+  end
+  
+  def closeMetadataSheet(sender)
+    NSApp.endSheet(window)
+    window.orderOut(sender)
   end
 
-  private
+  def metadata
+    @bookController.document.metadata
+  end
 
   def displayCoverImage
-    if @book.metadata.cover
-      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@book.metadata.cover.path)
+    if metadata.cover
+      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(metadata.cover.path)
     else
       @coverImageView.image = noCoverImage
     end
@@ -63,7 +67,7 @@ class MetadataController < NSWindowController
     imagePath = @imageWell.imagePath
     if imagePath.nil?
       displayCoverImage
-    elsif @book.manifest.itemWithHref(imagePath.lastPathComponent)
+    elsif @bookController.document.manifest.itemWithHref(imagePath.lastPathComponent)
       showCoverImageCollisionWarning(imagePath)
     else
       @stashedImagePath = imagePath
@@ -88,10 +92,10 @@ class MetadataController < NSWindowController
 
   def changeCoverImage
     return unless @stashedImagePath
-    item = @book.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
-    @book.controller.manifestController.deleteItems([item]) if item
-    item = @book.controller.manifestController.addFile(@stashedImagePath)
-    @book.metadata.cover = item if item
+    item = @bookController.document.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
+    @bookController.manifestController.deleteItems([item]) if item
+    item = @bookController.manifestController.addFile(@stashedImagePath)
+    metadata.cover = item if item
     displayCoverImage
   end
 
@@ -100,13 +104,13 @@ class MetadataController < NSWindowController
   end
 
   def displayAttribute(attribute)
-    value = @book.metadata.send(attribute) || ''
+    value = metadata.send(attribute) || ''
     eval("@#{attribute}Field.stringValue = value")
   end
 
   def changeAttribute(attribute)
     value = eval("@#{attribute}Field.stringValue")
-    @book.metadata.send("#{attribute}=", value)
+    metadata.send("#{attribute}=", value)
   end
 
 end

@@ -2,21 +2,44 @@ class TabViewController < NSViewController
 
   HORIZONTAL_ORIENTATION_TAG = 0
   VERTICAL_ORIENTATION_TAG   = 1
-  SPLIT_VIEW_MINIMUM_HEIGHT  = 50
+  SPLIT_VIEW_MINIMUM_POSITION  = 50
 
-  attr_accessor :splitView, :textViewController, :webViewController, :bookController
-  attr_accessor :splitViewSegementedControl, :renderImageView
+  attr_accessor :bookController, :textViewController, :webViewController
+  attr_accessor :splitView, :splitViewSegementedControl, :renderImageView
 
   def awakeFromNib
     view.delegate = self
     @splitView.delegate = self
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'),
-    name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
   end
 
   def textDidChange(notification)
     # required to update edited status
     view.needsDisplay = true
+  end
+
+  def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
+    if item
+      if item.imageable?
+        @renderImageView.image = selectedTab.item.imageRep
+        @textViewController.item = nil
+        @webViewController.item = nil
+      elsif item.flowable?
+        @renderImageView.image = nil
+        @textViewController.item = item
+        @webViewController.item = point
+        showWebView
+      else
+        @renderImageView.image = nil
+        @textViewController.item = item
+        @webViewController.item = nil
+        hideWebView
+      end
+    else
+      @renderImageView.image = nil
+      @textViewController.item = nil
+      @webViewController.item = nil
+    end
   end
 
   def addObject(object)
@@ -49,22 +72,22 @@ class TabViewController < NSViewController
     view.closeSelectedTab
   end
 
-  def undoManagerForItem(item)
-    view.tabForItem(item).undoManager
+  def selectNextTab(sender)
+    view.selectNextTab
   end
 
-  def toggleSplitViewOrientation(sender)
-    if sender == @splitViewSegementedControl
-      @splitViewSegementedControl.selectedSegment == HORIZONTAL_ORIENTATION_TAG ? makeSplitViewOrientationVertical : makeSplitViewOrientationHorizontal
-    else
-      @splitViewSegementedControl.selectedSegment == HORIZONTAL_ORIENTATION_TAG ? makeSplitViewOrientationHorizontal : makeSplitViewOrientationVertical
-    end
+  def selectPreviousTab(sender)
+    view.selectPreviousTab
+  end
+
+  def undoManagerForItem(item)
+    view.tabForItem(item).undoManager
   end
 
   def toggleWebView(sender)
     @splitView.subviews.size == 2 ? hideWebView : showWebView
   end
-
+  
   def toggleTextView(sender)
     @splitView.subviews.size == 2 ? hideTextView : showTextView
   end
@@ -72,16 +95,14 @@ class TabViewController < NSViewController
   def showWebView
     if @splitView.subviews.size == 1 && @splitView.subviews[0] != @webViewController.view
       @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@textViewController.view.enclosingScrollView)
-      @splitView.setPosition(calculatePreviousSplitViewPosition, ofDividerAtIndex:0)
-      @splitView.adjustSubviews
+      updateSplitViewDividerPosition
     end
   end
 
   def showTextView
     if @splitView.subviews.size == 1 && @splitView.subviews[0] != @textViewController.view.enclosingScrollView
       @splitView.addSubview(@textViewController.view.enclosingScrollView, positioned:NSWindowAbove, relativeTo:@webViewController.view)
-      @splitView.setPosition(calculatePreviousSplitViewPosition, ofDividerAtIndex:0)
-      @splitView.adjustSubviews
+      updateSplitViewDividerPosition
     end
   end
 
@@ -99,83 +120,66 @@ class TabViewController < NSViewController
     end
   end
 
-  def selectNextTab(sender)
-    view.selectNextTab
-  end
-
-  def selectPreviousTab(sender)
-    view.selectPreviousTab
-  end
-
-  def validateUserInterfaceItem(menuItem)
-    case menuItem.action
-    when :"selectNextTab:", :"selectPreviousTab:"
-      view.numberOfTabs > 1
-    when :"saveTab:", :"saveAllTabs:", :"closeTab:"
-      view.numberOfTabs > 0
+  def toggleSplitViewOrientation(sender)
+    if sender == @splitViewSegementedControl
+      @splitViewSegementedControl.selectedSegment == HORIZONTAL_ORIENTATION_TAG ? makeSplitViewOrientationVertical : makeSplitViewOrientationHorizontal
     else
-      true
-    end
-  end
-
-  def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
-    if item
-      if item.imageable?
-        @renderImageView.image = selectedTab.item.imageRep
-        @textViewController.item = nil
-        @webViewController.item = nil
-      elsif item.flowable?
-        @renderImageView.image = nil
-        @textViewController.item = item
-        @webViewController.item = point
-        showWebView
-      else
-        @renderImageView.image = nil
-        @textViewController.item = item
-        @webViewController.item = nil
-        hideWebView
-      end
-    else
-      @renderImageView.image = nil
-      @textViewController.item = nil
-      @webViewController.item = nil
+      @splitViewSegementedControl.selectedSegment == HORIZONTAL_ORIENTATION_TAG ? makeSplitViewOrientationHorizontal : makeSplitViewOrientationVertical
     end
   end
 
   def makeSplitViewOrientationVertical
     @splitViewSegementedControl.selectSegmentWithTag(HORIZONTAL_ORIENTATION_TAG)
     @splitView.vertical = false
-    @splitView.adjustSubviews
+    updateSplitViewDividerPosition
   end
 
   def makeSplitViewOrientationHorizontal
     @splitViewSegementedControl.selectSegmentWithTag(VERTICAL_ORIENTATION_TAG)
     @splitView.vertical = true
-    @splitView.adjustSubviews
+    updateSplitViewDividerPosition
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
-    proposedMin + SPLIT_VIEW_MINIMUM_HEIGHT
+    proposedMin + SPLIT_VIEW_MINIMUM_POSITION
   end
 
   def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
-    proposedMax - SPLIT_VIEW_MINIMUM_HEIGHT
+    proposedMax - SPLIT_VIEW_MINIMUM_POSITION
   end
 
   def splitView(splitView, constrainSplitPosition:proposedPosition, ofSubviewAt:dividerIndex)
-    @previousSplitViewPosition = proposedPosition 
+    @previousDividerPosition = proposedPosition 
   end
   
-  def calculatePreviousSplitViewPosition
-    height = @splitView.bounds.size.height
-    if @previousSplitViewPosition.nil?
-      @previousSplitViewPosition = height * 0.5
-    elsif @previousSplitViewPosition > height
-      @previousSplitViewPosition = height - SPLIT_VIEW_MINIMUM_HEIGHT
-    elsif @previousSplitViewPosition < 0
-      @previousSplitViewPosition = SPLIT_VIEW_MINIMUM_HEIGHT
+  def validateUserInterfaceItem(menuItem)
+    case menuItem.action
+    when :"selectNextTab:", :"selectPreviousTab:"
+      view.numberOfTabs > 1
+    when :"saveTab:", :"saveAllTabs:", :"closeTab:"
+      view.numberOfTabs > 0
+    when :"toggleWebView"
+      @splitView.subviews.size == 2 || @splitView.subviews[0] != @webViewController.view
+    when :"toggleTextView"
+      @splitView.subviews.size == 2 || @splitView.subviews[0] != @textViewController.enclosingScrollView
+    else
+      true
     end
-    @previousSplitViewPosition
+  end
+
+  private
+  
+  def updateSplitViewDividerPosition
+    maximum = @splitView.vertical? ? @splitView.bounds.size.width : @splitView.bounds.size.height
+    if @previousDividerPosition.nil?
+      @previousDividerPosition = maximum * 0.5
+    elsif @previousDividerPosition > maximum
+      @previousDividerPosition = maximum - SPLIT_VIEW_MINIMUM_POSITION
+    elsif @previousDividerPosition < 0
+      @previousDividerPosition = SPLIT_VIEW_MINIMUM_POSITION
+    end
+    @splitView.setPosition(@previousDividerPosition, ofDividerAtIndex:0)
+    @splitView.adjustSubviews
   end
 
 end
