@@ -6,7 +6,7 @@ class AppController
     unless recentURLs.empty?
       url = recentURLs.first
       if File.exists?(url.path)
-        if controller.openDocumentWithContentsOfURL(url, display:true, error:nil)
+        if controller.openDocumentWithContentsOfURL(url, display:true, error:Pointer.new_with_type('@'))
           return false
         end
       end
