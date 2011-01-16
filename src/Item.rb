@@ -9,9 +9,9 @@ class Item
     @mediaType = mediaType || Media.guessType(File.extname(name))
     @expanded = expanded
     @children = []
-    @markerHash = {}
-    
+    @markerHash = {}    
     FileUtils.mkdir(path) if directory? && !File.exists?(path)
+    scanContentForIDAttributes
   end
   
   def path
@@ -48,11 +48,7 @@ class Item
   end
   
   def links
-    REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
-      puts element
-    end
-  rescue
-    nil
+    @async.value
   end
 
   def editable?
@@ -211,5 +207,18 @@ class Item
   def removeMarker(lineNumber)
     @markerHash[marker.lineNumber] = nil
   end
-  
+
+  def scanContentForIDAttributes
+    @async = Async.new do
+      id_links = []
+      if flowable?
+        REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
+          # puts "item #{name}: #{element}"
+          id_links << element.to_s
+        end
+      end
+      id_links
+    end
+  end
+
 end
