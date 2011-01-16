@@ -21,8 +21,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="21"/>
-			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -53,11 +51,11 @@
 				<string key="NSTitle">Window</string>
 				<string key="NSKeyEquiv"/>
 				<int key="NSMnemonicLoc">2147483647</int>
-				<object class="NSCustomResource" key="NSOnImage" id="970321153">
+				<object class="NSCustomResource" key="NSOnImage" id="25818824">
 					<string key="NSClassName">NSImage</string>
 					<string key="NSResourceName">NSMenuCheckmark</string>
 				</object>
-				<object class="NSCustomResource" key="NSMixedImage" id="1015256816">
+				<object class="NSCustomResource" key="NSMixedImage" id="248137805">
 					<string key="NSClassName">NSImage</string>
 					<string key="NSResourceName">NSMenuMixedState</string>
 				</object>
@@ -72,16 +70,16 @@
 							<string key="NSKeyEquiv">m</string>
 							<int key="NSKeyEquivModMask">1048576</int>
 							<int key="NSMnemonicLoc">2147483647</int>
-							<reference key="NSOnImage" ref="970321153"/>
-							<reference key="NSMixedImage" ref="1015256816"/>
+							<reference key="NSOnImage" ref="25818824"/>
+							<reference key="NSMixedImage" ref="248137805"/>
 						</object>
 						<object class="NSMenuItem" id="261364791">
 							<reference key="NSMenu" ref="510722264"/>
 							<string key="NSTitle">Zoom</string>
 							<string key="NSKeyEquiv"/>
 							<int key="NSMnemonicLoc">2147483647</int>
-							<reference key="NSOnImage" ref="970321153"/>
-							<reference key="NSMixedImage" ref="1015256816"/>
+							<reference key="NSOnImage" ref="25818824"/>
+							<reference key="NSMixedImage" ref="248137805"/>
 						</object>
 						<object class="NSMenuItem" id="605800874">
 							<reference key="NSMenu" ref="510722264"/>
@@ -90,16 +88,16 @@
 							<string key="NSTitle"/>
 							<string key="NSKeyEquiv"/>
 							<int key="NSMnemonicLoc">2147483647</int>
-							<reference key="NSOnImage" ref="970321153"/>
-							<reference key="NSMixedImage" ref="1015256816"/>
+							<reference key="NSOnImage" ref="25818824"/>
+							<reference key="NSMixedImage" ref="248137805"/>
 						</object>
 						<object class="NSMenuItem" id="892045696">
 							<reference key="NSMenu" ref="510722264"/>
 							<string key="NSTitle">Bring All to Front</string>
 							<string key="NSKeyEquiv"/>
 							<int key="NSMnemonicLoc">2147483647</int>
-							<reference key="NSOnImage" ref="970321153"/>
-							<reference key="NSMixedImage" ref="1015256816"/>
+							<reference key="NSOnImage" ref="25818824"/>
+							<reference key="NSMixedImage" ref="248137805"/>
 						</object>
 					</object>
 					<string key="NSName">_NSWindowsMenu</string>
@@ -367,8 +365,8 @@
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="970321153"/>
-									<reference key="NSMixedImage" ref="1015256816"/>
+									<reference key="NSOnImage" ref="25818824"/>
+									<reference key="NSMixedImage" ref="248137805"/>
 								</object>
 							</object>
 							<object class="NSToolbarSpaceItem" id="192817359">
@@ -394,8 +392,8 @@
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="970321153"/>
-									<reference key="NSMixedImage" ref="1015256816"/>
+									<reference key="NSOnImage" ref="25818824"/>
+									<reference key="NSMixedImage" ref="248137805"/>
 								</object>
 							</object>
 						</object>
@@ -445,6 +443,7 @@
 									<int key="NSvFlags">274</int>
 									<string key="NSFrameSize">{296, 574}</string>
 									<reference key="NSSuperview" ref="540888369"/>
+									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -453,12 +452,14 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{297, 0}, {600, 574}}</string>
 									<reference key="NSSuperview" ref="540888369"/>
+									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
 							<string key="NSFrame">{{0, 24}, {897, 574}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
+							<reference key="NSWindow"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">2</int>
@@ -466,6 +467,7 @@
 					</object>
 					<string key="NSFrameSize">{897, 598}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
@@ -476,7 +478,7 @@
 				<double key="NSContentBorderThicknessMaxY">4</double>
 			</object>
 			<object class="NSCustomView" id="367355019">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -496,7 +498,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 522}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSSplitView" id="378248105">
