@@ -11,7 +11,7 @@ class Item
     @children = []
     @markerHash = {}    
     FileUtils.mkdir(path) if directory? && !File.exists?(path)
-    scanContentForIDAttributes
+    # scanContentForIDAttributes
   end
   
   def path
