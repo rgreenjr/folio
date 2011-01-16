@@ -26,9 +26,9 @@ class MetadataController < NSWindowController
     displayAttribute('rights')
     @languagePopup.selectItemWithTitle(Language.name_for(metadata.language))
     displayCoverImage
-    NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:"saveMetadata:", contextInfo:nil)
+    NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
   end
-
+  
   def saveMetadata(sender)
     closeMetadataSheet(sender)
     changeAttribute('title')
