@@ -15,49 +15,54 @@ class Navigation
     @root.expanded = true
 
     return unless book
+    
+    begin
+      doc = REXML::Document.new(book.manifest.ncx.content)    
+      @ncx_name = book.manifest.ncx.name
+      prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
+      uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:uid']"]
+      # check for 'dtb:PrimaryID' as last resort (is this standard compliant?)
+      uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:PrimaryID']"] unless uid
+      raise "Unable to find the navigation ID." unless uid
+      @id = uid.attributes["content"]
+      @title = doc.elements["/#{prefix}ncx/#{prefix}docTitle/#{prefix}text"].text
 
-    doc = REXML::Document.new(book.manifest.ncx.content)
-    @ncx_name = book.manifest.ncx.name
-    prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
-    uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:uid']"]
-    # check for 'dtb:PrimaryID' as last resort (is this standard compliant?)
-    uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:PrimaryID']"] unless uid
-    raise "Navigation id not found" unless uid
-    @id = uid.attributes["content"]
-    @title = doc.elements["/#{prefix}ncx/#{prefix}docTitle/#{prefix}text"].text
-
-    if doc.elements["/ncx/docAuthor/text"]
-      @docAuthor = doc.elements["/ncx/docAuthor/text"].text
-    end
-
-    point_stack = [@root]
-    xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
-    while point_stack.size > 0
-      parent = point_stack.shift
-      element = xml_stack.shift
-      element.elements.each_with_index("#{prefix}navPoint") do |e, i|
-
-        href, fragment = e.elements["#{prefix}content"].attributes["src"].split("#")
-
-        item = book.manifest.itemWithHref(href)
-        raise "Navigation point reference not found: src=#{href}" unless item
-
-        childPoint           = Point.new
-        childPoint.id        = e.attributes["id"]
-        
-        childPoint.playOrder = e.attributes["playOrder"]
-        childPoint.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
-        childPoint.item      = item
-        childPoint.fragment  = fragment
-
-        insert(childPoint, -1, parent)
-
-        point_stack.insert(i, childPoint)
-        xml_stack.insert(i, e)
+      if doc.elements["/ncx/docAuthor/text"]
+        @docAuthor = doc.elements["/ncx/docAuthor/text"].text
       end
+
+      point_stack = [@root]
+      xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
+      while point_stack.size > 0
+        parent = point_stack.shift
+        element = xml_stack.shift
+        element.elements.each_with_index("#{prefix}navPoint") do |e, i|
+
+          href, fragment = e.elements["#{prefix}content"].attributes["src"].split("#")
+
+          item = book.manifest.itemWithHref(href)
+          raise "The resource \"#{href}\" is referenced in the navigation, but could not be found in the manifest." unless item
+
+          childPoint           = Point.new
+          childPoint.id        = e.attributes["id"]
+        
+          childPoint.playOrder = e.attributes["playOrder"]
+          childPoint.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
+          childPoint.item      = item
+          childPoint.fragment  = fragment
+
+          insert(childPoint, -1, parent)
+
+          point_stack.insert(i, childPoint)
+          xml_stack.insert(i, e)
+        end
+      end
+    rescue REXML::ParseException => exception
+      raise StandardError, "An error occurred while parsing #{book.manifest.ncx.href}: #{exception.explain}"
+    rescue Exception => exception
+      puts exception.class
+      puts exception.message
     end
-  rescue REXML::ParseException => exception
-    raise StandardError, "An error occurred while parsing #{book.manifest.ncx.href}: #{exception.explain}"
   end
 
   def depth
@@ -105,7 +110,7 @@ class Navigation
   end
 
   def insert(point, index, parent)
-    raise "Navigation point ID already exists: id=#{point.id}" if @pointIdMap[id]      
+    raise "A point with ID \"#{point.id}\" already exists in the navigation." if @pointIdMap[id]      
     @pointIdMap[point.id] = point
     parent.insert(index, point)
   end

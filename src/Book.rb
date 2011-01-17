@@ -1,5 +1,13 @@
 # http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html
 
+# Required files:
+#
+# mimetype
+# META-INF/container.xml
+#
+# OEBPS/toc.ncx (variable path and filename)
+# OEBPS/content.opf (variable path and filename)
+
 class Book < NSDocument
 
   attr_reader :controller
@@ -8,7 +16,7 @@ class Book < NSDocument
   def initWithType(typeName, error:outError)
     super
     @container  = Container.new(unzipPath)
-    @manifest   = Manifest.new(unzipPath)
+    @manifest   = Manifest.new(unzipPath + @container.path)
     @metadata   = Metadata.new
     @spine      = Spine.new
     @guide      = Guide.new
@@ -19,7 +27,7 @@ class Book < NSDocument
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
     runCommand("unzip -q -d '#{unzipPath}' \"#{absoluteURL.path}\"")
     @container  = Container.new(unzipPath, self)
-    @manifest   = Manifest.new(unzipPath, self)
+    @manifest   = Manifest.new(unzipPath + @container.path, self)
     @metadata   = Metadata.new(self)
     @spine      = Spine.new(self)
     @guide      = Guide.new(self)
@@ -35,10 +43,10 @@ class Book < NSDocument
     tmp = Dir.mktmpdir("folio-zip-")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
     @container.save(tmp)
-    dest = File.join(tmp, @container.root)
+    dest = File.join(tmp, @container.path)
     @manifest.save(dest)
     @navigation.save(dest)
-    File.open(File.join(tmp, @container.root, "content.opf"), "w") {|f| f.puts opfXML}
+    File.open(File.join(tmp, @container.path, "content.opf"), "w") {|f| f.puts opfXML}
     runCommand("cd '#{tmp}'; zip -qX0 ./folio-book.epub mimetype")
     runCommand("cd '#{tmp}'; zip -qX9urD ./folio-book.epub *")
     FileUtils.mv(File.join(tmp, 'folio-book.epub'), absoluteURL.path)

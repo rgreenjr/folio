@@ -2,14 +2,13 @@ class Manifest
 
   attr_accessor :root, :ncx
   
-  def initialize(unzipPath, book=nil)
+  def initialize(containerPath, book=nil)
     @itemsMap  = {}
-    @unzipPath = unzipPath
-    @root = Item.new(nil, @unzipPath, 'ROOT', 'directory', true)
+    @containerPath = containerPath
+    @root = Item.new(nil, @containerPath, 'ROOT', 'directory', true)
     if book.nil?
       @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
     else
-      @unzipPath = unzipPath
       book.container.opfDoc.elements.each("/package/manifest/item") do |e|
         parent = @root
         parts = e.attributes["href"].split('/')
@@ -23,13 +22,14 @@ class Manifest
           parent = directory
         end
         item = Item.new(parent, parts.last, e.attributes["id"], e.attributes["media-type"])
+        raise "The resource file \"#{item.href}\" could not be found." unless File.exist?(item.path)
         if item.ncx?
           @ncx = item
         else
           insert(-1, item, parent)
         end
       end
-      raise "An NCX was not specified in the manifest." unless @ncx
+      raise "A navigation NCX file wasn't specified in the manifest." unless @ncx
       self.sort
     end
   end
@@ -45,7 +45,7 @@ class Manifest
   
   def insert(index, item, parent)
     unless item.directory?
-      raise "A manifest item already exists with the id=#{item.id}" if @itemsMap[item.id]
+      raise "A resource with ID \"#{item.id}\" already exists in the manifest." if @itemsMap[item.id]
     end
     @itemsMap[item.id] = item
     parent.insert(index, item)
@@ -89,7 +89,7 @@ class Manifest
   end
   
   def itemWithHref(href)
-    href = href.gsub(@unzipPath + "/", '')
+    href = href.gsub(@containerPath + "/", '')
     current = @root
     parts = href.split('/')
     while !parts.empty? && current

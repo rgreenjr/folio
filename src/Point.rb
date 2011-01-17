@@ -15,7 +15,8 @@ class Point
   end
 
   def url
-    NSURL.URLWithString(@item.path + fragmentWithHash)
+    encoded = @item.path.gsub(' ', '+')
+    url = NSURL.URLWithString(encoded + fragmentWithHash)
   end
   
   def src
