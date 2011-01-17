@@ -119,14 +119,9 @@ class Manifest
   
   def generateUniqueID(name)
     name = name.stringByDeletingPathExtension
-    puts "name = #{name}"
     i = 1
-    while true
-      break unless itemWithId(name)
-      i += 1
-      name = "##{name}-#{i}"
-    end
-    name
+    i += 1 while itemWithId(name)
+    "#{name}-#{i}"
   end
 
 end
