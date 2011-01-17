@@ -12,9 +12,9 @@ class ImageCell < NSTextFieldCell
 
   def initTextCell(text)
     super
-    editable = true
-    selectable = true
-    lineBreakMode = NSLineBreakByTruncatingTail
+    setEditable(true)
+    setSelectable(true)
+    setLineBreakMode(NSLineBreakByTruncatingTail)
 
     style = NSMutableParagraphStyle.alloc.init
     style.alignment = NSCenterTextAlignment
