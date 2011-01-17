@@ -11,7 +11,9 @@ class SpineController < NSViewController
     menu.addActionWithSeparator("Add to Navigation", "addSelectedItemsToNavigation:", self)
     menu.addAction("Delete", "deleteSelectedItems:", self)
     @tableView.menu = menu
-    @tableView.tableColumns.first.dataCell = ImageCell.new
+    imageCell = ImageCell.new
+    imageCell.setEditable(false)
+    @tableView.tableColumns.first.dataCell = imageCell
     @tableView.delegate = self
     @tableView.dataSource = self
     @tableView.registerForDraggedTypes([NSStringPboardType])
