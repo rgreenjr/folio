@@ -1,5 +1,7 @@
 class Navigation
 
+  # Navigation Center eXtended (NCX) Table of Contents
+  
   attr_accessor :id, :title, :creator, :docAuthor, :root
 
   def initialize(book=nil)
