@@ -16,7 +16,7 @@ class Book < NSDocument
   def initWithType(typeName, error:outError)
     super
     @container  = Container.new(unzipPath)
-    @manifest   = Manifest.new(unzipPath + @container.path)
+    @manifest   = Manifest.new(unzipPath + '/' + @container.path)
     @metadata   = Metadata.new
     @spine      = Spine.new
     @guide      = Guide.new
@@ -27,7 +27,7 @@ class Book < NSDocument
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
     runCommand("unzip -q -d '#{unzipPath}' \"#{absoluteURL.path}\"")
     @container  = Container.new(unzipPath, self)
-    @manifest   = Manifest.new(unzipPath + @container.path, self)
+    @manifest   = Manifest.new(unzipPath + '/' + @container.path, self)
     @metadata   = Metadata.new(self)
     @spine      = Spine.new(self)
     @guide      = Guide.new(self)

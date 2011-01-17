@@ -42,13 +42,6 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="NSCustomView" id="677262611">
-						<reference key="NSNextResponder" ref="609057719"/>
-						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 575}, {352, 22}}</string>
-						<reference key="NSSuperview" ref="609057719"/>
-						<string key="NSClassName">HeaderView</string>
-					</object>
 					<object class="NSScrollView" id="1047665684">
 						<reference key="NSNextResponder" ref="609057719"/>
 						<int key="NSvFlags">274</int>
@@ -148,7 +141,7 @@
 											</object>
 										</object>
 										<double key="NSRowHeight">18</double>
-										<int key="NSTvFlags">-566231040</int>
+										<int key="NSTvFlags">-633339904</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
 										<int key="NSColumnAutoresizingStyle">4</int>
@@ -194,6 +187,13 @@
 						<reference key="NSHScroller" ref="820883936"/>
 						<reference key="NSContentView" ref="28379197"/>
 						<bytes key="NSScrollAmts">QSAAAEEgAABBoAAAQaAAAA</bytes>
+					</object>
+					<object class="NSCustomView" id="677262611">
+						<reference key="NSNextResponder" ref="609057719"/>
+						<int key="NSvFlags">266</int>
+						<string key="NSFrame">{{0, 575}, {352, 22}}</string>
+						<reference key="NSSuperview" ref="609057719"/>
+						<string key="NSClassName">HeaderView</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{352, 597}</string>
@@ -260,8 +260,8 @@
 						<reference key="object" ref="609057719"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="677262611"/>
 							<reference ref="1047665684"/>
+							<reference ref="677262611"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Spine View</string>
@@ -345,7 +345,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AQAAAABD+gAAA</bytes>
+						<bytes key="NSTransformStruct">AQAAAABED8AAA</bytes>
 					</object>
 					<string>{{392, 327}, {352, 597}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

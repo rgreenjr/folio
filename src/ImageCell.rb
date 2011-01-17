@@ -123,5 +123,4 @@ class ImageCell < NSTextFieldCell
     badgeString.drawInRect(labelRect, withAttributes:@badgeAttributes)
   end
 
-
 end
