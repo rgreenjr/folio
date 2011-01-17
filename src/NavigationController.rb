@@ -13,6 +13,7 @@ class NavigationController < NSViewController
     menu.addAction("Delete", "deleteSelectedPoints:", self)
     @outlineView.menu = menu
 
+    @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
@@ -82,6 +83,10 @@ class NavigationController < NSViewController
 
   def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:point)
     changePointText(point, value)
+  end
+
+  def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
+    cell.font = NSFont.systemFontOfSize(11.0)
   end
 
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)

@@ -62,6 +62,7 @@
 		CD2340DD12BA939D0019FB07 /* NilClass.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2340DC12BA939D0019FB07 /* NilClass.rb */; };
 		CD2F101B12AEA56D00B2AC6D /* Language.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101912AEA56D00B2AC6D /* Language.rb */; };
 		CD2F101C12AEA56D00B2AC6D /* MetadataController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */; };
+		CD32800012E4B878004267A7 /* source.png in Resources */ = {isa = PBXBuildFile; fileRef = CD327FFF12E4B878004267A7 /* source.png */; };
 		CD3D02BA12E0E4060002BB38 /* Validate.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CD3D02B912E0E4060002BB38 /* Validate.tiff */; };
 		CD4EE39B12DA213E00A18681 /* horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = CD4EE39A12DA213E00A18681 /* horizontal.png */; };
 		CD4EE3CA12DA255700A18681 /* vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = CD4EE3C912DA255700A18681 /* vertical.png */; };
@@ -190,6 +191,7 @@
 		CD2340DC12BA939D0019FB07 /* NilClass.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NilClass.rb; sourceTree = "<group>"; };
 		CD2F101912AEA56D00B2AC6D /* Language.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Language.rb; sourceTree = "<group>"; };
 		CD2F101A12AEA56D00B2AC6D /* MetadataController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MetadataController.rb; sourceTree = "<group>"; };
+		CD327FFF12E4B878004267A7 /* source.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = source.png; sourceTree = "<group>"; };
 		CD3D02B912E0E4060002BB38 /* Validate.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Validate.tiff; sourceTree = "<group>"; };
 		CD4EE39A12DA213E00A18681 /* horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horizontal.png; sourceTree = "<group>"; };
 		CD4EE3C912DA255700A18681 /* vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vertical.png; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				CDE5F29A12E264D3008DC528 /* WebView.tiff */,
+				CD327FFF12E4B878004267A7 /* source.png */,
 				CDE5F27712E25B4E008DC528 /* SourceView.tiff */,
 				CD3D02B912E0E4060002BB38 /* Validate.tiff */,
 				CD98EA2A12C95AB000FDB4CB /* NavigationIcon.png */,
@@ -661,6 +664,7 @@
 				CDE5F29E12E26550008DC528 /* Metadata.tiff in Resources */,
 				CDE5F2A012E26575008DC528 /* Reformat.tiff in Resources */,
 				CDCF09C412E3503B008E6B3C /* Async.rb in Resources */,
+				CD32800012E4B878004267A7 /* source.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -72,15 +72,17 @@ class ImageCell < NSTextFieldCell
         backgroundColor.set
         NSRectFill(imageFrame)
       end
-      if controlView.isFlipped
-        delta = ((cellFrame.size.height + imageFrame.size.height) / 2).ceil
-      else
-        delta = ((cellFrame.size.height - imageFrame.size.height) / 2).ceil
-      end
-      imageFrame.origin.y += delta
+      imageFrame.origin.y += ((cellFrame.size.height + @image.size.height) / 2).ceil
       @image.compositeToPoint(imageFrame.origin, operation:NSCompositeSourceOver)
       drawBadge(badgeFrame) if @badgeCount
     end
+    super
+  end
+  
+  def drawInteriorWithFrame(frame, inView:controlView)
+    delta = ((frame.size.height - font.pointSize) / 2).ceil - 2
+    frame.origin.y += delta
+    frame.size.height -= delta
     super
   end
 
@@ -95,7 +97,7 @@ class ImageCell < NSTextFieldCell
       imageFrame = NSMakeRect(PADDING + cellFrame.origin.x, cellFrame.origin.y, @image.size.width, cellFrame.size.height)
       textFrame  = NSMakeRect(PADDING + imageFrame.origin.x + imageFrame.size.width, cellFrame.origin.y, cellFrame.size.width - imageFrame.size.width - PADDING, cellFrame.size.height)
       badgeFrame = nil
-    end
+    end    
 
     [imageFrame, textFrame, badgeFrame]
   end

@@ -83,14 +83,42 @@ class TabViewController < NSViewController
   def undoManagerForItem(item)
     view.tabForItem(item).undoManager
   end
+  
+  def showTextViewOnly(sender)
+    if @splitView.subviews.size == 2
+      hideWebView
+    elsif @splitView.subviews[0] == @webViewController.view
+      showTextView
+      hideWebView
+    end
+  end
 
-  def toggleWebView(sender)
-    @splitView.subviews.size == 2 ? hideWebView : showWebView
+  def showWebViewOnly(sender)
+    if @splitView.subviews.size == 2
+      hideTextView
+    elsif @splitView.subviews[0] == @textViewController.view.enclosingScrollView
+      showWebView
+      hideTextView
+    end
   end
   
-  def toggleTextView(sender)
-    @splitView.subviews.size == 2 ? hideTextView : showTextView
+  def showTextAndWebViews(sender)
+    if @splitView.subviews.size == 1
+      if @splitView.subviews[0] == @webViewController.view
+        showTextView
+      else
+        showWebView
+      end
+    end
   end
+
+  # def toggleWebView(sender)
+  #   @splitView.subviews.size == 2 ? hideWebView : showWebView
+  # end
+  # 
+  # def toggleTextView(sender)
+  #   @splitView.subviews.size == 2 ? hideTextView : showTextView
+  # end
 
   def showWebView
     if @splitView.subviews.size == 1 && @splitView.subviews[0] != @webViewController.view

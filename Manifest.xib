@@ -244,13 +244,6 @@
 						<bool key="NSTransparent">NO</bool>
 						<reference key="NSFillColor2" ref="846013927"/>
 					</object>
-					<object class="NSCustomView" id="1019403412">
-						<reference key="NSNextResponder" ref="1007689495"/>
-						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 478}, {351, 22}}</string>
-						<reference key="NSSuperview" ref="1007689495"/>
-						<string key="NSClassName">HeaderView</string>
-					</object>
 					<object class="NSScrollView" id="1057686651">
 						<reference key="NSNextResponder" ref="1007689495"/>
 						<int key="NSvFlags">4370</int>
@@ -315,10 +308,15 @@
 											</object>
 										</object>
 										<double key="NSIntercellSpacingWidth">3</double>
-										<double key="NSIntercellSpacingHeight">2</double>
+										<double key="NSIntercellSpacingHeight">0.0</double>
 										<object class="NSColor" key="NSBackgroundColor">
-											<int key="NSColorSpace">2</int>
-											<bytes key="NSRGB">MC44MjM1Mjk0ODE5IDAuODUwOTgwNDYwNiAwLjg4NjI3NDU3NjIAA</bytes>
+											<int key="NSColorSpace">6</int>
+											<string key="NSCatalogName">System</string>
+											<string key="NSColorName">_sourceListBackgroundColor</string>
+											<object class="NSColor" key="NSColor">
+												<int key="NSColorSpace">1</int>
+												<bytes key="NSRGB">MC44MzkyMTU2OTU5IDAuODY2NjY2Njc0NiAwLjg5ODAzOTIyMTgAA</bytes>
+											</object>
 										</object>
 										<object class="NSColor" key="NSGridColor">
 											<int key="NSColorSpace">6</int>
@@ -329,7 +327,7 @@
 												<bytes key="NSWhite">MC41AA</bytes>
 											</object>
 										</object>
-										<double key="NSRowHeight">17</double>
+										<double key="NSRowHeight">20</double>
 										<int key="NSTvFlags">-633339904</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
@@ -337,11 +335,14 @@
 										<int key="NSDraggingSourceMaskForLocal">15</int>
 										<int key="NSDraggingSourceMaskForNonLocal">0</int>
 										<bool key="NSAllowsTypeSelect">YES</bool>
-										<int key="NSTableViewDraggingDestinationStyle">0</int>
+										<int key="NSTableViewSelectionHighlightStyle">1</int>
+										<int key="NSTableViewDraggingDestinationStyle">1</int>
+										<float key="NSOutlineViewIndentationPerLevelKey">14</float>
 									</object>
 								</object>
 								<string key="NSFrameSize">{351, 363}</string>
 								<reference key="NSSuperview" ref="1057686651"/>
+								<reference key="NSNextKeyView" ref="1026368583"/>
 								<reference key="NSDocView" ref="1026368583"/>
 								<reference key="NSBGColor" ref="421435052"/>
 								<int key="NScvFlags">4</int>
@@ -368,11 +369,19 @@
 						</object>
 						<string key="NSFrame">{{0, 115}, {351, 363}}</string>
 						<reference key="NSSuperview" ref="1007689495"/>
+						<reference key="NSNextKeyView" ref="391742089"/>
 						<int key="NSsFlags">528</int>
 						<reference key="NSVScroller" ref="389974831"/>
 						<reference key="NSHScroller" ref="138659414"/>
 						<reference key="NSContentView" ref="391742089"/>
-						<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
+						<bytes key="NSScrollAmts">QSAAAEEgAABBoAAAQaAAAA</bytes>
+					</object>
+					<object class="NSCustomView" id="1019403412">
+						<reference key="NSNextResponder" ref="1007689495"/>
+						<int key="NSvFlags">266</int>
+						<string key="NSFrame">{{0, 478}, {351, 22}}</string>
+						<reference key="NSSuperview" ref="1007689495"/>
+						<string key="NSClassName">HeaderView</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{351, 500}</string>
@@ -538,6 +547,7 @@
 							<reference ref="746111660"/>
 						</object>
 						<reference key="parent" ref="1007689495"/>
+						<string key="objectName">Properties Box</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
@@ -668,7 +678,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AQAAAABD+gAAA</bytes>
+						<bytes key="NSTransformStruct">AQAAAABD7wAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
@@ -736,11 +746,15 @@
 							<string>delete:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
+							<string>selectNextItem:</string>
+							<string>selectPreviousItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -759,6 +773,8 @@
 							<string>delete:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
+							<string>selectNextItem:</string>
+							<string>selectPreviousItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 						</object>
@@ -782,6 +798,14 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newDirectory:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectNextItem:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectPreviousItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
