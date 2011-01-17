@@ -43,6 +43,14 @@ class ManifestController < NSViewController
     @outlineView.selectedRowIndexes.map { |index| @book.manifest[index] }
   end
 
+  def selectPreviousItem(sender)
+    @outlineView.selectRow(@outlineView.selectedRow - 1)
+  end
+
+  def selectNextItem(sender)
+    @outlineView.selectRow(@outlineView.selectedRow + 1)
+  end
+
   def selectedItemParentAndChildIndex
     item = selectedItem
     item ? [item.parent, item.parent.index(item)] : [@book.manifest.root, -1]

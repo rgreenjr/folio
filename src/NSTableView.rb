@@ -14,10 +14,9 @@ class NSTableView
   end
 
   def selectRow(row)
-    if row
+    if row && row > -1 && row < numberOfRows
       selectRowIndexes(NSIndexSet.indexSetWithIndex(row), byExtendingSelection:false)
-    else
-      deselectAll(nil)
+      scrollRowToVisible(row)
     end
   end
   
