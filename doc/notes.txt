@@ -16,6 +16,8 @@ Features
 - Add "Show in Manifest" and "Show in Spine" to context menu
 - Guide generation
 
+- Show icon in spine indicating item is cover, toc, titlepage, etc.
+
 - Add plus/minus buttons for Navigation points
 - Add plus/minus buttons for Spine items
 

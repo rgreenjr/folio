@@ -11,6 +11,7 @@ class SpineController < NSViewController
     menu.addActionWithSeparator("Add to Navigation", "addSelectedItemsToNavigation:", self)
     menu.addAction("Delete", "deleteSelectedItems:", self)
     @tableView.menu = menu
+    @tableView.tableColumns.first.dataCell = ImageCell.new
     @tableView.delegate = self
     @tableView.dataSource = self
     @tableView.registerForDraggedTypes([NSStringPboardType])
@@ -61,6 +62,11 @@ class SpineController < NSViewController
     newIndexes = Array.new(items.size, rowIndex)
     moveItems(items, newIndexes)
     true
+  end
+
+  def tableView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, row:row)
+    cell.font = NSFont.systemFontOfSize(11.0)
+    cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(spine[row].name))
   end
 
   def tableView(tableView, rowForItem:item)
