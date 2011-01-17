@@ -1,10 +1,7 @@
 Bugs
 ====
 
-- Figure out path problems
 - Select Prev/Next Item affecting last view (give up focus on source highlight style tables?)
-
-
 
 - Navigation should check for inclusion of objects prior to deleting
 - Fix undo delete of nested navigation points
@@ -40,7 +37,7 @@ Enhancements
 - Highlight entire line of XML validation errors
 - Perform background scan of XML for linkable elements
 - Drag and drop of directories into Manifest
-
+- Preference: source view font and size
 
 Refactoring
 ===========
