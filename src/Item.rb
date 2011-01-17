@@ -52,27 +52,27 @@ class Item
   end
 
   def editable?
-    %w{application/xml application/xhtml+xml text/css application/x-dtbncx+xml}.include?(@mediaType)
+    Media.editable?(@mediaType)
   end
 
   def renderable?
-    %w{application/xml application/xhtml+xml image/jpeg image/png image/gif image/svg+xml text/css}.include?(@mediaType)
+    Media.renderable?(@mediaType)
   end
   
   def imageable?
-    %w{image/jpeg image/png image/gif image/svg+xml}.include?(@mediaType)
+    Media.imageable?(@mediaType)
   end
   
   def flowable?
-    %w{application/xml application/xhtml+xml}.include?(@mediaType)
+    Media.flowable?(@mediaType)
   end
   
   def formatable?
-    %w{application/xml application/xhtml+xml}.include?(@mediaType)
+    Media.formatable?(@mediaType)
   end
 
   def ncx?
-    @mediaType == "application/x-dtbncx+xml"
+    Media.ncx?(@mediaType)
   end
 
   def directory?

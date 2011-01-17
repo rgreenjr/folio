@@ -28,4 +28,28 @@ class Media
     TYPE_HASH.values.sort
   end
   
+  def self.editable?(mediaType)
+    %w{application/xml application/xhtml+xml text/css application/x-dtbncx+xml}.include?(mediaType)
+  end
+  
+  def self.renderable?(mediaType)
+    %w{application/xml application/xhtml+xml image/jpeg image/png image/gif image/svg+xml text/css}.include?(mediaType)
+  end
+  
+  def self.imageable?(mediaType)
+    %w{image/jpeg image/png image/gif image/svg+xml image/tiff}.include?(mediaType)
+  end
+  
+  def self.flowable?(mediaType)
+    %w{application/xml application/xhtml+xml}.include?(mediaType)
+  end
+  
+  def self.formatable?(mediaType)
+    %w{application/xml application/xhtml+xml}.include?(mediaType)
+  end
+
+  def self.ncx?(mediaType)
+    mediaType == "application/x-dtbncx+xml"
+  end
+
 end
