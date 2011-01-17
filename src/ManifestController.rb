@@ -153,7 +153,7 @@ class ManifestController < NSViewController
     panel.setPrompt("Select")
     panel.setAllowsMultipleSelection(true)
     panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window,
-        modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
   def addFilesSheetDidEnd(openPanel, returnCode:code, contextInfo:info)
@@ -222,9 +222,9 @@ class ManifestController < NSViewController
 
   def showDeleteSelectedItemsSheet(sender)
     alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected items? Any references will be removed from the Navigation and Spine.",
-        defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"You can't undo this action.")
+    defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"You can't undo this action.")
     alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self,
-        didEndSelector:"deleteSelectedItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    didEndSelector:"deleteSelectedItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
   def deleteSelectedItemsSheetDidEnd(panel, returnCode:code, contextInfo:info)
@@ -284,10 +284,10 @@ class ManifestController < NSViewController
     else
       relativePaths = @unregistered.map {|entry| @book.relativePathFor(entry) }
       alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.",
-          defaultButton:"Move to Trash", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
+      defaultButton:"Move to Trash", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
 
       alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self,
-          didEndSelector:"deleteUnregisteredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+      didEndSelector:"deleteUnregisteredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     end
   end
 
@@ -360,7 +360,9 @@ class ManifestController < NSViewController
       @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
       nameCell.stringValue = item.name
       idCell.stringValue = item.id
-      @bookController.tabViewController.addObject(item)
+      if item.renderable?
+        @bookController.tabViewController.addObject(item)        
+      end
     else
       propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
       @mediaTypePopUpButton.selectItemWithTitle('')
