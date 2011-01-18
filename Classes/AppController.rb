@@ -13,5 +13,11 @@ class AppController
     end
     true
   end
+  
+  def showPreferencesWindow(sender)
+    @preferencesController ||= PreferencesController.alloc.init
+    @preferencesController.window
+    @preferencesController.showWindow
+  end
 
 end

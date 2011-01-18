@@ -407,13 +407,13 @@
 				CD2D17C112E5F1DB00D6A99A /* Manifest.xib */,
 				CD2D17C212E5F1DB00D6A99A /* Metadata.xib */,
 				CD2D17C312E5F1DB00D6A99A /* Navigation.xib */,
+				CDDBEC7F12E6107000633F22 /* Preferences.xib */,
 				CD2D17C412E5F1DB00D6A99A /* Progress.xib */,
 				CD2D17C512E5F1DC00D6A99A /* Search.xib */,
 				CD2D17C612E5F1DC00D6A99A /* SourceView.xib */,
 				CD2D17C712E5F1DC00D6A99A /* Spine.xib */,
 				CD2D17C812E5F1DC00D6A99A /* TabView.xib */,
 				CD2D17C912E5F1DC00D6A99A /* WebView.xib */,
-				CDDBEC7F12E6107000633F22 /* Preferences.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
