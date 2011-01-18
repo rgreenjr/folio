@@ -55,13 +55,10 @@ class Language
     ["id", "Indonesian"],
     ["ie", "Interlingue"],
     ["ik", "Inupiak"],
-    ["in", "former Indonesian"],
     ["is", "Icelandic"],
     ["it", "Italian"],
     ["iu", "Inuktitut (Eskimo)"],
-    ["iw", "former Hebrew"],
     ["ja", "Japanese"],
-    ["ji", "former Yiddish"],
     ["jw", "Javanese"],
     ["ka", "Georgian"],
     ["kk", "Kazakh"],
@@ -92,7 +89,6 @@ class Language
     ["nl", "Dutch"],
     ["no", "Norwegian"],
     ["oc", "Occitan"],
-    ["om", "(Afan) Oromo"],
     ["or", "Oriya"],
     ["pa", "Punjabi"],
     ["pl", "Polish"],
@@ -163,7 +159,7 @@ class Language
   end
   
   def self.names
-    NAMES.keys
+    @names ||= NAMES.keys.sort
   end
 
 end
