@@ -9,7 +9,7 @@ class Media
     "jpg"   => "image/jpeg",
     "jpeg"  => "image/jpeg",
     "png"   => "image/png",
-    "otf"   => "font/otf",
+    "otf"   => "font/opentype",
     "pdf"   => "application/pdf",
     "svg"   => "image/svg+xml",
     "tif"   => "image/tiff",
