@@ -6,7 +6,7 @@ class PreferencesController < NSWindowController
 
   def showWindow
     window.center
-    window.orderFront(self)
+    window.makeKeyAndOrderFront(self)
   end
   
   
