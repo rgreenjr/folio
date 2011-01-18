@@ -1,5 +1,5 @@
 class NSURL
   def remote?
-    scheme != 'file'
+    scheme != nil && scheme != 'file'
   end  
 end
