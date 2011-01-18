@@ -152,6 +152,9 @@
 		CD2D18A512E5F46600D6A99A /* Folio.icns in Resources */ = {isa = PBXBuildFile; fileRef = CD2D18A412E5F46600D6A99A /* Folio.icns */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
+		CDDBEC8012E6107000633F22 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC7F12E6107000633F22 /* Preferences.xib */; };
+		CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC8312E6116600633F22 /* PreferencesController.rb */; };
+		CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC9612E611F800633F22 /* preferences-general.tiff */; };
 		CDE105F612DFA58000E1518B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE105F512DFA58000E1518B /* QuartzCore.framework */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
@@ -285,6 +288,9 @@
 		CD2D18A412E5F46600D6A99A /* Folio.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Folio.icns; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
+		CDDBEC7F12E6107000633F22 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		CDDBEC8312E6116600633F22 /* PreferencesController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PreferencesController.rb; sourceTree = "<group>"; };
+		CDDBEC9612E611F800633F22 /* preferences-general.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "preferences-general.tiff"; sourceTree = "<group>"; };
 		CDE105F512DFA58000E1518B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
@@ -407,6 +413,7 @@
 				CD2D17C712E5F1DC00D6A99A /* Spine.xib */,
 				CD2D17C812E5F1DC00D6A99A /* TabView.xib */,
 				CD2D17C912E5F1DC00D6A99A /* WebView.xib */,
+				CDDBEC7F12E6107000633F22 /* Preferences.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
@@ -414,6 +421,7 @@
 		CD2D17D712E5F1F800D6A99A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
 				CD2D17D812E5F1F800D6A99A /* Alert.rb */,
 				CD2D17D912E5F1F800D6A99A /* AppController.rb */,
 				CD2D17DA12E5F1F800D6A99A /* Async.rb */,
@@ -475,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				CD2D18A412E5F46600D6A99A /* Folio.icns */,
+				CDDBEC9612E611F800633F22 /* preferences-general.tiff */,
 				CD2D185512E5F28500D6A99A /* backgroud-logo.png */,
 				CD2D185612E5F28500D6A99A /* book.png */,
 				CD2D185712E5F28500D6A99A /* find-close-click.png */,
@@ -689,6 +698,9 @@
 				CD2D189612E5F2BF00D6A99A /* content.opf.erb in Resources */,
 				CD2D189712E5F2BF00D6A99A /* toc.ncx.erb in Resources */,
 				CD2D18A512E5F46600D6A99A /* Folio.icns in Resources */,
+				CDDBEC8012E6107000633F22 /* Preferences.xib in Resources */,
+				CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */,
+				CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

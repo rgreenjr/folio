@@ -43,3 +43,5 @@ Refactoring
 ===========
 
 - Use "box" in view placeholder names
+
+- Change Editor Orientation to Layout
