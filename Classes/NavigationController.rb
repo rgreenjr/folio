@@ -2,11 +2,16 @@ class NavigationController < NSViewController
 
   attr_accessor :bookController, :outlineView, :propertiesForm, :headerView
 
-  def init
+  def initWithBookController(bookController)
     initWithNibName("Navigation", bundle:nil)
+    @bookController = bookController
+    @navigation = @bookController.document.navigation
+    self
   end
 
   def awakeFromNib
+    @headerView.title = "Navigation"
+
     menu = NSMenu.alloc.initWithTitle("")
     menu.addAction("New Point...", "newPoint:", self)
     menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
@@ -18,35 +23,26 @@ class NavigationController < NSViewController
     @outlineView.dataSource = self
     @outlineView.registerForDraggedTypes([NSStringPboardType])
     @outlineView.reloadData
-
-    @headerView.title = "Navigation"
-
+    
     displaySelectedPointProperties
-  end
-
-  def book=(book)
-    # @bookController.tabViewController.addObject(nil)
-    @book = book
-    @outlineView.reloadData
-    displaySelectedPointProperties
-    exapndRootPoint
+    # exapndRootPoint
   end
 
   def exapndRootPoint
-    @outlineView.expandItem(@book.navigation.root[0]) if @book && @book.navigation.root.size > 0
+    @outlineView.expandItem(@navigation.root[0]) if @navigation.root.size > 0
   end
 
   def selectedPoint
-    @outlineView.selectedRow == -1 ? nil : @book.navigation[@outlineView.selectedRow]
+    @outlineView.selectedRow == -1 ? nil : @navigation[@outlineView.selectedRow]
   end
 
   def selectedPoints
-    @outlineView.selectedRowIndexes.map { |index| @book.navigation[index] }
+    @outlineView.selectedRowIndexes.map { |index| @navigation[index] }
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:point)
-    return 0 unless @outlineView.dataSource && @book # guard against SDK bug
-    point ? point.size : @book.navigation.root.size
+    return 0 unless @outlineView.dataSource # guard against SDK bug
+    point ? point.size : @navigation.root.size
   end
 
   def outlineView(outlineView, isItemExpandable:point)
@@ -54,7 +50,7 @@ class NavigationController < NSViewController
   end
 
   def outlineView(outlineView, child:index, ofItem:point)
-    point ? point[index] : @book.navigation.root[index]
+    point ? point[index] : @navigation.root[index]
   end
 
   def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:point)
@@ -92,13 +88,13 @@ class NavigationController < NSViewController
     return NSDragOperationNone unless info.draggingSource == @outlineView
     operation = NSDragOperationNone
     load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |id|
-      point = @book.navigation.pointWithId(id)
+      point = @navigation.pointWithId(id)
       if parent
         operation = !point.ancestor?(parent) ? NSDragOperationMove : NSDragOperationNone
-      elsif @book.navigation.root.size == 1 && point == @book.navigation.root[0]
+      elsif @navigation.root.size == 1 && point == @navigation.root[0]
         operation = NSDragOperationNone
       else
-        index = @book.navigation.root.index(point)
+        index = @navigation.root.index(point)
         operation = index.nil? || index != childIndex ? NSDragOperationMove : NSDragOperationNone
       end
     end
@@ -106,9 +102,9 @@ class NavigationController < NSViewController
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    parent = @book.navigation.root unless parent
+    parent = @navigation.root unless parent
     plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-    points = plist.map { |id| @book.navigation.pointWithId(id) }
+    points = plist.map { |id| @navigation.pointWithId(id) }
     newParents = Array.new(points.size, parent)
     newIndexes = Array.new(points.size, childIndex)
     movePoints(points, newIndexes, newParents)
@@ -119,10 +115,10 @@ class NavigationController < NSViewController
     oldParents = []
     oldIndexes = []
     points.each_with_index do |point, i|
-      index, parent = @book.navigation.indexAndParent(point)
+      index, parent = @navigation.indexAndParent(point)
       oldIndexes << index
       oldParents << parent
-      @book.navigation.move(point, newIndexes[i], newParents[i])
+      @navigation.move(point, newIndexes[i], newParents[i])
     end
 
     undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldIndexes.reverse, oldParents.reverse)
@@ -148,7 +144,7 @@ class NavigationController < NSViewController
   def newPointsFromItems(items)
     points = items.map do |item|
       point = Point.new(item, item.name)
-      [point, -1, @book.navigation.root]
+      [point, -1, @navigation.root]
     end
     addPoints(points)
   end
@@ -156,7 +152,7 @@ class NavigationController < NSViewController
   def addPoints(points, newIndexes, newParents)
     points.each_with_index do |point, i|
       puts "adding #{point.text}, index = #{newIndexes[i]}, parent = #{newParents[i].text}"
-      @book.navigation.insert(point, newIndexes[i], newParents[i])
+      @navigation.insert(point, newIndexes[i], newParents[i])
     end
 
     undoManager.prepareWithInvocationTarget(self).deletePoints(points, true, 0)
@@ -172,7 +168,7 @@ class NavigationController < NSViewController
   end
 
   def duplicatePoint(point)
-    clone = @book.navigation.duplicate(point)
+    clone = @navigation.duplicate(point)
     undoManager.prepareWithInvocationTarget(self).deletePoints([clone])
     undoManager.actionName = "Duplicate Point"
     reloadDataAndSelectPoints([clone])
@@ -196,13 +192,13 @@ class NavigationController < NSViewController
     indexes = []
     parents = []
     points.each do |point|
-      index, parent = @book.navigation.indexAndParent(point)
+      index, parent = @navigation.indexAndParent(point)
       indexes << index
       if parent
         parents << parent
         indent = "   " * level
         puts "#{indent}deleting #{point.text}, parent = #{parent.text}, index = #{index}"
-        @book.navigation.delete(point)
+        @navigation.delete(point)
       else
         raise "unable to delete parentless point #{point.text}, index = #{index}"
       end
@@ -221,7 +217,7 @@ class NavigationController < NSViewController
   end
 
   def deletePointsReferencingItem(item)
-    points = @book.navigation.select { |point| point.item == item }
+    points = @navigation.select { |point| point.item == item }
     deletePoints(points, false)
   end
 
@@ -244,7 +240,7 @@ class NavigationController < NSViewController
   # TODO need to check for collisions and dehash/hash
   def changePointID(point, id)
     return unless point.id != id
-    if oldID = @book.navigation.changePointId(point, id)
+    if oldID = @navigation.changePointId(point, id)
       undoManager.prepareWithInvocationTarget(self).changePointID(point, point.id)
       undoManager.actionName = "Change Point ID"
     else
@@ -256,7 +252,7 @@ class NavigationController < NSViewController
   def changePointSource(point, src)
     return unless point.src != src
     href, fragment = src.split('#')
-    item = @book.manifest.itemWithHref(href)
+    item = @bookController.manifest.itemWithHref(href)
     if item
       undoManager.prepareWithInvocationTarget(self).changePointSource(point, point.src)
       undoManager.actionName = "Change Point Source"

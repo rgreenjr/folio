@@ -5,8 +5,11 @@ class MetadataController < NSWindowController
   attr_accessor :descriptionField, :creatorField, :sortCreatorField, :publisherField
   attr_accessor :subjectField, :rightsField
 
-  def init
+  def initWithBookController(bookController)
     initWithWindowNibName("Metadata")
+    @bookController = bookController
+    @metadata = @bookController.document.metadata
+    self
   end
 
   def windowDidLoad
@@ -24,7 +27,7 @@ class MetadataController < NSWindowController
     displayAttribute('publisher')
     displayAttribute('subject')
     displayAttribute('rights')
-    @languagePopup.selectItemWithTitle(Language.name_for(metadata.language))
+    @languagePopup.selectItemWithTitle(Language.name_for(@metadata.language))
     displayCoverImage
     NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
   end
@@ -40,7 +43,7 @@ class MetadataController < NSWindowController
     changeAttribute('publisher')
     changeAttribute('subject')
     changeAttribute('rights')
-    metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
+    @metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
     changeCoverImage
     @bookController.document.updateChangeCount(NSSaveOperation)
   end
@@ -50,13 +53,9 @@ class MetadataController < NSWindowController
     window.orderOut(sender)
   end
 
-  def metadata
-    @bookController.document.metadata
-  end
-
   def displayCoverImage
-    if metadata.cover
-      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(metadata.cover.path)
+    if @metadata.cover
+      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@metadata.cover.path)
     else
       @coverImageView.image = noCoverImage
     end
@@ -95,7 +94,7 @@ class MetadataController < NSWindowController
     item = @bookController.document.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
     @bookController.manifestController.deleteItems([item]) if item
     item = @bookController.manifestController.addFile(@stashedImagePath)
-    metadata.cover = item if item
+    @metadata.cover = item if item
     displayCoverImage
   end
 
@@ -104,13 +103,13 @@ class MetadataController < NSWindowController
   end
 
   def displayAttribute(attribute)
-    value = metadata.send(attribute) || ''
+    value = @metadata.send(attribute) || ''
     eval("@#{attribute}Field.stringValue = value")
   end
 
   def changeAttribute(attribute)
     value = eval("@#{attribute}Field.stringValue")
-    metadata.send("#{attribute}=", value)
+    @metadata.send("#{attribute}=", value)
   end
 
 end

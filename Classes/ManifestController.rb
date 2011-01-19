@@ -2,11 +2,16 @@ class ManifestController < NSViewController
 
   attr_accessor :bookController, :outlineView, :propertiesForm, :mediaTypePopUpButton, :headerView
 
-  def init
+  def initWithBookController(bookController)
     initWithNibName("Manifest", bundle:nil)
+    @bookController = bookController
+    @manifest = @bookController.document.manifest
+    self
   end
 
   def awakeFromNib
+    @headerView.title = "Manifest"
+
     # configure popup menu
     menu = NSMenu.alloc.initWithTitle("")
     menu.addAction("Add Files...", "showAddFilesSheet:", self)
@@ -25,32 +30,25 @@ class ManifestController < NSViewController
     # configure media types popup button
     Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
 
-    @headerView.title = "Manifest"
-
     displaySelectedItemProperties
   end
 
-  def book=(book)
-    @book = book
-    @outlineView.reloadData
-  end
-
   def selectedItem
-    @outlineView.selectedRow == -1 ? nil : @book.manifest[@outlineView.selectedRow]
+    @outlineView.selectedRow == -1 ? nil : @manifest[@outlineView.selectedRow]
   end
 
   def selectedItems
-    @outlineView.selectedRowIndexes.map { |index| @book.manifest[index] }
+    @outlineView.selectedRowIndexes.map { |index| @manifest[index] }
   end
 
   def selectedItemParentAndChildIndex
     item = selectedItem
-    item ? [item.parent, item.parent.index(item)] : [@book.manifest.root, -1]
+    item ? [item.parent, item.parent.index(item)] : [@manifest.root, -1]
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:item)
-    return 0 unless @outlineView.dataSource && @book # guard against SDK bug
-    item ? item.size : @book.manifest.root.size
+    return 0 unless @outlineView.dataSource # guard against SDK bug
+    item ? item.size : @manifest.root.size
   end
 
   def outlineView(outlineView, isItemExpandable:item)
@@ -58,7 +56,7 @@ class ManifestController < NSViewController
   end
 
   def outlineView(outlineView, child:index, ofItem:item)
-    item ? item[index] : @book.manifest.root[index]
+    item ? item[index] : @manifest.root[index]
   end
 
   def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:item)
@@ -97,8 +95,8 @@ class ManifestController < NSViewController
     if info.draggingSource == @outlineView
       hrefs = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
       hrefs.each do |href|
-        item = @book.manifest.itemWithHref(href)
-        if (!parent && item.parent == @book.manifest.root) || (parent && (!parent.directory? || parent.ancestor?(item)))
+        item = @manifest.itemWithHref(href)
+        if (!parent && item.parent == @manifest.root) || (parent && (!parent.directory? || parent.ancestor?(item)))
           return NSDragOperationNone
         end
       end
@@ -114,12 +112,12 @@ class ManifestController < NSViewController
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    parent = @book.manifest.root unless parent
+    parent = @manifest.root unless parent
     return false unless parent.directory?
     items = []
     if @outlineView == info.draggingSource
       hrefs = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-      items = hrefs.map { |href| @book.manifest.itemWithHref(href) }
+      items = hrefs.map { |href| @manifest.itemWithHref(href) }
       newParents = Array.new(items.size, parent)
       newIndexes = Array.new(items.size, childIndex)
       moveItems(items, newParents, newIndexes)
@@ -160,7 +158,7 @@ class ManifestController < NSViewController
     items = []
     collisionFilenames = []
     filepaths.each do |path|
-      item = @book.manifest.addFile(path, parent, childIndex)
+      item = @manifest.addFile(path, parent, childIndex)
       if item
         items << item
       else
@@ -199,7 +197,7 @@ class ManifestController < NSViewController
     items.each_with_index do |item, i|
       oldParents << item.parent
       oldIndexes << item.parent.index(item)
-      @book.manifest.move(item, newIndexes[i], newParents[i])
+      @manifest.move(item, newIndexes[i], newParents[i])
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldParents.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
@@ -228,7 +226,7 @@ class ManifestController < NSViewController
       @bookController.tabViewController.removeObject(item)
       @bookController.spineController.deleteItem(item, false)
       @bookController.navigationController.deletePointsReferencingItem(item)
-      @book.manifest.delete(item)
+      @manifest.delete(item)
     end
     reloadDataAndSelectItems(nil)
     markBookEdited
@@ -241,7 +239,7 @@ class ManifestController < NSViewController
   def markAsCover(sender)
     item = selectedItem
     return unless item && !item.directory?
-    @book.metadata.cover = item
+    @bookController.document.metadata.cover = item
     markBookEdited
   end
 
@@ -255,7 +253,7 @@ class ManifestController < NSViewController
       name = "New Directory #{i}"
     end
     item = Item.new(parent, name, nil, "directory")
-    @book.manifest.insert(index, item, parent)
+    @manifest.insert(index, item, parent)
     reloadDataAndSelectItems([item])
     markBookEdited
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)
@@ -263,18 +261,18 @@ class ManifestController < NSViewController
 
   def showUnregisteredFilesSheet
     ignore = %w{META-INF/container.xml mimetype}
-    ignore = ignore.map { |item| "#{@book.unzipPath}/#{item}" }
-    ignore << @book.container.opfPath
-    ignore << @book.manifest.ncx.path
+    ignore = ignore.map { |item| "#{@bookController.document.unzipPath}/#{item}" }
+    ignore << @bookController.document.container.opfPath
+    ignore << @manifest.ncx.path
     @unregistered = []
-    Dir.glob("#{@book.unzipPath}/**/*").each do |entry|
+    Dir.glob("#{@bookController.document.unzipPath}/**/*").each do |entry|
       next if ignore.include?(entry) || File.directory?(entry)
-      @unregistered << entry unless @book.manifest.itemWithHref(entry)
+      @unregistered << entry unless @manifest.itemWithHref(entry)
     end
     if @unregistered.empty?
       @bookController.runModalAlert("All files are registered in the book's manifest.")
     else
-      relativePaths = @unregistered.map {|entry| @book.relativePathFor(entry) }
+      relativePaths = @unregistered.map {|entry| @bookController.document.relativePathFor(entry) }
       alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.",
       defaultButton:"Move to Trash", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
 
@@ -338,7 +336,7 @@ class ManifestController < NSViewController
   private
 
   def reloadDataAndSelectItems(items)
-    @book.manifest.sort
+    @manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
     displaySelectedItemProperties

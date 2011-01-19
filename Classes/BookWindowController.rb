@@ -99,26 +99,21 @@ class BookWindowController < NSWindowController
   end
 
   def showMetadataPanel(sender)
-    @metadataController ||= MetadataController.alloc.init
-    @metadataController.bookController = self
+    @metadataController ||= MetadataController.alloc.initWithBookController(self)
     @metadataController.showMetadataSheet(self)
   end
 
   def navigationController
-    @navigationController ||= configViewController(NavigationController)
+    @navigationController ||= NavigationController.alloc.initWithBookController(self)
   end
 
   def spineController
-    @spineController ||= configViewController(SpineController)
+    @spineController ||= SpineController.alloc.initWithBookController(self)
   end
 
   def manifestController
-    @manifestController ||= configViewController(ManifestController)
+    @manifestController ||= ManifestController.alloc.initWithBookController(self)
   end
-
-  # def searchController
-  #   @searchController ||= configViewController(SearchController)
-  # end
 
   def showNavigationView(sender)
     changeSelectionView(navigationController)
@@ -162,14 +157,6 @@ class BookWindowController < NSWindowController
   end
 
   private
-  
-  def configViewController(controller_klass)
-    controller = controller_klass.alloc.init    
-    controller.loadView
-    controller.book = document
-    makeResponder(controller)
-    controller
-  end
 
   def changeSelectionView(controller)
     if @seletionView.subviews.empty?
