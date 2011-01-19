@@ -4,7 +4,7 @@
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
     <dc:title><%= book.metadata.title.escapeHTML %></dc:title>
     <dc:language><%= book.metadata.language.escapeHTML %></dc:language>
-    <dc:identifier id="bookid" opf:scheme="ISBN"><%= book.metadata.identifier.escapeHTML %></dc:identifier>
+    <dc:identifier id="BookId" opf:scheme="ISBN"><%= book.metadata.identifier.escapeHTML %></dc:identifier>
     <dc:creator opf:file-as="<%= book.metadata.sortCreator.escapeHTML %>" opf:role="aut"><%= book.metadata.creator.escapeHTML %></dc:creator>
     <dc:date opf:event="publication"><%= book.metadata.date.escapeHTML %></dc:date>
     <dc:subject><%= book.metadata.subject.escapeHTML %></dc:subject>
