@@ -17,9 +17,28 @@
   </docAuthor>
 
   <navMap>
-  <% navigation.root.each do |point| %>
-    <%= point.to_xml %>
+  <% stack = [] %>
+  <% navigation.root.each { |point| stack << point } %>
+  <% playOrder = 0 %>
+  <% while stack.size > 0 %>
+    <% point = stack[0] %>
+    <% if point != :visited %>
+      <navPoint id="<%= point.id.escapeHTML %>" playOrder="<%= playOrder += 1 %>">
+        <navLabel>
+          <text><%= point.text.escapeHTML %></text>
+        </navLabel>
+	    <content src="<%= point.src.escapeHTML %>"/>
+      <% stack.insert(0, :visited) %>
+      <% point.children.each_with_index { |child, index| stack.insert(index, child) } %>
+    <% else %>
+      <% stack.shift %>
+      <% point = stack.shift %>
+      </navPoint>
+    <% end %>
   <% end %>
   </navMap>
 
 </ncx>
+
+
+

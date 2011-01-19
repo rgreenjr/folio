@@ -88,20 +88,6 @@ class Point
     "@id = #{@id}, @text = #{@text}, @item = #{@item.name}, @expanded = #{@expanded}"
   end
   
-  def to_xml(indent=1)
-    buffer = ""
-    padding = "  " * indent
-    buffer << "#{padding}<navPoint id=\"#{@id}\" playOrder=\"#{@playOrder}\">\n"
-    buffer << "#{padding}  <navLabel>\n"
-    buffer << "#{padding}    <text>#{@text.escapeHTML}</text>\n"
-    buffer << "#{padding}  </navLabel>\n"
-    buffer << "#{padding}  <content src=\"#{src.escapeHTML}\"/>\n"
-    @children.each do |p|
-      buffer << p.to_xml(indent + 1)
-    end
-    buffer << "#{padding}</navPoint>\n"
-  end
-
   def name
     @item.name
   end
