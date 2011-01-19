@@ -1,6 +1,7 @@
 Bugs
 ====
 
+- Fix broken Edit > Delete menu action.
 - Fix undo delete of nested navigation points
 - Navigation should check for inclusion of objects prior to deleting
 - Update Navigation view on modification

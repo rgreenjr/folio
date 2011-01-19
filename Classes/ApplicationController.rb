@@ -2,7 +2,6 @@ class ApplicationController
   
   # Attempts to open most recent document, otherwise returns true.
   def applicationShouldOpenUntitledFile(application)
-    puts applicationName
     controller = NSDocumentController.sharedDocumentController
     recentURLs = controller.recentDocumentURLs
     unless recentURLs.empty?

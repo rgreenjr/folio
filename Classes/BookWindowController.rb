@@ -146,10 +146,10 @@ class BookWindowController < NSWindowController
   end
 
   def validate(sender)
-    # showProgressWindow("Validating...") do
-    #   result = Validator.validate(@book)
-    #   puts result
-    # end
+    showProgressWindow("Validating...") do
+      result = Validator.validate(@book)
+      puts result
+    end
   end
   
   def runModalAlert(messageText, informativeText='')

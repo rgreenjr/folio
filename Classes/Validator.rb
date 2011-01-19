@@ -2,20 +2,25 @@ class Validator
 
   def self.validate(book)
     tmpdir = Dir.mktmpdir("folio-validation-")
-    epub_filepath = "#{tmpdir}/#{book.fileURL.path.lastPathComponent}"
-    book.saveAs(epub_filepath)
+    epubFilepath = File.join(tmpdir, "book.epub")
+    epubFilepath = "/Users/rgreen/Downloads/The Shallows_ What the Internet is Doing to Our Brains.epub"
     
-    prefix = "#{NSBundle.mainBundle.bundlePath}/Contents/Resources/lib/epubcheck"
-    lib_path = "#{prefix}/lib/saxon.jar:#{prefix}/lib/jigsaw.jar"
-    jar_path = "#{prefix}/epubcheck-1.1.jar"
+    puts epubFilepath
     
-    result = `java -jar "#{jar_path}" -classpath "#{lib_path}" "#{epub_filepath}" 2>&1`
+    # `open #{tmpdir}`    
+    # error = Pointer.new(:id)
+    # book.writeToURL(epubFilepath, ofType:nil, error:error)
 
-    result = result.gsub(epub_filepath, '')
-    
-    puts result
+    libDir  = File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/lib/epubcheck/")    
+    command = "cd \"#{libDir}\"; java -jar epubcheck-1.1.jar \"#{epubFilepath}\""
+    puts command
+    result = `#{command} 2>&1`
+    result = result.gsub(epubFilepath, '')
     FileUtils.rm_rf(tmpdir)
     result
   end
 
 end
+
+
+
