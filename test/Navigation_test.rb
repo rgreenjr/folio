@@ -32,5 +32,11 @@ class NavigationTest < Test::Unit::TestCase
     assert_equal("navPoint-9", point.id)
     assert_equal("Text/The_Fall_of_-e_Roman_Empire_split_008.html#heading_id_4", point.src)
   end
+
+  # need to figure out way to get NSBundle to load files from here
+  # def test_save
+  #   @book.navigation.save("/Users/rgreen/Desktop")
+  #   true
+  # end
   
 end
