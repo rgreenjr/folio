@@ -153,7 +153,8 @@ class Navigation
   end
 
   def save(directory)
-    File.open("#{directory}/#{@ncx_name}", 'w') {|f| f.write(to_xml)}
+    filepath = File.join(directory, @ncx_name)
+    File.open(filepath, 'w') {|f| f.write(to_xml)}
   end
 
   def to_xml
