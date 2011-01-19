@@ -141,7 +141,7 @@ class BookWindowController < NSWindowController
   end
 
   def showTemporaryDirectory(sender)
-    system("open \"#{document.unzipPath}\"")
+    NSTask.launchedTaskWithLaunchPath("/usr/bin/open", arguments:[document.unzipPath])
   end
 
   def showProgressWindow(title, &block)
