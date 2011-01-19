@@ -233,7 +233,7 @@ class ManifestController < NSViewController
   end
 
   def addSelectedItemsToSpine(sender)
-    @book.controller.addItemsToSpine(selectedItems)
+    @bookController.addItemsToSpine(selectedItems)
   end
 
   def markAsCover(sender)
