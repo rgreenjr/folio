@@ -1,16 +1,25 @@
 class TabViewController < NSViewController
 
-  HORIZONTAL_ORIENTATION_TAG = 0
-  VERTICAL_ORIENTATION_TAG   = 1
+  HORIZONTAL_ORIENTATION_TAG   = 0
+  VERTICAL_ORIENTATION_TAG     = 1
   SPLIT_VIEW_MINIMUM_POSITION  = 50
+
+  VIEW_MODE_WEB  = 0
+  VIEW_MODE_TEXT = 1
+  VIEW_MODE_DUAL = 2
 
   attr_accessor :bookController, :textViewController, :webViewController
   attr_accessor :splitView, :splitViewSegementedControl, :renderImageView
+  attr_accessor :viewMode
 
   def awakeFromNib
+    @viewMode = VIEW_MODE_DUAL
     view.delegate = self
     @splitView.delegate = self
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
+    NSNotificationCenter.defaultCenter.addObserver(self, 
+        selector:('textDidChange:'), 
+        name:NSTextStorageDidProcessEditingNotification, 
+        object:@textViewController.view.textStorage)
   end
 
   def textDidChange(notification)
@@ -28,7 +37,7 @@ class TabViewController < NSViewController
         @renderImageView.image = nil
         @textViewController.item = item
         @webViewController.item = point
-        showWebView
+        showWebView unless @viewMode == VIEW_MODE_TEXT
       else
         @renderImageView.image = nil
         @textViewController.item = item
@@ -87,18 +96,22 @@ class TabViewController < NSViewController
   def showTextViewOnly(sender)
     if @splitView.subviews.size == 2
       hideWebView
+      @viewMode = VIEW_MODE_TEXT
     elsif @splitView.subviews[0] == @webViewController.view
       showTextView
       hideWebView
+      @viewMode = VIEW_MODE_TEXT
     end
   end
 
   def showWebViewOnly(sender)
     if @splitView.subviews.size == 2
       hideTextView
+      @viewMode = VIEW_MODE_WEB
     elsif @splitView.subviews[0] == @textViewController.view.enclosingScrollView
       showWebView
       hideTextView
+      @viewMode = VIEW_MODE_WEB
     end
   end
   
@@ -109,16 +122,9 @@ class TabViewController < NSViewController
       else
         showWebView
       end
+      @viewMode = VIEW_MODE_DUAL
     end
   end
-
-  # def toggleWebView(sender)
-  #   @splitView.subviews.size == 2 ? hideWebView : showWebView
-  # end
-  # 
-  # def toggleTextView(sender)
-  #   @splitView.subviews.size == 2 ? hideTextView : showTextView
-  # end
 
   def showWebView
     if @splitView.subviews.size == 1 && @splitView.subviews[0] != @webViewController.view

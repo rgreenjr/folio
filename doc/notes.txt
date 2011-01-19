@@ -2,8 +2,6 @@ Bugs
 ====
 
 
-- Fix playOrder attribute bug.
-
 - Select Prev/Next Item affecting last view (give up focus on source highlight style tables?)
 
 - Navigation should check for inclusion of objects prior to deleting
