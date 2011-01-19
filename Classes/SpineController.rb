@@ -33,14 +33,6 @@ class SpineController < NSViewController
     @tableView.selectedRowIndexes.map { |index| spine[index] }
   end
 
-  def selectPreviousItem(sender)
-    @tableView.selectRow(@tableView.selectedRow - 1)
-  end
-
-  def selectNextItem(sender)
-    @tableView.selectRow(@tableView.selectedRow + 1)
-  end
-
   def numberOfRowsInTableView(tableView)
     @tableView.dataSource && spine ? spine.size : 0
   end
@@ -151,6 +143,7 @@ class SpineController < NSViewController
   end
 
   def validateUserInterfaceItem(menuItem)
+    return false unless @tableView.window
     case menuItem.action
     when :"addSelectedItemsToNavigation:", :"deleteSelectedItems:", :"delete:"
       @tableView.numberOfSelectedRows > 0

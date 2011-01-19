@@ -44,14 +44,6 @@ class NavigationController < NSViewController
     @outlineView.selectedRowIndexes.map { |index| @book.navigation[index] }
   end
 
-  def selectPreviousItem(sender)
-    @outlineView.selectRow(@outlineView.selectedRow - 1)
-  end
-
-  def selectNextItem(sender)
-    @outlineView.selectRow(@outlineView.selectedRow + 1)
-  end
-
   def outlineView(outlineView, numberOfChildrenOfItem:point)
     return 0 unless @outlineView.dataSource && @book # guard against SDK bug
     point ? point.size : @book.navigation.root.size

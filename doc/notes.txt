@@ -1,13 +1,9 @@
 Bugs
 ====
 
-
 - Select Prev/Next Item affecting last view (give up focus on source highlight style tables?)
-
-- Navigation should check for inclusion of objects prior to deleting
-
 - Fix undo delete of nested navigation points
-
+- Navigation should check for inclusion of objects prior to deleting
 - Update Navigation view on modification
 
 
@@ -15,37 +11,31 @@ Features
 ========
 
 - Navigation: add points
-- Add Navigation, Spine and Manifest icons to toolbar
 - Add Validate icon to toolbar
-- Add Re-Format icon to toolbar
 - ePub validation
 - Add "Show in Manifest" and "Show in Spine" to context menu
-- Guide generation
-
 - Show icon in spine indicating item is cover, toc, titlepage, etc.
-
 - Add plus/minus buttons for Navigation points
 - Add plus/minus buttons for Spine items
+- Guide generation
 
 
 Enhancements
 ============
 
-- Preferences
+- Preference: source view font and size
 - Add view transitions
 - Search filtering of selection views
 - Ability to drag to manifest items to the desktop
 - Add WebView forward/backward buttons
 - Better error handling of ill-formed XML documents
 - Switch TableView and OutlineView to use Source Highlight style
+- Drag and drop of directories into Manifest
 - Highlight entire line of XML validation errors
 - Perform background scan of XML for linkable elements
-- Drag and drop of directories into Manifest
-- Preference: source view font and size
 
 Refactoring
 ===========
 
 - Use "box" in view placeholder names
-
 - Change Editor Orientation to Layout
