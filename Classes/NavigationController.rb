@@ -142,11 +142,10 @@ class NavigationController < NSViewController
   end
 
   def newPointsFromItems(items)
-    points = items.map do |item|
-      point = Point.new(item, item.name)
-      [point, -1, @navigation.root]
-    end
-    addPoints(points)
+    points = items.map { |item| Point.new(item, item.name) }
+    newParents = Array.new(points.size, @navigation.root)
+    newIndexes = Array.new(points.size, -1)
+    addPoints(points, newIndexes, newParents)
   end
 
   def addPoints(points, newIndexes, newParents)

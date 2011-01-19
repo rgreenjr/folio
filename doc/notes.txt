@@ -1,7 +1,6 @@
 Bugs
 ====
 
-- Select Prev/Next Item affecting last view (give up focus on source highlight style tables?)
 - Fix undo delete of nested navigation points
 - Navigation should check for inclusion of objects prior to deleting
 - Update Navigation view on modification
@@ -33,6 +32,7 @@ Enhancements
 - Drag and drop of directories into Manifest
 - Highlight entire line of XML validation errors
 - Perform background scan of XML for linkable elements
+- Add "Select Previous Item" and "Select Next Item" to Navigation menu.
 
 Refactoring
 ===========
