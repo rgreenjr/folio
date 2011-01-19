@@ -12,7 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="300"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1083,7 +1082,7 @@
 				<string key="NSName">_NSMainMenu</string>
 			</object>
 			<object class="NSCustomObject" id="235475599">
-				<string key="NSClassName">AppController</string>
+				<string key="NSClassName">ApplicationController</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -2850,7 +2849,7 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">AppController</string>
+					<string key="className">ApplicationController</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">showPreferencesWindow:</string>
@@ -2865,7 +2864,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/AppController.rb</string>
+						<string key="minorKey">Classes/ApplicationController.rb</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3092,15 +3091,11 @@
 							<string>delete:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
-							<string>selectNextItem:</string>
-							<string>selectPreviousItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3119,8 +3114,6 @@
 							<string>delete:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
-							<string>selectNextItem:</string>
-							<string>selectPreviousItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 						</object>
@@ -3144,14 +3137,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newDirectory:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectNextItem:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectPreviousItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3242,13 +3227,9 @@
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
 							<string>newPoint:</string>
-							<string>selectNextItem:</string>
-							<string>selectPreviousItem:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3265,8 +3246,6 @@
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
 							<string>newPoint:</string>
-							<string>selectNextItem:</string>
-							<string>selectPreviousItem:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3288,14 +3267,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newPoint:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectNextItem:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectPreviousItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

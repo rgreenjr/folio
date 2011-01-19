@@ -185,9 +185,6 @@ class Item
     @image ||= NSImage.alloc.initWithContentsOfFile(path)
   end
 
-  def guessMediaType
-  end
-  
   def markers
     @markerHash.values
   end
@@ -209,7 +206,7 @@ class Item
   end
 
   def scanContentForIDAttributes
-    @async = Async.new do
+    @async = AsyncCommand.new do
       id_links = []
       if flowable?
         REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|

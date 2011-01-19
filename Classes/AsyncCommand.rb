@@ -1,4 +1,4 @@
-class Async
+class AsyncCommand
   def initialize(&block)
     # Each thread gets its own FIFO queue upon which we will dispatch
     # the delayed computation passed in the &block variable.
