@@ -147,7 +147,7 @@ class BookWindowController < NSWindowController
 
   def validate(sender)
     showProgressWindow("Validating...") do
-      result = Validator.validate(@book)
+      result = Validator.validate(document)
       puts result
     end
   end
