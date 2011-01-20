@@ -72,7 +72,7 @@ class WebViewController < NSViewController
       if targetItem.nil?
         listener.ignore
         relativePath = @bookController.document.relativePathFor(request.URL.path)
-        @bookController.runModalAlert("Cannot Open Link", "Please make sure the file is included in the manifest.\n\n#{relativePath}")
+        @bookController.runModalAlert("Could not open \"#{relativePath}\" because it could not be found.")
       elsif @item.name == targetItem.name
         listener.use
       else
