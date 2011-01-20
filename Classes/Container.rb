@@ -1,5 +1,6 @@
 class Container
 
+  EPUB_MEDIA_TYPE              = "application/oebps-package+xml"
   META_INF_DIRECTORY           = "META-INF"
   CONTAINER_XML_NAME           = "container.xml"
   CONTAINER_XML_RELATIVE_PATH  = File.join(META_INF_DIRECTORY, CONTAINER_XML_NAME)
@@ -23,8 +24,7 @@ class Container
 
         doc = REXML::Document.new(File.read(xmlPath))
 
-        @opfPath = doc.root.elements["rootfiles/rootfile"].attributes["full-path"]
-        raise "The #{CONTAINER_XML_RELATIVE_PATH} does not specify an OPF file." unless @opfPath
+        @opfPath = extractRootFilePath(doc)
 
         @relativePath = File.dirname(@opfPath).split('/').last
         @relativePath = '' if @relativePath == '.'
@@ -32,7 +32,7 @@ class Container
 
         @opfPath = File.join(unzipPath, @opfPath)
 
-        raise "The OPF file is missing: #{File.basename(@opfPath)}" unless File.exists?(@opfPath)
+        raise "The #{File.basename(@opfPath)} could not found." unless File.exists?(@opfPath)
         @opfDoc = REXML::Document.new(File.read(@opfPath))
 
       rescue REXML::ParseException => exception
@@ -56,6 +56,15 @@ class Container
   
   def makeAbsolutePath(unzipPath)
     @relativePath == '' ? unzipPath : File.join(unzipPath, @relativePath)
+  end
+  
+  def extractRootFilePath(doc)
+    doc.root.elements.each("/container/rootfiles/rootfile") do |element|
+      if element.attributes["media-type"] == EPUB_MEDIA_TYPE
+        return element.attributes["full-path"]
+      end
+    end
+    raise "The #{CONTAINER_XML_RELATIVE_PATH} does not specify an #{EPUB_MEDIA_TYPE} rendition."
   end
 
 end
