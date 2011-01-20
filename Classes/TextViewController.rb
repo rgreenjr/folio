@@ -1,6 +1,6 @@
 class TextViewController < NSViewController
 
-  attr_accessor :item, :webViewController, :tabViewController, :bookController
+  attr_accessor :item, :webViewController, :tabViewController, :bookController, :lineNumberView
 
   def awakeFromNib
     scrollView = view.enclosingScrollView

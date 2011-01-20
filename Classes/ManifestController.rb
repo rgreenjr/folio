@@ -270,7 +270,7 @@ class ManifestController < NSViewController
       @undeclared << entry unless @manifest.itemWithHref(entry)
     end
     if @undeclared.empty?
-      @bookController.runModalAlert("All files are registered in the book's manifest.")
+      @bookController.runModalAlert("All files are declared in the manifest.")
     else
       relativePaths = @undeclared.map {|entry| @bookController.document.relativePathFor(entry) }
       alert = NSAlert.alertWithMessageText("The following files are present but not declared in the manifest.",
