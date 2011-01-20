@@ -176,7 +176,7 @@ class TextViewController < NSViewController
     end
     tmp.delete
     @lineNumberView.setNeedsDisplay true
-    @bookController.window.makeFirstResponder(view)
+    # @bookController.window.makeFirstResponder(view)
   end
 
   def paragraphSelectedLines(sender)
