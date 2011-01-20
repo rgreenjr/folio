@@ -3,6 +3,8 @@ class TextViewController < NSViewController
   attr_accessor :item, :webViewController, :tabViewController, :bookController, :lineNumberView
 
   def awakeFromNib
+    @textAttributes = { NSFontAttributeName => PreferencesController.sharedPreferencesController.editorFont }  
+
     scrollView = view.enclosingScrollView
     @lineNumberView = LineNumberRuler.alloc.initWithScrollView(scrollView)
     scrollView.verticalRulerView = @lineNumberView
@@ -13,20 +15,31 @@ class TextViewController < NSViewController
     view.delegate = self
     view.setEnabledTextCheckingTypes(0)
 
+    # register to receive preference change notifications
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:('preferencesDidChange:'), name:'PreferencesDidChange', object:nil)
+
     # @highlighter = Highlighter.new(view)
+  end
+  
+  def preferencesDidChange(notification)
+    @textAttributes = { NSFontAttributeName => notification.object.editorFont }
+    self.item = @item # reload item to force font change
   end
 
   def item=(item)
     @item = item    
     if @item && @item.editable?
       @lineNumberView.markerHash = @item.markerHash      
-      attributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
-      string = NSAttributedString.alloc.initWithString(@item.content, attributes:attributes)
+      string = NSAttributedString.alloc.initWithString(@item.content, attributes:@textAttributes)
     else
       @lineNumberView.clearMarkers
       string = NSAttributedString.alloc.initWithString('')
     end
     view.textStorage.attributedString = string
+  end
+  
+  def method_name
+    
   end
   
   def toggleLineNumbers(sender)

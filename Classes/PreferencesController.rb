@@ -1,10 +1,14 @@
 class PreferencesController < NSWindowController
 
-  attr_accessor :fontTextField
+  attr_accessor :fontTextField, :editorFont
+  
+  def self.sharedPreferencesController
+    @sharedPreferencesController ||= PreferencesController.alloc.init
+  end
 
   def init
     initWithWindowNibName("Preferences")
-    @editorFont = NSFont.systemFontOfSize(11.0)
+    @editorFont = NSFont.userFixedPitchFontOfSize(11.0)
     self
   end
 
@@ -35,6 +39,11 @@ class PreferencesController < NSWindowController
 
   def updateFontTextField
     @fontTextField.stringValue = "#{@editorFont.displayName} #{@editorFont.pointSize.to_i} pt."
+    postNotification
+  end
+
+  def postNotification
+    NSNotificationCenter.defaultCenter.postNotificationName('PreferencesDidChange', object:self)
   end
 
 end

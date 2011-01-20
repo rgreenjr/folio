@@ -17,8 +17,7 @@ class ApplicationController
 
   # Loads PreferencesController and orders its window front.
   def showPreferencesWindow(sender)
-    @preferencesController ||= PreferencesController.alloc.init
-    @preferencesController.showWindow(sender)
+    PreferencesController.sharedPreferencesController.showWindow(sender)
   end
 
   # Returns the folder used to store application related support files.
