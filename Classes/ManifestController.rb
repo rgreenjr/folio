@@ -259,31 +259,31 @@ class ManifestController < NSViewController
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)
   end
 
-  def showUnregisteredFilesSheet
+  def showUndeclaredFilesSheet
     ignore = %w{META-INF/container.xml mimetype}
     ignore = ignore.map { |item| "#{@bookController.document.unzipPath}/#{item}" }
     ignore << @bookController.document.container.opfPath
     ignore << @manifest.ncx.path
-    @unregistered = []
+    @undeclared = []
     Dir.glob("#{@bookController.document.unzipPath}/**/*").each do |entry|
       next if ignore.include?(entry) || File.directory?(entry)
-      @unregistered << entry unless @manifest.itemWithHref(entry)
+      @undeclared << entry unless @manifest.itemWithHref(entry)
     end
-    if @unregistered.empty?
+    if @undeclared.empty?
       @bookController.runModalAlert("All files are registered in the book's manifest.")
     else
-      relativePaths = @unregistered.map {|entry| @bookController.document.relativePathFor(entry) }
-      alert = NSAlert.alertWithMessageText("The following files are present but not registered in the book's manifest.",
+      relativePaths = @undeclared.map {|entry| @bookController.document.relativePathFor(entry) }
+      alert = NSAlert.alertWithMessageText("The following files are present but not declared in the manifest.",
       defaultButton:"Move to Trash", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
 
       alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self,
-      didEndSelector:"deleteUnregisteredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+      didEndSelector:"deleteUndeclaredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     end
   end
 
-  def deleteUnregisteredFilesSheetDidEnd(alert, returnCode:code, contextInfo:info)
+  def deleteUndeclaredFilesSheetDidEnd(alert, returnCode:code, contextInfo:info)
     if code == NSAlertDefaultReturn
-      urls = @unregistered.map { |filepath| NSURL.fileURLWithPath(filepath) }
+      urls = @undeclared.map { |filepath| NSURL.fileURLWithPath(filepath) }
       NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:urls, withObject:nil)
       markBookEdited
     end

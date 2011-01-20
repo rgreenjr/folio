@@ -132,7 +132,7 @@ class BookWindowController < NSWindowController
   end
 
   def showUnregisteredFiles(sender)
-    manifestController.showUnregisteredFilesSheet
+    manifestController.showUndeclaredFilesSheet
   end
 
   def showTemporaryDirectory(sender)
