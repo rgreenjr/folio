@@ -4,9 +4,9 @@ class PreferencesController < NSWindowController
     initWithWindowNibName("Preferences")
   end
 
-  def showWindow
+  def showWindow(sender)
+    super
     window.center
-    window.makeKeyAndOrderFront(self)
   end
   
   

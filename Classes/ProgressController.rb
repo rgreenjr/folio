@@ -6,7 +6,7 @@ class ProgressController < NSWindowController
     initWithWindowNibName("Progress")
   end
 
-  def showWindow(title)
+  def showWindowWithTitle(title)
     begin
       @progressText.stringValue = title
       @progressBar.usesThreadedAnimation = true

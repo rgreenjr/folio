@@ -142,7 +142,7 @@ class BookWindowController < NSWindowController
   def showProgressWindow(title, &block)
     @progressController ||= ProgressController.alloc.init
     @progressController.window
-    @progressController.showWindow(title, &block)
+    @progressController.showWindowWithTitle(title, &block)
   end
 
   def validate(sender)
