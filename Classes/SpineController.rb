@@ -57,19 +57,18 @@ class SpineController < NSViewController
     itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
     items = []
     newIndexes = []
-    delta = 0
+    offset = 0
     itemIds.reverse.each do |id|
       item = @spine.itemWithId(id)
       items << item
       oldIndex = @spine.index(item)
       if oldIndex < rowIndex
-        delta += 1
-        newIndexes << rowIndex - delta
+        offset += 1
+        newIndexes << rowIndex - offset
       else
         newIndexes << rowIndex
       end
     end
-    # newIndexes = Array.new(items.size, rowIndex)
     moveItems(items, newIndexes)
     true
   end
@@ -89,7 +88,7 @@ class SpineController < NSViewController
       index = indexes[i]
       @spine.insert(index, item)
     end
-    undoManager.prepareWithInvocationTarget(self).deleteItems(items)
+    undoManager.prepareWithInvocationTarget(self).deleteItems(items, true)
     unless undoManager.isUndoing
       undoManager.actionName = "Add #{pluralize(items.size, "Item")} to Spine"
     end
@@ -140,7 +139,6 @@ class SpineController < NSViewController
     items.each_with_index do |item, index|
       oldIndex = @spine.index(item)
       @spine.delete_at(oldIndex)
-      # puts "moveItem #{item.name} from #{oldIndex} => #{newIndexes[index]}"
       @spine.insert(newIndexes[index], item)
       oldIndexes << oldIndex
     end
