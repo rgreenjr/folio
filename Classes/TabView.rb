@@ -109,7 +109,7 @@ class TabView < NSView
     end
   end
 
-  def validateUserInterfaceItem(menuItem)
+  def validateUserInterfaceItem(interfaceItem)
     @tabCells.size > 0
   end
 

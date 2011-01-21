@@ -34,7 +34,7 @@ class WebViewController < NSViewController
     view.reload(nil)
   end
 
-  def validateUserInterfaceItem(menuItem)
+  def validateUserInterfaceItem(interfaceItem)
     @item != nil
   end
 

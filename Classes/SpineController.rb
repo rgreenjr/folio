@@ -137,9 +137,9 @@ class SpineController < NSViewController
     reloadDataAndSelectItems(items)
   end
 
-  def validateUserInterfaceItem(menuItem)
+  def validateUserInterfaceItem(interfaceItem)
     return false unless @tableView.window
-    case menuItem.action
+    case interfaceItem.action
     when :"addSelectedItemsToNavigation:", :"deleteSelectedItems:", :"delete:"
       @tableView.numberOfSelectedRows > 0
     else

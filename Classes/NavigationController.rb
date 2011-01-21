@@ -302,8 +302,8 @@ class NavigationController < NSViewController
     @propertyCells ||= [textCell, idCell, sourceCell]
   end
 
-  def validateUserInterfaceItem(menuItem)
-    case menuItem.action
+  def validateUserInterfaceItem(interfaceItem)
+    case interfaceItem.action
     when :"deleteSelectedPoints:", :"delete:"
       @outlineView.numberOfSelectedRows > 0
     when :"duplicateSelectedPoint:", :"addPoint:"

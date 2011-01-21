@@ -270,7 +270,7 @@ class ManifestController < NSViewController
       @undeclared << entry unless @manifest.itemWithHref(entry)
     end
     if @undeclared.empty?
-      @bookController.runModalAlert("All files are declared in the manifest.")
+      @bookController.runModalAlert("All files are properly declared in the manifest.")
     else
       relativePaths = @undeclared.map {|entry| @bookController.document.relativePathFor(entry) }
       alert = NSAlert.alertWithMessageText("The following files are present but not declared in the manifest.",
@@ -320,8 +320,8 @@ class ManifestController < NSViewController
     reloadDataAndSelectItems([item])
   end
 
-  def validateUserInterfaceItem(menuItem)
-    case menuItem.action
+  def validateUserInterfaceItem(interfaceItem)
+    case interfaceItem.action
     when :"showDeleteSelectedItemsSheet:", :"delete:"
       @outlineView.numberOfSelectedRows > 0
     when :"addSelectedItemsToSpine:"

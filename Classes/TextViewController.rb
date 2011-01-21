@@ -196,9 +196,9 @@ class TextViewController < NSViewController
     replace(selectedRange, selectedText.split.map {|line| "<p>#{line}<p/>\n"}.join)
   end
 
-  def validateUserInterfaceItem(menuItem)
+  def validateUserInterfaceItem(interfaceItem)
     return false unless @item
-    case menuItem.action
+    case interfaceItem.action
     when :"strongify:", :"emphasize:", :"paragraphSelectedLines:", :"uppercase:", :"lowercase:", :"titlecase:", :"stripTags:"
       selectedRange.length > 0
     when :"formatMarkup:"

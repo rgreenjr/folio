@@ -154,6 +154,27 @@ class BookWindowController < NSWindowController
   def runModalAlert(messageText, informativeText='')
     Alert.runModal(window, messageText, informativeText)
   end
+  
+  def validateUserInterfaceItem(interfaceItem)
+    case interfaceItem.action
+    when :"showNavigationView:"
+      @seletionView.subviews.first != navigationController.view
+    when :"showSpineView:"
+      @seletionView.subviews.first != spineController.view
+    when :"showManifestView:"
+      @seletionView.subviews.first != manifestController.view
+    else
+      true
+    end
+  end
+  
+  def updateToolbarItems
+    window.toolbar.visibleItems.each do |view|
+      if view.isKindOfClass(NSToolbarItem)
+        view.enabled = validateUserInterfaceItem(view)
+      end
+    end
+  end
 
   private
 

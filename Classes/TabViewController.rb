@@ -17,9 +17,9 @@ class TabViewController < NSViewController
     view.delegate = self
     @splitView.delegate = self
     NSNotificationCenter.defaultCenter.addObserver(self, 
-        selector:('textDidChange:'), 
-        name:NSTextStorageDidProcessEditingNotification, 
-        object:@textViewController.view.textStorage)
+    selector:('textDidChange:'), 
+    name:NSTextStorageDidProcessEditingNotification, 
+    object:@textViewController.view.textStorage)
   end
 
   def textDidChange(notification)
@@ -49,6 +49,7 @@ class TabViewController < NSViewController
       @textViewController.item = nil
       @webViewController.item = nil
     end
+    updateToolbarItems
   end
 
   def addObject(object)
@@ -92,7 +93,7 @@ class TabViewController < NSViewController
   def undoManagerForItem(item)
     view.tabForItem(item).undoManager
   end
-  
+
   def showTextViewOnly(sender)
     if @splitView.subviews.size == 2
       hideWebView
@@ -114,7 +115,7 @@ class TabViewController < NSViewController
       @viewMode = VIEW_MODE_WEB
     end
   end
-  
+
   def showTextAndWebViews(sender)
     if @splitView.subviews.size == 1
       if @splitView.subviews[0] == @webViewController.view
@@ -185,24 +186,46 @@ class TabViewController < NSViewController
   def splitView(splitView, constrainSplitPosition:proposedPosition, ofSubviewAt:dividerIndex)
     @previousDividerPosition = proposedPosition 
   end
-  
-  def validateUserInterfaceItem(menuItem)
-    case menuItem.action
+
+  def validateUserInterfaceItem(interfaceItem)
+    case interfaceItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
       view.numberOfTabs > 1
     when :"saveTab:", :"saveAllTabs:", :"closeTab:"
       view.numberOfTabs > 0
-    when :"toggleWebView"
-      @splitView.subviews.size == 2 || @splitView.subviews[0] != @webViewController.view
-    when :"toggleTextView"
-      @splitView.subviews.size == 2 || @splitView.subviews[0] != @textViewController.enclosingScrollView
+    when :"showTextAndWebViews:"
+      view.numberOfTabs > 0 && @splitView.subviews.size != 2
+    when :"showWebViewOnly:", :"toggleWebView"
+      view.numberOfTabs > 0 && (@splitView.subviews.size == 2 || @splitView.subviews[0] != @webViewController.view)
+    when :"showTextViewOnly:", :"toggleTextView"
+      view.numberOfTabs > 0 && (@splitView.subviews.size == 2 || @splitView.subviews[0] != @textViewController.view.enclosingScrollView)
+    when :"toggleSplitViewOrientation:"
+      view.numberOfTabs > 0
+    when :"makeSplitViewOrientationHorizontal:", :"makeSplitViewOrientationVertical:"
+      view.numberOfTabs > 0
     else
       true
     end
   end
 
+  def updateToolbarItems
+    @bookController.window.toolbar.visibleItems.each do |view|
+      if view.isKindOfClass(NSToolbarItem)
+        view.enabled = validateUserInterfaceItem(view)
+      end
+    end
+  end
+
   private
-  
+
+  def webViewVisible?
+    @splitView.subviews.size == 2 || @splitView.subviews[0] == @webViewController.view
+  end
+
+  def textViewVisible?
+    @splitView.subviews.size == 2 || @splitView.subviews[0] == @textViewController.view.enclosingScrollView
+  end
+
   def updateSplitViewDividerPosition
     return unless @splitView.subviews.size > 1
     maximum = @splitView.vertical? ? @splitView.bounds.size.width : @splitView.bounds.size.height
