@@ -63,9 +63,9 @@ class BookWindowController < NSWindowController
     navigationController.newPoint(sender)
   end
   
-  def newPointsFromItems(items)
+  def newPointsWithItems(items)
     showNavigationView(self)
-    navigationController.newPointsFromItems(items)
+    navigationController.newPointsWithItems(items)
   end
   
   def addItemsToSpine(items)

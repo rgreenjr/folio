@@ -37,7 +37,9 @@ class SpineController < NSViewController
   end
 
   def tableViewSelectionDidChange(notification)
-    @bookController.tabViewController.addObject(@spine[@tableView.selectedRow]) if @tableView.selectedRow >= 0
+    if @tableView.selectedRow >= 0
+      @bookController.tabViewController.addObject(@spine[@tableView.selectedRow])
+    end
   end
 
   def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
@@ -48,15 +50,26 @@ class SpineController < NSViewController
   end
 
   def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:operation)
-    row ? NSDragOperationMove : NSDragOperationNone
+    row && operation == NSTableViewDropAbove ? NSDragOperationMove : NSDragOperationNone
   end
 
   def tableView(tableView, acceptDrop:info, row:rowIndex, dropOperation:operation)
     itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-    items = itemIds.reverse.map do |id|
-      @spine.find { |item| item.id == id }
+    items = []
+    newIndexes = []
+    delta = 0
+    itemIds.reverse.each do |id|
+      item = @spine.itemWithId(id)
+      items << item
+      oldIndex = @spine.index(item)
+      if oldIndex < rowIndex
+        delta += 1
+        newIndexes << rowIndex - delta
+      else
+        newIndexes << rowIndex
+      end
     end
-    newIndexes = Array.new(items.size, rowIndex)
+    # newIndexes = Array.new(items.size, rowIndex)
     moveItems(items, newIndexes)
     true
   end
@@ -84,7 +97,7 @@ class SpineController < NSViewController
   end
 
   def addSelectedItemsToNavigation(sender)
-    @bookController.newPointsFromItems(selectedItems)
+    @bookController.newPointsWithItems(selectedItems)
   end
 
   def delete(sender)
@@ -127,6 +140,7 @@ class SpineController < NSViewController
     items.each_with_index do |item, index|
       oldIndex = @spine.index(item)
       @spine.delete_at(oldIndex)
+      # puts "moveItem #{item.name} from #{oldIndex} => #{newIndexes[index]}"
       @spine.insert(newIndexes[index], item)
       oldIndexes << oldIndex
     end

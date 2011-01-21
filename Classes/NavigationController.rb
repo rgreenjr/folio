@@ -141,7 +141,7 @@ class NavigationController < NSViewController
     # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
   end
 
-  def newPointsFromItems(items)
+  def newPointsWithItems(items)
     points = items.map { |item| Point.new(item, item.name) }
     newParents = Array.new(points.size, @navigation.root)
     newIndexes = Array.new(points.size, -1)

@@ -14,7 +14,13 @@ class Spine < DelegateClass(Array)
   end
   
   def insert(index, item)
+    index = -1 if index > size
     super unless include?(item)
+    self
+  end
+  
+  def itemWithId(id)
+    find { |item| item.id == id }
   end
 
 end
