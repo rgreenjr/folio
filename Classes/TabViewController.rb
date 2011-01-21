@@ -204,6 +204,7 @@ class TabViewController < NSViewController
   private
   
   def updateSplitViewDividerPosition
+    return unless @splitView.subviews.size > 1
     maximum = @splitView.vertical? ? @splitView.bounds.size.width : @splitView.bounds.size.height
     if @previousDividerPosition.nil?
       @previousDividerPosition = maximum * 0.5
