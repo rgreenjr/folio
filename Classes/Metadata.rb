@@ -5,22 +5,26 @@ class Metadata
   attr_accessor :date, :type, :format, :source, :relation, :coverage, :rights, :cover
   
   def initialize(book=nil)
+    # provide default values for three required metadata attributes
     @title = 'untitled'
     @language = 'en'
-    return unless book
-    book.container.opfDoc.elements.each("/package/metadata/*") do |e|
-      case e.name
-      when "meta"
-        if e.attributes["name"] == "cover"
-          @cover = book.manifest.itemWithId(e.attributes["content"])
+    @identifier = UUID.create
+    
+    if book
+      book.container.opfDoc.elements.each("/package/metadata/*") do |element|
+        case element.name
+        when "meta"
+          if element.attributes["name"] == "cover"
+            @cover = book.manifest.itemWithId(element.attributes["content"])
+          end
+        when "creator"
+          @sortCreator = element.attributes["opf:file-as"]
+          updateAttrbute(element)
+        else
+          updateAttrbute(element)
         end
-      when "creator"
-        @sortCreator = e.attributes["opf:file-as"]
-        updateAttrbute(e)
-      else
-        updateAttrbute(e)
       end
-    end  
+    end
   end
   
   private
