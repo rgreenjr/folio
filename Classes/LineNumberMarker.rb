@@ -1,12 +1,11 @@
 class LineNumberMarker < NSRulerMarker
 
-  CORNER_RADIUS     = 3.0
-  MARKER_HEIGHT     = 13.0
+  MARKER_HEIGHT = 13.0
 
   attr_accessor :lineNumber, :message, :textAttributes
 
   def initWithRulerView(rulerView, lineNumber:lineNumber, message:message)
-    initWithRulerView(rulerView, markerLocation:0.0, image:blueImage, imageOrigin:NSMakePoint(0, MARKER_HEIGHT / 2))
+    initWithRulerView(rulerView, markerLocation:0.0, image:markerImage, imageOrigin:NSMakePoint(0, MARKER_HEIGHT / 2))
     @lineNumber = lineNumber
     @message = message
     @textAttributes = { 
@@ -19,36 +18,49 @@ class LineNumberMarker < NSRulerMarker
   private
   
   # creates the blue marker image shared by all markers
-  def blueImage
-    unless @blueImage
+  def markerImage
+    unless @markerImage
       rep = NSCustomImageRep.alloc.initWithDrawSelector("drawMarkerImageIntoRep:", delegate:self)
       rep.size = NSMakeSize(44, MARKER_HEIGHT)
-      @blueImage = NSImage.alloc.initWithSize(rep.size)
-      @blueImage.addRepresentation(rep)
+      @markerImage = NSImage.alloc.initWithSize(rep.size)
+      @markerImage.addRepresentation(rep)
     end
-    @blueImage
+    @markerImage
   end
   
   # callback method used to create blue marker image dynamically
   def drawMarkerImageIntoRep(rep)
-    rect = NSMakeRect(1.0, 2.0, rep.size.width - 2.0, rep.size.height - 3.0)
+    p rep.size
+    NSColor.colorWithCalibratedRed(0.4, green:0.76, blue:0.38, alpha:1.0).set
+    rect = NSMakeRect(0, 0, rep.size.width + 10, rep.size.height + 10)
+    NSRectFill(rect)
+    
 
+    # # draw top border
     path = NSBezierPath.bezierPath
-    path.moveToPoint(NSMakePoint(NSMaxX(rect), NSMinY(rect) + NSHeight(rect) / 2))
-    path.lineToPoint(NSMakePoint(NSMaxX(rect) - 5.0, NSMaxY(rect)))
-
-    path.appendBezierPathWithArcWithCenter(NSMakePoint(NSMinX(rect) + CORNER_RADIUS, NSMaxY(rect) - CORNER_RADIUS), radius:CORNER_RADIUS, startAngle:90, endAngle:180)
-
-    path.appendBezierPathWithArcWithCenter(NSMakePoint(NSMinX(rect) + CORNER_RADIUS, NSMinY(rect) + CORNER_RADIUS), radius:CORNER_RADIUS, startAngle:180, endAngle:270)
-    path.lineToPoint(NSMakePoint(NSMaxX(rect) - 5.0, NSMinY(rect)))
+    NSColor.colorWithCalibratedRed(0.09, green:0.6, blue:0.07, alpha:1.0).set
+    path.lineWidth = 1.0
+    path.moveToPoint([0, 0.5])
+    path.lineToPoint([rep.size.width, 0.5])
     path.closePath
-
-    NSColor.colorWithCalibratedRed(0.003, green:0.56, blue:0.85, alpha:1.0).set
-    path.fill
-
-    # NSColor.colorWithCalibratedRed(0, green:0.44, blue:0.8, alpha:1.0).set
-
-    path.lineWidth = 2.0
+    path.stroke
+    
+    # draw bottom border
+    path = NSBezierPath.bezierPath
+    NSColor.colorWithCalibratedRed(0.09, green:0.6, blue:0.07, alpha:1.0).set
+    path.lineWidth = 1.0
+    path.moveToPoint([0, rep.size.height - 0.5])
+    path.lineToPoint([rep.size.width, rep.size.height - 0.5])
+    path.closePath
+    path.stroke
+    
+    # # draw top border inset
+    path = NSBezierPath.bezierPath
+    NSColor.colorWithCalibratedRed(0.55, green:0.82, blue:0.54, alpha:1.0).set
+    path.lineWidth = 1.0
+    path.moveToPoint([0, 1.5])
+    path.lineToPoint([rep.size.width, 1.5])
+    path.closePath    
     path.stroke
   end
 
