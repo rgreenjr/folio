@@ -43,26 +43,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2BFA9DA710CDF852007972A1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFA9DA510CDF852007972A1 /* MainMenu.xib */; };
 		4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4DE339F60D74FCDD00ADB6EE /* rb_main.rb */; };
 		4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE3BE130D8651D900ECA448 /* MacRuby.framework */; };
-		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
-		CD2D17CA12E5F1DC00D6A99A /* Book.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17BF12E5F1DB00D6A99A /* Book.xib */; };
-		CD2D17CB12E5F1DC00D6A99A /* GotoLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C012E5F1DB00D6A99A /* GotoLine.xib */; };
-		CD2D17CC12E5F1DC00D6A99A /* Manifest.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C112E5F1DB00D6A99A /* Manifest.xib */; };
-		CD2D17CD12E5F1DC00D6A99A /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C212E5F1DB00D6A99A /* Metadata.xib */; };
-		CD2D17CE12E5F1DC00D6A99A /* Navigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C312E5F1DB00D6A99A /* Navigation.xib */; };
-		CD2D17CF12E5F1DC00D6A99A /* Progress.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C412E5F1DB00D6A99A /* Progress.xib */; };
-		CD2D17D012E5F1DC00D6A99A /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C512E5F1DC00D6A99A /* Search.xib */; };
-		CD2D17D112E5F1DC00D6A99A /* SourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C612E5F1DC00D6A99A /* SourceView.xib */; };
-		CD2D17D212E5F1DC00D6A99A /* Spine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C712E5F1DC00D6A99A /* Spine.xib */; };
-		CD2D17D312E5F1DC00D6A99A /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C812E5F1DC00D6A99A /* TabView.xib */; };
-		CD2D17D412E5F1DC00D6A99A /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17C912E5F1DC00D6A99A /* WebView.xib */; };
 		CD2D180D12E5F1F800D6A99A /* Alert.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17D812E5F1F800D6A99A /* Alert.rb */; };
 		CD2D181012E5F1F800D6A99A /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DB12E5F1F800D6A99A /* Book.rb */; };
 		CD2D181112E5F1F800D6A99A /* BookWindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */; };
@@ -148,11 +135,24 @@
 		CD2D189612E5F2BF00D6A99A /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D189312E5F2BF00D6A99A /* content.opf.erb */; };
 		CD2D189712E5F2BF00D6A99A /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D189412E5F2BF00D6A99A /* toc.ncx.erb */; };
 		CD2D18A512E5F46600D6A99A /* Folio.icns in Resources */ = {isa = PBXBuildFile; fileRef = CD2D18A412E5F46600D6A99A /* Folio.icns */; };
+		CD3179D812EA7AE800C98B33 /* Book.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179BC12EA7AE800C98B33 /* Book.xib */; };
+		CD3179D912EA7AE800C98B33 /* GotoLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179BE12EA7AE800C98B33 /* GotoLine.xib */; };
+		CD3179DA12EA7AE800C98B33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C012EA7AE800C98B33 /* InfoPlist.strings */; };
+		CD3179DB12EA7AE800C98B33 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C212EA7AE800C98B33 /* MainMenu.xib */; };
+		CD3179DC12EA7AE800C98B33 /* Manifest.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C412EA7AE800C98B33 /* Manifest.xib */; };
+		CD3179DD12EA7AE800C98B33 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C612EA7AE800C98B33 /* Metadata.xib */; };
+		CD3179DE12EA7AE800C98B33 /* Navigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C812EA7AE800C98B33 /* Navigation.xib */; };
+		CD3179DF12EA7AE800C98B33 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179CA12EA7AE800C98B33 /* Preferences.xib */; };
+		CD3179E012EA7AE800C98B33 /* Progress.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179CC12EA7AE800C98B33 /* Progress.xib */; };
+		CD3179E112EA7AE800C98B33 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179CE12EA7AE800C98B33 /* Search.xib */; };
+		CD3179E212EA7AE800C98B33 /* SourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D012EA7AE800C98B33 /* SourceView.xib */; };
+		CD3179E312EA7AE800C98B33 /* Spine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D212EA7AE800C98B33 /* Spine.xib */; };
+		CD3179E412EA7AE800C98B33 /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D412EA7AE800C98B33 /* TabView.xib */; };
+		CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D612EA7AE800C98B33 /* WebView.xib */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
-		CDDBEC8012E6107000633F22 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC7F12E6107000633F22 /* Preferences.xib */; };
 		CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC8312E6116600633F22 /* PreferencesController.rb */; };
 		CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC9612E611F800633F22 /* preferences-general.tiff */; };
 		CDE105F612DFA58000E1518B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE105F512DFA58000E1518B /* QuartzCore.framework */; };
@@ -174,13 +174,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		2BFA9DA610CDF852007972A1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4DE339F60D74FCDD00ADB6EE /* rb_main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -188,17 +186,6 @@
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
-		CD2D17BF12E5F1DB00D6A99A /* Book.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Book.xib; sourceTree = "<group>"; };
-		CD2D17C012E5F1DB00D6A99A /* GotoLine.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GotoLine.xib; sourceTree = "<group>"; };
-		CD2D17C112E5F1DB00D6A99A /* Manifest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Manifest.xib; sourceTree = "<group>"; };
-		CD2D17C212E5F1DB00D6A99A /* Metadata.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Metadata.xib; sourceTree = "<group>"; };
-		CD2D17C312E5F1DB00D6A99A /* Navigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Navigation.xib; sourceTree = "<group>"; };
-		CD2D17C412E5F1DB00D6A99A /* Progress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Progress.xib; sourceTree = "<group>"; };
-		CD2D17C512E5F1DC00D6A99A /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
-		CD2D17C612E5F1DC00D6A99A /* SourceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SourceView.xib; sourceTree = "<group>"; };
-		CD2D17C712E5F1DC00D6A99A /* Spine.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Spine.xib; sourceTree = "<group>"; };
-		CD2D17C812E5F1DC00D6A99A /* TabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabView.xib; sourceTree = "<group>"; };
-		CD2D17C912E5F1DC00D6A99A /* WebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebView.xib; sourceTree = "<group>"; };
 		CD2D17D812E5F1F800D6A99A /* Alert.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Alert.rb; sourceTree = "<group>"; };
 		CD2D17DB12E5F1F800D6A99A /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
 		CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookWindowController.rb; sourceTree = "<group>"; };
@@ -284,11 +271,24 @@
 		CD2D189312E5F2BF00D6A99A /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CD2D189412E5F2BF00D6A99A /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
 		CD2D18A412E5F46600D6A99A /* Folio.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Folio.icns; sourceTree = "<group>"; };
+		CD3179BD12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Book.xib; sourceTree = "<group>"; };
+		CD3179BF12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GotoLine.xib; sourceTree = "<group>"; };
+		CD3179C112EA7AE800C98B33 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD3179C312EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CD3179C512EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Manifest.xib; sourceTree = "<group>"; };
+		CD3179C712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Metadata.xib; sourceTree = "<group>"; };
+		CD3179C912EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Navigation.xib; sourceTree = "<group>"; };
+		CD3179CB12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
+		CD3179CD12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Progress.xib; sourceTree = "<group>"; };
+		CD3179CF12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Search.xib; sourceTree = "<group>"; };
+		CD3179D112EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SourceView.xib; sourceTree = "<group>"; };
+		CD3179D312EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Spine.xib; sourceTree = "<group>"; };
+		CD3179D512EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TabView.xib; sourceTree = "<group>"; };
+		CD3179D712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebView.xib; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
-		CDDBEC7F12E6107000633F22 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		CDDBEC8312E6116600633F22 /* PreferencesController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PreferencesController.rb; sourceTree = "<group>"; };
 		CDDBEC9612E611F800633F22 /* preferences-general.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "preferences-general.tiff"; sourceTree = "<group>"; };
 		CDE105F512DFA58000E1518B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -372,9 +372,7 @@
 				CD2D189112E5F2BF00D6A99A /* Templates */,
 				CD2D185412E5F28500D6A99A /* Images */,
 				CD2D17BE12E5F1DB00D6A99A /* XIBs */,
-				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -402,18 +400,20 @@
 		CD2D17BE12E5F1DB00D6A99A /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
-				CD2D17BF12E5F1DB00D6A99A /* Book.xib */,
-				CD2D17C012E5F1DB00D6A99A /* GotoLine.xib */,
-				CD2D17C112E5F1DB00D6A99A /* Manifest.xib */,
-				CD2D17C212E5F1DB00D6A99A /* Metadata.xib */,
-				CD2D17C312E5F1DB00D6A99A /* Navigation.xib */,
-				CDDBEC7F12E6107000633F22 /* Preferences.xib */,
-				CD2D17C412E5F1DB00D6A99A /* Progress.xib */,
-				CD2D17C512E5F1DC00D6A99A /* Search.xib */,
-				CD2D17C612E5F1DC00D6A99A /* SourceView.xib */,
-				CD2D17C712E5F1DC00D6A99A /* Spine.xib */,
-				CD2D17C812E5F1DC00D6A99A /* TabView.xib */,
-				CD2D17C912E5F1DC00D6A99A /* WebView.xib */,
+				CD3179BC12EA7AE800C98B33 /* Book.xib */,
+				CD3179BE12EA7AE800C98B33 /* GotoLine.xib */,
+				CD3179C012EA7AE800C98B33 /* InfoPlist.strings */,
+				CD3179C212EA7AE800C98B33 /* MainMenu.xib */,
+				CD3179C412EA7AE800C98B33 /* Manifest.xib */,
+				CD3179C612EA7AE800C98B33 /* Metadata.xib */,
+				CD3179C812EA7AE800C98B33 /* Navigation.xib */,
+				CD3179CA12EA7AE800C98B33 /* Preferences.xib */,
+				CD3179CC12EA7AE800C98B33 /* Progress.xib */,
+				CD3179CE12EA7AE800C98B33 /* Search.xib */,
+				CD3179D012EA7AE800C98B33 /* SourceView.xib */,
+				CD3179D212EA7AE800C98B33 /* Spine.xib */,
+				CD3179D412EA7AE800C98B33 /* TabView.xib */,
+				CD3179D612EA7AE800C98B33 /* WebView.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
@@ -591,26 +591,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */,
-				2BFA9DA710CDF852007972A1 /* MainMenu.xib in Resources */,
 				CDE4491312305CAD001C69AE /* book_test.rb in Resources */,
 				CDE4491412305CAD001C69AE /* run_suite.rb in Resources */,
 				CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */,
 				CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */,
 				CD57035112C28E9C0024EAA4 /* lib in Resources */,
 				CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */,
-				CD2D17CA12E5F1DC00D6A99A /* Book.xib in Resources */,
-				CD2D17CB12E5F1DC00D6A99A /* GotoLine.xib in Resources */,
-				CD2D17CC12E5F1DC00D6A99A /* Manifest.xib in Resources */,
-				CD2D17CD12E5F1DC00D6A99A /* Metadata.xib in Resources */,
-				CD2D17CE12E5F1DC00D6A99A /* Navigation.xib in Resources */,
-				CD2D17CF12E5F1DC00D6A99A /* Progress.xib in Resources */,
-				CD2D17D012E5F1DC00D6A99A /* Search.xib in Resources */,
-				CD2D17D112E5F1DC00D6A99A /* SourceView.xib in Resources */,
-				CD2D17D212E5F1DC00D6A99A /* Spine.xib in Resources */,
-				CD2D17D312E5F1DC00D6A99A /* TabView.xib in Resources */,
-				CD2D17D412E5F1DC00D6A99A /* WebView.xib in Resources */,
 				CD2D180D12E5F1F800D6A99A /* Alert.rb in Resources */,
 				CD2D181012E5F1F800D6A99A /* Book.rb in Resources */,
 				CD2D181112E5F1F800D6A99A /* BookWindowController.rb in Resources */,
@@ -696,11 +683,24 @@
 				CD2D189612E5F2BF00D6A99A /* content.opf.erb in Resources */,
 				CD2D189712E5F2BF00D6A99A /* toc.ncx.erb in Resources */,
 				CD2D18A512E5F46600D6A99A /* Folio.icns in Resources */,
-				CDDBEC8012E6107000633F22 /* Preferences.xib in Resources */,
 				CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */,
 				CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */,
 				CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */,
 				CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */,
+				CD3179D812EA7AE800C98B33 /* Book.xib in Resources */,
+				CD3179D912EA7AE800C98B33 /* GotoLine.xib in Resources */,
+				CD3179DA12EA7AE800C98B33 /* InfoPlist.strings in Resources */,
+				CD3179DB12EA7AE800C98B33 /* MainMenu.xib in Resources */,
+				CD3179DC12EA7AE800C98B33 /* Manifest.xib in Resources */,
+				CD3179DD12EA7AE800C98B33 /* Metadata.xib in Resources */,
+				CD3179DE12EA7AE800C98B33 /* Navigation.xib in Resources */,
+				CD3179DF12EA7AE800C98B33 /* Preferences.xib in Resources */,
+				CD3179E012EA7AE800C98B33 /* Progress.xib in Resources */,
+				CD3179E112EA7AE800C98B33 /* Search.xib in Resources */,
+				CD3179E212EA7AE800C98B33 /* SourceView.xib in Resources */,
+				CD3179E312EA7AE800C98B33 /* Spine.xib in Resources */,
+				CD3179E412EA7AE800C98B33 /* TabView.xib in Resources */,
+				CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,20 +760,116 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+		CD3179BC12EA7AE800C98B33 /* Book.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				089C165DFE840E0CC02AAC07 /* English */,
+				CD3179BD12EA7AE800C98B33 /* English */,
+			);
+			name = Book.xib;
+			sourceTree = "<group>";
+		};
+		CD3179BE12EA7AE800C98B33 /* GotoLine.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179BF12EA7AE800C98B33 /* English */,
+			);
+			name = GotoLine.xib;
+			sourceTree = "<group>";
+		};
+		CD3179C012EA7AE800C98B33 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179C112EA7AE800C98B33 /* English */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		2BFA9DA510CDF852007972A1 /* MainMenu.xib */ = {
+		CD3179C212EA7AE800C98B33 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2BFA9DA610CDF852007972A1 /* English */,
+				CD3179C312EA7AE800C98B33 /* English */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		CD3179C412EA7AE800C98B33 /* Manifest.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179C512EA7AE800C98B33 /* English */,
+			);
+			name = Manifest.xib;
+			sourceTree = "<group>";
+		};
+		CD3179C612EA7AE800C98B33 /* Metadata.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179C712EA7AE800C98B33 /* English */,
+			);
+			name = Metadata.xib;
+			sourceTree = "<group>";
+		};
+		CD3179C812EA7AE800C98B33 /* Navigation.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179C912EA7AE800C98B33 /* English */,
+			);
+			name = Navigation.xib;
+			sourceTree = "<group>";
+		};
+		CD3179CA12EA7AE800C98B33 /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179CB12EA7AE800C98B33 /* English */,
+			);
+			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
+		CD3179CC12EA7AE800C98B33 /* Progress.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179CD12EA7AE800C98B33 /* English */,
+			);
+			name = Progress.xib;
+			sourceTree = "<group>";
+		};
+		CD3179CE12EA7AE800C98B33 /* Search.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179CF12EA7AE800C98B33 /* English */,
+			);
+			name = Search.xib;
+			sourceTree = "<group>";
+		};
+		CD3179D012EA7AE800C98B33 /* SourceView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179D112EA7AE800C98B33 /* English */,
+			);
+			name = SourceView.xib;
+			sourceTree = "<group>";
+		};
+		CD3179D212EA7AE800C98B33 /* Spine.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179D312EA7AE800C98B33 /* English */,
+			);
+			name = Spine.xib;
+			sourceTree = "<group>";
+		};
+		CD3179D412EA7AE800C98B33 /* TabView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179D512EA7AE800C98B33 /* English */,
+			);
+			name = TabView.xib;
+			sourceTree = "<group>";
+		};
+		CD3179D612EA7AE800C98B33 /* WebView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3179D712EA7AE800C98B33 /* English */,
+			);
+			name = WebView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
