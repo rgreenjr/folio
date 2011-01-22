@@ -38,10 +38,6 @@ class TextViewController < NSViewController
     view.textStorage.attributedString = string
   end
   
-  def method_name
-    
-  end
-  
   def toggleLineNumbers(sender)
     if sender.title == 'Hide Line Numbers'
       sender.title = 'Show Line Numbers'
@@ -89,10 +85,7 @@ class TextViewController < NSViewController
     end
   end
 
-  def selectWord(sender)
-  end
-
-  def selectLine(sender)
+  def selectCurrentLine(sender)
     paragraphRange = view.textStorage.string.paragraphRangeForRange(selectedRange)
     view.setSelectedRange(paragraphRange)
   end
@@ -100,23 +93,23 @@ class TextViewController < NSViewController
   def selectEnclosingBrackets(sender)
   end
 
-  def uppercase(sender)
+  def uppercaseSelectedText(sender)
     modifySelection {|text| text.upcase}
   end
 
-  def lowercase(sender)
+  def lowercaseSelectedText(sender)
     modifySelection {|text| text.downcase}
   end
 
-  def titlecase(sender)
+  def titlecaseSelectedText(sender)
     modifySelection {|text| text.titleize.downcasePrepositions }
   end
 
-  def strongify(sender)
+  def strongifySelectedText(sender)
     modifySelection {|text| "<strong>#{text}</strong>" }
   end
 
-  def emphasize(sender)
+  def emphasizeSelectedText(sender)
     modifySelection {|text| "<em>#{text}</em>" }
   end
 
@@ -153,7 +146,7 @@ class TextViewController < NSViewController
     end
   end
 
-  def stripTags(sender)
+  def stripTagsFromSelectedText(sender)
     tmp = Tempfile.new('folio-tmp-file')
     text = selectedText
     text = view.string if text.size == 0
@@ -162,7 +155,7 @@ class TextViewController < NSViewController
     tmp.delete
   end
 
-  def formatMarkup(sender)
+  def reindentText(sender)
     tmp = Tempfile.new('folio-tmp-file')
     text = view.string
     File.open(tmp, "w") { |f| f.print text }
@@ -189,7 +182,7 @@ class TextViewController < NSViewController
     end
     tmp.delete
     @lineNumberView.setNeedsDisplay true
-    # @bookController.window.makeFirstResponder(view)
+    NSNotificationCenter.defaultCenter.postNotificationName("ItemMarkersDidChange", object:@item)
   end
 
   def paragraphSelectedLines(sender)

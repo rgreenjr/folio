@@ -3,15 +3,16 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">823</string>
+		<string key="IBDocument.InterfaceBuilderVersion">804</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">823</string>
+			<string key="NS.object.0">804</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="220"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -669,6 +670,16 @@
 									<reference key="NSMixedImage" ref="807125248"/>
 									<int key="NSTag">2</int>
 								</object>
+								<object class="NSMenuItem" id="1063855430">
+									<reference key="NSMenu" ref="466310130"/>
+									<string key="NSTitle">Issues</string>
+									<string key="NSKeyEquiv">4</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+									<int key="NSTag">2</int>
+								</object>
 								<object class="NSMenuItem" id="189943304">
 									<reference key="NSMenu" ref="466310130"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -939,34 +950,6 @@
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
 								<object class="NSMenuItem" id="661851425">
-									<reference key="NSMenu" ref="502084290"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-								</object>
-								<object class="NSMenuItem" id="231507354">
-									<reference key="NSMenu" ref="502084290"/>
-									<string key="NSTitle">Back</string>
-									<string key="NSKeyEquiv">[</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-								</object>
-								<object class="NSMenuItem" id="522885080">
-									<reference key="NSMenu" ref="502084290"/>
-									<string key="NSTitle">Forward</string>
-									<string key="NSKeyEquiv">]</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-								</object>
-								<object class="NSMenuItem" id="907211212">
 									<reference key="NSMenu" ref="502084290"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -1330,14 +1313,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">strongify:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="374593044"/>
-					</object>
-					<int key="connectionID">1679</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">saveDocumentAs:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="636823227"/>
@@ -1362,14 +1337,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">selectLine:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="402771595"/>
-					</object>
-					<int key="connectionID">1717</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">reload:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="359948803"/>
@@ -1386,46 +1353,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">emphasize:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="46300379"/>
-					</object>
-					<int key="connectionID">1723</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">paragraphSelectedLines:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="964603203"/>
-					</object>
-					<int key="connectionID">1724</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">lowercase:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="169611678"/>
-					</object>
-					<int key="connectionID">1727</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">titlecase:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="1073573975"/>
-					</object>
-					<int key="connectionID">1728</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">formatMarkup:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="615305040"/>
-					</object>
-					<int key="connectionID">1729</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">selectNextTab:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="353224676"/>
@@ -1439,30 +1366,6 @@
 						<reference key="destination" ref="1013162310"/>
 					</object>
 					<int key="connectionID">1731</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">stripTags:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="989464316"/>
-					</object>
-					<int key="connectionID">1732</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">insertCloseTag:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="929388277"/>
-					</object>
-					<int key="connectionID">1733</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">uppercase:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="894601148"/>
-					</object>
-					<int key="connectionID">1734</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1599,6 +1502,94 @@
 						<reference key="destination" ref="561797124"/>
 					</object>
 					<int key="connectionID">1794</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showIssueView:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="1063855430"/>
+					</object>
+					<int key="connectionID">1797</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">strongifySelectedText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="374593044"/>
+					</object>
+					<int key="connectionID">1798</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">emphasizeSelectedText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="46300379"/>
+					</object>
+					<int key="connectionID">1799</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">paragraphSelectedLines:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="964603203"/>
+					</object>
+					<int key="connectionID">1800</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">uppercaseSelectedText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="894601148"/>
+					</object>
+					<int key="connectionID">1801</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">lowercaseSelectedText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="169611678"/>
+					</object>
+					<int key="connectionID">1803</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">titlecaseSelectedText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="1073573975"/>
+					</object>
+					<int key="connectionID">1804</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">stripTagsFromSelectedText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="989464316"/>
+					</object>
+					<int key="connectionID">1805</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">insertCloseTag:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="929388277"/>
+					</object>
+					<int key="connectionID">1806</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">reindentText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="615305040"/>
+					</object>
+					<int key="connectionID">1807</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectCurrentLine:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="402771595"/>
+					</object>
+					<int key="connectionID">1808</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1997,6 +1988,7 @@
 							<reference ref="518041451"/>
 							<reference ref="79428097"/>
 							<reference ref="221232954"/>
+							<reference ref="1063855430"/>
 						</object>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -2016,9 +2008,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="353224676"/>
 							<reference ref="959929004"/>
-							<reference ref="231507354"/>
-							<reference ref="522885080"/>
-							<reference ref="907211212"/>
 							<reference ref="661851425"/>
 							<reference ref="1013162310"/>
 						</object>
@@ -2238,21 +2227,6 @@
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">1591</int>
-						<reference key="object" ref="231507354"/>
-						<reference key="parent" ref="502084290"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1593</int>
-						<reference key="object" ref="522885080"/>
-						<reference key="parent" ref="502084290"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1595</int>
-						<reference key="object" ref="907211212"/>
-						<reference key="parent" ref="502084290"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">1604</int>
 						<reference key="object" ref="661020998"/>
 						<reference key="parent" ref="835318025"/>
@@ -2408,6 +2382,11 @@
 						<reference key="object" ref="221232954"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1795</int>
+						<reference key="object" ref="1063855430"/>
+						<reference key="parent" ref="466310130"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2481,9 +2460,6 @@
 					<string>1571.IBPluginDependency</string>
 					<string>1573.IBPluginDependency</string>
 					<string>1587.IBPluginDependency</string>
-					<string>1591.IBPluginDependency</string>
-					<string>1593.IBPluginDependency</string>
-					<string>1595.IBPluginDependency</string>
 					<string>1604.IBPluginDependency</string>
 					<string>1606.IBPluginDependency</string>
 					<string>1611.IBPluginDependency</string>
@@ -2521,6 +2497,7 @@
 					<string>1777.IBPluginDependency</string>
 					<string>1777.ImportedFromIB2</string>
 					<string>1788.IBPluginDependency</string>
+					<string>1795.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>19.ImportedFromIB2</string>
 					<string>195.IBPluginDependency</string>
@@ -2671,10 +2648,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{525, 596}, {199, 213}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{628, 805}, {199, 213}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2729,7 +2703,6 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2742,7 +2715,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{431, 596}, {144, 213}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="1"/>
+					<string>{{534, 805}, {144, 213}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{187, 434}, {243, 243}}</string>
@@ -2764,7 +2739,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{575, 626}, {117, 43}}</string>
+					<string>{{678, 835}, {117, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{608, 612}, {241, 103}}</string>
@@ -2778,17 +2753,17 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{323, 809}, {491, 20}}</string>
+					<string>{{426, 1018}, {491, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{475, 566}, {262, 243}}</string>
+					<string>{{578, 755}, {262, 263}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{591, 686}, {225, 123}}</string>
+					<string>{{694, 945}, {225, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{231, 634}, {176, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2843,7 +2818,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1794</int>
+			<int key="maxID">1808</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2877,6 +2852,7 @@
 							<string>addFiles:</string>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
+							<string>showIssueView:</string>
 							<string>showManifestView:</string>
 							<string>showMetadataPanel:</string>
 							<string>showNavigationView:</string>
@@ -2899,6 +2875,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -2908,6 +2885,7 @@
 							<string>addFiles:</string>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
+							<string>showIssueView:</string>
 							<string>showManifestView:</string>
 							<string>showMetadataPanel:</string>
 							<string>showNavigationView:</string>
@@ -2929,6 +2907,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newPoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showIssueView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3573,7 +3555,7 @@
 							<string>showTextViewOnly:</string>
 							<string>showWebViewOnly:</string>
 							<string>toggleSplitViewOrientation:</string>
-							<string>updateSplitViewDividerPosition:</string>
+							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3602,7 +3584,7 @@
 							<string>showTextViewOnly:</string>
 							<string>showWebViewOnly:</string>
 							<string>toggleSplitViewOrientation:</string>
-							<string>updateSplitViewDividerPosition:</string>
+							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3643,7 +3625,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">updateSplitViewDividerPosition:</string>
+								<string key="name">updateToolbarItems:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -3727,24 +3709,22 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>emphasize:</string>
-							<string>formatMarkup:</string>
+							<string>emphasizeSelectedText:</string>
 							<string>insertCloseTag:</string>
-							<string>lowercase:</string>
+							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
+							<string>reindentText:</string>
+							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
-							<string>selectLine:</string>
-							<string>selectWord:</string>
 							<string>showGotoLineWindow:</string>
-							<string>stripTags:</string>
-							<string>strongify:</string>
-							<string>titlecase:</string>
+							<string>stripTagsFromSelectedText:</string>
+							<string>strongifySelectedText:</string>
+							<string>titlecaseSelectedText:</string>
 							<string>toggleLineNumbers:</string>
-							<string>uppercase:</string>
+							<string>uppercaseSelectedText:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3764,29 +3744,24 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>emphasize:</string>
-							<string>formatMarkup:</string>
+							<string>emphasizeSelectedText:</string>
 							<string>insertCloseTag:</string>
-							<string>lowercase:</string>
+							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
+							<string>reindentText:</string>
+							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
-							<string>selectLine:</string>
-							<string>selectWord:</string>
 							<string>showGotoLineWindow:</string>
-							<string>stripTags:</string>
-							<string>strongify:</string>
-							<string>titlecase:</string>
+							<string>stripTagsFromSelectedText:</string>
+							<string>strongifySelectedText:</string>
+							<string>titlecaseSelectedText:</string>
 							<string>toggleLineNumbers:</string>
-							<string>uppercase:</string>
+							<string>uppercaseSelectedText:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">emphasize:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">formatMarkup:</string>
+								<string key="name">emphasizeSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3794,7 +3769,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">lowercase:</string>
+								<string key="name">lowercaseSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3802,15 +3777,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">reindentText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectCurrentLine:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">selectEnclosingBrackets:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectLine:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectWord:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3818,15 +3793,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">stripTags:</string>
+								<string key="name">stripTagsFromSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">strongify:</string>
+								<string key="name">strongifySelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">titlecase:</string>
+								<string key="name">titlecaseSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3834,7 +3809,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">uppercase:</string>
+								<string key="name">uppercaseSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -3845,11 +3820,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>item</string>
+							<string>lineNumberView</string>
 							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3862,6 +3839,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>item</string>
+							<string>lineNumberView</string>
 							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
@@ -3873,6 +3851,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">lineNumberView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -4766,7 +4748,7 @@
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../Folio.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../../Folio.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<bool key="EncodedWithXMLCoder">YES</bool>

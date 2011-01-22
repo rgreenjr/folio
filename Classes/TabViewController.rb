@@ -17,9 +17,9 @@ class TabViewController < NSViewController
     view.delegate = self
     @splitView.delegate = self
     NSNotificationCenter.defaultCenter.addObserver(self, 
-    selector:('textDidChange:'), 
-    name:NSTextStorageDidProcessEditingNotification, 
-    object:@textViewController.view.textStorage)
+        selector:('textDidChange:'), 
+        name:NSTextStorageDidProcessEditingNotification, 
+        object:@textViewController.view.textStorage)
   end
 
   def textDidChange(notification)

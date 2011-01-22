@@ -150,6 +150,8 @@
 		CD3179E412EA7AE800C98B33 /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D412EA7AE800C98B33 /* TabView.xib */; };
 		CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D612EA7AE800C98B33 /* WebView.xib */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
+		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
+		CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F912EB3EAF009E33A3 /* IssueView.xib */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
@@ -286,6 +288,8 @@
 		CD3179D512EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TabView.xib; sourceTree = "<group>"; };
 		CD3179D712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebView.xib; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
+		CD85C8FA12EB3EAF009E33A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/IssueView.xib; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
@@ -403,6 +407,7 @@
 				CD3179BC12EA7AE800C98B33 /* Book.xib */,
 				CD3179BE12EA7AE800C98B33 /* GotoLine.xib */,
 				CD3179C012EA7AE800C98B33 /* InfoPlist.strings */,
+				CD85C8F912EB3EAF009E33A3 /* IssueView.xib */,
 				CD3179C212EA7AE800C98B33 /* MainMenu.xib */,
 				CD3179C412EA7AE800C98B33 /* Manifest.xib */,
 				CD3179C612EA7AE800C98B33 /* Metadata.xib */,
@@ -421,6 +426,7 @@
 		CD2D17D712E5F1F800D6A99A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */,
 				CD9727E412E79CBA006398DB /* ApplicationController.rb */,
 				CD9727E212E79CB4006398DB /* AsyncCommand.rb */,
 				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
@@ -701,6 +707,8 @@
 				CD3179E312EA7AE800C98B33 /* Spine.xib in Resources */,
 				CD3179E412EA7AE800C98B33 /* TabView.xib in Resources */,
 				CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */,
+				CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */,
+				CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +878,14 @@
 				CD3179D712EA7AE800C98B33 /* English */,
 			);
 			name = WebView.xib;
+			sourceTree = "<group>";
+		};
+		CD85C8F912EB3EAF009E33A3 /* IssueView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD85C8FA12EB3EAF009E33A3 /* English */,
+			);
+			name = IssueView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

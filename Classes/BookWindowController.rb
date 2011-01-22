@@ -114,6 +114,10 @@ class BookWindowController < NSWindowController
   def manifestController
     @manifestController ||= ManifestController.alloc.initWithBookController(self)
   end
+  
+  def issueViewController
+    @issueViewController ||= IssueViewController.alloc.initWithBookController(self)
+  end
 
   def showNavigationView(sender)
     changeSelectionView(navigationController)
@@ -125,6 +129,10 @@ class BookWindowController < NSWindowController
 
   def showManifestView(sender)
     changeSelectionView(manifestController)
+  end
+  
+  def showIssueView(sender)
+    changeSelectionView(issueViewController)
   end
 
   def showSearchView(sender)
@@ -155,30 +163,30 @@ class BookWindowController < NSWindowController
     Alert.runModal(window, messageText, informativeText)
   end
   
-  def validateUserInterfaceItem(interfaceItem)
-    case interfaceItem.action
-    when :"showNavigationView:"
-      @seletionView.subviews.first != navigationController.view
-    when :"showSpineView:"
-      @seletionView.subviews.first != spineController.view
-    when :"showManifestView:"
-      @seletionView.subviews.first != manifestController.view
-    else
-      true
-    end
-  end
-  
-  def updateToolbarItems
-    window.toolbar.visibleItems.each do |view|
-      if view.isKindOfClass(NSToolbarItem)
-        view.enabled = validateUserInterfaceItem(view)
-      end
-    end
-  end
+  # def validateUserInterfaceItem(interfaceItem)
+  #   case interfaceItem.action
+  #   when :"showNavigationView:"
+  #     @seletionView.subviews.first != navigationController.view
+  #   when :"showSpineView:"
+  #     @seletionView.subviews.first != spineController.view
+  #   when :"showManifestView:"
+  #     @seletionView.subviews.first != manifestController.view
+  #   else
+  #     true
+  #   end
+  # end
+  # 
+  # def updateToolbarItems
+  #   window.toolbar.visibleItems.each do |view|
+  #     if view.isKindOfClass(NSToolbarItem)
+  #       view.enabled = validateUserInterfaceItem(view)
+  #     end
+  #   end
+  # end
 
   private
 
-  def changeSelectionView(controller)
+  def changeSelectionViewXXXXX(controller)
     if @seletionView.subviews.empty?
       controller.view.frame = @seletionView.frame
       @seletionView.addSubview(controller.view)
@@ -189,6 +197,69 @@ class BookWindowController < NSWindowController
         @seletionView.animator.replaceSubview(currentView, with:controller.view)
       end
     end
+  end
+
+  def changeSelectionView(controller)
+    if @currentSelectionView
+      return if @currentSelectionView == controller.view
+      oldView = @currentSelectionView
+    end
+    @currentSelectionView = controller.view
+
+    unless @seletionView.subviews.include? @currentSelectionView
+      @currentSelectionView.frame = @seletionView.frame
+      @seletionView.addSubview(@currentSelectionView)
+    end
+    
+    @currentSelectionView.hidden = false
+    
+    if oldView
+      if oldView == @navigationController.view
+        slideViewsLeft(oldView, @currentSelectionView)
+      # elsif oldView == @manifestController.view
+      #   slideViewsRight(oldView, @currentSelectionView)
+      elsif oldView == @issueViewController.view
+        slideViewsRight(oldView, @currentSelectionView)
+      elsif @currentSelectionView == @navigationController.view
+        slideViewsRight(oldView, @currentSelectionView)
+      else
+        slideViewsLeft(oldView, @currentSelectionView)
+      end
+    end
+  end
+  
+  def slideViewsLeft(oldView, newView)
+    # start newView far right
+    rightFrame = @seletionView.frame
+    rightFrame.origin.x = @seletionView.frame.size.width
+    newView.frame = rightFrame
+    
+    # animate newView sliding left
+    leftFrame = @seletionView.frame
+    newView.animator.frame = leftFrame
+    
+    # animate oldView sliding out left
+    outFrame = @seletionView.frame
+    outFrame.origin.x = -@seletionView.frame.size.width
+    oldView.animator.frame = outFrame
+    oldView.animator.hidden = true
+  end
+
+  def slideViewsRight(oldView, newView)
+    # start newView far right
+    rightFrame = @seletionView.frame
+    rightFrame.origin.x = -@seletionView.frame.size.width
+    newView.frame = rightFrame
+    
+    # animate newView sliding left
+    leftFrame = @seletionView.frame
+    newView.animator.frame = leftFrame
+    
+    # animate oldView sliding out left
+    outFrame = @seletionView.frame
+    outFrame.origin.x = @seletionView.frame.size.width
+    oldView.animator.frame = outFrame
+    oldView.animator.hidden = true
   end
 
   def makeResponder(controller)

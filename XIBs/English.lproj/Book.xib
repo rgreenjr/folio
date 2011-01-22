@@ -3,7 +3,7 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">823</string>
+		<string key="IBDocument.InterfaceBuilderVersion">804</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
@@ -15,8 +15,8 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>823</string>
-				<string>823</string>
+				<string>804</string>
+				<string>804</string>
 			</object>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
@@ -1002,14 +1002,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">formatMarkup:</string>
-						<reference key="source" ref="820190714"/>
-						<reference key="destination" ref="580827983"/>
-					</object>
-					<int key="connectionID">133</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleSplitViewOrientation:</string>
 						<reference key="source" ref="1003"/>
 						<reference key="destination" ref="480683765"/>
@@ -1087,6 +1079,14 @@
 						<reference key="destination" ref="961348391"/>
 					</object>
 					<int key="connectionID">160</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">reindentText:</string>
+						<reference key="source" ref="1003"/>
+						<reference key="destination" ref="580827983"/>
+					</object>
+					<int key="connectionID">161</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1429,10 +1429,10 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{275, 188}, {897, 598}}</string>
+					<string>{{341, 188}, {897, 598}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{275, 188}, {897, 598}}</string>
+					<string>{{341, 188}, {897, 598}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -1454,7 +1454,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{415, 559}, {617, 227}}</string>
+					<string>{{481, 559}, {617, 227}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{595, 223}, {500, 522}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1510,7 +1510,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">160</int>
+			<int key="maxID">161</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1525,6 +1525,7 @@
 							<string>addFiles:</string>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
+							<string>showIssueView:</string>
 							<string>showManifestView:</string>
 							<string>showMetadataPanel:</string>
 							<string>showNavigationView:</string>
@@ -1547,6 +1548,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -1556,6 +1558,7 @@
 							<string>addFiles:</string>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
+							<string>showIssueView:</string>
 							<string>showManifestView:</string>
 							<string>showMetadataPanel:</string>
 							<string>showNavigationView:</string>
@@ -1577,6 +1580,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newPoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showIssueView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1798,7 +1805,7 @@
 							<string>showTextViewOnly:</string>
 							<string>showWebViewOnly:</string>
 							<string>toggleSplitViewOrientation:</string>
-							<string>updateSplitViewDividerPosition:</string>
+							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1827,7 +1834,7 @@
 							<string>showTextViewOnly:</string>
 							<string>showWebViewOnly:</string>
 							<string>toggleSplitViewOrientation:</string>
-							<string>updateSplitViewDividerPosition:</string>
+							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1868,7 +1875,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">updateSplitViewDividerPosition:</string>
+								<string key="name">updateToolbarItems:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -1952,24 +1959,22 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>emphasize:</string>
-							<string>formatMarkup:</string>
+							<string>emphasizeSelectedText:</string>
 							<string>insertCloseTag:</string>
-							<string>lowercase:</string>
+							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
+							<string>reindentText:</string>
+							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
-							<string>selectLine:</string>
-							<string>selectWord:</string>
 							<string>showGotoLineWindow:</string>
-							<string>stripTags:</string>
-							<string>strongify:</string>
-							<string>titlecase:</string>
+							<string>stripTagsFromSelectedText:</string>
+							<string>strongifySelectedText:</string>
+							<string>titlecaseSelectedText:</string>
 							<string>toggleLineNumbers:</string>
-							<string>uppercase:</string>
+							<string>uppercaseSelectedText:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1989,29 +1994,24 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>emphasize:</string>
-							<string>formatMarkup:</string>
+							<string>emphasizeSelectedText:</string>
 							<string>insertCloseTag:</string>
-							<string>lowercase:</string>
+							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
+							<string>reindentText:</string>
+							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
-							<string>selectLine:</string>
-							<string>selectWord:</string>
 							<string>showGotoLineWindow:</string>
-							<string>stripTags:</string>
-							<string>strongify:</string>
-							<string>titlecase:</string>
+							<string>stripTagsFromSelectedText:</string>
+							<string>strongifySelectedText:</string>
+							<string>titlecaseSelectedText:</string>
 							<string>toggleLineNumbers:</string>
-							<string>uppercase:</string>
+							<string>uppercaseSelectedText:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">emphasize:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">formatMarkup:</string>
+								<string key="name">emphasizeSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2019,7 +2019,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">lowercase:</string>
+								<string key="name">lowercaseSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2027,15 +2027,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">reindentText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectCurrentLine:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">selectEnclosingBrackets:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectLine:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectWord:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2043,15 +2043,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">stripTags:</string>
+								<string key="name">stripTagsFromSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">strongify:</string>
+								<string key="name">strongifySelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">titlecase:</string>
+								<string key="name">titlecaseSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2059,7 +2059,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">uppercase:</string>
+								<string key="name">uppercaseSelectedText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -2070,11 +2070,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>item</string>
+							<string>lineNumberView</string>
 							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2087,6 +2089,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>item</string>
+							<string>lineNumberView</string>
 							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
@@ -2098,6 +2101,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">lineNumberView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2921,7 +2928,7 @@
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../Folio.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../../Folio.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<bool key="EncodedWithXMLCoder">YES</bool>
