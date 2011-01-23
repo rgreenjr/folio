@@ -30,6 +30,7 @@ class IssueViewController < NSViewController
     @items.empty? ? showNoIssuesImage : showIssuesView
     @outlineView.deselectAll(self)
     @outlineView.reloadData
+    @outlineView.expandItem(nil, expandChildren:true)
   end
   
   def itemMarkersDidChange(notification)
