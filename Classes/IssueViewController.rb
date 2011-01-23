@@ -1,10 +1,11 @@
 class IssueViewController < NSViewController
 
-  attr_accessor :bookController, :tableView, :headerView
+  attr_accessor :bookController, :outlineView, :headerView, :noIssuesImageView
 
   def initWithBookController(bookController)
     initWithNibName("IssueView", bundle:nil)
     @bookController = bookController
+    @items = []
     self
   end
 
@@ -12,43 +13,77 @@ class IssueViewController < NSViewController
     @headerView.title = "Issues"
 
     imageCell = ImageCell.new
-    imageCell.setEditable(false)
-    @tableView.tableColumns.first.dataCell = imageCell
+    imageCell.editable = false
+    imageCell.selectable = false
+    @outlineView.tableColumns.first.dataCell = imageCell
 
-    @tableView.delegate = self
-    @tableView.dataSource = self
+    @outlineView.delegate = self
+    @outlineView.dataSource = self
 
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:@bookController.tabViewController.view)
+    showNoIssuesImage
+
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"itemMarkersDidChange:", name:"ItemMarkersDidChange", object:nil)
   end
-
-  def tabViewSelectionDidChange(notification)
-    @item = notification.object.selectedTab ? notification.object.selectedTab.item : nil
-    @tableView.reloadData
+  
+  def refresh
+    view
+    @items = @bookController.document.manifest.select { |item| item.markers.size > 0 }
+    @items.empty? ? showNoIssuesImage : showIssuesView
+    @outlineView.deselectAll(self)
+    @outlineView.reloadData
   end
-
+  
   def itemMarkersDidChange(notification)
-    @tableView.reloadData if notification.object == @item
+    refresh
+  end
+  
+  def showNoIssuesImage
+    @outlineView.hidden = true
+    @noIssuesImageView.hidden = false
+  end
+  
+  def showIssuesView
+    @outlineView.hidden = false
+    @noIssuesImageView.hidden = true
   end
 
-  def numberOfRowsInTableView(tableView)
-    @tableView.dataSource && @item ? @item.markers.size : 0
+  def outlineView(outlineView, numberOfChildrenOfItem:object)
+    return 0 unless @outlineView.dataSource
+    object ? object.markers.size : @items.size
   end
 
-  def tableView(tableView, objectValueForTableColumn:column, row:index)
-    @item.markers[index].displayString
+  def outlineView(outlineView, isItemExpandable:object)
+    object.class == Item
   end
 
-  def tableViewSelectionDidChange(notification)
-    if @tableView.selectedRow >= 0
-      lineNumber = @item.markers[@tableView.selectedRow].lineNumber + 1
-      @bookController.textViewController.lineNumberView.selectLineNumber(lineNumber)
+  def outlineView(outlineView, child:index, ofItem:object)
+    object ? object.markers[index] : @items[index]
+  end
+
+  def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:object)
+    object.class == Item ? object.name : object.displayString
+  end
+
+  def outlineViewSelectionDidChange(notification)
+    object = @outlineView.itemAtRow(@outlineView.selectedRow)
+    return unless object
+    if object.class == Item
+      @bookController.tabViewController.addObject(object)
+    else
+      @bookController.tabViewController.addObject(@outlineView.parentForItem(object))
+      object.ruler.gotoLine(object.lineNumber + 1)
     end
   end
 
-  def tableView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, row:row)
+  def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
     cell.font = NSFont.systemFontOfSize(11.0)
-    # cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(@item[row].name))
+    if item.class == Item
+      # cell.badgeCount = item.markers.size
+      cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+    else
+      cell.badgeCount = nil
+      cell.image = NSImage.imageNamed('yield.png')
+    end
   end
 
 end

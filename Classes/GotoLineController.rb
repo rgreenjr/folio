@@ -7,6 +7,7 @@ class GotoLineController < NSWindowController
   end
 
   def showWindowWithTarget(sender)
+    window # force window to load
     @target = sender
     window.center
     @gotoLineField.selectText(self)

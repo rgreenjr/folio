@@ -248,7 +248,7 @@ class LineNumberRuler < NSRulerView
     gotoLine(lineNumber)
     paragraphRange = clientView.string.paragraphRangeForRange(clientView.selectedRange)
     clientView.setSelectedRange(paragraphRange)
-    window.makeFirstResponder(clientView)
+    # window.makeFirstResponder(clientView)
   end
 
   private

@@ -26,19 +26,24 @@ class Book < NSDocument
   end
   
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
-    @unzipPath  = Dir.mktmpdir("folio-unzip-")
-    runCommand("unzip -q -d '#{@unzipPath}' \"#{absoluteURL.path}\"")
-    @container  = Container.new(@unzipPath, self)
-    @manifest   = Manifest.new(@container.absolutePath, self)
-    @metadata   = Metadata.new(self)
-    @spine      = Spine.new(self)
-    @guide      = Guide.new(self)
-    @navigation = Navigation.new(self)
-    true
-  rescue Exception => exception
-    info = { NSLocalizedFailureReasonErrorKey => exception.message }
-    outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
-    false
+    @progressController ||= ProgressController.alloc.init
+    @progressController.showWindowWithTitle("Opening...") do
+      begin
+        @unzipPath  = Dir.mktmpdir("folio-unzip-")
+        runCommand("unzip -q -d '#{@unzipPath}' \"#{absoluteURL.path}\"")
+        @container  = Container.new(@unzipPath, self)
+        @manifest   = Manifest.new(@container.absolutePath, self)
+        @metadata   = Metadata.new(self)
+        @spine      = Spine.new(self)
+        @guide      = Guide.new(self)
+        @navigation = Navigation.new(self)
+        true
+      rescue Exception => exception
+        info = { NSLocalizedFailureReasonErrorKey => exception.message }
+        outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
+        false
+      end
+    end
   end
 
   def writeToURL(absoluteURL, ofType:inTypeName, error:outError)

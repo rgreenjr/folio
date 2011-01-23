@@ -1,6 +1,10 @@
 class Item
 
-  attr_accessor :id, :mediaType, :content, :name, :parent
+  # mandatory unique identifier within the container
+  attr_accessor :id
+  
+  # mandatory MIME media-type
+  attr_accessor :mediaType, :content, :name, :parent
 
   def initialize(parent, name, id=nil, mediaType=nil, expanded=false)
     @parent = parent

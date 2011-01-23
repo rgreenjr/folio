@@ -41,3 +41,5 @@ Refactoring
 
 - Use "box" in view placeholder names
 - Change Editor Orientation to Layout
+- Move metadate, spine, navigation and manfiest into container
+- Add support for the 'linear' attribute on spine itemrefs (will require not object)

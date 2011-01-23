@@ -50,7 +50,6 @@ class TextViewController < NSViewController
   
   def showGotoLineWindow(sender)
     @gotoLineController ||= GotoLineController.alloc.init
-    @gotoLineController.window
     @gotoLineController.showWindowWithTarget(self)
   end
   
@@ -182,7 +181,7 @@ class TextViewController < NSViewController
     end
     tmp.delete
     @lineNumberView.setNeedsDisplay true
-    NSNotificationCenter.defaultCenter.postNotificationName("ItemMarkersDidChange", object:@item)
+    NSNotificationCenter.defaultCenter.postNotificationName("ItemMarkersDidChange", object:@bookController)
   end
 
   def paragraphSelectedLines(sender)

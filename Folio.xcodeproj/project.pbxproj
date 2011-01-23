@@ -99,7 +99,6 @@
 		CD2D183D12E5F1F800D6A99A /* TextViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180812E5F1F800D6A99A /* TextViewController.rb */; };
 		CD2D183E12E5F1F800D6A99A /* TransparentWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180912E5F1F800D6A99A /* TransparentWindow.rb */; };
 		CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180A12E5F1F800D6A99A /* UUID.rb */; };
-		CD2D184012E5F1F800D6A99A /* Validator.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180B12E5F1F800D6A99A /* Validator.rb */; };
 		CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180C12E5F1F800D6A99A /* WebViewController.rb */; };
 		CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D184312E5F23400D6A99A /* NSURL_test.rb */; };
 		CD2D187212E5F28500D6A99A /* backgroud-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2D185512E5F28500D6A99A /* backgroud-logo.png */; };
@@ -152,6 +151,10 @@
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
 		CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F912EB3EAF009E33A3 /* IssueView.xib */; };
+		CD8F5F4B12EB75A00036B0D7 /* Validation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F5F4912EB75A00036B0D7 /* Validation.xib */; };
+		CD8F5F5012EB77580036B0D7 /* ValidationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */; };
+		CD8F606512EBB0DE0036B0D7 /* yield.png in Resources */ = {isa = PBXBuildFile; fileRef = CD8F606412EBB0DE0036B0D7 /* yield.png */; };
+		CD8F607312EBBB770036B0D7 /* no-issues.png in Resources */ = {isa = PBXBuildFile; fileRef = CD8F607212EBBB770036B0D7 /* no-issues.png */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
@@ -237,7 +240,6 @@
 		CD2D180812E5F1F800D6A99A /* TextViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TextViewController.rb; sourceTree = "<group>"; };
 		CD2D180912E5F1F800D6A99A /* TransparentWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TransparentWindow.rb; sourceTree = "<group>"; };
 		CD2D180A12E5F1F800D6A99A /* UUID.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = UUID.rb; sourceTree = "<group>"; };
-		CD2D180B12E5F1F800D6A99A /* Validator.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Validator.rb; sourceTree = "<group>"; };
 		CD2D180C12E5F1F800D6A99A /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
 		CD2D184312E5F23400D6A99A /* NSURL_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NSURL_test.rb; sourceTree = "<group>"; };
 		CD2D185512E5F28500D6A99A /* backgroud-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroud-logo.png"; sourceTree = "<group>"; };
@@ -290,6 +292,10 @@
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
 		CD85C8FA12EB3EAF009E33A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/IssueView.xib; sourceTree = "<group>"; };
+		CD8F5F4A12EB75A00036B0D7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Validation.xib; sourceTree = "<group>"; };
+		CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ValidationController.rb; sourceTree = "<group>"; };
+		CD8F606412EBB0DE0036B0D7 /* yield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yield.png; sourceTree = "<group>"; };
+		CD8F607212EBBB770036B0D7 /* no-issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-issues.png"; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
@@ -418,6 +424,7 @@
 				CD3179D012EA7AE800C98B33 /* SourceView.xib */,
 				CD3179D212EA7AE800C98B33 /* Spine.xib */,
 				CD3179D412EA7AE800C98B33 /* TabView.xib */,
+				CD8F5F4912EB75A00036B0D7 /* Validation.xib */,
 				CD3179D612EA7AE800C98B33 /* WebView.xib */,
 			);
 			path = XIBs;
@@ -426,6 +433,7 @@
 		CD2D17D712E5F1F800D6A99A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
 				CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */,
 				CD9727E412E79CBA006398DB /* ApplicationController.rb */,
 				CD9727E212E79CB4006398DB /* AsyncCommand.rb */,
@@ -479,7 +487,6 @@
 				CD2D180812E5F1F800D6A99A /* TextViewController.rb */,
 				CD2D180912E5F1F800D6A99A /* TransparentWindow.rb */,
 				CD2D180A12E5F1F800D6A99A /* UUID.rb */,
-				CD2D180B12E5F1F800D6A99A /* Validator.rb */,
 				CD2D180C12E5F1F800D6A99A /* WebViewController.rb */,
 			);
 			path = Classes;
@@ -500,12 +507,14 @@
 				CD2D185C12E5F28500D6A99A /* items.png */,
 				CD2D185D12E5F28500D6A99A /* Metadata.tiff */,
 				CD2D185E12E5F28500D6A99A /* NavigationIcon.png */,
+				CD8F607212EBBB770036B0D7 /* no-issues.png */,
 				CD2D185F12E5F28500D6A99A /* no-cover.png */,
 				CD2D186012E5F28500D6A99A /* pageDown.png */,
 				CD2D186112E5F28500D6A99A /* pageUp.png */,
 				CD2D186212E5F28500D6A99A /* Reformat.tiff */,
 				CD2D186312E5F28500D6A99A /* source.png */,
 				CD2D186412E5F28500D6A99A /* SourceView.tiff */,
+				CD8F606412EBB0DE0036B0D7 /* yield.png */,
 				CD2D186512E5F28500D6A99A /* tab-bg.png */,
 				CD2D186612E5F28500D6A99A /* tab-close-pressed.png */,
 				CD2D186712E5F28500D6A99A /* tab-close.png */,
@@ -653,7 +662,6 @@
 				CD2D183D12E5F1F800D6A99A /* TextViewController.rb in Resources */,
 				CD2D183E12E5F1F800D6A99A /* TransparentWindow.rb in Resources */,
 				CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */,
-				CD2D184012E5F1F800D6A99A /* Validator.rb in Resources */,
 				CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */,
 				CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */,
 				CD2D187212E5F28500D6A99A /* backgroud-logo.png in Resources */,
@@ -709,6 +717,10 @@
 				CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */,
 				CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */,
 				CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */,
+				CD8F5F4B12EB75A00036B0D7 /* Validation.xib in Resources */,
+				CD8F5F5012EB77580036B0D7 /* ValidationController.rb in Resources */,
+				CD8F606512EBB0DE0036B0D7 /* yield.png in Resources */,
+				CD8F607312EBBB770036B0D7 /* no-issues.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -886,6 +898,14 @@
 				CD85C8FA12EB3EAF009E33A3 /* English */,
 			);
 			name = IssueView.xib;
+			sourceTree = "<group>";
+		};
+		CD8F5F4912EB75A00036B0D7 /* Validation.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD8F5F4A12EB75A00036B0D7 /* English */,
+			);
+			name = Validation.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

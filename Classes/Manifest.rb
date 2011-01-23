@@ -78,6 +78,14 @@ class Manifest
     end
   end
   
+  def select(&block)
+    items = []
+    each do |item|
+      items << item if yield item
+    end
+    items
+  end
+  
   def move(item, index, parent)
     FileUtils.mv(item.path, File.join(parent.path, item.name))
     item.parent.delete(item)

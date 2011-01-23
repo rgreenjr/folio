@@ -149,14 +149,14 @@ class BookWindowController < NSWindowController
 
   def showProgressWindow(title, &block)
     @progressController ||= ProgressController.alloc.init
-    @progressController.window
     @progressController.showWindowWithTitle(title, &block)
   end
 
   def validate(sender)
-    showProgressWindow("Validating...") do
-      Validator.validate(document, @textViewController.lineNumberView)
-    end
+    @validationController ||= ValidationController.alloc.init
+    @validationController.validateBook(document, @textViewController.lineNumberView)
+    issueViewController.refresh
+    showIssueView(self)
   end
   
   def runModalAlert(messageText, informativeText='')
