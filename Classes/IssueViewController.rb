@@ -71,7 +71,7 @@ class IssueViewController < NSViewController
       @bookController.tabViewController.addObject(object)
     else
       @bookController.tabViewController.addObject(@outlineView.parentForItem(object))
-      object.ruler.gotoLine(object.lineNumber + 1)
+      object.ruler.selectLineNumber(object.lineNumber + 1)
     end
   end
 
