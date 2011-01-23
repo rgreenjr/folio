@@ -37,7 +37,7 @@ class BookWindowController < NSWindowController
 
   # keep left split pane from resizing as window resizes
   def splitView(sender, resizeSubviewsWithOldSize:oldSize)
-    right = @masterSplitView.subviews[1]
+    right = @masterSplitView.subviews.last
     rightFrame = right.frame
     rightFrame.size.width += @masterSplitView.frame.size.width - oldSize.width
     right.frame = rightFrame
@@ -116,7 +116,7 @@ class BookWindowController < NSWindowController
   end
   
   def issueViewController
-    @issueViewController ||= IssueViewController.alloc.initWithBookController(self)
+    @issueViewController ||= IssueViewController.alloc.initWithBookController(self).loadView
   end
 
   def showNavigationView(sender)
@@ -214,50 +214,43 @@ class BookWindowController < NSWindowController
     @currentSelectionView.hidden = false
     
     if oldView
-      if oldView == @navigationController.view
-        slideViewsLeft(oldView, @currentSelectionView)
-      # elsif oldView == @manifestController.view
-      #   slideViewsRight(oldView, @currentSelectionView)
-      elsif oldView == @issueViewController.view
-        slideViewsRight(oldView, @currentSelectionView)
-      elsif @currentSelectionView == @navigationController.view
-        slideViewsRight(oldView, @currentSelectionView)
+      if oldView == navigationController.view
+        slideViews(oldView, @currentSelectionView, :left)
+      elsif oldView == manifestController.view
+        if @currentSelectionView == issueViewController.view
+          slideViews(oldView, @currentSelectionView, :left)
+        else
+          slideViews(oldView, @currentSelectionView, :right)
+        end
+      elsif oldView == spineController.view
+        if @currentSelectionView == navigationController.view
+          slideViews(oldView, @currentSelectionView, :right)
+        else
+          slideViews(oldView, @currentSelectionView, :left)
+        end
+      elsif oldView == issueViewController.view
+        slideViews(oldView, @currentSelectionView, :right)
+      elsif @currentSelectionView == navigationController.view
+        slideViews(oldView, @currentSelectionView, :right)
       else
-        slideViewsLeft(oldView, @currentSelectionView)
+        slideViews(oldView, @currentSelectionView, :left)
       end
     end
   end
   
-  def slideViewsLeft(oldView, newView)
-    # start newView far right
-    rightFrame = @seletionView.frame
-    rightFrame.origin.x = @seletionView.frame.size.width
+  def slideViews(oldView, newView, direction)
+    # start newView far right or left
+    rightFrame = @seletionView.frame    
+    rightFrame.origin.x = direction == :right ? -@seletionView.frame.size.width : @seletionView.frame.size.width
     newView.frame = rightFrame
     
-    # animate newView sliding left
+    # animate newView sliding into place
     leftFrame = @seletionView.frame
     newView.animator.frame = leftFrame
     
-    # animate oldView sliding out left
+    # animate oldView sliding out to right or left
     outFrame = @seletionView.frame
-    outFrame.origin.x = -@seletionView.frame.size.width
-    oldView.animator.frame = outFrame
-    oldView.animator.hidden = true
-  end
-
-  def slideViewsRight(oldView, newView)
-    # start newView far right
-    rightFrame = @seletionView.frame
-    rightFrame.origin.x = -@seletionView.frame.size.width
-    newView.frame = rightFrame
-    
-    # animate newView sliding left
-    leftFrame = @seletionView.frame
-    newView.animator.frame = leftFrame
-    
-    # animate oldView sliding out left
-    outFrame = @seletionView.frame
-    outFrame.origin.x = @seletionView.frame.size.width
+    outFrame.origin.x = direction == :right ? @seletionView.frame.size.width : -@seletionView.frame.size.width
     oldView.animator.frame = outFrame
     oldView.animator.hidden = true
   end

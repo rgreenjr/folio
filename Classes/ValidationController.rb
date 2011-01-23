@@ -5,7 +5,7 @@ class ValidationController < NSWindowController
   def init
     initWithWindowNibName("Validation")
   end
-  
+
   def validateBook(book, lineNumberView)
     window # force window to load
     items = []
@@ -15,23 +15,25 @@ class ValidationController < NSWindowController
       @progressBar.startAnimation(self)
       NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
 
-      libDir  = File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/lib/epubcheck/")    
-      command = "cd \"#{libDir}\"; java -jar epubcheck-1.1.jar \"#{book.fileURL.path}\""      
+      libDir  = File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/lib/epubcheck/")
+      command = "cd \"#{libDir}\"; java -jar epubcheck-1.1.jar \"#{book.fileURL.path}\""
       resultFile = Tempfile.new('folio-validation-')
       # puts command
       system("#{command} &>#{resultFile.path}")
-      
+
       counter = 1
       File.readlines(resultFile.path).each do |line|
         break if counter > 100000
-        line.gsub!(book.fileURL.path + '/', '')
+
+        line.gsub!(File.join(book.fileURL.path, book.container.relativePath, '/'), '')
+
         if line =~ /^ERROR: (.*)\(([0-9]+)\): (.*)/
           itemHref = $1
           lineNumber = $2.to_i - 1
           message = $3
-        
+
           item = book.manifest.itemWithHref(itemHref)
-        
+
           # puts itemHref
           # puts lineNumber
           # puts message
@@ -45,19 +47,22 @@ class ValidationController < NSWindowController
           else
             puts "*** Validation.validateBook could not find item: #{itemHref}"
           end
+
+          counter += 1
+        else
+          puts "*** Validation.validateBook ignoring message: #{line}"
         end
-        counter += 1
       end
-      
+
     ensure
       NSApp.endSheet(window)
       window.orderOut(self)
       @progressBar.stopAnimation(self)
-    end    
+    end
   end
-  
+
   private
-  
+
   def clearValidationMarkers(book)
     book.manifest.each do |item|
       item.clearMarkers

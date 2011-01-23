@@ -193,6 +193,10 @@ class Item
     @markerHash.values
   end
   
+  def hasMarkers?
+    !@markerHash.empty?
+  end
+  
   def markerHash
     @markerHash
   end

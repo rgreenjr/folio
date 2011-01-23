@@ -26,8 +26,7 @@ class IssueViewController < NSViewController
   end
   
   def refresh
-    view
-    @items = @bookController.document.manifest.select { |item| item.markers.size > 0 }
+    @items = @bookController.document.manifest.select { |item| item.hasMarkers? }
     @items.empty? ? showNoIssuesImage : showIssuesView
     @outlineView.deselectAll(self)
     @outlineView.reloadData
