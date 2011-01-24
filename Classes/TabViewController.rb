@@ -186,7 +186,7 @@ class TabViewController < NSViewController
   def splitView(splitView, constrainSplitPosition:proposedPosition, ofSubviewAt:dividerIndex)
     @previousDividerPosition = proposedPosition 
   end
-
+  
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
@@ -200,6 +200,9 @@ class TabViewController < NSViewController
     when :"showTextViewOnly:", :"toggleTextView"
       view.numberOfTabs > 0 && (@splitView.subviews.size == 2 || @splitView.subviews[0] != @textViewController.view.enclosingScrollView)
     when :"toggleSplitViewOrientation:"
+      if interfaceItem.class == NSMenuItem
+        interfaceItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
+      end
       view.numberOfTabs > 0
     when :"makeSplitViewOrientationHorizontal:", :"makeSplitViewOrientationVertical:"
       view.numberOfTabs > 0

@@ -18,7 +18,8 @@ class BookWindowController < NSWindowController
     makeResponder(@textViewController)
     makeResponder(@webViewController)
     makeResponder(@tabViewController)
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", name:"TabViewSelectionDidChange", object:@tabView)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
+        name:"TabViewSelectionDidChange", object:@tabView)
     showLogoImage
     showNavigationView(self)
   end
@@ -186,19 +187,6 @@ class BookWindowController < NSWindowController
 
   private
 
-  def changeSelectionViewXXXXX(controller)
-    if @seletionView.subviews.empty?
-      controller.view.frame = @seletionView.frame
-      @seletionView.addSubview(controller.view)
-    else
-      currentView = @seletionView.subviews.first
-      if controller.view != currentView
-        controller.view.frame = @seletionView.frame
-        @seletionView.animator.replaceSubview(currentView, with:controller.view)
-      end
-    end
-  end
-
   def changeSelectionView(controller)
     if @currentSelectionView
       return if @currentSelectionView == controller.view
@@ -239,6 +227,10 @@ class BookWindowController < NSWindowController
   end
   
   def slideViews(oldView, newView, direction)
+    NSAnimationContext.beginGrouping
+    
+    # NSAnimationContext.currentContext.duration = 3.0
+    
     # start newView far right or left
     rightFrame = @seletionView.frame    
     rightFrame.origin.x = direction == :right ? -@seletionView.frame.size.width : @seletionView.frame.size.width
@@ -247,12 +239,16 @@ class BookWindowController < NSWindowController
     # animate newView sliding into place
     leftFrame = @seletionView.frame
     newView.animator.frame = leftFrame
+    newView.animator.alphaValue = 1.0
     
     # animate oldView sliding out to right or left
     outFrame = @seletionView.frame
     outFrame.origin.x = direction == :right ? @seletionView.frame.size.width : -@seletionView.frame.size.width
     oldView.animator.frame = outFrame
-    oldView.animator.hidden = true
+    oldView.animator.alphaValue = 0.5
+    # oldView.animator.hidden = true
+
+    NSAnimationContext.endGrouping
   end
 
   def makeResponder(controller)
