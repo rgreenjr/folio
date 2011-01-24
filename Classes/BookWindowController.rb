@@ -3,6 +3,8 @@ class BookWindowController < NSWindowController
   SPLIT_VIEW_MINIMUM_WIDTH = 150.0
   
   attr_accessor :masterSplitView
+  
+  attr_accessor :selectionViewController, :navigationController, :spineController, :manifestController
 
   attr_accessor :seletionView, :contentView, :tabView, :contentPlaceholder
   attr_accessor :segmentedControl, :logoImageWell
@@ -18,10 +20,11 @@ class BookWindowController < NSWindowController
     makeResponder(@textViewController)
     makeResponder(@webViewController)
     makeResponder(@tabViewController)
+    makeResponder(@selectionViewController)
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
         name:"TabViewSelectionDidChange", object:@tabView)
     showLogoImage
-    showNavigationView(self)
+    showSelectionView(self)
   end
 
   def windowTitleForDocumentDisplayName(displayName)
@@ -50,27 +53,27 @@ class BookWindowController < NSWindowController
   end
   
   def addFiles(sender)
-    showManifestView(self)
+    showSelectionView(self)
     manifestController.showAddFilesSheet(sender)
   end
 
   def newDirectory(sender)
-    showManifestView(self)
+    showSelectionView(self)
     manifestController.newDirectory(sender)
   end
 
   def newPoint(sender)
-    showNavigationView(self)
+    showSelectionView(self)
     navigationController.newPoint(sender)
   end
   
   def newPointsWithItems(items)
-    showNavigationView(self)
+    showSelectionView(self)
     navigationController.newPointsWithItems(items)
   end
   
   def addItemsToSpine(items)
-    showSpineView(self)
+    showSelectionView(self)
     spineController.addItems(items)
   end
 
@@ -104,40 +107,16 @@ class BookWindowController < NSWindowController
     @metadataController.showMetadataSheet(self)
   end
 
-  def navigationController
-    @navigationController ||= NavigationController.alloc.initWithBookController(self)
-  end
-
-  def spineController
-    @spineController ||= SpineController.alloc.initWithBookController(self)
-  end
-
-  def manifestController
-    @manifestController ||= ManifestController.alloc.initWithBookController(self)
-  end
-  
   def issueViewController
     @issueViewController ||= IssueViewController.alloc.initWithBookController(self).loadView
   end
 
-  def showNavigationView(sender)
-    changeSelectionView(navigationController)
+  def showSelectionView(sender)
+    changeSidebarView(selectionViewController)
   end
 
-  def showSpineView(sender)
-    changeSelectionView(spineController)
-  end
-
-  def showManifestView(sender)
-    changeSelectionView(manifestController)
-  end
-  
   def showIssueView(sender)
-    changeSelectionView(issueViewController)
-  end
-
-  def showSearchView(sender)
-    changeSelectionView(searchController)
+    changeSidebarView(issueViewController)
   end
 
   def showUnregisteredFiles(sender)
@@ -185,9 +164,15 @@ class BookWindowController < NSWindowController
   #   end
   # end
 
+  def makeResponder(controller)
+    current = window.nextResponder
+    window.nextResponder = controller
+    controller.nextResponder = current
+  end
+  
   private
 
-  def changeSelectionView(controller)
+  def changeSidebarView(controller)
     if @currentSelectionView
       return if @currentSelectionView == controller.view
       oldView = @currentSelectionView
@@ -202,26 +187,10 @@ class BookWindowController < NSWindowController
     @currentSelectionView.hidden = false
     
     if oldView
-      if oldView == navigationController.view
+      if oldView == selectionViewController.view
         slideViews(oldView, @currentSelectionView, :left)
-      elsif oldView == manifestController.view
-        if @currentSelectionView == issueViewController.view
-          slideViews(oldView, @currentSelectionView, :left)
-        else
-          slideViews(oldView, @currentSelectionView, :right)
-        end
-      elsif oldView == spineController.view
-        if @currentSelectionView == navigationController.view
-          slideViews(oldView, @currentSelectionView, :right)
-        else
-          slideViews(oldView, @currentSelectionView, :left)
-        end
-      elsif oldView == issueViewController.view
-        slideViews(oldView, @currentSelectionView, :right)
-      elsif @currentSelectionView == navigationController.view
-        slideViews(oldView, @currentSelectionView, :right)
       else
-        slideViews(oldView, @currentSelectionView, :left)
+        slideViews(oldView, @currentSelectionView, :right)
       end
     end
   end
@@ -251,11 +220,4 @@ class BookWindowController < NSWindowController
     NSAnimationContext.endGrouping
   end
 
-  def makeResponder(controller)
-    current = window.nextResponder
-    window.nextResponder = controller
-    controller.nextResponder = current
-    controller.bookController = self
-  end
-  
 end

@@ -31,8 +31,10 @@ class ImageCell < NSTextFieldCell
   end
 
   def image=(image)
-    image.scalesWhenResized = true
-    image.size = NSSize.new(16, 16)
+    if image
+      image.scalesWhenResized = true
+      image.size = NSSize.new(16, 16)
+    end
     super
   end
 

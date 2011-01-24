@@ -1,80 +1,57 @@
-class NavigationController < NSViewController
+class NavigationController < NSResponder
 
-  attr_accessor :bookController, :outlineView, :propertiesForm, :headerView
-
-  def initWithBookController(bookController)
-    initWithNibName("Navigation", bundle:nil)
-    @bookController = bookController
-    @navigation = @bookController.document.navigation
-    self
-  end
+  attr_accessor :bookController, :outlineView, :propertiesForm
 
   def awakeFromNib
-    @headerView.title = "Navigation"
+    @navigation = @bookController.document.navigation
 
-    menu = NSMenu.alloc.initWithTitle("")
-    menu.addAction("New Point...", "newPoint:", self)
-    menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
-    menu.addAction("Delete", "deleteSelectedPoints:", self)
-    @outlineView.menu = menu
+    @menu = NSMenu.alloc.initWithTitle("")
+    @menu.addAction("New Point...", "newPoint:", self)
+    @menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
+    @menu.addAction("Delete", "deleteSelectedPoints:", self)
 
-    @outlineView.tableColumns.first.dataCell = ImageCell.new
-    @outlineView.delegate = self
-    @outlineView.dataSource = self
-    @outlineView.registerForDraggedTypes([NSStringPboardType])
-    @outlineView.reloadData
+    # @outlineView.registerForDraggedTypes([NSStringPboardType])
     
     displaySelectedPointProperties
     # exapndRootPoint
   end
-
-  def exapndRootPoint
-    @outlineView.expandItem(@navigation.root[0]) if @navigation.root.size > 0
+  
+  def numberOfChildrenOfItem(point)
+    point == self ? @navigation.root.size : point.size
   end
 
-  def selectedPoint
-    @outlineView.selectedRow == -1 ? nil : @navigation[@outlineView.selectedRow]
+  def isItemExpandable(point)
+    point == self ? true : point.size > 0
   end
 
-  def selectedPoints
-    @outlineView.selectedRowIndexes.map { |index| @navigation[index] }
+  def child(index, ofItem:point)
+    point == self ? @navigation.root[index] : point[index]
   end
 
-  def outlineView(outlineView, numberOfChildrenOfItem:point)
-    return 0 unless @outlineView.dataSource # guard against SDK bug
-    point ? point.size : @navigation.root.size
+  def objectValueForTableColumn(tableColumn, byItem:point)
+    point == self ? "TABLE OF CONTENTS" : point.text
   end
 
-  def outlineView(outlineView, isItemExpandable:point)
-    point && point.size > 0
+  def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
+    if item == self
+      # cell.textColor = NSColor.colorWithDeviceRed(0.39, green:0.44, blue:0.5, alpha:1.0)
+      cell.font = NSFont.boldSystemFontOfSize(11.0)
+      cell.image = NSImage.imageNamed('book.png')
+      cell.menu = nil
+    else
+      # cell.textColor = NSColor.darkGrayColor
+      cell.font = NSFont.systemFontOfSize(11.0)
+      cell.image = nil
+      cell.menu = @menu
+    end
   end
 
-  def outlineView(outlineView, child:index, ofItem:point)
-    point ? point[index] : @navigation.root[index]
+  def setObjectValue(value, forTableColumn:tableColumn, byItem:point)
+    # changePointText(point, value)
   end
 
-  def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:point)
-    point.text
-  end
-
-  def outlineViewItemDidExpand(notification)
-    notification.userInfo['NSObject'].expanded = true
-  end
-
-  def outlineViewItemDidCollapse(notification)
-    notification.userInfo['NSObject'].expanded = false
-  end
-
-  def outlineViewSelectionDidChange(notification)
+  def selectionDidChange(selectedItems)
     displaySelectedPointProperties
-  end
-
-  def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:point)
-    changePointText(point, value)
-  end
-
-  def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
-    cell.font = NSFont.systemFontOfSize(11.0)
   end
 
   def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
@@ -109,6 +86,14 @@ class NavigationController < NSViewController
     newIndexes = Array.new(points.size, childIndex)
     movePoints(points, newIndexes, newParents)
     true
+  end
+
+  def selectedPoint
+    selectedPoints.first
+  end
+
+  def selectedPoints
+    @outlineView.delegate.selectedItemsForController(self)
   end
 
   def movePoints(points, newIndexes, newParents)
@@ -268,13 +253,14 @@ class NavigationController < NSViewController
 
   def reloadDataAndSelectPoints(points)
     @outlineView.reloadData
-    @outlineView.selectItems(points)
+    # @outlineView.selectItems(points)
     displaySelectedPointProperties
     @bookController.window.makeFirstResponder(@outlineView)
   end
 
   def displaySelectedPointProperties
-    if @outlineView.numberOfSelectedRows == 1
+    return
+    if points.size == 1
       point = selectedPoint
       propertyCells.each { |cell| cell.enabled = true }
       textCell.stringValue = point.text
@@ -302,7 +288,7 @@ class NavigationController < NSViewController
     @propertyCells ||= [textCell, idCell, sourceCell]
   end
 
-  def validateUserInterfaceItem(interfaceItem)
+  def validateUserInterfaceItemXXX(interfaceItem)
     case interfaceItem.action
     when :"deleteSelectedPoints:", :"delete:"
       @outlineView.numberOfSelectedRows > 0

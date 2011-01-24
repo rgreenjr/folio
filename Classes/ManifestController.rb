@@ -1,81 +1,63 @@
-class ManifestController < NSViewController
+class ManifestController < NSResponder
 
-  attr_accessor :bookController, :outlineView, :propertiesForm, :mediaTypePopUpButton, :headerView
-
-  def initWithBookController(bookController)
-    initWithNibName("Manifest", bundle:nil)
-    @bookController = bookController
-    @manifest = @bookController.document.manifest
-    self
-  end
+  attr_accessor :bookController, :outlineView, :propertiesForm, :mediaTypePopUpButton
 
   def awakeFromNib
-    @headerView.title = "Manifest"
+    @manifest = @bookController.document.manifest
 
     # configure popup menu
-    menu = NSMenu.alloc.initWithTitle("")
-    menu.addAction("Add Files...", "showAddFilesSheet:", self)
-    menu.addActionWithSeparator("New Directory", "newDirectory:", self)
-    menu.addActionWithSeparator("Add to Spine", "addSelectedItemsToSpine:", self)
-    menu.addActionWithSeparator("Mark as Cover Image", "markAsCover:", self)
-    menu.addAction("Delete...", "showDeleteSelectedItemsSheet:", self)
-    @outlineView.menu = menu
+    @menu = NSMenu.alloc.initWithTitle("")
+    @menu.addAction("Add Files...", "showAddFilesSheet:", self)
+    @menu.addActionWithSeparator("New Directory", "newDirectory:", self)
+    @menu.addActionWithSeparator("Add to Spine", "addSelectedItemsToSpine:", self)
+    @menu.addActionWithSeparator("Mark as Cover Image", "markAsCover:", self)
+    @menu.addAction("Delete...", "showDeleteSelectedItemsSheet:", self)
 
-    @outlineView.tableColumns.first.dataCell = ImageCell.new
-    @outlineView.delegate = self
-    @outlineView.dataSource = self
-    @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
-    @outlineView.reloadData
+    # @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
 
     # configure media types popup button
-    Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
+    # Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
 
     displaySelectedItemProperties
   end
 
-  def selectedItem
-    @outlineView.selectedRow == -1 ? nil : @manifest[@outlineView.selectedRow]
+  def numberOfChildrenOfItem(item)
+    item == self ? @manifest.root.size : item.size
   end
 
-  def selectedItems
-    @outlineView.selectedRowIndexes.map { |index| @manifest[index] }
+  def isItemExpandable(item)
+    item == self ? true : item.directory?
   end
 
-  def selectedItemParentAndChildIndex
-    item = selectedItem
-    item ? [item.parent, item.parent.index(item)] : [@manifest.root, -1]
+  def child(index, ofItem:item)
+    item == self ? @manifest.root[index] : item[index]
   end
 
-  def outlineView(outlineView, numberOfChildrenOfItem:item)
-    return 0 unless @outlineView.dataSource # guard against SDK bug
-    item ? item.size : @manifest.root.size
+  def objectValueForTableColumn(tableColumn, byItem:item)
+    item == self ? "MANIFEST" : item.name
   end
 
-  def outlineView(outlineView, isItemExpandable:item)
-    item && item.directory?
+  def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
+    if item == self
+      cell.font = NSFont.boldSystemFontOfSize(11.0)
+      cell.image = NSImage.imageNamed('book.png')
+      cell.menu = nil
+    else
+      cell.font = NSFont.systemFontOfSize(11.0)
+      cell.menu = @menu
+      if item.directory?
+        cell.image = NSImage.imageNamed('folder.png')
+      else
+        cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      end
+    end
   end
 
-  def outlineView(outlineView, child:index, ofItem:item)
-    item ? item[index] : @manifest.root[index]
-  end
-
-  def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:item)
-    item.name
-  end
-
-  def outlineViewItemDidExpand(notification)
-    notification.userInfo['NSObject'].expanded = true
-  end
-
-  def outlineViewItemDidCollapse(notification)
-    notification.userInfo['NSObject'].expanded = false
-  end
-
-  def outlineViewSelectionDidChange(notification)
+  def selectionDidChange(notification)
     displaySelectedItemProperties
   end
 
-  def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
+  def setObjectValue(value, forTableColumn:tableColumn, byItem:item)
     value = value.sanitize
     if item.parent.childWithName(value)
       showChangeNameCollisionAlert(value)
@@ -137,12 +119,25 @@ class ManifestController < NSViewController
     end
   end
 
+  def selectedItem
+    selectedItems.first
+  end
+
+  def selectedItems
+    @outlineView.delegate.selectedItemsForController(self)
+  end
+
+  def selectedItemParentAndChildIndex
+    item = selectedItem
+    item ? [item.parent, item.parent.index(item)] : [@manifest.root, -1]
+  end
+
   def showAddFilesSheet(sender)
     panel = NSOpenPanel.openPanel
     panel.title = "Add Files"
     panel.setPrompt("Select")
     panel.setAllowsMultipleSelection(true)
-    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@outlineView.window,
+    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@bookController.window,
     modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
@@ -344,18 +339,19 @@ class ManifestController < NSViewController
   end
 
   def displaySelectedItemProperties
+    return
     item = selectedItem
-    if @outlineView.numberOfSelectedRows == 1 && !item.directory?
-      propertyCells.each {|cell| cell.enabled = true}
-      @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
-      nameCell.stringValue = item.name
-      idCell.stringValue = item.id
+    if item && !item.directory?
+      # propertyCells.each {|cell| cell.enabled = true}
+      # @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
+      # nameCell.stringValue = item.name
+      # idCell.stringValue = item.id
       if item.renderable?
         @bookController.tabViewController.addObject(item)        
       end
     else
-      propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
-      @mediaTypePopUpButton.selectItemWithTitle('')
+      # propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
+      # @mediaTypePopUpButton.selectItemWithTitle('')
     end
   end
 

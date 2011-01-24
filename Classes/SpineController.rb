@@ -1,87 +1,86 @@
-class SpineController < NSViewController
+class SpineController < NSResponder
 
-  attr_accessor :bookController, :tableView, :headerView
-
-  def initWithBookController(bookController)
-    initWithNibName("Spine", bundle:nil)
-    @bookController = bookController
-    @spine = @bookController.document.spine
-    self
-  end
+  attr_accessor :bookController, :outlineView
 
   def awakeFromNib
-    @headerView.title = "Spine"
-    menu = NSMenu.alloc.initWithTitle("")
-    menu.addActionWithSeparator("Add to Navigation", "addSelectedItemsToNavigation:", self)
-    menu.addAction("Delete", "deleteSelectedItems:", self)
-    @tableView.menu = menu
-    imageCell = ImageCell.new
-    imageCell.setEditable(false)
-    @tableView.tableColumns.first.dataCell = imageCell
-    @tableView.delegate = self
-    @tableView.dataSource = self
-    @tableView.registerForDraggedTypes([NSStringPboardType])
-    @tableView.reloadData
+    @spine = @bookController.document.spine
+
+    @menu = NSMenu.alloc.initWithTitle("")
+    @menu.addActionWithSeparator("Add to Navigation", "addSelectedItemsToNavigation:", self)
+    @menu.addAction("Delete", "deleteSelectedItems:", self)
+
+    # @outlineView.registerForDraggedTypes([NSStringPboardType])
   end
 
-  def selectedItems
-    @tableView.selectedRowIndexes.map { |index| @spine[index] }
+  def numberOfChildrenOfItem(item)
+    item == self ? @spine.size : item.size
   end
 
-  def numberOfRowsInTableView(tableView)
-    @tableView.dataSource ? @spine.size : 0
+  def isItemExpandable(item)
+    item == self ? true : item.size > 0
   end
 
-  def tableView(tableView, objectValueForTableColumn:column, row:index)
-    @spine[index].name
+  def child(index, ofItem:item)
+    item == self ? @spine[index] : item[index]
   end
 
-  def tableViewSelectionDidChange(notification)
-    if @tableView.selectedRow >= 0
-      @bookController.tabViewController.addObject(@spine[@tableView.selectedRow])
+  def objectValueForTableColumn(tableColumn, byItem:item)
+    item == self ? "SPINE" : item.name
+  end
+
+  def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
+    if item == self
+      cell.font = NSFont.boldSystemFontOfSize(11.0)
+      cell.image = NSImage.imageNamed('book.png')
+      cell.menu = nil
+    else
+      cell.font = NSFont.systemFontOfSize(11.0)
+      cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      cell.menu = @menu
     end
   end
 
-  def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
-    itemIds = indexes.map { |index| @spine[index].id }
-    pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setPropertyList(itemIds.to_plist, forType:NSStringPboardType)
-    true
-  end
-
-  def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:operation)
-    row && operation == NSTableViewDropAbove ? NSDragOperationMove : NSDragOperationNone
-  end
-
-  def tableView(tableView, acceptDrop:info, row:rowIndex, dropOperation:operation)
-    itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-    items = []
-    newIndexes = []
-    offset = 0
-    itemIds.reverse.each do |id|
-      item = @spine.itemWithId(id)
-      items << item
-      oldIndex = @spine.index(item)
-      if oldIndex < rowIndex
-        offset += 1
-        newIndexes << rowIndex - offset
-      else
-        newIndexes << rowIndex
-      end
+  def selectionDidChange(notification)
+    if @outlineView.selectedRow >= 0
+      @bookController.tabViewController.addObject(@spine[@outlineView.selectedRow])
     end
-    moveItems(items, newIndexes)
-    true
   end
 
-  def tableView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, row:row)
-    cell.font = NSFont.systemFontOfSize(11.0)
-    cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(@spine[row].name))
-  end
-
-  def tableView(tableView, rowForItem:item)
-    @spine.index(item)
-  end
-
+  # def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
+  #   itemIds = indexes.map { |index| @spine[index].id }
+  #   pboard.declareTypes([NSStringPboardType], owner:self)
+  #   pboard.setPropertyList(itemIds.to_plist, forType:NSStringPboardType)
+  #   true
+  # end
+  # 
+  # def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:operation)
+  #   row && operation == NSTableViewDropAbove ? NSDragOperationMove : NSDragOperationNone
+  # end
+  # 
+  # def tableView(tableView, acceptDrop:info, row:rowIndex, dropOperation:operation)
+  #   itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
+  #   items = []
+  #   newIndexes = []
+  #   offset = 0
+  #   itemIds.reverse.each do |id|
+  #     item = @spine.itemWithId(id)
+  #     items << item
+  #     oldIndex = @spine.index(item)
+  #     if oldIndex < rowIndex
+  #       offset += 1
+  #       newIndexes << rowIndex - offset
+  #     else
+  #       newIndexes << rowIndex
+  #     end
+  #   end
+  #   moveItems(items, newIndexes)
+  #   true
+  # end
+  # 
+  # def tableView(tableView, rowForItem:item)
+  #   @spine.index(item)
+  # end
+  
   def addItems(items, indexes=nil)
     indexes ||= Array.new(items.size, -1)
     items.each_with_index do |item, i|
@@ -93,6 +92,10 @@ class SpineController < NSViewController
       undoManager.actionName = "Add #{pluralize(items.size, "Item")} to Spine"
     end
     reloadDataAndSelectItems(items)
+  end
+
+  def selectedItems
+    @outlineView.delegate.selectedItemsForController(self)
   end
 
   def addSelectedItemsToNavigation(sender)
@@ -150,10 +153,9 @@ class SpineController < NSViewController
   end
 
   def validateUserInterfaceItem(interfaceItem)
-    return false unless @tableView.window
     case interfaceItem.action
     when :"addSelectedItemsToNavigation:", :"deleteSelectedItems:", :"delete:"
-      @tableView.numberOfSelectedRows > 0
+      @outlineView.numberOfSelectedRows > 0
     else
       true
     end
@@ -166,9 +168,9 @@ class SpineController < NSViewController
   private
 
   def reloadDataAndSelectItems(items)
-    @tableView.reloadData
-    @tableView.selectItems(items)
-    @bookController.window.makeFirstResponder(@tableView)
+    @outlineView.reloadData
+    @outlineView.selectItems(items)
+    @bookController.window.makeFirstResponder(@outlineView)
   end
 
 end

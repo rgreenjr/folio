@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">823</string>
+		<string key="IBDocument.InterfaceBuilderVersion">804</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">823</string>
+			<string key="NS.object.0">804</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -643,37 +643,17 @@
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSMenuItem" id="1053191691">
 									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Navigation</string>
+									<string key="NSTitle">Items</string>
 									<string key="NSKeyEquiv">1</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
-								<object class="NSMenuItem" id="740024945">
-									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Spine</string>
-									<string key="NSKeyEquiv">2</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-									<int key="NSTag">1</int>
-								</object>
-								<object class="NSMenuItem" id="950022410">
-									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Manifest</string>
-									<string key="NSKeyEquiv">3</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-									<int key="NSTag">2</int>
-								</object>
 								<object class="NSMenuItem" id="1063855430">
 									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Issues</string>
-									<string key="NSKeyEquiv">4</string>
+									<string key="NSTitle">Validation Issues</string>
+									<string key="NSKeyEquiv">2</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1269,30 +1249,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showNavigationView:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="1053191691"/>
-					</object>
-					<int key="connectionID">1676</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showSpineView:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="740024945"/>
-					</object>
-					<int key="connectionID">1677</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showManifestView:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="950022410"/>
-					</object>
-					<int key="connectionID">1678</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">saveDocumentAs:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="636823227"/>
@@ -1562,6 +1518,14 @@
 						<reference key="destination" ref="402771595"/>
 					</object>
 					<int key="connectionID">1808</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showSelectionView:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="1053191691"/>
+					</object>
+					<int key="connectionID">1819</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1947,8 +1911,6 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="1053191691"/>
-							<reference ref="740024945"/>
-							<reference ref="950022410"/>
 							<reference ref="189943304"/>
 							<reference ref="156276626"/>
 							<reference ref="301042860"/>
@@ -2020,16 +1982,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">558</int>
 						<reference key="object" ref="1053191691"/>
-						<reference key="parent" ref="466310130"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">616</int>
-						<reference key="object" ref="740024945"/>
-						<reference key="parent" ref="466310130"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">618</int>
-						<reference key="object" ref="950022410"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -2531,8 +2483,6 @@
 					<string>57.editorWindowContentRectSynchronizationRect</string>
 					<string>58.IBPluginDependency</string>
 					<string>58.ImportedFromIB2</string>
-					<string>616.IBPluginDependency</string>
-					<string>618.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>74.IBPluginDependency</string>
@@ -2710,13 +2660,13 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{350, 769}, {491, 20}}</string>
+					<string>{{611, 1020}, {491, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{502, 536}, {260, 233}}</string>
+					<string>{{763, 827}, {260, 193}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2734,8 +2684,6 @@
 					<string>{{23, 794}, {245, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2774,7 +2722,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1818</int>
+			<int key="maxID">1819</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2809,20 +2757,14 @@
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
 							<string>showIssueView:</string>
-							<string>showManifestView:</string>
 							<string>showMetadataPanel:</string>
-							<string>showNavigationView:</string>
-							<string>showSearchView:</string>
-							<string>showSpineView:</string>
+							<string>showSelectionView:</string>
 							<string>showTemporaryDirectory:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>validate:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2842,11 +2784,8 @@
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
 							<string>showIssueView:</string>
-							<string>showManifestView:</string>
 							<string>showMetadataPanel:</string>
-							<string>showNavigationView:</string>
-							<string>showSearchView:</string>
-							<string>showSpineView:</string>
+							<string>showSelectionView:</string>
 							<string>showTemporaryDirectory:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>validate:</string>
@@ -2870,23 +2809,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showManifestView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">showMetadataPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showNavigationView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showSearchView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showSpineView:</string>
+								<string key="name">showSelectionView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2910,12 +2837,16 @@
 							<string>contentPlaceholder</string>
 							<string>contentView</string>
 							<string>logoImageWell</string>
+							<string>manifestController</string>
 							<string>masterSplitView</string>
+							<string>navigationController</string>
 							<string>renderImageView</string>
 							<string>renderSplitView</string>
 							<string>renderView</string>
 							<string>segmentedControl</string>
+							<string>selectionViewController</string>
 							<string>seletionView</string>
+							<string>spineController</string>
 							<string>tabView</string>
 							<string>tabViewController</string>
 							<string>textViewController</string>
@@ -2923,6 +2854,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2945,12 +2880,16 @@
 							<string>contentPlaceholder</string>
 							<string>contentView</string>
 							<string>logoImageWell</string>
+							<string>manifestController</string>
 							<string>masterSplitView</string>
+							<string>navigationController</string>
 							<string>renderImageView</string>
 							<string>renderSplitView</string>
 							<string>renderView</string>
 							<string>segmentedControl</string>
+							<string>selectionViewController</string>
 							<string>seletionView</string>
+							<string>spineController</string>
 							<string>tabView</string>
 							<string>tabViewController</string>
 							<string>textViewController</string>
@@ -2971,7 +2910,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">manifestController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">masterSplitView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">navigationController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2991,7 +2938,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">selectionViewController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">seletionView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">spineController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3019,7 +2974,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">ManifestController</string>
-					<string key="superclassName">NSViewController</string>
+					<string key="superclassName">NSResponder</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -3092,14 +3047,12 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>headerView</string>
 							<string>mediaTypePopUpButton</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3111,7 +3064,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>headerView</string>
 							<string>mediaTypePopUpButton</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
@@ -3120,10 +3072,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">headerView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3155,7 +3103,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NavigationController</string>
-					<string key="superclassName">NSViewController</string>
+					<string key="superclassName">NSResponder</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -3214,13 +3162,11 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>headerView</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3231,7 +3177,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>headerView</string>
 							<string>outlineView</string>
 							<string>propertiesForm</string>
 						</object>
@@ -3239,10 +3184,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">headerView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3411,7 +3352,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">SpineController</string>
-					<string key="superclassName">NSViewController</string>
+					<string key="superclassName">NSResponder</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -3456,12 +3397,10 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>headerView</string>
-							<string>tableView</string>
+							<string>outlineView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -3471,8 +3410,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>headerView</string>
-							<string>tableView</string>
+							<string>outlineView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3481,11 +3419,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">headerView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tableView</string>
+								<string key="name">outlineView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
