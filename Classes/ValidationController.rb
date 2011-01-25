@@ -46,6 +46,7 @@ class ValidationController < NSWindowController
             end
           else
             puts "*** Validation.validateBook could not find item: #{itemHref}"
+            puts line
           end
 
           counter += 1

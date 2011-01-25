@@ -7,6 +7,7 @@ class SelectionViewController < NSViewController
     @controllers = [@navigationController, @spineController, @manifestController]
     @controllers.each { |controller| @bookController.makeResponder(controller) }
     @outlineView.tableColumns.first.dataCell = ImageCell.new
+    @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.reloadData
@@ -49,14 +50,36 @@ class SelectionViewController < NSViewController
       puts "multiple or empty selection"
     end
   end
-  
+
+  def outlineView(outlineView, writeItems:items, toPasteboard:pboard)
+    @draggingController = commonControllerForItems(items)
+    @draggingController ? @draggingController.writeItems(items, toPasteboard:pboard) : false
+  end
+
+  def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
+    return NSDragOperationNone unless parent && info.draggingSource == @outlineView
+    parentController = controllerForItem(parent)
+    if canDragFromSource(@draggingSource, toController:parentController)
+      puts "can drag"
+      operation = controllerForItem(parent).validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
+      puts operation == NSDragOperationMove
+    else
+      NSDragOperationNone
+    end
+    operation
+  end
+
+  def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
+    controllerForItem(parent).acceptDrop(info, item:parent, childIndex:childIndex)
+  end
+
   def selectedItemsForController(controller)
     items = @outlineView.selectedRowIndexes.map { |index| @outlineView.itemAtRow(index) }
     items.select { |item| controllerForItem(item) == controller }
   end
-  
+
   private
-  
+
   def isController(item)
     @outlineView.parentForItem(item) == nil
   end
@@ -66,6 +89,27 @@ class SelectionViewController < NSViewController
       item = @outlineView.parentForItem(item)
     end
     item
+  end
+
+  def commonControllerForItems(items)
+    common = nil
+    items.each do |item|
+      controller = controllerForItem(item)
+      common ||= controller
+      return nil if common != controller
+    end
+    common
+  end
+  
+  def canDragFromSource(fromController, toController:toController)
+    case fromController
+    when @navigationController
+      toController == @navigationController
+    when @spineController
+      toController == @navigationController || toController == @spineController
+    else
+      true
+    end
   end
 
 end

@@ -12,9 +12,7 @@ class ManifestController < NSResponder
     @menu.addActionWithSeparator("Add to Spine", "addSelectedItemsToSpine:", self)
     @menu.addActionWithSeparator("Mark as Cover Image", "markAsCover:", self)
     @menu.addAction("Delete...", "showDeleteSelectedItemsSheet:", self)
-
-    # @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
-
+    
     # configure media types popup button
     # Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
 

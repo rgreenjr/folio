@@ -8,8 +8,6 @@ class SpineController < NSResponder
     @menu = NSMenu.alloc.initWithTitle("")
     @menu.addActionWithSeparator("Add to Navigation", "addSelectedItemsToNavigation:", self)
     @menu.addAction("Delete", "deleteSelectedItems:", self)
-
-    # @outlineView.registerForDraggedTypes([NSStringPboardType])
   end
 
   def numberOfChildrenOfItem(item)
@@ -46,40 +44,42 @@ class SpineController < NSResponder
     end
   end
 
-  # def tableView(tableView, writeRowsWithIndexes:indexes, toPasteboard:pboard)
-  #   itemIds = indexes.map { |index| @spine[index].id }
-  #   pboard.declareTypes([NSStringPboardType], owner:self)
-  #   pboard.setPropertyList(itemIds.to_plist, forType:NSStringPboardType)
-  #   true
-  # end
-  # 
-  # def tableView(tableView, validateDrop:info, proposedRow:row, proposedDropOperation:operation)
-  #   row && operation == NSTableViewDropAbove ? NSDragOperationMove : NSDragOperationNone
-  # end
-  # 
-  # def tableView(tableView, acceptDrop:info, row:rowIndex, dropOperation:operation)
-  #   itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-  #   items = []
-  #   newIndexes = []
-  #   offset = 0
-  #   itemIds.reverse.each do |id|
-  #     item = @spine.itemWithId(id)
-  #     items << item
-  #     oldIndex = @spine.index(item)
-  #     if oldIndex < rowIndex
-  #       offset += 1
-  #       newIndexes << rowIndex - offset
-  #     else
-  #       newIndexes << rowIndex
-  #     end
-  #   end
-  #   moveItems(items, newIndexes)
-  #   true
-  # end
-  # 
-  # def tableView(tableView, rowForItem:item)
-  #   @spine.index(item)
-  # end
+  def writeItems(items, toPasteboard:pboard)
+    itemIds = items.map { |item| item.id }
+    pboard.declareTypes([NSStringPboardType], owner:self)
+    pboard.setPropertyList(itemIds.to_plist, forType:NSStringPboardType)
+    true
+  end
+  
+  def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
+    puts "SpineController.validateDrop"
+    NSDragOperationMove
+  end
+  
+  def acceptDrop(info, item:parent, childIndex:childIndex)
+    puts "SpineController.acceptDrop"
+    itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
+    items = []
+    newIndexes = []
+    offset = 0
+    itemIds.reverse.each do |id|
+      item = @spine.itemWithId(id)
+      items << item
+      oldIndex = @spine.index(item)
+      if oldIndex < childIndex
+        offset += 1
+        newIndexes << childIndex - offset
+      else
+        newIndexes << childIndex
+      end
+    end
+    moveItems(items, newIndexes)
+    true
+  end
+  
+  def tableView(tableView, rowForItem:item)
+    @spine.index(item)
+  end
   
   def addItems(items, indexes=nil)
     indexes ||= Array.new(items.size, -1)

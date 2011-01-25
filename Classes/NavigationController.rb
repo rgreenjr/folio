@@ -9,8 +9,6 @@ class NavigationController < NSResponder
     @menu.addAction("New Point...", "newPoint:", self)
     @menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
     @menu.addAction("Delete", "deleteSelectedPoints:", self)
-
-    # @outlineView.registerForDraggedTypes([NSStringPboardType])
     
     displaySelectedPointProperties
     # exapndRootPoint
@@ -61,8 +59,7 @@ class NavigationController < NSResponder
     true
   end
 
-  def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
-    return NSDragOperationNone unless info.draggingSource == @outlineView
+  def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
     operation = NSDragOperationNone
     load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |id|
       point = @navigation.pointWithId(id)
