@@ -52,21 +52,25 @@ class SelectionViewController < NSViewController
   end
 
   def outlineView(outlineView, writeItems:items, toPasteboard:pboard)
+    # get the common controller (if there is one) for the items to be written
     @draggingController = commonControllerForItems(items)
+
+    # only allow dragging if all items come from same controller
     @draggingController ? @draggingController.writeItems(items, toPasteboard:pboard) : false
   end
 
   def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
-    return NSDragOperationNone unless parent && info.draggingSource == @outlineView
-    parentController = controllerForItem(parent)
-    if canDragFromSource(@draggingSource, toController:parentController)
-      puts "can drag"
-      operation = controllerForItem(parent).validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
-      puts operation == NSDragOperationMove
-    else
-      NSDragOperationNone
-    end
-    operation
+    # reject unless there a proposed parent
+    return NSDragOperationNone unless parent
+    
+    # get controller for proposed parent 
+    controller = controllerForItem(parent)    
+    
+    # check if controller for proposed parent accepts items from @draggingSource controller
+    return NSDragOperationNone unless canDragFromSource(@draggingSource, toController:controller)
+    
+    # let the controller validate the drop
+    controller.validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)

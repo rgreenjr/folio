@@ -52,7 +52,7 @@ class NavigationController < NSResponder
     displaySelectedPointProperties
   end
 
-  def outlineView(outlineView, writeItems:points, toPasteboard:pboard)
+  def writeItems(points, toPasteboard:pboard)
     pointIds = points.map { |item| item.id }
     pboard.declareTypes([NSStringPboardType], owner:self)
     pboard.setPropertyList(pointIds.to_plist, forType:NSStringPboardType)
@@ -61,22 +61,23 @@ class NavigationController < NSResponder
 
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
     operation = NSDragOperationNone
+    parent = @navigation.root if parent == self
     load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |id|
       point = @navigation.pointWithId(id)
       if parent
         operation = !point.ancestor?(parent) ? NSDragOperationMove : NSDragOperationNone
-      elsif @navigation.root.size == 1 && point == @navigation.root[0]
-        operation = NSDragOperationNone
-      else
-        index = @navigation.root.index(point)
-        operation = index.nil? || index != childIndex ? NSDragOperationMove : NSDragOperationNone
+      # elsif @navigation.root.size == 1 && point == @navigation.root[0]
+      #   operation = NSDragOperationNone
+      # else
+      #   index = @navigation.root.index(point)
+      #   operation = index.nil? || index != childIndex ? NSDragOperationMove : NSDragOperationNone
       end
     end
     operation
   end
 
-  def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    parent = @navigation.root unless parent
+  def acceptDrop(info, item:parent, childIndex:childIndex)
+    parent = @navigation.root if parent == self
     plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
     points = plist.map { |id| @navigation.pointWithId(id) }
     newParents = Array.new(points.size, parent)

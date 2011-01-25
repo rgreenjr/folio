@@ -64,14 +64,15 @@ class ManifestController < NSResponder
     end
   end
 
-  def outlineView(outlineView, writeItems:items, toPasteboard:pboard)
+  def writeItems(items, toPasteboard:pboard)
     hrefs = items.map { |item| item.href }
     pboard.declareTypes([NSStringPboardType], owner:self)
     pboard.setPropertyList(hrefs.to_plist, forType:NSStringPboardType)
     true
   end
 
-  def outlineView(outlineView, validateDrop:info, proposedItem:parent, proposedChildIndex:childIndex)
+  def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
+    parent = nil if parent == self
     if info.draggingSource == @outlineView
       hrefs = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
       hrefs.each do |href|
@@ -91,8 +92,8 @@ class ManifestController < NSResponder
     end
   end
 
-  def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
-    parent = @manifest.root unless parent
+  def acceptDrop(info, item:parent, childIndex:childIndex)
+    parent = @manifest.root if parent == self
     return false unless parent.directory?
     items = []
     if @outlineView == info.draggingSource
