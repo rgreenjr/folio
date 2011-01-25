@@ -2,14 +2,12 @@ class BookWindowController < NSWindowController
 
   SPLIT_VIEW_MINIMUM_WIDTH = 150.0
   
-  attr_accessor :masterSplitView
-  
   attr_accessor :selectionViewController, :navigationController, :spineController, :manifestController
+  attr_accessor :tabViewController, :webViewController, :textViewController
 
-  attr_accessor :seletionView, :contentView, :tabView, :contentPlaceholder
+  attr_accessor :seletionView, :contentView, :contentPlaceholder
   attr_accessor :segmentedControl, :logoImageWell
-  attr_accessor :textViewController, :webViewController, :tabViewController
-  
+  attr_accessor :masterSplitView  
   attr_accessor :renderView, :renderSplitView, :renderImageView
 
   def init
@@ -22,9 +20,11 @@ class BookWindowController < NSWindowController
     makeResponder(@tabViewController)
     makeResponder(@selectionViewController)
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
-        name:"TabViewSelectionDidChange", object:@tabView)
+        name:"TabViewSelectionDidChange", object:@tabViewController.view)
     showLogoImage
     showSelectionView(self)
+    @selectionViewController.expandNavigation(self)
+    @selectionViewController.expandSpine(self)
   end
 
   def windowTitleForDocumentDisplayName(displayName)
@@ -49,7 +49,7 @@ class BookWindowController < NSWindowController
   end
   
   def tabViewSelectionDidChange(notification)
-    @tabView.selectedTab ? showContentView : showLogoImage
+    @tabViewController.view.selectedTab ? showContentView : showLogoImage
   end
   
   def addFiles(sender)

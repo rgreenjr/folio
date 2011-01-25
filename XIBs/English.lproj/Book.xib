@@ -109,11 +109,9 @@
 								<string key="NSToolbarItemPaletteLabel">Editor</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="480683765">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {71, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="136210616">
 										<int key="NSCellFlags">67239424</int>
@@ -825,14 +823,6 @@
 						<reference key="destination" ref="820190714"/>
 					</object>
 					<int key="connectionID">20</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">tabView</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="446180582"/>
-					</object>
-					<int key="connectionID">33</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1778,14 +1768,12 @@
 							<string>selectionViewController</string>
 							<string>seletionView</string>
 							<string>spineController</string>
-							<string>tabView</string>
 							<string>tabViewController</string>
 							<string>textViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1821,7 +1809,6 @@
 							<string>selectionViewController</string>
 							<string>seletionView</string>
 							<string>spineController</string>
-							<string>tabView</string>
 							<string>tabViewController</string>
 							<string>textViewController</string>
 							<string>webViewController</string>
@@ -1878,10 +1865,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">spineController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

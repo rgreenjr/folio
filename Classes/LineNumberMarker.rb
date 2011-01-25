@@ -18,6 +18,10 @@ class LineNumberMarker < NSRulerMarker
   def displayString
     "#{lineNumber + 1}: #{message}"
   end
+  
+  def <=>(other)
+    lineNumber <=> other.lineNumber
+  end
 
   private
 

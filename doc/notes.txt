@@ -2,8 +2,6 @@ Bugs
 ====
 
 - Fix broken Edit > Delete menu action.
-- Fix undo delete of nested navigation points
-- Fix Spine undo after multiple changes
 - Navigation should check for inclusion of objects prior to deleting
 - Update Navigation view on modification
 
@@ -42,4 +40,3 @@ Refactoring
 - Use "box" in view placeholder names
 - Change Editor Orientation to Layout
 - Move metadate, spine, navigation and manfiest into container
-- Add support for the 'linear' attribute on spine itemrefs (will require not object)

@@ -32,7 +32,7 @@ class NavigationController < NSResponder
     if item == self
       # cell.textColor = NSColor.colorWithDeviceRed(0.39, green:0.44, blue:0.5, alpha:1.0)
       cell.font = NSFont.boldSystemFontOfSize(11.0)
-      cell.image = NSImage.imageNamed('book.png')
+      cell.image = NSImage.imageNamed('toc.png')
       cell.menu = nil
     else
       # cell.textColor = NSColor.darkGrayColor
@@ -52,8 +52,8 @@ class NavigationController < NSResponder
 
   def writeItems(points, toPasteboard:pboard)
     pointIds = points.map { |item| item.id }
-    pboard.declareTypes(["NavigationPointPboardType"], owner:self)
-    pboard.setPropertyList(pointIds.to_plist, forType:"NavigationPointPboardType")
+    pboard.declareTypes(["NavigationPointsPboardType"], owner:self)
+    pboard.setPropertyList(pointIds.to_plist, forType:"NavigationPointsPboardType")
     true
   end
 
@@ -68,8 +68,8 @@ class NavigationController < NSResponder
     types = info.draggingPasteboard.types     
     
     # data contains item ids
-    if types.containsObject("SpineItemPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+    if types.containsObject("SpineItemRefsPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
       items = itemIds.each do |id|
         item = @bookController.document.manifest.itemWithId(id)
         # reject if the item isn't flowable
@@ -79,8 +79,8 @@ class NavigationController < NSResponder
     end
         
     # return move operation if data is from navigation controller and proposed parent isn't a descendant 
-    if types.containsObject("NavigationPointPboardType")
-      pointIds = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointPboardType"))
+    if types.containsObject("NavigationPointsPboardType")
+      pointIds = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointsPboardType"))
       pointIds.each do |id|
         point = @navigation.pointWithId(id)
         return NSDragOperationNone if point.ancestor?(parent)
@@ -100,8 +100,8 @@ class NavigationController < NSResponder
     types = info.draggingPasteboard.types
 
     # create new points if data comes from spine controller
-    if types.containsObject("SpineItemPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+    if types.containsObject("SpineItemRefsPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
       p itemIds
       items = itemIds.map { |id| @bookController.document.manifest.itemWithId(id) }      
       newPointsWithItems(items)
@@ -109,8 +109,8 @@ class NavigationController < NSResponder
     end
     
     # move existing points if data comes from navigation controller
-    if types.containsObject("NavigationPointPboardType")
-      plist = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointPboardType"))
+    if types.containsObject("NavigationPointsPboardType")
+      plist = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointsPboardType"))
       points = plist.map { |id| @navigation.pointWithId(id) }
       newParents = Array.new(points.size, parent)
       newIndexes = Array.new(points.size, childIndex)

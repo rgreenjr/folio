@@ -6,6 +6,7 @@ require "fileutils"
 require "erb"
 require "tempfile"
 require "cgi"
+require "forwardable"
 
 # Loading all the Ruby project files.
 main = File.basename(__FILE__, File.extname(__FILE__))

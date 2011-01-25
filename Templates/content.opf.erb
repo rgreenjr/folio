@@ -22,8 +22,8 @@
 	<item id="ncx" href="<%= book.manifest.ncx.href.escapeHTML %>" media-type="<%= book.manifest.ncx.mediaType %>" />
   </manifest>
 
-  <spine toc="ncx"><% book.spine.each do |item| %>
-    <itemref idref="<%= item.id %>" /><% end %>
+  <spine toc="ncx"><% book.spine.each do |itemref| %>
+    <itemref idref="<%= itemref.id %>" <% if itemref.linear %>linear="<%= itemref.linear %>"<% end %>/><% end %>
   </spine>
 
   <guide><% book.guide.each do |item| %>

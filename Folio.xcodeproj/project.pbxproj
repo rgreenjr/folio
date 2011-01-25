@@ -157,6 +157,9 @@
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
+		CDD7AFF712EF675700352D4B /* manifest.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFF612EF675700352D4B /* manifest.png */; };
+		CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFFA12EF6D5F00352D4B /* toc.png */; };
+		CDD7B02F12EF79D800352D4B /* ItemRef.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDD7B02E12EF79D800352D4B /* ItemRef.rb */; };
 		CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC8312E6116600633F22 /* PreferencesController.rb */; };
 		CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC9612E611F800633F22 /* preferences-general.tiff */; };
 		CDDCAD8012EC7E63003A0B07 /* no-issues.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDCAD7F12EC7E63003A0B07 /* no-issues.png */; };
@@ -298,6 +301,9 @@
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
+		CDD7AFF612EF675700352D4B /* manifest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manifest.png; sourceTree = "<group>"; };
+		CDD7AFFA12EF6D5F00352D4B /* toc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toc.png; sourceTree = "<group>"; };
+		CDD7B02E12EF79D800352D4B /* ItemRef.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ItemRef.rb; sourceTree = "<group>"; };
 		CDDBEC8312E6116600633F22 /* PreferencesController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PreferencesController.rb; sourceTree = "<group>"; };
 		CDDBEC9612E611F800633F22 /* preferences-general.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "preferences-general.tiff"; sourceTree = "<group>"; };
 		CDDCAD7F12EC7E63003A0B07 /* no-issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-issues.png"; sourceTree = "<group>"; };
@@ -434,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
+				CDD7B02E12EF79D800352D4B /* ItemRef.rb */,
 				CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */,
 				CD9727E412E79CBA006398DB /* ApplicationController.rb */,
 				CD9727E212E79CB4006398DB /* AsyncCommand.rb */,
@@ -502,11 +509,13 @@
 				CD2D185712E5F28500D6A99A /* find-close-click.png */,
 				CD2D185812E5F28500D6A99A /* find-close-rollover.png */,
 				CD2D185912E5F28500D6A99A /* find-close.png */,
+				CDD7AFFA12EF6D5F00352D4B /* toc.png */,
 				CD2D185A12E5F28500D6A99A /* folder.png */,
 				CD2D185B12E5F28500D6A99A /* horizontal.png */,
 				CD2D185C12E5F28500D6A99A /* items.png */,
 				CD2D185D12E5F28500D6A99A /* Metadata.tiff */,
 				CD2D185E12E5F28500D6A99A /* NavigationIcon.png */,
+				CDD7AFF612EF675700352D4B /* manifest.png */,
 				CD2D185F12E5F28500D6A99A /* no-cover.png */,
 				CD2D186012E5F28500D6A99A /* pageDown.png */,
 				CDDCAD7F12EC7E63003A0B07 /* no-issues.png */,
@@ -721,6 +730,9 @@
 				CD8F5F5012EB77580036B0D7 /* ValidationController.rb in Resources */,
 				CD8F606512EBB0DE0036B0D7 /* yield.png in Resources */,
 				CDDCAD8012EC7E63003A0B07 /* no-issues.png in Resources */,
+				CDD7AFF712EF675700352D4B /* manifest.png in Resources */,
+				CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */,
+				CDD7B02F12EF79D800352D4B /* ItemRef.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@ class SpineController < NSResponder
   end
 
   def numberOfChildrenOfItem(item)
+    return 0 unless @spine # guard against SDK bug
     item == self ? @spine.size : item.size
   end
 
@@ -45,8 +46,8 @@ class SpineController < NSResponder
 
   def writeItems(items, toPasteboard:pboard)
     itemIds = items.map { |item| item.id }
-    pboard.declareTypes(["SpineItemPboardType"], owner:self)
-    pboard.setPropertyList(itemIds.to_plist, forType:"SpineItemPboardType")
+    pboard.declareTypes(["SpineItemRefsPboardType"], owner:self)
+    pboard.setPropertyList(itemIds.to_plist, forType:"SpineItemRefsPboardType")
     true
   end
   
@@ -61,8 +62,8 @@ class SpineController < NSResponder
     types = info.draggingPasteboard.types
 
     # data source is spine controller
-    if types.containsObject("SpineItemPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+    if types.containsObject("SpineItemRefsPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
       items = itemIds.each do |id|
         item = @bookController.document.manifest.itemWithId(id)
         # reject if the item isn't flowable
@@ -72,8 +73,8 @@ class SpineController < NSResponder
     end
 
     # data source is manifest controller
-    if types.containsObject("ManifestItemPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+    if types.containsObject("ManifestItemsPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
       p itemIds
       items = itemIds.each do |id|
         item = @bookController.document.manifest.itemWithId(id)
@@ -91,17 +92,17 @@ class SpineController < NSResponder
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    if types.containsObject("SpineItemPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+    if types.containsObject("SpineItemRefsPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
     else
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
     end
 
     items = []
     newIndexes = []
     offset = 0
     itemIds.reverse.each do |id|
-      item = @spine.itemWithId(id)
+      item = @spine.itemRefWithId(id)
       items << item
       oldIndex = @spine.index(item)
       if oldIndex < childIndex

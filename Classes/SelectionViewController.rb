@@ -7,11 +7,22 @@ class SelectionViewController < NSViewController
     @controllers = [@navigationController, @spineController, @manifestController]
     @controllers.each { |controller| @bookController.makeResponder(controller) }
     @outlineView.tableColumns.first.dataCell = ImageCell.new
-    @outlineView.registerForDraggedTypes(["NavigationPointPboardType", "SpineItemPboardType", "ManifestItemPboardType", NSFilenamesPboardType])
+    @outlineView.registerForDraggedTypes(["NavigationPointsPboardType", "SpineItemRefsPboardType", "ManifestItemsPboardType", NSFilenamesPboardType])
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.reloadData
-    @outlineView.expandItem(@outlineView.itemAtRow(0))
+  end
+  
+  def expandNavigation(sender)
+    @outlineView.expandItem(@navigationController)    
+  end
+  
+  def expandSpine(sender)
+    @outlineView.expandItem(@spineController)    
+  end
+
+  def expandManifest(sender)
+    @outlineView.expandItem(@manifestController)    
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:item)
@@ -101,4 +112,3 @@ class SelectionViewController < NSViewController
   end
 
 end
-

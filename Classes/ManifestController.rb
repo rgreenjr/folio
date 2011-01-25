@@ -20,6 +20,7 @@ class ManifestController < NSResponder
   end
 
   def numberOfChildrenOfItem(item)
+    return 0 unless @manifest # guard against SDK bug
     item == self ? @manifest.root.size : item.size
   end
 
@@ -38,7 +39,7 @@ class ManifestController < NSResponder
   def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
     if item == self
       cell.font = NSFont.boldSystemFontOfSize(11.0)
-      cell.image = NSImage.imageNamed('book.png')
+      cell.image = NSImage.imageNamed('manifest.png')
       cell.menu = nil
     else
       cell.font = NSFont.systemFontOfSize(11.0)
@@ -66,8 +67,8 @@ class ManifestController < NSResponder
 
   def writeItems(items, toPasteboard:pboard)
     itemIds = items.map { |item| item.id }
-    pboard.declareTypes(["ManifestItemPboardType"], owner:self)
-    pboard.setPropertyList(itemIds.to_plist, forType:"ManifestItemPboardType")
+    pboard.declareTypes(["ManifestItemsPboardType"], owner:self)
+    pboard.setPropertyList(itemIds.to_plist, forType:"ManifestItemsPboardType")
     true
   end
 
@@ -79,9 +80,9 @@ class ManifestController < NSResponder
     types = info.draggingPasteboard.types
     
     # data is coming from the manifest controller
-    if types.containsObject("ManifestItemPboardType")      
+    if types.containsObject("ManifestItemsPboardType")      
       # get hrefs data from pastebaord
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
       
       # loop over each href and validate
       itemIds.each do |id|
@@ -131,7 +132,7 @@ class ManifestController < NSResponder
     return false unless parent.directory?
     items = []
     if @outlineView == info.draggingSource
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
       items = itemIds.map { |id| @manifest.itemWithId(id) }
       newParents = Array.new(items.size, parent)
       newIndexes = Array.new(items.size, childIndex)

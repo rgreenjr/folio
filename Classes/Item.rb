@@ -190,7 +190,7 @@ class Item
   end
 
   def markers
-    @markerHash.values
+    @markerHash.values.sort
   end
   
   def hasMarkers?
