@@ -7,7 +7,7 @@ class SelectionViewController < NSViewController
     @controllers = [@navigationController, @spineController, @manifestController]
     @controllers.each { |controller| @bookController.makeResponder(controller) }
     @outlineView.tableColumns.first.dataCell = ImageCell.new
-    @outlineView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
+    @outlineView.registerForDraggedTypes(["NavigationPointPboardType", "SpineItemPboardType", "ManifestItemPboardType", NSFilenamesPboardType])
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.reloadData
@@ -64,14 +64,8 @@ class SelectionViewController < NSViewController
     # reject unless there a proposed parent
     return NSDragOperationNone unless parent
     
-    # get controller for proposed parent 
-    controller = controllerForItem(parent)    
-    
-    # check if controller for proposed parent accepts items from @draggingSource controller
-    return NSDragOperationNone unless canDragFromSource(@draggingSource, toController:controller)
-    
-    # let the controller validate the drop
-    controller.validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
+    # get controller for proposed parent and let it validate the drop
+    controllerForItem(parent).validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
   end
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
@@ -104,17 +98,6 @@ class SelectionViewController < NSViewController
       return nil if common != controller
     end
     common
-  end
-  
-  def canDragFromSource(fromController, toController:toController)
-    case fromController
-    when @navigationController
-      toController == @navigationController
-    when @spineController
-      toController == @spineController
-    else
-      true
-    end
   end
 
 end

@@ -65,31 +65,65 @@ class ManifestController < NSResponder
   end
 
   def writeItems(items, toPasteboard:pboard)
-    hrefs = items.map { |item| item.href }
-    pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setPropertyList(hrefs.to_plist, forType:NSStringPboardType)
+    itemIds = items.map { |item| item.id }
+    pboard.declareTypes(["ManifestItemPboardType"], owner:self)
+    pboard.setPropertyList(itemIds.to_plist, forType:"ManifestItemPboardType")
     true
   end
 
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
+    # set the proposed parent to nil if it is manifest controller
     parent = nil if parent == self
-    if info.draggingSource == @outlineView
-      hrefs = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-      hrefs.each do |href|
-        item = @manifest.itemWithHref(href)
-        if (!parent && item.parent == @manifest.root) || (parent && (!parent.directory? || parent.ancestor?(item)))
+    
+    # get available data types from pastebaord
+    types = info.draggingPasteboard.types
+    
+    # data is coming from the manifest controller
+    if types.containsObject("ManifestItemPboardType")      
+      # get hrefs data from pastebaord
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+      
+      # loop over each href and validate
+      itemIds.each do |id|
+        
+        # get item with associated href
+        item = @manifest.itemWithId(id.to_s)
+        
+        return NSDragOperationNone unless item
+        
+        # reject if proposed parent is nil and item is already a child or root
+        if (parent == nil && item.parent == @manifest.root)
+          return NSDragOperationNone
+        end
+
+        # reject if proposed parent isn't nil or a directory
+        if (parent != nil && !parent.directory?)
+          return NSDragOperationNone
+        end
+        
+        # reject if item is an ancestor of proposed parent
+        if parent && parent.ancestor?(item)
           return NSDragOperationNone
         end
       end
-      NSDragOperationMove
-    else
-      if info.draggingPasteboard.types.containsObject(NSFilenamesPboardType) && (!parent || parent.directory?)
+      
+      # accept drag
+      return NSDragOperationMove
+    end
+    
+    # data is coming from the filesystem
+    if types.containsObject(NSFilenamesPboardType)
+      # reject unless proposed parent is nil or a directory
+      if parent == nil || parent.directory?
         @outlineView.setDropRow(-1, dropOperation:NSTableViewDropAbove)
-        NSDragOperationCopy
+        return NSDragOperationCopy
       else
-        NSDragOperationNone
+        return NSDragOperationNone
       end
     end
+    
+    # no supported data types were found on pastebaord
+    return NSDragOperationNone
   end
 
   def acceptDrop(info, item:parent, childIndex:childIndex)
@@ -97,8 +131,8 @@ class ManifestController < NSResponder
     return false unless parent.directory?
     items = []
     if @outlineView == info.draggingSource
-      hrefs = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-      items = hrefs.map { |href| @manifest.itemWithHref(href) }
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+      items = itemIds.map { |id| @manifest.itemWithId(id) }
       newParents = Array.new(items.size, parent)
       newIndexes = Array.new(items.size, childIndex)
       moveItems(items, newParents, newIndexes)

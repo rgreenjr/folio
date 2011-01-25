@@ -45,18 +45,58 @@ class SpineController < NSResponder
 
   def writeItems(items, toPasteboard:pboard)
     itemIds = items.map { |item| item.id }
-    pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setPropertyList(itemIds.to_plist, forType:NSStringPboardType)
+    pboard.declareTypes(["SpineItemPboardType"], owner:self)
+    pboard.setPropertyList(itemIds.to_plist, forType:"SpineItemPboardType")
     true
   end
   
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
-    parent == self ? NSDragOperationMove : NSDragOperationNone
+    # reject if the data soruce isn't our outlineView
+    return NSDragOperationNone unless info.draggingSource == @outlineView
+
+    # reject unless the proposed parent is spine controller
+    return NSDragOperationNone unless parent == self
+    
+    # get available data types from pastebaord
+    types = info.draggingPasteboard.types
+
+    # data source is spine controller
+    if types.containsObject("SpineItemPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+      items = itemIds.each do |id|
+        item = @bookController.document.manifest.itemWithId(id)
+        # reject if the item isn't flowable
+        return NSDragOperationNone unless item && item.flowable?
+      end
+      return NSDragOperationMove
+    end
+
+    # data source is manifest controller
+    if types.containsObject("ManifestItemPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+      p itemIds
+      items = itemIds.each do |id|
+        item = @bookController.document.manifest.itemWithId(id)
+        # reject if the item isn't flowable
+        return NSDragOperationNone unless item && item.flowable?
+      end
+      return NSDragOperationCopy
+    end
+    
+    # no supported data types were found on pastebaord
+    return NSDragOperationNone
   end
   
   def acceptDrop(info, item:parent, childIndex:childIndex)
-    puts "SpineController.acceptDrop"
-    itemIds = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
+    # get available data types from pastebaord
+    types = info.draggingPasteboard.types
+
+    if types.containsObject("SpineItemPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+    else
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemPboardType"))
+    end
+
     items = []
     newIndexes = []
     offset = 0

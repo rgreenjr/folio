@@ -9,9 +9,6 @@ class NavigationController < NSResponder
     @menu.addAction("New Point...", "newPoint:", self)
     @menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
     @menu.addAction("Delete", "deleteSelectedPoints:", self)
-    
-    displaySelectedPointProperties
-    # exapndRootPoint
   end
   
   def numberOfChildrenOfItem(point)
@@ -55,36 +52,74 @@ class NavigationController < NSResponder
 
   def writeItems(points, toPasteboard:pboard)
     pointIds = points.map { |item| item.id }
-    pboard.declareTypes([NSStringPboardType], owner:self)
-    pboard.setPropertyList(pointIds.to_plist, forType:NSStringPboardType)
+    pboard.declareTypes(["NavigationPointPboardType"], owner:self)
+    pboard.setPropertyList(pointIds.to_plist, forType:"NavigationPointPboardType")
     true
   end
 
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
-    operation = NSDragOperationNone
+    # set the proposed parent to root if it is navigation controller
     parent = @navigation.root if parent == self
-    load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType)).each do |id|
-      point = @navigation.pointWithId(id)
-      if parent
-        operation = !point.ancestor?(parent) ? NSDragOperationMove : NSDragOperationNone
-      # elsif @navigation.root.size == 1 && point == @navigation.root[0]
-      #   operation = NSDragOperationNone
-      # else
-      #   index = @navigation.root.index(point)
-      #   operation = index.nil? || index != childIndex ? NSDragOperationMove : NSDragOperationNone
+    
+    # reject if the data soruce isn't our outlineView
+    return NSDragOperationNone if info.draggingSource != @outlineView
+
+    # get available data types from pastebaord
+    types = info.draggingPasteboard.types     
+    
+    # data contains item ids
+    if types.containsObject("SpineItemPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+      items = itemIds.each do |id|
+        item = @bookController.document.manifest.itemWithId(id)
+        # reject if the item isn't flowable
+        return NSDragOperationNone unless item && item.flowable?
       end
+      return NSDragOperationCopy    
     end
-    operation
+        
+    # return move operation if data is from navigation controller and proposed parent isn't a descendant 
+    if types.containsObject("NavigationPointPboardType")
+      pointIds = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointPboardType"))
+      pointIds.each do |id|
+        point = @navigation.pointWithId(id)
+        return NSDragOperationNone if point.ancestor?(parent)
+      end
+      return NSDragOperationMove
+    end
+    
+    # no supported data types were found on pastebaord
+    return NSDragOperationNone
   end
 
   def acceptDrop(info, item:parent, childIndex:childIndex)
+    # set the proposed parent to root if it is navigation controller
     parent = @navigation.root if parent == self
-    plist = load_plist(info.draggingPasteboard.propertyListForType(NSStringPboardType))
-    points = plist.map { |id| @navigation.pointWithId(id) }
-    newParents = Array.new(points.size, parent)
-    newIndexes = Array.new(points.size, childIndex)
-    movePoints(points, newIndexes, newParents)
-    true
+
+    # get available data types from pastebaord
+    types = info.draggingPasteboard.types
+
+    # create new points if data comes from spine controller
+    if types.containsObject("SpineItemPboardType")
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemPboardType"))
+      p itemIds
+      items = itemIds.map { |id| @bookController.document.manifest.itemWithId(id) }      
+      newPointsWithItems(items)
+      return true
+    end
+    
+    # move existing points if data comes from navigation controller
+    if types.containsObject("NavigationPointPboardType")
+      plist = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointPboardType"))
+      points = plist.map { |id| @navigation.pointWithId(id) }
+      newParents = Array.new(points.size, parent)
+      newIndexes = Array.new(points.size, childIndex)
+      movePoints(points, newIndexes, newParents)
+      return true
+    end
+    
+    # should never reach here; return false if we do
+    false
   end
 
   def selectedPoint

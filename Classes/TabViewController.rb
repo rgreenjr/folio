@@ -178,12 +178,12 @@ class TabViewController < NSViewController
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = webViewVisible? ? "Hide Preview" : "Show Preview"
       end
-      view.numberOfTabs > 0
+      view.numberOfTabs > 0 && (interfaceItem.title == "Show Preview" || textViewVisible?)
     when :"toggleTextView:"
       if interfaceItem.class == NSMenuItem
-        interfaceItem.title = webViewVisible? ? "Hide Source" : "Show Source"
+        interfaceItem.title = textViewVisible? ? "Hide Source" : "Show Source"
       end
-      view.numberOfTabs > 0
+      view.numberOfTabs > 0 && (interfaceItem.title == "Show Source" || webViewVisible?)
     when :"toggleSplitViewOrientation:"
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = @splitView.vertical? ? "Split Pane Horizontally" : "Split Pane Vertically"
@@ -213,7 +213,7 @@ class TabViewController < NSViewController
   def textViewVisible?
     @splitView.subviews.size == 2 || @splitView.subviews[0] == @textViewController.view.enclosingScrollView
   end
-
+  
   def updateSplitViewDividerPosition
     return unless @splitView.subviews.size > 1
     maximum = @splitView.vertical? ? @splitView.bounds.size.width : @splitView.bounds.size.height
