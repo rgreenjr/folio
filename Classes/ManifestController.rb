@@ -339,19 +339,19 @@ class ManifestController < NSResponder
 
   def displaySelectedItemProperties
     return
-    item = selectedItem
-    if item && !item.directory?
-      # propertyCells.each {|cell| cell.enabled = true}
-      # @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
-      # nameCell.stringValue = item.name
-      # idCell.stringValue = item.id
-      if item.renderable?
-        @bookController.tabViewController.addObject(item)        
-      end
-    else
-      # propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
-      # @mediaTypePopUpButton.selectItemWithTitle('')
-    end
+    # item = selectedItem
+    # if item && !item.directory?
+    #   propertyCells.each {|cell| cell.enabled = true}
+    #   @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
+    #   nameCell.stringValue = item.name
+    #   idCell.stringValue = item.id
+    #   if item.renderable?
+    #     @bookController.tabViewController.addObject(item)        
+    #   end
+    # else
+    #   propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
+    #   @mediaTypePopUpButton.selectItemWithTitle('')
+    # end
   end
 
   def nameCell

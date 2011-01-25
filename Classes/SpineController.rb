@@ -51,7 +51,7 @@ class SpineController < NSResponder
   end
   
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
-    NSDragOperationMove
+    parent == self ? NSDragOperationMove : NSDragOperationNone
   end
   
   def acceptDrop(info, item:parent, childIndex:childIndex)

@@ -70,39 +70,15 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>0A7CD18A-F50F-4AD7-9F6F-8B36EA90BB9D</string>
 							<string>0F2A6AA9-B836-4467-9059-F7C622EC75BE</string>
 							<string>25027E3B-ABA9-4F6B-B52B-3E2C816F253A</string>
 							<string>8D0FEC0F-B9AF-4A75-A5C3-0AC5528B512E</string>
 							<string>8D3C1835-EBB1-4748-86C3-B73AAB7EBD5E</string>
-							<string>C4C2D29B-3116-4A54-AA83-B1EF4014885E</string>
 							<string>NSToolbarFlexibleSpaceItem</string>
 							<string>NSToolbarSpaceItem</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="NSToolbarItem" id="531910651">
-								<object class="NSMutableString" key="NSToolbarItemIdentifier">
-									<characters key="NS.bytes">0A7CD18A-F50F-4AD7-9F6F-8B36EA90BB9D</characters>
-								</object>
-								<string key="NSToolbarItemLabel">Source</string>
-								<string key="NSToolbarItemPaletteLabel">Source</string>
-								<string key="NSToolbarItemToolTip"/>
-								<nil key="NSToolbarItemView"/>
-								<object class="NSCustomResource" key="NSToolbarItemImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">source</string>
-								</object>
-								<nil key="NSToolbarItemTarget"/>
-								<nil key="NSToolbarItemAction"/>
-								<string key="NSToolbarItemMinSize">{0, 0}</string>
-								<string key="NSToolbarItemMaxSize">{0, 0}</string>
-								<bool key="NSToolbarItemEnabled">YES</bool>
-								<bool key="NSToolbarItemAutovalidates">YES</bool>
-								<int key="NSToolbarItemTag">-1</int>
-								<bool key="NSToolbarIsUserRemovable">YES</bool>
-								<int key="NSToolbarItemVisibilityPriority">0</int>
-							</object>
 							<object class="NSToolbarItem" id="25041146">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">0F2A6AA9-B836-4467-9059-F7C622EC75BE</characters>
@@ -133,9 +109,11 @@
 								<string key="NSToolbarItemPaletteLabel">Editor</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="480683765">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {71, 25}}</string>
+									<reference key="NSSuperview"/>
+									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="136210616">
 										<int key="NSCellFlags">67239424</int>
@@ -227,28 +205,6 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="794828729">
-								<object class="NSMutableString" key="NSToolbarItemIdentifier">
-									<characters key="NS.bytes">C4C2D29B-3116-4A54-AA83-B1EF4014885E</characters>
-								</object>
-								<string key="NSToolbarItemLabel">Preview</string>
-								<string key="NSToolbarItemPaletteLabel">Preview</string>
-								<string key="NSToolbarItemToolTip"/>
-								<nil key="NSToolbarItemView"/>
-								<object class="NSCustomResource" key="NSToolbarItemImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">WebView</string>
-								</object>
-								<nil key="NSToolbarItemTarget"/>
-								<nil key="NSToolbarItemAction"/>
-								<string key="NSToolbarItemMinSize">{0, 0}</string>
-								<string key="NSToolbarItemMaxSize">{0, 0}</string>
-								<bool key="NSToolbarItemEnabled">YES</bool>
-								<bool key="NSToolbarItemAutovalidates">YES</bool>
-								<int key="NSToolbarItemTag">-1</int>
-								<bool key="NSToolbarIsUserRemovable">YES</bool>
-								<int key="NSToolbarItemVisibilityPriority">0</int>
-							</object>
 							<object class="NSToolbarFlexibleSpaceItem" id="287252432">
 								<string key="NSToolbarItemIdentifier">NSToolbarFlexibleSpaceItem</string>
 								<string key="NSToolbarItemLabel"/>
@@ -318,8 +274,6 @@
 						<reference ref="961348391"/>
 						<reference ref="580827983"/>
 						<reference ref="920946173"/>
-						<reference ref="531910651"/>
-						<reference ref="794828729"/>
 						<reference ref="25041146"/>
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
@@ -328,8 +282,6 @@
 						<reference ref="25041146"/>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
-						<reference ref="794828729"/>
-						<reference ref="531910651"/>
 						<reference ref="192817359"/>
 						<reference ref="961348391"/>
 						<reference ref="580827983"/>
@@ -809,6 +761,7 @@
 						</object>
 						<string key="NSFrameSize">{240, 135}</string>
 						<reference key="NSSuperview" ref="650900371"/>
+						<reference key="NSNextKeyView" ref="181549578"/>
 						<reference key="NSDocView" ref="181549578"/>
 						<object class="NSColor" key="NSBGColor">
 							<int key="NSColorSpace">2</int>
@@ -837,6 +790,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{240, 135}</string>
+				<reference key="NSNextKeyView" ref="328952103"/>
 				<int key="NSsFlags">560</int>
 				<reference key="NSVScroller" ref="10608946"/>
 				<reference key="NSHScroller" ref="229233032"/>
@@ -1074,22 +1028,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showTextViewOnly:</string>
-						<reference key="source" ref="1003"/>
-						<reference key="destination" ref="531910651"/>
-					</object>
-					<int key="connectionID">148</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showWebViewOnly:</string>
-						<reference key="source" ref="1003"/>
-						<reference key="destination" ref="794828729"/>
-					</object>
-					<int key="connectionID">149</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">validate:</string>
 						<reference key="source" ref="1003"/>
 						<reference key="destination" ref="961348391"/>
@@ -1321,8 +1259,6 @@
 							<reference ref="920946173"/>
 							<reference ref="580827983"/>
 							<reference ref="25041146"/>
-							<reference ref="794828729"/>
-							<reference ref="531910651"/>
 							<reference ref="961348391"/>
 						</object>
 						<reference key="parent" ref="53791894"/>
@@ -1491,11 +1427,6 @@
 						<reference key="parent" ref="1014419714"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">140</int>
-						<reference key="object" ref="794828729"/>
-						<reference key="parent" ref="1014419714"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
 						<reference key="object" ref="540888369"/>
 						<object class="NSMutableArray" key="children">
@@ -1516,11 +1447,6 @@
 						<reference key="object" ref="120754400"/>
 						<reference key="parent" ref="540888369"/>
 						<string key="objectName">Left Box</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">145</int>
-						<reference key="object" ref="531910651"/>
-						<reference key="parent" ref="1014419714"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">158</int>
@@ -1614,8 +1540,6 @@
 					<string>116.IBPluginDependency</string>
 					<string>132.IBPluginDependency</string>
 					<string>137.IBPluginDependency</string>
-					<string>140.IBPluginDependency</string>
-					<string>145.IBPluginDependency</string>
 					<string>158.IBPluginDependency</string>
 					<string>162.IBPluginDependency</string>
 					<string>163.IBEditorWindowLastContentRect</string>
@@ -1675,8 +1599,6 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUGIAABDWwAAA</bytes>
 					</object>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2409,15 +2331,13 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
-							<string>showTextAndWebViews:</string>
-							<string>showTextViewOnly:</string>
-							<string>showWebViewOnly:</string>
 							<string>toggleSplitViewOrientation:</string>
+							<string>toggleTextView:</string>
+							<string>toggleWebView:</string>
 							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2438,10 +2358,9 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
-							<string>showTextAndWebViews:</string>
-							<string>showTextViewOnly:</string>
-							<string>showWebViewOnly:</string>
 							<string>toggleSplitViewOrientation:</string>
+							<string>toggleTextView:</string>
+							<string>toggleWebView:</string>
 							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -2467,19 +2386,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showTextAndWebViews:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showTextViewOnly:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showWebViewOnly:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">toggleSplitViewOrientation:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleTextView:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleWebView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3573,10 +3488,8 @@
 				<string>NSMenuMixedState</string>
 				<string>Reformat</string>
 				<string>Validate</string>
-				<string>WebView</string>
 				<string>backgroud-logo</string>
 				<string>horizontal</string>
-				<string>source</string>
 				<string>vertical</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
@@ -3586,10 +3499,8 @@
 				<string>{7, 2}</string>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
-				<string>{32, 32}</string>
 				<string>{300, 300}</string>
 				<string>{16, 16}</string>
-				<string>{29, 27}</string>
 				<string>{16, 16}</string>
 			</object>
 		</object>

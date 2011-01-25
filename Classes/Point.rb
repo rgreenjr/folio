@@ -104,6 +104,26 @@ class Point
     @item.content = string
   end
   
+  def editable?
+    @item.editable?
+  end
+
+  def renderable?
+    @item.renderable?
+  end
+  
+  def imageable?
+    @item.imageable?
+  end
+  
+  def flowable?
+    @item.flowable?
+  end
+  
+  def formatable?
+    @item.formatable?
+  end
+  
   private
   
   def fragmentWithHash

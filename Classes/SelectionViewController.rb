@@ -11,6 +11,7 @@ class SelectionViewController < NSViewController
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.reloadData
+    @outlineView.expandItem(@outlineView.itemAtRow(0))
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:item)
@@ -47,7 +48,7 @@ class SelectionViewController < NSViewController
       item = @outlineView.itemAtRow(@outlineView.selectedRow)
       @bookController.tabViewController.addObject(item)
     else
-      puts "multiple or empty selection"
+      # puts "multiple or empty selection"
     end
   end
 
@@ -110,7 +111,7 @@ class SelectionViewController < NSViewController
     when @navigationController
       toController == @navigationController
     when @spineController
-      toController == @navigationController || toController == @spineController
+      toController == @spineController
     else
       true
     end

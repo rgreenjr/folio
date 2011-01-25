@@ -53,7 +53,7 @@ class TabViewController < NSViewController
   end
 
   def addObject(object)
-    view.addObject(object)
+    view.addObject(object) if object.renderable?
   end
 
   def removeObject(object)
@@ -94,50 +94,27 @@ class TabViewController < NSViewController
     view.tabForItem(item).undoManager
   end
 
-  def showTextViewOnly(sender)
-    if @splitView.subviews.size == 2
-      hideWebView
-      @viewMode = VIEW_MODE_TEXT
-    elsif @splitView.subviews[0] == @webViewController.view
-      showTextView
-      hideWebView
-      @viewMode = VIEW_MODE_TEXT
-    end
+  def toggleWebView(sender)
+    webViewVisible? ? hideWebView : showWebView 
   end
 
-  def showWebViewOnly(sender)
-    if @splitView.subviews.size == 2
-      hideTextView
-      @viewMode = VIEW_MODE_WEB
-    elsif @splitView.subviews[0] == @textViewController.view.enclosingScrollView
-      showWebView
-      hideTextView
-      @viewMode = VIEW_MODE_WEB
-    end
+  def toggleTextView(sender)
+    textViewVisible? ? hideTextView : showTextView
   end
 
-  def showTextAndWebViews(sender)
-    if @splitView.subviews.size == 1
-      if @splitView.subviews[0] == @webViewController.view
-        showTextView
-      else
-        showWebView
-      end
+  def showWebView
+    unless webViewVisible?
+      @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@textViewController.view.enclosingScrollView)
+      updateSplitViewDividerPosition
       @viewMode = VIEW_MODE_DUAL
     end
   end
 
-  def showWebView
-    if @splitView.subviews.size == 1 && @splitView.subviews[0] != @webViewController.view
-      @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@textViewController.view.enclosingScrollView)
-      updateSplitViewDividerPosition
-    end
-  end
-
   def showTextView
-    if @splitView.subviews.size == 1 && @splitView.subviews[0] != @textViewController.view.enclosingScrollView
+    unless textViewVisible?
       @splitView.addSubview(@textViewController.view.enclosingScrollView, positioned:NSWindowAbove, relativeTo:@webViewController.view)
       updateSplitViewDividerPosition
+      @viewMode = VIEW_MODE_DUAL
     end
   end
 
@@ -145,6 +122,7 @@ class TabViewController < NSViewController
     if @splitView.subviews.size == 2
       @webViewController.view.removeFromSuperview
       @splitView.adjustSubviews
+      @viewMode = VIEW_MODE_TEXT
     end
   end
 
@@ -152,6 +130,7 @@ class TabViewController < NSViewController
     if @splitView.subviews.size == 2
       @textViewController.view.enclosingScrollView.removeFromSuperview
       @splitView.adjustSubviews
+      @viewMode = VIEW_MODE_WEB
     end
   end
 
@@ -195,13 +174,19 @@ class TabViewController < NSViewController
       view.numberOfTabs > 0
     when :"showTextAndWebViews:"
       view.numberOfTabs > 0 && @splitView.subviews.size != 2
-    when :"showWebViewOnly:", :"toggleWebView"
-      view.numberOfTabs > 0 && (@splitView.subviews.size == 2 || @splitView.subviews[0] != @webViewController.view)
-    when :"showTextViewOnly:", :"toggleTextView"
-      view.numberOfTabs > 0 && (@splitView.subviews.size == 2 || @splitView.subviews[0] != @textViewController.view.enclosingScrollView)
+    when :"toggleWebView:"
+      if interfaceItem.class == NSMenuItem
+        interfaceItem.title = webViewVisible? ? "Hide Preview" : "Show Preview"
+      end
+      view.numberOfTabs > 0
+    when :"toggleTextView:"
+      if interfaceItem.class == NSMenuItem
+        interfaceItem.title = webViewVisible? ? "Hide Source" : "Show Source"
+      end
+      view.numberOfTabs > 0
     when :"toggleSplitViewOrientation:"
       if interfaceItem.class == NSMenuItem
-        interfaceItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
+        interfaceItem.title = @splitView.vertical? ? "Split Pane Horizontally" : "Split Pane Vertically"
       end
       view.numberOfTabs > 0
     when :"makeSplitViewOrientationHorizontal:", :"makeSplitViewOrientationVertical:"

@@ -15,6 +15,7 @@ class NavigationController < NSResponder
   end
   
   def numberOfChildrenOfItem(point)
+    return 0 unless @navigation # guard against SDK bug
     point == self ? @navigation.root.size : point.size
   end
 
