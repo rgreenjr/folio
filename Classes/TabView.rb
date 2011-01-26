@@ -59,9 +59,12 @@ class TabView < NSView
 
   def addObject(object)
     return unless object
-    if object.is_a?(Point)
+    if object.class == Point
       point = object
       item = point.item
+    elsif object.class == ItemRef
+      point = nil
+      item = object.item
     else
       point = nil
       item = object
@@ -76,11 +79,9 @@ class TabView < NSView
 
   def removeObject(object)
     return unless object
-    if object.is_a?(Point)
-      point = object
-      item = point.item
+    if object.class == Point || object.class == ItemRef
+      item = object.item
     else
-      point = nil
       item = object
     end
     tabCell = tabForItem(item)
