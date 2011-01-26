@@ -79,7 +79,7 @@ class IssueViewController < NSViewController
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
     cell.font = NSFont.systemFontOfSize(11.0)
     if item.class == Item
-      # cell.badgeCount = item.markers.size
+      cell.badgeCount = item.markers.size
       cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
     else
       cell.badgeCount = nil
