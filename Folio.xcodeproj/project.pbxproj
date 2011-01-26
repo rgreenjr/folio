@@ -138,14 +138,11 @@
 		CD3179D912EA7AE800C98B33 /* GotoLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179BE12EA7AE800C98B33 /* GotoLine.xib */; };
 		CD3179DA12EA7AE800C98B33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C012EA7AE800C98B33 /* InfoPlist.strings */; };
 		CD3179DB12EA7AE800C98B33 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C212EA7AE800C98B33 /* MainMenu.xib */; };
-		CD3179DC12EA7AE800C98B33 /* Manifest.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C412EA7AE800C98B33 /* Manifest.xib */; };
 		CD3179DD12EA7AE800C98B33 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C612EA7AE800C98B33 /* Metadata.xib */; };
-		CD3179DE12EA7AE800C98B33 /* Navigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179C812EA7AE800C98B33 /* Navigation.xib */; };
 		CD3179DF12EA7AE800C98B33 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179CA12EA7AE800C98B33 /* Preferences.xib */; };
 		CD3179E012EA7AE800C98B33 /* Progress.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179CC12EA7AE800C98B33 /* Progress.xib */; };
 		CD3179E112EA7AE800C98B33 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179CE12EA7AE800C98B33 /* Search.xib */; };
 		CD3179E212EA7AE800C98B33 /* SourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D012EA7AE800C98B33 /* SourceView.xib */; };
-		CD3179E312EA7AE800C98B33 /* Spine.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D212EA7AE800C98B33 /* Spine.xib */; };
 		CD3179E412EA7AE800C98B33 /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D412EA7AE800C98B33 /* TabView.xib */; };
 		CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D612EA7AE800C98B33 /* WebView.xib */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
@@ -282,14 +279,11 @@
 		CD3179BF12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GotoLine.xib; sourceTree = "<group>"; };
 		CD3179C112EA7AE800C98B33 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD3179C312EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		CD3179C512EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Manifest.xib; sourceTree = "<group>"; };
 		CD3179C712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Metadata.xib; sourceTree = "<group>"; };
-		CD3179C912EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Navigation.xib; sourceTree = "<group>"; };
 		CD3179CB12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		CD3179CD12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Progress.xib; sourceTree = "<group>"; };
 		CD3179CF12EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Search.xib; sourceTree = "<group>"; };
 		CD3179D112EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SourceView.xib; sourceTree = "<group>"; };
-		CD3179D312EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Spine.xib; sourceTree = "<group>"; };
 		CD3179D512EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TabView.xib; sourceTree = "<group>"; };
 		CD3179D712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebView.xib; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
@@ -421,14 +415,11 @@
 				CD3179C012EA7AE800C98B33 /* InfoPlist.strings */,
 				CD85C8F912EB3EAF009E33A3 /* IssueView.xib */,
 				CD3179C212EA7AE800C98B33 /* MainMenu.xib */,
-				CD3179C412EA7AE800C98B33 /* Manifest.xib */,
 				CD3179C612EA7AE800C98B33 /* Metadata.xib */,
-				CD3179C812EA7AE800C98B33 /* Navigation.xib */,
 				CD3179CA12EA7AE800C98B33 /* Preferences.xib */,
 				CD3179CC12EA7AE800C98B33 /* Progress.xib */,
 				CD3179CE12EA7AE800C98B33 /* Search.xib */,
 				CD3179D012EA7AE800C98B33 /* SourceView.xib */,
-				CD3179D212EA7AE800C98B33 /* Spine.xib */,
 				CD3179D412EA7AE800C98B33 /* TabView.xib */,
 				CD8F5F4912EB75A00036B0D7 /* Validation.xib */,
 				CD3179D612EA7AE800C98B33 /* WebView.xib */,
@@ -714,14 +705,11 @@
 				CD3179D912EA7AE800C98B33 /* GotoLine.xib in Resources */,
 				CD3179DA12EA7AE800C98B33 /* InfoPlist.strings in Resources */,
 				CD3179DB12EA7AE800C98B33 /* MainMenu.xib in Resources */,
-				CD3179DC12EA7AE800C98B33 /* Manifest.xib in Resources */,
 				CD3179DD12EA7AE800C98B33 /* Metadata.xib in Resources */,
-				CD3179DE12EA7AE800C98B33 /* Navigation.xib in Resources */,
 				CD3179DF12EA7AE800C98B33 /* Preferences.xib in Resources */,
 				CD3179E012EA7AE800C98B33 /* Progress.xib in Resources */,
 				CD3179E112EA7AE800C98B33 /* Search.xib in Resources */,
 				CD3179E212EA7AE800C98B33 /* SourceView.xib in Resources */,
-				CD3179E312EA7AE800C98B33 /* Spine.xib in Resources */,
 				CD3179E412EA7AE800C98B33 /* TabView.xib in Resources */,
 				CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */,
 				CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */,
@@ -824,28 +812,12 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
-		CD3179C412EA7AE800C98B33 /* Manifest.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD3179C512EA7AE800C98B33 /* English */,
-			);
-			name = Manifest.xib;
-			sourceTree = "<group>";
-		};
 		CD3179C612EA7AE800C98B33 /* Metadata.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CD3179C712EA7AE800C98B33 /* English */,
 			);
 			name = Metadata.xib;
-			sourceTree = "<group>";
-		};
-		CD3179C812EA7AE800C98B33 /* Navigation.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD3179C912EA7AE800C98B33 /* English */,
-			);
-			name = Navigation.xib;
 			sourceTree = "<group>";
 		};
 		CD3179CA12EA7AE800C98B33 /* Preferences.xib */ = {
@@ -878,14 +850,6 @@
 				CD3179D112EA7AE800C98B33 /* English */,
 			);
 			name = SourceView.xib;
-			sourceTree = "<group>";
-		};
-		CD3179D212EA7AE800C98B33 /* Spine.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD3179D312EA7AE800C98B33 /* English */,
-			);
-			name = Spine.xib;
 			sourceTree = "<group>";
 		};
 		CD3179D412EA7AE800C98B33 /* TabView.xib */ = {
