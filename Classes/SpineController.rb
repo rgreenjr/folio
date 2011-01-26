@@ -29,11 +29,12 @@ class SpineController < NSResponder
   def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
     if item == self
       cell.font = NSFont.boldSystemFontOfSize(11.0)
-      cell.image = NSImage.imageNamed('book.png')
+      cell.image = NSImage.imageNamed('spine.png')
       cell.menu = nil
     else
       cell.font = NSFont.systemFontOfSize(11.0)
-      cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      # cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(""))
       cell.menu = @menu
     end
   end

@@ -74,7 +74,7 @@ class ImageCell < NSTextFieldCell
         backgroundColor.set
         NSRectFill(imageFrame)
       end
-      imageFrame.origin.y += ((cellFrame.size.height + @image.size.height) / 2).ceil
+      imageFrame.origin.y += ((cellFrame.size.height + @image.size.height) / 2).floor
       @image.compositeToPoint(imageFrame.origin, operation:NSCompositeSourceOver)
       drawBadge(badgeFrame) if @badgeCount
     end
@@ -82,7 +82,7 @@ class ImageCell < NSTextFieldCell
   end
   
   def drawInteriorWithFrame(frame, inView:controlView)
-    delta = ((frame.size.height - font.pointSize) / 2).ceil - 2
+    delta = ((frame.size.height - font.pointSize) / 2).floor - 2
     frame.origin.y += delta
     frame.size.height -= delta
     super

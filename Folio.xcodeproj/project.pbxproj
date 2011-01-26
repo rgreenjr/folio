@@ -163,6 +163,10 @@
 		CDE105F612DFA58000E1518B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE105F512DFA58000E1518B /* QuartzCore.framework */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
+		CDEBCAC512F0A88100E8834D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC112F0A88100E8834D /* arrow.png */; };
+		CDEBCAC612F0A88100E8834D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC212F0A88100E8834D /* error.png */; };
+		CDEBCAC712F0A88100E8834D /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC312F0A88100E8834D /* flag.png */; };
+		CDEBCAC812F0A88100E8834D /* spine.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC412F0A88100E8834D /* spine.png */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
 /* End PBXBuildFile section */
 
@@ -304,6 +308,10 @@
 		CDE105F512DFA58000E1518B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
+		CDEBCAC112F0A88100E8834D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		CDEBCAC212F0A88100E8834D /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
+		CDEBCAC312F0A88100E8834D /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
+		CDEBCAC412F0A88100E8834D /* spine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spine.png; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -493,6 +501,10 @@
 		CD2D185412E5F28500D6A99A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDEBCAC112F0A88100E8834D /* arrow.png */,
+				CDEBCAC212F0A88100E8834D /* error.png */,
+				CDEBCAC312F0A88100E8834D /* flag.png */,
+				CDEBCAC412F0A88100E8834D /* spine.png */,
 				CD2D18A412E5F46600D6A99A /* Folio.icns */,
 				CDDBEC9612E611F800633F22 /* preferences-general.tiff */,
 				CD2D185512E5F28500D6A99A /* backgroud-logo.png */,
@@ -721,6 +733,10 @@
 				CDD7AFF712EF675700352D4B /* manifest.png in Resources */,
 				CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */,
 				CDD7B02F12EF79D800352D4B /* ItemRef.rb in Resources */,
+				CDEBCAC512F0A88100E8834D /* arrow.png in Resources */,
+				CDEBCAC612F0A88100E8834D /* error.png in Resources */,
+				CDEBCAC712F0A88100E8834D /* flag.png in Resources */,
+				CDEBCAC812F0A88100E8834D /* spine.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
