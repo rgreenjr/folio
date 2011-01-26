@@ -138,38 +138,17 @@ class BookWindowController < NSWindowController
     issueViewController.refresh
     showIssueView(self)
   end
-  
+
   def runModalAlert(messageText, informativeText='')
     Alert.runModal(window, messageText, informativeText)
   end
-  
-  # def validateUserInterfaceItem(interfaceItem)
-  #   case interfaceItem.action
-  #   when :"showNavigationView:"
-  #     @seletionView.subviews.first != navigationController.view
-  #   when :"showSpineView:"
-  #     @seletionView.subviews.first != spineController.view
-  #   when :"showManifestView:"
-  #     @seletionView.subviews.first != manifestController.view
-  #   else
-  #     true
-  #   end
-  # end
-  # 
-  # def updateToolbarItems
-  #   window.toolbar.visibleItems.each do |view|
-  #     if view.isKindOfClass(NSToolbarItem)
-  #       view.enabled = validateUserInterfaceItem(view)
-  #     end
-  #   end
-  # end
 
   def makeResponder(controller)
     current = window.nextResponder
     window.nextResponder = controller
     controller.nextResponder = current
   end
-  
+
   private
 
   def changeSidebarView(controller)
@@ -193,6 +172,8 @@ class BookWindowController < NSWindowController
         slideViews(oldView, @currentSelectionView, :right)
       end
     end
+    
+    window.makeFirstResponder(@currentSelectionView)
   end
   
   def slideViews(oldView, newView, direction)
