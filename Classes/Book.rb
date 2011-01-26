@@ -47,6 +47,7 @@ class Book < NSDocument
   end
 
   def writeToURL(absoluteURL, ofType:inTypeName, error:outError)
+    @controller.tabViewController.saveAllTabs(self)
     tmp = Dir.mktmpdir("folio-zip-")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
     @container.save(tmp)
