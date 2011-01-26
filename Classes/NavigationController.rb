@@ -51,7 +51,7 @@ class NavigationController < NSResponder
   end
 
   def writeItems(points, toPasteboard:pboard)
-    pointIds = points.map { |item| item.id }
+    pointIds = points.map { |point| point.id }
     pboard.declareTypes(["NavigationPointsPboardType"], owner:self)
     pboard.setPropertyList(pointIds.to_plist, forType:"NavigationPointsPboardType")
     true
@@ -102,9 +102,14 @@ class NavigationController < NSResponder
     # create new points if data comes from spine controller
     if types.containsObject("SpineItemRefsPboardType")
       itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
-      p itemIds
-      items = itemIds.map { |id| @bookController.document.manifest.itemWithId(id) }      
-      newPointsWithItems(items)
+      items = itemIds.map { |id| @bookController.document.manifest.itemWithId(id) }
+      
+      # reverse the insertion sequence to maintain order unless childIndex == -1
+      items = items.reverse unless childIndex == -1
+      
+      newIndexes = Array.new(items.size, childIndex)
+      newParents = Array.new(items.size, parent)
+      newPointsWithItems(items, newIndexes, newParents)
       return true
     end
     
@@ -112,8 +117,12 @@ class NavigationController < NSResponder
     if types.containsObject("NavigationPointsPboardType")
       plist = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointsPboardType"))
       points = plist.map { |id| @navigation.pointWithId(id) }
-      newParents = Array.new(points.size, parent)
+
+      # reverse the insertion sequence to maintain order unless childIndex == -1
+      points = points.reverse unless childIndex == -1
+
       newIndexes = Array.new(points.size, childIndex)
+      newParents = Array.new(points.size, parent)
       movePoints(points, newIndexes, newParents)
       return true
     end
@@ -160,10 +169,10 @@ class NavigationController < NSResponder
     # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
   end
 
-  def newPointsWithItems(items)
+  def newPointsWithItems(items, newIndexes=nil, newParents=nil)
     points = items.map { |item| Point.new(item, item.name) }
-    newParents = Array.new(points.size, @navigation.root)
-    newIndexes = Array.new(points.size, -1)
+    newParents ||= Array.new(points.size, @navigation.root)
+    newIndexes ||= Array.new(points.size, -1)
     addPoints(points, newIndexes, newParents)
   end
 
@@ -178,7 +187,9 @@ class NavigationController < NSResponder
       undoManager.actionName = "Add #{pluralize(points.size, "Point")} to Navigation"
     end
 
-    reloadDataAndSelectPoints(points)
+    @outlineView.reloadData
+    @outlineView.expandItems(newParents)
+    @outlineView.selectItems(points)
   end
 
   def duplicateSelectedPoint(sender)
@@ -287,7 +298,7 @@ class NavigationController < NSResponder
 
   def reloadDataAndSelectPoints(points)
     @outlineView.reloadData
-    # @outlineView.selectItems(points)
+    @outlineView.selectItems(points)
     displaySelectedPointProperties
     @bookController.window.makeFirstResponder(@outlineView)
   end

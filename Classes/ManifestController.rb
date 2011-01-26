@@ -232,7 +232,12 @@ class ManifestController < NSResponder
     unless undoManager.isUndoing
       undoManager.actionName = "Move #{pluralize(items.size, "Item")} in Manifest"
     end
-    reloadDataAndSelectItems(items)
+    
+    @outlineView.reloadData
+    @outlineView.expandItems(newParents)
+    @outlineView.selectItems(items)
+    
+    # reloadDataAndSelectItems(items)
   end
 
   def delete(sender)

@@ -5,8 +5,7 @@ class NSOutlineView
     unless items.empty?
       indexes = NSMutableIndexSet.alloc.init
       items.each do |item|
-        expandParentsOfItem(item)
-        row = rowForItem(item)        
+        row = rowForItem(item)
         indexes.addIndex(row) if row > 0
       end
       selectRowIndexes(indexes, byExtendingSelection:true)      
@@ -14,13 +13,8 @@ class NSOutlineView
     end
   end
 
-  def expandParentsOfItem(item)
-    if item && item.respond_to?(:parent)
-      while parent = item.parent
-        expandItem(parent)
-        item = parent
-      end
-    end
+  def expandItems(items)
+    items.each { |item| expandItem(item) } if items
   end
 
   def expandItems(items)

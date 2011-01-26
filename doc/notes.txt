@@ -4,14 +4,13 @@ Bugs
 - Fix broken Edit > Delete menu action.
 - Navigation should check for inclusion of objects prior to deleting
 - Update Navigation view on modification
+- ePub validation: handle missing files and unregistered files
 
 
 Features
 ========
 
 - Navigation: add points
-- Add Validate icon to toolbar
-- ePub validation
 - Add "Show in Manifest" and "Show in Spine" to context menu
 - Show icon in spine indicating item is cover, toc, titlepage, etc.
 - Add plus/minus buttons for Navigation points

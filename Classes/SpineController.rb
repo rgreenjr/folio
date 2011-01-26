@@ -5,7 +5,7 @@ class SpineController < NSResponder
   def awakeFromNib
     @spine = @bookController.document.spine
     @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addActionWithSeparator("Add to Navigation", "addSelectedItemsToNavigation:", self)
+    @menu.addActionWithSeparator("Add to Table of Contents", "addSelectedItemsToNavigation:", self)
     @menu.addAction("Delete", "deleteSelectedItems:", self)
   end
 
