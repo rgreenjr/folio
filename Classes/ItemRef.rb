@@ -2,8 +2,7 @@ class ItemRef
   
   extend Forwardable
   
-  attr_reader   :item
-  attr_accessor :linear
+  attr_accessor :item, :linear
   
   def initialize(item, linear=nil)
     @item, @linear = item, linear

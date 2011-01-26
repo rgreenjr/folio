@@ -6,8 +6,8 @@ class Metadata
   
   def initialize(book=nil)
     # provide default values for three required metadata attributes
-    @title = 'untitled'
-    @language = 'en'
+    @title = "untitled"
+    @language = "en"
     @identifier = UUID.create
     
     if book
@@ -16,6 +16,8 @@ class Metadata
         when "meta"
           if element.attributes["name"] == "cover"
             @cover = book.manifest.itemWithId(element.attributes["content"])
+          else
+            puts "Dropping metadata element: #{element}"
           end
         when "creator"
           @sortCreator = element.attributes["opf:file-as"]
