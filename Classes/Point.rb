@@ -90,7 +90,6 @@ class Point
     "@id = #{@id}, @text = #{@text}, @item = #{@item.name}, @expanded = #{@expanded}"
   end
 
-  def_delegator :@item, :id, :id
   def_delegator :@item, :edited?, :edited?
   def_delegator :@item, :name, :name
   def_delegator :@item, :editable?, :editable?

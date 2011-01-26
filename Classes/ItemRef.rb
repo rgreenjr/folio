@@ -20,6 +20,7 @@ class ItemRef
   def_delegator :@item, :content, :content
   def_delegator :@item, :url, :url
   def_delegator :@item, :href, :href
+  def_delegator :@item, :path, :path
   def_delegator :@item, :edited?, :edited?
   def_delegator :@item, :clearMarkers, :clearMarkers
   def_delegator :@item, :content=, :content=
