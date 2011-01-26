@@ -1,8 +1,11 @@
 class TabViewController < NSViewController
 
-  HORIZONTAL_ORIENTATION_TAG   = 0
-  VERTICAL_ORIENTATION_TAG     = 1
   SPLIT_VIEW_MINIMUM_POSITION  = 50
+  
+  PREVIEW_MODE          = 0
+  SOURCE_MODE           = 1
+  SPLIT_HORIZONTAL_MODE = 2
+  SPLIT_VERTICAL_MODE   = 3
 
   VIEW_MODE_WEB  = 0
   VIEW_MODE_TEXT = 1
@@ -94,12 +97,24 @@ class TabViewController < NSViewController
     view.tabForItem(item).undoManager
   end
 
-  def toggleWebView(sender)
-    webViewVisible? ? hideWebView : showWebView 
-  end
-
-  def toggleTextView(sender)
-    textViewVisible? ? hideTextView : showTextView
+  def toggleContentView(sender)
+    case sender.selectedSegment
+    when PREVIEW_MODE
+      showWebView
+      hideTextView
+    when SOURCE_MODE
+      showTextView
+      hideWebView
+    when SPLIT_HORIZONTAL_MODE
+      showWebView
+      showTextView
+      makeSplitViewOrientationHorizontal
+    when SPLIT_VERTICAL_MODE
+      showWebView
+      showTextView
+      makeSplitViewOrientationVertical
+    else      
+    end
   end
 
   def showWebView
@@ -133,25 +148,19 @@ class TabViewController < NSViewController
       @viewMode = VIEW_MODE_WEB
     end
   end
-
-  def toggleSplitViewOrientation(sender)
-    if sender == @splitViewSegementedControl
-      @splitViewSegementedControl.selectedSegment == HORIZONTAL_ORIENTATION_TAG ? makeSplitViewOrientationVertical : makeSplitViewOrientationHorizontal
-    else
-      @splitViewSegementedControl.selectedSegment == HORIZONTAL_ORIENTATION_TAG ? makeSplitViewOrientationHorizontal : makeSplitViewOrientationVertical
+  
+  def makeSplitViewOrientationVertical
+    if @splitView.vertical?
+      @splitView.vertical = false
+      updateSplitViewDividerPosition
     end
   end
 
-  def makeSplitViewOrientationVertical
-    @splitViewSegementedControl.selectSegmentWithTag(HORIZONTAL_ORIENTATION_TAG)
-    @splitView.vertical = false
-    updateSplitViewDividerPosition
-  end
-
   def makeSplitViewOrientationHorizontal
-    @splitViewSegementedControl.selectSegmentWithTag(VERTICAL_ORIENTATION_TAG)
-    @splitView.vertical = true
-    updateSplitViewDividerPosition
+    unless @splitView.vertical?
+      @splitView.vertical = true
+      updateSplitViewDividerPosition
+    end
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
@@ -172,24 +181,12 @@ class TabViewController < NSViewController
       view.numberOfTabs > 1
     when :"saveTab:", :"saveAllTabs:", :"closeTab:"
       view.numberOfTabs > 0
-    when :"showTextAndWebViews:"
-      view.numberOfTabs > 0 && @splitView.subviews.size != 2
-    when :"toggleWebView:"
-      if interfaceItem.class == NSMenuItem
-        interfaceItem.title = webViewVisible? ? "Hide Preview" : "Show Preview"
-      end
-      view.numberOfTabs > 0 && (interfaceItem.title == "Show Preview" || textViewVisible?)
-    when :"toggleTextView:"
-      if interfaceItem.class == NSMenuItem
-        interfaceItem.title = textViewVisible? ? "Hide Source" : "Show Source"
-      end
-      view.numberOfTabs > 0 && (interfaceItem.title == "Show Source" || webViewVisible?)
     when :"toggleSplitViewOrientation:"
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = @splitView.vertical? ? "Split Pane Horizontally" : "Split Pane Vertically"
       end
       view.numberOfTabs > 0
-    when :"makeSplitViewOrientationHorizontal:", :"makeSplitViewOrientationVertical:"
+    when :"toggleContentView:"
       view.numberOfTabs > 0
     else
       true

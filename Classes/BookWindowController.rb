@@ -22,7 +22,11 @@ class BookWindowController < NSWindowController
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
         name:"TabViewSelectionDidChange", object:@tabViewController.view)
     showLogoImage
-    showSelectionView(self)
+
+    # put selectionView into place
+    @selectionViewController.view.frame = @seletionView.frame
+    @seletionView.addSubview(selectionViewController.view)
+    
     @selectionViewController.expandNavigation(self)
     @selectionViewController.expandSpine(self)
   end
@@ -108,15 +112,94 @@ class BookWindowController < NSWindowController
   end
 
   def issueViewController
-    @issueViewController ||= IssueViewController.alloc.initWithBookController(self).loadView
+    unless @issueViewController
+      @issueViewController = IssueViewController.alloc.initWithBookController(self)
+      @issueViewController.loadView
+      @issueViewController.view.frame = @seletionView.frame
+      @issueViewController.view.hidden = true
+      @seletionView.addSubview(@issueViewController.view)
+    end
+    @issueViewController
+  end
+
+  def inspectorViewController
+    unless @inspectorViewController
+      @inspectorViewController = InspectorViewController.alloc.initWithBookController(self)
+      @inspectorViewController.loadView
+      frameRect = @seletionView.frame
+      frameRect.size.height = inspectorViewController.view.frame.size.height
+      @inspectorViewController.view.frame = frameRect
+      @inspectorViewController.view.hidden = true
+      @seletionView.addSubview(@inspectorViewController.view)
+    end
+    @inspectorViewController
   end
 
   def showSelectionView(sender)
-    changeSidebarView(selectionViewController)
+    if selectionViewController.view.hidden?
+      slideOutView(issueViewController.view, replacingWith:selectionViewController.view, direction:"right")
+    end
   end
 
   def showIssueView(sender)
-    changeSidebarView(issueViewController)
+    if issueViewController.view.hidden?
+      slideOutView(selectionViewController.view, replacingWith:issueViewController.view, direction:"left")
+    end
+  end
+
+  def toggleInspectorView(sender)
+    inspectorVisible? ? hideInspectorView : showInspectorView
+  end
+
+  def showInspectorView
+    # get inspectorView
+    inspector = inspectorViewController.view
+    
+    # get inspectorView height
+    inspectorHeight = inspector.frame.size.height
+
+    # make inspectorView visible
+    inspector.hidden = false
+    
+    # position inspectorView below selectionView
+    inspector.frameOrigin = [0, -inspectorHeight]
+    
+    # animate inspectorView sliding up into place
+    inspector.animator.frameOrigin = [0, 0]
+
+    # animate selectionView sliding up
+    frameRect = selectionViewController.view.frame
+    shiftFrameOrigin(frameRect, inspectorHeight)
+    selectionViewController.view.animator.frame = frameRect
+
+    # animate issueView sliding up
+    frameRect = issueViewController.view.frame
+    shiftFrameOrigin(frameRect, inspectorHeight)
+    issueViewController.view.animator.frame = frameRect
+  end
+  
+  def hideInspectorView
+    # get inspectorView
+    inspector = inspectorViewController.view
+    
+    # get inspectorView height
+    inspectorHeight = inspector.frame.size.height
+
+    # animate inspectorView sliding down
+    inspector.animator.frameOrigin = [0, -inspectorHeight]
+
+    # animate selectionView sliding down
+    frameRect = selectionViewController.view.frame
+    shiftFrameOrigin(frameRect, -inspectorHeight)
+    selectionViewController.view.animator.frame = frameRect
+
+    # animate issueView sliding down
+    frameRect = issueViewController.view.frame
+    shiftFrameOrigin(frameRect, -inspectorHeight)
+    issueViewController.view.animator.frame = frameRect
+
+    # make inspectorView invisible
+    inspector.animator.hidden = true
   end
 
   def showUnregisteredFiles(sender)
@@ -149,54 +232,60 @@ class BookWindowController < NSWindowController
     controller.nextResponder = current
   end
 
-  private
-
-  def changeSidebarView(controller)
-    if @currentSelectionView
-      return if @currentSelectionView == controller.view
-      oldView = @currentSelectionView
-    end
-    @currentSelectionView = controller.view
-
-    unless @seletionView.subviews.include? @currentSelectionView
-      @currentSelectionView.frame = @seletionView.frame
-      @seletionView.addSubview(@currentSelectionView)
-    end
-    
-    @currentSelectionView.hidden = false
-    
-    if oldView
-      if oldView == selectionViewController.view
-        slideViews(oldView, @currentSelectionView, :left)
-      else
-        slideViews(oldView, @currentSelectionView, :right)
+  def validateUserInterfaceItem(interfaceItem)
+    case interfaceItem.action
+    when :"toggleInspectorView:"
+      if interfaceItem.class == NSMenuItem
+        interfaceItem.title = inspectorVisible? ? "Hide Inspector" : "Show Inspector"
       end
+    else
+      true
     end
-    
-    window.makeFirstResponder(@currentSelectionView)
+  end
+
+  private
+  
+  def inspectorVisible?
+    !inspectorViewController.view.hidden?
   end
   
-  def slideViews(oldView, newView, direction)
+  def shiftFrameOrigin(frame, amount)
+    frame.size.height -= amount
+    frame.origin.y += amount
+  end
+
+  def slideOutView(outView, replacingWith:inView, direction:direction)
     NSAnimationContext.beginGrouping
     
     # NSAnimationContext.currentContext.duration = 3.0
     
-    # start newView far right or left
-    rightFrame = @seletionView.frame    
-    rightFrame.origin.x = direction == :right ? -@seletionView.frame.size.width : @seletionView.frame.size.width
-    newView.frame = rightFrame
+    # get selectionView width
+    selectionViewWidth = @seletionView.frame.size.width
     
-    # animate newView sliding into place
-    leftFrame = @seletionView.frame
-    newView.animator.frame = leftFrame
-    newView.animator.alphaValue = 1.0
+    # start inView far right or left
+    inFrame = @seletionView.frame
+    inFrame.origin.x = (direction == "right") ? -selectionViewWidth : selectionViewWidth
+    shiftFrameOrigin(inFrame, inspectorViewController.view.frame.size.height) if inspectorVisible?
+    inView.frame = inFrame
     
-    # animate oldView sliding out to right or left
+    # make inView visible
+    inView.hidden = false
+
+    # animate inView sliding into place
+    inFrame = inFrame.dup
+    inFrame.origin.x = 0
+    inView.animator.frame = inFrame
+    inView.animator.alphaValue = 1.0
+    
+    # animate outView sliding out to right or left
     outFrame = @seletionView.frame
-    outFrame.origin.x = direction == :right ? @seletionView.frame.size.width : -@seletionView.frame.size.width
-    oldView.animator.frame = outFrame
-    oldView.animator.alphaValue = 0.5
-    # oldView.animator.hidden = true
+    outFrame.origin.x = (direction == "right") ? selectionViewWidth : -selectionViewWidth
+    shiftFrameOrigin(outFrame, inspectorViewController.view.frame.size.height) if inspectorVisible?
+    outView.animator.frame = outFrame
+    outView.animator.alphaValue = 0.5
+    
+    # make outView invisible
+    outView.animator.hidden = true
 
     NSAnimationContext.endGrouping
   end
