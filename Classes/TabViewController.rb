@@ -23,6 +23,7 @@ class TabViewController < NSViewController
         selector:('textDidChange:'), 
         name:NSTextStorageDidProcessEditingNotification, 
         object:@textViewController.view.textStorage)
+    hideTextView
   end
 
   def textDidChange(notification)
