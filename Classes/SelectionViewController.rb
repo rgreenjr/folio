@@ -8,9 +8,16 @@ class SelectionViewController < NSViewController
     @controllers.each { |controller| @bookController.makeResponder(controller) }
     @outlineView.tableColumns.first.dataCell = ImageCell.new
     @outlineView.registerForDraggedTypes(["NavigationPointsPboardType", "SpineItemRefsPboardType", "ManifestItemsPboardType", NSFilenamesPboardType])
+    @outlineView.doubleAction = :"doubleClickAction:"
+    @outlineView.target = self
     @outlineView.delegate = self
     @outlineView.dataSource = self
     @outlineView.reloadData
+  end
+  
+  def doubleClickAction(sender)
+    item = @outlineView.itemAtRow(@outlineView.clickedRow)
+    @outlineView.isItemExpanded(item) ? @outlineView.collapseItem(item) : @outlineView.expandItem(item)
   end
   
   def expandNavigation(sender)
