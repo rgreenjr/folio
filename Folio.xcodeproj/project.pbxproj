@@ -145,6 +145,7 @@
 		CD3179E212EA7AE800C98B33 /* SourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D012EA7AE800C98B33 /* SourceView.xib */; };
 		CD3179E412EA7AE800C98B33 /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D412EA7AE800C98B33 /* TabView.xib */; };
 		CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D612EA7AE800C98B33 /* WebView.xib */; };
+		CD3A3E0312F21F0500449BFC /* PrintController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3A3E0212F21F0500449BFC /* PrintController.rb */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
 		CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F912EB3EAF009E33A3 /* IssueView.xib */; };
@@ -296,6 +297,7 @@
 		CD3179D112EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SourceView.xib; sourceTree = "<group>"; };
 		CD3179D512EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TabView.xib; sourceTree = "<group>"; };
 		CD3179D712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebView.xib; sourceTree = "<group>"; };
+		CD3A3E0212F21F0500449BFC /* PrintController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PrintController.rb; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
 		CD85C8FA12EB3EAF009E33A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/IssueView.xib; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 		CD2D17D712E5F1F800D6A99A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CD3A3E0212F21F0500449BFC /* PrintController.rb */,
 				CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */,
 				CDEBCB0512F0B27C00E8834D /* Metadatum.rb */,
 				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
@@ -761,6 +764,7 @@
 				CDEBCB8512F0CBDA00E8834D /* inspector-border.png in Resources */,
 				CDEBCBEE12F0E7CB00E8834D /* preview.png in Resources */,
 				CDEBCBF012F0E7D600E8834D /* yield-circle.png in Resources */,
+				CD3A3E0312F21F0500449BFC /* PrintController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

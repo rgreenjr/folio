@@ -225,6 +225,11 @@ class BookWindowController < NSWindowController
     issueViewController.refresh
     showIssueView(self)
   end
+  
+  def printDocument(sender)
+    tab = @tabViewController.selectedTab
+    PrintController.printItem(tab.item) if tab
+  end
 
   def runModalAlert(messageText, informativeText='')
     Alert.runModal(window, messageText, informativeText)
@@ -242,6 +247,8 @@ class BookWindowController < NSWindowController
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = inspectorVisible? ? "Hide Inspector" : "Show Inspector"
       end
+    when :"printDocument:"
+      @tabViewController.numberOfTabs > 0
     else
       true
     end

@@ -32,6 +32,10 @@ class TabViewController < NSViewController
     view.needsDisplay = true
   end
   
+  def numberOfTabs
+    view.numberOfTabs
+  end
+  
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
     if item
       if item.imageable?

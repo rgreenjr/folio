@@ -17,7 +17,7 @@ class Metadata
           if element.attributes["name"] == "cover"
             @cover = book.manifest.itemWithId(element.attributes["content"])
           else
-            puts "Dropping metadata element: #{element}"
+            puts "Ignoring metadata element: #{element}"
           end
         when "creator"
           @sortCreator = element.attributes["opf:file-as"]
