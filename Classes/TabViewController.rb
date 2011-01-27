@@ -7,22 +7,18 @@ class TabViewController < NSViewController
   SPLIT_HORIZONTAL_MODE = 2
   SPLIT_VERTICAL_MODE   = 3
 
-  VIEW_MODE_WEB  = 0
-  VIEW_MODE_TEXT = 1
-  VIEW_MODE_DUAL = 2
-
   attr_accessor :bookController, :textViewController, :webViewController
   attr_accessor :splitView, :splitViewSegementedControl, :renderImageView
   attr_accessor :viewMode
 
   def awakeFromNib
-    @viewMode = VIEW_MODE_DUAL
     view.delegate = self
     @splitView.delegate = self
     NSNotificationCenter.defaultCenter.addObserver(self, 
         selector:('textDidChange:'), 
         name:NSTextStorageDidProcessEditingNotification, 
         object:@textViewController.view.textStorage)
+    @viewMode = PREVIEW_MODE
     hideTextView
     toggleCloseMenuKeyEquivalents
   end
@@ -30,10 +26,6 @@ class TabViewController < NSViewController
   def textDidChange(notification)
     # required to update edited status
     view.needsDisplay = true
-  end
-  
-  def numberOfTabs
-    view.numberOfTabs
   end
   
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
@@ -46,7 +38,7 @@ class TabViewController < NSViewController
         @renderImageView.image = nil
         @textViewController.item = item
         @webViewController.item = point
-        showWebView unless @viewMode == VIEW_MODE_TEXT
+        showWebView unless @viewMode == SOURCE_MODE
       else
         @renderImageView.image = nil
         @textViewController.item = item
@@ -61,6 +53,10 @@ class TabViewController < NSViewController
     updateToolbarItems
   end
 
+  def numberOfTabs
+    view.numberOfTabs
+  end
+  
   def addObject(object)
     if object.renderable?
       view.addObject(object)
@@ -94,6 +90,15 @@ class TabViewController < NSViewController
     view.closeSelectedTab
     toggleCloseMenuKeyEquivalents
   end
+  
+  def selectedTabPrintView
+    return nil unless selectedTab
+    if @viewMode == SOURCE_MODE
+      @textViewController.view
+    else
+      @webViewController.view.mainFrame.frameView.documentView
+    end
+  end
 
   def selectNextTab(sender)
     view.selectNextTab
@@ -112,17 +117,21 @@ class TabViewController < NSViewController
     when PREVIEW_MODE
       showWebView
       hideTextView
+      @viewMode = PREVIEW_MODE
     when SOURCE_MODE
       showTextView
       hideWebView
+      @viewMode = SOURCE_MODE
     when SPLIT_HORIZONTAL_MODE
       showWebView
       showTextView
       makeSplitViewOrientationHorizontal
+      @viewMode = SPLIT_HORIZONTAL_MODE
     when SPLIT_VERTICAL_MODE
       showWebView
       showTextView
       makeSplitViewOrientationVertical
+      @viewMode = SPLIT_VERTICAL_MODE
     else      
     end
   end
@@ -131,7 +140,6 @@ class TabViewController < NSViewController
     unless webViewVisible?
       @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@textViewController.view.enclosingScrollView)
       updateSplitViewDividerPosition
-      @viewMode = VIEW_MODE_DUAL
     end
   end
 
@@ -139,7 +147,6 @@ class TabViewController < NSViewController
     unless textViewVisible?
       @splitView.addSubview(@textViewController.view.enclosingScrollView, positioned:NSWindowAbove, relativeTo:@webViewController.view)
       updateSplitViewDividerPosition
-      @viewMode = VIEW_MODE_DUAL
     end
   end
 
@@ -147,7 +154,6 @@ class TabViewController < NSViewController
     if @splitView.subviews.size == 2
       @webViewController.view.removeFromSuperview
       @splitView.adjustSubviews
-      @viewMode = VIEW_MODE_TEXT
     end
   end
 
@@ -155,7 +161,6 @@ class TabViewController < NSViewController
     if @splitView.subviews.size == 2
       @textViewController.view.enclosingScrollView.removeFromSuperview
       @splitView.adjustSubviews
-      @viewMode = VIEW_MODE_WEB
     end
   end
   

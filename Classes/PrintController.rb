@@ -1,4 +1,23 @@
 class PrintController
+
+  def self.printView(view)
+    return unless view
+    
+    # get the sharedPrintInfo for the application
+    printInfo = NSPrintInfo.sharedPrintInfo
+
+    printInfo.horizontallyCentered = false
+    printInfo.verticallyCentered = false
+    
+    # create a new printOperation with the view and run it
+    printOperation = NSPrintOperation.printOperationWithView(view, printInfo:printInfo)
+    printOperation.showPanels = true
+    printOperation.runOperation
+  end
+  
+  private
+  
+  # the methods below are stubs for the coming ability to print all pages in the book via an offscreen window
   
   def self.printItem(item)
     # create a dummy frame far offscreen
@@ -31,26 +50,17 @@ class PrintController
     documentView.window.orderFront(self)
     documentView.window.display
     
-    # get the sharedPrintInfo for the application
-    printInfo = NSPrintInfo.sharedPrintInfo
-
-    # printInfo.topMargin = 15.0
-    # printInfo.leftMargin = 10.0
-    # printInfo.horizontallyCentered = false
-    # printInfo.verticallyCentered = false
-    
     # lockFocus focus so print operation will take rendered view as content
     documentView.lockFocus
 
-    # create a new printOperation with the documentView and run it
-    printOperation = NSPrintOperation.printOperationWithView(documentView, printInfo:printInfo)
-    printOperation.showPanels = true
-    printOperation.runOperation
-
+    # print the rendered view
+    printView(documentView)
+    
     # release focus lock
     documentView.unlockFocus
     
+    # hide window
     documentView.window.orderOut(self)
   end
-  
+    
 end

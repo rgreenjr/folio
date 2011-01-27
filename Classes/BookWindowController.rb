@@ -227,8 +227,7 @@ class BookWindowController < NSWindowController
   end
   
   def printDocument(sender)
-    tab = @tabViewController.selectedTab
-    PrintController.printItem(tab.item) if tab
+    PrintController.printView(@tabViewController.selectedTabPrintView)
   end
 
   def runModalAlert(messageText, informativeText='')
