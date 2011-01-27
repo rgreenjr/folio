@@ -21,6 +21,7 @@ class TabViewController < NSViewController
     @viewMode = PREVIEW_MODE
     hideTextView
     toggleCloseMenuKeyEquivalents
+    updateToolbarItems
   end
 
   def textDidChange(notification)
@@ -207,14 +208,7 @@ class TabViewController < NSViewController
     case interfaceItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
       view.numberOfTabs > 1
-    when :"saveTab:", :"saveAllTabs:", :"closeTab:"
-      view.numberOfTabs > 0
-    when :"toggleSplitViewOrientation:"
-      if interfaceItem.class == NSMenuItem
-        interfaceItem.title = @splitView.vertical? ? "Split Pane Horizontally" : "Split Pane Vertically"
-      end
-      view.numberOfTabs > 0
-    when :"toggleContentView:"
+    when :"saveTab:", :"closeTab:", :"toggleContentView:"
       view.numberOfTabs > 0
     else
       true
@@ -223,7 +217,7 @@ class TabViewController < NSViewController
 
   def updateToolbarItems
     @bookController.window.toolbar.visibleItems.each do |view|
-      if view.isKindOfClass(NSToolbarItem)
+      if view.class == NSToolbarItem
         view.enabled = validateUserInterfaceItem(view)
       end
     end
