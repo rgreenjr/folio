@@ -31,6 +31,10 @@ class BookWindowController < NSWindowController
     @selectionViewController.expandSpine(self)
   end
 
+  def windowDidBecomeKey(notification)
+    @tabViewController.toggleCloseMenuKeyEquivalents
+  end
+
   def windowTitleForDocumentDisplayName(displayName)
     document.metadata.title
   end

@@ -13,6 +13,7 @@ class PreferencesController < NSWindowController
   end
 
   def awakeFromNib
+    window.delegate = self
     updateFontTextField
   end
 
@@ -33,6 +34,11 @@ class PreferencesController < NSWindowController
   def changeFont(sender)
     @editorFont = sender.convertFont(@editorFont)
     updateFontTextField
+  end
+
+  def windowDidBecomeKey(notification)
+    document = NSDocumentController.sharedDocumentController.currentDocument
+    document.controller.tabViewController.toggleCloseMenuKeyEquivalents
   end
 
   private

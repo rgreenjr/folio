@@ -24,13 +24,14 @@ class TabViewController < NSViewController
         name:NSTextStorageDidProcessEditingNotification, 
         object:@textViewController.view.textStorage)
     hideTextView
+    toggleCloseMenuKeyEquivalents
   end
 
   def textDidChange(notification)
     # required to update edited status
     view.needsDisplay = true
   end
-
+  
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
     if item
       if item.imageable?
@@ -57,7 +58,10 @@ class TabViewController < NSViewController
   end
 
   def addObject(object)
-    view.addObject(object) if object.renderable?
+    if object.renderable?
+      view.addObject(object)
+      toggleCloseMenuKeyEquivalents
+    end
   end
 
   def removeObject(object)
@@ -84,6 +88,7 @@ class TabViewController < NSViewController
 
   def closeTab(sender)
     view.closeSelectedTab
+    toggleCloseMenuKeyEquivalents
   end
 
   def selectNextTab(sender)
@@ -176,6 +181,19 @@ class TabViewController < NSViewController
     @previousDividerPosition = proposedPosition 
   end
   
+  def toggleCloseMenuKeyEquivalents
+    fileMenu = NSApp.mainMenu.itemWithTitle("File")
+    closeMenu = fileMenu.submenu.itemWithTitle("Close")
+    closeTabMenu = fileMenu.submenu.itemWithTitle("Close Tab")
+    if @bookController.window.isKeyWindow && view.numberOfTabs > 0
+      closeTabMenu.keyEquivalent = "w"
+      closeMenu.keyEquivalent = "W"
+    else
+      closeTabMenu.keyEquivalent = ""
+      closeMenu.keyEquivalent = "w"
+    end
+  end
+  
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
@@ -225,5 +243,5 @@ class TabViewController < NSViewController
     @splitView.setPosition(@previousDividerPosition, ofDividerAtIndex:0)
     @splitView.adjustSubviews
   end
-
+  
 end

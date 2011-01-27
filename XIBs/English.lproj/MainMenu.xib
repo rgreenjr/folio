@@ -253,19 +253,19 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
-								<object class="NSMenuItem" id="794964594">
+								<object class="NSMenuItem" id="775810485">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">Close Tab</string>
-									<string key="NSKeyEquiv">w</string>
+									<string key="NSTitle">Close</string>
+									<string key="NSKeyEquiv">W</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
-								<object class="NSMenuItem" id="775810485">
+								<object class="NSMenuItem" id="794964594">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">Close Book</string>
-									<string key="NSKeyEquiv">W</string>
+									<string key="NSTitle">Close Tab</string>
+									<string key="NSKeyEquiv">w</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1557,7 +1557,6 @@
 							<reference ref="636823227"/>
 							<reference ref="1002786961"/>
 							<reference ref="1010469920"/>
-							<reference ref="775810485"/>
 							<reference ref="1023925487"/>
 							<reference ref="881042161"/>
 							<reference ref="1008771310"/>
@@ -1567,6 +1566,7 @@
 							<reference ref="416188602"/>
 							<reference ref="103889177"/>
 							<reference ref="796180924"/>
+							<reference ref="775810485"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -3321,15 +3321,11 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
-							<string>toggleSplitViewOrientation:</string>
-							<string>toggleTextView:</string>
-							<string>toggleWebView:</string>
-							<string>updateToolbarItems:</string>
+							<string>toggleCloseMenuKeyEquivalents:</string>
+							<string>toggleContentView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3348,10 +3344,8 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
-							<string>toggleSplitViewOrientation:</string>
-							<string>toggleTextView:</string>
-							<string>toggleWebView:</string>
-							<string>updateToolbarItems:</string>
+							<string>toggleCloseMenuKeyEquivalents:</string>
+							<string>toggleContentView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3376,19 +3370,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">toggleSplitViewOrientation:</string>
+								<string key="name">toggleCloseMenuKeyEquivalents:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">toggleTextView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleWebView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">updateToolbarItems:</string>
+								<string key="name">toggleContentView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
