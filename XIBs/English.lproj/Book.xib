@@ -51,7 +51,7 @@
 			<object class="NSWindowTemplate" id="53791894">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{271, 148}, {897, 598}}</string>
+				<string key="NSWindowRect">{{404, 355}, {971, 600}}</string>
 				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">Folio</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -321,7 +321,7 @@
 								<object class="NSCustomView" id="120754400">
 									<reference key="NSNextResponder" ref="540888369"/>
 									<int key="NSvFlags">274</int>
-									<string key="NSFrameSize">{296, 574}</string>
+									<string key="NSFrameSize">{296, 576}</string>
 									<reference key="NSSuperview" ref="540888369"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSClassName">NSView</string>
@@ -329,24 +329,24 @@
 								<object class="NSCustomView" id="426908954">
 									<reference key="NSNextResponder" ref="540888369"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{297, 0}, {600, 574}}</string>
+									<string key="NSFrame">{{297, 0}, {674, 576}}</string>
 									<reference key="NSSuperview" ref="540888369"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
-							<string key="NSFrame">{{0, 24}, {897, 574}}</string>
+							<string key="NSFrame">{{0, 24}, {971, 576}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">2</int>
 						</object>
 					</object>
-					<string key="NSFrameSize">{897, 598}</string>
+					<string key="NSFrameSize">{971, 600}</string>
 					<reference key="NSSuperview"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
@@ -1584,10 +1584,10 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{377, 343}, {897, 598}}</string>
+					<string>{{377, 341}, {971, 600}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{377, 343}, {897, 598}}</string>
+					<string>{{377, 341}, {971, 600}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
