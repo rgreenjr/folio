@@ -27,16 +27,24 @@ class Book < NSDocument
   
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
     @progressController ||= ProgressController.alloc.init
-    @progressController.showWindowWithTitle("Opening...") do
+    @progressController.showWindowWithTitle("Opening...") do |progressBar|
       begin
         @unzipPath  = Dir.mktmpdir("folio-unzip-")
+        progressBar.doubleValue = 10.0
         runCommand("unzip -q -d '#{@unzipPath}' \"#{absoluteURL.path}\"")
+        progressBar.doubleValue = 40.0
         @container  = Container.new(@unzipPath, self)
+        progressBar.doubleValue = 50.0
         @manifest   = Manifest.new(@container.absolutePath, self)
+        progressBar.doubleValue = 60.0
         @metadata   = Metadata.new(self)
+        progressBar.doubleValue = 70.0
         @spine      = Spine.new(self)
+        progressBar.doubleValue = 80.0
         @guide      = Guide.new(self)
+        progressBar.doubleValue = 90.0
         @navigation = Navigation.new(self)
+        progressBar.doubleValue = 100.0
         true
       rescue Exception => exception
         info = { NSLocalizedFailureReasonErrorKey => exception.message }

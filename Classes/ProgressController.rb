@@ -13,7 +13,7 @@ class ProgressController < NSWindowController
       @progressBar.usesThreadedAnimation = true
       @progressBar.startAnimation(self)
       window.makeKeyAndOrderFront(self)
-      yield
+      yield progressBar
     ensure
       window.orderOut(self)
       @progressBar.stopAnimation(self)
