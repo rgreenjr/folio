@@ -221,9 +221,10 @@ class BookWindowController < NSWindowController
 
   def validate(sender)
     if document.isDocumentEdited
-      message = "Validation cannot be performed while there are unsaved changes."
-      alert = NSAlert.alertWithMessageText(message, defaultButton:"Save and Validate", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:'')
-      alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+      alert = NSAlert.alertWithMessageText("Your changes must be saved before validation.", 
+          defaultButton:"Save and Validate", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:'')
+      alert.beginSheetModalForWindow(window, modalDelegate:self, 
+          didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     else
       performValidation
     end
