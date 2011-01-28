@@ -220,10 +220,28 @@ class BookWindowController < NSWindowController
   end
 
   def validate(sender)
+    if document.isDocumentEdited
+      message = "Validation cannot be performed while there are unsaved changes."
+      alert = NSAlert.alertWithMessageText(message, defaultButton:"Save and Validate", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:'')
+      alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    else
+      performValidation
+    end
+  end
+  
+  def validateSheetDidEnd(alert, returnCode:code, contextInfo:info)
+    if code == NSOKButton
+      alert.window.orderOut(self)
+      document.saveDocument(self)
+      performValidation
+    end
+  end
+  
+  def performValidation
     @validationController ||= ValidationController.alloc.init
     @validationController.validateBook(document, @textViewController.lineNumberView)
     issueViewController.refresh
-    showIssueView(self)
+    showIssueView(self)    
   end
   
   def printDocument(sender)
