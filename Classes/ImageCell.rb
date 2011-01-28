@@ -1,6 +1,7 @@
 class ImageCell < NSTextFieldCell
 
   PADDING = 4
+  IMAGE_SIZE = 16
   MIN_BADGE_WIDTH = 22
 
   attr_accessor :image, :badgeCount
@@ -33,7 +34,7 @@ class ImageCell < NSTextFieldCell
   def image=(image)
     if image
       image.scalesWhenResized = true
-      image.size = NSSize.new(16, 16)
+      image.size = NSSize.new(IMAGE_SIZE, IMAGE_SIZE)
     end
     super
   end
@@ -90,14 +91,14 @@ class ImageCell < NSTextFieldCell
 
   private
 
-  def divideFrame(cellFrame)
+  def divideFrame(frame)
     if @badgeCount
-      imageFrame = NSMakeRect(PADDING + cellFrame.origin.x, cellFrame.origin.y, @image.size.width, cellFrame.size.height)
-      textFrame  = NSMakeRect(PADDING + imageFrame.origin.x + imageFrame.size.width, cellFrame.origin.y, cellFrame.size.width - imageFrame.size.width - badgeSize.width - (4 * PADDING), cellFrame.size.height)
-      badgeFrame = NSMakeRect(PADDING + textFrame.origin.x  + textFrame.size.width,  cellFrame.origin.y + 1, badgeSize.width, cellFrame.size.height - 2)
+      imageFrame = NSMakeRect(PADDING + frame.origin.x, frame.origin.y, @image.size.width, frame.size.height)
+      textFrame  = NSMakeRect(PADDING + imageFrame.origin.x + imageFrame.size.width, frame.origin.y, frame.size.width - imageFrame.size.width - badgeSize.width - (4 * PADDING), frame.size.height)
+      badgeFrame = NSMakeRect(PADDING + textFrame.origin.x  + textFrame.size.width,  frame.origin.y + 1, badgeSize.width, frame.size.height - 2)
     else
-      imageFrame = NSMakeRect(PADDING + cellFrame.origin.x, cellFrame.origin.y, @image.size.width, cellFrame.size.height)
-      textFrame  = NSMakeRect(PADDING + imageFrame.origin.x + imageFrame.size.width, cellFrame.origin.y, cellFrame.size.width - imageFrame.size.width - PADDING, cellFrame.size.height)
+      imageFrame = NSMakeRect(PADDING + frame.origin.x, frame.origin.y, @image.size.width, frame.size.height)
+      textFrame  = NSMakeRect(PADDING + imageFrame.origin.x + imageFrame.size.width, frame.origin.y, frame.size.width - imageFrame.size.width - PADDING, frame.size.height)
       badgeFrame = nil
     end    
 

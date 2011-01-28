@@ -83,7 +83,7 @@ class IssueViewController < NSViewController
       cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
     else
       cell.badgeCount = nil
-      cell.image = NSImage.imageNamed('yield.png')
+      cell.image = NSImage.imageNamed('wrench.png')
     end
   end
 
