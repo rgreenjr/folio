@@ -87,6 +87,10 @@ class Book < NSDocument
     filepath
   end
   
+  def clearMarkers
+    @manifest.each { |item| item.clearMarkers }
+  end
+  
   def close
     super
     FileUtils.rm_rf(@unzipPath)
