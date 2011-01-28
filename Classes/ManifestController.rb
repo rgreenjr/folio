@@ -1,6 +1,6 @@
 class ManifestController < NSResponder
 
-  attr_accessor :bookController, :outlineView, :propertiesForm, :mediaTypePopUpButton
+  attr_accessor :bookController, :outlineView
 
   def awakeFromNib
     @manifest = @bookController.document.manifest
@@ -12,11 +12,6 @@ class ManifestController < NSResponder
     @menu.addActionWithSeparator("Add to Spine", "addSelectedItemsToSpine:", self)
     @menu.addActionWithSeparator("Mark as Cover Image", "markAsCover:", self)
     @menu.addAction("Delete...", "showDeleteSelectedItemsSheet:", self)
-    
-    # configure media types popup button
-    # Media.types.each {|type| @mediaTypePopUpButton.addItemWithTitle(type)}
-
-    displaySelectedItemProperties
   end
 
   def numberOfChildrenOfItem(item)
@@ -50,10 +45,6 @@ class ManifestController < NSResponder
         cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
       end
     end
-  end
-
-  def selectionDidChange(notification)
-    displaySelectedItemProperties
   end
 
   def setObjectValue(value, forTableColumn:tableColumn, byItem:item)
@@ -326,37 +317,6 @@ class ManifestController < NSResponder
     end
   end
 
-  def changeSelectedItemProperties(sender)
-    item = selectedItem
-    changeItemName(item, nameCell.stringValue)
-    changeItemId(item, idCell.stringValue)
-    changeItemMediaType(item, @mediaTypePopUpButton.title)
-  end
-
-  def changeItemName(item, value)
-    return if item.name == value
-    undoManager.prepareWithInvocationTarget(self).changeItemName(item, item.name)
-    undoManager.actionName = "Change Name"
-    item.name = value
-    reloadDataAndSelectItems([item])
-  end
-
-  def changeItemId(item, value)
-    return if item.id == value
-    undoManager.prepareWithInvocationTarget(self).changeItemId(item, item.id)
-    undoManager.actionName = "Change ID"
-    item.id = value
-    reloadDataAndSelectItems([item])
-  end
-
-  def changeItemMediaType(item, value)
-    return if item.mediaType == value
-    undoManager.prepareWithInvocationTarget(self).changeItemMediaType(item, item.mediaType)
-    undoManager.actionName = "Change Media Type"
-    item.mediaType = value
-    reloadDataAndSelectItems([item])
-  end
-
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
     when :"showDeleteSelectedItemsSheet:", :"delete:"
@@ -376,37 +336,7 @@ class ManifestController < NSResponder
     @manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
-    displaySelectedItemProperties
     # @bookController.window.makeFirstResponder(@outlineView)
-  end
-
-  def displaySelectedItemProperties
-    return
-    # item = selectedItem
-    # if item && !item.directory?
-    #   propertyCells.each {|cell| cell.enabled = true}
-    #   @mediaTypePopUpButton.selectItemWithTitle(item.mediaType)
-    #   nameCell.stringValue = item.name
-    #   idCell.stringValue = item.id
-    #   if item.renderable?
-    #     @bookController.tabViewController.addObject(item)        
-    #   end
-    # else
-    #   propertyCells.each {|cell| cell.enabled = false; cell.stringValue = ''}
-    #   @mediaTypePopUpButton.selectItemWithTitle('')
-    # end
-  end
-
-  def nameCell
-    @propertiesForm.cellAtIndex(0)
-  end
-
-  def idCell
-    @propertiesForm.cellAtIndex(1)
-  end
-
-  def propertyCells
-    @propertyCells ||= [nameCell, idCell, mediaTypePopUpButton]
   end
 
   def showChangeNameCollisionAlert(name)
@@ -414,11 +344,11 @@ class ManifestController < NSResponder
   end
 
   def showAddFilesCollisionAlert(filenames)
-    showAlertSheet("The following files were not added because items with the same names already exist.", filenames.join("\n"))
+    showAlertSheet("The following files were not added because items with the same names already exist in this directory.", filenames.join("\n"))
   end
 
   def showMoveFilesCollisionAlert(filenames)
-    showAlertSheet("The following files were not moved because items with the same names already exist.", filenames.join("\n"))
+    showAlertSheet("The following files were not moved because items with the same names already exist in this directory.", filenames.join("\n"))
   end
 
   def showAlertSheet(messageText, informativeText='')

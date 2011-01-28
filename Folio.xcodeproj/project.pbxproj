@@ -153,6 +153,13 @@
 		CD8F606512EBB0DE0036B0D7 /* yield.png in Resources */ = {isa = PBXBuildFile; fileRef = CD8F606412EBB0DE0036B0D7 /* yield.png */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
+		CDB5422D12F32CE800BB5739 /* PointViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422C12F32CE800BB5739 /* PointViewController.rb */; };
+		CDB5423112F32E9E00BB5739 /* PointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422F12F32E9E00BB5739 /* PointView.xib */; };
+		CDB5428312F33CE100BB5739 /* ItemRefView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428112F33CE100BB5739 /* ItemRefView.xib */; };
+		CDB5428612F33CF600BB5739 /* ItemRefViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428512F33CF600BB5739 /* ItemRefViewController.rb */; };
+		CDB5428812F33D2000BB5739 /* ItemViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428712F33D2000BB5739 /* ItemViewController.rb */; };
+		CDB5428D12F33D2E00BB5739 /* ItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428B12F33D2E00BB5739 /* ItemView.xib */; };
+		CDB542C512F3638100BB5739 /* empty-inspector.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB542C412F3638100BB5739 /* empty-inspector.png */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
 		CDD7AFF712EF675700352D4B /* manifest.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFF612EF675700352D4B /* manifest.png */; };
 		CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFFA12EF6D5F00352D4B /* toc.png */; };
@@ -304,6 +311,13 @@
 		CD8F606412EBB0DE0036B0D7 /* yield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yield.png; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
+		CDB5422C12F32CE800BB5739 /* PointViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointViewController.rb; sourceTree = "<group>"; };
+		CDB5423012F32E9E00BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PointView.xib; sourceTree = "<group>"; };
+		CDB5428212F33CE100BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemRefView.xib; sourceTree = "<group>"; };
+		CDB5428512F33CF600BB5739 /* ItemRefViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ItemRefViewController.rb; sourceTree = "<group>"; };
+		CDB5428712F33D2000BB5739 /* ItemViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ItemViewController.rb; sourceTree = "<group>"; };
+		CDB5428C12F33D2E00BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemView.xib; sourceTree = "<group>"; };
+		CDB542C412F3638100BB5739 /* empty-inspector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-inspector.png"; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
 		CDD7AFF612EF675700352D4B /* manifest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manifest.png; sourceTree = "<group>"; };
 		CDD7AFFA12EF6D5F00352D4B /* toc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toc.png; sourceTree = "<group>"; };
@@ -435,8 +449,11 @@
 				CD3179C012EA7AE800C98B33 /* InfoPlist.strings */,
 				CDEBCB1112F0B40700E8834D /* InspectorView.xib */,
 				CD85C8F912EB3EAF009E33A3 /* IssueView.xib */,
+				CDB5428B12F33D2E00BB5739 /* ItemView.xib */,
+				CDB5428112F33CE100BB5739 /* ItemRefView.xib */,
 				CD3179C212EA7AE800C98B33 /* MainMenu.xib */,
 				CD3179C612EA7AE800C98B33 /* Metadata.xib */,
+				CDB5422F12F32E9E00BB5739 /* PointView.xib */,
 				CD3179CA12EA7AE800C98B33 /* Preferences.xib */,
 				CD3179CC12EA7AE800C98B33 /* Progress.xib */,
 				CD3179CE12EA7AE800C98B33 /* Search.xib */,
@@ -450,6 +467,9 @@
 		CD2D17D712E5F1F800D6A99A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CDB5428712F33D2000BB5739 /* ItemViewController.rb */,
+				CDB5428512F33CF600BB5739 /* ItemRefViewController.rb */,
+				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
 				CD3A3E0212F21F0500449BFC /* PrintController.rb */,
 				CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */,
 				CDEBCB0512F0B27C00E8834D /* Metadatum.rb */,
@@ -530,6 +550,7 @@
 				CDEBCB8412F0CBDA00E8834D /* inspector-border.png */,
 				CD2D185812E5F28500D6A99A /* find-close-rollover.png */,
 				CD2D185912E5F28500D6A99A /* find-close.png */,
+				CDB542C412F3638100BB5739 /* empty-inspector.png */,
 				CDD7AFFA12EF6D5F00352D4B /* toc.png */,
 				CD2D185A12E5F28500D6A99A /* folder.png */,
 				CD2D185B12E5F28500D6A99A /* horizontal.png */,
@@ -761,6 +782,13 @@
 				CDEBCBEE12F0E7CB00E8834D /* preview.png in Resources */,
 				CDEBCBF012F0E7D600E8834D /* yield-circle.png in Resources */,
 				CD3A3E0312F21F0500449BFC /* PrintController.rb in Resources */,
+				CDB5422D12F32CE800BB5739 /* PointViewController.rb in Resources */,
+				CDB5423112F32E9E00BB5739 /* PointView.xib in Resources */,
+				CDB5428312F33CE100BB5739 /* ItemRefView.xib in Resources */,
+				CDB5428612F33CF600BB5739 /* ItemRefViewController.rb in Resources */,
+				CDB5428812F33D2000BB5739 /* ItemViewController.rb in Resources */,
+				CDB5428D12F33D2E00BB5739 /* ItemView.xib in Resources */,
+				CDB542C512F3638100BB5739 /* empty-inspector.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -914,6 +942,30 @@
 				CD8F5F4A12EB75A00036B0D7 /* English */,
 			);
 			name = Validation.xib;
+			sourceTree = "<group>";
+		};
+		CDB5422F12F32E9E00BB5739 /* PointView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDB5423012F32E9E00BB5739 /* English */,
+			);
+			name = PointView.xib;
+			sourceTree = "<group>";
+		};
+		CDB5428112F33CE100BB5739 /* ItemRefView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDB5428212F33CE100BB5739 /* English */,
+			);
+			name = ItemRefView.xib;
+			sourceTree = "<group>";
+		};
+		CDB5428B12F33D2E00BB5739 /* ItemView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDB5428C12F33D2E00BB5739 /* English */,
+			);
+			name = ItemView.xib;
 			sourceTree = "<group>";
 		};
 		CDEBCB1112F0B40700E8834D /* InspectorView.xib */ = {

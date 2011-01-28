@@ -2,10 +2,14 @@ class ItemRef
   
   extend Forwardable
   
-  attr_accessor :item, :linear
+  attr_accessor :item, :type, :linear
   
   def initialize(item, linear=nil)
     @item, @linear = item, linear
+  end
+  
+  def linear?
+    @linear && @linear.downcase == 'yes'
   end
   
   def_delegator :@item, :id, :id

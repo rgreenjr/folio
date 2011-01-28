@@ -106,6 +106,15 @@ class Manifest
     current
   end
   
+  def changeItemId(item, newID)
+    return nil if itemWithId(newID)
+    @itemsMap[item.id] = nil
+    oldID = item.id
+    item.id = newID
+    @itemsMap[item.id] = item
+    oldID
+  end
+
   def sort
     @root.sort
   end

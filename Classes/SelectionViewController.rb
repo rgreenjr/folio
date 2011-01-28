@@ -31,6 +31,10 @@ class SelectionViewController < NSViewController
   def expandManifest(sender)
     @outlineView.expandItem(@manifestController)    
   end
+  
+  def reloadItem(item)
+    @outlineView.reloadItem(item)
+  end
 
   def outlineView(outlineView, numberOfChildrenOfItem:item)
     return 0 unless @outlineView.dataSource # guard against SDK bug
@@ -65,7 +69,9 @@ class SelectionViewController < NSViewController
     if @outlineView.numberOfSelectedRows == 1
       item = @outlineView.itemAtRow(@outlineView.selectedRow)
       @bookController.tabViewController.addObject(item)
+      updateInspector(item)
     else
+      updateInspector(nil)
       # puts "multiple or empty selection"
     end
   end
@@ -116,6 +122,10 @@ class SelectionViewController < NSViewController
       return nil if common != controller
     end
     common
+  end
+  
+  def updateInspector(item)
+    @bookController.inspectorViewController.displayObject(item)
   end
 
 end

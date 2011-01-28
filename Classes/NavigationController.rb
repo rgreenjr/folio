@@ -1,6 +1,6 @@
 class NavigationController < NSResponder
 
-  attr_accessor :bookController, :outlineView, :propertiesForm
+  attr_accessor :bookController, :outlineView
 
   def awakeFromNib
     @navigation = @bookController.document.navigation
@@ -44,10 +44,6 @@ class NavigationController < NSResponder
 
   def setObjectValue(value, forTableColumn:tableColumn, byItem:point)
     # changePointText(point, value)
-  end
-
-  def selectionDidChange(selectedItems)
-    displaySelectedPointProperties
   end
 
   def writeItems(points, toPasteboard:pboard)
@@ -250,90 +246,15 @@ class NavigationController < NSResponder
     deletePoints(points, false)
   end
 
-  def changeSelectedPointProperties(sender)
-    if point = selectedPoint
-      changePointText(point, textCell.stringValue)
-      changePointID(point, idCell.stringValue)
-      changePointSource(point, sourceCell.stringValue)
-    end
-  end
-
-  def changePointText(point, text)
-    return unless point.text != text
-    undoManager.prepareWithInvocationTarget(self).changePointText(point, point.text)
-    undoManager.actionName = "Change Point Title"
-    point.text = text
-    reloadDataAndSelectPoints([point])
-  end
-
-  # TODO need to check for collisions and dehash/hash
-  def changePointID(point, id)
-    return unless point.id != id
-    if oldID = @navigation.changePointId(point, id)
-      undoManager.prepareWithInvocationTarget(self).changePointID(point, point.id)
-      undoManager.actionName = "Change Point ID"
-    else
-      @bookController.runModalAlert("A point with ID \"#{id}\" already exists. Please choose a different ID.")
-    end
-    reloadDataAndSelectPoints([point])
-  end
-
-  def changePointSource(point, src)
-    return unless point.src != src
-    href, fragment = src.split('#')
-    item = @bookController.manifest.itemWithHref(href)
-    if item
-      undoManager.prepareWithInvocationTarget(self).changePointSource(point, point.src)
-      undoManager.actionName = "Change Point Source"
-      point.item = item
-      point.fragment = fragment
-    else
-      @bookController.runModalAlert("The manifest doesn't contain an item at \"#{src}\".")
-      sourceCell.stringValue = point.src
-    end
-    reloadDataAndSelectPoints([point])
-  end
-
   private
 
   def reloadDataAndSelectPoints(points)
     @outlineView.reloadData
     @outlineView.selectItems(points)
-    displaySelectedPointProperties
-    @bookController.window.makeFirstResponder(@outlineView)
+    # @bookController.window.makeFirstResponder(@outlineView)
   end
 
-  def displaySelectedPointProperties
-    return
-    if points.size == 1
-      point = selectedPoint
-      propertyCells.each { |cell| cell.enabled = true }
-      textCell.stringValue = point.text
-      idCell.stringValue = point.id
-      sourceCell.stringValue = point.src
-      @bookController.tabViewController.addObject(point)
-    else
-      propertyCells.each { |cell| cell.enabled = false; cell.stringValue = '' }
-    end
-  end
-
-  def textCell
-    @propertiesForm.cellAtIndex(0)
-  end
-
-  def idCell
-    @propertiesForm.cellAtIndex(1)
-  end
-
-  def sourceCell
-    @propertiesForm.cellAtIndex(2)
-  end
-
-  def propertyCells
-    @propertyCells ||= [textCell, idCell, sourceCell]
-  end
-
-  def validateUserInterfaceItemXXX(interfaceItem)
+  def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
     when :"deleteSelectedPoints:", :"delete:"
       @outlineView.numberOfSelectedRows > 0

@@ -21,6 +21,14 @@ class Guide
   def self.types
     TYPE_HASH.values.sort
   end
+
+  def self.code_for(name)
+    TYPE_HASH.key(name)
+  end
+
+  def self.name_for(code)
+    TYPE_HASH[code]
+  end
   
   def initialize(book=nil)
     @items = []
