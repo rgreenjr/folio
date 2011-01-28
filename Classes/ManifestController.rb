@@ -245,14 +245,16 @@ class ManifestController < NSResponder
   end
 
   def showDeleteSelectedItemsSheet(sender)
-    alert = NSAlert.alertWithMessageText("Are you sure you want to delete the selected items? Any references will be removed from the Navigation and Spine.",
-    defaultButton:"OK", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"You can't undo this action.")
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self,
-    didEndSelector:"deleteSelectedItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    alert = NSAlert.alloc.init
+    alert.messageText = "Are you sure you want to delete the selected items? Any references will be removed from the Table of Contents and Spine."
+    alert.informativeText = "You cannot undo this action."
+    alert.addButtonWithTitle("OK")
+    alert.addButtonWithTitle("Cancel")
+    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"deleteSelectedItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
-  def deleteSelectedItemsSheetDidEnd(panel, returnCode:code, contextInfo:info)
-    deleteItems(selectedItems) if code == NSOKButton
+  def deleteSelectedItemsSheetDidEnd(alert, returnCode:code, contextInfo:info)
+    deleteItems(selectedItems) if code == NSAlertFirstButtonReturn
   end
 
   def deleteItems(items)
@@ -307,16 +309,17 @@ class ManifestController < NSResponder
       @bookController.runModalAlert("All files are properly declared in the manifest.")
     else
       relativePaths = @undeclared.map {|entry| @bookController.document.relativePathFor(entry) }
-      alert = NSAlert.alertWithMessageText("The following files are present but not declared in the manifest.",
-      defaultButton:"Move to Trash", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:"#{relativePaths.join("\n")}\n")
-
-      alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self,
-      didEndSelector:"deleteUndeclaredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+      alert = NSAlert.alloc.init
+      alert.messageText = "The following files are present but not declared in the manifest."
+      alert.informativeText = "#{relativePaths.join("\n")}\n"
+      alert.addButtonWithTitle("Move to Trash")
+      alert.addButtonWithTitle("Cancel")
+      alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self, didEndSelector:"deleteUndeclaredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     end
   end
 
   def deleteUndeclaredFilesSheetDidEnd(alert, returnCode:code, contextInfo:info)
-    if code == NSAlertDefaultReturn
+    if code == NSAlertFirstButtonReturn
       urls = @undeclared.map { |filepath| NSURL.fileURLWithPath(filepath) }
       NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:urls, withObject:nil)
       markBookEdited

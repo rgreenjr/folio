@@ -221,17 +221,18 @@ class BookWindowController < NSWindowController
 
   def validate(sender)
     if document.isDocumentEdited
-      alert = NSAlert.alertWithMessageText("Your changes must be saved before validation.", 
-          defaultButton:"Save and Validate", alternateButton:"Cancel", otherButton:nil, informativeTextWithFormat:'')
-      alert.beginSheetModalForWindow(window, modalDelegate:self, 
-          didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+      alert = NSAlert.alloc.init
+      alert.messageText = "Your changes need to be saved before validation can be performed."
+      alert.addButtonWithTitle("Save and Validate")
+      alert.addButtonWithTitle("Cancel")
+      alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     else
       performValidation
     end
   end
   
   def validateSheetDidEnd(alert, returnCode:code, contextInfo:info)
-    if code == NSOKButton
+    if code == NSAlertFirstButtonReturn
       alert.window.orderOut(self)
       document.saveDocument(self)
       performValidation
