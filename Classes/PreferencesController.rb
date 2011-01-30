@@ -27,6 +27,7 @@ class PreferencesController < NSWindowController
 
   def showFontPanel(sender)
     fontManager = NSFontManager.sharedFontManager
+    fontManager.setSelectedFont(@editorFont, isMultiple:false)
     fontManager.delegate = self
     fontManager.orderFrontFontPanel(sender)
   end
