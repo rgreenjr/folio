@@ -3,7 +3,7 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">804</string>
+		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
@@ -15,8 +15,8 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>804</string>
-				<string>804</string>
+				<string>823</string>
+				<string>823</string>
 			</object>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
@@ -51,7 +51,7 @@
 			<object class="NSWindowTemplate" id="53791894">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{404, 355}, {971, 600}}</string>
+				<string key="NSWindowRect">{{176, 159}, {971, 600}}</string>
 				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">Folio</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -346,7 +346,7 @@
 					<reference key="NSSuperview"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
@@ -1584,10 +1584,10 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{377, 341}, {971, 600}}</string>
+					<string>{{255, 131}, {971, 600}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{377, 341}, {971, 600}}</string>
+					<string>{{255, 131}, {971, 600}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -1685,6 +1685,7 @@
 							<string>addFiles:</string>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
+							<string>printDocument:</string>
 							<string>showIssueView:</string>
 							<string>showMetadataPanel:</string>
 							<string>showSelectionView:</string>
@@ -1705,6 +1706,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -1714,6 +1716,7 @@
 							<string>addFiles:</string>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
+							<string>printDocument:</string>
 							<string>showIssueView:</string>
 							<string>showMetadataPanel:</string>
 							<string>showSelectionView:</string>
@@ -1734,6 +1737,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newPoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">printDocument:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1909,7 +1916,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addSelectedItemsToSpine:</string>
-							<string>changeSelectedItemProperties:</string>
 							<string>delete:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
@@ -1918,7 +1924,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1932,7 +1937,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addSelectedItemsToSpine:</string>
-							<string>changeSelectedItemProperties:</string>
 							<string>delete:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
@@ -1943,10 +1947,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">addSelectedItemsToSpine:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">changeSelectedItemProperties:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1976,14 +1976,10 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>mediaTypePopUpButton</string>
 							<string>outlineView</string>
-							<string>propertiesForm</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -1993,9 +1989,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
-							<string>mediaTypePopUpButton</string>
 							<string>outlineView</string>
-							<string>propertiesForm</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2004,15 +1998,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">mediaTypePopUpButton</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">outlineView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">propertiesForm</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -2037,7 +2023,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>changeSelectedPointProperties:</string>
 							<string>delete:</string>
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
@@ -2045,7 +2030,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2056,7 +2040,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>changeSelectedPointProperties:</string>
 							<string>delete:</string>
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
@@ -2064,10 +2047,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">changeSelectedPointProperties:</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBActionInfo">
 								<string key="name">delete:</string>
 								<string key="candidateClassName">id</string>
@@ -2092,11 +2071,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>outlineView</string>
-							<string>propertiesForm</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -2107,7 +2084,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>outlineView</string>
-							<string>propertiesForm</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2117,10 +2093,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">outlineView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">propertiesForm</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -2137,12 +2109,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>doubleClickAction:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2152,12 +2126,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>doubleClickAction:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">doubleClickAction:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">expandManifest:</string>
 								<string key="candidateClassName">id</string>
@@ -2368,17 +2347,11 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
+							<string>toggleCloseMenuKeyEquivalents:</string>
 							<string>toggleContentView:</string>
-							<string>toggleSplitViewOrientation:</string>
-							<string>toggleTextView:</string>
-							<string>toggleWebView:</string>
-							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2397,11 +2370,8 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
+							<string>toggleCloseMenuKeyEquivalents:</string>
 							<string>toggleContentView:</string>
-							<string>toggleSplitViewOrientation:</string>
-							<string>toggleTextView:</string>
-							<string>toggleWebView:</string>
-							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2426,23 +2396,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">toggleCloseMenuKeyEquivalents:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">toggleContentView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleSplitViewOrientation:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleTextView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleWebView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">updateToolbarItems:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

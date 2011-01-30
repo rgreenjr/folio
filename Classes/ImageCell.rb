@@ -6,11 +6,6 @@ class ImageCell < NSTextFieldCell
 
   attr_accessor :image, :badgeCount
 
-  def initImageCell(image)
-    initTextCell("")
-    @image = image
-  end
-
   def initTextCell(text)
     super
     setEditable(true)
@@ -22,12 +17,12 @@ class ImageCell < NSTextFieldCell
     style.lineBreakMode = NSLineBreakByTruncatingTail
     @badgeAttributes = {
       NSParagraphStyleAttributeName => style,
-      NSFontAttributeName => badgeFont = NSFont.fontWithName("Helvetica-Bold", size:11)
+      NSFontAttributeName => NSFont.fontWithName("Helvetica-Bold", size:11)
     }
     
     @baseColor = NSColor.whiteColor
     @highlightColor = NSColor.colorWithDeviceRed(0.60, green:0.65, blue:0.77, alpha:1.0)
-
+        
     self
   end
 
@@ -83,7 +78,8 @@ class ImageCell < NSTextFieldCell
   end
   
   def drawInteriorWithFrame(frame, inView:controlView)
-    delta = ((frame.size.height - font.pointSize) / 2).floor - 2
+    fontSize = stringValue.sizeWithAttributes({ NSFontAttributeName => font })
+    delta = ((frame.size.height - fontSize.height) / 2)
     frame.origin.y += delta
     frame.size.height -= delta
     super
