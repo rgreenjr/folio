@@ -13,6 +13,7 @@ class Book < NSDocument
   attr_reader :controller, :unzipPath
   attr_reader :navigation, :manifest, :spine, :container, :metadata, :guide
   
+  # creates a new book
   def initWithType(typeName, error:outError)
     super
     @unzipPath  = Dir.mktmpdir("folio-unzip-")
@@ -25,6 +26,7 @@ class Book < NSDocument
     self
   end
   
+  # opens an existing book
   def readFromURL(absoluteURL, ofType:inTypeName, error:outError)
     @progressController ||= ProgressController.alloc.init
     @progressController.showWindowWithTitle("Opening...") do |progressBar|
@@ -80,11 +82,8 @@ class Book < NSDocument
   end
   
   def relativePathFor(filepath)
-    puts "relativePathFor #{filepath}"
     filepath = filepath.gsub(@unzipPath + '/', '')
-    filepath = filepath.stringByStandardizingPath
-    puts "         #{filepath}"
-    filepath
+    filepath.stringByStandardizingPath
   end
   
   def clearMarkers

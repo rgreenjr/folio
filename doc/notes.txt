@@ -1,6 +1,10 @@
+- Use reloadItem instead of reloadData when possible
+- Change move, add, delete in outlineview to use reverse only when index == -1
+
 Bugs
 ====
 
+- Valdation crashes on new books that haven't been saved yet
 - Fix broken Edit > Delete menu action.
 - Navigation should check for inclusion of objects prior to deleting
 - ePub validation: handle missing files and unregistered files
