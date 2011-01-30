@@ -22,7 +22,9 @@ class ImageCell < NSTextFieldCell
     
     @baseColor = NSColor.whiteColor
     @highlightColor = NSColor.colorWithDeviceRed(0.60, green:0.65, blue:0.77, alpha:1.0)
-        
+    
+    calcFontHeight
+    
     self
   end
 
@@ -32,6 +34,11 @@ class ImageCell < NSTextFieldCell
       image.size = NSSize.new(IMAGE_SIZE, IMAGE_SIZE)
     end
     super
+  end
+  
+  def font=(aFont)
+    super
+    calcFontHeight
   end
 
   def badgeColor
@@ -78,8 +85,7 @@ class ImageCell < NSTextFieldCell
   end
   
   def drawInteriorWithFrame(frame, inView:controlView)
-    fontSize = stringValue.sizeWithAttributes({ NSFontAttributeName => font })
-    delta = ((frame.size.height - fontSize.height) / 2)
+    delta = ((frame.size.height - @fontHeight) / 2)
     frame.origin.y += delta
     frame.size.height -= delta
     super
@@ -120,6 +126,10 @@ class ImageCell < NSTextFieldCell
     labelRect = rect
     labelRect.origin.y -= ((rect.size.height - labelSize.height) * 0.5).floor
     badgeString.drawInRect(labelRect, withAttributes:@badgeAttributes)
+  end
+  
+  def calcFontHeight
+    @fontHeight = "8".sizeWithAttributes({ NSFontAttributeName => font }).height
   end
 
 end
