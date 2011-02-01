@@ -81,8 +81,6 @@ class SpineController < NSResponder
       # read item ids from pastebaord
       itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
       
-      p itemIds
-
       # process each item id
       itemIds.each do |id|
 
@@ -112,7 +110,7 @@ class SpineController < NSResponder
     if types.containsObject("SpineItemRefsPboardType")
       # drag data from spine controller, so read itemRef ids from pastebaord
       itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
-
+      
       itemRefs = []
       newIndexes = []
       offset = 0
@@ -130,6 +128,13 @@ class SpineController < NSResponder
 
       # move the specified itemRefs
       moveItemRefs(itemRefs, newIndexes)
+
+      # itemRefIds.reverse.each do |id|
+      #   itemRef = @spine.itemRefWithId(id)
+      #   currentIndex = @spine.index(itemRef)
+      #   childIndex -= 1 if currentIndex < childIndex
+      #   moveItemRef(itemRef, childIndex)
+      # end
 
       return true
     elsif types.containsObject("ManifestItemsPboardType")
@@ -212,10 +217,7 @@ class SpineController < NSResponder
   def moveItemRefs(itemRefs, newIndexes)
     oldIndexes = []
     itemRefs.each_with_index do |itemRef, index|
-      oldIndex = @spine.index(itemRef)
-      @spine.delete_at(oldIndex)
-      @spine.insert(newIndexes[index], itemRef)
-      oldIndexes << oldIndex
+      oldIndexes << @spine.move(itemRef, newIndexes[index])
     end
     undoManager.prepareWithInvocationTarget(self).moveItemRefs(itemRefs.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
@@ -223,6 +225,16 @@ class SpineController < NSResponder
     end
     reloadDataAndSelectItems(itemRefs)
   end
+
+  # def moveItemRef(itemRef, newIndex)
+  #   oldIndex = @spine.move(itemRef, newIndex)
+  #   puts "moveItemRef #{itemRef} from #{oldIndex} to #{newIndex}"
+  #   undoManager.prepareWithInvocationTarget(self).moveItemRef(itemRef, oldIndex)
+  #   unless undoManager.isUndoing
+  #     undoManager.actionName = "Move Spine ItemRef"
+  #   end
+  #   reloadDataAndSelectItems([itemRef])
+  # end
 
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action

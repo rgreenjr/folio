@@ -1,15 +1,15 @@
 class Spine < DelegateClass(Array)
 
   def initialize(book=nil)
-    @itemrefs = []
-    super(@itemrefs)
+    @itemRefs = []
+    super(@itemRefs)
     if book
       book.container.opfDoc.elements.each("/package/spine/itemref") do |element|
         idref = element.attributes["idref"]
         linear = element.attributes["linear"]
         item = book.manifest.itemWithId(idref)
         raise "Spine item with idref \"#{idref}\" could not be found." unless item
-        @itemrefs << ItemRef.new(item, linear)
+        @itemRefs << ItemRef.new(item, linear)
       end
     end
   end
@@ -19,12 +19,21 @@ class Spine < DelegateClass(Array)
     super
   end
   
+  def move(itemRef, newIndex)
+    return nil unless itemRef
+    currentIndex = index(itemRef)
+    return nil unless currentIndex
+    delete_at(currentIndex)
+    insert(newIndex, itemRef)
+    currentIndex
+  end
+  
   def itemRefWithId(id)
-    find { |itemref| itemref.id == id }
+    find { |itemRef| itemRef.id == id }
   end
   
   def itemRefsWithItem(item)
-    select { |itemref| itemref.item.id == item.id }
+    select { |itemRef| itemRef.item.id == item.id }
   end
 
 end
