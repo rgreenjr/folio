@@ -251,10 +251,6 @@ class ManifestController < NSResponder
     @outlineView.scrollItemsToVisible(items)
   end
 
-  def delete(sender)
-    showDeleteSelectedItemsSheet(sender)
-  end
-
   def showDeleteSelectedItemsSheet(sender)
     alert = NSAlert.alloc.init
     alert.messageText = "Are you sure you want to delete the selected items? Any references will be removed from the Table of Contents and Spine."

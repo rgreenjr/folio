@@ -4,7 +4,6 @@
 Bugs
 ====
 
-- Fix broken Edit > Delete menu action.
 - Navigation should check for inclusion of objects prior to deleting
 - ePub validation: handle missing files and unregistered files
 - Preference: persist source view font and size
