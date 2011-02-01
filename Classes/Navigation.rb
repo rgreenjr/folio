@@ -100,10 +100,11 @@ class Navigation
   end
 
   def indexAndParent(point)
-    each do |parent|
+    each(true) do |parent|
       index = parent.index(point)
       return index, parent if index
     end
+    nil
   end
 
   def insert(point, index, parent)

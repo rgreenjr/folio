@@ -171,7 +171,7 @@ class NavigationController < NSResponder
     oldParents = []
     oldIndexes = []
     points.each_with_index do |point, i|
-      index, parent = @navigation.indexAndParent(point)
+      index, parent = @navigation.indexAndParent(point)      
       oldIndexes << index
       oldParents << parent
       @navigation.move(point, newIndexes[i], newParents[i])
@@ -207,7 +207,6 @@ class NavigationController < NSResponder
 
   def addPoints(points, newIndexes, newParents)
     points.each_with_index do |point, i|
-      puts "adding #{point.text}, index = #{newIndexes[i]}, parent = #{newParents[i].text}"
       @navigation.insert(point, newIndexes[i], newParents[i])
     end
 
@@ -232,10 +231,6 @@ class NavigationController < NSResponder
     reloadDataAndSelectPoints([clone])
   end
 
-  def delete(sender)
-    deleteSelectedPoints(sender)
-  end
-
   def deleteSelectedPoints(sender)
     deletePoints(selectedPoints)
   end
@@ -254,15 +249,15 @@ class NavigationController < NSResponder
       indexes << index
       if parent
         parents << parent
-        indent = "   " * level
-        puts "#{indent}deleting #{point.text}, parent = #{parent.text}, index = #{index}"
+        # indent = "   " * level
+        # puts "#{indent}deleting #{point.text}, parent = #{parent.text}, index = #{index}"
         @navigation.delete(point)
       else
         raise "unable to delete parentless point #{point.text}, index = #{index}"
       end
     end
     
-    puts "---"
+    # puts "---"
 
      if allowUndo
       undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
