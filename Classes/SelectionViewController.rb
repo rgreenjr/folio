@@ -5,14 +5,23 @@ class SelectionViewController < NSViewController
 
   def awakeFromNib
     @controllers = [@navigationController, @spineController, @manifestController]
+    
+    # include each controller in the first reponder chain
     @controllers.each { |controller| @bookController.makeResponder(controller) }
+    
+    # use our custom image cell
     @outlineView.tableColumns.first.dataCell = ImageCell.new
+    
+    # register the drag types we support
     @outlineView.registerForDraggedTypes(["NavigationPointsPboardType", "SpineItemRefsPboardType", "ManifestItemsPboardType", NSFilenamesPboardType])
-    @outlineView.doubleAction = :"doubleClickAction:"
+
+    # set up outlineView to process double-click evetns
     @outlineView.target = self
+    @outlineView.doubleAction = :"doubleClickAction:"
+    
+    # register ourselves as both the dataSource and the delegate
     @outlineView.delegate = self
     @outlineView.dataSource = self
-    @outlineView.reloadData
   end
   
   def doubleClickAction(sender)
@@ -50,6 +59,7 @@ class SelectionViewController < NSViewController
   end
 
   def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:item)
+    puts "objectValueForTableColumn item is nil" if item == nil
     controllerForItem(item).objectValueForTableColumn(tableColumn, byItem:item)
   end
 
@@ -97,8 +107,7 @@ class SelectionViewController < NSViewController
   end
 
   def selectedItemsForController(controller)
-    items = @outlineView.selectedRowIndexes.map { |index| @outlineView.itemAtRow(index) }
-    items.select { |item| controllerForItem(item) == controller }
+    @outlineView.selectedItems { |item| controllerForItem(item) == controller }
   end
 
   private

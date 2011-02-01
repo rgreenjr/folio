@@ -35,7 +35,7 @@ class NavigationController < NSResponder
       cell.image = NSImage.imageNamed('toc.png')
       cell.menu = nil
     else
-      # cell.textColor = NSColor.darkGrayColor
+      # cell.textColor = NSColor.blackColor
       cell.font = NSFont.systemFontOfSize(11.0)
       cell.image = nil
       cell.menu = @menu
@@ -54,77 +54,109 @@ class NavigationController < NSResponder
   end
 
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
-    # set the proposed parent to root if it is navigation controller
+    # set the proposed parent to root if it is the navigation controller
     parent = @navigation.root if parent == self
-    
+
     # reject if the data soruce isn't our outlineView
     return NSDragOperationNone if info.draggingSource != @outlineView
 
     # get available data types from pastebaord
-    types = info.draggingPasteboard.types     
-    
-    # data contains item ids
-    if types.containsObject("SpineItemRefsPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
-      items = itemIds.each do |id|
-        item = @bookController.document.manifest.itemWithId(id)
-        # reject if the item isn't flowable
-        return NSDragOperationNone unless item && item.flowable?
-      end
-      return NSDragOperationCopy    
-    end
-        
-    # return move operation if data is from navigation controller and proposed parent isn't a descendant 
+    types = info.draggingPasteboard.types
+
     if types.containsObject("NavigationPointsPboardType")
+
+      # read the point ids from the pastebaord 
       pointIds = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointsPboardType"))
+
       pointIds.each do |id|
+
+        # get the point with associated id
         point = @navigation.pointWithId(id)
+
+        # reject if the proposed parent is a descendant of point
         return NSDragOperationNone if point.ancestor?(parent)
       end
+
+      # points and proposed parent look good, so return move operation
       return NSDragOperationMove
+
+    elsif types.containsObject("SpineItemRefsPboardType")
+
+      # read itemRef ids from the pastebaord
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
+
+      itemRefIds.each do |id|
+        
+        # get itemRef with associated id
+        itemRef = @bookController.document.spine.itemRefWithId(id)
+        
+        # reject drag unless itemRef is found
+        return NSDragOperationNone unless itemRef
+        
+        # reject drag if itemRef item isn't flowable
+        return NSDragOperationNone unless itemRef.item.flowable?
+      end
+
+      # itemRefs look good so return copy operation
+      return NSDragOperationCopy    
+    else
+      # no supported data types were found on pastebaord
+      return NSDragOperationNone
     end
-    
-    # no supported data types were found on pastebaord
-    return NSDragOperationNone
   end
 
   def acceptDrop(info, item:parent, childIndex:childIndex)
-    # set the proposed parent to root if it is navigation controller
+    # set the proposed parent to root if it is the navigation controller
     parent = @navigation.root if parent == self
 
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    # create new points if data comes from spine controller
-    if types.containsObject("SpineItemRefsPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
-      items = itemIds.map { |id| @bookController.document.manifest.itemWithId(id) }
-      
-      # reverse the insertion sequence to maintain order unless childIndex == -1
-      items = items.reverse unless childIndex == -1
-      
-      newIndexes = Array.new(items.size, childIndex)
-      newParents = Array.new(items.size, parent)
-      newPointsWithItems(items, newIndexes, newParents)
-      return true
-    end
-    
-    # move existing points if data comes from navigation controller
     if types.containsObject("NavigationPointsPboardType")
+      
+      # read the point ids from the pastebaord
       plist = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointsPboardType"))
+      
+      # get the associated points from navigation
       points = plist.map { |id| @navigation.pointWithId(id) }
 
       # reverse the insertion sequence to maintain order unless childIndex == -1
       points = points.reverse unless childIndex == -1
 
+      # create the newIndexes and newParents arrays
       newIndexes = Array.new(points.size, childIndex)
       newParents = Array.new(points.size, parent)
+
+      # move points to new locations
       movePoints(points, newIndexes, newParents)
+
+      # return true to indicate success
       return true
-    end
-    
-    # should never reach here; return false if we do
-    false
+
+    elsif types.containsObject("SpineItemRefsPboardType")
+
+      # read the itemRef ids from the pastebaord
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
+      
+      # get the associated item for each itemRefs
+      items = itemRefIds.map { |id| @bookController.document.spine.itemRefWithId(id).item }
+  
+      # reverse the insertion sequence to maintain order unless childIndex == -1
+      items = items.reverse unless childIndex == -1
+
+      newIndexes = Array.new(items.size, childIndex)
+      newParents = Array.new(items.size, parent)
+
+      # add new points
+      newPointsWithItems(items, newIndexes, newParents)
+
+      # return true to indicate success
+      return true
+
+    else
+      # no supported data types were found on pastebaord
+      false
+    end    
   end
 
   def selectedPoint
@@ -147,7 +179,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldIndexes.reverse, oldParents.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{pluralize(points.size, "Points")} in Navigation"
+      undoManager.actionName = "Move #{pluralize(points.size, "Navigation Point")}"
     end
 
     reloadDataAndSelectPoints(points)
@@ -160,6 +192,7 @@ class NavigationController < NSResponder
   end
 
   def newPoint(sender)
+    puts "not yet implemented"
     # return unless selectedPoint
     # parent, index = currentSelectionParentAndIndex
     # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
@@ -180,7 +213,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).deletePoints(points, true, 0)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add #{pluralize(points.size, "Point")} to Navigation"
+      undoManager.actionName = "Add #{pluralize(points.size, "Navigation Point")}"
     end
 
     @outlineView.reloadData
@@ -234,7 +267,7 @@ class NavigationController < NSResponder
      if allowUndo
       undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete #{pluralize(points.size, "Point")} from Navigation"
+        undoManager.actionName = "Delete #{pluralize(points.size, "Navigation Point")}"
       end
     end
 

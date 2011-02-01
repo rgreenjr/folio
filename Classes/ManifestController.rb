@@ -66,73 +66,93 @@ class ManifestController < NSResponder
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
     # set the proposed parent to nil if it is manifest controller
     parent = nil if parent == self
-    
+
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
-    
-    # data is coming from the manifest controller
-    if types.containsObject("ManifestItemsPboardType")      
-      # get hrefs data from pastebaord
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
-      
-      # loop over each href and validate
-      itemIds.each do |id|
-        
-        # get item with associated href
-        item = @manifest.itemWithId(id.to_s)
-        
-        return NSDragOperationNone unless item
-        
-        # reject if proposed parent is nil and item is already a child or root
-        if (parent == nil && item.parent == @manifest.root)
-          return NSDragOperationNone
-        end
 
-        # reject if proposed parent isn't nil or a directory
-        if (parent != nil && !parent.directory?)
-          return NSDragOperationNone
-        end
-        
-        # reject if item is an ancestor of proposed parent
-        if parent && parent.ancestor?(item)
-          return NSDragOperationNone
-        end
+    if types.containsObject("ManifestItemsPboardType")      
+
+      # read item ids from pastebaord
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+
+      itemIds.each do |id|
+
+        # get item with associated id
+        item = @manifest.itemWithId(id)
+
+        # reject drag unless item is found
+        return NSDragOperationNone unless item
+
+        # reject if proposed parent is nil (root) and item is already a child of root
+        return NSDragOperationNone if parent == nil && item.parent == @manifest.root
+
+        # reject if proposed parent isn't nil (root) or a directory
+        return NSDragOperationNone if parent != nil && !parent.directory?
+
+        # reject if item is already belongs to proposed parent
+        return NSDragOperationNone if parent && item.parent == parent
       end
-      
-      # accept drag
+
+      # items looks good so return move operation
       return NSDragOperationMove
+
+    elsif types.containsObject(NSFilenamesPboardType)
+
+      # reject if proposed parent isn't nil or a directory
+      return NSDragOperationNone if parent != nil && !parent.directory?
+
+      # set the drop row to -1
+      @outlineView.setDropRow(-1, dropOperation:NSTableViewDropAbove)
+      
+      # return copy operation
+      return NSDragOperationCopy
+
+    else
+      # no supported data types were found on pastebaord
+      return NSDragOperationNone
     end
-    
-    # data is coming from the filesystem
-    if types.containsObject(NSFilenamesPboardType)
-      # reject unless proposed parent is nil or a directory
-      if parent == nil || parent.directory?
-        @outlineView.setDropRow(-1, dropOperation:NSTableViewDropAbove)
-        return NSDragOperationCopy
-      else
-        return NSDragOperationNone
-      end
-    end
-    
-    # no supported data types were found on pastebaord
-    return NSDragOperationNone
   end
 
   def acceptDrop(info, item:parent, childIndex:childIndex)
+    # set the proposed parent to nil if it is manifest controller
     parent = @manifest.root if parent == self
-    return false unless parent.directory?
-    items = []
-    if @outlineView == info.draggingSource
+
+    # get available data types from pastebaord
+    types = info.draggingPasteboard.types
+
+    if types.containsObject("ManifestItemsPboardType")
+            
+      # read item ids from pastebaord
       itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+
+      # get the associated items
       items = itemIds.map { |id| @manifest.itemWithId(id) }
+      
+      # create newIndexes and newParents arrays
       newParents = Array.new(items.size, parent)
       newIndexes = Array.new(items.size, childIndex)
+      
+      # move items to new location
       moveItems(items, newParents, newIndexes)
-    else
+
+      # return true to indicate success
+      return true
+
+    elsif types.containsObject(NSFilenamesPboardType)
+      
+      # read filepaths from the pastebaord
       filepaths = info.draggingPasteboard.propertyListForType(NSFilenamesPboardType)
+      
+      # add files to manifest
       addFiles(filepaths, parent, childIndex)
+
+      # return true to indicate success
+      return true
+
+    else
+      # no supported data types were found on pastebaord
+      false
     end
-    true
   end
 
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
@@ -187,7 +207,7 @@ class ManifestController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).deleteItems(items)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add #{pluralize(items.size, "Item")} to Manifest"
+      undoManager.actionName = "Add #{pluralize(items.size, "Manifest Item")}"
     end
     reloadDataAndSelectItems(items)
     showAddFilesCollisionAlert(collisionFilenames) unless collisionFilenames.empty?
@@ -221,14 +241,14 @@ class ManifestController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldParents.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{pluralize(items.size, "Item")} in Manifest"
+      undoManager.actionName = "Move #{pluralize(items.size, "Manifest Item")}"
     end
     
+    @manifest.sort
     @outlineView.reloadData
     @outlineView.expandItems(newParents)
     @outlineView.selectItems(items)
-    
-    # reloadDataAndSelectItems(items)
+    @outlineView.scrollItemsToVisible(items)
   end
 
   def delete(sender)
@@ -249,18 +269,21 @@ class ManifestController < NSResponder
   end
 
   def deleteItems(items)
+    return unless items && !items.empty?
     items.each do |item|
       @bookController.tabViewController.removeObject(item)
-      @bookController.spineController.deleteItem(item, false)
+      @bookController.spineController.deleteItemRefsWithItem(item)
       @bookController.navigationController.deletePointsReferencingItem(item)
       @manifest.delete(item)
     end
+    undoManager.removeAllActions
     reloadDataAndSelectItems(nil)
     markBookEdited
   end
 
   def addSelectedItemsToSpine(sender)
-    @bookController.addItemsToSpine(selectedItems)
+    itemRefs = selectedItems.map { |item| ItemRef.new(item) }
+    @bookController.spineController.addItemRefs(itemRefs)
   end
 
   def markAsCover(sender)
@@ -336,7 +359,7 @@ class ManifestController < NSResponder
     @manifest.sort
     @outlineView.reloadData
     @outlineView.selectItems(items)
-    # @bookController.window.makeFirstResponder(@outlineView)
+    @outlineView.scrollItemsToVisible(items)
   end
 
   def showChangeNameCollisionAlert(name)

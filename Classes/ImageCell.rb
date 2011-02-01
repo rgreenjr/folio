@@ -27,6 +27,10 @@ class ImageCell < NSTextFieldCell
     
     self
   end
+  
+  def copyWithZone(zone)
+    super
+  end
 
   def image=(image)
     if image

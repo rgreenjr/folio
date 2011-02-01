@@ -30,6 +30,8 @@ class IssueViewController < NSViewController
     @items.empty? ? showNoIssuesImage : showIssuesView
     @outlineView.deselectAll(self)
     @outlineView.reloadData
+    
+    # expand every item in the outlineView
     @outlineView.expandItem(nil, expandChildren:true)
   end
   

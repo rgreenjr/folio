@@ -59,7 +59,7 @@ class TabViewController < NSViewController
   end
   
   def addObject(object)
-    if object.renderable?
+    if object.item.renderable?
       view.addObject(object)
       toggleCloseMenuKeyEquivalents
     end
@@ -166,15 +166,15 @@ class TabViewController < NSViewController
   end
   
   def makeSplitViewOrientationVertical
-    if @splitView.vertical?
-      @splitView.vertical = false
+    unless @splitView.vertical?
+      @splitView.vertical = true
       updateSplitViewDividerPosition
     end
   end
 
   def makeSplitViewOrientationHorizontal
-    unless @splitView.vertical?
-      @splitView.vertical = true
+    if @splitView.vertical?
+      @splitView.vertical = false
       updateSplitViewDividerPosition
     end
   end

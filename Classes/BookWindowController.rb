@@ -29,6 +29,7 @@ class BookWindowController < NSWindowController
     
     @selectionViewController.expandNavigation(self)
     @selectionViewController.expandSpine(self)
+    @selectionViewController.expandManifest(self)
   end
 
   def windowDidBecomeKey(notification)
@@ -75,16 +76,6 @@ class BookWindowController < NSWindowController
     navigationController.newPoint(sender)
   end
   
-  def newPointsWithItems(items)
-    showSelectionView(self)
-    navigationController.newPointsWithItems(items)
-  end
-  
-  def addItemsToSpine(items)
-    showSelectionView(self)
-    spineController.addItems(items)
-  end
-
   def showContentView
     @logoImageWell.removeFromSuperview
     @contentPlaceholder.addSubview(@contentView)
@@ -226,6 +217,11 @@ class BookWindowController < NSWindowController
       alert.addButtonWithTitle("Save and Validate")
       alert.addButtonWithTitle("Cancel")
       alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    elsif document.fileURL.nil?
+      alert = NSAlert.alloc.init
+      alert.messageText = "The book must be saved before it can be validated."
+      alert.addButtonWithTitle("OK")
+      alert.beginSheetModalForWindow(window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
     else
       performValidation
     end

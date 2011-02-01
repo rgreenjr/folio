@@ -18,6 +18,10 @@ class Item
     # scanContentForIDAttributes
   end
   
+  def item
+    self
+  end
+  
   def path
     @parent ? File.join(@parent.path, @name) : @name
   end

@@ -5,25 +5,25 @@ class SpineController < NSResponder
   def awakeFromNib
     @spine = @bookController.document.spine
     @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addActionWithSeparator("Add to Table of Contents", "addSelectedItemsToNavigation:", self)
-    @menu.addAction("Delete", "deleteSelectedItems:", self)
+    @menu.addActionWithSeparator("Add to Table of Contents", "addSelectedItemRefsToNavigation:", self)
+    @menu.addAction("Delete", "deleteSelectedItemRefs:", self)
   end
 
   def numberOfChildrenOfItem(item)
     return 0 unless @spine # guard against SDK bug
-    item == self ? @spine.size : item.size
+    item == self ? @spine.size : 0
   end
 
   def isItemExpandable(item)
-    item == self ? true : item.size > 0
+    item == self
   end
 
   def child(index, ofItem:item)
-    item == self ? @spine[index] : item[index]
+    item == self ? @spine[index] : nil
   end
 
   def objectValueForTableColumn(tableColumn, byItem:item)
-    item == self ? "SPINE" : item.name
+    item == self ? "SPINE" : item.item.name
   end
 
   def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
@@ -39,162 +39,197 @@ class SpineController < NSResponder
     end
   end
 
-  def selectionDidChange(notification)
-    if @outlineView.selectedRow >= 0
-      @bookController.tabViewController.addObject(@spine[@outlineView.selectedRow])
-    end
-  end
-
-  def writeItems(items, toPasteboard:pboard)
-    itemIds = items.map { |item| item.id }
+  # write the ids of the selected itemRefs to the pastebaord
+  def writeItems(itemRefs, toPasteboard:pboard)
+    itemRefIds = itemRefs.map { |itemRef| itemRef.id }
     pboard.declareTypes(["SpineItemRefsPboardType"], owner:self)
-    pboard.setPropertyList(itemIds.to_plist, forType:"SpineItemRefsPboardType")
+    pboard.setPropertyList(itemRefIds.to_plist, forType:"SpineItemRefsPboardType")
     true
   end
-  
+
   def validateDrop(info, proposedItem:parent, proposedChildIndex:childIndex)
     # reject if the data soruce isn't our outlineView
     return NSDragOperationNone unless info.draggingSource == @outlineView
 
     # reject unless the proposed parent is spine controller
     return NSDragOperationNone unless parent == self
-    
+
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    # data source is spine controller
     if types.containsObject("SpineItemRefsPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
-      items = itemIds.each do |id|
-        item = @bookController.document.manifest.itemWithId(id)
-        # reject if the item isn't flowable
-        return NSDragOperationNone unless item && item.flowable?
-      end
-      return NSDragOperationMove
-    end
+      # read itemRef ids from pastebaord
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
 
-    # data source is manifest controller
-    if types.containsObject("ManifestItemsPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
-      p itemIds
-      items = itemIds.each do |id|
-        item = @bookController.document.manifest.itemWithId(id)
-        # reject if the item isn't flowable
-        return NSDragOperationNone unless item && item.flowable?
+      # process each itemRef id
+      itemRefIds.each do |id|
+        # get itemRef with corresponding id
+        itemRef = @spine.itemRefWithId(id)
+
+        # reject if itemRef not found
+        return NSDragOperationNone unless itemRef
+
+        # reject drag if itemRef item isn't flowable
+        return NSDragOperationNone unless itemRef.item.flowable?
       end
+
+      # data looks good so allow move operation
+      return NSDragOperationMove
+
+    elsif types.containsObject("ManifestItemsPboardType")
+
+      # read item ids from pastebaord
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+      
+      p itemIds
+
+      # process each item id
+      itemIds.each do |id|
+
+        # get item with associated id
+        item = @bookController.document.manifest.itemWithId(id)
+        
+        puts "item = #{item}"
+        puts "@bookController.document.manifest[0].id = #{@bookController.document.manifest[0].id}"
+        
+        # reject drag unless item is found
+        return NSDragOperationNone unless item
+        
+        # reject drag if item isn't flowable
+        return NSDragOperationNone unless item.flowable?
+
+      end
+
+      # data looks good so allow copy operation
       return NSDragOperationCopy
+    else
+      # no supported data types were found on pastebaord
+      return NSDragOperationNone
     end
-    
-    # no supported data types were found on pastebaord
-    return NSDragOperationNone
   end
-  
+
   def acceptDrop(info, item:parent, childIndex:childIndex)
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
     if types.containsObject("SpineItemRefsPboardType")
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
-    else
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
-    end
+      # drag data from spine controller, so read itemRef ids from pastebaord
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
 
-    items = []
-    newIndexes = []
-    offset = 0
-    itemIds.reverse.each do |id|
-      item = @spine.itemRefWithId(id)
-      items << item
-      oldIndex = @spine.index(item)
-      if oldIndex < childIndex
-        offset += 1
-        newIndexes << childIndex - offset
-      else
-        newIndexes << childIndex
+      itemRefs = []
+      newIndexes = []
+      offset = 0
+      itemRefIds.reverse.each do |id|
+        itemRef = @spine.itemRefWithId(id)
+        itemRefs << itemRef
+        oldIndex = @spine.index(itemRef)
+        if oldIndex < childIndex
+          offset += 1
+          newIndexes << childIndex - offset
+        else
+          newIndexes << childIndex
+        end
       end
+
+      # move the specified itemRefs
+      moveItemRefs(itemRefs, newIndexes)
+
+      return true
+    elsif types.containsObject("ManifestItemsPboardType")
+      # drag data from manifest controller, read item ids from pastebaord
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+
+      # create a new ItemRef for each item id
+      items = itemIds.map { |id| ItemRef.new(@bookController.document.manifest.itemWithId(id)) }
+
+      # reverse the insertion sequence to maintain order unless childIndex == -1
+      items = items.reverse unless childIndex == -1
+
+      # create an array of indexes
+      newIndexes = Array.new(items.size, childIndex)
+
+      # add new itemrefs to spine
+      addItemRefs(items, newIndexes)
+
+      return true
+    else
+      # no supported data types were found on pastebaord
+      return false
     end
-    moveItems(items, newIndexes)
-    true
   end
-  
+
   def tableView(tableView, rowForItem:item)
     @spine.index(item)
   end
-  
-  def addItems(items, indexes=nil)
-    indexes ||= Array.new(items.size, -1)
-    items.each_with_index do |item, i|
+
+  def addItemRefs(itemRefs, indexes=nil)
+    indexes ||= Array.new(itemRefs.size, -1)
+    itemRefs.each_with_index do |item, i|
       index = indexes[i]
       @spine.insert(index, item)
     end
-    undoManager.prepareWithInvocationTarget(self).deleteItems(items, true)
+    undoManager.prepareWithInvocationTarget(self).deleteItemRefs(itemRefs, true)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add #{pluralize(items.size, "Item")} to Spine"
+      undoManager.actionName = "Add #{pluralize(itemRefs.size, "Spine ItemRef")}"
     end
-    reloadDataAndSelectItems(items)
+    reloadDataAndSelectItems(itemRefs)
   end
 
-  def selectedItems
+  def selectedItemRefs
     @outlineView.delegate.selectedItemsForController(self)
   end
 
-  def addSelectedItemsToNavigation(sender)
-    @bookController.newPointsWithItems(selectedItems)
+  def addSelectedItemRefsToNavigation(sender)
+    items = selectedItemRefs.map { |itemRef| itemRef.item }
+    @bookController.navigationController.newPointsWithItems(items)
   end
 
-  def delete(sender)
-    deleteSelectedItems(sender)
+  def deleteSelectedItemRefs(sender)
+    deleteItemRefs(selectedItemRefs)
   end
 
-  def deleteSelectedItems(sender)
-    deleteItems(selectedItems)
+  def deleteItemRefsWithItem(item)
+    deleteItemRefs(@spine.itemRefsWithItem(item), false)
   end
 
-  def deleteItem(item, allowUndo=true)
-    deleteItems([item], allowUndo)
-  end
+  def deleteItemRefs(itemRefs, allowUndo=true)
+    return unless itemRefs && !itemRefs.empty?
 
-  def deleteItems(items, allowUndo=true)
-    return unless items && !items.empty?
-    
-    # remove any items not included in the spine
-    items = items.select { |item| @spine.include?(item) }
-    
     indexes = []
-    items.each do |item|
+    itemRefs.each do |item|
       index = @spine.index(item)
       @spine.delete_at(index)
       indexes << index
     end
 
     if allowUndo
-      undoManager.prepareWithInvocationTarget(self).addItems(items.reverse, indexes.reverse)
+      undoManager.prepareWithInvocationTarget(self).addItemRefs(itemRefs.reverse, indexes.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete #{pluralize(items.size, "Item")} from Spine"
+        undoManager.actionName = "Delete #{pluralize(itemRefs.size, "Spine ItemRef")}"
       end
     end
 
     reloadDataAndSelectItems(nil)
   end
 
-  def moveItems(items, newIndexes)
+  def moveItemRefs(itemRefs, newIndexes)
     oldIndexes = []
-    items.each_with_index do |item, index|
-      oldIndex = @spine.index(item)
+    itemRefs.each_with_index do |itemRef, index|
+      oldIndex = @spine.index(itemRef)
       @spine.delete_at(oldIndex)
-      @spine.insert(newIndexes[index], item)
+      @spine.insert(newIndexes[index], itemRef)
       oldIndexes << oldIndex
     end
-    undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldIndexes.reverse)
+    undoManager.prepareWithInvocationTarget(self).moveItemRefs(itemRefs.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{pluralize(items.size, "Item")} in Spine"
+      undoManager.actionName = "Move #{pluralize(itemRefs.size, "Spine ItemRef")}"
     end
-    reloadDataAndSelectItems(items)
+    reloadDataAndSelectItems(itemRefs)
   end
 
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
-    when :"addSelectedItemsToNavigation:", :"deleteSelectedItems:", :"delete:"
+    when :"addSelectedItemRefsToNavigation:", :"deleteSelectedItemRefs:"
       @outlineView.numberOfSelectedRows > 0
     else
       true
@@ -207,9 +242,9 @@ class SpineController < NSResponder
 
   private
 
-  def reloadDataAndSelectItems(items)
+  def reloadDataAndSelectItems(itemRefs)
     @outlineView.reloadData
-    @outlineView.selectItems(items)
+    @outlineView.selectItems(itemRefs)
     @bookController.window.makeFirstResponder(@outlineView)
   end
 

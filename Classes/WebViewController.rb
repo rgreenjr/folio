@@ -61,24 +61,52 @@ class WebViewController < NSViewController
 
   def webView(webView, decidePolicyForNavigationAction:actionInformation, request:request, frame:frame, decisionListener:listener)
     if request.URL.remote?
+      # URL is outside book, so we supress listener
       listener.ignore
+      
+      # open URL in user's default browser
       NSWorkspace.sharedWorkspace.openURL(request.URL)
+      
     elsif @item.nil?
+      # there is no current item (so there can be no match) so proceed
       listener.use
     else
+      # get the path of the request
       href = request.URL.path
+      
+      # get fragment of request (if there is one)
       fragment = request.URL.fragment || ""
+      
+      # find matching item in manifest
       targetItem = @bookController.document.manifest.itemWithHref(href)
+      
+      
       if targetItem.nil?
+        # not match was found, so supress listener
         listener.ignore
+        
+        # get relativePath for error message
         relativePath = @bookController.document.relativePathFor(request.URL.path)
+        
+        # show alert message that item couldn't be found
         @bookController.runModalAlert("Could not open \"#{relativePath}\" because it could not be found.")
-      elsif @item.name == targetItem.name
+        
+      elsif @item.item.name == targetItem.name
+        
+        # item was found and it matches the current item, so proceed
         listener.use
       else
+        
+        # item was found, but is different from current item, so we supress listener
         listener.ignore
+        
+        # create a new point from request (in case there is a fragement)
         point = Point.new(targetItem)
+        
+        # assign fragment
         point.fragment = fragment
+        
+        # open point in new tab
         @bookController.tabViewController.addObject(point)
       end
     end

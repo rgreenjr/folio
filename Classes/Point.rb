@@ -1,7 +1,5 @@
 class Point
 
-  extend Forwardable
-
   attr_accessor :id, :playOrder, :text, :item, :fragment
 
   def initialize(item=nil, text=nil, id=nil)
@@ -90,14 +88,14 @@ class Point
     "@id = #{@id}, @text = #{@text}, @item = #{@item.name}, @expanded = #{@expanded}"
   end
 
-  def_delegator :@item, :edited?, :edited?
-  def_delegator :@item, :name, :name
-  def_delegator :@item, :editable?, :editable?
-  def_delegator :@item, :content, :content
-  def_delegator :@item, :content=, :content=
-  def_delegator :@item, :flowable?, :flowable?
-  def_delegator :@item, :imageable?, :imageable?
-  def_delegator :@item, :renderable?, :renderable?
+  # def_delegator :@item, :edited?, :edited?
+  # def_delegator :@item, :name, :name
+  # def_delegator :@item, :editable?, :editable?
+  # def_delegator :@item, :content, :content
+  # def_delegator :@item, :content=, :content=
+  # def_delegator :@item, :flowable?, :flowable?
+  # def_delegator :@item, :imageable?, :imageable?
+  # def_delegator :@item, :renderable?, :renderable?
   
   private
   

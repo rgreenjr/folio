@@ -39,7 +39,7 @@ class Manifest
     return nil if parent.childWithName(name)
     item = Item.new(parent, name, generateUniqueID(name))
     item.content = File.read(filepath)
-    parent.insert(index, item)    
+    insert(index, item, parent)    
     item
   end
   
