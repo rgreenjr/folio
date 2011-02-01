@@ -89,9 +89,6 @@ class SpineController < NSResponder
         # get item with associated id
         item = @bookController.document.manifest.itemWithId(id)
         
-        puts "item = #{item}"
-        puts "@bookController.document.manifest[0].id = #{@bookController.document.manifest[0].id}"
-        
         # reject drag unless item is found
         return NSDragOperationNone unless item
         
