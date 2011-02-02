@@ -68,7 +68,6 @@
 		CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E912E5F1F800D6A99A /* Item.rb */; };
 		CD2D181F12E5F1F800D6A99A /* Kernel.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EA12E5F1F800D6A99A /* Kernel.rb */; };
 		CD2D182012E5F1F800D6A99A /* Language.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EB12E5F1F800D6A99A /* Language.rb */; };
-		CD2D182112E5F1F800D6A99A /* LineNumberMarker.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EC12E5F1F800D6A99A /* LineNumberMarker.rb */; };
 		CD2D182212E5F1F800D6A99A /* LineNumberRuler.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */; };
 		CD2D182312E5F1F800D6A99A /* Manifest.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EE12E5F1F800D6A99A /* Manifest.rb */; };
 		CD2D182412E5F1F800D6A99A /* ManifestController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EF12E5F1F800D6A99A /* ManifestController.rb */; };
@@ -147,6 +146,7 @@
 		CD8F606512EBB0DE0036B0D7 /* yield.png in Resources */ = {isa = PBXBuildFile; fileRef = CD8F606412EBB0DE0036B0D7 /* yield.png */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
+		CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */; };
 		CDB5422D12F32CE800BB5739 /* PointViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422C12F32CE800BB5739 /* PointViewController.rb */; };
 		CDB5423112F32E9E00BB5739 /* PointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422F12F32E9E00BB5739 /* PointView.xib */; };
 		CDB5428312F33CE100BB5739 /* ItemRefView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428112F33CE100BB5739 /* ItemRefView.xib */; };
@@ -220,7 +220,6 @@
 		CD2D17E912E5F1F800D6A99A /* Item.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Item.rb; sourceTree = "<group>"; };
 		CD2D17EA12E5F1F800D6A99A /* Kernel.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Kernel.rb; sourceTree = "<group>"; };
 		CD2D17EB12E5F1F800D6A99A /* Language.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Language.rb; sourceTree = "<group>"; };
-		CD2D17EC12E5F1F800D6A99A /* LineNumberMarker.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LineNumberMarker.rb; sourceTree = "<group>"; };
 		CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LineNumberRuler.rb; sourceTree = "<group>"; };
 		CD2D17EE12E5F1F800D6A99A /* Manifest.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Manifest.rb; sourceTree = "<group>"; };
 		CD2D17EF12E5F1F800D6A99A /* ManifestController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ManifestController.rb; sourceTree = "<group>"; };
@@ -299,6 +298,7 @@
 		CD8F606412EBB0DE0036B0D7 /* yield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yield.png; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
+		CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Issue.rb; sourceTree = "<group>"; };
 		CDB5422C12F32CE800BB5739 /* PointViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointViewController.rb; sourceTree = "<group>"; };
 		CDB5423012F32E9E00BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PointView.xib; sourceTree = "<group>"; };
 		CDB5428212F33CE100BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemRefView.xib; sourceTree = "<group>"; };
@@ -455,6 +455,7 @@
 		CD2D17D712E5F1F800D6A99A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */,
 				CDB5428712F33D2000BB5739 /* ItemViewController.rb */,
 				CDB5428512F33CF600BB5739 /* ItemRefViewController.rb */,
 				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
@@ -485,7 +486,6 @@
 				CD2D17E912E5F1F800D6A99A /* Item.rb */,
 				CD2D17EA12E5F1F800D6A99A /* Kernel.rb */,
 				CD2D17EB12E5F1F800D6A99A /* Language.rb */,
-				CD2D17EC12E5F1F800D6A99A /* LineNumberMarker.rb */,
 				CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */,
 				CD2D17EE12E5F1F800D6A99A /* Manifest.rb */,
 				CD2D17EF12E5F1F800D6A99A /* ManifestController.rb */,
@@ -664,7 +664,6 @@
 				CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */,
 				CD2D181F12E5F1F800D6A99A /* Kernel.rb in Resources */,
 				CD2D182012E5F1F800D6A99A /* Language.rb in Resources */,
-				CD2D182112E5F1F800D6A99A /* LineNumberMarker.rb in Resources */,
 				CD2D182212E5F1F800D6A99A /* LineNumberRuler.rb in Resources */,
 				CD2D182312E5F1F800D6A99A /* Manifest.rb in Resources */,
 				CD2D182412E5F1F800D6A99A /* ManifestController.rb in Resources */,
@@ -765,6 +764,7 @@
 				CDB542C512F3638100BB5739 /* empty-inspector.png in Resources */,
 				CD6C9CAE12F382DA0056D86B /* check.png in Resources */,
 				CD6C9CAF12F382DA0056D86B /* wrench.png in Resources */,
+				CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

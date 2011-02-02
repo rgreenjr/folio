@@ -64,8 +64,7 @@ class ImageCell < NSTextFieldCell
 
   def badgeSize
     badgeSize = badgeString.sizeWithAttributes(badgeAttributes)
-    badgeSize.width = badgeSize.width.ceil + 2 * PADDING
-    badgeSize.width = [badgeSize.width, MIN_BADGE_WIDTH].max
+    badgeSize.width = [badgeSize.width.ceil + 2 * PADDING, MIN_BADGE_WIDTH].max
     badgeSize
   end
 
@@ -89,6 +88,7 @@ class ImageCell < NSTextFieldCell
   end
   
   def drawInteriorWithFrame(frame, inView:controlView)
+    calcFontHeight unless @fontHeight
     delta = ((frame.size.height - @fontHeight) / 2)
     frame.origin.y += delta
     frame.size.height -= delta
@@ -127,8 +127,10 @@ class ImageCell < NSTextFieldCell
   
   def drawBadgeLabel(rect)
     labelSize = badgeString.sizeWithAttributes(@badgeAttributes)
+    delta = ((rect.size.height - labelSize.height) / 2).floor
     labelRect = rect
-    labelRect.origin.y -= ((rect.size.height - labelSize.height) * 0.5).floor
+    labelRect.origin.y += delta
+    labelRect.size.height -= delta
     badgeString.drawInRect(labelRect, withAttributes:@badgeAttributes)
   end
   

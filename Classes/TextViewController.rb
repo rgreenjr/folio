@@ -29,10 +29,10 @@ class TextViewController < NSViewController
   def item=(item)
     @item = item    
     if @item && @item.editable?
-      @lineNumberView.markerHash = @item.markerHash      
+      @lineNumberView.issueHash = @item.issueHash      
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:@textAttributes)
     else
-      @lineNumberView.clearMarkers
+      @lineNumberView.clearIssues
       string = NSAttributedString.alloc.initWithString('')
     end
     view.textStorage.attributedString = string
@@ -57,6 +57,12 @@ class TextViewController < NSViewController
     if lineNumber > 0
       @lineNumberView.gotoLine(lineNumber)
       view.window.makeFirstResponder(view)
+    end
+  end
+  
+  def selectLineNumber(lineNumber)
+    if lineNumber > 0
+      @lineNumberView.selectLineNumber(lineNumber)
     end
   end
 
@@ -159,7 +165,7 @@ class TextViewController < NSViewController
     text = view.string
     File.open(tmp, "w") { |f| f.print text }
     output = `xmllint --format #{tmp.path} 2>&1`
-    @item.clearMarkers
+    @item.clearIssues
     if $?.success?
       replace(NSRange.new(0, text.length), output)
     else
@@ -169,19 +175,19 @@ class TextViewController < NSViewController
         if line =~ /^Line ([0-9]+): (.*)/
           lineNumber = $1.to_i - 1
           message = $2.gsub("parser error : ", "")
-          marker = LineNumberMarker.alloc.initWithRulerView(@lineNumberView, lineNumber:lineNumber, message:message)
-          @item.addMarker(marker) 
+          issue = Issue.new(message, lineNumber)
+          @item.addIssue(issue) 
         end
       end
-      # goto the first marker
-      @item.markers.each do |marker|
-        gotoLineNumber(marker.lineNumber + 1)
+      # goto the first issue
+      @item.issues.each do |issue|
+        gotoLineNumber(issue.lineNumber + 1)
         break
       end
     end
     tmp.delete
     @lineNumberView.setNeedsDisplay true
-    NSNotificationCenter.defaultCenter.postNotificationName("ItemMarkersDidChange", object:@bookController)
+    NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
   end
 
   def paragraphSelectedLines(sender)

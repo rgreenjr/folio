@@ -8,7 +8,7 @@ class LineNumberRuler < NSRulerView
     setClientView(scrollView.documentView)
     ctr = NSNotificationCenter.defaultCenter
     ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
-    @markerHash = {}
+    @issueHash = {}
     @textAttributes = {
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
       NSForegroundColorAttributeName => NSColor.grayColor
@@ -17,13 +17,13 @@ class LineNumberRuler < NSRulerView
     self
   end
   
-  def markerHash=(markerHash)
-    @markerHash = markerHash
+  def issueHash=(issueHash)
+    @issueHash = issueHash
     setNeedsDisplay true
   end
   
-  def clearMarkers
-    @markerHash = {}
+  def clearIssues
+    @issueHash = {}
     setNeedsDisplay true
   end
 
@@ -86,32 +86,32 @@ class LineNumberRuler < NSRulerView
             NSHeight(rects[0])
           )
 
-          # check if there is a marker to draw for this line number
-					marker = @markerHash[line]
+          # check if there is a issue to draw for this line number
+					issue = @issueHash[line]
 					
-					if marker
+					if issue
 					  
-					  # update marker width incase ruler width changed
-					  marker.image.size = NSMakeSize(ruleThickness, marker.image.size.height)
+					  # update issue width incase ruler width changed
+					  issue.image.size = NSMakeSize(ruleThickness, issue.image.size.height)
 					  
-            # markerImage = marker.image
-						markerRect = NSMakeRect(0.0, 0.0, marker.image.size.width - 1.0, marker.image.size.height)
+            # issueImage = issue.image
+						issueRect = NSMakeRect(0.0, 0.0, issue.image.size.width - 1.0, issue.image.size.height)
 
-						# marker is flush right and centered vertically within the line.
-						markerRect.origin.x = 0#NSWidth(bounds) - marker.image.size.width - 1.0
-						markerRect.origin.y = ypos + NSHeight(rects[0]) / 2.0 - marker.imageOrigin.y
+						# issue is flush right and centered vertically within the line.
+						issueRect.origin.x = 0#NSWidth(bounds) - issue.image.size.width - 1.0
+						issueRect.origin.y = ypos + NSHeight(rects[0]) / 2.0 - issue.imageOrigin.y
 
-            fromRect = NSMakeRect(0, 0, marker.image.size.width, marker.image.size.height)
-						marker.image.drawInRect(markerRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:1.0)
+            fromRect = NSMakeRect(0, 0, issue.image.size.width, issue.image.size.height)
+						issue.image.drawInRect(issueRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:1.0)
 						
-            # add tracking area for this marker
+            # add tracking area for this issue
 						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
-						trackingArea = NSTrackingArea.alloc.initWithRect(markerRect, options:trackingOptions, owner:self, userInfo:nil)
+						trackingArea = NSTrackingArea.alloc.initWithRect(issueRect, options:trackingOptions, owner:self, userInfo:nil)
             addTrackingArea(trackingArea)
 					end
 
-          if marker
-            labelText.drawInRect(textRect, withAttributes:marker.textAttributes)
+          if issue
+            labelText.drawInRect(textRect, withAttributes:issue.textAttributes)
           else
             labelText.drawInRect(textRect, withAttributes:@textAttributes)
           end
@@ -214,21 +214,21 @@ class LineNumberRuler < NSRulerView
   end
   
   def mouseEntered(event)
-    marker = markerForEvent(event)
-    showHUDWindowForMarker(marker, NSEvent.mouseLocation) if marker
+    issue = issueForEvent(event)
+    showHUDWindowForIssue(issue, NSEvent.mouseLocation) if issue
   end
   
-  def markerForEvent(event)
+  def issueForEvent(event)
     location = convertPoint(event.locationInWindow, fromView:nil)
     line = lineNumberForLocation(location.y)
     return nil if line == NSNotFound
-    @markerHash[line - 1]
+    @issueHash[line - 1]
   end
   
-  def showHUDWindowForMarker(marker, location)
-    size = HUDMessageView.sizeForMessage(marker.message)    
+  def showHUDWindowForIssue(issue, location)
+    size = HUDMessageView.sizeForMessage(issue.message)    
     contentRect = NSMakeRect(location.x, location.y, size.width, 20.0);    
-    @hudWindow = HUDWindow.alloc.initWithContentRect(contentRect, message:marker.message)
+    @hudWindow = HUDWindow.alloc.initWithContentRect(contentRect, message:issue.message)
     @hudWindow.orderFront(NSApp)    
   end
   

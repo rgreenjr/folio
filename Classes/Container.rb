@@ -8,14 +8,14 @@ class Container
   DEFAULT_CONTENT_OPF_NAME     = "content.opf"
   DEFAULT_RELATIVE_PATH        = "OEBPS"
   
-  attr_reader :relativePath, :absolutePath, :opfDoc, :opfPath
+  attr_reader :relativePath, :absolutePath, :opfDoc, :opfAbsolutePath, :opfRelativePath
 
   def initialize(unzipPath, book=nil)
     if book.nil?
       @relativePath = DEFAULT_RELATIVE_PATH
       @absolutePath = makeAbsolutePath(unzipPath)
       FileUtils.mkdir_p(@absolutePath) unless File.exist?(@absolutePath)
-      @opfPath = ''
+      @opfAbsolutePath = ''
       @opfDoc = nil
     else
       begin
@@ -24,16 +24,17 @@ class Container
 
         doc = REXML::Document.new(File.read(xmlPath))
 
-        @opfPath = extractRootFilePath(doc)
+        @opfRelativePath = extractRootFilePath(doc)
 
-        @relativePath = File.dirname(@opfPath).split('/').last
+        @relativePath = File.dirname(@opfRelativePath).split('/').last
         @relativePath = '' if @relativePath == '.'
         @absolutePath = makeAbsolutePath(unzipPath)
 
-        @opfPath = File.join(unzipPath, @opfPath)
+        @opfAbsolutePath = File.join(unzipPath, @opfRelativePath)
 
-        raise "The #{File.basename(@opfPath)} could not found." unless File.exists?(@opfPath)
-        @opfDoc = REXML::Document.new(File.read(@opfPath))
+        raise "The #{File.basename(@opfAbsolutePath)} could not found." unless File.exists?(@opfAbsolutePath)
+        
+        @opfDoc = REXML::Document.new(File.read(@opfAbsolutePath))
 
       rescue REXML::ParseException => exception
         raise StandardError, "An error occurred while parsing #{CONTAINER_XML_RELATIVE_PATH}: #{exception.explain}"
@@ -48,7 +49,7 @@ class Container
   end
 
   def to_xml
-    opfPath = @relativePath.empty? ? DEFAULT_CONTENT_OPF_NAME : File.join(@relativePath, DEFAULT_CONTENT_OPF_NAME)
+    fullPath = @relativePath.empty? ? DEFAULT_CONTENT_OPF_NAME : File.join(@relativePath, DEFAULT_CONTENT_OPF_NAME)
     ERB.new(Bundle.template(CONTAINER_XML_NAME)).result(binding)
   end
   

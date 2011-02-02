@@ -308,7 +308,7 @@ class ManifestController < NSResponder
   def showUndeclaredFilesSheet
     ignore = %w{META-INF/container.xml mimetype}
     ignore = ignore.map { |item| "#{@bookController.document.unzipPath}/#{item}" }
-    ignore << @bookController.document.container.opfPath
+    ignore << @bookController.document.container.opfAbsolutePath
     ignore << @manifest.ncx.path
     @undeclared = []
     Dir.glob("#{@bookController.document.unzipPath}/**/*").each do |entry|

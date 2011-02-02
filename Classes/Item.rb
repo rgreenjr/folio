@@ -13,7 +13,7 @@ class Item
     @mediaType = mediaType || Media.guessType(File.extname(name))
     @expanded = expanded
     @children = []
-    @markerHash = {}    
+    @issueHash = {}    
     FileUtils.mkdir(path) if directory? && !File.exists?(path)
     # scanContentForIDAttributes
   end
@@ -193,30 +193,26 @@ class Item
     @image ||= NSImage.alloc.initWithContentsOfFile(path)
   end
 
-  def markers
-    @markerHash.values.sort
+  def issues
+    @issueHash.values.sort
   end
   
-  def hasMarkers?
-    !@markerHash.empty?
+  def hasIssues?
+    !@issueHash.empty?
   end
   
-  def markerHash
-    @markerHash
+  def issueHash
+    @issueHash
   end
 
-  def clearMarkers
-    @markerHash.clear
+  def clearIssues
+    @issueHash.clear
   end
   
-  def addMarker(marker)
-    @markerHash[marker.lineNumber] = marker
+  def addIssue(issue)
+    @issueHash[issue.lineNumber] = issue
   end
   
-  def removeMarker(lineNumber)
-    @markerHash[marker.lineNumber] = nil
-  end
-
   def scanContentForIDAttributes
     @async = AsyncCommand.new do
       id_links = []

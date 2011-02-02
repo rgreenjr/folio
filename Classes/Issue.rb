@@ -1,13 +1,12 @@
-class LineNumberMarker < NSRulerMarker
+class Issue
 
-  MARKER_HEIGHT = 13.0
+  IMAGE_HEIGHT = 13.0
 
-  attr_accessor :lineNumber, :message, :textAttributes
+  attr_accessor :lineNumber, :message, :textAttributes, :imageOrigin
 
-  def initWithRulerView(rulerView, lineNumber:lineNumber, message:message)
-    initWithRulerView(rulerView, markerLocation:0.0, image:markerImage, imageOrigin:NSMakePoint(0, MARKER_HEIGHT / 2))
-    @lineNumber = lineNumber
+  def initialize(message, lineNumber=nil)
     @message = message
+    @lineNumber = lineNumber
     @textAttributes = {
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
       NSForegroundColorAttributeName => NSColor.whiteColor
@@ -16,28 +15,30 @@ class LineNumberMarker < NSRulerMarker
   end
   
   def displayString
-    "#{lineNumber + 1}: #{message}"
+    lineNumber ? "#{lineNumber + 1}: #{message}" : message
   end
   
   def <=>(other)
-    lineNumber <=> other.lineNumber
+    lineNumber && other.lineNumber ? lineNumber <=> other.lineNumber : 1
+  end
+  
+  # creates the image shared by all issues
+  def image
+    unless @image
+      rep = NSCustomImageRep.alloc.initWithDrawSelector("drawIssueImageIntoRep:", delegate:self)
+      rep.size = NSMakeSize(44, IMAGE_HEIGHT)
+      @image = NSImage.alloc.initWithSize(rep.size)
+      @image.addRepresentation(rep)
+      @imageOrigin = NSMakePoint(0, IMAGE_HEIGHT / 2)
+    end
+    @image
   end
 
   private
 
-  # creates the blue marker image shared by all markers
-  def markerImage
-    unless @markerImage
-      rep = NSCustomImageRep.alloc.initWithDrawSelector("drawMarkerImageIntoRep:", delegate:self)
-      rep.size = NSMakeSize(44, MARKER_HEIGHT)
-      @markerImage = NSImage.alloc.initWithSize(rep.size)
-      @markerImage.addRepresentation(rep)
-    end
-    @markerImage
-  end
 
-  # callback method used to create green marker image dynamically
-  def drawMarkerImageIntoRep(rep)
+  # callback method used to create image dynamically
+  def drawIssueImageIntoRep(rep)
     # draw background
     NSColor.colorWithCalibratedRed(0.4, green:0.76, blue:0.38, alpha:1.0).set
     rect = NSMakeRect(0, 0, rep.size.width + 10, rep.size.height + 10)

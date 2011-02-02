@@ -1,4 +1,4 @@
-class Guide
+class Guide < DelegateClass(Array)
 
   TYPE_HASH = {
     "acknowledgements" => "Acknowledgements",
@@ -31,23 +31,17 @@ class Guide
   end
   
   def initialize(book=nil)
-    @items = []
-  end
-
-  def size
-    @items.size
-  end
-
-  def [](index)
-    @items[index]
-  end
-
-  def each(&block)
-    @items.each(&block)
-  end
-
-  def <<(item)
-    @items << item
+    @itemRefs = []
+    super(@itemRefs)
+    if book
+      book.container.opfDoc.elements.each("/package/guide/reference") do |element|
+        href  = element.attributes["href"]
+        item  = book.manifest.itemWithHref(href)
+        raise "Guide item with href \"#{href}\" could not be found." unless item
+        # item.referenceType = element.attributes["type"]
+        # item.referenceTitle = element.attributes["title"]
+      end
+    end
   end
   
 end

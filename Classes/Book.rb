@@ -10,7 +10,7 @@
 
 class Book < NSDocument
 
-  attr_reader :controller, :unzipPath
+  attr_reader :controller, :unzipPath, :issues
   attr_reader :navigation, :manifest, :spine, :container, :metadata, :guide
   
   # creates a new book
@@ -23,6 +23,7 @@ class Book < NSDocument
     @spine      = Spine.new
     @guide      = Guide.new
     @navigation = Navigation.new
+    @issues     = []
     self
   end
   
@@ -47,6 +48,7 @@ class Book < NSDocument
         progressBar.doubleValue = 90.0
         @navigation = Navigation.new(self)
         progressBar.doubleValue = 100.0
+        @issues     = []
         true
       rescue Exception => exception
         info = { NSLocalizedFailureReasonErrorKey => exception.message }
@@ -86,8 +88,17 @@ class Book < NSDocument
     filepath.stringByStandardizingPath
   end
   
-  def clearMarkers
-    @manifest.each { |item| item.clearMarkers }
+  def addIssue(issue)
+    @issues << issue
+  end
+  
+  def clearIssues
+    @issues.clear
+    @manifest.each { |item| item.clearIssues }
+  end
+  
+  def hasIssues?
+    !@issues.empty?
   end
   
   def close
