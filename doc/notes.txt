@@ -1,6 +1,3 @@
-- Use reloadItem instead of reloadData when possible
-- Change move, add, delete in outlineview to use reverse only when index == -1
-
 Bugs
 ====
 
@@ -19,7 +16,6 @@ Features
 - Show icon in spine indicating item is cover, toc, titlepage, etc.
 - Add plus/minus buttons for adding Navigation points, Spine itemrefs, and anifest items
 - Guide generation
-
 
 Enhancements
 ============

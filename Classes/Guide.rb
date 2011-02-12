@@ -33,15 +33,15 @@ class Guide < DelegateClass(Array)
   def initialize(book=nil)
     @itemRefs = []
     super(@itemRefs)
-    if book
-      book.container.opfDoc.elements.each("/package/guide/reference") do |element|
-        href  = element.attributes["href"]
-        item  = book.manifest.itemWithHref(href)
-        raise "Guide item with href \"#{href}\" could not be found." unless item
-        # item.referenceType = element.attributes["type"]
-        # item.referenceTitle = element.attributes["title"]
-      end
-    end
+    # if book
+    #   book.container.opfDoc.elements.each("/package/guide/reference") do |element|
+    #     href  = element.attributes["href"]
+    #     item  = book.manifest.itemWithHref(href)
+    #     raise "Guide item with href \"#{href}\" could not be found." unless item
+    #     item.referenceType = element.attributes["type"]
+    #     item.referenceTitle = element.attributes["title"]
+    #   end
+    # end
   end
   
 end
