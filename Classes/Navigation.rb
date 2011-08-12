@@ -22,7 +22,7 @@ class Navigation
       prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
       uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:uid']"]
       # check for 'dtb:PrimaryID' as last resort (is this standard compliant?)
-      # uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:PrimaryID']"] unless uid
+      uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:PrimaryID']"] unless uid
       raise "The \"#{@ncx_name}\" file does not specify a 'dtb:uid'." unless uid
       @id = uid.attributes["content"]
       @title = doc.elements["/#{prefix}ncx/#{prefix}docTitle/#{prefix}text"].text
