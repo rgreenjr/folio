@@ -25,3 +25,7 @@ end
 class NSCFString
   include StringEnhancements
 end
+
+class NSMutableString
+  include StringEnhancements
+end
