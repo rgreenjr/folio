@@ -161,6 +161,7 @@
 		CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC8312E6116600633F22 /* PreferencesController.rb */; };
 		CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC9612E611F800633F22 /* preferences-general.tiff */; };
 		CDDCAD8012EC7E63003A0B07 /* no-issues.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDCAD7F12EC7E63003A0B07 /* no-issues.png */; };
+		CDDF2453140D57DF00D2898B /* Blank.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDF2452140D57DF00D2898B /* Blank.rb */; };
 		CDE105F612DFA58000E1518B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE105F512DFA58000E1518B /* QuartzCore.framework */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
@@ -313,6 +314,7 @@
 		CDDBEC8312E6116600633F22 /* PreferencesController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PreferencesController.rb; sourceTree = "<group>"; };
 		CDDBEC9612E611F800633F22 /* preferences-general.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "preferences-general.tiff"; sourceTree = "<group>"; };
 		CDDCAD7F12EC7E63003A0B07 /* no-issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-issues.png"; sourceTree = "<group>"; };
+		CDDF2452140D57DF00D2898B /* Blank.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Blank.rb; sourceTree = "<group>"; };
 		CDE105F512DFA58000E1518B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
 				CD2D17D812E5F1F800D6A99A /* Alert.rb */,
 				CD2D17DB12E5F1F800D6A99A /* Book.rb */,
+				CDDF2452140D57DF00D2898B /* Blank.rb */,
 				CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */,
 				CD2D17DD12E5F1F800D6A99A /* Bundle.rb */,
 				CD2D17DE12E5F1F800D6A99A /* Container.rb */,
@@ -768,6 +771,7 @@
 				CD6C9CAE12F382DA0056D86B /* check.png in Resources */,
 				CD6C9CAF12F382DA0056D86B /* wrench.png in Resources */,
 				CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */,
+				CDDF2453140D57DF00D2898B /* Blank.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
