@@ -4,6 +4,19 @@ class Metadata
   attr_accessor :creator, :sortCreator, :contributor, :publisher, :subject, :description
   attr_accessor :date, :type, :format, :source, :relation, :coverage, :rights, :cover
   
+  def self.deriveSortCreator(creator)
+    parts = creator.split
+    case parts.size
+    when 0
+      derivedSortCreator = ''
+    when 1
+      derivedSortCreator = parts[-1]
+    else
+      derivedSortCreator = parts[-1] + ', ' + parts[0...-1].join(' ')
+    end
+    derivedSortCreator
+  end
+  
   def initialize(book=nil)
     # provide default values for three required metadata attributes
     @title = "untitled"
@@ -31,15 +44,7 @@ class Metadata
   
   def sortCreator
     if @sortCreator.blank? && !@creator.blank?
-      parts = @creator.split
-      case parts.size
-      when 0
-        @sortCreator = ''
-      when 1
-        @sortCreator = parts[-1]
-      else
-        @sortCreator = parts[-1] + ', ' + parts[0...-1].join(' ')
-      end
+      @sortCreator = Metadata.deriveSortCreator(@creator)
     end
     @sortCreator
   end

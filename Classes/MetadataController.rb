@@ -14,6 +14,15 @@ class MetadataController < NSWindowController
 
   def windowDidLoad
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
+    puts @creatorField.class
+    @creatorField.delegate = self
+  end
+
+  # called when creatorField finishes editing
+  def controlTextDidEndEditing(notification)
+    if @sortCreatorField.stringValue.blank?
+      @sortCreatorField.stringValue = Metadata.deriveSortCreator(notification.object.stringValue)
+    end
   end
 
   def showMetadataSheet(sender)
