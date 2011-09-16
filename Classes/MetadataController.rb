@@ -14,7 +14,6 @@ class MetadataController < NSWindowController
 
   def windowDidLoad
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
-    puts @creatorField.class
     @creatorField.delegate = self
   end
 
