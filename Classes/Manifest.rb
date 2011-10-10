@@ -5,7 +5,10 @@ class Manifest
   def initialize(containerPath, book=nil)
     @itemsMap  = {}
     @containerPath = containerPath
+
+    # create the root item
     @root = Item.new(nil, @containerPath, 'ROOT', 'directory', true)
+    
     if book.nil?
       @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
     else
@@ -22,14 +25,28 @@ class Manifest
           parent = directory
         end
         item = Item.new(parent, parts.last, e.attributes["id"], e.attributes["media-type"])
-        raise "The resource file \"#{item.href}\" could not be found." unless File.exist?(item.path)
+        
+        # raise if item isn't readable
+        unless File.readable?(item.path)
+          raise "You do not have permission to open the resource file \"#{item.href}\"."
+        end
+        
+        # raise if item doesn't exist
+        unless File.exist?(item.path)
+          raise "The resource file \"#{item.href}\" could not be found."
+        end
+        
+        # check item is NCX otherwise append to end
         if item.ncx?
           @ncx = item
         else
           insert(-1, item, parent)
         end
       end
+
+      # an NCX file is required, so raise if one wasn't found
       raise "A navigation NCX file wasn't specified in the manifest." unless @ncx
+      
       self.sort
     end
   end
