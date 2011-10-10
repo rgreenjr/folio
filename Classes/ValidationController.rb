@@ -7,6 +7,12 @@ class ValidationController < NSWindowController
   end
 
   def validateBook(book, lineNumberView)
+    
+    unless javaRuntimeInstalled?
+      showJavaAlert(book)
+      return false
+    end
+    
     # force validated window to load
     window
 
@@ -65,6 +71,8 @@ class ValidationController < NSWindowController
       # stop progress bar animation
       @progressBar.stopAnimation(self)
     end
+    
+    true
 
   end
 
@@ -137,6 +145,18 @@ class ValidationController < NSWindowController
 
     # add issue to book since there isn't an associated item
     book.addIssue(issue)
+  end
+  
+  # return true if a java runtime is installed
+  def javaRuntimeInstalled?
+    `which java` != ''
+  end
+
+  def showJavaAlert(book)
+    alert = NSAlert.alloc.init
+    alert.messageText = "A Java runtime is required to validate this book."
+    alert.addButtonWithTitle("OK")
+    alert.beginSheetModalForWindow(book.controller.window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
   end
 
 end

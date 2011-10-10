@@ -237,9 +237,10 @@ class BookWindowController < NSWindowController
   
   def performValidation
     @validationController ||= ValidationController.alloc.init
-    @validationController.validateBook(document, @textViewController.lineNumberView)
-    issueViewController.refresh
-    showIssueView(self)    
+    if @validationController.validateBook(document, @textViewController.lineNumberView)
+      issueViewController.refresh
+      showIssueView(self)    
+    end
   end
   
   def printDocument(sender)
@@ -268,6 +269,16 @@ class BookWindowController < NSWindowController
       true
     end
   end
+  
+  # require "uri"
+  # 
+  # def searchGoogleBooks(sender)
+  #   unless document.metadata.title.blank?
+  #     query = URI.escape(document.metadata.title, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+  #     puts query
+  #     NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString("http://www.google.com/search?q=#{query}&btnG=Search+Books&tbm=bks&tbo=1"))
+  #   end
+  # end
 
   private
   
