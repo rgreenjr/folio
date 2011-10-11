@@ -20,12 +20,7 @@ class ValidationController < NSWindowController
     book.clearIssues
 
     begin
-      # start the progress bar animation
-      @progressBar.usesThreadedAnimation = true
-      @progressBar.startAnimation(self)
-
-      # show the validation status window
-      NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
+      showStatus(book)
 
       # set the path to the epubcheck library
       libDir  = File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/lib/epubcheck/")
@@ -48,35 +43,51 @@ class ValidationController < NSWindowController
         # stop if there are more than 10000 validation issues
         break if counter > 100000
 
-        if line =~ /^ERROR/
-          parseError(book, line)
-        elsif line =~ /^WARNING/
-          parseWarning(book, line)
-        else
-          # log unknown validation message
-          # puts "*** Validation.validateBook ignoring message: #{line}"
-        end
+        parseLine(book, line)
 
         # increment the number of issues processed
         counter += 1
       end
 
     ensure
-      # end window sheet session
-      NSApp.endSheet(window)
-
-      # hide the window
-      window.orderOut(self)
-
-      # stop progress bar animation
-      @progressBar.stopAnimation(self)
+      hideStatus
     end
     
     true
-
   end
 
   private
+  
+  def showStatus(book)
+    # show the validation status window
+    NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
+    
+    # start progress bar animation
+    @progressBar.usesThreadedAnimation = true
+    @progressBar.startAnimation(self)
+  end
+  
+  def hideStatus
+    # end window sheet session
+    NSApp.endSheet(window)
+    
+    # hide the window
+    window.orderOut(self)
+    
+    # stop progress bar animation
+    @progressBar.stopAnimation(self)
+  end
+
+  def parseLine(book, line)
+    if line =~ /^ERROR/
+      parseError(book, line)
+    elsif line =~ /^WARNING/
+      parseWarning(book, line)
+    else
+      # log unknown validation message
+      # puts "*** Validation.validateBook ignoring message: #{line}"
+    end
+  end
 
   def parseError(book, line)
     
