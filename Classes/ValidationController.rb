@@ -9,7 +9,7 @@ class ValidationController < NSWindowController
   def validateBook(book, lineNumberView)
     
     unless javaRuntimeInstalled?
-      showJavaAlert(book)
+      Alert.runModal(book.controller.window, "A Java runtime is required to validate this book.")
       return false
     end
     
@@ -150,13 +150,6 @@ class ValidationController < NSWindowController
   # return true if a java runtime is installed
   def javaRuntimeInstalled?
     `which java` != ''
-  end
-
-  def showJavaAlert(book)
-    alert = NSAlert.alloc.init
-    alert.messageText = "A Java runtime is required to validate this book."
-    alert.addButtonWithTitle("OK")
-    alert.beginSheetModalForWindow(book.controller.window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
   end
 
 end
