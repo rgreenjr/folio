@@ -5,7 +5,6 @@ class MetadataController < NSWindowController
   attr_accessor :descriptionField, :creatorField, :sortCreatorField, :publisherField
   attr_accessor :subjectField, :rightsField
 
-  SUBJECTS = ["Biography & Memoir", "Business", "Comedy", "History", "Literature", "Nonfiction", "Science", "Technology"]
   SUBJECTS = ["Biography & Memoir", "Business", "Comedy", "History", "Literature", "Nonfiction", "Science", "Technology", "Travel & Adventure"]
 
   def initWithBookController(bookController)
