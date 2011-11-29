@@ -18,11 +18,12 @@ class Metadata
   end
   
   def initialize(book=nil)
-    # provide default values for three required metadata attributes
+    # provide some default values
     @title = "untitled"
     @language = "en"
     @identifier = UUID.create
-    
+    @date = Time.now.strftime("%Y-%m-%d")
+        
     if book
       book.container.opfDoc.elements.each("/package/metadata/*") do |element|
         case element.name
