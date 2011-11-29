@@ -9,6 +9,7 @@ class ProgressController < NSWindowController
   def showWindowWithTitle(title)
     window # force window to load
     begin
+      window.center
       @progressText.stringValue = title
       @progressBar.usesThreadedAnimation = true
       @progressBar.startAnimation(self)
