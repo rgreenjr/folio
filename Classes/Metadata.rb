@@ -19,7 +19,7 @@ class Metadata
   
   def initialize(book=nil)
     # provide some default values
-    @title = "untitled"
+    @title = "Untitled"
     @language = "en"
     @identifier = UUID.create
     @date = Time.now.strftime("%Y-%m-%d")
