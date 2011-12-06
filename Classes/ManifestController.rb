@@ -180,10 +180,10 @@ class ManifestController < NSResponder
   def showAddFilesSheet(sender)
     panel = NSOpenPanel.openPanel
     panel.title = "Add Files"
-    panel.setPrompt("Select")
-    panel.setAllowsMultipleSelection(true)
-    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@bookController.window,
-    modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    panel.prompt = "Select"
+    panel.allowsMultipleSelection = true
+    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@bookController.window, 
+      modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
   def addFilesSheetDidEnd(openPanel, returnCode:code, contextInfo:info)
@@ -193,29 +193,52 @@ class ManifestController < NSResponder
     end
   end
 
-  def addFiles(filepaths, parent=nil, childIndex=nil)
-    parent, childIndex = selectedItemParentAndChildIndex unless parent && childIndex
-    items = []
-    collisionFilenames = []
-    filepaths.each do |path|
-      item = @manifest.addFile(path, parent, childIndex)
-      if item
-        items << item
-      else
-        collisionFilenames << path.lastPathComponent
-      end
-    end
-    undoManager.prepareWithInvocationTarget(self).deleteItems(items)
-    unless undoManager.isUndoing
-      undoManager.actionName = "Add #{pluralize(items.size, "Manifest Item")}"
-    end
-    reloadDataAndSelectItems(items)
-    showAddFilesCollisionAlert(collisionFilenames) unless collisionFilenames.empty?
-    items
-  end
-
   def addFile(filepath, parent=nil, childIndex=nil)
     addFiles([filepath], parent, childIndex).first
+  end
+
+  def addFiles(filepaths, parent=nil, childIndex=nil)
+    parent, childIndex = selectedItemParentAndChildIndex unless parent && childIndex
+    collisionCount = filepaths.select {|path| parent.childWithName(path.lastPathComponent)}.count
+    if collisionCount == 0
+      performAddFilepaths(filepaths, parent, childIndex)
+    else
+      showFilenameCollisionAlert(filepaths, parent, childIndex, collisionCount)
+    end
+  end
+
+  def showFilenameCollisionAlert(filepaths, parent, childIndex, collisionCount)
+    @collisionInfo = { :parent => parent, :childIndex => childIndex, :filepaths => filepaths }
+    alert = NSAlert.alloc.init
+    alert.messageText = "Some files with matching names already exist in this directory. Do you want to replace #{pluralize(collisionCount, "file")}?"
+    alert.informativeText = "You cannot undo this action."
+    alert.addButtonWithTitle "Replace"
+    alert.addButtonWithTitle "Cancel"
+    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self,
+      didEndSelector:"filenameCollisionAlertDidEnd:returnCode:contextInfo:", contextInfo:nil)
+  end
+
+  def filenameCollisionAlertDidEnd(alert, returnCode:code, contextInfo:info)
+    if code == NSAlertFirstButtonReturn
+      performAddFilepaths(@collisionInfo[:filepaths], @collisionInfo[:parent], @collisionInfo[:childIndex], true)
+    end
+  end
+
+  def performAddFilepaths(filepaths, parent, childIndex, replace=false)
+    items = []
+    filepaths.each do |path|
+      items << @manifest.addFile(path, parent, childIndex, replace)
+    end
+    if replace
+      undoManager.removeAllActions
+    else
+      undoManager.prepareWithInvocationTarget(self).deleteItems(items)
+      unless undoManager.isUndoing
+        undoManager.actionName = "Add #{pluralize(items.size, "Manifest Item")}"
+      end
+    end
+    markBookEdited
+    reloadDataAndSelectItems(items)    
   end
 
   def moveItems(items, newParents, newIndexes)
@@ -359,23 +382,11 @@ class ManifestController < NSResponder
   end
 
   def showChangeNameCollisionAlert(name)
-    showAlertSheet("The name \"#{name}\" is already taken. Please choose a different name.")
-  end
-
-  def showAddFilesCollisionAlert(filenames)
-    showAlertSheet("The following files were not added because items with the same names already exist in this directory.", filenames.join("\n"))
+    Alert.runModal(@outlineView.window, "The name \"#{name}\" is already taken. Please choose a different name.")
   end
 
   def showMoveFilesCollisionAlert(filenames)
-    showAlertSheet("The following files were not moved because items with the same names already exist in this directory.", filenames.join("\n"))
-  end
-
-  def showAlertSheet(messageText, informativeText='')
-    alert = NSAlert.alloc.init
-    alert.addButtonWithTitle "OK"
-    alert.messageText = messageText
-    alert.informativeText = informativeText
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
+    Alert.runModal(@outlineView.window, "The following files were not moved because items with the same names already exist in this directory.", filenames.join("\n"))
   end
 
   def markBookEdited

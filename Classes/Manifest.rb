@@ -51,12 +51,19 @@ class Manifest
     end
   end
   
-  def addFile(filepath, parent, index)
+  def addFile(filepath, parent, index, replace=false)
     name = File.basename(filepath)
-    return nil if parent.childWithName(name)
-    item = Item.new(parent, name, generateUniqueID(name))
-    item.content = File.read(filepath)
-    insert(index, item, parent)    
+    item = parent.childWithName(name)
+    if item
+      unless replace
+        raise "A file named \"#{name}\" already exists in the directory."
+      end
+      item.content = File.read(filepath)
+    else
+      item = Item.new(parent, name, generateUniqueID(name))
+      item.content = File.read(filepath)
+      insert(index, item, parent)    
+    end
     item
   end
   
@@ -73,7 +80,7 @@ class Manifest
     NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:[item.url], withObject:nil)
     parent.delete_at(item.parent.index(item))
   end
-
+  
   def each(includeDirectories=false, &block)
     stack = [@root]
     while stack.size > 0
