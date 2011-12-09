@@ -106,7 +106,7 @@ class LineNumberRuler < NSRulerView
 						
             # add tracking area for this issue
 						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
-						trackingArea = NSTrackingArea.alloc.initWithRect(issueRect, options:trackingOptions, owner:self, userInfo:nil)
+						trackingArea = NSTrackingArea.alloc.initWithRect(issueRect, options:trackingOptions, owner:self, userInfo:issue)
             addTrackingArea(trackingArea)
 					end
 
@@ -214,30 +214,14 @@ class LineNumberRuler < NSRulerView
   end
   
   def mouseEntered(event)
-    # return if we are already displaying the window
+    # return if we are already displaying hover window
     return if @hoverWindow
+
+    # convert event trackingArea to screen coordinates
+    screenPoint = window.convertBaseToScreen(convertPoint(event.trackingArea.rect.origin, toView:nil))
     
-    issue = issueForEvent(event)
-    if issue
-      screenPoint = window.convertBaseToScreen(convertPoint(event.trackingArea.rect.origin, toView:nil))
-      screenPoint.x += 10.0
-      screenPoint.y += 5.0
-      showHoverWindowForIssue(issue, screenPoint)
-    end
-  end
-  
-  def issueForEvent(event)
-    location = convertPoint(event.locationInWindow, fromView:nil)
-    line = lineNumberForLocation(location.y)
-    return nil if line == NSNotFound
-    @issueHash[line - 1]
-  end
-  
-  def showHoverWindowForIssue(issue, location)
-    size = HoverMessageView.sizeForMessage(issue.message)    
-    contentRect = NSMakeRect(location.x, location.y, size.width, 24.0);    
-    @hoverWindow = HoverWindow.alloc.initWithContentRect(contentRect, message:issue.message)
-    @hoverWindow.orderFront(NSApp)    
+    # display hover window for issue
+    @hoverWindow = HoverWindow.showWindowForIssue(event.trackingArea.userInfo, atLocation:screenPoint)
   end
   
   def mouseExited(event)
@@ -260,7 +244,7 @@ class LineNumberRuler < NSRulerView
   end
 
   private
-
+  
   def closeHoverWindow
     if @hoverWindow
       @hoverWindow.close

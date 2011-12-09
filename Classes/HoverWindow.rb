@@ -1,6 +1,17 @@
 class HoverWindow < NSWindow
+  
+  VERTICAL_OFFSET   = 5
+  HORIZONTAL_OFFSET = 10
 
   attr_accessor :hoverView
+  
+  def self.showWindowForIssue(issue, atLocation:location)
+    size = HoverMessageView.sizeForMessage(issue.message)    
+    contentRect = NSMakeRect(location.x + HORIZONTAL_OFFSET, location.y + VERTICAL_OFFSET, size.width, 24.0);    
+    hoverWindow = HoverWindow.alloc.initWithContentRect(contentRect, message:issue.message)
+    hoverWindow.orderFront(NSApp)
+    hoverWindow
+  end
 
   def initWithContentRect(contentRect, message:message)
     initWithContentRect(contentRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreBuffered, defer:false)
