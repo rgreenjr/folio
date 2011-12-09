@@ -12,13 +12,22 @@ class HoverMessageView < NSView
   
   def self.messageAttributes
     unless @messageAttributes
+      
+      # center text
       style = NSMutableParagraphStyle.alloc.init
       style.alignment = NSCenterTextAlignment
       style.lineBreakMode = NSLineBreakByTruncatingTail
+      
+      # add embossing shadow
+      shadow = NSShadow.alloc.init
+      shadow.shadowColor = NSColor.blackColor
+      shadow.shadowOffset = NSMakeSize(0.0, 1.0)
+      
       @messageAttributes = {
         NSParagraphStyleAttributeName  => style,
         NSFontAttributeName            => NSFont.systemFontOfSize(11.0),
-        NSForegroundColorAttributeName => NSColor.whiteColor
+        NSForegroundColorAttributeName => NSColor.whiteColor,
+        NSShadowAttributeName => shadow
       }
     end
     @messageAttributes
@@ -62,10 +71,8 @@ class HoverMessageView < NSView
 
   def drawMessage(rect)
     messageRect = NSInsetRect(rect, MESSAGE_PADDING, 0.0)
-    # messageRect.origin.x += MESSAGE_PADDING
-    # messageRect.size.width -= MESSAGE_PADDING    
     messageSize = @message.sizeWithAttributes(HoverMessageView.messageAttributes)
-    messageRect.origin.y -= ((rect.size.height - messageSize.height) * 0.5).floor
+    messageRect.origin.y -= ((rect.size.height - messageSize.height) * 0.5).floor    
     @message.drawInRect(messageRect, withAttributes:HoverMessageView.messageAttributes)
   end
 
