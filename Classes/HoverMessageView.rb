@@ -1,4 +1,4 @@
-class HUDMessageView < NSView
+class HoverMessageView < NSView
 
   RADIUS          = 5.0
   MESSAGE_PADDING = 5.0
@@ -44,9 +44,9 @@ class HUDMessageView < NSView
     messageRect = NSInsetRect(rect, MESSAGE_PADDING, 0.0)
     # messageRect.origin.x += MESSAGE_PADDING
     messageRect.size.width -= MESSAGE_PADDING    
-    messageSize = @message.sizeWithAttributes(HUDMessageView.messageAttributes)
+    messageSize = @message.sizeWithAttributes(HoverMessageView.messageAttributes)
     messageRect.origin.y -= ((rect.size.height - messageSize.height) * 0.5).floor
-    @message.drawInRect(messageRect, withAttributes:HUDMessageView.messageAttributes)
+    @message.drawInRect(messageRect, withAttributes:HoverMessageView.messageAttributes)
   end
   
   private

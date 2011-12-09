@@ -57,8 +57,8 @@ class LineNumberRuler < NSRulerView
     # remove any tracking areas
     trackingAreas.each { |area| removeTrackingArea(area) }
     
-    # close HUD window
-    closeHUD
+    # close hover window
+    closeHoverWindow
 
     while line < count
 
@@ -215,14 +215,14 @@ class LineNumberRuler < NSRulerView
   
   def mouseEntered(event)
     # return if we are already displaying the window
-    return if @hudWindow
+    return if @hoverWindow
     
     issue = issueForEvent(event)
     if issue
       screenPoint = window.convertBaseToScreen(convertPoint(event.trackingArea.rect.origin, toView:nil))
       screenPoint.x += 10.0
       screenPoint.y += 5.0
-      showHUDWindowForIssue(issue, screenPoint)
+      showHoverWindowForIssue(issue, screenPoint)
     end
   end
   
@@ -233,20 +233,20 @@ class LineNumberRuler < NSRulerView
     @issueHash[line - 1]
   end
   
-  def showHUDWindowForIssue(issue, location)
-    size = HUDMessageView.sizeForMessage(issue.message)    
+  def showHoverWindowForIssue(issue, location)
+    size = HoverMessageView.sizeForMessage(issue.message)    
     contentRect = NSMakeRect(location.x, location.y, size.width, 24.0);    
-    @hudWindow = HUDWindow.alloc.initWithContentRect(contentRect, message:issue.message)
-    @hudWindow.orderFront(NSApp)    
+    @hoverWindow = HoverWindow.alloc.initWithContentRect(contentRect, message:issue.message)
+    @hoverWindow.orderFront(NSApp)    
   end
   
   def mouseExited(event)
-    closeHUD
+    closeHoverWindow
   end
   
   # selects the corresponding line
   def mouseDown(event)
-    closeHUD
+    closeHoverWindow
     location = convertPoint(event.locationInWindow, fromView:nil)
     lineNumber = lineNumberForLocation(location.y)
     selectLineNumber(lineNumber) unless lineNumber == NSNotFound
@@ -261,10 +261,10 @@ class LineNumberRuler < NSRulerView
 
   private
 
-  def closeHUD
-    if @hudWindow
-      @hudWindow.close
-      @hudWindow = nil
+  def closeHoverWindow
+    if @hoverWindow
+      @hoverWindow.close
+      @hoverWindow = nil
     end
   end
 

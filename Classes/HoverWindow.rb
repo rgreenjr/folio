@@ -1,6 +1,6 @@
-class HUDWindow < NSWindow
+class HoverWindow < NSWindow
 
-  attr_accessor :hudView
+  attr_accessor :hoverView
 
   def initWithContentRect(contentRect, message:message)
     initWithContentRect(contentRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreBuffered, defer:false)
@@ -9,9 +9,9 @@ class HUDWindow < NSWindow
     alphaValue = 1.0
     opaque = false
     hasShadow = true
-    @hudView = HUDMessageView.alloc.initWithFrame(contentRect)
-    setContentView(@hudView)
-    @hudView.message = message
+    @hoverView = HoverMessageView.alloc.initWithFrame(contentRect)
+    setContentView(@hoverView)
+    @hoverView.message = message
     self
   end
 

@@ -61,8 +61,6 @@
 		CD2D181712E5F1F800D6A99A /* Guide.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E212E5F1F800D6A99A /* Guide.rb */; };
 		CD2D181812E5F1F800D6A99A /* HeaderView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E312E5F1F800D6A99A /* HeaderView.rb */; };
 		CD2D181912E5F1F800D6A99A /* Highlighter.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E412E5F1F800D6A99A /* Highlighter.rb */; };
-		CD2D181A12E5F1F800D6A99A /* HUDMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E512E5F1F800D6A99A /* HUDMessageView.rb */; };
-		CD2D181B12E5F1F800D6A99A /* HUDWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E612E5F1F800D6A99A /* HUDWindow.rb */; };
 		CD2D181C12E5F1F800D6A99A /* ImageCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E712E5F1F800D6A99A /* ImageCell.rb */; };
 		CD2D181D12E5F1F800D6A99A /* ImageWell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E812E5F1F800D6A99A /* ImageWell.rb */; };
 		CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E912E5F1F800D6A99A /* Item.rb */; };
@@ -157,6 +155,8 @@
 		CDB5428812F33D2000BB5739 /* ItemViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428712F33D2000BB5739 /* ItemViewController.rb */; };
 		CDB5428D12F33D2E00BB5739 /* ItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428B12F33D2E00BB5739 /* ItemView.xib */; };
 		CDB542C512F3638100BB5739 /* empty-inspector.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB542C412F3638100BB5739 /* empty-inspector.png */; };
+		CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */; };
+		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
 		CDD7AFF712EF675700352D4B /* manifest.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFF612EF675700352D4B /* manifest.png */; };
 		CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFFA12EF6D5F00352D4B /* toc.png */; };
@@ -217,8 +217,6 @@
 		CD2D17E212E5F1F800D6A99A /* Guide.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Guide.rb; sourceTree = "<group>"; };
 		CD2D17E312E5F1F800D6A99A /* HeaderView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HeaderView.rb; sourceTree = "<group>"; };
 		CD2D17E412E5F1F800D6A99A /* Highlighter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Highlighter.rb; sourceTree = "<group>"; };
-		CD2D17E512E5F1F800D6A99A /* HUDMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HUDMessageView.rb; sourceTree = "<group>"; };
-		CD2D17E612E5F1F800D6A99A /* HUDWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HUDWindow.rb; sourceTree = "<group>"; };
 		CD2D17E712E5F1F800D6A99A /* ImageCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageCell.rb; sourceTree = "<group>"; };
 		CD2D17E812E5F1F800D6A99A /* ImageWell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageWell.rb; sourceTree = "<group>"; };
 		CD2D17E912E5F1F800D6A99A /* Item.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Item.rb; sourceTree = "<group>"; };
@@ -313,6 +311,8 @@
 		CDB5428712F33D2000BB5739 /* ItemViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ItemViewController.rb; sourceTree = "<group>"; };
 		CDB5428C12F33D2E00BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemView.xib; sourceTree = "<group>"; };
 		CDB542C412F3638100BB5739 /* empty-inspector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-inspector.png"; sourceTree = "<group>"; };
+		CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverMessageView.rb; sourceTree = "<group>"; };
+		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
 		CDD7AFF612EF675700352D4B /* manifest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manifest.png; sourceTree = "<group>"; };
 		CDD7AFFA12EF6D5F00352D4B /* toc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toc.png; sourceTree = "<group>"; };
@@ -463,22 +463,11 @@
 		CD2D17D712E5F1F800D6A99A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */,
-				CDB5428712F33D2000BB5739 /* ItemViewController.rb */,
-				CDB5428512F33CF600BB5739 /* ItemRefViewController.rb */,
-				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
-				CD3A3E0212F21F0500449BFC /* PrintController.rb */,
-				CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */,
-				CDEBCB0512F0B27C00E8834D /* Metadatum.rb */,
-				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
-				CDD7B02E12EF79D800352D4B /* ItemRef.rb */,
-				CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */,
+				CD2D17D812E5F1F800D6A99A /* Alert.rb */,
 				CD9727E412E79CBA006398DB /* ApplicationController.rb */,
 				CD9727E212E79CB4006398DB /* AsyncCommand.rb */,
-				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
-				CD2D17D812E5F1F800D6A99A /* Alert.rb */,
-				CD2D17DB12E5F1F800D6A99A /* Book.rb */,
 				CDDF2452140D57DF00D2898B /* Blank.rb */,
+				CD2D17DB12E5F1F800D6A99A /* Book.rb */,
 				CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */,
 				CD2D17DD12E5F1F800D6A99A /* Bundle.rb */,
 				CD2D17DE12E5F1F800D6A99A /* Container.rb */,
@@ -488,11 +477,17 @@
 				CD2D17E212E5F1F800D6A99A /* Guide.rb */,
 				CD2D17E312E5F1F800D6A99A /* HeaderView.rb */,
 				CD2D17E412E5F1F800D6A99A /* Highlighter.rb */,
-				CD2D17E512E5F1F800D6A99A /* HUDMessageView.rb */,
-				CD2D17E612E5F1F800D6A99A /* HUDWindow.rb */,
+				CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */,
+				CDB6DED61492A0EF00E83456 /* HoverWindow.rb */,
 				CD2D17E712E5F1F800D6A99A /* ImageCell.rb */,
 				CD2D17E812E5F1F800D6A99A /* ImageWell.rb */,
+				CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */,
+				CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */,
+				CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */,
 				CD2D17E912E5F1F800D6A99A /* Item.rb */,
+				CDD7B02E12EF79D800352D4B /* ItemRef.rb */,
+				CDB5428512F33CF600BB5739 /* ItemRefViewController.rb */,
+				CDB5428712F33D2000BB5739 /* ItemViewController.rb */,
 				CD2D17EA12E5F1F800D6A99A /* Kernel.rb */,
 				CD2D17EB12E5F1F800D6A99A /* Language.rb */,
 				CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */,
@@ -502,6 +497,7 @@
 				CD2D17F112E5F1F800D6A99A /* Media.rb */,
 				CD2D17F212E5F1F800D6A99A /* Metadata.rb */,
 				CD2D17F312E5F1F800D6A99A /* MetadataController.rb */,
+				CDEBCB0512F0B27C00E8834D /* Metadatum.rb */,
 				CD2D17F412E5F1F800D6A99A /* Navigation.rb */,
 				CD2D17F512E5F1F800D6A99A /* NavigationController.rb */,
 				CD2D17F612E5F1F800D6A99A /* NilClass.rb */,
@@ -512,6 +508,9 @@
 				CD2D17FB12E5F1F800D6A99A /* NSURL.rb */,
 				CD2D17FC12E5F1F800D6A99A /* ParseException.rb */,
 				CD2D17FD12E5F1F800D6A99A /* Point.rb */,
+				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
+				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
+				CD3A3E0212F21F0500449BFC /* PrintController.rb */,
 				CD2D17FE12E5F1F800D6A99A /* ProgressController.rb */,
 				CD2D17FF12E5F1F800D6A99A /* Search.rb */,
 				CD2D180012E5F1F800D6A99A /* SearchController.rb */,
@@ -525,6 +524,7 @@
 				CD2D180812E5F1F800D6A99A /* TextViewController.rb */,
 				CD2D180912E5F1F800D6A99A /* TransparentWindow.rb */,
 				CD2D180A12E5F1F800D6A99A /* UUID.rb */,
+				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
 				CD2D180C12E5F1F800D6A99A /* WebViewController.rb */,
 			);
 			path = Classes;
@@ -672,8 +672,6 @@
 				CD2D181712E5F1F800D6A99A /* Guide.rb in Resources */,
 				CD2D181812E5F1F800D6A99A /* HeaderView.rb in Resources */,
 				CD2D181912E5F1F800D6A99A /* Highlighter.rb in Resources */,
-				CD2D181A12E5F1F800D6A99A /* HUDMessageView.rb in Resources */,
-				CD2D181B12E5F1F800D6A99A /* HUDWindow.rb in Resources */,
 				CD2D181C12E5F1F800D6A99A /* ImageCell.rb in Resources */,
 				CD2D181D12E5F1F800D6A99A /* ImageWell.rb in Resources */,
 				CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */,
@@ -784,6 +782,8 @@
 				CD67130014928E36000B8BBB /* bubble-background-left.png in Resources */,
 				CD67130114928E36000B8BBB /* bubble-background-right.png in Resources */,
 				CD6713031492952D000B8BBB /* bubble-background-middle.png in Resources */,
+				CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */,
+				CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
