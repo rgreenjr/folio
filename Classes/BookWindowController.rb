@@ -1,14 +1,31 @@
 class BookWindowController < NSWindowController
 
-  SPLIT_VIEW_MINIMUM_WIDTH = 150.0
+  ISSUE_VIEW_MIN_HEIGHT    = 100.0
+  SELECTION_VIEW_MIN_WIDTH = 150.0
   
-  attr_accessor :selectionViewController, :navigationController, :spineController, :manifestController
-  attr_accessor :tabViewController, :webViewController, :textViewController
+  attr_accessor :navigationController
+  attr_accessor :spineController
+  attr_accessor :manifestController
 
-  attr_accessor :seletionView, :contentView, :contentPlaceholder
-  attr_accessor :segmentedControl, :logoImageWell
-  attr_accessor :masterSplitView  
-  attr_accessor :renderView, :renderSplitView, :renderImageView
+  attr_accessor :tabViewController
+  attr_accessor :webViewController
+  attr_accessor :textViewController
+
+  attr_accessor :masterSplitView # contains selectionView (left) and contentSplitView (right)
+
+  attr_accessor :selectionView
+  attr_accessor :selectionViewController
+  
+  attr_accessor :contentSplitView # contains contentPlaceholder (top) and issueView (bottom)
+
+  attr_accessor :contentPlaceholder # contains either logoImageWell or contentView
+  
+  attr_accessor :logoImageWell
+  
+  attr_accessor :contentView # tabBox with tabView (top) and renderView (bottom)  
+  attr_accessor :renderView # contains either renderSplitView or renderImageView
+  attr_accessor :renderSplitView # contains textView (top) and webView (bottom)
+  attr_accessor :renderImageView
 
   def init
     initWithWindowNibName("Book")
@@ -24,12 +41,16 @@ class BookWindowController < NSWindowController
     showLogoImage
 
     # put selectionView into place
-    @selectionViewController.view.frame = @seletionView.frame
-    @seletionView.addSubview(selectionViewController.view)
+    @selectionViewController.view.frame = @selectionView.frame
+    @selectionView.addSubview(selectionViewController.view)
     
+    # exapnd all selectionView elements
     @selectionViewController.expandNavigation(self)
     @selectionViewController.expandSpine(self)
     @selectionViewController.expandManifest(self)
+    
+    # force issueView to load
+    issueViewController
   end
 
   def windowDidBecomeKey(notification)
@@ -41,20 +62,32 @@ class BookWindowController < NSWindowController
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
-    return proposedMin + SPLIT_VIEW_MINIMUM_WIDTH
+    if sender == @masterSplitView
+      proposedMin + SELECTION_VIEW_MIN_WIDTH
+    else
+      proposedMin + ISSUE_VIEW_MIN_HEIGHT
+    end
   end
 
   def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
-    return proposedMax - SPLIT_VIEW_MINIMUM_WIDTH
+    if sender == @masterSplitView
+      proposedMax - SELECTION_VIEW_MIN_WIDTH
+    else
+      proposedMax - ISSUE_VIEW_MIN_HEIGHT
+    end
   end
 
   # keep left split pane from resizing as window resizes
   def splitView(sender, resizeSubviewsWithOldSize:oldSize)
-    right = @masterSplitView.subviews.last
-    rightFrame = right.frame
-    rightFrame.size.width += @masterSplitView.frame.size.width - oldSize.width
-    right.frame = rightFrame
-    @masterSplitView.adjustSubviews
+    if sender == @masterSplitView
+      right = @masterSplitView.subviews.last
+      rightFrame = right.frame
+      rightFrame.size.width += @masterSplitView.frame.size.width - oldSize.width
+      right.frame = rightFrame
+      @masterSplitView.adjustSubviews
+    else
+      @contentSplitView.adjustSubviews
+    end
   end
   
   def tabViewSelectionDidChange(notification)
@@ -77,20 +110,38 @@ class BookWindowController < NSWindowController
   end
   
   def showContentView
+    # remove the logo view
     @logoImageWell.removeFromSuperview
+    
+    # add contentView to contentPlaceholder view
     @contentPlaceholder.addSubview(@contentView)
+    
+    # make contentView fill entire frame
     @contentView.frame = @contentPlaceholder.frame
     @contentView.frameOrigin = NSZeroPoint
+    
     if @tabViewController.selectedItem.imageable?
+      # remove combo text/web view since content is image
       @renderSplitView.removeFromSuperview
+      
+      # set newView to image view
       newView = @renderImageView
     else
+      # remove image view since content is not image
       @renderImageView.removeFromSuperview
+      
+      # set newView to text/combo view
       newView = @renderSplitView
     end
+    
+    # add newView to renderView
     @renderView.addSubview(newView)
+    
+    # make newView fill entire frame
     newView.frame = @renderView.frame
     newView.frameOrigin = NSZeroPoint
+    
+    # adjust masterSplitView
     @masterSplitView.adjustSubviews
   end
 
@@ -110,40 +161,50 @@ class BookWindowController < NSWindowController
     unless @issueViewController
       @issueViewController = IssueViewController.alloc.initWithBookController(self)
       @issueViewController.loadView
-      @issueViewController.view.frame = @seletionView.frame
-      @issueViewController.view.hidden = true
-      @seletionView.addSubview(@issueViewController.view)
+      @issueViewController.view.frame = @contentSplitView.subviews.last.frame
+      
+      # remove the bottom placeholder view
+      @contentSplitView.subviews.last.removeFromSuperview      
+      @contentSplitView.adjustSubviews
     end
     @issueViewController
+  end
+
+  def toggleIssueView(sender)
+    issueViewController.visible? ? hideIssueView : showIssueView
+  end
+
+  def showIssueView
+    # why is this necessary?
+    f = issueViewController.view.frame
+    f.size.height += 48.0
+    issueViewController.view.frame = f
+
+
+    @contentSplitView.addSubview(issueViewController.view)
+    @contentSplitView.adjustSubviews
+  end
+  
+  def hideIssueView
+    issueViewController.view.removeFromSuperview      
+    @contentSplitView.adjustSubviews
   end
 
   def inspectorViewController
     unless @inspectorViewController
       @inspectorViewController = InspectorViewController.alloc.initWithBookController(self)
       @inspectorViewController.loadView
-      frameRect = @seletionView.frame
-      frameRect.size.height = inspectorViewController.view.frame.size.height
-      @inspectorViewController.view.frame = frameRect
+      frameRect = @selectionView.frame
       @inspectorViewController.view.hidden = true
-      @seletionView.addSubview(@inspectorViewController.view)
+      frameRect.size.height = @inspectorViewController.view.frame.size.height
+      @inspectorViewController.view.frame = frameRect
+      @selectionView.addSubview(@inspectorViewController.view)
     end
     @inspectorViewController
   end
 
-  def showSelectionView(sender)
-    if selectionViewController.view.hidden?
-      slideOutView(issueViewController.view, replacingWith:selectionViewController.view, direction:"right")
-    end
-  end
-
-  def showIssueView(sender)
-    if issueViewController.view.hidden?
-      slideOutView(selectionViewController.view, replacingWith:issueViewController.view, direction:"left")
-    end
-  end
-
   def toggleInspectorView(sender)
-    inspectorVisible? ? hideInspectorView : showInspectorView
+    inspectorViewController.visible? ? hideInspectorView : showInspectorView
   end
 
   def showInspectorView
@@ -166,11 +227,6 @@ class BookWindowController < NSWindowController
     frameRect = selectionViewController.view.frame
     shiftFrameOrigin(frameRect, inspectorHeight)
     selectionViewController.view.animator.frame = frameRect
-
-    # animate issueView sliding up
-    frameRect = issueViewController.view.frame
-    shiftFrameOrigin(frameRect, inspectorHeight)
-    issueViewController.view.animator.frame = frameRect
   end
   
   def hideInspectorView
@@ -187,11 +243,6 @@ class BookWindowController < NSWindowController
     frameRect = selectionViewController.view.frame
     shiftFrameOrigin(frameRect, -inspectorHeight)
     selectionViewController.view.animator.frame = frameRect
-
-    # animate issueView sliding down
-    frameRect = issueViewController.view.frame
-    shiftFrameOrigin(frameRect, -inspectorHeight)
-    issueViewController.view.animator.frame = frameRect
 
     # make inspectorView invisible
     inspector.animator.hidden = true
@@ -239,7 +290,7 @@ class BookWindowController < NSWindowController
     @validationController ||= ValidationController.alloc.init
     if @validationController.validateBook(document, @textViewController.lineNumberView)
       issueViewController.refresh
-      showIssueView(self)    
+      showIssueView
     end
   end
   
@@ -259,9 +310,13 @@ class BookWindowController < NSWindowController
 
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
+    when :"toggleIssueView:"
+      if interfaceItem.class == NSMenuItem
+        interfaceItem.title = issueViewController.visible? ? "Hide Issues" : "Show Issues"
+      end
     when :"toggleInspectorView:"
       if interfaceItem.class == NSMenuItem
-        interfaceItem.title = inspectorVisible? ? "Hide Inspector" : "Show Inspector"
+        interfaceItem.title = inspectorViewController.visible? ? "Hide Inspector" : "Show Inspector"
       end
     when :"printDocument:"
       @tabViewController.numberOfTabs > 0
@@ -270,61 +325,11 @@ class BookWindowController < NSWindowController
     end
   end
   
-  # require "uri"
-  # 
-  # def searchGoogleBooks(sender)
-  #   unless document.metadata.title.blank?
-  #     query = URI.escape(document.metadata.title, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-  #     puts query
-  #     NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString("http://www.google.com/search?q=#{query}&btnG=Search+Books&tbm=bks&tbo=1"))
-  #   end
-  # end
-
   private
-  
-  def inspectorVisible?
-    !inspectorViewController.view.hidden?
-  end
   
   def shiftFrameOrigin(frame, amount)
     frame.size.height -= amount
     frame.origin.y += amount
   end
-
-  def slideOutView(outView, replacingWith:inView, direction:direction)
-    NSAnimationContext.beginGrouping
-    
-    # NSAnimationContext.currentContext.duration = 3.0
-    
-    # get selectionView width
-    selectionViewWidth = @seletionView.frame.size.width
-    
-    # start inView far right or left
-    inFrame = @seletionView.frame
-    inFrame.origin.x = (direction == "right") ? -selectionViewWidth : selectionViewWidth
-    shiftFrameOrigin(inFrame, inspectorViewController.view.frame.size.height) if inspectorVisible?
-    inView.frame = inFrame
-    
-    # make inView visible
-    inView.hidden = false
-
-    # animate inView sliding into place
-    inFrame = inFrame.dup
-    inFrame.origin.x = 0
-    inView.animator.frame = inFrame
-    inView.animator.alphaValue = 1.0
-    
-    # animate outView sliding out to right or left
-    outFrame = @seletionView.frame
-    outFrame.origin.x = (direction == "right") ? selectionViewWidth : -selectionViewWidth
-    shiftFrameOrigin(outFrame, inspectorViewController.view.frame.size.height) if inspectorVisible?
-    outView.animator.frame = outFrame
-    outView.animator.alphaValue = 0.5
-    
-    # make outView invisible
-    outView.animator.hidden = true
-
-    NSAnimationContext.endGrouping
-  end
-
+  
 end

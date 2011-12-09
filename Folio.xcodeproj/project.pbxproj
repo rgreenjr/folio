@@ -137,6 +137,9 @@
 		CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D612EA7AE800C98B33 /* WebView.xib */; };
 		CD3A3E0312F21F0500449BFC /* PrintController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3A3E0212F21F0500449BFC /* PrintController.rb */; };
 		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
+		CD67130014928E36000B8BBB /* bubble-background-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6712FE14928E36000B8BBB /* bubble-background-left.png */; };
+		CD67130114928E36000B8BBB /* bubble-background-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6712FF14928E36000B8BBB /* bubble-background-right.png */; };
+		CD6713031492952D000B8BBB /* bubble-background-middle.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6713021492952D000B8BBB /* bubble-background-middle.png */; };
 		CD6C9CAE12F382DA0056D86B /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6C9CAC12F382DA0056D86B /* check.png */; };
 		CD6C9CAF12F382DA0056D86B /* wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6C9CAD12F382DA0056D86B /* wrench.png */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
@@ -290,6 +293,9 @@
 		CD3179D712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebView.xib; sourceTree = "<group>"; };
 		CD3A3E0212F21F0500449BFC /* PrintController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PrintController.rb; sourceTree = "<group>"; };
 		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		CD6712FE14928E36000B8BBB /* bubble-background-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-left.png"; sourceTree = "<group>"; };
+		CD6712FF14928E36000B8BBB /* bubble-background-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-right.png"; sourceTree = "<group>"; };
+		CD6713021492952D000B8BBB /* bubble-background-middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-middle.png"; sourceTree = "<group>"; };
 		CD6C9CAC12F382DA0056D86B /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		CD6C9CAD12F382DA0056D86B /* wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrench.png; sourceTree = "<group>"; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
@@ -528,6 +534,9 @@
 			isa = PBXGroup;
 			children = (
 				CD6C9CAC12F382DA0056D86B /* check.png */,
+				CD6712FE14928E36000B8BBB /* bubble-background-left.png */,
+				CD6713021492952D000B8BBB /* bubble-background-middle.png */,
+				CD6712FF14928E36000B8BBB /* bubble-background-right.png */,
 				CD6C9CAD12F382DA0056D86B /* wrench.png */,
 				CDEBCBEF12F0E7D600E8834D /* yield-circle.png */,
 				CDEBCBED12F0E7CB00E8834D /* preview.png */,
@@ -772,6 +781,9 @@
 				CD6C9CAF12F382DA0056D86B /* wrench.png in Resources */,
 				CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */,
 				CDDF2453140D57DF00D2898B /* Blank.rb in Resources */,
+				CD67130014928E36000B8BBB /* bubble-background-left.png in Resources */,
+				CD67130114928E36000B8BBB /* bubble-background-right.png in Resources */,
+				CD6713031492952D000B8BBB /* bubble-background-middle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

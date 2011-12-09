@@ -26,6 +26,10 @@ class InspectorViewController < NSViewController
     end
   end
   
+  def visible?
+    view && !view.hidden?
+  end
+  
   private
   
   def showEmptyView

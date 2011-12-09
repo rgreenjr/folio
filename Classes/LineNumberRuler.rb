@@ -58,7 +58,7 @@ class LineNumberRuler < NSRulerView
     trackingAreas.each { |area| removeTrackingArea(area) }
     
     # close HUD window
-    @hudWindow.close if @hudWindow
+    closeHUD
 
     while line < count
 
@@ -214,8 +214,16 @@ class LineNumberRuler < NSRulerView
   end
   
   def mouseEntered(event)
+    # return if we are already displaying the window
+    return if @hudWindow
+    
     issue = issueForEvent(event)
-    showHUDWindowForIssue(issue, NSEvent.mouseLocation) if issue
+    if issue
+      screenPoint = window.convertBaseToScreen(convertPoint(event.trackingArea.rect.origin, toView:nil))
+      screenPoint.x += 10.0
+      screenPoint.y += 5.0
+      showHUDWindowForIssue(issue, screenPoint)
+    end
   end
   
   def issueForEvent(event)
@@ -227,18 +235,18 @@ class LineNumberRuler < NSRulerView
   
   def showHUDWindowForIssue(issue, location)
     size = HUDMessageView.sizeForMessage(issue.message)    
-    contentRect = NSMakeRect(location.x, location.y, size.width, 20.0);    
+    contentRect = NSMakeRect(location.x, location.y, size.width, 24.0);    
     @hudWindow = HUDWindow.alloc.initWithContentRect(contentRect, message:issue.message)
     @hudWindow.orderFront(NSApp)    
   end
   
   def mouseExited(event)
-    @hudWindow.close if @hudWindow
+    closeHUD
   end
   
   # selects the corresponding line
   def mouseDown(event)
-    @hudWindow.close if @hudWindow
+    closeHUD
     location = convertPoint(event.locationInWindow, fromView:nil)
     lineNumber = lineNumberForLocation(location.y)
     selectLineNumber(lineNumber) unless lineNumber == NSNotFound
@@ -252,6 +260,13 @@ class LineNumberRuler < NSRulerView
   end
 
   private
+
+  def closeHUD
+    if @hudWindow
+      @hudWindow.close
+      @hudWindow = nil
+    end
+  end
 
   def lineNumberForCharacterIndex(index, inText:text)
     left = 0

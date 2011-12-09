@@ -1,6 +1,6 @@
 class IssueViewController < NSViewController
 
-  attr_accessor :bookController, :outlineView, :headerView, :noIssuesImageView
+  attr_accessor :bookController, :outlineView, :noIssuesImageView
 
   def initWithBookController(bookController)
     initWithNibName("IssueView", bundle:nil)
@@ -10,8 +10,6 @@ class IssueViewController < NSViewController
   end
   
   def awakeFromNib
-    @headerView.title = "Issues"
-
     imageCell = ImageCell.new
     imageCell.editable = false
     imageCell.selectable = false
@@ -25,6 +23,10 @@ class IssueViewController < NSViewController
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"itemIssuesDidChange:", name:"ItemIssuesDidChange", object:nil)
   end
   
+  def visible?
+    view && !view.hidden? && !view.superview.nil?
+  end
+
   def refresh
     @items = @bookController.document.manifest.select { |item| item.hasIssues? }
     @items.unshift(@bookController.document) if @bookController.document.hasIssues?
@@ -93,14 +95,17 @@ class IssueViewController < NSViewController
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:object)
     cell.font = NSFont.systemFontOfSize(11.0)
     if object.class == Item
-      cell.badgeCount = object.issues.size
+      # cell.badgeCount = object.issues.size
+      cell.badgeCount = nil
       cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(object.name))
     elsif object.class == Book
-      cell.badgeCount = object.issues.size
+      # cell.badgeCount = object.issues.size
+      cell.badgeCount = nil
       cell.image = NSImage.imageNamed('book.png')
     else
       cell.badgeCount = nil
-      cell.image = NSImage.imageNamed('wrench.png')
+      cell.image = nil
+      # cell.image = NSImage.imageNamed('wrench.png')
     end
   end
 
