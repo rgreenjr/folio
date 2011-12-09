@@ -1,7 +1,7 @@
 class HoverWindow < NSWindow
   
-  VERTICAL_OFFSET   = 5
-  HORIZONTAL_OFFSET = 10
+  VERTICAL_OFFSET   = 4
+  HORIZONTAL_OFFSET = 27
 
   attr_accessor :hoverView
   
