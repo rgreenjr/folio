@@ -94,7 +94,6 @@
 		CD2D183B12E5F1F800D6A99A /* TabView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180612E5F1F800D6A99A /* TabView.rb */; };
 		CD2D183C12E5F1F800D6A99A /* TabViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180712E5F1F800D6A99A /* TabViewController.rb */; };
 		CD2D183D12E5F1F800D6A99A /* TextViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180812E5F1F800D6A99A /* TextViewController.rb */; };
-		CD2D183E12E5F1F800D6A99A /* TransparentWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180912E5F1F800D6A99A /* TransparentWindow.rb */; };
 		CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180A12E5F1F800D6A99A /* UUID.rb */; };
 		CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180C12E5F1F800D6A99A /* WebViewController.rb */; };
 		CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D184312E5F23400D6A99A /* NSURL_test.rb */; };
@@ -250,7 +249,6 @@
 		CD2D180612E5F1F800D6A99A /* TabView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabView.rb; sourceTree = "<group>"; };
 		CD2D180712E5F1F800D6A99A /* TabViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabViewController.rb; sourceTree = "<group>"; };
 		CD2D180812E5F1F800D6A99A /* TextViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TextViewController.rb; sourceTree = "<group>"; };
-		CD2D180912E5F1F800D6A99A /* TransparentWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TransparentWindow.rb; sourceTree = "<group>"; };
 		CD2D180A12E5F1F800D6A99A /* UUID.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = UUID.rb; sourceTree = "<group>"; };
 		CD2D180C12E5F1F800D6A99A /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
 		CD2D184312E5F23400D6A99A /* NSURL_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NSURL_test.rb; sourceTree = "<group>"; };
@@ -522,7 +520,6 @@
 				CD2D180612E5F1F800D6A99A /* TabView.rb */,
 				CD2D180712E5F1F800D6A99A /* TabViewController.rb */,
 				CD2D180812E5F1F800D6A99A /* TextViewController.rb */,
-				CD2D180912E5F1F800D6A99A /* TransparentWindow.rb */,
 				CD2D180A12E5F1F800D6A99A /* UUID.rb */,
 				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
 				CD2D180C12E5F1F800D6A99A /* WebViewController.rb */,
@@ -705,7 +702,6 @@
 				CD2D183B12E5F1F800D6A99A /* TabView.rb in Resources */,
 				CD2D183C12E5F1F800D6A99A /* TabViewController.rb in Resources */,
 				CD2D183D12E5F1F800D6A99A /* TextViewController.rb in Resources */,
-				CD2D183E12E5F1F800D6A99A /* TransparentWindow.rb in Resources */,
 				CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */,
 				CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */,
 				CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */,

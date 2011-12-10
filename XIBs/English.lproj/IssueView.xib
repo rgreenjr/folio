@@ -118,7 +118,7 @@
 											<object class="NSTableColumn" id="713025852">
 												<double key="NSWidth">349</double>
 												<double key="NSMinWidth">16</double>
-												<double key="NSMaxWidth">1000</double>
+												<double key="NSMaxWidth">5000</double>
 												<object class="NSTableHeaderCell" key="NSHeaderCell">
 													<int key="NSCellFlags">75628096</int>
 													<int key="NSCellFlags2">2048</int>

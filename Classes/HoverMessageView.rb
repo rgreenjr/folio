@@ -51,6 +51,8 @@ class HoverMessageView < NSView
   end
 
   def drawRect(rect)
+    NSColor.clearColor.set
+    NSRectFill(frame)
     drawBackgroundImages(rect)
     drawMessage(rect)
   end
@@ -59,14 +61,14 @@ class HoverMessageView < NSView
   
   def drawBackgroundImages(rect)
     # draw left image
-    HoverMessageView.backgroundLeftImage.drawAtPoint(rect.origin, fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:1.0)
+    HoverMessageView.backgroundLeftImage.compositeToPoint(rect.origin, operation:NSCompositeSourceOver)
     
     # draw middle image
     backgroundMiddleRect = NSMakeRect(HoverMessageView.backgroundLeftImage.size.width, 0, rect.size.width - (2 * HoverMessageView.backgroundRightImage.size.width), rect.size.height)
     HoverMessageView.backgroundMiddleImage.drawInRect(backgroundMiddleRect, fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:1.0)
 
     # draw right image
-    HoverMessageView.backgroundRightImage.drawAtPoint(NSMakePoint(rect.size.width - HoverMessageView.backgroundRightImage.size.width, 0), fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:1.0)
+    HoverMessageView.backgroundRightImage.compositeToPoint(NSMakePoint(rect.size.width - HoverMessageView.backgroundRightImage.size.width, 0), operation:NSCompositeSourceOver)
   end
 
   def drawMessage(rect)

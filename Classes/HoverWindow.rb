@@ -1,29 +1,30 @@
 class HoverWindow < NSWindow
   
-  VERTICAL_OFFSET   = 4
+  VERTICAL_OFFSET   = 7
   HORIZONTAL_OFFSET = 27
+  WINDOW_HEIGHT     = 24
 
   attr_accessor :hoverView
   
   def self.showWindowForIssue(issue, atLocation:location)
     size = HoverMessageView.sizeForMessage(issue.message)    
-    contentRect = NSMakeRect(location.x + HORIZONTAL_OFFSET, location.y + VERTICAL_OFFSET, size.width, 24.0);    
+    contentRect = NSMakeRect(location.x + HORIZONTAL_OFFSET, location.y + VERTICAL_OFFSET, size.width, WINDOW_HEIGHT);    
     hoverWindow = HoverWindow.alloc.initWithContentRect(contentRect, message:issue.message)
     hoverWindow.orderFront(NSApp)
     hoverWindow
   end
 
   def initWithContentRect(contentRect, message:message)
-    initWithContentRect(contentRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreBuffered, defer:false)
-    level = NSStatusWindowLevel
-    backgroundColor = NSColor.clearColor
-    alphaValue = 1.0
-    opaque = false
-    hasShadow = true
+    result = initWithContentRect(contentRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreBuffered, defer:false)
+    result.setBackgroundColor(NSColor.clearColor)
+    result.setLevel(NSStatusWindowLevel)
+    result.setAlphaValue(1.0)
+    result.setOpaque(false)
+    result.setHasShadow(true)
     @hoverView = HoverMessageView.alloc.initWithFrame(contentRect)
-    setContentView(@hoverView)
     @hoverView.message = message
-    self
+    result.setContentView(@hoverView)
+    result
   end
 
   def canBecomeKeyWindow
