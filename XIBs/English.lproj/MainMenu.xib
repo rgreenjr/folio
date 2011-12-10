@@ -811,7 +811,7 @@
 					</object>
 					<object class="NSMenuItem" id="626404410">
 						<reference key="NSMenu" ref="649796088"/>
-						<string key="NSTitle">Navigation</string>
+						<string key="NSTitle">Navigate</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -819,7 +819,7 @@
 						<reference key="NSMixedImage" ref="807125248"/>
 						<string key="NSAction">submenuAction:</string>
 						<object class="NSMenu" key="NSSubmenu" id="502084290">
-							<string key="NSTitle">Navigation</string>
+							<string key="NSTitle">Navigate</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSMenuItem" id="1013162310">
@@ -904,6 +904,68 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
+								<object class="NSMenuItem" id="395420784">
+									<reference key="NSMenu" ref="835318025"/>
+									<string key="NSTitle">Search Google</string>
+									<string key="NSKeyEquiv">3</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+									<int key="NSTag">3</int>
+								</object>
+								<object class="NSMenuItem" id="661020998">
+									<reference key="NSMenu" ref="835318025"/>
+									<string key="NSTitle">Search Wikipedia</string>
+									<string key="NSKeyEquiv">4</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+									<int key="NSTag">3</int>
+								</object>
+								<object class="NSMenuItem" id="819319396">
+									<reference key="NSMenu" ref="835318025"/>
+									<string key="NSTitle">Search Amazon.com</string>
+									<string key="NSKeyEquiv">5</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+									<int key="NSTag">3</int>
+								</object>
+								<object class="NSMenuItem" id="651685421">
+									<reference key="NSMenu" ref="835318025"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="246341072">
+									<reference key="NSMenu" ref="835318025"/>
+									<string key="NSTitle">Show Staging Directory</string>
+									<string key="NSKeyEquiv">/</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+									<int key="NSTag">3</int>
+								</object>
+								<object class="NSMenuItem" id="339747704">
+									<reference key="NSMenu" ref="835318025"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
 								<object class="NSMenuItem" id="625202149">
 									<reference key="NSMenu" ref="835318025"/>
 									<string key="NSTitle">Bring All to Front</string>
@@ -912,16 +974,6 @@
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
-								</object>
-								<object class="NSMenuItem" id="661020998">
-									<reference key="NSMenu" ref="835318025"/>
-									<string key="NSTitle">Show Temporary Directory</string>
-									<string key="NSKeyEquiv">/</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-									<int key="NSTag">3</int>
 								</object>
 							</object>
 							<string key="NSName">_NSWindowsMenu</string>
@@ -1220,14 +1272,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showTemporaryDirectory:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="661020998"/>
-					</object>
-					<int key="connectionID">1737</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showGotoLineWindow:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="959929004"/>
@@ -1417,6 +1461,38 @@
 						<reference key="destination" ref="1063855430"/>
 					</object>
 					<int key="connectionID">1831</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showStagingDirectory:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="246341072"/>
+					</object>
+					<int key="connectionID">1835</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">searchWikipedia:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="661020998"/>
+					</object>
+					<int key="connectionID">1836</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">searchGoogle:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="395420784"/>
+					</object>
+					<int key="connectionID">1842</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">searchAmazon:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="819319396"/>
+					</object>
+					<int key="connectionID">1843</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1754,7 +1830,12 @@
 							<reference ref="575023229"/>
 							<reference ref="1011231497"/>
 							<reference ref="299356726"/>
+							<reference ref="339747704"/>
+							<reference ref="246341072"/>
+							<reference ref="819319396"/>
+							<reference ref="395420784"/>
 							<reference ref="661020998"/>
+							<reference ref="651685421"/>
 						</object>
 						<reference key="parent" ref="713487014"/>
 					</object>
@@ -2146,6 +2227,31 @@
 						<reference key="parent" ref="720053764"/>
 						<string key="objectName">2</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1833</int>
+						<reference key="object" ref="339747704"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1834</int>
+						<reference key="object" ref="246341072"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1837</int>
+						<reference key="object" ref="395420784"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1839</int>
+						<reference key="object" ref="819319396"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1841</int>
+						<reference key="object" ref="651685421"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2217,6 +2323,11 @@
 					<string>1822.IBPluginDependency</string>
 					<string>1826.IBPluginDependency</string>
 					<string>1830.IBPluginDependency</string>
+					<string>1833.IBPluginDependency</string>
+					<string>1834.IBPluginDependency</string>
+					<string>1837.IBPluginDependency</string>
+					<string>1839.IBPluginDependency</string>
+					<string>1841.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
@@ -2363,6 +2474,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2377,7 +2493,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1831</int>
+			<int key="maxID">1843</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2412,8 +2528,11 @@
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
 							<string>printDocument:</string>
+							<string>searchAmazon:</string>
+							<string>searchGoogle:</string>
+							<string>searchWikipedia:</string>
 							<string>showMetadataPanel:</string>
-							<string>showTemporaryDirectory:</string>
+							<string>showStagingDirectory:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>toggleInspectorView:</string>
 							<string>toggleIssueView:</string>
@@ -2421,6 +2540,9 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2441,8 +2563,11 @@
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
 							<string>printDocument:</string>
+							<string>searchAmazon:</string>
+							<string>searchGoogle:</string>
+							<string>searchWikipedia:</string>
 							<string>showMetadataPanel:</string>
-							<string>showTemporaryDirectory:</string>
+							<string>showStagingDirectory:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>toggleInspectorView:</string>
 							<string>toggleIssueView:</string>
@@ -2467,11 +2592,23 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">searchAmazon:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">searchGoogle:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">searchWikipedia:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">showMetadataPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showTemporaryDirectory:</string>
+								<string key="name">showStagingDirectory:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

@@ -16,6 +16,10 @@ module StringEnhancements
   def escapeHTML
      CGI.escapeHTML(self)
   end
+
+  def urlEscape
+    self.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+  end  
 end
 
 class String

@@ -391,7 +391,7 @@
 					<reference key="NSNextKeyView" ref="540888369"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">BookWindow</string>
@@ -707,7 +707,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<int key="NSCellFlags2">33554432</int>
 					<object class="NSCustomResource" key="NSContents">
 						<string key="NSClassName">NSImage</string>
-						<string key="NSResourceName">backgroud-logo</string>
+						<string key="NSResourceName">background-logo</string>
 					</object>
 					<int key="NSAlign">0</int>
 					<int key="NSScale">0</int>
@@ -2787,7 +2787,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string>NSMenuMixedState</string>
 				<string>Reformat</string>
 				<string>Validate</string>
-				<string>backgroud-logo</string>
+				<string>background-logo</string>
 				<string>horizontal</string>
 				<string>preview</string>
 				<string>source</string>
@@ -2800,7 +2800,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string>{7, 2}</string>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
-				<string>{300, 300}</string>
+				<string>{600, 600}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>

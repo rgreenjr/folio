@@ -50,6 +50,7 @@
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
+		CD2206681493D04D00AB589F /* background-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2206671493D04D00AB589F /* background-logo.png */; };
 		CD2D180D12E5F1F800D6A99A /* Alert.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17D812E5F1F800D6A99A /* Alert.rb */; };
 		CD2D181012E5F1F800D6A99A /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DB12E5F1F800D6A99A /* Book.rb */; };
 		CD2D181112E5F1F800D6A99A /* BookWindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */; };
@@ -97,7 +98,6 @@
 		CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180A12E5F1F800D6A99A /* UUID.rb */; };
 		CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180C12E5F1F800D6A99A /* WebViewController.rb */; };
 		CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D184312E5F23400D6A99A /* NSURL_test.rb */; };
-		CD2D187212E5F28500D6A99A /* backgroud-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2D185512E5F28500D6A99A /* backgroud-logo.png */; };
 		CD2D187312E5F28500D6A99A /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2D185612E5F28500D6A99A /* book.png */; };
 		CD2D187412E5F28500D6A99A /* find-close-click.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2D185712E5F28500D6A99A /* find-close-click.png */; };
 		CD2D187512E5F28500D6A99A /* find-close-rollover.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2D185812E5F28500D6A99A /* find-close-rollover.png */; };
@@ -205,6 +205,7 @@
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
+		CD2206671493D04D00AB589F /* background-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-logo.png"; sourceTree = "<group>"; };
 		CD2D17D812E5F1F800D6A99A /* Alert.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Alert.rb; sourceTree = "<group>"; };
 		CD2D17DB12E5F1F800D6A99A /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
 		CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookWindowController.rb; sourceTree = "<group>"; };
@@ -252,7 +253,6 @@
 		CD2D180A12E5F1F800D6A99A /* UUID.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = UUID.rb; sourceTree = "<group>"; };
 		CD2D180C12E5F1F800D6A99A /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
 		CD2D184312E5F23400D6A99A /* NSURL_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NSURL_test.rb; sourceTree = "<group>"; };
-		CD2D185512E5F28500D6A99A /* backgroud-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroud-logo.png"; sourceTree = "<group>"; };
 		CD2D185612E5F28500D6A99A /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
 		CD2D185712E5F28500D6A99A /* find-close-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-click.png"; sourceTree = "<group>"; };
 		CD2D185812E5F28500D6A99A /* find-close-rollover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-close-rollover.png"; sourceTree = "<group>"; };
@@ -530,6 +530,7 @@
 		CD2D185412E5F28500D6A99A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD2206671493D04D00AB589F /* background-logo.png */,
 				CD6C9CAC12F382DA0056D86B /* check.png */,
 				CD6712FE14928E36000B8BBB /* bubble-background-left.png */,
 				CD6713021492952D000B8BBB /* bubble-background-middle.png */,
@@ -543,7 +544,6 @@
 				CDEBCAC412F0A88100E8834D /* spine.png */,
 				CD2D18A412E5F46600D6A99A /* Folio.icns */,
 				CDDBEC9612E611F800633F22 /* preferences-general.tiff */,
-				CD2D185512E5F28500D6A99A /* backgroud-logo.png */,
 				CD2D185612E5F28500D6A99A /* book.png */,
 				CD2D185712E5F28500D6A99A /* find-close-click.png */,
 				CDEBCB8412F0CBDA00E8834D /* inspector-border.png */,
@@ -705,7 +705,6 @@
 				CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */,
 				CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */,
 				CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */,
-				CD2D187212E5F28500D6A99A /* backgroud-logo.png in Resources */,
 				CD2D187312E5F28500D6A99A /* book.png in Resources */,
 				CD2D187412E5F28500D6A99A /* find-close-click.png in Resources */,
 				CD2D187512E5F28500D6A99A /* find-close-rollover.png in Resources */,
@@ -780,6 +779,7 @@
 				CD6713031492952D000B8BBB /* bubble-background-middle.png in Resources */,
 				CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */,
 				CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */,
+				CD2206681493D04D00AB589F /* background-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

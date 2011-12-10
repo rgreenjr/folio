@@ -211,6 +211,8 @@ class BookWindowController < NSWindowController
     # get inspectorView
     inspector = inspectorViewController.view
     
+    return if inspector.frame.origin.y > 0
+
     # get inspectorView height
     inspectorHeight = inspector.frame.size.height
 
@@ -233,6 +235,8 @@ class BookWindowController < NSWindowController
     # get inspectorView
     inspector = inspectorViewController.view
     
+    return if inspector.frame.origin.y < 0
+    
     # get inspectorView height
     inspectorHeight = inspector.frame.size.height
 
@@ -252,8 +256,23 @@ class BookWindowController < NSWindowController
     manifestController.showUndeclaredFilesSheet
   end
 
-  def showTemporaryDirectory(sender)
+  def showStagingDirectory(sender)
     NSTask.launchedTaskWithLaunchPath("/usr/bin/open", arguments:[document.unzipPath])
+  end
+
+  def searchWikipedia(sender)
+    url = NSURL.URLWithString("http://en.wikipedia.org/wiki/Special:Search/#{document.metadata.title.urlEscape}")
+    NSWorkspace.sharedWorkspace.openURL(url)
+  end
+
+  def searchGoogle(sender)
+    url = NSURL.URLWithString("http://www.google.com/search?q=#{document.metadata.title.urlEscape}")
+    NSWorkspace.sharedWorkspace.openURL(url)
+  end
+
+  def searchAmazon(sender)
+    url = NSURL.URLWithString("http://www.amazon.com/s?field-keywords=#{document.metadata.title.urlEscape}")
+    NSWorkspace.sharedWorkspace.openURL(url)
   end
 
   def showProgressWindow(title, &block)
