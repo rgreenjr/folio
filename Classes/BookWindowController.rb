@@ -31,13 +31,18 @@ class BookWindowController < NSWindowController
     initWithWindowNibName("Book")
   end
 
-  def awakeFromNib
+  def awakeFromNib    
+    # add controllers to the next responder event chain
     makeResponder(@textViewController)
     makeResponder(@webViewController)
     makeResponder(@tabViewController)
     makeResponder(@selectionViewController)
+    
+    # register for tabView selection change events
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
         name:"TabViewSelectionDidChange", object:@tabViewController.view)
+        
+    # show logo in content area by default
     showLogoImage
 
     # put selectionView into place
@@ -51,6 +56,8 @@ class BookWindowController < NSWindowController
     
     # force issueView to load
     issueViewController
+    
+    window.makeKeyAndOrderFront(nil)
   end
 
   def windowDidBecomeKey(notification)

@@ -14,8 +14,16 @@ Features
 - Navigation: add points
 - Add "Show in Manifest" and "Show in Spine" to context menu
 - Show icon in spine indicating item is cover, toc, titlepage, etc.
-- Add plus/minus buttons for adding Navigation points, Spine itemrefs, and anifest items
+- Add plus/minus buttons for adding Navigation points, Spine itemrefs, and manifest items
 - Guide generation
+- Add icons to right of spine items in to show assigned type
+- Forward and Back buttons
+- Delete cover image
+- Paste cover image
+- Unmark cover image
+- Support replace when on Move in Manifest
+- Buttons to generate GUID
+
 
 Enhancements
 ============
@@ -31,4 +39,4 @@ Refactoring
 ===========
 
 - Use "box" in view placeholder names
-- Move metadate, spine, navigation and manfiest into container
+- Move metadata, spine, navigation and manifest into container

@@ -2,14 +2,13 @@ class TabViewController < NSViewController
 
   SPLIT_VIEW_MINIMUM_POSITION  = 50
   
-  PREVIEW_MODE          = 0
-  SOURCE_MODE           = 1
-  SPLIT_HORIZONTAL_MODE = 2
-  SPLIT_VERTICAL_MODE   = 3
+  LAYOUT_MODE_PREVIEW = 0
+  LAYOUT_MODE_SOURCE  = 1
+  LAYOUT_MODE_COMBO   = 2
 
   attr_accessor :bookController, :textViewController, :webViewController
-  attr_accessor :splitView, :splitViewSegementedControl, :renderImageView
-  attr_accessor :viewMode
+  attr_accessor :splitView, :layoutSegementedControl, :renderImageView
+  attr_accessor :layoutMode
 
   def awakeFromNib
     view.delegate = self
@@ -18,7 +17,7 @@ class TabViewController < NSViewController
         selector:('textDidChange:'), 
         name:NSTextStorageDidProcessEditingNotification, 
         object:@textViewController.view.textStorage)
-    @viewMode = PREVIEW_MODE
+    @layoutMode = LAYOUT_MODE_PREVIEW
     hideTextView
     toggleCloseMenuKeyEquivalents
     updateToolbarItems
@@ -39,7 +38,7 @@ class TabViewController < NSViewController
         @renderImageView.image = nil
         @textViewController.item = item
         @webViewController.item = point
-        showWebView unless @viewMode == SOURCE_MODE
+        showWebView unless @layoutMode == LAYOUT_MODE_SOURCE
       else
         @renderImageView.image = nil
         @textViewController.item = item
@@ -94,7 +93,7 @@ class TabViewController < NSViewController
   
   def selectedTabPrintView
     return nil unless selectedTab
-    if @viewMode == SOURCE_MODE
+    if @layoutMode == LAYOUT_MODE_SOURCE
       @textViewController.view
     else
       @webViewController.view.mainFrame.frameView.documentView
@@ -114,29 +113,26 @@ class TabViewController < NSViewController
   end
 
   def toggleContentView(sender)
-    case sender.selectedSegment
-    when PREVIEW_MODE
+    tag = sender.class == NSMenuItem ? sender.tag : sender.selectedSegment
+    case tag
+    when LAYOUT_MODE_PREVIEW
       showWebView
       hideTextView
-      @viewMode = PREVIEW_MODE
-    when SOURCE_MODE
+      @layoutMode = LAYOUT_MODE_PREVIEW
+    when LAYOUT_MODE_SOURCE
       showTextView
       hideWebView
-      @viewMode = SOURCE_MODE
-    when SPLIT_HORIZONTAL_MODE
+      @layoutMode = LAYOUT_MODE_SOURCE
+    when LAYOUT_MODE_COMBO
       showWebView
       showTextView
-      makeSplitViewOrientationHorizontal
-      @viewMode = SPLIT_HORIZONTAL_MODE
-    when SPLIT_VERTICAL_MODE
-      showWebView
-      showTextView
-      makeSplitViewOrientationVertical
-      @viewMode = SPLIT_VERTICAL_MODE
-    else      
+      @layoutMode = LAYOUT_MODE_COMBO
     end
+    
+    # set toolbar segmented control to new layout
+    @layoutSegementedControl.selectSegmentWithTag(@layoutMode)
   end
-
+  
   def showWebView
     unless webViewVisible?
       @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@textViewController.view.enclosingScrollView)
@@ -162,6 +158,14 @@ class TabViewController < NSViewController
     if @splitView.subviews.size == 2
       @textViewController.view.enclosingScrollView.removeFromSuperview
       @splitView.adjustSubviews
+    end
+  end
+  
+  def toggleSplitOrientation(sender)
+    if @splitView.vertical?
+      makeSplitViewOrientationHorizontal
+    else
+      makeSplitViewOrientationVertical
     end
   end
   
@@ -208,8 +212,18 @@ class TabViewController < NSViewController
     case interfaceItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
       view.numberOfTabs > 1
-    when :"saveTab:", :"closeTab:", :"toggleContentView:"
+    when :"saveTab:", :"closeTab:"
       view.numberOfTabs > 0
+    when :"toggleContentView:"
+      if interfaceItem.class == NSMenuItem
+        interfaceItem.state = stateForMenuItem(interfaceItem)
+      end
+      view.numberOfTabs > 0
+    when :"toggleSplitOrientation:"
+      if interfaceItem.class == NSMenuItem
+        interfaceItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
+      end
+      interfaceItem.enabled = enableSplitOrientationInterfaceItem?
     else
       true
     end
@@ -231,6 +245,21 @@ class TabViewController < NSViewController
 
   def textViewVisible?
     @splitView.subviews.size == 2 || @splitView.subviews[0] == @textViewController.view.enclosingScrollView
+  end
+  
+  def stateForMenuItem(menuItem)
+    case menuItem.tag
+    when LAYOUT_MODE_PREVIEW
+      @layoutMode == LAYOUT_MODE_PREVIEW ? NSOnState : NSOffState
+    when LAYOUT_MODE_SOURCE
+      @layoutMode == LAYOUT_MODE_SOURCE ? NSOnState : NSOffState
+    when LAYOUT_MODE_COMBO
+      @layoutMode == LAYOUT_MODE_COMBO ? NSOnState : NSOffState
+    end
+  end
+  
+  def enableSplitOrientationInterfaceItem?
+    view.numberOfTabs > 0 && @layoutMode == LAYOUT_MODE_COMBO  
   end
   
   def updateSplitViewDividerPosition

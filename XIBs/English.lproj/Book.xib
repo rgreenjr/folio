@@ -32,9 +32,9 @@
 			<string>NSTextFieldCell</string>
 			<string>NSTableColumn</string>
 			<string>NSSegmentedControl</string>
-			<string>NSToolbarSpaceItem</string>
 			<string>NSOutlineView</string>
 			<string>NSView</string>
+			<string>NSToolbarSpaceItem</string>
 			<string>NSToolbar</string>
 			<string>NSScrollView</string>
 			<string>NSSegmentedCell</string>
@@ -119,13 +119,14 @@
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">47134976-A65B-4888-8160-CFB06192A900</characters>
 								</object>
-								<string key="NSToolbarItemLabel">View</string>
-								<string key="NSToolbarItemPaletteLabel">View</string>
+								<string key="NSToolbarItemLabel">Layout</string>
+								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{0, 14}, {137, 25}}</string>
+									<string key="NSFrame">{{0, 14}, {104, 25}}</string>
+									<reference key="NSSuperview"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -143,7 +144,7 @@
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">preview</string>
 												</object>
-												<string key="NSSegmentItemLabel"/>
+												<string key="NSSegmentItemTooltip">Show Preview</string>
 												<bool key="NSSegmentItemSelected">YES</bool>
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
@@ -152,7 +153,7 @@
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">source</string>
 												</object>
-												<string key="NSSegmentItemLabel"/>
+												<string key="NSSegmentItemTooltip">Show Source</string>
 												<int key="NSSegmentItemTag">1</int>
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
@@ -161,17 +162,8 @@
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">horizontal</string>
 												</object>
-												<string key="NSSegmentItemLabel"/>
+												<string key="NSSegmentItemTooltip">Show Preview and Source</string>
 												<int key="NSSegmentItemTag">2</int>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<object class="NSCustomResource" key="NSSegmentItemImage">
-													<string key="NSClassName">NSImage</string>
-													<string key="NSResourceName">vertical</string>
-												</object>
-												<string key="NSSegmentItemLabel"/>
-												<int key="NSSegmentItemTag">3</int>
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 										</object>
@@ -181,8 +173,8 @@
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
-								<string key="NSToolbarItemMinSize">{133, 25}</string>
-								<string key="NSToolbarItemMaxSize">{137, 25}</string>
+								<string key="NSToolbarItemMinSize">{104, 25}</string>
+								<string key="NSToolbarItemMaxSize">{104, 25}</string>
 								<bool key="NSToolbarItemEnabled">YES</bool>
 								<bool key="NSToolbarItemAutovalidates">YES</bool>
 								<int key="NSToolbarItemTag">0</int>
@@ -295,7 +287,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSArray" key="NSToolbarIBAllowedItems">
+					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
@@ -304,7 +296,7 @@
 						<reference ref="25041146"/>
 						<reference ref="588453196"/>
 					</object>
-					<object class="NSArray" key="NSToolbarIBDefaultItems">
+					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="192817359"/>
 						<reference ref="25041146"/>
@@ -315,6 +307,7 @@
 						<reference ref="580827983"/>
 						<reference ref="192817359"/>
 						<reference ref="588453196"/>
+						<reference ref="192817359"/>
 					</object>
 					<object class="NSArray" key="NSToolbarIBSelectableItems" id="0">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -398,6 +391,7 @@
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<double key="NSContentBorderThicknessMinY">24</double>
 				<double key="NSContentBorderThicknessMaxY">4</double>
+				<int key="NSWindowCollectionBehavior">128</int>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="367355019">
@@ -1155,6 +1149,14 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">layoutSegementedControl</string>
+						<reference key="source" ref="134124511"/>
+						<reference key="destination" ref="272254908"/>
+					</object>
+					<int key="connectionID">229</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">bookController</string>
 						<reference key="source" ref="60200449"/>
 						<reference key="destination" ref="1001"/>
@@ -1335,11 +1337,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<reference key="parent" ref="53791894"/>
 						<string key="objectName">Content View</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">9</int>
-						<reference key="object" ref="192817359"/>
-						<reference key="parent" ref="1014419714"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
@@ -1555,6 +1552,29 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">212</int>
+						<reference key="object" ref="1040038588"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="809935225"/>
+							<reference ref="978303340"/>
+						</object>
+						<reference key="parent" ref="540888369"/>
+						<string key="objectName">Content Splitview</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">214</int>
+						<reference key="object" ref="809935225"/>
+						<reference key="parent" ref="1040038588"/>
+						<string key="objectName">Issue View</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">215</int>
+						<reference key="object" ref="978303340"/>
+						<reference key="parent" ref="1040038588"/>
+						<string key="objectName">Content Placeholder</string>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">205</int>
 						<reference key="object" ref="588453196"/>
 						<object class="NSMutableArray" key="children">
@@ -1578,27 +1598,9 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="parent" ref="272254908"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">212</int>
-						<reference key="object" ref="1040038588"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="809935225"/>
-							<reference ref="978303340"/>
-						</object>
-						<reference key="parent" ref="540888369"/>
-						<string key="objectName">Content Splitview</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">214</int>
-						<reference key="object" ref="809935225"/>
-						<reference key="parent" ref="1040038588"/>
-						<string key="objectName">Issue View</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">215</int>
-						<reference key="object" ref="978303340"/>
-						<reference key="parent" ref="1040038588"/>
-						<string key="objectName">Content Placeholder</string>
+						<int key="objectID">9</int>
+						<reference key="object" ref="192817359"/>
+						<reference key="parent" ref="1014419714"/>
 					</object>
 				</object>
 			</object>
@@ -1634,6 +1636,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>194.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
 					<string>203.IBPluginDependency</string>
+					<string>204.IBNSSegmentedControlInspectorSelectedSegmentMetadataKey</string>
 					<string>204.IBPluginDependency</string>
 					<string>204.IBSegmentedControlInspectorSelectedSegmentMetadataKey</string>
 					<string>205.IBPluginDependency</string>
@@ -1685,6 +1688,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="0"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="0"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1719,7 +1723,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">218</int>
+			<int key="maxID">229</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1735,8 +1739,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
 							<string>printDocument:</string>
+							<string>searchAmazon:</string>
+							<string>searchGoogle:</string>
+							<string>searchWikipedia:</string>
 							<string>showMetadataPanel:</string>
-							<string>showTemporaryDirectory:</string>
+							<string>showStagingDirectory:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>toggleInspectorView:</string>
 							<string>toggleIssueView:</string>
@@ -1744,6 +1751,9 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1764,8 +1774,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>newDirectory:</string>
 							<string>newPoint:</string>
 							<string>printDocument:</string>
+							<string>searchAmazon:</string>
+							<string>searchGoogle:</string>
+							<string>searchWikipedia:</string>
 							<string>showMetadataPanel:</string>
-							<string>showTemporaryDirectory:</string>
+							<string>showStagingDirectory:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>toggleInspectorView:</string>
 							<string>toggleIssueView:</string>
@@ -1790,11 +1803,23 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">searchAmazon:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">searchGoogle:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">searchWikipedia:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">showMetadataPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showTemporaryDirectory:</string>
+								<string key="name">showStagingDirectory:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2362,9 +2387,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>selectPreviousTab:</string>
 							<string>toggleCloseMenuKeyEquivalents:</string>
 							<string>toggleContentView:</string>
+							<string>toggleSplitOrientation:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2385,6 +2412,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>selectPreviousTab:</string>
 							<string>toggleCloseMenuKeyEquivalents:</string>
 							<string>toggleContentView:</string>
+							<string>toggleSplitOrientation:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2416,6 +2444,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<string key="name">toggleContentView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleSplitOrientation:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -2423,11 +2455,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
+							<string>layoutMode</string>
+							<string>layoutSegementedControl</string>
 							<string>renderImageView</string>
 							<string>splitView</string>
-							<string>splitViewSegementedControl</string>
 							<string>textViewController</string>
-							<string>viewMode</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -2446,17 +2478,25 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
+							<string>layoutMode</string>
+							<string>layoutSegementedControl</string>
 							<string>renderImageView</string>
 							<string>splitView</string>
-							<string>splitViewSegementedControl</string>
 							<string>textViewController</string>
-							<string>viewMode</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">bookController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">layoutMode</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">layoutSegementedControl</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2468,15 +2508,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">splitViewSegementedControl</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">textViewController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">viewMode</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2791,7 +2823,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string>horizontal</string>
 				<string>preview</string>
 				<string>source</string>
-				<string>vertical</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2801,7 +2832,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
 				<string>{600, 600}</string>
-				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>
