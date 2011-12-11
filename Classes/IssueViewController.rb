@@ -14,7 +14,7 @@ class IssueViewController < NSViewController
     imageCell.editable = false
     imageCell.selectable = false
     @outlineView.tableColumns.first.dataCell = imageCell
-
+    
     @outlineView.delegate = self
     @outlineView.dataSource = self
 

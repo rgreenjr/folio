@@ -17,11 +17,10 @@ Features
 - Add plus/minus buttons for adding Navigation points, Spine itemrefs, and manifest items
 - Guide generation
 - Add icons to right of spine items in to show assigned type
-- Forward and Back buttons
 - Delete cover image
 - Paste cover image
 - Unmark cover image
-- Support replace when on Move in Manifest
+- Support "replace" when moving items in Manifest
 - Buttons to generate GUID
 
 
