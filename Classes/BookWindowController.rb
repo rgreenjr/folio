@@ -26,6 +26,8 @@ class BookWindowController < NSWindowController
   attr_accessor :renderView # contains either renderSplitView or renderImageView
   attr_accessor :renderSplitView # contains textView (top) and webView (bottom)
   attr_accessor :renderImageView
+  
+  attr_accessor :inspectorButton
 
   def init
     initWithWindowNibName("Book")
@@ -236,6 +238,8 @@ class BookWindowController < NSWindowController
     frameRect = selectionViewController.view.frame
     shiftFrameOrigin(frameRect, inspectorHeight)
     selectionViewController.view.animator.frame = frameRect
+    
+    @inspectorButton.state = NSOffState
   end
   
   def hideInspectorView
@@ -257,6 +261,8 @@ class BookWindowController < NSWindowController
 
     # make inspectorView invisible
     inspector.animator.hidden = true
+    
+    @inspectorButton.state = NSOnState
   end
 
   def showUnregisteredFiles(sender)
