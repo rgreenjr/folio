@@ -381,20 +381,20 @@
 						<object class="NSButton" id="569868706">
 							<reference key="NSNextResponder" ref="711365869"/>
 							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{17, 2}, {16, 19}}</string>
+							<string key="NSFrame">{{20, 2}, {16, 19}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="604164117"/>
 							<string key="NSReuseIdentifierKey">_NS:2434</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="122350274">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">276824064</int>
 								<string key="NSContents"/>
-								<object class="NSFont" key="NSSupport">
+								<object class="NSFont" key="NSSupport" id="134529821">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">12</double>
-									<int key="NSfFlags">4883</int>
+									<int key="NSfFlags">16</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:2434</string>
 								<reference key="NSControlView" ref="569868706"/>
@@ -407,6 +407,38 @@
 								<object class="NSCustomResource" key="NSAlternateImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">inspector-hide-icon</string>
+								</object>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
+						<object class="NSButton" id="604164117">
+							<reference key="NSNextResponder" ref="711365869"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{59, 2}, {16, 19}}</string>
+							<reference key="NSSuperview" ref="711365869"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
+							<string key="NSReuseIdentifierKey">_NS:2434</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="124213451">
+								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags2">276824064</int>
+								<string key="NSContents"/>
+								<reference key="NSSupport" ref="134529821"/>
+								<string key="NSCellIdentifier">_NS:2434</string>
+								<reference key="NSControlView" ref="604164117"/>
+								<int key="NSButtonFlags">-932953857</int>
+								<int key="NSButtonFlags2">164</int>
+								<object class="NSCustomResource" key="NSNormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">issues-show-icon</string>
+								</object>
+								<object class="NSCustomResource" key="NSAlternateImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">issues-hide-icon</string>
 								</object>
 								<string key="NSAlternateContents"/>
 								<string key="NSKeyEquivalent"/>
@@ -432,7 +464,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="367355019">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -452,7 +484,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 522}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSSplitView" id="378248105">
@@ -1058,6 +1089,14 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<int key="connectionID">233</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">issueButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="604164117"/>
+					</object>
+					<int key="connectionID">238</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">validate:</string>
 						<reference key="source" ref="1003"/>
@@ -1080,6 +1119,14 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="destination" ref="569868706"/>
 					</object>
 					<int key="connectionID">232</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleIssueView:</string>
+						<reference key="source" ref="1003"/>
+						<reference key="destination" ref="604164117"/>
+					</object>
+					<int key="connectionID">237</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1389,6 +1436,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="540888369"/>
 							<reference ref="569868706"/>
+							<reference ref="604164117"/>
 						</object>
 						<reference key="parent" ref="53791894"/>
 						<string key="objectName">Content View</string>
@@ -1671,6 +1719,20 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="object" ref="122350274"/>
 						<reference key="parent" ref="569868706"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">234</int>
+						<reference key="object" ref="604164117"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="124213451"/>
+						</object>
+						<reference key="parent" ref="711365869"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">235</int>
+						<reference key="object" ref="124213451"/>
+						<reference key="parent" ref="604164117"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1717,6 +1779,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>23.IBPluginDependency</string>
 					<string>230.IBPluginDependency</string>
 					<string>231.IBPluginDependency</string>
+					<string>234.IBPluginDependency</string>
+					<string>235.IBPluginDependency</string>
 					<string>24.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
 					<string>26.IBPluginDependency</string>
@@ -1774,6 +1838,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.WebKitIBPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1796,7 +1862,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">233</int>
+			<int key="maxID">238</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1921,6 +1987,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>contentSplitView</string>
 							<string>contentView</string>
 							<string>inspectorButton</string>
+							<string>issueButton</string>
 							<string>logoImageWell</string>
 							<string>manifestController</string>
 							<string>masterSplitView</string>
@@ -1954,6 +2021,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1964,6 +2032,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>contentSplitView</string>
 							<string>contentView</string>
 							<string>inspectorButton</string>
+							<string>issueButton</string>
 							<string>logoImageWell</string>
 							<string>manifestController</string>
 							<string>masterSplitView</string>
@@ -1994,6 +2063,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">inspectorButton</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">issueButton</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2903,6 +2976,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string>horizontal</string>
 				<string>inspector-hide-icon</string>
 				<string>inspector-show-icon</string>
+				<string>issues-hide-icon</string>
+				<string>issues-show-icon</string>
 				<string>preview</string>
 				<string>source</string>
 			</object>
@@ -2914,6 +2989,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
 				<string>{600, 600}</string>
+				<string>{16, 16}</string>
+				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>

@@ -50,6 +50,8 @@
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
+		CD102B87149590A500EE8650 /* issues-hide-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD102B86149590A500EE8650 /* issues-hide-icon.png */; };
+		CD102B89149592D100EE8650 /* issues-show-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD102B88149592D100EE8650 /* issues-show-icon.png */; };
 		CD2206681493D04D00AB589F /* background-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2206671493D04D00AB589F /* background-logo.png */; };
 		CD2D180D12E5F1F800D6A99A /* Alert.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17D812E5F1F800D6A99A /* Alert.rb */; };
 		CD2D181012E5F1F800D6A99A /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DB12E5F1F800D6A99A /* Book.rb */; };
@@ -207,6 +209,8 @@
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
+		CD102B86149590A500EE8650 /* issues-hide-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-hide-icon.png"; sourceTree = "<group>"; };
+		CD102B88149592D100EE8650 /* issues-show-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-show-icon.png"; sourceTree = "<group>"; };
 		CD2206671493D04D00AB589F /* background-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-logo.png"; sourceTree = "<group>"; };
 		CD2D17D812E5F1F800D6A99A /* Alert.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Alert.rb; sourceTree = "<group>"; };
 		CD2D17DB12E5F1F800D6A99A /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
@@ -534,6 +538,8 @@
 		CD2D185412E5F28500D6A99A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD102B88149592D100EE8650 /* issues-show-icon.png */,
+				CD102B86149590A500EE8650 /* issues-hide-icon.png */,
 				CD5E2B1F14956DB70036E219 /* inspector-hide-icon.png */,
 				CD5E2B1D14956C0F0036E219 /* inspector-show-icon.png */,
 				CD2206671493D04D00AB589F /* background-logo.png */,
@@ -788,6 +794,8 @@
 				CD2206681493D04D00AB589F /* background-logo.png in Resources */,
 				CD5E2B1E14956C0F0036E219 /* inspector-show-icon.png in Resources */,
 				CD5E2B2014956DB70036E219 /* inspector-hide-icon.png in Resources */,
+				CD102B87149590A500EE8650 /* issues-hide-icon.png in Resources */,
+				CD102B89149592D100EE8650 /* issues-show-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

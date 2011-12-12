@@ -27,7 +27,7 @@ class BookWindowController < NSWindowController
   attr_accessor :renderSplitView # contains textView (top) and webView (bottom)
   attr_accessor :renderImageView
   
-  attr_accessor :inspectorButton
+  attr_accessor :inspectorButton, :issueButton
 
   def init
     initWithWindowNibName("Book")
@@ -189,14 +189,15 @@ class BookWindowController < NSWindowController
     f.size.height += 48.0
     issueViewController.view.frame = f
 
-
     @contentSplitView.addSubview(issueViewController.view)
-    @contentSplitView.adjustSubviews
+    @contentSplitView.adjustSubviews    
+    @issueButton.state = NSOnState
   end
   
   def hideIssueView
     issueViewController.view.removeFromSuperview      
     @contentSplitView.adjustSubviews
+    @issueButton.state = NSOffState
   end
 
   def inspectorViewController
