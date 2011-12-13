@@ -18,6 +18,7 @@ class MetadataController < NSWindowController
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
     @creatorField.delegate = self
     @subjectField.delegate = self
+    @imageWell.bookController = @bookController
   end
 
   # attempt to auto-complete sortCreatorField
@@ -103,19 +104,16 @@ class MetadataController < NSWindowController
   end
 
   def	imageWellReceivedImage(sender)
-    imagePath = @imageWell.imagePath
-    if imagePath.nil?
+    if @imageWell.imagePath.nil?
       displayCoverImage
-    elsif @bookController.document.manifest.itemWithHref(imagePath.lastPathComponent)
-      showCoverImageCollisionWarning(imagePath)
-    else
-      @stashedImagePath = imagePath
+    elsif @bookController.document.manifest.itemWithHref(@imageWell.imageName)
+      showCoverImageCollisionWarning
     end
   end
 
-  def showCoverImageCollisionWarning(imagePath)
+  def showCoverImageCollisionWarning
     alert = NSAlert.alloc.init
-    alert.messageText = "An image named \"#{imagePath.lastPathComponent}\" already exists. Do you want to replace it?"
+    alert.messageText = "An image named \"#{@imageWell.imageName}\" already exists. Do you want to replace it?"
     alert.addButtonWithTitle "Replace"
     alert.addButtonWithTitle "Cancel"
     alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"coverImageCollisionWarningSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
@@ -123,18 +121,22 @@ class MetadataController < NSWindowController
 
   def coverImageCollisionWarningSheetDidEnd(alert, returnCode:code, contextInfo:info)
     if code == NSAlertFirstButtonReturn
-      @stashedImagePath = @imageWell.imagePath
+      @imageWell.imagePath = nil
     else
       displayCoverImage
     end
   end
 
   def changeCoverImage
-    return unless @stashedImagePath
-    item = @bookController.document.manifest.itemWithHref(@stashedImagePath.lastPathComponent)
-    @bookController.manifestController.deleteItems([item]) if item
-    item = @bookController.manifestController.addFile(@stashedImagePath)
-    @metadata.cover = item if item
+    return unless @imageWell.imagePath
+    item = @bookController.document.manifest.itemWithHref(@imageWell.imageName)
+    if item
+      @bookController.manifestController.deleteItems([item])
+    end
+    item = @bookController.manifestController.addFile(@imageWell.imagePath)
+    if item
+      @metadata.cover = item
+    end
     displayCoverImage
   end
 

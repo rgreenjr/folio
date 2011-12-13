@@ -182,7 +182,22 @@ class Item
     @children.sort!
     @children.each { |item| item.sort }
   end
-
+  
+  def generateUniqueChildName(childname, counter=0)
+    candidate = childname
+    extension = childname.pathExtension
+    base = childname.stringByDeletingPathExtension
+    while true
+      if childWithName(candidate)
+        counter += 1
+        candidate = "#{base} #{counter}.#{extension}" 
+      else
+        break
+      end
+    end
+    candidate
+  end
+  
   # used for sorting
   def <=>(other)
     @name <=> other.name

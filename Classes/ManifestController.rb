@@ -238,7 +238,8 @@ class ManifestController < NSResponder
       end
     end
     markBookEdited
-    reloadDataAndSelectItems(items)    
+    reloadDataAndSelectItems(items)
+    items
   end
 
   def moveItems(items, newParents, newIndexes)

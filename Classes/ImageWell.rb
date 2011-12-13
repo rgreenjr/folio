@@ -1,29 +1,47 @@
 class ImageWell < NSImageView
 
-  attr_accessor :imageURL
+  attr_accessor :bookController
+  attr_accessor :imagePath
 
   def performDragOperation(draggingInfo)
     dragSucceeded = super
     if dragSucceeded
-      urlsXML = draggingInfo.draggingPasteboard.stringForType(NSURLPboardType)
-      if urlsXML
-        data = urlsXML.dataUsingEncoding(NSUTF8StringEncoding)
+      xml = draggingInfo.draggingPasteboard.stringForType(NSURLPboardType)
+      if xml
+        data = xml.dataUsingEncoding(NSUTF8StringEncoding)
         urls = NSPropertyListSerialization.propertyListFromData(data, mutabilityOption:NSPropertyListImmutable, format:nil, errorDescription:nil)
-        @imageURL = urls.empty? ? nil : NSURL.URLWithString(urls[0])
-        @imagePath = nil
+        if urls.empty?
+          dragSucceeded = false
+        else
+          imageURL = NSURL.URLWithString(urls[0])
+          stashImage(NSImage.alloc.initWithData(imageURL.resourceDataUsingCache(false)), imageURL.path.lastPathComponent)
+        end
       end
     end
     dragSucceeded
   end
-
-  def imagePath
-    return nil unless @imageURL
-    unless @imagePath
-      tmpDir = Dir.mktmpdir("folio-cover-image-")
-      @imagePath = File.join(tmpDir, @imageURL.path.lastPathComponent)
-      image.TIFFRepresentation.writeToFile(@imagePath, atomically:false)
+  
+  def paste(sender)
+    options = {}
+    classArray = [NSImage]
+    pasteboard = NSPasteboard.generalPasteboard
+    if pasteboard.canReadObjectForClasses(classArray, options:options)
+      imageArray = pasteboard.readObjectsForClasses(classArray, options:options)
+      stashImage(imageArray[0], @bookController.document.manifest.root.generateUniqueChildName("cover.jpg"))
+      self.image = imageArray[0]
+      @bookController.metadataController.imageWellReceivedImage(self)
     end
-    @imagePath
+  end
+  
+  def imageName
+    @imagePath ? @imagePath.lastPathComponent : nil
+  end
+  
+  private
+  
+  def stashImage(newImage, filename)
+    @imagePath = File.join(Dir.mktmpdir("folio-cover-image-"), filename)
+    newImage.TIFFRepresentation.writeToFile(@imagePath, atomically:false)
   end
 
 end

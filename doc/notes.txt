@@ -18,7 +18,6 @@ Features
 - Guide generation
 - Add icons to right of spine items in to show assigned type
 - Delete cover image
-- Paste cover image
 - Unmark cover image
 - Support "replace" when moving items in Manifest
 - Buttons to generate GUID
@@ -39,3 +38,17 @@ Refactoring
 
 - Use "box" in view placeholder names
 - Move metadata, spine, navigation and manifest into container
+
+
+Code Snippets
+=============
+
+def keyDown(event)
+  key = event.characters.characterAtIndex(0)
+  if (key == NSDeleteCharacter)
+    # delete image here
+  else #if (key == 27)
+    super
+  end
+end
+

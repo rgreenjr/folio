@@ -10,6 +10,7 @@ class BookWindowController < NSWindowController
   attr_accessor :tabViewController
   attr_accessor :webViewController
   attr_accessor :textViewController
+  attr_accessor :metadataController
 
   attr_accessor :masterSplitView # contains selectionView (left) and contentSplitView (right)
 
