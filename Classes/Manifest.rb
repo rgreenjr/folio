@@ -7,7 +7,7 @@ class Manifest
     @containerPath = containerPath
 
     # create the root item
-    @root = Item.new(nil, @containerPath, 'ROOT', 'directory', true)
+    @root = Item.new(nil, @containerPath, 'ROOT', Media::DIRECTORY, true)
     
     if book.nil?
       @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
@@ -19,7 +19,7 @@ class Manifest
           break if index == (parts.size - 1)
           directory = parent.childWithName(part)
           if directory == nil
-            directory = Item.new(parent, part, "directory-#{part}", 'directory')
+            directory = Item.new(parent, part, "Media::DIRECTORY-#{part}", Media::DIRECTORY)
             parent << directory
           end
           parent = directory

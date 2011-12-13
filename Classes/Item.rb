@@ -1,5 +1,7 @@
 class Item
 
+  PBOARD_TYPE = "ItemPboardType"
+
   # mandatory unique identifier within the container
   attr_accessor :id
   
@@ -84,7 +86,7 @@ class Item
   end
 
   def directory?
-    @mediaType == 'directory'
+    Media.directory?(@mediaType)
   end
 
   def expanded?

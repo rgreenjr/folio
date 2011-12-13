@@ -1,55 +1,81 @@
 class Media
+
+  CSS       = "text/css"
+  DIRECTORY = "directory"
+  GIF       = "image/gif"
+  HTML      = "application/xhtml+xml"
+  JPG       = "image/jpeg"
+  PNG       = "image/png"
+  NCX       = "application/x-dtbncx+xml"
+  OTF       = "font/opentype",
+  PDF       = "application/pdf"
+  SVG       = "image/svg+xml"
+  TTF       = "application/x-font-ttf"
+  TIFF      = "image/tiff"
+  TXT       = "text/plain"
+  XPGT      = "application/vnd.adobe-page-template+xml"
+  XML       = "application/xml"
   
-  TYPE_HASH = {
-    "css"   => "text/css",
-    "ttf"   => "application/x-font-ttf",
-    "gif"   => "image/gif",
-    "htm"   => "application/xhtml+xml",
-    "html"  => "application/xhtml+xml",
-    "jpg"   => "image/jpeg",
-    "jpeg"  => "image/jpeg",
-    "png"   => "image/png",
-    "otf"   => "font/opentype",
-    "pdf"   => "application/pdf",
-    "svg"   => "image/svg+xml",
-    "tif"   => "image/tiff",
-    "tiff"  => "image/tiff",
-    "txt"   => "text/plain",
-    "xpgt"  => "application/vnd.adobe-page-template+xml",
-    "xhtml" => "application/xhtml+xml",
-    "xml"   => "application/xml",
+  MEDIA_TYPES_HASH = {
+    "css"   => CSS,
+    "ttf"   => TTF,
+    "gif"   => GIF,
+    "htm"   => HTML,
+    "html"  => HTML,
+    "jpg"   => JPG,
+    "jpeg"  => JPG,
+    "png"   => PNG,
+    "otf"   => OTF,
+    "pdf"   => PDF,
+    "svg"   => SVG,
+    "tif"   => TIFF,
+    "tiff"  => TIFF,
+    "txt"   => TXT,
+    "xpgt"  => XPGT,
+    "xhtml" => HTML,
+    "xml"   => XML,
   }
   
+  # returns best guess media type based on specified extension
   def self.guessType(extension)
-    TYPE_HASH[extension.gsub(/^\./, "")] || "unknown"
+    MEDIA_TYPES_HASH[extension.gsub(/^\./, '')] || ''
+  end
+
+  # returns closest media type based on specified string
+  def self.closestType(string)
+    self.types.find {|type| type.match(/^#{string}/i)}
   end
   
   def self.types
-    TYPE_HASH.values.sort
+    MEDIA_TYPES_HASH.values.sort
   end
   
   def self.editable?(mediaType)
-    %w{application/xml application/xhtml+xml text/css application/x-dtbncx+xml}.include?(mediaType)
+    [XML, HTML, CSS, NCX].include?(mediaType)
   end
   
   def self.renderable?(mediaType)
-    %w{application/xml application/xhtml+xml image/jpeg image/png image/gif image/svg+xml text/css}.include?(mediaType)
+    [XML, HTML, JPG, PNG, GIF, SVG, CSS].include?(mediaType)
   end
   
   def self.imageable?(mediaType)
-    %w{image/jpeg image/png image/gif image/svg+xml image/tiff}.include?(mediaType)
+    [JPG, PNG, GIF, SVG, TIFF].include?(mediaType)
   end
   
   def self.flowable?(mediaType)
-    %w{application/xml application/xhtml+xml}.include?(mediaType)
+    [XML, HTML].include?(mediaType)
   end
   
   def self.formatable?(mediaType)
-    %w{application/xml application/xhtml+xml}.include?(mediaType)
+    [XML, HTML].include?(mediaType)
   end
 
   def self.ncx?(mediaType)
-    mediaType == "application/x-dtbncx+xml"
+    mediaType == NCX
+  end
+
+  def self.directory?(mediaType)
+    mediaType == DIRECTORY
   end
 
 end

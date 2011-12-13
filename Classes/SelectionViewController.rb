@@ -13,7 +13,7 @@ class SelectionViewController < NSViewController
     @outlineView.tableColumns.first.dataCell = ImageCell.new
     
     # register the drag types we support
-    @outlineView.registerForDraggedTypes(["NavigationPointsPboardType", "SpineItemRefsPboardType", "ManifestItemsPboardType", NSFilenamesPboardType])
+    @outlineView.registerForDraggedTypes([Point::PBOARD_TYPE, ItemRef::PBOARD_TYPE, Item::PBOARD_TYPE, NSFilenamesPboardType])
 
     # set up outlineView to process double-click evetns
     @outlineView.target = self

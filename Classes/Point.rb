@@ -1,5 +1,7 @@
 class Point
 
+  PBOARD_TYPE = "PointPboardType"
+
   attr_accessor :id, :playOrder, :text, :item, :fragment
 
   def initialize(item=nil, text=nil, id=nil)

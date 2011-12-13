@@ -42,8 +42,8 @@ class SpineController < NSResponder
   # write the ids of the selected itemRefs to the pastebaord
   def writeItems(itemRefs, toPasteboard:pboard)
     itemRefIds = itemRefs.map { |itemRef| itemRef.id }
-    pboard.declareTypes(["SpineItemRefsPboardType"], owner:self)
-    pboard.setPropertyList(itemRefIds.to_plist, forType:"SpineItemRefsPboardType")
+    pboard.declareTypes([ItemRef::PBOARD_TYPE], owner:self)
+    pboard.setPropertyList(itemRefIds.to_plist, forType:ItemRef::PBOARD_TYPE)
     true
   end
 
@@ -57,9 +57,9 @@ class SpineController < NSResponder
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    if types.containsObject("SpineItemRefsPboardType")
+    if types.containsObject(ItemRef::PBOARD_TYPE)
       # read itemRef ids from pastebaord
-      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType(ItemRef::PBOARD_TYPE))
 
       # process each itemRef id
       itemRefIds.each do |id|
@@ -76,10 +76,10 @@ class SpineController < NSResponder
       # data looks good so allow move operation
       return NSDragOperationMove
 
-    elsif types.containsObject("ManifestItemsPboardType")
+    elsif types.containsObject(Item::PBOARD_TYPE)
 
       # read item ids from pastebaord
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType(Item::PBOARD_TYPE))
       
       # process each item id
       itemIds.each do |id|
@@ -107,9 +107,9 @@ class SpineController < NSResponder
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    if types.containsObject("SpineItemRefsPboardType")
+    if types.containsObject(ItemRef::PBOARD_TYPE)
       # drag data from spine controller, so read itemRef ids from pastebaord
-      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType(ItemRef::PBOARD_TYPE))
       
       itemRefs = []
       newIndexes = []
@@ -137,9 +137,9 @@ class SpineController < NSResponder
       # end
 
       return true
-    elsif types.containsObject("ManifestItemsPboardType")
+    elsif types.containsObject(Item::PBOARD_TYPE)
       # drag data from manifest controller, read item ids from pastebaord
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType(Item::PBOARD_TYPE))
 
       # create a new ItemRef for each item id
       items = itemIds.map { |id| ItemRef.new(@bookController.document.manifest.itemWithId(id)) }

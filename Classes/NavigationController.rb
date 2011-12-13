@@ -48,8 +48,8 @@ class NavigationController < NSResponder
 
   def writeItems(points, toPasteboard:pboard)
     pointIds = points.map { |point| point.id }
-    pboard.declareTypes(["NavigationPointsPboardType"], owner:self)
-    pboard.setPropertyList(pointIds.to_plist, forType:"NavigationPointsPboardType")
+    pboard.declareTypes([Point::PBOARD_TYPE], owner:self)
+    pboard.setPropertyList(pointIds.to_plist, forType:Point::PBOARD_TYPE)
     true
   end
 
@@ -63,10 +63,10 @@ class NavigationController < NSResponder
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    if types.containsObject("NavigationPointsPboardType")
+    if types.containsObject(Point::PBOARD_TYPE)
 
       # read the point ids from the pastebaord 
-      pointIds = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointsPboardType"))
+      pointIds = load_plist(info.draggingPasteboard.propertyListForType(Point::PBOARD_TYPE))
 
       pointIds.each do |id|
 
@@ -80,10 +80,10 @@ class NavigationController < NSResponder
       # points and proposed parent look good, so return move operation
       return NSDragOperationMove
 
-    elsif types.containsObject("SpineItemRefsPboardType")
+    elsif types.containsObject(ItemRef::PBOARD_TYPE)
 
       # read itemRef ids from the pastebaord
-      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType(ItemRef::PBOARD_TYPE))
 
       itemRefIds.each do |id|
         
@@ -112,10 +112,10 @@ class NavigationController < NSResponder
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    if types.containsObject("NavigationPointsPboardType")
+    if types.containsObject(Point::PBOARD_TYPE)
       
       # read the point ids from the pastebaord
-      plist = load_plist(info.draggingPasteboard.propertyListForType("NavigationPointsPboardType"))
+      plist = load_plist(info.draggingPasteboard.propertyListForType(Point::PBOARD_TYPE))
       
       # get the associated points from navigation
       points = plist.map { |id| @navigation.pointWithId(id) }
@@ -133,10 +133,10 @@ class NavigationController < NSResponder
       # return true to indicate success
       return true
 
-    elsif types.containsObject("SpineItemRefsPboardType")
+    elsif types.containsObject(ItemRef::PBOARD_TYPE)
 
       # read the itemRef ids from the pastebaord
-      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType("SpineItemRefsPboardType"))
+      itemRefIds = load_plist(info.draggingPasteboard.propertyListForType(ItemRef::PBOARD_TYPE))
       
       # get the associated item for each itemRefs
       items = itemRefIds.map { |id| @bookController.document.spine.itemRefWithId(id).item }

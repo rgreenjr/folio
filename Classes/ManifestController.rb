@@ -58,8 +58,8 @@ class ManifestController < NSResponder
 
   def writeItems(items, toPasteboard:pboard)
     itemIds = items.map { |item| item.id }
-    pboard.declareTypes(["ManifestItemsPboardType"], owner:self)
-    pboard.setPropertyList(itemIds.to_plist, forType:"ManifestItemsPboardType")
+    pboard.declareTypes([Item::PBOARD_TYPE], owner:self)
+    pboard.setPropertyList(itemIds.to_plist, forType:Item::PBOARD_TYPE)
     true
   end
 
@@ -70,10 +70,10 @@ class ManifestController < NSResponder
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    if types.containsObject("ManifestItemsPboardType")      
+    if types.containsObject(Item::PBOARD_TYPE)      
 
       # read item ids from pastebaord
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType(Item::PBOARD_TYPE))
 
       itemIds.each do |id|
 
@@ -120,10 +120,10 @@ class ManifestController < NSResponder
     # get available data types from pastebaord
     types = info.draggingPasteboard.types
 
-    if types.containsObject("ManifestItemsPboardType")
+    if types.containsObject(Item::PBOARD_TYPE)
             
       # read item ids from pastebaord
-      itemIds = load_plist(info.draggingPasteboard.propertyListForType("ManifestItemsPboardType"))
+      itemIds = load_plist(info.draggingPasteboard.propertyListForType(Item::PBOARD_TYPE))
 
       # get the associated items
       items = itemIds.map { |id| @manifest.itemWithId(id) }
@@ -322,7 +322,7 @@ class ManifestController < NSResponder
       i += 1
       name = "New Directory #{i}"
     end
-    item = Item.new(parent, name, nil, "directory")
+    item = Item.new(parent, name, nil, Media::DIRECTORY)
     @manifest.insert(index, item, parent)
     reloadDataAndSelectItems([item])
     markBookEdited

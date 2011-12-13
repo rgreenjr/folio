@@ -1,6 +1,6 @@
 class ItemViewController < NSViewController
 
-  attr_accessor :item, :nameField, :idField, :mediaTypePopup
+  attr_accessor :item, :nameField, :idField, :mediaTypeField
   
   def initWithBookController(bookController)
     initWithNibName("ItemView", bundle:nil)
@@ -10,13 +10,44 @@ class ItemViewController < NSViewController
   
   def loadView
     super
-    # configure media types popup button
-    Media.types.each {|type| @mediaTypePopup.addItemWithTitle(type)}
+    @mediaTypeField.delegate = self
   end
   
   def item=(item)
     @item = item
     updateView
+  end
+
+  # attempt to auto-complete mediaTypeField
+  def controlTextDidChange(notification)
+    # skip auto-complete if deletingBackward
+    if @deletingBackward
+      @deletingBackward = false
+      return
+    end
+    
+    textField = notification.object
+    value = textField.stringValue
+
+    if textField == @mediaTypeField 
+      if value.blank?
+        type = Media.guessType(@nameField.stringValue.pathExtension)
+      else
+        type = Media.closestType(value)
+      end
+      if type
+        @mediaTypeField.stringValue = type
+        @mediaTypeField.currentEditor.setSelectedRange(NSRange.new(value.length, type.length))
+      end
+    end
+  end
+
+  # disable mediaTypeField auto-complete if deleteBackward: 
+  def control(control, textView:textView, doCommandBySelector:command)
+    if control == @mediaTypeField && command.to_s == "deleteBackward:" && @mediaTypeField.stringValue.size > 1
+      @deletingBackward = true
+    end
+    false
   end
 
   def updateItem(sender)
@@ -25,7 +56,7 @@ class ItemViewController < NSViewController
     elsif sender == @idField
       changeID(@item, @idField.stringValue)
     else
-      changeMediaType(@item, @mediaTypePopup.title)
+      changeMediaType(@item, @mediaTypeField.stringValue)
     end
   end
   
@@ -72,7 +103,8 @@ class ItemViewController < NSViewController
     if @item
       @nameField.stringValue = @item.name
       @idField.stringValue = @item.id
-      @mediaTypePopup.selectItemWithTitle(@item.mediaType)
+      @mediaTypeField.stringValue = @item.mediaType
+      @mediaTypeField.enabled = !item.directory?
     end
   end
   

@@ -381,7 +381,7 @@
 						<object class="NSButton" id="569868706">
 							<reference key="NSNextResponder" ref="711365869"/>
 							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{20, 2}, {16, 19}}</string>
+							<string key="NSFrame">{{20, 2}, {24, 19}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="604164117"/>
@@ -389,7 +389,7 @@
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="122350274">
 								<int key="NSCellFlags">-2080244224</int>
-								<int key="NSCellFlags2">276824064</int>
+								<int key="NSCellFlags2">310378496</int>
 								<string key="NSContents"/>
 								<object class="NSFont" key="NSSupport" id="134529821">
 									<string key="NSName">LucidaGrande</string>
@@ -417,7 +417,7 @@
 						<object class="NSButton" id="604164117">
 							<reference key="NSNextResponder" ref="711365869"/>
 							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{59, 2}, {16, 19}}</string>
+							<string key="NSFrame">{{59, 2}, {18, 19}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
@@ -425,7 +425,7 @@
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="124213451">
 								<int key="NSCellFlags">67239424</int>
-								<int key="NSCellFlags2">276824064</int>
+								<int key="NSCellFlags2">310378496</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="134529821"/>
 								<string key="NSCellIdentifier">_NS:2434</string>
@@ -453,7 +453,7 @@
 					<reference key="NSNextKeyView" ref="540888369"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">BookWindow</string>
@@ -1991,6 +1991,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>logoImageWell</string>
 							<string>manifestController</string>
 							<string>masterSplitView</string>
+							<string>metadataController</string>
 							<string>navigationController</string>
 							<string>renderImageView</string>
 							<string>renderSplitView</string>
@@ -2004,6 +2005,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2036,6 +2038,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>logoImageWell</string>
 							<string>manifestController</string>
 							<string>masterSplitView</string>
+							<string>metadataController</string>
 							<string>navigationController</string>
 							<string>renderImageView</string>
 							<string>renderSplitView</string>
@@ -2079,6 +2082,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">masterSplitView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">metadataController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

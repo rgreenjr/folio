@@ -1,5 +1,7 @@
 class ItemRef
 
+  PBOARD_TYPE = "ItemRefPboardType"
+
   attr_accessor :item, :linear, :id, :type
   
   def initialize(item, linear=nil)

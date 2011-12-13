@@ -21,6 +21,7 @@ Features
 - Unmark cover image
 - Support "replace" when moving items in Manifest
 - Buttons to generate GUID
+- Make manifest type field textual and auto-complete inspector 
 
 
 Enhancements
