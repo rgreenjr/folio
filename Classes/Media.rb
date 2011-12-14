@@ -7,7 +7,7 @@ class Media
   JPG       = "image/jpeg"
   PNG       = "image/png"
   NCX       = "application/x-dtbncx+xml"
-  OTF       = "font/opentype",
+  OTF       = "font/opentype"
   PDF       = "application/pdf"
   SVG       = "image/svg+xml"
   TTF       = "application/x-font-ttf"
@@ -42,8 +42,8 @@ class Media
   end
 
   # returns closest media type based on specified string
-  def self.closestType(string)
-    self.types.find {|type| type.match(/^#{string}/i)}
+  def self.closestType(value)
+    self.types.find {|type| type.match(/^#{value}/i)}
   end
   
   def self.types
