@@ -35,9 +35,7 @@ class PointViewController < NSViewController
   
   def changeID(point, value)
     unless value.blank? || point.id == value
-      puts "value = #{value}"
       if oldID = @bookController.document.navigation.changePointId(point, value)
-        puts "oldID = #{oldID}"
         undoManager.prepareWithInvocationTarget(self).changeID(point, oldID)
         undoManager.actionName = "Change Point ID"
       else
