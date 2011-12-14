@@ -57,6 +57,20 @@ class Item
     @name
   end
   
+  def mediaType=(value)
+    unless value.empty?
+      @mediaType = value
+    end
+    @mediaType
+  end
+  
+  def id=(value)
+    unless value.empty?
+      @id = value
+    end
+    @id
+  end
+  
   def links
     @async.value
   end

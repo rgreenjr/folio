@@ -10,7 +10,7 @@ class PointViewController < NSViewController
 
   def point=(point)
     @point = point
-    updateView
+    updateView(@point)
   end
   
   def updatePoint(sender)
@@ -25,50 +25,53 @@ class PointViewController < NSViewController
   end
   
   def changeText(point, value)
-    return if point.text == value
-    undoManager.prepareWithInvocationTarget(self).changeText(point, point.text)
-    undoManager.actionName = "Change Text"
-    point.text = value
-    updateView
-    @bookController.selectionViewController.reloadItem(point)
+    unless value.blank? || point.text == value
+      undoManager.prepareWithInvocationTarget(self).changeText(point, point.text)
+      undoManager.actionName = "Change Point Text"
+      point.text = value
+    end
+    updateView(point)
   end
   
   def changeID(point, value)
-    return if point.id == value
-    if oldID = @bookController.document.navigation.changePointId(point, value)
-      undoManager.prepareWithInvocationTarget(self).changeID(point, oldID)
-      undoManager.actionName = "Change ID"
-    else
-      @bookController.runModalAlert("A point with ID \"#{value}\" already exists. Please choose a different ID.")
+    unless value.blank? || point.id == value
+      puts "value = #{value}"
+      if oldID = @bookController.document.navigation.changePointId(point, value)
+        puts "oldID = #{oldID}"
+        undoManager.prepareWithInvocationTarget(self).changeID(point, oldID)
+        undoManager.actionName = "Change Point ID"
+      else
+        @bookController.runModalAlert("A point with ID \"#{value}\" already exists.", "Please choose a unique point ID.")
+      end
     end
-    updateView
-    @bookController.selectionViewController.reloadItem(point)
+    updateView(point)
   end
   
   def changeSource(point, value)
-    return if point.src == value
-    href, fragment = value.split('#')
-    item = @bookController.document.manifest.itemWithHref(href)
-    if item
-      undoManager.prepareWithInvocationTarget(self).changeSource(point, point.src)
-      undoManager.actionName = "Change Source"
-      point.item = item
-      point.fragment = fragment
-    else
-      @bookController.runModalAlert("The manifest doesn't contain \"#{value}\".")
+    unless value.blank? || point.src == value
+      href, fragment = value.split('#')
+      item = @bookController.document.manifest.itemWithHref(href)
+      if item
+        undoManager.prepareWithInvocationTarget(self).changeSource(point, point.src)
+        undoManager.actionName = "Change Point Source"
+        point.item = item
+        point.fragment = fragment
+        @bookController.tabViewController.addObject(point)
+      else
+        @bookController.runModalAlert("The manifest doesn't contain \"#{value}\".", "Please specify an item included in the manifest.")
+      end
     end
-    updateView
-    @bookController.tabViewController.addObject(point)
-    @bookController.selectionViewController.reloadItem(point)
+    updateView(point)
   end
 
   private
   
-  def updateView
-    if @point
-      @textField.stringValue = @point.text
-      @idField.stringValue = @point.id
-      @sourceField.stringValue = @point.src
+  def updateView(point)
+    if point
+      @textField.stringValue = point.text
+      @idField.stringValue = point.id
+      @sourceField.stringValue = point.src
+      @bookController.selectionViewController.reloadItem(point)
     end
   end
   

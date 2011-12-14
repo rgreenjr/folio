@@ -10,35 +10,33 @@ class ItemViewController < NSViewController
   
   def loadView
     super
-    @mediaTypeField.delegate = self
+    @mediaTypeField.delegate = self # so we receive text edit notificaitons
   end
   
   def item=(item)
     @item = item
-    updateView
+    updateView(@item)
   end
-
+  
   # attempt to auto-complete mediaTypeField
   def controlTextDidChange(notification)
+    return unless notification.object == @mediaTypeField
+    
     # skip auto-complete if deletingBackward
     if @deletingBackward
       @deletingBackward = false
       return
     end
-    
-    textField = notification.object
-    value = textField.stringValue
 
-    if textField == @mediaTypeField 
-      if value.blank?
-        type = Media.guessType(@nameField.stringValue.pathExtension)
-      else
-        type = Media.closestType(value)
-      end
-      if type
-        @mediaTypeField.stringValue = type
-        @mediaTypeField.currentEditor.setSelectedRange(NSRange.new(value.length, type.length))
-      end
+    value = notification.object.stringValue
+    if value.blank?
+      type = Media.guessType(@item.name.pathExtension)
+    else
+      type = Media.closestType(value)
+    end
+    if type
+      @mediaTypeField.stringValue = type
+      @mediaTypeField.currentEditor.setSelectedRange(NSRange.new(value.length, type.length))
     end
   end
 
@@ -49,7 +47,7 @@ class ItemViewController < NSViewController
     end
     false
   end
-
+  
   def updateItem(sender)
     if sender == @nameField
       changeName(@item, @nameField.stringValue)
@@ -61,50 +59,49 @@ class ItemViewController < NSViewController
   end
   
   def changeName(item, value)
-    value = value.sanitize
-    return if item.name == value
-    if item.parent.childWithName(value)
-      message = "An item with the name \"#{name}\" already exists in this directory. Please choose a different name."
-      Alert.runModal(@bookController.window, message)
-    else
-      undoManager.prepareWithInvocationTarget(self).changeName(item, item.name)
-      undoManager.actionName = "Change Name"
-      item.name = value
+    unless value.blank? || item.name == value
+      if item.parent.childWithName(value)
+        message = "An item with the name \"#{name}\" already exists in this directory.", "Please choose a unique item name."
+        Alert.runModal(@bookController.window, message)
+      else
+        undoManager.prepareWithInvocationTarget(self).changeName(item, item.name)
+        undoManager.actionName = "Change Item Name"
+        item.name = value
+      end
     end
-    updateView
-    @bookController.selectionViewController.reloadItem(item)
+    updateView(item)
   end
 
-  # need to go throught @manifest
   def changeID(item, value)
-    return if item.id == value
-    if oldID = @bookController.document.manifest.changeItemId(item, value)
-      undoManager.prepareWithInvocationTarget(self).changeID(item, oldID)
-      undoManager.actionName = "Change ID"
-    else
-      @bookController.runModalAlert("A manifest item with ID \"#{value}\" already exists. Please choose a different ID.")
+    unless value.blank? || item.id == value
+      if oldID = @bookController.document.manifest.changeItemId(item, value)
+        undoManager.prepareWithInvocationTarget(self).changeID(item, oldID)
+        undoManager.actionName = "Change Item ID"
+      else
+        @bookController.runModalAlert("A manifest item with ID \"#{value}\" already exists.", "Please choose a unique item ID.")
+      end
     end
-    updateView
-    @bookController.selectionViewController.reloadItem(item)
+    updateView(item)
   end
 
   def changeMediaType(item, value)
-    return if item.mediaType == value
-    undoManager.prepareWithInvocationTarget(self).changeMediaType(item, item.mediaType)
-    undoManager.actionName = "Change Media Type"
-    item.mediaType = value
-    updateView
-    @bookController.selectionViewController.reloadItem(item)
+    unless value.blank? || item.mediaType == value
+      undoManager.prepareWithInvocationTarget(self).changeMediaType(item, item.mediaType)
+      undoManager.actionName = "Change Item Media Type"
+      item.mediaType = value
+    end
+    updateView(item)
   end
 
   private
 
-  def updateView
-    if @item
-      @nameField.stringValue = @item.name
-      @idField.stringValue = @item.id
-      @mediaTypeField.stringValue = @item.mediaType
+  def updateView(item)
+    if item
+      @nameField.stringValue = item.name
+      @idField.stringValue = item.id
+      @mediaTypeField.stringValue = item.mediaType
       @mediaTypeField.enabled = !item.directory?
+      @bookController.selectionViewController.reloadItem(item)
     end
   end
   

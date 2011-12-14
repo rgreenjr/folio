@@ -25,11 +25,21 @@ class Point
     @item.href + fragmentWithHash
   end
   
-  def text=(text)
-    if text
-      text = text.strip
-      @text = text unless text.empty?
-    end
+  def text=(value)
+    value = value.strip if value
+    @text = value.empty? ? @text : value
+  end
+  
+  def id=(value)
+    @id = value.empty? ? @id : value
+  end
+  
+  def item=(value)
+    @item = value ? value : @item
+  end
+  
+  def fragment=(value)
+    @fragment = value ? value : @fragment
   end
   
   def depth
@@ -90,15 +100,6 @@ class Point
     "@id = #{@id}, @text = #{@text}, @item = #{@item.name}, @expanded = #{@expanded}"
   end
 
-  # def_delegator :@item, :edited?, :edited?
-  # def_delegator :@item, :name, :name
-  # def_delegator :@item, :editable?, :editable?
-  # def_delegator :@item, :content, :content
-  # def_delegator :@item, :content=, :content=
-  # def_delegator :@item, :flowable?, :flowable?
-  # def_delegator :@item, :imageable?, :imageable?
-  # def_delegator :@item, :renderable?, :renderable?
-  
   private
   
   def fragmentWithHash
