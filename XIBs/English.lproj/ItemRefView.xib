@@ -50,7 +50,7 @@
 					<object class="NSButton" id="787800015">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">258</int>
-						<string key="NSFrame">{{50, 35}, {322, 18}}</string>
+						<string key="NSFrame">{{101, 35}, {292, 18}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -83,7 +83,7 @@
 					<object class="NSPopUpButton" id="496954707">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">258</int>
-						<string key="NSFrame">{{50, 55}, {343, 22}}</string>
+						<string key="NSFrame">{{101, 55}, {292, 22}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="982025501"/>
@@ -140,7 +140,7 @@
 					<object class="NSTextField" id="982025501">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{7, 37}, {41, 14}}</string>
+						<string key="NSFrame">{{7, 37}, {92, 14}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="787800015"/>
@@ -148,7 +148,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="873722774">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">Linear:</string>
+							<string key="NSContents">Linear (Primary):</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="982025501"/>
 							<object class="NSColor" key="NSBackgroundColor" id="753882283">
@@ -174,7 +174,7 @@
 					<object class="NSTextField" id="455209919">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{7, 60}, {41, 14}}</string>
+						<string key="NSFrame">{{58, 60}, {41, 14}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="496954707"/>
@@ -371,6 +371,7 @@
 					<string>17.IBPluginDependency</string>
 					<string>18.IBPluginDependency</string>
 					<string>21.IBPluginDependency</string>
+					<string>22.IBAttributePlaceholdersKey</string>
 					<string>22.IBPluginDependency</string>
 					<string>23.IBPluginDependency</string>
 					<string>24.IBPluginDependency</string>
@@ -388,6 +389,14 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="787800015"/>
+							<string key="toolTip">Indicates whether a spine item is considered primary or auxiliary.</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

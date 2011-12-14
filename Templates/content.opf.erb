@@ -23,7 +23,7 @@
   </manifest>
 
   <spine toc="ncx"><% book.spine.each do |itemref| %>
-    <itemref idref="<%= itemref.item.id %>" <% if !itemref.linear? %>linear="<%= itemref.linear %>"<% end %>/><% end %>
+    <itemref idref="<%= itemref.idref %>" <% if !itemref.linear? %>linear="<%= itemref.linear %>"<% end %>/><% end %>
   </spine>
 
   <guide><% book.guide.each do |item| %>

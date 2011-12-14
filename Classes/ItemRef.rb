@@ -2,10 +2,20 @@ class ItemRef
 
   PBOARD_TYPE = "ItemRefPboardType"
 
-  attr_accessor :item, :linear, :id, :type
+  attr_accessor :item
   
-  def initialize(item, linear=nil)
-    @item, @linear, @id = item, linear, UUID.create
+  # Indicates whether a spine item is considered primary (yes) or auxiliary (no). This enables 
+  # Reading Systems to distinguish presentation of body content from supplementary content.
+  attr_accessor :linear
+  
+  attr_accessor :type
+  
+  def initialize(item, linear='yes')
+    @item, @linear = item, linear
+  end
+  
+  def idref
+    @item.id
   end
   
   def linear?
