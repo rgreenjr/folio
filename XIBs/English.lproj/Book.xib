@@ -108,9 +108,10 @@
 								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {104, 25}}</string>
+									<reference key="NSSuperview"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -374,14 +375,14 @@
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">310378496</int>
 								<string key="NSContents"/>
-								<object class="NSFont" key="NSSupport" id="28">
+								<object class="NSFont" key="NSSupport" id="66235764">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">12</double>
-									<int key="NSfFlags">4883</int>
+									<int key="NSfFlags">16</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:2434</string>
 								<reference key="NSControlView" ref="569868706"/>
-								<int key="NSButtonFlags">-2040250113</int>
+								<int key="NSButtonFlags">-932953857</int>
 								<int key="NSButtonFlags2">164</int>
 								<object class="NSCustomResource" key="NSNormalImage">
 									<string key="NSClassName">NSImage</string>
@@ -403,13 +404,14 @@
 							<string key="NSFrame">{{59, 2}, {18, 19}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:2434</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="124213451">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">310378496</int>
 								<string key="NSContents"/>
-								<reference key="NSSupport" ref="28"/>
+								<reference key="NSSupport" ref="66235764"/>
 								<string key="NSCellIdentifier">_NS:2434</string>
 								<reference key="NSControlView" ref="604164117"/>
 								<int key="NSButtonFlags">-2040250113</int>
@@ -435,7 +437,7 @@
 					<reference key="NSNextKeyView" ref="540888369"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">BookWindow</string>
@@ -570,14 +572,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">reindentText:</string>
-						<reference key="source" ref="1003"/>
-						<reference key="destination" ref="580827983"/>
-					</object>
-					<int key="connectionID">161</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleInspectorView:</string>
 						<reference key="source" ref="1003"/>
 						<reference key="destination" ref="569868706"/>
@@ -599,6 +593,14 @@
 						<reference key="destination" ref="588453196"/>
 					</object>
 					<int key="connectionID">243</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">reformatText:</string>
+						<reference key="source" ref="1003"/>
+						<reference key="destination" ref="580827983"/>
+					</object>
+					<int key="connectionID">245</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -901,7 +903,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">244</int>
+			<int key="maxID">245</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1101,7 +1103,7 @@
 							<string>insertCloseTag:</string>
 							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
-							<string>reindentText:</string>
+							<string>reformatText:</string>
 							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
 							<string>showGotoLineWindow:</string>
@@ -1136,7 +1138,7 @@
 							<string>insertCloseTag:</string>
 							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
-							<string>reindentText:</string>
+							<string>reformatText:</string>
 							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
 							<string>showGotoLineWindow:</string>
@@ -1165,7 +1167,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">reindentText:</string>
+								<string key="name">reformatText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

@@ -1528,14 +1528,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">reindentText:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="615305040"/>
-					</object>
-					<int key="connectionID">1807</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">selectCurrentLine:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="402771595"/>
@@ -1677,6 +1669,14 @@
 						<reference key="destination" ref="982203515"/>
 					</object>
 					<int key="connectionID">1896</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">reformatText:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="615305040"/>
+					</object>
+					<int key="connectionID">1897</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2788,7 +2788,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1896</int>
+			<int key="maxID">1897</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2913,19 +2913,13 @@
 							<string>issueButton</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
-							<string>manifestController</string>
 							<string>masterSplitView</string>
-							<string>navigationController</string>
 							<string>selectionView</string>
 							<string>selectionViewController</string>
-							<string>spineController</string>
 							<string>tabbedViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2948,12 +2942,9 @@
 							<string>issueButton</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
-							<string>manifestController</string>
 							<string>masterSplitView</string>
-							<string>navigationController</string>
 							<string>selectionView</string>
 							<string>selectionViewController</string>
-							<string>spineController</string>
 							<string>tabbedViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -2983,15 +2974,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">manifestController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">masterSplitView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">navigationController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3000,10 +2983,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">selectionViewController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">spineController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3037,9 +3016,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>imagePath</string>
+							<string>metadataController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -3050,6 +3031,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>imagePath</string>
+							<string>metadataController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3059,6 +3041,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">imagePath</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">metadataController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -3365,8 +3351,8 @@
 							<string>replaceField</string>
 							<string>searchBox</string>
 							<string>searchField</string>
+							<string>sourceViewController</string>
 							<string>tabView</string>
-							<string>textViewController</string>
 							<string>windowController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3390,8 +3376,8 @@
 							<string>replaceField</string>
 							<string>searchBox</string>
 							<string>searchField</string>
+							<string>sourceViewController</string>
 							<string>tabView</string>
-							<string>textViewController</string>
 							<string>windowController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3417,11 +3403,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">tabView</string>
+								<string key="name">sourceViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">textViewController</string>
+								<string key="name">tabView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3433,6 +3419,169 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/SearchController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SourceViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>emphasizeSelectedText:</string>
+							<string>insertCloseTag:</string>
+							<string>lowercaseSelectedText:</string>
+							<string>paragraphSelectedLines:</string>
+							<string>reformatText:</string>
+							<string>selectCurrentLine:</string>
+							<string>selectEnclosingBrackets:</string>
+							<string>showGotoLineWindow:</string>
+							<string>stripTagsFromSelectedText:</string>
+							<string>strongifySelectedText:</string>
+							<string>titlecaseSelectedText:</string>
+							<string>toggleLineNumbers:</string>
+							<string>uppercaseSelectedText:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>emphasizeSelectedText:</string>
+							<string>insertCloseTag:</string>
+							<string>lowercaseSelectedText:</string>
+							<string>paragraphSelectedLines:</string>
+							<string>reformatText:</string>
+							<string>selectCurrentLine:</string>
+							<string>selectEnclosingBrackets:</string>
+							<string>showGotoLineWindow:</string>
+							<string>stripTagsFromSelectedText:</string>
+							<string>strongifySelectedText:</string>
+							<string>titlecaseSelectedText:</string>
+							<string>toggleLineNumbers:</string>
+							<string>uppercaseSelectedText:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">emphasizeSelectedText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">insertCloseTag:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">lowercaseSelectedText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">paragraphSelectedLines:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">reformatText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectCurrentLine:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectEnclosingBrackets:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showGotoLineWindow:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">stripTagsFromSelectedText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">strongifySelectedText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">titlecaseSelectedText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleLineNumbers:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">uppercaseSelectedText:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>bookController</string>
+							<string>item</string>
+							<string>lineNumberView</string>
+							<string>webViewController</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>bookController</string>
+							<string>item</string>
+							<string>lineNumberView</string>
+							<string>webViewController</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">bookController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">item</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">lineNumberView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">webViewController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SourceViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3576,10 +3725,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>imageView</string>
+							<string>sourceViewController</string>
 							<string>splitView</string>
 							<string>tabContentPlaceholder</string>
 							<string>tabView</string>
-							<string>textViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3599,10 +3748,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookController</string>
 							<string>imageView</string>
+							<string>sourceViewController</string>
 							<string>splitView</string>
 							<string>tabContentPlaceholder</string>
 							<string>tabView</string>
-							<string>textViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3613,6 +3762,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">imageView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">sourceViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3628,10 +3781,6 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">textViewController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">webViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -3640,169 +3789,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/TabbedViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TextViewController</string>
-					<string key="superclassName">NSViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>emphasizeSelectedText:</string>
-							<string>insertCloseTag:</string>
-							<string>lowercaseSelectedText:</string>
-							<string>paragraphSelectedLines:</string>
-							<string>reindentText:</string>
-							<string>selectCurrentLine:</string>
-							<string>selectEnclosingBrackets:</string>
-							<string>showGotoLineWindow:</string>
-							<string>stripTagsFromSelectedText:</string>
-							<string>strongifySelectedText:</string>
-							<string>titlecaseSelectedText:</string>
-							<string>toggleLineNumbers:</string>
-							<string>uppercaseSelectedText:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>emphasizeSelectedText:</string>
-							<string>insertCloseTag:</string>
-							<string>lowercaseSelectedText:</string>
-							<string>paragraphSelectedLines:</string>
-							<string>reindentText:</string>
-							<string>selectCurrentLine:</string>
-							<string>selectEnclosingBrackets:</string>
-							<string>showGotoLineWindow:</string>
-							<string>stripTagsFromSelectedText:</string>
-							<string>strongifySelectedText:</string>
-							<string>titlecaseSelectedText:</string>
-							<string>toggleLineNumbers:</string>
-							<string>uppercaseSelectedText:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">emphasizeSelectedText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">insertCloseTag:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">lowercaseSelectedText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">paragraphSelectedLines:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">reindentText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectCurrentLine:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectEnclosingBrackets:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showGotoLineWindow:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">stripTagsFromSelectedText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">strongifySelectedText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">titlecaseSelectedText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleLineNumbers:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">uppercaseSelectedText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
-							<string>item</string>
-							<string>lineNumberView</string>
-							<string>webViewController</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
-							<string>item</string>
-							<string>lineNumberView</string>
-							<string>webViewController</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">item</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">lineNumberView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">webViewController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TextViewController.h</string>
 					</object>
 				</object>
 			</object>

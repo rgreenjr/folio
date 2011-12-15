@@ -164,7 +164,7 @@ class SourceViewController < NSViewController
     tmp.delete
   end
 
-  def reindentText(sender)
+  def reformatText(sender)
     tmp = Tempfile.new('folio-tmp-file')
     text = view.string
     File.open(tmp, "w") { |f| f.print text }
@@ -201,9 +201,11 @@ class SourceViewController < NSViewController
   def validateUserInterfaceItem(interfaceItem)
     return false unless @item
     case interfaceItem.action
-    when :"strongify:", :"emphasize:", :"paragraphSelectedLines:", :"uppercase:", :"lowercase:", :"titlecase:", :"stripTags:"
+    when :"strongifySelectedText:", :"emphasizeSelectedText:", :"paragraphSelectedLines:", 
+         :"uppercaseSelectedText:", :"lowercaseSelectedText:", :"titlecaseSelectedText:", 
+         :"stripTagsFromSelectedText:", :"insertCloseTag:"
       selectedRange.length > 0
-    when :"formatMarkup:"
+    when :"reformatText:"
       item.formatable?
     else
       true
