@@ -1,6 +1,7 @@
 class ImageWell < NSImageView
 
   attr_accessor :bookController
+  attr_accessor :metadataController
   attr_accessor :imagePath
 
   def performDragOperation(draggingInfo)
@@ -29,7 +30,7 @@ class ImageWell < NSImageView
       imageArray = pasteboard.readObjectsForClasses(classArray, options:options)
       stashImage(imageArray[0], @bookController.document.manifest.root.generateUniqueChildName("cover.jpg"))
       self.image = imageArray[0]
-      @bookController.metadataController.imageWellReceivedImage(self)
+      @metadataController.imageWellReceivedImage(self)
     end
   end
   
@@ -40,6 +41,7 @@ class ImageWell < NSImageView
   private
   
   def stashImage(newImage, filename)
+    return unless newImage && filename
     @imagePath = File.join(Dir.mktmpdir("folio-cover-image-"), filename)
     newImage.TIFFRepresentation.writeToFile(@imagePath, atomically:false)
   end

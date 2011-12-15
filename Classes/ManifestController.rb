@@ -299,8 +299,8 @@ class ManifestController < NSResponder
     return unless items && !items.empty?
     items.each do |item|
       @bookController.tabbedViewController.removeObject(item)
-      @bookController.spineController.deleteItemRefsWithItem(item)
-      @bookController.navigationController.deletePointsReferencingItem(item)
+      @bookController.selectionViewController.spineController.deleteItemRefsWithItem(item)
+      @bookController.selectionViewController.navigationController.deletePointsReferencingItem(item)
       @manifest.delete(item)
     end
     undoManager.removeAllActions
@@ -310,7 +310,7 @@ class ManifestController < NSResponder
 
   def addSelectedItemsToSpine(sender)
     itemRefs = selectedItems.map { |item| ItemRef.new(item) }
-    @bookController.spineController.addItemRefs(itemRefs)
+    @bookController.selectionViewController.spineController.addItemRefs(itemRefs)
   end
 
   def markAsCover(sender)

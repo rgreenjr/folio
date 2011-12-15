@@ -191,7 +191,7 @@ class SpineController < NSResponder
 
   def addSelectedItemRefsToNavigation(sender)
     items = selectedItemRefs.map { |itemRef| itemRef.item }
-    @bookController.navigationController.newPointsWithItems(items)
+    @bookController.selectionViewController.navigationController.newPointsWithItems(items)
   end
 
   def deleteSelectedItemRefs(sender)

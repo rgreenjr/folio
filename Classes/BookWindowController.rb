@@ -3,9 +3,6 @@ class BookWindowController < NSWindowController
   ISSUE_VIEW_MIN_HEIGHT    = 100.0
   SELECTION_VIEW_MIN_WIDTH = 150.0
   
-  attr_accessor :navigationController
-  attr_accessor :spineController
-  attr_accessor :manifestController
   attr_accessor :masterSplitView # contains selectionView (left) and contentSplitView (right)
   attr_accessor :selectionView
   attr_accessor :selectionViewController

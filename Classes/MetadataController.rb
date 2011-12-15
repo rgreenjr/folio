@@ -131,9 +131,9 @@ class MetadataController < NSWindowController
     return unless @imageWell.imagePath
     item = @bookController.document.manifest.itemWithHref(@imageWell.imageName)
     if item
-      @bookController.manifestController.deleteItems([item])
+      @bookController.selectionViewController.manifestController.deleteItems([item])
     end
-    item = @bookController.manifestController.addFile(@imageWell.imagePath)
+    item = @bookController.selectionViewController.manifestController.addFile(@imageWell.imagePath)
     if item
       @metadata.cover = item
     end
