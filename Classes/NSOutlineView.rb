@@ -31,10 +31,6 @@ class NSOutlineView
     items.each { |item| expandItem(item) } if items
   end
 
-  def expandItems(items)
-    items.each { |item| expandItem(item) } if items
-  end
-
   def scrollItemsToVisible(items)
     scrollRowToVisible(rowForItem(items.first)) if items && !items.empty?
   end

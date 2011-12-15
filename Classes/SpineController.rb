@@ -13,6 +13,10 @@ class SpineController < NSResponder
     @spine = @bookController.document.spine
   end
 
+  def toggleSpine(sender)
+    @outlineView.isItemExpanded(self) ? @outlineView.collapseItem(self) : @outlineView.expandItem(self)
+  end
+
   def numberOfChildrenOfItem(item)
     return 0 unless @spine # guard against SDK bug
     item == self ? @spine.size : 0
@@ -244,6 +248,8 @@ class SpineController < NSResponder
     case interfaceItem.action
     when :"addSelectedItemRefsToNavigation:", :"deleteSelectedItemRefs:"
       @outlineView.numberOfSelectedRows > 0
+    when :"toggleSpine:"
+      interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Spine" : "Expand Spine"
     else
       true
     end

@@ -16,6 +16,10 @@ class ManifestController < NSResponder
     @manifest = @bookController.document.manifest
   end
 
+  def toggleManifest(sender)
+    @outlineView.isItemExpanded(self) ? @outlineView.collapseItem(self) : @outlineView.expandItem(self)
+  end
+
   def numberOfChildrenOfItem(item)
     return 0 unless @manifest # guard against SDK bug
     item == self ? @manifest.root.size : item.size
@@ -366,6 +370,8 @@ class ManifestController < NSResponder
       selectedItems.reject { |item| item.flowable? }.empty?
     when :"markAsCover:"
       @outlineView.numberOfSelectedRows == 1 && selectedItem.imageable?
+    when :"toggleManifest:"
+      interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Manifest" : "Expand Manifest"
     else
       true
     end

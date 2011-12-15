@@ -13,6 +13,10 @@ class NavigationController < NSResponder
     @bookController = controller
     @navigation = @bookController.document.navigation
   end
+  
+  def toggleNavigation(sender)
+    @outlineView.isItemExpanded(self) ? @outlineView.collapseItem(self) : @outlineView.expandItem(self)
+  end
 
   def numberOfChildrenOfItem(point)
     return 0 unless @navigation # guard against SDK bug
@@ -292,6 +296,8 @@ class NavigationController < NSResponder
       @outlineView.numberOfSelectedRows > 0
     when :"duplicateSelectedPoint:", :"addPoint:"
       @outlineView.numberOfSelectedRows == 1
+    when :"toggleNavigation:"
+      interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Navigation" : "Expand Navigation"
     else
       true
     end
