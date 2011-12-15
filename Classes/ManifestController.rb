@@ -240,6 +240,7 @@ class ManifestController < NSResponder
       end
     end
     markBookEdited
+    @outlineView.expandItem(self)
     reloadDataAndSelectItems(items)
     items
   end
