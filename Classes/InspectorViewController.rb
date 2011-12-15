@@ -30,6 +30,30 @@ class InspectorViewController < NSViewController
     view && !view.hidden?
   end
   
+  def pointViewController
+    unless @pointViewController
+      @pointViewController ||= PointViewController.alloc.initWithBookController(@bookController)
+      addView(@pointViewController.view)
+    end
+    @pointViewController
+  end
+
+  def itemRefViewController
+    unless @itemRefViewController
+      @itemRefViewController ||= ItemRefViewController.alloc.initWithBookController(@bookController)
+      addView(@itemRefViewController.view)
+    end
+    @itemRefViewController
+  end
+  
+  def itemViewController
+    unless @itemViewController
+      @itemViewController ||= ItemViewController.alloc.initWithBookController(@bookController)
+      addView(@itemViewController.view)
+    end
+    @itemViewController
+  end
+  
   private
   
   def showEmptyView
@@ -61,30 +85,6 @@ class InspectorViewController < NSViewController
     itemRefViewController.view.hidden = true
     itemViewController.view.hidden = false
     emptyView.hidden = true
-  end
-  
-  def pointViewController
-    unless @pointViewController
-      @pointViewController ||= PointViewController.alloc.initWithBookController(@bookController)
-      addView(@pointViewController.view)
-    end
-    @pointViewController
-  end
-
-  def itemRefViewController
-    unless @itemRefViewController
-      @itemRefViewController ||= ItemRefViewController.alloc.initWithBookController(@bookController)
-      addView(@itemRefViewController.view)
-    end
-    @itemRefViewController
-  end
-  
-  def itemViewController
-    unless @itemViewController
-      @itemViewController ||= ItemViewController.alloc.initWithBookController(@bookController)
-      addView(@itemViewController.view)
-    end
-    @itemViewController
   end
   
   def addView(view)

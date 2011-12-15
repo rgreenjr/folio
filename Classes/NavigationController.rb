@@ -50,7 +50,7 @@ class NavigationController < NSResponder
   end
 
   def setObjectValue(value, forTableColumn:tableColumn, byItem:point)
-    # changePointText(point, value)
+    @bookController.inspectorViewController.pointViewController.changeText(point, value)
   end
 
   def writeItems(points, toPasteboard:pboard)
@@ -281,7 +281,7 @@ class NavigationController < NSResponder
     points = @navigation.select { |point| point.item == item }
     deletePoints(points, false)
   end
-
+  
   private
 
   def reloadDataAndSelectPoints(points)

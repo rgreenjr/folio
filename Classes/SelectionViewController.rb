@@ -82,6 +82,10 @@ class SelectionViewController < NSViewController
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
     controllerForItem(item).willDisplayCell(cell, forTableColumn:tableColumn, item:item)
   end
+  
+  def outlineView(outlineView, shouldEditTableColumn:tableColumn, item:item)
+    controllerForItem(item) != @spineController
+  end
 
   def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
     controllerForItem(item).setObjectValue(value, forTableColumn:tableColumn, byItem:item)

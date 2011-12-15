@@ -54,12 +54,7 @@ class ManifestController < NSResponder
   end
 
   def setObjectValue(value, forTableColumn:tableColumn, byItem:item)
-    value = value.sanitize
-    if item.parent.childWithName(value)
-      showChangeNameCollisionAlert(value)
-    else
-      changeItemName(item, value)
-    end
+    @bookController.inspectorViewController.itemViewController.changeName(item, value)
   end
 
   def writeItems(items, toPasteboard:pboard)
