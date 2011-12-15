@@ -39,7 +39,7 @@ class PreferencesController < NSWindowController
 
   def windowDidBecomeKey(notification)
     document = NSDocumentController.sharedDocumentController.currentDocument
-    document.controller.tabViewController.toggleCloseMenuKeyEquivalents
+    document.controller.tabbedViewController.toggleCloseMenuKeyEquivalents
   end
 
   private

@@ -54,7 +54,7 @@ class PointViewController < NSViewController
         undoManager.actionName = "Change Point Source"
         point.item = item
         point.fragment = fragment
-        @bookController.tabViewController.addObject(point)
+        @bookController.tabbedViewController.addObject(point)
       else
         @bookController.runModalAlert("The manifest doesn't contain \"#{value}\".", "Please specify an item included in the manifest.")
       end

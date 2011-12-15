@@ -1,17 +1,19 @@
 class ManifestController < NSResponder
 
-  attr_accessor :bookController, :outlineView
+  attr_accessor :outlineView
 
   def awakeFromNib
-    @manifest = @bookController.document.manifest
-
-    # configure popup menu
     @menu = NSMenu.alloc.initWithTitle("")
     @menu.addAction("Add Files...", "showAddFilesSheet:", self)
     @menu.addActionWithSeparator("New Directory", "newDirectory:", self)
     @menu.addActionWithSeparator("Add to Spine", "addSelectedItemsToSpine:", self)
     @menu.addActionWithSeparator("Mark as Cover Image", "markAsCover:", self)
     @menu.addAction("Delete...", "showDeleteSelectedItemsSheet:", self)
+  end
+  
+  def bookController=(controller)
+    @bookController = controller
+    @manifest = @bookController.document.manifest
   end
 
   def numberOfChildrenOfItem(item)
@@ -291,7 +293,7 @@ class ManifestController < NSResponder
   def deleteItems(items)
     return unless items && !items.empty?
     items.each do |item|
-      @bookController.tabViewController.removeObject(item)
+      @bookController.tabbedViewController.removeObject(item)
       @bookController.spineController.deleteItemRefsWithItem(item)
       @bookController.navigationController.deletePointsReferencingItem(item)
       @manifest.delete(item)
@@ -315,13 +317,7 @@ class ManifestController < NSResponder
 
   def newDirectory(sender)
     parent, index = selectedItemParentAndChildIndex
-    name = "New Directory"
-    i = 1
-    while true
-      break unless parent.childWithName(name)
-      i += 1
-      name = "New Directory #{i}"
-    end
+    name = parent.generateUniqueChildName("New Directory")
     item = Item.new(parent, name, nil, Media::DIRECTORY)
     @manifest.insert(index, item, parent)
     reloadDataAndSelectItems([item])
@@ -329,7 +325,7 @@ class ManifestController < NSResponder
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)
   end
 
-  def showUndeclaredFilesSheet
+  def showUnregisteredFiles(sender)
     ignore = %w{META-INF/container.xml mimetype}
     ignore = ignore.map { |item| "#{@bookController.document.unzipPath}/#{item}" }
     ignore << @bookController.document.container.opfAbsolutePath

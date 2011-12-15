@@ -1,6 +1,8 @@
 class IssueViewController < NSViewController
 
-  attr_accessor :bookController, :outlineView, :noIssuesImageView
+  attr_accessor :bookController
+  attr_accessor :outlineView
+  attr_accessor :noIssuesImageView
 
   def initWithBookController(bookController)
     initWithNibName("IssueView", bundle:nil)
@@ -79,14 +81,14 @@ class IssueViewController < NSViewController
     object = @outlineView.itemAtRow(@outlineView.selectedRow)
     return unless object
     if object.class == Item
-      @bookController.tabViewController.addObject(object)
+      @bookController.tabbedViewController.addObject(object)
     elsif object.class == Issue
       parent = @outlineView.parentForItem(object)
       if parent && parent.class == Item
-        @bookController.tabViewController.addObject(parent)
-        @bookController.tabViewController.showTextView
+        @bookController.tabbedViewController.addObject(parent)
+        @bookController.tabbedViewController.showTextView
         if object.lineNumber
-          @bookController.textViewController.selectLineNumber(object.lineNumber + 1)
+          @bookController.tabbedViewController.textViewController.selectLineNumber(object.lineNumber + 1)
         end
       end
     end

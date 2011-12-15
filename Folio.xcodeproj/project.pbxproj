@@ -95,7 +95,6 @@
 		CD2D183912E5F1F800D6A99A /* String.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180412E5F1F800D6A99A /* String.rb */; };
 		CD2D183A12E5F1F800D6A99A /* TabCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180512E5F1F800D6A99A /* TabCell.rb */; };
 		CD2D183B12E5F1F800D6A99A /* TabView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180612E5F1F800D6A99A /* TabView.rb */; };
-		CD2D183C12E5F1F800D6A99A /* TabViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180712E5F1F800D6A99A /* TabViewController.rb */; };
 		CD2D183D12E5F1F800D6A99A /* TextViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180812E5F1F800D6A99A /* TextViewController.rb */; };
 		CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180A12E5F1F800D6A99A /* UUID.rb */; };
 		CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D180C12E5F1F800D6A99A /* WebViewController.rb */; };
@@ -160,6 +159,8 @@
 		CDB542C512F3638100BB5739 /* empty-inspector.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB542C412F3638100BB5739 /* empty-inspector.png */; };
 		CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */; };
 		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
+		CDB780D6149964070025702F /* TabbedViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D5149964060025702F /* TabbedViewController.rb */; };
+		CDB780D8149987C10025702F /* SelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D7149987C10025702F /* SelectionView.xib */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
 		CDD7AFF712EF675700352D4B /* manifest.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFF612EF675700352D4B /* manifest.png */; };
 		CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFFA12EF6D5F00352D4B /* toc.png */; };
@@ -182,6 +183,7 @@
 		CDEBCBEE12F0E7CB00E8834D /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBED12F0E7CB00E8834D /* preview.png */; };
 		CDEBCBF012F0E7D600E8834D /* yield-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBEF12F0E7D600E8834D /* yield-circle.png */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
+		CDFF71BB14992C5A00371508 /* TabbedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF71BA14992C5A00371508 /* TabbedView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -254,7 +256,6 @@
 		CD2D180412E5F1F800D6A99A /* String.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = String.rb; sourceTree = "<group>"; };
 		CD2D180512E5F1F800D6A99A /* TabCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabCell.rb; sourceTree = "<group>"; };
 		CD2D180612E5F1F800D6A99A /* TabView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabView.rb; sourceTree = "<group>"; };
-		CD2D180712E5F1F800D6A99A /* TabViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabViewController.rb; sourceTree = "<group>"; };
 		CD2D180812E5F1F800D6A99A /* TextViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TextViewController.rb; sourceTree = "<group>"; };
 		CD2D180A12E5F1F800D6A99A /* UUID.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = UUID.rb; sourceTree = "<group>"; };
 		CD2D180C12E5F1F800D6A99A /* WebViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = WebViewController.rb; sourceTree = "<group>"; };
@@ -319,6 +320,8 @@
 		CDB542C412F3638100BB5739 /* empty-inspector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-inspector.png"; sourceTree = "<group>"; };
 		CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverMessageView.rb; sourceTree = "<group>"; };
 		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
+		CDB780D5149964060025702F /* TabbedViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabbedViewController.rb; sourceTree = "<group>"; };
+		CDB780D7149987C10025702F /* SelectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionView.xib; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
 		CDD7AFF612EF675700352D4B /* manifest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manifest.png; sourceTree = "<group>"; };
 		CDD7AFFA12EF6D5F00352D4B /* toc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toc.png; sourceTree = "<group>"; };
@@ -341,6 +344,7 @@
 		CDEBCBED12F0E7CB00E8834D /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		CDEBCBEF12F0E7D600E8834D /* yield-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yield-circle.png"; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		CDFF71BA14992C5A00371508 /* TabbedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabbedView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -459,7 +463,9 @@
 				CD3179CA12EA7AE800C98B33 /* Preferences.xib */,
 				CD3179CC12EA7AE800C98B33 /* Progress.xib */,
 				CD3179CE12EA7AE800C98B33 /* Search.xib */,
+				CDB780D7149987C10025702F /* SelectionView.xib */,
 				CD3179D012EA7AE800C98B33 /* SourceView.xib */,
+				CDFF71BA14992C5A00371508 /* TabbedView.xib */,
 				CD8F5F4912EB75A00036B0D7 /* Validation.xib */,
 				CD3179D612EA7AE800C98B33 /* WebView.xib */,
 			);
@@ -525,8 +531,8 @@
 				CD2D180312E5F1F800D6A99A /* SpineController.rb */,
 				CD2D180412E5F1F800D6A99A /* String.rb */,
 				CD2D180512E5F1F800D6A99A /* TabCell.rb */,
+				CDB780D5149964060025702F /* TabbedViewController.rb */,
 				CD2D180612E5F1F800D6A99A /* TabView.rb */,
-				CD2D180712E5F1F800D6A99A /* TabViewController.rb */,
 				CD2D180812E5F1F800D6A99A /* TextViewController.rb */,
 				CD2D180A12E5F1F800D6A99A /* UUID.rb */,
 				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
@@ -712,7 +718,6 @@
 				CD2D183912E5F1F800D6A99A /* String.rb in Resources */,
 				CD2D183A12E5F1F800D6A99A /* TabCell.rb in Resources */,
 				CD2D183B12E5F1F800D6A99A /* TabView.rb in Resources */,
-				CD2D183C12E5F1F800D6A99A /* TabViewController.rb in Resources */,
 				CD2D183D12E5F1F800D6A99A /* TextViewController.rb in Resources */,
 				CD2D183F12E5F1F800D6A99A /* UUID.rb in Resources */,
 				CD2D184112E5F1F800D6A99A /* WebViewController.rb in Resources */,
@@ -796,6 +801,9 @@
 				CD5E2B2014956DB70036E219 /* inspector-hide-icon.png in Resources */,
 				CD102B87149590A500EE8650 /* issues-hide-icon.png in Resources */,
 				CD102B89149592D100EE8650 /* issues-show-icon.png in Resources */,
+				CDFF71BB14992C5A00371508 /* TabbedView.xib in Resources */,
+				CDB780D6149964070025702F /* TabbedViewController.rb in Resources */,
+				CDB780D8149987C10025702F /* SelectionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

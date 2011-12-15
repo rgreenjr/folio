@@ -1,16 +1,19 @@
 class NavigationController < NSResponder
 
-  attr_accessor :bookController, :outlineView
+  attr_accessor :outlineView
 
   def awakeFromNib
-    @navigation = @bookController.document.navigation
-
     @menu = NSMenu.alloc.initWithTitle("")
     @menu.addAction("New Point...", "newPoint:", self)
     @menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
     @menu.addAction("Delete", "deleteSelectedPoints:", self)
   end
   
+  def bookController=(controller)
+    @bookController = controller
+    @navigation = @bookController.document.navigation
+  end
+
   def numberOfChildrenOfItem(point)
     return 0 unless @navigation # guard against SDK bug
     point == self ? @navigation.root.size : point.size

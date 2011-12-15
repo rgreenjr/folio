@@ -1,6 +1,8 @@
 class WebViewController < NSViewController
 
-  attr_accessor :item, :bookController
+  attr_accessor :bookController
+  
+  # attr_accessor :item
 
   def awakeFromNib
     view.editable = false
@@ -78,8 +80,7 @@ class WebViewController < NSViewController
       fragment = request.URL.fragment || ""
       
       # find matching item in manifest
-      targetItem = @bookController.document.manifest.itemWithHref(href)
-      
+      targetItem = @bookController.document.manifest.itemWithHref(href)      
       
       if targetItem.nil?
         # not match was found, so supress listener
@@ -107,7 +108,7 @@ class WebViewController < NSViewController
         point.fragment = fragment
         
         # open point in new tab
-        @bookController.tabViewController.addObject(point)
+        @bookController.tabbedViewController.addObject(point)
       end
     end
   end

@@ -204,11 +204,12 @@ class Item
   def generateUniqueChildName(childname, counter=0)
     candidate = childname
     extension = childname.pathExtension
+    extension = extension + '.' if !extension.empty?
     base = childname.stringByDeletingPathExtension
     while true
       if childWithName(candidate)
         counter += 1
-        candidate = "#{base} #{counter}.#{extension}" 
+        candidate = "#{base} #{counter}#{extension}" 
       else
         break
       end

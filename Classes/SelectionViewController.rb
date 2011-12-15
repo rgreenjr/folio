@@ -1,12 +1,28 @@
 class SelectionViewController < NSViewController
 
-  attr_accessor :outlineView, :bookController
-  attr_accessor :navigationController, :spineController, :manifestController
+  attr_accessor :bookController
+  attr_accessor :navigationController
+  attr_accessor :spineController
+  attr_accessor :manifestController
+  attr_accessor :outlineView
 
-  def awakeFromNib
+  def initWithBookController(bookController)
+    initWithNibName("SelectionView", bundle:nil)
+    @bookController = bookController
+    self
+  end
+
+  def loadView
+    super
     @controllers = [@navigationController, @spineController, @manifestController]
+
+    # assign bookController to each controller
+    @controllers.each { |controller| controller.bookController = @bookController }
     
-    # include each controller in the first reponder chain
+    # add ourself to next responder chain
+    @bookController.makeResponder(self)
+    
+    # add each controller to next repsonder chain
     @controllers.each { |controller| @bookController.makeResponder(controller) }
     
     # use our custom image cell
@@ -18,10 +34,6 @@ class SelectionViewController < NSViewController
     # set up outlineView to process double-click evetns
     @outlineView.target = self
     @outlineView.doubleAction = :"doubleClickAction:"
-    
-    # register ourselves as both the dataSource and the delegate
-    @outlineView.delegate = self
-    @outlineView.dataSource = self
   end
   
   def doubleClickAction(sender)
@@ -78,7 +90,7 @@ class SelectionViewController < NSViewController
   def outlineViewSelectionDidChange(notification)
     if @outlineView.numberOfSelectedRows == 1
       item = @outlineView.itemAtRow(@outlineView.selectedRow)
-      @bookController.tabViewController.addObject(item)
+      @bookController.tabbedViewController.addObject(item)
       updateInspector(item)
     else
       updateInspector(nil)

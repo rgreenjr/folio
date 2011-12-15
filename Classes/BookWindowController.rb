@@ -6,68 +6,63 @@ class BookWindowController < NSWindowController
   attr_accessor :navigationController
   attr_accessor :spineController
   attr_accessor :manifestController
-
-  attr_accessor :tabViewController
-  attr_accessor :webViewController
-  attr_accessor :textViewController
-  attr_accessor :metadataController
-
   attr_accessor :masterSplitView # contains selectionView (left) and contentSplitView (right)
-
   attr_accessor :selectionView
   attr_accessor :selectionViewController
-  
+  attr_accessor :tabbedViewController
   attr_accessor :contentSplitView # contains contentPlaceholder (top) and issueView (bottom)
-
-  attr_accessor :contentPlaceholder # contains either logoImageWell or contentView
-  
-  attr_accessor :logoImageWell
-  
-  attr_accessor :contentView # tabBox with tabView (top) and renderView (bottom)  
-  attr_accessor :renderView # contains either renderSplitView or renderImageView
-  attr_accessor :renderSplitView # contains textView (top) and webView (bottom)
-  attr_accessor :renderImageView
-  
-  attr_accessor :inspectorButton, :issueButton
+  attr_accessor :contentPlaceholder # contains either logoImageView or tabbedView
+  attr_accessor :logoImageView
+  attr_accessor :layoutSegementedControl
+  attr_accessor :inspectorButton
+  attr_accessor :issueButton
 
   def init
     initWithWindowNibName("Book")
   end
 
-  def awakeFromNib    
-    # add controllers to the next responder event chain
-    makeResponder(@textViewController)
-    makeResponder(@webViewController)
-    makeResponder(@tabViewController)
-    makeResponder(@selectionViewController)
+  def awakeFromNib
+    # create tabbedViewController
+    @tabbedViewController = TabbedViewController.alloc.initWithBookController(self)
     
-    # register for tabView selection change events
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
-        name:"TabViewSelectionDidChange", object:@tabViewController.view)
-        
-    # show logo in content area by default
-    showLogoImage
+    # create selectionViewController
+    @selectionViewController = SelectionViewController.alloc.initWithBookController(self)
 
-    # put selectionView into place
+    # put selectionView in place
     @selectionViewController.view.frame = @selectionView.frame
     @selectionView.addSubview(selectionViewController.view)
     
-    # exapnd all selectionView elements
-    @selectionViewController.expandNavigation(self)
-    @selectionViewController.expandSpine(self)
-    @selectionViewController.expandManifest(self)
+    # put logoImageView in place
+    @logoImageView.frame = @contentPlaceholder.frame
+    @logoImageView.frameOrigin = NSZeroPoint
+    @contentPlaceholder.addSubview(@logoImageView)
     
+    # put tabbedView in place
+    @tabbedViewController.view.frame = @contentPlaceholder.frame
+    @tabbedViewController.view.frameOrigin = NSZeroPoint
+    @contentPlaceholder.addSubview(@tabbedViewController.view)
+    
+    # register for tabView selection change events
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
+        name:"TabViewSelectionDidChange", object:@tabbedViewController.tabView)
+
     # force issueView to load
     issueViewController
     
+    # show logo in content area by default
+    showLogoImage
+    
+    # expand the navigation tree by default
+    @selectionViewController.expandNavigation(self)
+
     window.makeKeyAndOrderFront(nil)
   end
 
   def windowDidBecomeKey(notification)
-    @tabViewController.toggleCloseMenuKeyEquivalents
+    @tabbedViewController.toggleCloseMenuKeyEquivalents
   end
 
-  def windowTitleForDocumentDisplayName(displayName)
+  def windowTitleForDocumentDisplayName(windowTitleForDocumentDisplayName)
     document.metadata.title
   end
 
@@ -101,65 +96,17 @@ class BookWindowController < NSWindowController
   end
   
   def tabViewSelectionDidChange(notification)
-    @tabViewController.view.selectedTab ? showContentView : showLogoImage
+    @tabbedViewController.selectedTab ? showTabbedView : showLogoImage
   end
   
-  def addFiles(sender)
-    showSelectionView(self)
-    manifestController.showAddFilesSheet(sender)
-  end
-
-  def newDirectory(sender)
-    showSelectionView(self)
-    manifestController.newDirectory(sender)
-  end
-
-  def newPoint(sender)
-    showSelectionView(self)
-    navigationController.newPoint(sender)
-  end
-  
-  def showContentView
-    # remove the logo view
-    @logoImageWell.removeFromSuperview
-    
-    # add contentView to contentPlaceholder view
-    @contentPlaceholder.addSubview(@contentView)
-    
-    # make contentView fill entire frame
-    @contentView.frame = @contentPlaceholder.frame
-    @contentView.frameOrigin = NSZeroPoint
-    
-    if @tabViewController.selectedItem.imageable?
-      # remove combo text/web view since content is image
-      @renderSplitView.removeFromSuperview
-      
-      # set newView to image view
-      newView = @renderImageView
-    else
-      # remove image view since content is not image
-      @renderImageView.removeFromSuperview
-      
-      # set newView to text/combo view
-      newView = @renderSplitView
-    end
-    
-    # add newView to renderView
-    @renderView.addSubview(newView)
-    
-    # make newView fill entire frame
-    newView.frame = @renderView.frame
-    newView.frameOrigin = NSZeroPoint
-    
-    # adjust masterSplitView
-    @masterSplitView.adjustSubviews
+  def showTabbedView
+    @logoImageView.hidden = true
+    @tabbedViewController.show
   end
 
   def showLogoImage
-    @contentView.removeFromSuperview unless @contentPlaceholder.subviews.count == 0
-    @logoImageWell.frame = @contentPlaceholder.frame
-    @logoImageWell.frameOrigin = NSZeroPoint
-    @contentPlaceholder.addSubview(@logoImageWell)
+    @logoImageView.hidden = false
+    @tabbedViewController.hide
   end
 
   def showMetadataPanel(sender)
@@ -267,27 +214,20 @@ class BookWindowController < NSWindowController
     @inspectorButton.state = NSOnState
   end
 
-  def showUnregisteredFiles(sender)
-    manifestController.showUndeclaredFilesSheet
-  end
-
   def showStagingDirectory(sender)
     NSTask.launchedTaskWithLaunchPath("/usr/bin/open", arguments:[document.unzipPath])
   end
 
   def searchWikipedia(sender)
-    url = NSURL.URLWithString("http://en.wikipedia.org/wiki/Special:Search/#{document.metadata.title.urlEscape}")
-    NSWorkspace.sharedWorkspace.openURL(url)
+    openURL("http://en.wikipedia.org/wiki/Special:Search/#{document.metadata.title.urlEscape}")
   end
 
   def searchGoogle(sender)
-    url = NSURL.URLWithString("http://www.google.com/search?q=#{document.metadata.title.urlEscape}")
-    NSWorkspace.sharedWorkspace.openURL(url)
+    openURL("http://www.google.com/search?q=#{document.metadata.title.urlEscape}+#{document.metadata.creator.urlEscape}")
   end
 
   def searchAmazon(sender)
-    url = NSURL.URLWithString("http://www.amazon.com/s?field-keywords=#{document.metadata.title.urlEscape}")
-    NSWorkspace.sharedWorkspace.openURL(url)
+    openURL("http://www.amazon.com/s?field-keywords=#{document.metadata.title.urlEscape}+#{document.metadata.creator.urlEscape}")
   end
 
   def showProgressWindow(title, &block)
@@ -322,14 +262,14 @@ class BookWindowController < NSWindowController
   
   def performValidation
     @validationController ||= ValidationController.alloc.init
-    if @validationController.validateBook(document, @textViewController.lineNumberView)
+    if @validationController.validateBook(document, @tabbedViewController.textViewController.lineNumberView)
       issueViewController.refresh
       showIssueView
     end
   end
   
   def printDocument(sender)
-    PrintController.printView(@tabViewController.selectedTabPrintView)
+    PrintController.printView(@tabbedViewController.selectedTabPrintView)
   end
 
   def runModalAlert(messageText, informativeText='')
@@ -353,13 +293,17 @@ class BookWindowController < NSWindowController
         interfaceItem.title = inspectorViewController.visible? ? "Hide Inspector" : "Show Inspector"
       end
     when :"printDocument:"
-      @tabViewController.numberOfTabs > 0
+      @tabbedViewController.numberOfTabs > 0
     else
       true
     end
   end
   
   private
+  
+  def openURL(url)
+    NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString(url))
+  end
   
   def shiftFrameOrigin(frame, amount)
     frame.size.height -= amount

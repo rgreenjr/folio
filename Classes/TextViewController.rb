@@ -1,6 +1,10 @@
 class TextViewController < NSViewController
 
-  attr_accessor :item, :webViewController, :tabViewController, :bookController, :lineNumberView
+  attr_accessor :bookController
+  attr_accessor :webViewController
+
+  attr_accessor :item
+  attr_accessor :lineNumberView
 
   def awakeFromNib
     @textAttributes = { NSFontAttributeName => PreferencesController.sharedPreferencesController.editorFont }  
@@ -76,7 +80,7 @@ class TextViewController < NSViewController
   end
   
   def undoManagerForTextView(textView)
-    @tabViewController.undoManagerForItem(@item)
+    @bookController.tabbedViewController.undoManagerForItem(@item)
   end
 
   def replace(range, replacement)
@@ -195,7 +199,7 @@ class TextViewController < NSViewController
   end
 
   def validateUserInterfaceItem(interfaceItem)
-    return false unless @item
+    return false unless @item && 
     case interfaceItem.action
     when :"strongify:", :"emphasize:", :"paragraphSelectedLines:", :"uppercase:", :"lowercase:", :"titlecase:", :"stripTags:"
       selectedRange.length > 0

@@ -1,12 +1,16 @@
 class SpineController < NSResponder
 
-  attr_accessor :bookController, :outlineView
+  attr_accessor :outlineView
 
   def awakeFromNib
-    @spine = @bookController.document.spine
     @menu = NSMenu.alloc.initWithTitle("")
     @menu.addActionWithSeparator("Add to Table of Contents", "addSelectedItemRefsToNavigation:", self)
     @menu.addAction("Delete", "deleteSelectedItemRefs:", self)
+  end
+
+  def bookController=(controller)
+    @bookController = controller
+    @spine = @bookController.document.spine
   end
 
   def numberOfChildrenOfItem(item)

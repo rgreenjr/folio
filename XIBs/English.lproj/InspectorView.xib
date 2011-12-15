@@ -128,7 +128,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSImageView" id="550314342">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">258</int>
 				<object class="NSMutableSet" key="NSDragTypes">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -143,6 +143,8 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{400, 110}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<bool key="NSEnabled">YES</bool>
 				<object class="NSImageCell" key="NSCell" id="396928022">
 					<int key="NSCellFlags">807534080</int>
@@ -180,19 +182,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">attributesView</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="745041827"/>
-					</object>
-					<int key="connectionID">101</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">emptyView</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="550314342"/>
 					</object>
 					<int key="connectionID">120</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">attributesView</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="745041827"/>
+					</object>
+					<int key="connectionID">101</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -252,12 +254,6 @@
 						<reference key="parent" ref="1053644553"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">97</int>
-						<reference key="object" ref="745041827"/>
-						<reference key="parent" ref="764513978"/>
-						<string key="objectName">Attributes View</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">98</int>
 						<reference key="object" ref="521013318"/>
 						<object class="NSMutableArray" key="children">
@@ -286,6 +282,12 @@
 						<int key="objectID">119</int>
 						<reference key="object" ref="396928022"/>
 						<reference key="parent" ref="550314342"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">97</int>
+						<reference key="object" ref="745041827"/>
+						<reference key="parent" ref="764513978"/>
+						<string key="objectName">Attributes View</string>
 					</object>
 				</object>
 			</object>
@@ -347,11 +349,9 @@
 							<string>attributesView</string>
 							<string>bookController</string>
 							<string>emptyView</string>
-							<string>textField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -364,7 +364,6 @@
 							<string>attributesView</string>
 							<string>bookController</string>
 							<string>emptyView</string>
-							<string>textField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -378,10 +377,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">emptyView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">textField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
