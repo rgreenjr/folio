@@ -51,9 +51,6 @@ class TabbedViewController < NSViewController
     # hide the source view initially
     hideTextView
     
-    # update close menu shortcuts
-    toggleCloseMenuKeyEquivalents
-    
     # update toolbar state
     updateToolbarItems
   end
@@ -109,10 +106,7 @@ class TabbedViewController < NSViewController
   end
   
   def addObject(object)
-    if object.item.renderable?
-      @tabView.addObject(object)
-      toggleCloseMenuKeyEquivalents
-    end
+    @tabView.addObject(object) if object.item.renderable?
   end
 
   def removeObject(object)
@@ -139,7 +133,6 @@ class TabbedViewController < NSViewController
 
   def closeTab(sender)
     @tabView.closeSelectedTab
-    toggleCloseMenuKeyEquivalents
   end
   
   def selectedTabPrintView
@@ -244,19 +237,6 @@ class TabbedViewController < NSViewController
 
   def splitView(splitView, constrainSplitPosition:proposedPosition, ofSubviewAt:dividerIndex)
     @previousDividerPosition = proposedPosition 
-  end
-  
-  def toggleCloseMenuKeyEquivalents
-    fileMenu = NSApp.mainMenu.itemWithTitle("File")
-    closeMenu = fileMenu.submenu.itemWithTitle("Close")
-    closeTabMenu = fileMenu.submenu.itemWithTitle("Close Tab")
-    if @bookController.window.isKeyWindow && numberOfTabs > 0
-      closeTabMenu.keyEquivalent = "w"
-      closeMenu.keyEquivalent = "W"
-    else
-      closeTabMenu.keyEquivalent = ""
-      closeMenu.keyEquivalent = "w"
-    end
   end
   
   def validateUserInterfaceItem(interfaceItem)

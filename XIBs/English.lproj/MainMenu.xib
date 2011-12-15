@@ -259,7 +259,7 @@
 								<object class="NSMenuItem" id="775810485">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Close</string>
-									<string key="NSKeyEquiv">W</string>
+									<string key="NSKeyEquiv">w</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -269,7 +269,7 @@
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Close Tab</string>
 									<string key="NSKeyEquiv">w</string>
-									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSKeyEquivModMask">1310720</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
@@ -289,15 +289,6 @@
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Save</string>
 									<string key="NSKeyEquiv">s</string>
-									<int key="NSKeyEquivModMask">1310720</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-								</object>
-								<object class="NSMenuItem" id="1023925487">
-									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">Save Tab</string>
-									<string key="NSKeyEquiv">s</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -307,6 +298,15 @@
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Save As…</string>
 									<string key="NSKeyEquiv">S</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="1023925487">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Save Tab</string>
+									<string key="NSKeyEquiv">s</string>
 									<int key="NSKeyEquivModMask">1310720</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1793,9 +1793,9 @@
 							<reference ref="301720587"/>
 							<reference ref="636823227"/>
 							<reference ref="1010469920"/>
-							<reference ref="1023925487"/>
 							<reference ref="688348772"/>
 							<reference ref="1068663598"/>
+							<reference ref="1023925487"/>
 							<reference ref="697586212"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
@@ -3505,9 +3505,9 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
-							<string>toggleCloseMenuKeyEquivalents:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
+							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3530,9 +3530,9 @@
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
-							<string>toggleCloseMenuKeyEquivalents:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
+							<string>updateToolbarItems:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3557,15 +3557,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">toggleCloseMenuKeyEquivalents:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">toggleLayoutMode:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">toggleSplitOrientation:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">updateToolbarItems:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

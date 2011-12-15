@@ -37,11 +37,6 @@ class PreferencesController < NSWindowController
     updateFontTextField
   end
 
-  def windowDidBecomeKey(notification)
-    document = NSDocumentController.sharedDocumentController.currentDocument
-    document.controller.tabbedViewController.toggleCloseMenuKeyEquivalents
-  end
-
   private
 
   def updateFontTextField

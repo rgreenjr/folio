@@ -58,10 +58,6 @@ class BookWindowController < NSWindowController
     window.makeKeyAndOrderFront(nil)
   end
 
-  def windowDidBecomeKey(notification)
-    @tabbedViewController.toggleCloseMenuKeyEquivalents
-  end
-
   def windowTitleForDocumentDisplayName(windowTitleForDocumentDisplayName)
     document.metadata.title
   end

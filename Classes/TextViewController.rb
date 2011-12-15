@@ -199,7 +199,7 @@ class TextViewController < NSViewController
   end
 
   def validateUserInterfaceItem(interfaceItem)
-    return false unless @item && 
+    return false unless @item
     case interfaceItem.action
     when :"strongify:", :"emphasize:", :"paragraphSelectedLines:", :"uppercase:", :"lowercase:", :"titlecase:", :"stripTags:"
       selectedRange.length > 0
