@@ -15,16 +15,17 @@ class HoverWindow < NSWindow
   end
 
   def initWithContentRect(contentRect, message:message)
-    result = initWithContentRect(contentRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreBuffered, defer:false)
-    result.setBackgroundColor(NSColor.clearColor)
-    result.setLevel(NSStatusWindowLevel)
-    result.setAlphaValue(0.95)
-    result.setOpaque(false)
-    result.setHasShadow(true)
+    window = initWithContentRect(contentRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreBuffered, defer:false)
+    window.backgroundColor = NSColor.clearColor
+    window.level = NSStatusWindowLevel
+    window.alphaValue = 0.95
+    window.opaque = false
+    window.hasShadow = true
+    window.hidesOnDeactivate = true
     @hoverView = HoverMessageView.alloc.initWithFrame(contentRect)
     @hoverView.message = message
-    result.setContentView(@hoverView)
-    result
+    window.setContentView(@hoverView)
+    window
   end
 
   def canBecomeKeyWindow
