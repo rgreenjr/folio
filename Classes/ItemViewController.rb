@@ -60,9 +60,9 @@ class ItemViewController < NSViewController
   
   def changeName(item, value)
     unless value.blank? || item.name == value
+      value = value.sanitize
       if item.parent.childWithName(value)
-        message = "An item with the name \"#{name}\" already exists in this directory.", "Please choose a unique item name."
-        Alert.runModal(@bookController.window, message)
+        Alert.runModal(@bookController.window, "An item with the name \"#{value}\" already exists in this directory.", "Please choose a unique item name.")
       else
         undoManager.prepareWithInvocationTarget(self).changeName(item, item.name)
         undoManager.actionName = "Change Item Name"
