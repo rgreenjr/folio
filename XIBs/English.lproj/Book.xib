@@ -108,10 +108,9 @@
 								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {104, 25}}</string>
-									<reference key="NSSuperview"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -375,15 +374,15 @@
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">310378496</int>
 								<string key="NSContents"/>
-								<object class="NSFont" key="NSSupport" id="134529821">
+								<object class="NSFont" key="NSSupport" id="11376132">
 									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">12</double>
-									<int key="NSfFlags">16</int>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">1044</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:2434</string>
 								<reference key="NSControlView" ref="569868706"/>
-								<int key="NSButtonFlags">-932953857</int>
-								<int key="NSButtonFlags2">164</int>
+								<int key="NSButtonFlags">-2040250113</int>
+								<int key="NSButtonFlags2">130</int>
 								<object class="NSCustomResource" key="NSNormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">inspector-show-icon</string>
@@ -411,11 +410,11 @@
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">310378496</int>
 								<string key="NSContents"/>
-								<reference key="NSSupport" ref="134529821"/>
+								<reference key="NSSupport" ref="11376132"/>
 								<string key="NSCellIdentifier">_NS:2434</string>
 								<reference key="NSControlView" ref="604164117"/>
-								<int key="NSButtonFlags">-932953857</int>
-								<int key="NSButtonFlags2">164</int>
+								<int key="NSButtonFlags">-2040250113</int>
+								<int key="NSButtonFlags2">130</int>
 								<object class="NSCustomResource" key="NSNormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">issues-show-icon</string>
@@ -437,7 +436,7 @@
 					<reference key="NSNextKeyView" ref="540888369"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">BookWindow</string>
@@ -448,7 +447,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSImageView" id="80335154">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableSet" key="NSDragTypes">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -463,8 +462,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{510, 457}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView"/>
 				<bool key="NSEnabled">YES</bool>
 				<object class="NSImageCell" key="NSCell" id="803434083">
 					<int key="NSCellFlags">537001472</int>
@@ -926,6 +923,7 @@
 							<string>searchWikipedia:</string>
 							<string>showMetadataPanel:</string>
 							<string>showStagingDirectory:</string>
+							<string>showTabbedView:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>toggleInspectorView:</string>
 							<string>toggleIssueView:</string>
@@ -933,6 +931,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -961,6 +960,7 @@
 							<string>searchWikipedia:</string>
 							<string>showMetadataPanel:</string>
 							<string>showStagingDirectory:</string>
+							<string>showTabbedView:</string>
 							<string>showUnregisteredFiles:</string>
 							<string>toggleInspectorView:</string>
 							<string>toggleIssueView:</string>
@@ -1002,6 +1002,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showStagingDirectory:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showTabbedView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

@@ -320,6 +320,7 @@ class ManifestController < NSResponder
     name = parent.generateUniqueChildName("New Directory")
     item = Item.new(parent, name, nil, Media::DIRECTORY)
     @manifest.insert(index, item, parent)
+    @outlineView.expandItem(self)
     reloadDataAndSelectItems([item])
     markBookEdited
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)

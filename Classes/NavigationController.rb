@@ -199,6 +199,7 @@ class NavigationController < NSResponder
     # return unless selectedPoint
     # parent, index = currentSelectionParentAndIndex
     # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
+    # @outlineView.expandItem(self)
   end
 
   def newPointsWithItems(items, newIndexes=nil, newParents=nil)
