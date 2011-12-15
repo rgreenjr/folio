@@ -18,7 +18,7 @@ class HoverWindow < NSWindow
     result = initWithContentRect(contentRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreBuffered, defer:false)
     result.setBackgroundColor(NSColor.clearColor)
     result.setLevel(NSStatusWindowLevel)
-    result.setAlphaValue(1.0)
+    result.setAlphaValue(0.95)
     result.setOpaque(false)
     result.setHasShadow(true)
     @hoverView = HoverMessageView.alloc.initWithFrame(contentRect)
