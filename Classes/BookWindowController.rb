@@ -255,7 +255,7 @@ class BookWindowController < NSWindowController
   
   def performValidation
     @validationController ||= ValidationController.alloc.init
-    if @validationController.validateBook(document, @tabbedViewController.textViewController.lineNumberView)
+    if @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
       issueViewController.refresh
       showIssueView
     end

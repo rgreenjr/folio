@@ -3,7 +3,7 @@ class SearchController < NSViewController
   SEARCH_BOX_HEIGHT = 36.0
 
   attr_accessor :headerView, :searchField, :replaceField, :windowController
-  attr_accessor :outlineView, :tabView, :textViewController, :searchBox
+  attr_accessor :outlineView, :tabView, :sourceViewController, :searchBox
 
   def init
     initWithNibName("Search", bundle:nil)
@@ -99,7 +99,7 @@ class SearchController < NSViewController
     return unless row > 0
     match = @search.walk(row)
     return unless match.leaf?
-    @textViewController.replace(match.range, replacement)
+    @sourceViewController.replace(match.range, replacement)
     puts "done"
     match.changed = true
     puts "changed"
@@ -114,7 +114,7 @@ class SearchController < NSViewController
     # replacement = replaceField.stringValue
     # return if replacement.empty?
     # @search.each do |match|
-    #   @textViewController.replace(match.range, replacement) unless match.leaf?
+    #   @sourceViewController.replace(match.range, replacement) unless match.leaf?
     # end
   end
 
@@ -152,8 +152,8 @@ class SearchController < NSViewController
     match = @search.walk(@outlineView.selectedRow)
     @tabView.addObject(match.item)
     if match.leaf?
-      @textViewController.textView.scrollRangeToVisible(match.range)
-      @textViewController.textView.showFindIndicatorForRange(match.range)
+      @sourceViewController.textView.scrollRangeToVisible(match.range)
+      @sourceViewController.textView.showFindIndicatorForRange(match.range)
     end
   end
 

@@ -49,9 +49,33 @@
 							<object class="NSTextView" id="641796766">
 								<reference key="NSNextResponder" ref="575994835"/>
 								<int key="NSvFlags">2322</int>
+								<object class="NSMutableSet" key="NSDragTypes">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<object class="NSArray" key="set.sortedObjects">
+										<bool key="EncodedWithXMLCoder">YES</bool>
+										<string>Apple HTML pasteboard type</string>
+										<string>Apple PDF pasteboard type</string>
+										<string>Apple PICT pasteboard type</string>
+										<string>Apple PNG pasteboard type</string>
+										<string>Apple URL pasteboard type</string>
+										<string>CorePasteboardFlavorType 0x6D6F6F76</string>
+										<string>NSColor pasteboard type</string>
+										<string>NSFilenamesPboardType</string>
+										<string>NSStringPboardType</string>
+										<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
+										<string>NeXT RTFD pasteboard type</string>
+										<string>NeXT Rich Text Format v1.0 pasteboard type</string>
+										<string>NeXT TIFF v4.0 pasteboard type</string>
+										<string>NeXT font pasteboard type</string>
+										<string>NeXT ruler pasteboard type</string>
+										<string>WebURLsWithTitlesPboardType</string>
+										<string>public.url</string>
+									</object>
+								</object>
 								<string key="NSFrameSize">{10, 14}</string>
 								<reference key="NSSuperview" ref="575994835"/>
-								<reference key="NSNextKeyView" ref="730873182"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="249492917"/>
 								<object class="NSTextContainer" key="NSTextContainer" id="515319677">
 									<object class="NSLayoutManager" key="NSLayoutManager">
 										<object class="NSTextStorage" key="NSTextStorage">
@@ -142,6 +166,7 @@
 						</object>
 						<string key="NSFrameSize">{500, 245}</string>
 						<reference key="NSSuperview" ref="841364939"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="641796766"/>
 						<reference key="NSDocView" ref="641796766"/>
 						<reference key="NSBGColor" ref="428765349"/>
@@ -178,7 +203,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{485, 0}, {15, 245}}</string>
 						<reference key="NSSuperview" ref="841364939"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSWindow"/>
 						<reference key="NSTarget" ref="841364939"/>
 						<string key="NSAction">_doScroller:</string>
 						<double key="NSCurValue">1</double>
@@ -189,6 +214,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<int key="NSvFlags">-2147483392</int>
 						<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 						<reference key="NSSuperview" ref="841364939"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="575994835"/>
 						<int key="NSsFlags">1</int>
 						<reference key="NSTarget" ref="841364939"/>
@@ -199,7 +225,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				</object>
 				<string key="NSFrameSize">{500, 245}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView" ref="249492917"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="575994835"/>
 				<int key="NSsFlags">133136</int>
 				<reference key="NSVScroller" ref="730873182"/>
 				<reference key="NSHScroller" ref="249492917"/>
@@ -257,7 +284,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<reference ref="641796766"/>
 						</object>
 						<reference key="parent" ref="0"/>
-						<string key="objectName">Bordered Scroll View (Text View)</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2</int>
@@ -435,12 +461,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
-							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -454,7 +478,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
-							<string>tabViewController</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -469,10 +492,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">lineNumberView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabViewController</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

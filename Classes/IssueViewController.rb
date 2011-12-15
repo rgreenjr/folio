@@ -88,7 +88,7 @@ class IssueViewController < NSViewController
         @bookController.tabbedViewController.addObject(parent)
         @bookController.tabbedViewController.showTextView
         if object.lineNumber
-          @bookController.tabbedViewController.textViewController.selectLineNumber(object.lineNumber + 1)
+          @bookController.tabbedViewController.sourceViewController.selectLineNumber(object.lineNumber + 1)
         end
       end
     end

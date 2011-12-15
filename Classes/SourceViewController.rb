@@ -1,4 +1,4 @@
-class TextViewController < NSViewController
+class SourceViewController < NSViewController
 
   attr_accessor :bookController
   attr_accessor :webViewController

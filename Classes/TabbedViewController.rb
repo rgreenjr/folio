@@ -7,7 +7,7 @@ class TabbedViewController < NSViewController
   LAYOUT_MODE_COMBO   = 2
 
   attr_accessor :bookController
-  attr_accessor :textViewController
+  attr_accessor :sourceViewController
   attr_accessor :webViewController
   attr_accessor :tabContentPlaceholder
   attr_accessor :tabView
@@ -23,12 +23,12 @@ class TabbedViewController < NSViewController
   def loadView
     super
     
-    @textViewController.bookController = @bookController
+    @sourceViewController.bookController = @bookController
     @webViewController.bookController = @bookController
 
     # add controllers to next responder chain
     @bookController.makeResponder(self)
-    @bookController.makeResponder(@textViewController)
+    @bookController.makeResponder(@sourceViewController)
     @bookController.makeResponder(@webViewController)
     
     # put imageView in place
@@ -43,7 +43,7 @@ class TabbedViewController < NSViewController
 
     # register for source view text changes
     NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), 
-        name:NSTextStorageDidProcessEditingNotification, object:@textViewController.view.textStorage)
+        name:NSTextStorageDidProcessEditingNotification, object:@sourceViewController.view.textStorage)
         
     # default to preview layout mode
     @layoutMode = LAYOUT_MODE_PREVIEW
@@ -72,20 +72,20 @@ class TabbedViewController < NSViewController
     if item
       if item.imageable?
         @imageView.image = selectedTab.item.imageRep
-        @textViewController.item = nil
+        @sourceViewController.item = nil
         @webViewController.item = nil
         @imageView.hidden = false
         @splitView.hidden = true
       elsif item.flowable?
         @imageView.image = nil
-        @textViewController.item = item
+        @sourceViewController.item = item
         @webViewController.item = point
         @imageView.hidden = true
         @splitView.hidden = false
         showWebView unless @layoutMode == LAYOUT_MODE_SOURCE
       else
         @imageView.image = nil
-        @textViewController.item = item
+        @sourceViewController.item = item
         @webViewController.item = nil
         @imageView.hidden = true
         @splitView.hidden = false
@@ -93,7 +93,7 @@ class TabbedViewController < NSViewController
       end
     else
       @imageView.image = nil
-      @textViewController.item = nil
+      @sourceViewController.item = nil
       @webViewController.item = nil
       @imageView.hidden = true
       @splitView.hidden = true
@@ -138,7 +138,7 @@ class TabbedViewController < NSViewController
   def selectedTabPrintView
     return nil unless selectedTab
     if @layoutMode == LAYOUT_MODE_SOURCE
-      @textViewController.view
+      @sourceViewController.view
     else
       @webViewController.view.mainFrame.frameView.documentView
     end
@@ -179,14 +179,14 @@ class TabbedViewController < NSViewController
   
   def showWebView
     unless webViewVisible?
-      @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@textViewController.view.enclosingScrollView)
+      @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@sourceViewController.view.enclosingScrollView)
       updateSplitViewDividerPosition
     end
   end
 
   def showTextView
     unless textViewVisible?
-      @splitView.addSubview(@textViewController.view.enclosingScrollView, positioned:NSWindowAbove, relativeTo:@webViewController.view)
+      @splitView.addSubview(@sourceViewController.view.enclosingScrollView, positioned:NSWindowAbove, relativeTo:@webViewController.view)
       updateSplitViewDividerPosition
     end
   end
@@ -200,7 +200,7 @@ class TabbedViewController < NSViewController
 
   def hideTextView
     if @splitView.subviews.size == 2
-      @textViewController.view.enclosingScrollView.removeFromSuperview
+      @sourceViewController.view.enclosingScrollView.removeFromSuperview
       @splitView.adjustSubviews
     end
   end
@@ -275,7 +275,7 @@ class TabbedViewController < NSViewController
   end
 
   def textViewVisible?
-    @splitView.subviews.size == 2 || @splitView.subviews[0] == @textViewController.view.enclosingScrollView
+    @splitView.subviews.size == 2 || @splitView.subviews[0] == @sourceViewController.view.enclosingScrollView
   end
   
   def stateForMenuItem(menuItem)
