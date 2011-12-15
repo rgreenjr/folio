@@ -199,11 +199,11 @@ class SourceViewController < NSViewController
   end
 
   def validateUserInterfaceItem(interfaceItem)
-    return false unless @item
+    return false unless @item && view.enclosingScrollView.superview
     case interfaceItem.action
     when :"strongifySelectedText:", :"emphasizeSelectedText:", :"paragraphSelectedLines:", 
          :"uppercaseSelectedText:", :"lowercaseSelectedText:", :"titlecaseSelectedText:", 
-         :"stripTagsFromSelectedText:", :"insertCloseTag:"
+         :"stripTagsFromSelectedText:"
       selectedRange.length > 0
     when :"reformatText:"
       item.formatable?
