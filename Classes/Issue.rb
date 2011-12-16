@@ -44,7 +44,7 @@ class Issue
     rect = NSMakeRect(0, 0, rep.size.width + 10, rep.size.height + 10)
     NSRectFill(rect)
 
-    # # draw top border
+    # draw top border
     path = NSBezierPath.bezierPath
     NSColor.colorWithCalibratedRed(0.09, green:0.6, blue:0.07, alpha:1.0).set
     path.lineWidth = 1.0
@@ -62,7 +62,7 @@ class Issue
     path.closePath
     path.stroke
 
-    # # draw top border inset
+    # draw top border inset
     path = NSBezierPath.bezierPath
     NSColor.colorWithCalibratedRed(0.55, green:0.82, blue:0.54, alpha:1.0).set
     path.lineWidth = 1.0

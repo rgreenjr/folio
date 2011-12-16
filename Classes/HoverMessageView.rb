@@ -27,7 +27,7 @@ class HoverMessageView < NSView
         NSParagraphStyleAttributeName  => style,
         NSFontAttributeName            => NSFont.systemFontOfSize(11.0),
         NSForegroundColorAttributeName => NSColor.whiteColor,
-        NSShadowAttributeName => shadow
+        NSShadowAttributeName          => shadow
       }
     end
     @messageAttributes
