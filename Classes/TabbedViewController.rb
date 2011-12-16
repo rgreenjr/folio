@@ -235,18 +235,18 @@ class TabbedViewController < NSViewController
     @previousDividerPosition = proposedPosition 
   end
   
-  def validateMenuItem(interfaceItem)
-    case interfaceItem.action
+  def validateMenuItem(menuItem)
+    case menuItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
       numberOfTabs > 1
     when :"saveTab:", :"closeTab:"
       numberOfTabs > 0
     when :"toggleLayoutMode:"
-      interfaceItem.state = stateForMenuItem(interfaceItem)
+      menuItem.state = stateForMenuItem(menuItem)
       numberOfTabs > 0
     when :"toggleSplitOrientation:"
-      interfaceItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
-      interfaceItem.enabled = enableSplitOrientationInterfaceItem?
+      menuItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
+      menuItem.enabled = enableSplitOrientationInterfaceItem?
     else
       true
     end
