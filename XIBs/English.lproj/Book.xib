@@ -404,7 +404,6 @@
 							<string key="NSFrame">{{59, 2}, {18, 19}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:2434</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="124213451">
@@ -414,7 +413,7 @@
 								<reference key="NSSupport" ref="66235764"/>
 								<string key="NSCellIdentifier">_NS:2434</string>
 								<reference key="NSControlView" ref="604164117"/>
-								<int key="NSButtonFlags">-2040250113</int>
+								<int key="NSButtonFlags">-932953857</int>
 								<int key="NSButtonFlags2">164</int>
 								<object class="NSCustomResource" key="NSNormalImage">
 									<string key="NSClassName">NSImage</string>
@@ -437,7 +436,7 @@
 					<reference key="NSNextKeyView" ref="540888369"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">BookWindow</string>
