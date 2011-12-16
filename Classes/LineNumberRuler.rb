@@ -6,14 +6,20 @@ class LineNumberRuler < NSRulerView
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     setClientView(scrollView.documentView)
-    ctr = NSNotificationCenter.defaultCenter
-    ctr.addObserver(self, selector:'textDidChange:', name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
+    
     @issueHash = {}
-    @textAttributes = {
-      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
-      NSForegroundColorAttributeName => NSColor.grayColor
-    }
+        
+    # register for text edit so we can update line indices
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', 
+      name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
+    
+    # registry for selection changes so we can highlighted current line
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChangeSelection:', 
+      name:NSTextViewDidChangeSelectionNotification, object:clientView)
+        
+    # calculate initial line indices
     updateLineIndices
+    
     self
   end
   
@@ -31,12 +37,16 @@ class LineNumberRuler < NSRulerView
     updateLineIndices
     setNeedsDisplay true
   end
+  
+  def textDidChangeSelection(notification)
+    setNeedsDisplay true
+  end
 
   def drawHashMarksAndLabelsInRect(aRect)
     text = clientView.string
     container = clientView.textContainer
     layoutManager = clientView.layoutManager
-    
+        
     yinset = clientView.textContainerInset.height
     visibleRect = scrollView.contentView.bounds
 
@@ -76,7 +86,7 @@ class LineNumberRuler < NSRulerView
 
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
-          stringSize = labelText.sizeWithAttributes(@textAttributes)
+          stringSize = labelText.sizeWithAttributes(defaultTextAttributes)
 
           # Draw string flush right, centered vertically within the line
           textRect = NSMakeRect(
@@ -112,8 +122,10 @@ class LineNumberRuler < NSRulerView
 
           if issue
             labelText.drawInRect(textRect, withAttributes:issue.textAttributes)
+          elsif physicalLineAtInsertion == line + 1
+            labelText.drawInRect(textRect, withAttributes:currentLineTextAttributes)
           else
-            labelText.drawInRect(textRect, withAttributes:@textAttributes)
+            labelText.drawInRect(textRect, withAttributes:defaultTextAttributes)
           end
           
         end
@@ -245,6 +257,20 @@ class LineNumberRuler < NSRulerView
 
   private
   
+  def defaultTextAttributes
+    @defaultTextAttributes ||= {
+      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
+      NSForegroundColorAttributeName => NSColor.grayColor
+    }
+  end
+  
+  def currentLineTextAttributes
+    @currentLineTextAttributes ||= {
+      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
+      NSForegroundColorAttributeName => NSColor.blackColor
+    }
+  end
+  
   def closeHoverWindow
     if @hoverWindow
       @hoverWindow.close
@@ -307,7 +333,7 @@ class LineNumberRuler < NSRulerView
 
   def requiredThickness
     digits = Math.log10(@lineIndices.size + 1).ceil
-    stringSize = ("8" * digits).sizeWithAttributes(@textAttributes)
+    stringSize = ("8" * digits).sizeWithAttributes(defaultTextAttributes)
     [DEFAULT_THICKNESS, (2 * RULER_MARGIN + stringSize.width).ceil].max
   end
 
