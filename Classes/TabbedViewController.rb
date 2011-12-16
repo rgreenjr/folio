@@ -50,9 +50,6 @@ class TabbedViewController < NSViewController
     
     # hide the source view initially
     hideTextView
-    
-    # update toolbar state
-    updateToolbarItems
   end
   
   def show
@@ -98,7 +95,6 @@ class TabbedViewController < NSViewController
       @imageView.hidden = true
       @splitView.hidden = true
     end
-    updateToolbarItems
   end
 
   def numberOfTabs
@@ -239,32 +235,31 @@ class TabbedViewController < NSViewController
     @previousDividerPosition = proposedPosition 
   end
   
-  def validateUserInterfaceItem(interfaceItem)
+  def validateMenuItem(interfaceItem)
     case interfaceItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
       numberOfTabs > 1
     when :"saveTab:", :"closeTab:"
       numberOfTabs > 0
     when :"toggleLayoutMode:"
-      if interfaceItem.class == NSMenuItem
-        interfaceItem.state = stateForMenuItem(interfaceItem)
-      end
+      interfaceItem.state = stateForMenuItem(interfaceItem)
       numberOfTabs > 0
     when :"toggleSplitOrientation:"
-      if interfaceItem.class == NSMenuItem
-        interfaceItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
-      end
+      interfaceItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
       interfaceItem.enabled = enableSplitOrientationInterfaceItem?
     else
       true
     end
   end
-
-  def updateToolbarItems
-    @bookController.window.toolbar.visibleItems.each do |view|
-      if view.class == NSToolbarItem
-        view.enabled = validateUserInterfaceItem(view)
-      end
+  
+  def validateToolbarItem(toolbarItem)
+    case toolbarItem.action
+    when :"toggleLayoutMode:"
+      numberOfTabs > 0
+    when :"reformatText:"
+      numberOfTabs > 0 && selectedItem.formatable? && sourceViewController.visible?
+    else
+      true
     end
   end
 

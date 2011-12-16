@@ -199,7 +199,7 @@ class SourceViewController < NSViewController
   end
 
   def validateUserInterfaceItem(interfaceItem)
-    return false unless @item && view.enclosingScrollView.superview
+    return false unless @item && visible?
     case interfaceItem.action
     when :"strongifySelectedText:", :"emphasizeSelectedText:", :"paragraphSelectedLines:", 
          :"uppercaseSelectedText:", :"lowercaseSelectedText:", :"titlecaseSelectedText:", 
@@ -210,6 +210,10 @@ class SourceViewController < NSViewController
     else
       true
     end
+  end
+  
+  def visible?
+    view && view.enclosingScrollView.superview && !view.hidden?
   end
   
   def textView(view, menu:menu, forEvent:event, atIndex:charIndex)

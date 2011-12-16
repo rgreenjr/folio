@@ -40,7 +40,7 @@ class TabView < NSView
   def selectNextTab
     return unless @selectedTabCell
     index = indexForTabCell(@selectedTabCell) + 1
-    selectTabCell(@tabCells[index]) if index < @tabCells.size
+    selectTabCell(@tabCells[index]) if index < numberOfTabs
   end
 
   def selectPreviousTab
@@ -111,7 +111,7 @@ class TabView < NSView
   end
 
   def validateUserInterfaceItem(interfaceItem)
-    @tabCells.size > 0
+    numberOfTabs > 0
   end
 
   private
@@ -122,10 +122,10 @@ class TabView < NSView
   end
 
   def updateTabCellWidth
-    if @tabCells.size * DEFAULT_TAB_WIDTH < bounds.size.width
+    if numberOfTabs * DEFAULT_TAB_WIDTH < bounds.size.width
       @tabCellWidth = DEFAULT_TAB_WIDTH
     else
-      @tabCellWidth = (bounds.size.width / @tabCells.size).floor
+      @tabCellWidth = (bounds.size.width / numberOfTabs).floor
     end
   end
 
@@ -178,7 +178,7 @@ class TabView < NSView
 
   def tabCellAtPoint(point)
     index = (point.x / @tabCellWidth).floor
-    index < @tabCells.size ? @tabCells[index] : nil
+    index < numberOfTabs ? @tabCells[index] : nil
   end
 
   def selectTabCell(tabCell, point=nil)
@@ -212,7 +212,7 @@ class TabView < NSView
       if @tabCells.empty?
         selectTabCell(nil)
       else
-        index -= 1 if index >= @tabCells.size
+        index -= 1 if index >= numberOfTabs
         tabCell = @tabCells[index]
         selectTabCell(tabCell)
       end
