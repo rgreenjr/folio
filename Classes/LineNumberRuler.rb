@@ -64,8 +64,8 @@ class LineNumberRuler < NSRulerView
     count = @lineIndices.size
     line = lineNumberForCharacterIndex(range.location, inText:text)
 
-    # remove any tracking areas
-    trackingAreas.each { |area| removeTrackingArea(area) }
+    # remove all tracking areas
+    clearTrackingAreas
     
     # close hover window
     closeHoverWindow
@@ -100,7 +100,6 @@ class LineNumberRuler < NSRulerView
 					issue = @issueHash[line]
 					
 					if issue
-					  
 					  # update issue width incase ruler width changed
 					  issue.image.size = NSMakeSize(ruleThickness, issue.image.size.height)
 					  
@@ -118,13 +117,16 @@ class LineNumberRuler < NSRulerView
 						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
 						trackingArea = NSTrackingArea.alloc.initWithRect(issueRect, options:trackingOptions, owner:self, userInfo:issue)
             addTrackingArea(trackingArea)
-					end
 
-          if issue
+            # draw line number with issue text attributes
             labelText.drawInRect(textRect, withAttributes:issue.textAttributes)
           elsif physicalLineAtInsertion == line + 1
+            # draw line number with currentLine text attributes
+            NSColor.lightGrayColor.set
+            NSRectFill(NSMakeRect(0, textRect.origin.y - 1.5, ruleThickness - 1, textRect.size.height))
             labelText.drawInRect(textRect, withAttributes:currentLineTextAttributes)
           else
+            # draw line number withAttributes default text attributes
             labelText.drawInRect(textRect, withAttributes:defaultTextAttributes)
           end
           
@@ -257,27 +259,6 @@ class LineNumberRuler < NSRulerView
 
   private
   
-  def defaultTextAttributes
-    @defaultTextAttributes ||= {
-      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
-      NSForegroundColorAttributeName => NSColor.grayColor
-    }
-  end
-  
-  def currentLineTextAttributes
-    @currentLineTextAttributes ||= {
-      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
-      NSForegroundColorAttributeName => NSColor.blackColor
-    }
-  end
-  
-  def closeHoverWindow
-    if @hoverWindow
-      @hoverWindow.close
-      @hoverWindow = nil
-    end
-  end
-
   def lineNumberForCharacterIndex(index, inText:text)
     left = 0
     right = @lineIndices.count
@@ -335,6 +316,31 @@ class LineNumberRuler < NSRulerView
     digits = Math.log10(@lineIndices.size + 1).ceil
     stringSize = ("8" * digits).sizeWithAttributes(defaultTextAttributes)
     [DEFAULT_THICKNESS, (2 * RULER_MARGIN + stringSize.width).ceil].max
+  end
+
+  def defaultTextAttributes
+    @defaultTextAttributes ||= {
+      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
+      NSForegroundColorAttributeName => NSColor.grayColor
+    }
+  end
+  
+  def currentLineTextAttributes
+    @currentLineTextAttributes ||= {
+      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
+      NSForegroundColorAttributeName => NSColor.whiteColor
+    }
+  end
+  
+  def clearTrackingAreas
+    trackingAreas.each { |area| removeTrackingArea(area) }
+  end
+  
+  def closeHoverWindow
+    if @hoverWindow
+      @hoverWindow.close
+      @hoverWindow = nil
+    end
   end
 
 end
