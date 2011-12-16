@@ -1,4 +1,4 @@
-class TabCell
+class TabCell < NSView
 
   LABEL_PADDING  = 10.0
   BUTTON_PADDING = 10.0
@@ -27,6 +27,10 @@ class TabCell
 
 	  @editedClosedImage = NSImage.imageNamed('tab-edited-close.png')
 	  @editedPressedImage = NSImage.imageNamed('tab-edited-pressed.png')
+  end
+  
+  def acceptsFirstResponder
+    false
   end
 
   def drawRect(rect)
