@@ -183,7 +183,7 @@ class ManifestController < NSResponder
     panel.title = "Add Files"
     panel.prompt = "Select"
     panel.allowsMultipleSelection = true
-    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:@bookController.window, 
+    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:window, 
       modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
@@ -345,7 +345,7 @@ class ManifestController < NSResponder
       alert.informativeText = "#{relativePaths.join("\n")}\n"
       alert.addButtonWithTitle("Move to Trash")
       alert.addButtonWithTitle("Cancel")
-      alert.beginSheetModalForWindow(@bookController.window, modalDelegate:self, didEndSelector:"deleteUndeclaredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+      alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"deleteUndeclaredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
     end
   end
 
@@ -393,8 +393,12 @@ class ManifestController < NSResponder
     @bookController.document.updateChangeCount(NSSaveOperation)
   end
 
+  def window
+    @bookController.window
+  end
+
   def undoManager
-    @undoManager ||= @bookController.window.undoManager
+    @undoManager ||= window.undoManager
   end
 
 end

@@ -255,8 +255,12 @@ class SpineController < NSResponder
     end
   end
 
+  def window
+    @bookController.window
+  end
+
   def undoManager
-    @undoManager ||= @bookController.window.undoManager
+    @undoManager ||= window.undoManager
   end
 
   private
@@ -264,7 +268,7 @@ class SpineController < NSResponder
   def reloadDataAndSelectItems(itemRefs)
     @outlineView.reloadData
     @outlineView.selectItems(itemRefs)
-    @bookController.window.makeFirstResponder(@outlineView)
+    window.makeFirstResponder(@outlineView)
   end
 
 end

@@ -199,7 +199,7 @@ class NavigationController < NSResponder
   end
 
   def newPoint(sender)
-    puts "not yet implemented"
+    Alert.runModal(window, "Feature not yet implemented.")
     # return unless selectedPoint
     # parent, index = currentSelectionParentAndIndex
     # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
@@ -287,7 +287,7 @@ class NavigationController < NSResponder
   def reloadDataAndSelectPoints(points)
     @outlineView.reloadData
     @outlineView.selectItems(points)
-    # @bookController.window.makeFirstResponder(@outlineView)
+    # window.makeFirstResponder(@outlineView)
   end
 
   def validateUserInterfaceItem(interfaceItem)
@@ -307,8 +307,12 @@ class NavigationController < NSResponder
     @bookController.document.updateChangeCount(NSSaveOperation)
   end
 
-  def undoManager
-    @undoManager ||= @bookController.window.undoManager
+  def window
+    @bookController.window
   end
 
+  def undoManager
+    @undoManager ||= @bookController.undoManager
+  end
+  
 end
