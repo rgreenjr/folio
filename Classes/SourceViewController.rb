@@ -23,6 +23,8 @@ class SourceViewController < NSViewController
     NSNotificationCenter.defaultCenter.addObserver(self, selector:('preferencesDidChange:'), name:'PreferencesDidChange', object:nil)
 
     # @highlighter = Highlighter.new(view)
+    
+    @selectedRangeHash = {}
   end
   
   def preferencesDidChange(notification)
@@ -31,6 +33,9 @@ class SourceViewController < NSViewController
   end
 
   def item=(item)
+    # record the currently selected text range
+    storeSelectedRange(@item)
+
     @item = item    
     if @item && @item.editable?
       @lineNumberView.issueHash = @item.issueHash      
@@ -40,6 +45,9 @@ class SourceViewController < NSViewController
       string = NSAttributedString.alloc.initWithString('')
     end
     view.textStorage.attributedString = string
+    
+    # restore previous selected text range
+    restoreSelectedRange(@item)
   end
   
   def toggleLineNumbers(sender)
@@ -235,7 +243,7 @@ class SourceViewController < NSViewController
   def caretLocation
     selectedRange.location
   end
-
+  
   def modifySelection(&block)
     range = selectedRange
     text = selectedText
@@ -247,6 +255,21 @@ class SourceViewController < NSViewController
   
   def unsupportedMenuTitles
     @unsupportedMenuTitles ||= ["Spelling and Grammar", "Transformations", "Substitutions"]
+  end
+  
+  def storeSelectedRange(item)
+    if item && item.editable?
+      @selectedRangeHash[@item] = selectedRange
+    end
+  end
+
+  def restoreSelectedRange(item)
+    if item && item.editable?
+      range = @selectedRangeHash[item]
+      if range
+        view.setSelectedRange(range)
+      end
+    end
   end
 
 end
