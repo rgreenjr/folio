@@ -140,15 +140,14 @@ class TabView < NSView
 
   def mouseDown(event)
     point = convertPoint(event.locationInWindow, fromView:nil)
-    tabCell = tabCellAtPoint(point)
-    return unless tabCell
-    if tabCell.closeButtonHit?(point, rectForTabCell(tabCell))
-      tabCell.closeButtonPressed = true
+    @mouseDownTabCell = tabCellAtPoint(point)
+    return unless @mouseDownTabCell
+    if @mouseDownTabCell.closeButtonHit?(point, rectForTabCell(@mouseDownTabCell))
+      @mouseDownTabCell.closeButtonPressed = true
       @mouseDownType = :close
     else
       @mouseDownType = :select
     end
-    @mouseDownTabCell = tabCell
     setNeedsDisplay true
   end
 
@@ -164,6 +163,7 @@ class TabView < NSView
   end
 
   def mouseUp(event)
+    return unless @mouseDownTabCell
     point = convertPoint(event.locationInWindow, fromView:nil)
     tabCell = tabCellAtPoint(point)
     if tabCell == @mouseDownTabCell
