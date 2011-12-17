@@ -23,10 +23,10 @@ class HeaderView < NSView
     end
   end
 
-  def drawRect(frame)
-    drawBackground(frame)
-    drawLabel(frame, NSColor.darkGrayColor, 0.5)
-    drawLabel(frame, NSColor.whiteColor)
+  def drawRect(rect)
+    drawBackground(rect)
+    drawLabel(rect, NSColor.darkGrayColor, 0.5)
+    drawLabel(rect, NSColor.whiteColor)
   end
   
   private

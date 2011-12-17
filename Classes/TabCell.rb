@@ -3,13 +3,17 @@ class TabCell < NSView
   LABEL_PADDING  = 10.0
   BUTTON_PADDING = 10.0
 
-  attr_accessor :item, :selected, :closeButtonPressed
+  attr_accessor :item
+  attr_accessor :selected
+  attr_accessor :closeButtonPressed
+  attr_accessor :hovering
 
   def initialize(item)
     @item = item
 
     @backgroundImage = NSImage.imageNamed("tab-bg.png")
     @backgroundSelectedImage = NSImage.imageNamed("tab-selected-bg.png")
+    @backgroundHoverImage = NSImage.imageNamed("tab-hover-bg.png")
 
     style = NSMutableParagraphStyle.alloc.init
     style.alignment = NSCenterTextAlignment
@@ -69,6 +73,8 @@ class TabCell < NSView
     imageRect = NSMakeRect(0, 0, @backgroundImage.size.width, @backgroundImage.size.height)
     if @selected
       @backgroundSelectedImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
+    elsif @hovering
+      @backgroundHoverImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
     else
       @backgroundImage.drawInRect(rect, fromRect:imageRect, operation:NSCompositeSourceOver, fraction:1.0)
     end

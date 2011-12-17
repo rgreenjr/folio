@@ -47,7 +47,7 @@ class HoverMessageView < NSView
   
   def message=(message)
     @message = message
-    needsDisplay = true
+    setNeedsDisplay(true)
   end
 
   def drawRect(rect)

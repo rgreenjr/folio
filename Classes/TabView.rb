@@ -11,10 +11,13 @@ class TabView < NSView
     midColor  = NSColor.colorWithDeviceRed(0.871, green:0.871, blue:0.871, alpha:1.0)
     endColor  = NSColor.colorWithDeviceRed(0.820, green:0.820, blue:0.820, alpha:1.0)
     @gradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], [0.0, 0.5, 1.0], colorSpace:NSColorSpace.genericRGBColorSpace)
-    @lineColor = NSColor.colorWithDeviceRed(0.66, green:0.66, blue:0.66, alpha:1.0)    
+    @lineColor = NSColor.colorWithDeviceRed(0.25, green:0.25, blue:0.25, alpha:1.0)
+    
+    # register trackingArea to receive mouseEntered and mouseExited events
+    registerTrackingArea
     self
   end
-
+  
   def drawRect(aRect)
     updateTabCellWidth
     @gradient.drawInRect(bounds, angle:270.0)
@@ -137,6 +140,22 @@ class TabView < NSView
   def rectForTabCellAtIndex(index)
     NSMakeRect(bounds.origin.x + (index * @tabCellWidth), bounds.origin.y, @tabCellWidth, bounds.size.height)
   end
+  
+  def mouseEntered(event)
+    point = convertPoint(event.locationInWindow, fromView:nil)
+    tabCell = tabCellAtPoint(point)
+    updateHoverTabCell(tabCell)
+  end
+  
+  def mouseMoved(event)
+    point = convertPoint(event.locationInWindow, fromView:nil)
+    tabCell = tabCellAtPoint(point)
+    updateHoverTabCell(tabCell)
+  end
+
+  def mouseExited(event)
+    clearHoverTabCell
+  end
 
   def mouseDown(event)
     point = convertPoint(event.locationInWindow, fromView:nil)
@@ -148,7 +167,7 @@ class TabView < NSView
     else
       @mouseDownType = :select
     end
-    setNeedsDisplay true
+    setNeedsDisplay(true)
   end
 
   def mouseDragged(event)
@@ -159,7 +178,7 @@ class TabView < NSView
     else
       @mouseDownTabCell.closeButtonPressed = false
     end
-    setNeedsDisplay true
+    setNeedsDisplay(true)
   end
 
   def mouseUp(event)
@@ -176,11 +195,16 @@ class TabView < NSView
     @mouseDownTabCell = nil
   end
 
+  def updateTrackingAreas
+    unregisterTrackingArea
+    registerTrackingArea
+  end
+  
   def tabCellAtPoint(point)
     index = (point.x / @tabCellWidth).floor
     index < numberOfTabs ? @tabCells[index] : nil
   end
-
+  
   def selectTabCell(tabCell, point=nil)
     @selectedTabCell.selected = false if @selectedTabCell
     if tabCell
@@ -217,7 +241,7 @@ class TabView < NSView
         selectTabCell(tabCell)
       end
     end
-    setNeedsDisplay true
+    setNeedsDisplay(true)
   end
 
   def showSaveAlert(tabCell)
@@ -237,11 +261,37 @@ class TabView < NSView
       closeTabCell(@saveTabCell)
     elsif code == NSAlertSecondButtonReturn
       @saveTabCell.closeButtonPressed = false
-      setNeedsDisplay true
+      setNeedsDisplay(true)
     elsif code == NSAlertThirdButtonReturn
       @saveTabCell.item.revert
       closeTabCell(@saveTabCell)
     end
   end
+  
+  def updateHoverTabCell(tabCell)
+    clearHoverTabCell
+    if tabCell
+      @hoveringTabCell = tabCell
+      @hoveringTabCell.hovering = true
+      setNeedsDisplay(true)
+    end
+  end
+
+  def clearHoverTabCell
+    if @hoveringTabCell
+      @hoveringTabCell.hovering = false
+      @hoveringTabCell = nil
+      setNeedsDisplay(true)
+    end
+  end
+
+  def registerTrackingArea
+    addTrackingArea(NSTrackingArea.alloc.initWithRect(self.bounds, options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow), owner:self, userInfo:nil))
+  end
+  
+  def unregisterTrackingArea
+    removeTrackingArea(trackingAreas.first)    
+  end
 
 end
+
