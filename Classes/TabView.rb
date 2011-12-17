@@ -217,7 +217,7 @@ class TabView < NSView
       @selectedTabCell = nil
     end
     @delegate.tabView(self, selectionDidChange:@selectedTabCell, item:item, point:point) if @delegate
-    setNeedsDisplay true
+    setNeedsDisplay(true)
     NSNotificationCenter.defaultCenter.postNotificationName("TabViewSelectionDidChange", object:self)
   end
 
@@ -231,7 +231,7 @@ class TabView < NSView
 
   def closeTabCell(tabCell)
     index = indexForTabCell(tabCell)
-    @tabCells.delete_at(index)
+    closedTabCell = @tabCells.delete_at(index)
     if @selectedTabCell == tabCell
       if @tabCells.empty?
         selectTabCell(nil)
@@ -241,6 +241,7 @@ class TabView < NSView
         selectTabCell(tabCell)
       end
     end
+    NSNotificationCenter.defaultCenter.postNotificationName("TabViewCellDidClose", object:closedTabCell)
     setNeedsDisplay(true)
   end
 
