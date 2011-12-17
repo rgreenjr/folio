@@ -86,7 +86,7 @@ class IssueViewController < NSViewController
       parent = @outlineView.parentForItem(object)
       if parent && parent.class == Item
         @bookController.tabbedViewController.addObject(parent)
-        @bookController.tabbedViewController.showTextView
+        @bookController.tabbedViewController.showSourceView
         if object.lineNumber
           @bookController.tabbedViewController.sourceViewController.selectLineNumber(object.lineNumber + 1)
         end
