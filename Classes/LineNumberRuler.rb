@@ -100,26 +100,30 @@ class LineNumberRuler < NSRulerView
 					issue = @issueHash[line]
 					
 					if issue
+
 					  # update issue width incase ruler width changed
 					  issue.image.size = NSMakeSize(ruleThickness, issue.image.size.height)
-					  
+
             # issueImage = issue.image
 						issueRect = NSMakeRect(0.0, 0.0, issue.image.size.width - 1.0, issue.image.size.height)
 
 						# issue is flush right and centered vertically within the line.
-						issueRect.origin.x = 0#NSWidth(bounds) - issue.image.size.width - 1.0
+						issueRect.origin.x = 0
 						issueRect.origin.y = ypos + NSHeight(rects[0]) / 2.0 - issue.imageOrigin.y
 
             fromRect = NSMakeRect(0, 0, issue.image.size.width, issue.image.size.height)
-						issue.image.drawInRect(issueRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:1.0)
-						
+
             # add tracking area for this issue
 						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
 						trackingArea = NSTrackingArea.alloc.initWithRect(issueRect, options:trackingOptions, owner:self, userInfo:issue)
             addTrackingArea(trackingArea)
 
+					  fraction = physicalLineAtInsertion == (line + 1) ? 1.0 : 0.5
+						issue.image.drawInRect(issueRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:fraction)
+
             # draw line number with issue text attributes
             labelText.drawInRect(textRect, withAttributes:issue.textAttributes)
+
           elsif physicalLineAtInsertion == line + 1
             # draw line number with currentLine text attributes
             NSColor.lightGrayColor.set
