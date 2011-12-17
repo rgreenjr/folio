@@ -96,6 +96,10 @@ class Point
     @children.delete_at(index)
   end
   
+  def ==(other)
+    other.class == Point && @id == other.id
+  end
+
   def to_s
     "@id = #{@id}, @text = #{@text}, @item = #{@item.name}, @expanded = #{@expanded}"
   end

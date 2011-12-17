@@ -221,6 +221,10 @@ class Item
   def <=>(other)
     @name <=> other.name
   end
+  
+  def ==(other)
+    other.class == Item && other.id == @id
+  end
 
   def imageRep
     return nil unless imageable?
