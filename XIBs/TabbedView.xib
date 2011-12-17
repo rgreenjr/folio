@@ -82,7 +82,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSSplitView" id="1018391731">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -112,6 +112,7 @@
 						</object>
 						<string key="NSFrameSize">{500, 245}</string>
 						<reference key="NSSuperview" ref="1018391731"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<int key="NSViewLayerContentsRedrawPolicy">2</int>
 						<string key="FrameName"/>
@@ -150,9 +151,33 @@
 									<object class="NSTextView" id="725349644">
 										<reference key="NSNextResponder" ref="604545385"/>
 										<int key="NSvFlags">2322</int>
+										<object class="NSMutableSet" key="NSDragTypes">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<object class="NSArray" key="set.sortedObjects">
+												<bool key="EncodedWithXMLCoder">YES</bool>
+												<string>Apple HTML pasteboard type</string>
+												<string>Apple PDF pasteboard type</string>
+												<string>Apple PICT pasteboard type</string>
+												<string>Apple PNG pasteboard type</string>
+												<string>Apple URL pasteboard type</string>
+												<string>CorePasteboardFlavorType 0x6D6F6F76</string>
+												<string>NSColor pasteboard type</string>
+												<string>NSFilenamesPboardType</string>
+												<string>NSStringPboardType</string>
+												<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
+												<string>NeXT RTFD pasteboard type</string>
+												<string>NeXT Rich Text Format v1.0 pasteboard type</string>
+												<string>NeXT TIFF v4.0 pasteboard type</string>
+												<string>NeXT font pasteboard type</string>
+												<string>NeXT ruler pasteboard type</string>
+												<string>WebURLsWithTitlesPboardType</string>
+												<string>public.url</string>
+											</object>
+										</object>
 										<string key="NSFrameSize">{10, 14}</string>
 										<reference key="NSSuperview" ref="604545385"/>
-										<reference key="NSNextKeyView" ref="1054909219"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="812289335"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="136735737">
 											<object class="NSLayoutManager" key="NSLayoutManager">
 												<object class="NSTextStorage" key="NSTextStorage">
@@ -243,6 +268,7 @@
 								</object>
 								<string key="NSFrameSize">{500, 245}</string>
 								<reference key="NSSuperview" ref="371304271"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="725349644"/>
 								<reference key="NSDocView" ref="725349644"/>
 								<reference key="NSBGColor" ref="451190560"/>
@@ -279,6 +305,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{485, 0}, {15, 245}}</string>
 								<reference key="NSSuperview" ref="371304271"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<reference key="NSTarget" ref="371304271"/>
 								<string key="NSAction">_doScroller:</string>
 								<double key="NSCurValue">1</double>
@@ -289,6 +317,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 								<reference key="NSSuperview" ref="371304271"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="604545385"/>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="371304271"/>
@@ -299,7 +328,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<string key="NSFrame">{{0, 255}, {500, 245}}</string>
 						<reference key="NSSuperview" ref="1018391731"/>
-						<reference key="NSNextKeyView" ref="604545385"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1054909219"/>
 						<int key="NSsFlags">133136</int>
 						<reference key="NSVScroller" ref="812289335"/>
 						<reference key="NSHScroller" ref="1054909219"/>
@@ -307,8 +337,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 500}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="217705275"/>
 				<int key="NSDividerStyle">3</int>
+				<string key="NSAutosaveName"/>
 			</object>
 			<object class="NSImageView" id="858493201">
 				<nil key="NSNextResponder"/>
@@ -641,7 +674,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>insertCloseTag:</string>
 							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
-							<string>reindentText:</string>
+							<string>reformatText:</string>
 							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
 							<string>showGotoLineWindow:</string>
@@ -676,7 +709,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>insertCloseTag:</string>
 							<string>lowercaseSelectedText:</string>
 							<string>paragraphSelectedLines:</string>
-							<string>reindentText:</string>
+							<string>reformatText:</string>
 							<string>selectCurrentLine:</string>
 							<string>selectEnclosingBrackets:</string>
 							<string>showGotoLineWindow:</string>
@@ -705,7 +738,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">reindentText:</string>
+								<string key="name">reformatText:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -854,7 +887,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
-							<string>updateToolbarItems:</string>
+							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -879,7 +912,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
-							<string>updateToolbarItems:</string>
+							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -912,7 +945,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">updateToolbarItems:</string>
+								<string key="name">webView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

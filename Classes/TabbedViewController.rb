@@ -17,6 +17,8 @@ class TabbedViewController < NSViewController
   def initWithBookController(bookController)
     initWithNibName("TabbedView", bundle:nil)
     @bookController = bookController
+    @webViewPercentage = 0.5
+    @sourceViewPercentage = 0.5
     self
   end
 
@@ -40,6 +42,7 @@ class TabbedViewController < NSViewController
     @splitView.frame = @tabContentPlaceholder.frame
     @splitView.frameOrigin = NSZeroPoint
     @tabContentPlaceholder.addSubview(@splitView)
+    @splitView.hidden = true
 
     # register for source view text changes
     NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), 
@@ -49,7 +52,7 @@ class TabbedViewController < NSViewController
     @layoutMode = LAYOUT_MODE_PREVIEW
     
     # hide the source view initially
-    hideTextView
+    hideSourceView
   end
   
   def show
@@ -136,7 +139,7 @@ class TabbedViewController < NSViewController
     if @layoutMode == LAYOUT_MODE_SOURCE
       @sourceViewController.view
     else
-      @webViewController.view.mainFrame.frameView.documentView
+      webView.mainFrame.frameView.documentView
     end
   end
 
@@ -156,71 +159,53 @@ class TabbedViewController < NSViewController
     tag = sender.class == NSMenuItem ? sender.tag : sender.selectedSegment
     case tag
     when LAYOUT_MODE_PREVIEW
+      hideSourceView
       showWebView
-      hideTextView
-      @layoutMode = LAYOUT_MODE_PREVIEW
     when LAYOUT_MODE_SOURCE
-      showTextView
       hideWebView
-      @layoutMode = LAYOUT_MODE_SOURCE
+      showSourceView
     when LAYOUT_MODE_COMBO
       showWebView
-      showTextView
-      @layoutMode = LAYOUT_MODE_COMBO
+      showSourceView
     end
+    @layoutMode = tag
     
     # set toolbar segmented control to new layout
     @bookController.layoutSegementedControl.selectSegmentWithTag(@layoutMode)
   end
   
   def showWebView
-    unless webViewVisible?
-      @splitView.addSubview(@webViewController.view, positioned:NSWindowBelow, relativeTo:@sourceViewController.view.enclosingScrollView)
-      updateSplitViewDividerPosition
-    end
-  end
-
-  def showTextView
-    unless textViewVisible?
-      @splitView.addSubview(@sourceViewController.view.enclosingScrollView, positioned:NSWindowAbove, relativeTo:@webViewController.view)
-      updateSplitViewDividerPosition
+    unless splitViewContains?(webView)
+      positionSplitViewSubviews
+      @splitView.addSubview(webView, positioned:NSWindowBelow, relativeTo:sourceView)
     end
   end
 
   def hideWebView
-    if @splitView.subviews.size == 2
-      @webViewController.view.removeFromSuperview
-      @splitView.adjustSubviews
+    if splitViewContains?(webView)
+      updateSubviewPercentages
+      webView.removeFromSuperview
     end
   end
 
-  def hideTextView
-    if @splitView.subviews.size == 2
-      @sourceViewController.view.enclosingScrollView.removeFromSuperview
-      @splitView.adjustSubviews
+  def showSourceView
+    unless splitViewContains?(sourceView)
+      positionSplitViewSubviews
+      @splitView.addSubview(sourceView, positioned:NSWindowAbove, relativeTo:webView)
+    end
+  end
+
+  def hideSourceView
+    if splitViewContains?(sourceView)
+      updateSubviewPercentages
+      sourceView.removeFromSuperview
     end
   end
   
   def toggleSplitOrientation(sender)
-    if @splitView.vertical?
-      makeSplitViewOrientationHorizontal
-    else
-      makeSplitViewOrientationVertical
-    end
-  end
-  
-  def makeSplitViewOrientationVertical
-    unless @splitView.vertical?
-      @splitView.vertical = true
-      updateSplitViewDividerPosition
-    end
-  end
-
-  def makeSplitViewOrientationHorizontal
-    if @splitView.vertical?
-      @splitView.vertical = false
-      updateSplitViewDividerPosition
-    end
+    updateSubviewPercentages
+    @splitView.vertical = !@splitView.vertical?
+    positionSplitViewSubviews
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
@@ -230,10 +215,14 @@ class TabbedViewController < NSViewController
   def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
     proposedMax - SPLIT_VIEW_MINIMUM_POSITION
   end
-
-  def splitView(splitView, constrainSplitPosition:proposedPosition, ofSubviewAt:dividerIndex)
-    @previousDividerPosition = proposedPosition 
-  end
+  
+  # def splitView(sender, shouldCollapseSubview:subview, forDoubleClickOnDividerAtIndex:index)
+  #   puts "shouldCollapseSubview"
+  #   @sourceViewPercentage = 0.5
+  #   @sourceView = 0.5
+  #   positionSplitViewSubviews
+  #   false
+  # end
   
   def validateMenuItem(menuItem)
     case menuItem.action
@@ -246,7 +235,7 @@ class TabbedViewController < NSViewController
       numberOfTabs > 0
     when :"toggleSplitOrientation:"
       menuItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
-      menuItem.enabled = enableSplitOrientationInterfaceItem?
+      menuItem.enabled = numberOfTabs > 0 && @layoutMode == LAYOUT_MODE_COMBO
     else
       true
     end
@@ -265,12 +254,46 @@ class TabbedViewController < NSViewController
 
   private
 
-  def webViewVisible?
-    @splitView.subviews.size == 2 || @splitView.subviews[0] == @webViewController.view
+  def splitViewContains?(subview)
+    @splitView.subviews.include?(subview)
+  end
+  
+  def webView
+    @webViewController.view
+  end
+  
+  def sourceView
+    @sourceViewController.view.enclosingScrollView
   end
 
-  def textViewVisible?
-    @splitView.subviews.size == 2 || @splitView.subviews[0] == @sourceViewController.view.enclosingScrollView
+  def updateSubviewPercentages
+    if @splitView.subviews.size == 2
+      @webViewPercentage = calculateSubviewPositionPercentage(webView)
+      @sourceViewPercentage = 1.0 - @webViewPercentage
+    end
+  end
+  
+  def calculateSubviewPositionPercentage(subview)
+    if @splitView.vertical?
+      NSWidth(subview.bounds) / (NSWidth(@splitView.bounds) - @splitView.dividerThickness)
+    else
+      NSHeight(subview.bounds) / (NSHeight(@splitView.bounds) - @splitView.dividerThickness)
+    end
+  end
+  
+  def positionSplitViewSubviews
+    positionSubview(webView, withPercentage:@webViewPercentage)
+    positionSubview(sourceView, withPercentage:@sourceViewPercentage)
+  end
+  
+  def positionSubview(subview, withPercentage:percentage)
+    rect = @splitView.frame
+    if @splitView.vertical?
+      rect.size.width *= percentage
+    else
+      rect.size.height *= percentage
+    end
+    subview.frame = rect
   end
   
   def stateForMenuItem(menuItem)
@@ -284,28 +307,10 @@ class TabbedViewController < NSViewController
     end
   end
   
-  def enableSplitOrientationInterfaceItem?
-    numberOfTabs > 0 && @layoutMode == LAYOUT_MODE_COMBO  
-  end
-  
-  def updateSplitViewDividerPosition
-    return unless @splitView.subviews.size > 1
-    maximum = @splitView.vertical? ? @splitView.bounds.size.width : @splitView.bounds.size.height
-    if @previousDividerPosition.nil?
-      @previousDividerPosition = maximum * 0.5
-    elsif @previousDividerPosition > maximum
-      @previousDividerPosition = maximum - SPLIT_VIEW_MINIMUM_POSITION
-    elsif @previousDividerPosition < 0
-      @previousDividerPosition = SPLIT_VIEW_MINIMUM_POSITION
-    end
-    @splitView.setPosition(@previousDividerPosition, ofDividerAtIndex:0)
-    @splitView.adjustSubviews
-  end
-  
   def makeResponder(controller)
     current = @bookController.window.nextResponder
     window.nextResponder = controller
     controller.nextResponder = current
   end
-
+  
 end
