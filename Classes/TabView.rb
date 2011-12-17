@@ -196,7 +196,7 @@ class TabView < NSView
   end
 
   def updateTrackingAreas
-    unregisterTrackingArea
+    removeTrackingArea(trackingAreas.first)    
     registerTrackingArea
   end
   
@@ -286,12 +286,9 @@ class TabView < NSView
   end
 
   def registerTrackingArea
-    addTrackingArea(NSTrackingArea.alloc.initWithRect(self.bounds, options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow), owner:self, userInfo:nil))
+    addTrackingArea(NSTrackingArea.alloc.initWithRect(self.bounds, 
+      options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow), owner:self, userInfo:nil))
   end
   
-  def unregisterTrackingArea
-    removeTrackingArea(trackingAreas.first)    
-  end
-
 end
 

@@ -1,6 +1,6 @@
 class Issue
 
-  IMAGE_HEIGHT = 13.0
+  IMAGE_HEIGHT = 15.0
 
   attr_accessor :lineNumber, :message, :textAttributes, :imageOrigin
 
@@ -48,8 +48,8 @@ class Issue
     path = NSBezierPath.bezierPath
     NSColor.colorWithCalibratedRed(0.09, green:0.6, blue:0.07, alpha:1.0).set
     path.lineWidth = 1.0
-    path.moveToPoint([0, 0.5])
-    path.lineToPoint([rep.size.width, 0.5])
+    path.moveToPoint([0, 0])
+    path.lineToPoint([rep.size.width, 0])
     path.closePath
     path.stroke
 
