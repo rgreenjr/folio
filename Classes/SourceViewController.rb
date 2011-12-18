@@ -265,10 +265,8 @@ class SourceViewController < NSViewController
 
   def restoreSelectedRange(item)
     if item && item.editable?
-      range = @selectedRangeHash[item]
-      if range
-        view.setSelectedRange(range)
-      end
+      range = @selectedRangeHash[item] || NSMakeRange(0, 0)
+      view.setSelectedRange(range)
     end
   end
 
