@@ -19,7 +19,7 @@ class Manifest
           break if index == (parts.size - 1)
           directory = parent.childWithName(part)
           if directory == nil
-            directory = Item.new(parent, part, "Media::DIRECTORY-#{part}", Media::DIRECTORY)
+            directory = Item.new(parent, part, nil, Media::DIRECTORY)
             parent << directory
           end
           parent = directory
