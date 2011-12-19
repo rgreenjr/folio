@@ -47,6 +47,12 @@ class Container
     FileUtils.mkdir_p(File.join(directory, META_INF_DIRECTORY))
     File.open(File.join(directory, CONTAINER_XML_RELATIVE_PATH), "w") {|f| f.write(to_xml)}
   end
+  
+  def each_element(path)
+    if @opfDoc
+      @opfDoc.elements.each(path) { |element| yield element }
+    end
+  end
 
   def to_xml
     fullPath = @relativePath.empty? ? DEFAULT_CONTENT_OPF_NAME : File.join(@relativePath, DEFAULT_CONTENT_OPF_NAME)

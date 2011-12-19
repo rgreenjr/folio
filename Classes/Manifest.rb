@@ -12,7 +12,7 @@ class Manifest
     if book.nil?
       @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
     else
-      book.container.opfDoc.elements.each("/package/manifest/item") do |e|
+      book.container.each_element("/package/manifest/item") do |e|
         parent = @root
         parts = e.attributes["href"].split('/')
         parts.each_with_index do |part, index|

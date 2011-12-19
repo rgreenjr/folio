@@ -8,14 +8,17 @@ class ItemRef
   # Reading Systems to distinguish presentation of body content from supplementary content.
   attr_accessor :linear
   
-  attr_accessor :type
-  
   def initialize(item, linear='yes')
-    @item, @linear = item, linear
+    @item = item
+    @linear = linear
   end
   
   def idref
     @item.id
+  end
+  
+  def referenceType
+    @item.referenceType
   end
   
   def linear?

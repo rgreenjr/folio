@@ -20,17 +20,18 @@ class ItemRefViewController < NSViewController
   
   def updateItemRef(sender)
     if sender == @typePopup
-      changeType(@itemref, Guide.code_for(@typePopup.titleOfSelectedItem))
+      changeReferenceType(@itemref, Guide.type_for(@typePopup.titleOfSelectedItem))
     else
       changeLinearity(@itemref, @linearCheckBox.state == NSOnState ? 'yes' : 'no')
     end
   end
   
-  def changeType(itemref, value)
-    return if itemref.type == value
-    undoManager.prepareWithInvocationTarget(self).changeType(itemref, itemref.type)
+  def changeReferenceType(itemref, value)
+    return if itemref.item.referenceType == value
+    undoManager.prepareWithInvocationTarget(self).changeReferenceType(itemref, itemref.item.referenceType)
     undoManager.actionName = "Change ItemRef Type"
-    itemref.type = value
+    itemref.item.referenceType = value
+    itemref.item.referenceTitle = Guide.title_for(value)
     updateView
   end
 
@@ -46,8 +47,8 @@ class ItemRefViewController < NSViewController
 
   def updateView
     if @itemref
-      guideType = Guide.name_for(@itemref.type) || "None"
-      @typePopup.selectItemWithTitle(guideType)
+      title = Guide.title_for(@itemref.item.referenceType) || "None"
+      @typePopup.selectItemWithTitle(title)
       @linearCheckBox.state = @itemref.linear? ? NSOnState : NSOffState
       @bookController.selectionViewController.reloadItem(@itemref)
     end

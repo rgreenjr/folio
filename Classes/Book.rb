@@ -21,7 +21,7 @@ class Book < NSDocument
     @manifest   = Manifest.new(@container.absolutePath)
     @metadata   = Metadata.new
     @spine      = Spine.new
-    @guide      = Guide.new
+    @guide      = Guide.new(@container, @manifest)
     @navigation = Navigation.new
     @issues     = []
     self
@@ -44,7 +44,7 @@ class Book < NSDocument
         progressBar.doubleValue = 70.0
         @spine      = Spine.new(self)
         progressBar.doubleValue = 80.0
-        @guide      = Guide.new(self)
+        @guide      = Guide.new(@container, @manifest)
         progressBar.doubleValue = 90.0
         @navigation = Navigation.new(self)
         progressBar.doubleValue = 100.0

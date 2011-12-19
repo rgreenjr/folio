@@ -25,7 +25,7 @@ class Metadata
     @date = Time.now.strftime("%Y-%m-%d")
         
     if book
-      book.container.opfDoc.elements.each("/package/metadata/*") do |element|
+      book.container.each_element("/package/metadata/*") do |element|
         case element.name
         when "meta"
           if element.attributes["name"] == "cover"

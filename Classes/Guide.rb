@@ -1,6 +1,6 @@
-class Guide < DelegateClass(Array)
+class Guide
 
-  TYPE_HASH = {
+  REFERENCE_TYPE_HASH = {
     "acknowledgements" => "Acknowledgements",
     "colophon"         => "Colophon",
     "copyright-page"   => "Copyright Page",
@@ -19,29 +19,32 @@ class Guide < DelegateClass(Array)
   }
 
   def self.types
-    TYPE_HASH.values.sort
+    REFERENCE_TYPE_HASH.values.sort
   end
 
-  def self.code_for(name)
-    TYPE_HASH.key(name)
+  def self.type_for(title)
+    REFERENCE_TYPE_HASH.key(title)
   end
 
-  def self.name_for(code)
-    TYPE_HASH[code]
+  def self.title_for(type)
+    REFERENCE_TYPE_HASH[type]
   end
   
-  def initialize(book=nil)
-    @itemRefs = []
-    super(@itemRefs)
-    # if book
-    #   book.container.opfDoc.elements.each("/package/guide/reference") do |element|
-    #     href  = element.attributes["href"]
-    #     item  = book.manifest.itemWithHref(href)
-    #     raise "Guide item with href \"#{href}\" could not be found." unless item
-    #     item.referenceType = element.attributes["type"]
-    #     item.referenceTitle = element.attributes["title"]
-    #   end
-    # end
+  def initialize(container, manifest)
+    @manifest = manifest
+    container.each_element("/package/guide/reference") do |element|
+      href  = element.attributes["href"]
+      item  = @manifest.itemWithHref(href)
+      raise "Guide reference item with href \"#{href}\" could not be found." unless item
+      item.referenceType = element.attributes["type"]
+      item.referenceTitle = element.attributes["title"]
+    end
+  end
+  
+  def each
+    @manifest.each do |item|
+      yield item if item.referenceType && item.referenceTitle
+    end
   end
   
 end

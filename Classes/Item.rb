@@ -2,13 +2,13 @@ class Item
 
   PBOARD_TYPE = "ItemPboardType"
 
-  # mandatory unique identifier within the container
-  attr_accessor :id
-  
-  # mandatory MIME media-type
-  attr_accessor :mediaType
-  
-  attr_accessor :content, :name, :parent
+  attr_accessor :id             # mandatory unique identifier within the container
+  attr_accessor :mediaType      # mandatory MIME media-type
+  attr_accessor :referenceType
+  attr_accessor :referenceTitle
+  attr_accessor :content
+  attr_accessor :name
+  attr_accessor :parent
 
   def initialize(parent, name, id=nil, mediaType=nil, expanded=false)
     @parent = parent
