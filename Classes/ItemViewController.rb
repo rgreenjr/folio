@@ -98,9 +98,17 @@ class ItemViewController < NSViewController
   def updateView(item)
     if item
       @nameField.stringValue = item.name
-      @idField.stringValue = item.id
-      @mediaTypeField.stringValue = item.mediaType
-      @mediaTypeField.enabled = !item.directory?
+      if item.directory?
+        @idField.stringValue = ''
+        @idField.enabled = false
+        @mediaTypeField.stringValue = ''
+        @mediaTypeField.enabled = false
+      else
+        @idField.stringValue = item.id
+        @idField.enabled = true
+        @mediaTypeField.stringValue = item.mediaType
+        @mediaTypeField.enabled = true
+      end
       @bookController.selectionViewController.reloadItem(item)
     end
   end
