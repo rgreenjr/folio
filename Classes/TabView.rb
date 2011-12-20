@@ -13,8 +13,14 @@ class TabView < NSView
     @gradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], [0.0, 0.5, 1.0], colorSpace:NSColorSpace.genericRGBColorSpace)
     @lineColor = NSColor.colorWithDeviceRed(0.25, green:0.25, blue:0.25, alpha:1.0)
     
+    # receive notification when application will become inactive
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:('applicationDidResignActive:'), 
+        name:NSApplicationDidResignActiveNotification, object:nil)
+        
+  
     # register trackingArea to receive mouseEntered and mouseExited events
     registerTrackingArea
+    
     self
   end
   
@@ -289,6 +295,10 @@ class TabView < NSView
   def registerTrackingArea
     addTrackingArea(NSTrackingArea.alloc.initWithRect(self.bounds, 
       options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow), owner:self, userInfo:nil))
+  end
+  
+  def applicationDidResignActive(notification)
+    clearHoverTabCell
   end
   
 end
