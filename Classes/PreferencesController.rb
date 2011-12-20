@@ -1,6 +1,10 @@
 class PreferencesController < NSWindowController
 
-  attr_accessor :fontTextField, :editorFont
+  FONT_NAME_KEY = "FontName"
+  FONT_SIZE_KEY = "FontSize"
+
+  attr_accessor :fontTextField
+  attr_accessor :font
   
   def self.sharedPreferencesController
     @sharedPreferencesController ||= PreferencesController.alloc.init
@@ -8,13 +12,13 @@ class PreferencesController < NSWindowController
 
   def init
     initWithWindowNibName("Preferences")
-    @editorFont = NSFont.userFixedPitchFontOfSize(11.0)
+    @font = readFontPreference
     self
   end
 
   def awakeFromNib
     window.delegate = self
-    updateFontTextField
+    updateFontTextField(@font)
   end
 
   def showWindow(sender)
@@ -27,20 +31,36 @@ class PreferencesController < NSWindowController
 
   def showFontPanel(sender)
     fontManager = NSFontManager.sharedFontManager
-    fontManager.setSelectedFont(@editorFont, isMultiple:false)
+    fontManager.setSelectedFont(@font, isMultiple:false)
     fontManager.delegate = self
     fontManager.orderFrontFontPanel(sender)
   end
 
   def changeFont(sender)
-    @editorFont = sender.convertFont(@editorFont)
-    updateFontTextField
+    @font = sender.convertFont(@font)
+    writeFontPreference(@font)
+    updateFontTextField(@font)
   end
 
   private
 
-  def updateFontTextField
-    @fontTextField.stringValue = "#{@editorFont.displayName} #{@editorFont.pointSize.to_i} pt."
+  def defaultFont
+    NSFont.userFixedPitchFontOfSize(11.0)
+  end
+
+  def readFontPreference
+    fontName = NSUserDefaults.standardUserDefaults.stringForKey(FONT_NAME_KEY)
+    fontSize = NSUserDefaults.standardUserDefaults.floatForKey(FONT_SIZE_KEY)
+    NSFont.fontWithName(fontName, size:fontSize) || defaultFont
+  end
+
+  def writeFontPreference(font)
+    NSUserDefaults.standardUserDefaults.setObject(font.fontName, forKey:FONT_NAME_KEY)
+    NSUserDefaults.standardUserDefaults.setFloat(font.pointSize, forKey:FONT_SIZE_KEY)
+  end
+
+  def updateFontTextField(font)
+    @fontTextField.stringValue = "#{font.displayName} #{font.pointSize.to_i} pt."
     postNotification
   end
 

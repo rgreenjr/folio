@@ -7,7 +7,7 @@ class SourceViewController < NSViewController
   attr_accessor :lineNumberView
 
   def awakeFromNib
-    @textAttributes = { NSFontAttributeName => PreferencesController.sharedPreferencesController.editorFont }  
+    @textAttributes = { NSFontAttributeName => PreferencesController.sharedPreferencesController.font }  
 
     scrollView = view.enclosingScrollView
     @lineNumberView = LineNumberRuler.alloc.initWithScrollView(scrollView)
@@ -28,7 +28,7 @@ class SourceViewController < NSViewController
   end
   
   def preferencesDidChange(notification)
-    @textAttributes = { NSFontAttributeName => notification.object.editorFont }
+    @textAttributes = { NSFontAttributeName => notification.object.font }
     self.item = @item # reload item to force font change
   end
 
