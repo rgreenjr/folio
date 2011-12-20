@@ -31,12 +31,13 @@ class SelectionViewController < NSViewController
     # register the drag types we support
     @outlineView.registerForDraggedTypes([Point::PBOARD_TYPE, ItemRef::PBOARD_TYPE, Item::PBOARD_TYPE, NSFilenamesPboardType])
 
-    # set up outlineView to process double-click evetns
+    # display clicked rows and expand/collapse double clicked rows
     @outlineView.target = self
-    @outlineView.doubleAction = :"doubleClickAction:"
+    @outlineView.action = "displayCurrentSelection:"
+    @outlineView.doubleAction = "toggleRow:"
   end
   
-  def doubleClickAction(sender)
+  def toggleRow(sender)
     item = @outlineView.itemAtRow(@outlineView.clickedRow)
     @outlineView.isItemExpanded(item) ? @outlineView.collapseItem(item) : @outlineView.expandItem(item)
   end
@@ -92,14 +93,7 @@ class SelectionViewController < NSViewController
   end
 
   def outlineViewSelectionDidChange(notification)
-    if @outlineView.numberOfSelectedRows == 1
-      item = @outlineView.itemAtRow(@outlineView.selectedRow)
-      @bookController.tabbedViewController.addObject(item)
-      updateInspector(item)
-    else
-      updateInspector(nil)
-      # puts "multiple or empty selection"
-    end
+    displayCurrentSelection(self)
   end
 
   def outlineView(outlineView, writeItems:items, toPasteboard:pboard)
@@ -120,6 +114,16 @@ class SelectionViewController < NSViewController
 
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
     controllerForItem(parent).acceptDrop(info, item:parent, childIndex:childIndex)
+  end
+  
+  def displayCurrentSelection(sender)
+    if @outlineView.numberOfSelectedRows == 1
+      item = @outlineView.itemAtRow(@outlineView.selectedRow)
+      @bookController.tabbedViewController.addObject(item)
+      updateInspector(item)
+    else
+      updateInspector(nil)
+    end
   end
 
   def selectedItemsForController(controller)

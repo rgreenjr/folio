@@ -138,6 +138,10 @@ class Manifest
     @itemsMap[item.id] = item
     oldID
   end
+  
+  def itemsWithIssues
+    select { |item| item.hasIssues? }
+  end
 
   def sort
     @root.sort

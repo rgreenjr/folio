@@ -20,9 +20,15 @@ class IssueViewController < NSViewController
     @outlineView.delegate = self
     @outlineView.dataSource = self
 
-    showNoIssuesImage
+    # set single click target and action
+    @outlineView.target = self
+    @outlineView.action = "displayCurrentSelection:"
 
+    # receive notification when item issues are updated 
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"itemIssuesDidChange:", name:"ItemIssuesDidChange", object:nil)
+
+    # show default image
+    showNoIssuesImage
   end
   
   def visible?
@@ -30,9 +36,16 @@ class IssueViewController < NSViewController
   end
 
   def refresh
-    @items = @bookController.document.manifest.select { |item| item.hasIssues? }
+    # get all items with validation issues
+    @items = @bookController.document.manifest.itemsWithIssues
+    
+    # add book if it has any valitions issues
     @items.unshift(@bookController.document) if @bookController.document.hasIssues?
+    
+    # show default image if there are no issues
     @items.empty? ? showNoIssuesImage : showIssuesView
+    
+    # refresh outlineView
     @outlineView.deselectAll(self)
     @outlineView.reloadData
     
@@ -76,24 +89,11 @@ class IssueViewController < NSViewController
       object.displayString
     end
   end
-
+  
   def outlineViewSelectionDidChange(notification)
-    object = @outlineView.itemAtRow(@outlineView.selectedRow)
-    return unless object
-    if object.class == Item
-      @bookController.tabbedViewController.addObject(object)
-    elsif object.class == Issue
-      parent = @outlineView.parentForItem(object)
-      if parent && parent.class == Item
-        @bookController.tabbedViewController.addObject(parent)
-        @bookController.tabbedViewController.showSourceView
-        if object.lineNumber
-          @bookController.tabbedViewController.sourceViewController.selectLineNumber(object.lineNumber + 1)
-        end
-      end
-    end
+    displayCurrentSelection(self)
   end
-
+  
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:object)
     cell.font = NSFont.systemFontOfSize(11.0)
     if object.class == Item
@@ -108,6 +108,23 @@ class IssueViewController < NSViewController
       cell.badgeCount = nil
       cell.image = nil
       # cell.image = NSImage.imageNamed('wrench.png')
+    end
+  end
+
+  def displayCurrentSelection(sender)
+    object = @outlineView.itemAtRow(@outlineView.selectedRow)
+    return unless object
+    if object.class == Item
+      @bookController.tabbedViewController.addObject(object)
+    elsif object.class == Issue
+      parent = @outlineView.parentForItem(object)
+      if parent && parent.class == Item
+        @bookController.tabbedViewController.addObject(parent)
+        @bookController.tabbedViewController.showSourceView
+        if object.lineNumber
+          @bookController.tabbedViewController.sourceViewController.selectLineNumber(object.lineNumber + 1)
+        end
+      end
     end
   end
 
