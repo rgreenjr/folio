@@ -17,10 +17,6 @@ class ItemRef
     @item.id
   end
   
-  def referenceType
-    @item.referenceType
-  end
-  
   def linear?
     @linear.nil? || @linear.downcase == 'yes'
   end

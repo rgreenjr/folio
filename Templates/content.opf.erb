@@ -27,7 +27,7 @@
   </spine>
 
   <guide><% book.guide.each do |item| %>
-    <reference type="<%= item.referenceType %>" title="<%= item.referenceTitle.escapeHTML %>" href="<%= item.href.escapeHTML %>" /><% end %>
+    <reference type="<%= item.referenceType.escapeHTML %>" title="<%= item.referenceTitle.escapeHTML %>" href="<%= item.href.escapeHTML %>" /><% end %>
   </guide>
 
 </package>
