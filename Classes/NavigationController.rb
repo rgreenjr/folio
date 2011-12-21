@@ -312,7 +312,7 @@ class NavigationController < NSResponder
   end
 
   def undoManager
-    @undoManager ||= @bookController.undoManager
+    @undoManager ||= @bookController.window.undoManager
   end
   
 end
