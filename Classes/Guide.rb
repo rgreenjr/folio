@@ -34,6 +34,10 @@ class Guide
     @manifest = manifest
     container.each_element("/package/guide/reference") do |element|
       href  = element.attributes["href"]
+      
+      # strip fragment before lookup
+      href, fragment = href.split('#')
+      
       item  = @manifest.itemWithHref(href)
       raise "Guide reference item with href \"#{href}\" could not be found." unless item
       item.referenceType = element.attributes["type"]
