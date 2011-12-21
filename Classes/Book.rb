@@ -18,7 +18,7 @@ class Book < NSDocument
     super
     @unzipPath  = Dir.mktmpdir("folio-unzip-")
     @container  = Container.new(@unzipPath)
-    @manifest   = Manifest.new(@container.absolutePath)
+    @manifest   = Manifest.new(@container)
     @metadata   = Metadata.new
     @spine      = Spine.new
     @guide      = Guide.new(@container, @manifest)
@@ -38,7 +38,7 @@ class Book < NSDocument
         progressBar.doubleValue = 40.0
         @container  = Container.new(@unzipPath, self)
         progressBar.doubleValue = 50.0
-        @manifest   = Manifest.new(@container.absolutePath, self)
+        @manifest   = Manifest.new(@container)
         progressBar.doubleValue = 60.0
         @metadata   = Metadata.new(self)
         progressBar.doubleValue = 70.0
@@ -52,8 +52,7 @@ class Book < NSDocument
         true
       rescue Exception => exception
         info = {
-          NSLocalizedFailureReasonErrorKey => "\n\n" + exception.message,
-          # NSLocalizedRecoverySuggestionErrorKey => "RecoverySuggestion"
+          NSLocalizedFailureReasonErrorKey => "\n\n" + exception.message
         }
         outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
         false

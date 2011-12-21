@@ -13,7 +13,7 @@ class Container
   def initialize(unzipPath, book=nil)
     if book.nil?
       @relativePath = DEFAULT_RELATIVE_PATH
-      @absolutePath = makeAbsolutePath(unzipPath)
+      @absolutePath = absolutePathFor(unzipPath)
       FileUtils.mkdir_p(@absolutePath) unless File.exist?(@absolutePath)
       @opfAbsolutePath = ''
       @opfDoc = nil
@@ -28,7 +28,7 @@ class Container
 
         @relativePath = File.dirname(@opfRelativePath).split('/').last
         @relativePath = '' if @relativePath == '.'
-        @absolutePath = makeAbsolutePath(unzipPath)
+        @absolutePath = absolutePathFor(unzipPath)
 
         @opfAbsolutePath = File.join(unzipPath, @opfRelativePath)
 
@@ -42,6 +42,10 @@ class Container
     end
   end
   
+  def hasOPFDoc?
+    @opfDoc != nil
+  end
+  
   def save(directory)
     FileUtils.mkdir_p(File.join(directory, @relativePath))    
     FileUtils.mkdir_p(File.join(directory, META_INF_DIRECTORY))
@@ -49,7 +53,7 @@ class Container
   end
   
   def each_element(path)
-    if @opfDoc
+    if hasOPFDoc?
       @opfDoc.elements.each(path) { |element| yield element }
     end
   end
@@ -59,11 +63,15 @@ class Container
     ERB.new(Bundle.template(CONTAINER_XML_NAME)).result(binding)
   end
   
-  private
-  
-  def makeAbsolutePath(unzipPath)
-    @relativePath == '' ? unzipPath : File.join(unzipPath, @relativePath)
+  def absolutePathFor(path)
+    @relativePath == '' ? path : File.join(path, @relativePath)
   end
+  
+  def relativePathFor(path)
+    path.gsub(@absolutePath + "/", '')
+  end
+  
+  private
   
   def extractRootFilePath(doc)
     doc.root.elements.each("/container/rootfiles/rootfile") do |element|

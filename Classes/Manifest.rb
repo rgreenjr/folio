@@ -2,17 +2,18 @@ class Manifest
 
   attr_accessor :root, :ncx
   
-  def initialize(containerPath, book=nil)
+  def initialize(container)
+    @container = container
+    
     @itemsMap  = {}
-    @containerPath = containerPath
 
     # create the root item
-    @root = Item.new(nil, @containerPath, 'ROOT', Media::DIRECTORY, true)
+    @root = Item.new(nil, @container.absolutePath, 'ROOT', Media::DIRECTORY, true)
     
-    if book.nil?
+    if !@container.hasOPFDoc?
       @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
     else
-      book.container.each_element("/package/manifest/item") do |e|
+      @container.each_element("/package/manifest/item") do |e|
         parent = @root
         parts = e.attributes["href"].split('/')
         parts.each_with_index do |part, index|
@@ -121,7 +122,7 @@ class Manifest
   end
   
   def itemWithHref(href)
-    href = href.gsub(@containerPath + "/", '')
+    href = @container.relativePathFor(href)
     current = @root
     parts = href.split('/')
     while !parts.empty? && current
