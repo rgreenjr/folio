@@ -52,6 +52,8 @@
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
 		CD102B87149590A500EE8650 /* issues-hide-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD102B86149590A500EE8650 /* issues-hide-icon.png */; };
 		CD102B89149592D100EE8650 /* issues-show-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD102B88149592D100EE8650 /* issues-show-icon.png */; };
+		CD145F7F14A2A9B600DD607C /* SelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD145F7B14A2A9B600DD607C /* SelectionView.xib */; };
+		CD145F8014A2A9B600DD607C /* TabbedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD145F7D14A2A9B600DD607C /* TabbedView.xib */; };
 		CD2206681493D04D00AB589F /* background-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2206671493D04D00AB589F /* background-logo.png */; };
 		CD2D180D12E5F1F800D6A99A /* Alert.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17D812E5F1F800D6A99A /* Alert.rb */; };
 		CD2D181012E5F1F800D6A99A /* Book.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DB12E5F1F800D6A99A /* Book.rb */; };
@@ -161,7 +163,6 @@
 		CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */; };
 		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
 		CDB780D6149964070025702F /* TabbedViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D5149964060025702F /* TabbedViewController.rb */; };
-		CDB780D8149987C10025702F /* SelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D7149987C10025702F /* SelectionView.xib */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
 		CDD7AFF712EF675700352D4B /* manifest.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFF612EF675700352D4B /* manifest.png */; };
 		CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFFA12EF6D5F00352D4B /* toc.png */; };
@@ -184,7 +185,6 @@
 		CDEBCBEE12F0E7CB00E8834D /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBED12F0E7CB00E8834D /* preview.png */; };
 		CDEBCBF012F0E7D600E8834D /* yield-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBEF12F0E7D600E8834D /* yield-circle.png */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
-		CDFF71BB14992C5A00371508 /* TabbedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF71BA14992C5A00371508 /* TabbedView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -214,6 +214,8 @@
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
 		CD102B86149590A500EE8650 /* issues-hide-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-hide-icon.png"; sourceTree = "<group>"; };
 		CD102B88149592D100EE8650 /* issues-show-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-show-icon.png"; sourceTree = "<group>"; };
+		CD145F7C14A2A9B600DD607C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SelectionView.xib; sourceTree = "<group>"; };
+		CD145F7E14A2A9B600DD607C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TabbedView.xib; sourceTree = "<group>"; };
 		CD2206671493D04D00AB589F /* background-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-logo.png"; sourceTree = "<group>"; };
 		CD2D17D812E5F1F800D6A99A /* Alert.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Alert.rb; sourceTree = "<group>"; };
 		CD2D17DB12E5F1F800D6A99A /* Book.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Book.rb; sourceTree = "<group>"; };
@@ -323,7 +325,6 @@
 		CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverMessageView.rb; sourceTree = "<group>"; };
 		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
 		CDB780D5149964060025702F /* TabbedViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabbedViewController.rb; sourceTree = "<group>"; };
-		CDB780D7149987C10025702F /* SelectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionView.xib; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
 		CDD7AFF612EF675700352D4B /* manifest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manifest.png; sourceTree = "<group>"; };
 		CDD7AFFA12EF6D5F00352D4B /* toc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toc.png; sourceTree = "<group>"; };
@@ -346,7 +347,6 @@
 		CDEBCBED12F0E7CB00E8834D /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		CDEBCBEF12F0E7D600E8834D /* yield-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yield-circle.png"; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		CDFF71BA14992C5A00371508 /* TabbedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabbedView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +452,8 @@
 		CD2D17BE12E5F1DB00D6A99A /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				CD145F7B14A2A9B600DD607C /* SelectionView.xib */,
+				CD145F7D14A2A9B600DD607C /* TabbedView.xib */,
 				CD3179BC12EA7AE800C98B33 /* Book.xib */,
 				CD3179BE12EA7AE800C98B33 /* GotoLine.xib */,
 				CD3179C012EA7AE800C98B33 /* InfoPlist.strings */,
@@ -465,9 +467,7 @@
 				CD3179CA12EA7AE800C98B33 /* Preferences.xib */,
 				CD3179CC12EA7AE800C98B33 /* Progress.xib */,
 				CD3179CE12EA7AE800C98B33 /* Search.xib */,
-				CDB780D7149987C10025702F /* SelectionView.xib */,
 				CD3179D012EA7AE800C98B33 /* SourceView.xib */,
-				CDFF71BA14992C5A00371508 /* TabbedView.xib */,
 				CD8F5F4912EB75A00036B0D7 /* Validation.xib */,
 				CD3179D612EA7AE800C98B33 /* WebView.xib */,
 			);
@@ -803,11 +803,11 @@
 				CD5E2B2014956DB70036E219 /* inspector-hide-icon.png in Resources */,
 				CD102B87149590A500EE8650 /* issues-hide-icon.png in Resources */,
 				CD102B89149592D100EE8650 /* issues-show-icon.png in Resources */,
-				CDFF71BB14992C5A00371508 /* TabbedView.xib in Resources */,
 				CDB780D6149964070025702F /* TabbedViewController.rb in Resources */,
-				CDB780D8149987C10025702F /* SelectionView.xib in Resources */,
 				CD9C72A31499BF2F0079EA4E /* SourceViewController.rb in Resources */,
 				CD547D23149C1ED500242DAC /* tab-hover-bg.png in Resources */,
+				CD145F7F14A2A9B600DD607C /* SelectionView.xib in Resources */,
+				CD145F8014A2A9B600DD607C /* TabbedView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,6 +867,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		CD145F7B14A2A9B600DD607C /* SelectionView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD145F7C14A2A9B600DD607C /* English */,
+			);
+			name = SelectionView.xib;
+			sourceTree = "<group>";
+		};
+		CD145F7D14A2A9B600DD607C /* TabbedView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD145F7E14A2A9B600DD607C /* English */,
+			);
+			name = TabbedView.xib;
+			sourceTree = "<group>";
+		};
 		CD3179BC12EA7AE800C98B33 /* Book.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
