@@ -30,9 +30,13 @@ class Item
     @parent ? File.join(@parent.path, @name) : @name
   end
   
+  def hasParent?
+    @parent != nil
+  end
+  
   def href
-    return '' unless @parent
-    @parent.href == '' ? @name : "#{@parent.href}/#{@name}"
+    return '' unless hasParent?
+    @parent.hasParent? ? "#{@parent.href}/#{@name}" : @name
   end
   
   def url
