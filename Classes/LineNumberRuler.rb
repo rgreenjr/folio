@@ -9,11 +9,11 @@ class LineNumberRuler < NSRulerView
     
     @issueHash = {}
         
-    # register for text edit so we can update line indices
+    # register for text changes so we can update line indices
     NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', 
       name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
     
-    # registry for selection changes so we can highlighted current line
+    # register for selection changes so we can highlighted current line
     NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChangeSelection:', 
       name:NSTextViewDidChangeSelectionNotification, object:clientView)
         
@@ -49,7 +49,7 @@ class LineNumberRuler < NSRulerView
         
     yinset = clientView.textContainerInset.height
     visibleRect = scrollView.contentView.bounds
-
+    
     nullRange = NSMakeRange(NSNotFound, 0)
 
     # Find the characters that are currently visible
@@ -83,7 +83,7 @@ class LineNumberRuler < NSRulerView
           # Note that the ruler view is only as tall as the visible portion.
           # Need to compensate for the clipview's coordinates.
           ypos = yinset + NSMinY(rects[0]) - NSMinY(visibleRect)
-
+          
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
           stringSize = labelText.sizeWithAttributes(defaultTextAttributes)
@@ -104,22 +104,16 @@ class LineNumberRuler < NSRulerView
 					  # update issue width incase ruler width changed
 					  issue.image.size = NSMakeSize(ruleThickness, issue.image.size.height)
 
-            # issueImage = issue.image
-						issueRect = NSMakeRect(0.0, 0.0, issue.image.size.width - 1.0, issue.image.size.height)
-
 						# issue is flush right and centered vertically within the line.
-						issueRect.origin.x = 0
-						issueRect.origin.y = ypos + NSHeight(rects[0]) / 2.0 - issue.imageOrigin.y
-
-            fromRect = NSMakeRect(0, 0, issue.image.size.width, issue.image.size.height)
+						issueRect = NSMakeRect(0, ypos + NSHeight(rects[0]) / 2.0 - issue.imageOrigin.y, issue.image.size.width - 1.0, issue.image.size.height)
 
             # add tracking area for this issue
-						trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
-						trackingArea = NSTrackingArea.alloc.initWithRect(issueRect, options:trackingOptions, owner:self, userInfo:issue)
-            addTrackingArea(trackingArea)
+            addTrackingAreaForIssue(issue, issueRect)
 
+            # make issue line numbers slightly transparent unless selected
 					  fraction = physicalLineAtInsertion == (line + 1) ? 1.0 : 0.5
-						issue.image.drawInRect(issueRect, fromRect:fromRect, operation:NSCompositeSourceOver, fraction:fraction)
+					  
+						issue.image.drawInRect(issueRect, fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:fraction)
 
             # draw line number with issue text attributes
             labelText.drawInRect(textRect, withAttributes:issue.textAttributes)
@@ -334,6 +328,12 @@ class LineNumberRuler < NSRulerView
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
       NSForegroundColorAttributeName => NSColor.whiteColor
     }
+  end
+  
+  def addTrackingAreaForIssue(issue, rect)
+		trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
+		trackingArea = NSTrackingArea.alloc.initWithRect(rect, options:trackingOptions, owner:self, userInfo:issue)
+    addTrackingArea(trackingArea)
   end
   
   def clearTrackingAreas
