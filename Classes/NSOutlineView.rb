@@ -15,6 +15,11 @@ class NSOutlineView
     end
   end
 
+  def selectItem(item, expandParents=false)
+    expandItems(parentsForItem(item)) if expandParents
+    selectItems([item])
+  end
+
   def selectItems(items)
     deselectAll(nil)
     unless items.empty?
@@ -23,12 +28,26 @@ class NSOutlineView
         row = rowForItem(item)
         indexes.addIndex(row) if row >= 0
       end
-      selectRowIndexes(indexes, byExtendingSelection:true)      
+      selectRowIndexes(indexes, byExtendingSelection:true)
+      scrollRowToVisible(indexes.firstIndex)      
     end
   end
 
   def expandItems(items)
     items.each { |item| expandItem(item) } if items
+  end
+  
+  def parentsForItem(item)
+    parents = []
+    while item.parent
+      item = item.parent
+      parents << item
+    end
+    parents.reverse
+  end
+  
+  def scrollItemToVisible(item)
+    scrollItemsToVisible([item])
   end
 
   def scrollItemsToVisible(items)

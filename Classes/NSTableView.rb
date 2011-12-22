@@ -1,5 +1,9 @@
 class NSTableView
   
+  def selectItem(item)
+    selectItems([item])
+  end
+  
   def selectItems(items)
     deselectAll(nil)
     unless items.empty? || dataSource.nil?

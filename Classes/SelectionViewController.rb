@@ -116,9 +116,13 @@ class SelectionViewController < NSViewController
     controllerForItem(parent).acceptDrop(info, item:parent, childIndex:childIndex)
   end
   
+  def currentSelection
+    @outlineView.itemAtRow(@outlineView.selectedRow)
+  end
+  
   def displayCurrentSelection(sender)
     if @outlineView.numberOfSelectedRows == 1
-      item = @outlineView.itemAtRow(@outlineView.selectedRow)
+      item = currentSelection
       @bookController.tabbedViewController.addObject(item)
       updateInspector(item)
     else
@@ -128,6 +132,20 @@ class SelectionViewController < NSViewController
 
   def selectedItemsForController(controller)
     @outlineView.selectedItems { |item| controllerForItem(item) == controller }
+  end
+
+  def revealInManifest(sender)
+    expandManifest(self)
+    @outlineView.selectItem(currentSelection.item, expandParents:true)
+  end
+  
+  def validateMenuItem(menuItem)
+    case menuItem.action
+    when :"revealInManifest:"
+      @outlineView.numberOfSelectedRows == 1
+    else
+      true
+    end
   end
 
   private
