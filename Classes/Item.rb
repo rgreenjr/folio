@@ -22,6 +22,8 @@ class Item
     # scanContentForIDAttributes
   end
   
+  # allows points, itemRefs, and items to be treated interchangeably 
+  # when accessing item objects using object.item
   def item
     self
   end
