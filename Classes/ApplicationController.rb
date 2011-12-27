@@ -7,8 +7,11 @@ class ApplicationController
     unless recentURLs.empty?
       url = recentURLs.first
       if File.exists?(url.path)
-        if controller.openDocumentWithContentsOfURL(url, display:true, error:Pointer.new(:id))
+        error = Pointer.new(:id)
+        if controller.openDocumentWithContentsOfURL(url, display:true, error:error)
           return false
+        else
+          NSApplication.sharedApplication.presentError(error[0]) if error[0]
         end
       end
     end
