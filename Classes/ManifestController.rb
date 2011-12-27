@@ -183,15 +183,12 @@ class ManifestController < NSResponder
     panel.title = "Add Files"
     panel.prompt = "Select"
     panel.allowsMultipleSelection = true
-    panel.beginSheetForDirectory(nil, file:nil, types:nil, modalForWindow:window, 
-      modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
-  end
-
-  def addFilesSheetDidEnd(openPanel, returnCode:code, contextInfo:info)
-    if code == NSOKButton
-      filepaths = openPanel.URLs.map { |url| url.path }
-      addFiles(filepaths)
-    end
+    panel.beginSheetModalForWindow(window, completionHandler:Proc.new {|resultCode|
+      if resultCode == NSOKButton
+        filepaths = panel.URLs.map { |url| url.path }
+        addFiles(filepaths)
+      end      
+    })
   end
 
   def addFile(filepath, parent=nil, childIndex=nil)
