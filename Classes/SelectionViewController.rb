@@ -139,10 +139,25 @@ class SelectionViewController < NSViewController
     @outlineView.selectItem(currentSelection.item, expandParents:true)
   end
   
+  def delete(sender)
+    items = @outlineView.selectedItems
+    controller = commonControllerForItems(items)
+    case controller
+    when @navigationController
+      controller.deletePoints(items)
+    when @spineController
+      controller.deleteItemRefs(items)
+    when @manifestController
+      controller.showDeleteSelectedItemsSheet(self)
+    end
+  end
+  
   def validateMenuItem(menuItem)
     case menuItem.action
     when :"revealInManifest:"
       @outlineView.numberOfSelectedRows == 1
+    when :"delete:"
+      commonControllerForItems(@outlineView.selectedItems) != nil
     else
       true
     end
