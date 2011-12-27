@@ -24,6 +24,7 @@ class Media
     "html"  => HTML,
     "jpg"   => JPG,
     "jpeg"  => JPG,
+    "jp2"   => JPG,
     "png"   => PNG,
     "otf"   => OTF,
     "pdf"   => PDF,
