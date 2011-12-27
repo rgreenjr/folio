@@ -153,6 +153,7 @@
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CD9C72A31499BF2F0079EA4E /* SourceViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */; };
 		CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */; };
+		CDAECE0614AA1E8D00CF8274 /* Image.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAECE0514AA1E8D00CF8274 /* Image.rb */; };
 		CDB5422D12F32CE800BB5739 /* PointViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422C12F32CE800BB5739 /* PointViewController.rb */; };
 		CDB5423112F32E9E00BB5739 /* PointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422F12F32E9E00BB5739 /* PointView.xib */; };
 		CDB5428312F33CE100BB5739 /* ItemRefView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428112F33CE100BB5739 /* ItemRefView.xib */; };
@@ -315,6 +316,7 @@
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SourceViewController.rb; sourceTree = "<group>"; };
 		CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Issue.rb; sourceTree = "<group>"; };
+		CDAECE0514AA1E8D00CF8274 /* Image.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Image.rb; sourceTree = "<group>"; };
 		CDB5422C12F32CE800BB5739 /* PointViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointViewController.rb; sourceTree = "<group>"; };
 		CDB5423012F32E9E00BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PointView.xib; sourceTree = "<group>"; };
 		CDB5428212F33CE100BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemRefView.xib; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				CD2D17E412E5F1F800D6A99A /* Highlighter.rb */,
 				CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */,
 				CDB6DED61492A0EF00E83456 /* HoverWindow.rb */,
+				CDAECE0514AA1E8D00CF8274 /* Image.rb */,
 				CD2D17E712E5F1F800D6A99A /* ImageCell.rb */,
 				CD2D17E812E5F1F800D6A99A /* ImageWell.rb */,
 				CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */,
@@ -529,12 +532,12 @@
 				CD2D17FF12E5F1F800D6A99A /* Search.rb */,
 				CD2D180012E5F1F800D6A99A /* SearchController.rb */,
 				CD2D180112E5F1F800D6A99A /* SelectionViewController.rb */,
+				CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */,
 				CD2D180212E5F1F800D6A99A /* Spine.rb */,
 				CD2D180312E5F1F800D6A99A /* SpineController.rb */,
-				CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */,
 				CD2D180412E5F1F800D6A99A /* String.rb */,
-				CD2D180512E5F1F800D6A99A /* TabCell.rb */,
 				CDB780D5149964060025702F /* TabbedViewController.rb */,
+				CD2D180512E5F1F800D6A99A /* TabCell.rb */,
 				CD2D180612E5F1F800D6A99A /* TabView.rb */,
 				CD2D180A12E5F1F800D6A99A /* UUID.rb */,
 				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
@@ -808,6 +811,7 @@
 				CD547D23149C1ED500242DAC /* tab-hover-bg.png in Resources */,
 				CD145F7F14A2A9B600DD607C /* SelectionView.xib in Resources */,
 				CD145F8014A2A9B600DD607C /* TabbedView.xib in Resources */,
+				CDAECE0614AA1E8D00CF8274 /* Image.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
