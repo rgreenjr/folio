@@ -4,7 +4,7 @@ class Point
 
   attr_accessor :id, :playOrder, :text, :item, :fragment
 
-  def initialize(item=nil, text=nil, id=nil)
+  def initialize(item=nil, text=nil, id=nil, fragment='')
     @item = item
     if text
       @text = text
@@ -12,7 +12,7 @@ class Point
       @text = @item ? @item.name : ""
     end
     @id = id || UUID.create
-    @fragment = ""
+    @fragment = fragment
     @children = []
   end
 

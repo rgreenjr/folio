@@ -67,10 +67,6 @@ class Media
     [XML, HTML].include?(mediaType)
   end
   
-  def self.formatable?(mediaType)
-    [XML, HTML].include?(mediaType)
-  end
-
   def self.ncx?(mediaType)
     mediaType == NCX
   end

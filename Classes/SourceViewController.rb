@@ -214,7 +214,7 @@ class SourceViewController < NSViewController
          :"stripTagsFromSelectedText:"
       selectedRange.length > 0
     when :"reformatText:"
-      item.formatable?
+      item.flowable?
     else
       true
     end

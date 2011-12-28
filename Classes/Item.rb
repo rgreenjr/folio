@@ -19,7 +19,6 @@ class Item
     @children = []
     @issueHash = {}    
     FileUtils.mkdir(path) if directory? && !File.exists?(path)
-    # scanContentForIDAttributes
   end
   
   # allows points, itemRefs, and items to be treated interchangeably 
@@ -99,10 +98,6 @@ class Item
     Media.flowable?(@mediaType)
   end
   
-  def formatable?
-    Media.formatable?(@mediaType)
-  end
-
   def ncx?
     Media.ncx?(@mediaType)
   end
@@ -223,7 +218,6 @@ class Item
     candidate
   end
   
-  # used for sorting
   def <=>(other)
     @name <=> other.name
   end
@@ -256,18 +250,15 @@ class Item
   def addIssue(issue)
     @issueHash[issue.lineNumber] = issue
   end
-  
-  def scanContentForIDAttributes
-    @async = AsyncCommand.new do
-      id_links = []
-      if flowable?
-        REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
-          # puts "item #{name}: #{element}"
-          id_links << element.to_s
-        end
+
+  def fragments
+    fragments = []
+    if flowable?
+      REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
+        fragments << element.attributes['id']
       end
-      id_links
     end
+    fragments
   end
 
 end

@@ -185,6 +185,8 @@
 		CDEBCB8512F0CBDA00E8834D /* inspector-border.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB8412F0CBDA00E8834D /* inspector-border.png */; };
 		CDEBCBEE12F0E7CB00E8834D /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBED12F0E7CB00E8834D /* preview.png */; };
 		CDEBCBF012F0E7D600E8834D /* yield-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBEF12F0E7D600E8834D /* yield-circle.png */; };
+		CDF7071614AA68CA004F76EF /* PointPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF7071514AA68CA004F76EF /* PointPanel.xib */; };
+		CDF7071914AA68FA004F76EF /* PointPanelController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDF7071814AA68FA004F76EF /* PointPanelController.rb */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
 /* End PBXBuildFile section */
 
@@ -348,6 +350,8 @@
 		CDEBCB8412F0CBDA00E8834D /* inspector-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inspector-border.png"; sourceTree = "<group>"; };
 		CDEBCBED12F0E7CB00E8834D /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		CDEBCBEF12F0E7D600E8834D /* yield-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yield-circle.png"; sourceTree = "<group>"; };
+		CDF7071514AA68CA004F76EF /* PointPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointPanel.xib; sourceTree = "<group>"; };
+		CDF7071814AA68FA004F76EF /* PointPanelController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointPanelController.rb; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -454,8 +458,6 @@
 		CD2D17BE12E5F1DB00D6A99A /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
-				CD145F7B14A2A9B600DD607C /* SelectionView.xib */,
-				CD145F7D14A2A9B600DD607C /* TabbedView.xib */,
 				CD3179BC12EA7AE800C98B33 /* Book.xib */,
 				CD3179BE12EA7AE800C98B33 /* GotoLine.xib */,
 				CD3179C012EA7AE800C98B33 /* InfoPlist.strings */,
@@ -465,11 +467,14 @@
 				CDB5428B12F33D2E00BB5739 /* ItemView.xib */,
 				CD3179C212EA7AE800C98B33 /* MainMenu.xib */,
 				CD3179C612EA7AE800C98B33 /* Metadata.xib */,
+				CDF7071514AA68CA004F76EF /* PointPanel.xib */,
 				CDB5422F12F32E9E00BB5739 /* PointView.xib */,
 				CD3179CA12EA7AE800C98B33 /* Preferences.xib */,
 				CD3179CC12EA7AE800C98B33 /* Progress.xib */,
 				CD3179CE12EA7AE800C98B33 /* Search.xib */,
+				CD145F7B14A2A9B600DD607C /* SelectionView.xib */,
 				CD3179D012EA7AE800C98B33 /* SourceView.xib */,
+				CD145F7D14A2A9B600DD607C /* TabbedView.xib */,
 				CD8F5F4912EB75A00036B0D7 /* Validation.xib */,
 				CD3179D612EA7AE800C98B33 /* WebView.xib */,
 			);
@@ -525,6 +530,7 @@
 				CD2D17FB12E5F1F800D6A99A /* NSURL.rb */,
 				CD2D17FC12E5F1F800D6A99A /* ParseException.rb */,
 				CD2D17FD12E5F1F800D6A99A /* Point.rb */,
+				CDF7071814AA68FA004F76EF /* PointPanelController.rb */,
 				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
 				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
 				CD3A3E0212F21F0500449BFC /* PrintController.rb */,
@@ -812,6 +818,8 @@
 				CD145F7F14A2A9B600DD607C /* SelectionView.xib in Resources */,
 				CD145F8014A2A9B600DD607C /* TabbedView.xib in Resources */,
 				CDAECE0614AA1E8D00CF8274 /* Image.rb in Resources */,
+				CDF7071614AA68CA004F76EF /* PointPanel.xib in Resources */,
+				CDF7071914AA68FA004F76EF /* PointPanelController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

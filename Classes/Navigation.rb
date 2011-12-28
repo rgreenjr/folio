@@ -108,7 +108,7 @@ class Navigation
   end
 
   def insert(point, index, parent)
-    raise "A point with ID \"#{point.id}\" already exists in the navigation." if @pointIdMap[id]      
+    raise "A point with ID \"#{point.id}\" already exists in the navigation." if hasPointWithId?(id)
     @pointIdMap[point.id] = point
     parent.insert(index, point)
   end
@@ -141,6 +141,10 @@ class Navigation
     @pointIdMap[identifier]
   end
   
+  def hasPointWithId?(identifier)
+    pointWithId(identifier) != nil
+  end
+
   def changePointId(point, newID)
     return nil if pointWithId(newID)
     @pointIdMap[point.id] = nil
@@ -149,7 +153,7 @@ class Navigation
     @pointIdMap[point.id] = point
     oldID
   end
-
+  
   def save(directory)
     filepath = File.join(directory, @ncx_name)
     File.open(filepath, 'w') {|f| f.write(to_xml)}

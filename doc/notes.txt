@@ -3,19 +3,15 @@ Bugs
 
 - Navigation should check for inclusion of objects prior to deleting
 - ePub validation: handle missing files and unregistered files
+- NavigationController.deletePoints should handle points with children
 
 Features
 ========
 
 - Navigation: add points
-- Show icon in spine indicating item is cover, toc, titlepage, etc.
-- Add plus/minus buttons for adding Navigation points, Spine itemrefs, and manifest items
-- Add icons to right of spine items in to show assigned type
+- Verify all undo actions
 - Delete cover image
 - Unmark cover image
-- Support "replace" when moving items in Manifest
-- Buttons to generate GUID
-- Make manifest type field textual and auto-complete inspector
 
 Enhancements
 ============
@@ -26,13 +22,18 @@ Enhancements
 - Better error handling of ill-formed XML documents
 - Drag and drop of directories into Manifest
 - Perform background scan of XML for linkable elements
+- Buttons to generate GUID
+- Support "replace" when moving items in Manifest
+- Show icon in spine indicating item is cover, toc, titlepage, etc.
+- Add plus/minus buttons for adding Navigation points, Spine itemrefs, and manifest items
+- Add icons to right of spine items in to show assigned type
+- Add source code syntax highlighting
 
 Refactoring
 ===========
 
 - Use "box" in view placeholder names
 - Move metadata, spine, navigation and manifest into container
-
 
 Code Snippets
 =============

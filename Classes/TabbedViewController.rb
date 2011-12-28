@@ -246,7 +246,7 @@ class TabbedViewController < NSViewController
     when :"toggleLayoutMode:"
       numberOfTabs > 0
     when :"reformatText:"
-      numberOfTabs > 0 && selectedItem.formatable? && sourceViewController.visible?
+      numberOfTabs > 0 && selectedItem.flowable? && sourceViewController.visible?
     else
       true
     end

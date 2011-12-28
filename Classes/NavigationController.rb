@@ -198,19 +198,20 @@ class NavigationController < NSResponder
     @outlineView.selectItems(points)
   end
 
-  def newPoint(sender)
-    Alert.runModal(window, "Feature not yet implemented.")
-    # return unless selectedPoint
-    # parent, index = currentSelectionParentAndIndex
-    # addPoints([[Point.new(selectedPoint.item, "New Point", "id"), index + 1, parent]])
-    # @outlineView.expandItem(self)
+  def showPointPanel(sender)
+    @pointPanelController ||= PointPanelController.alloc.initWithBookController(@bookController)
+    @pointPanelController.showPointCreationSheet(self)
   end
-
+  
   def newPointsWithItems(items, newIndexes=nil, newParents=nil)
     points = items.map { |item| Point.new(item, item.name) }
     newParents ||= Array.new(points.size, @navigation.root)
     newIndexes ||= Array.new(points.size, -1)
     addPoints(points, newIndexes, newParents)
+  end
+  
+  def addPoint(point)
+    addPoints([point], [-1], [selectedPoint || @navigation.root])
   end
 
   def addPoints(points, newIndexes, newParents)
@@ -243,7 +244,6 @@ class NavigationController < NSResponder
     deletePoints(selectedPoints)
   end
 
-  # TODO need to handle points with children
   def deletePoints(points, allowUndo=true, level=0)
     # recursively delete children first
     points.each do |point|
