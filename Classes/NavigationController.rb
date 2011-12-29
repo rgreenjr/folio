@@ -198,7 +198,7 @@ class NavigationController < NSResponder
     @outlineView.selectItems(points)
   end
 
-  def showPointPanel(sender)
+  def showPointCreationPanel(sender)
     @pointPanelController ||= PointPanelController.alloc.initWithBookController(@bookController)
     @pointPanelController.showPointCreationSheet(self)
   end

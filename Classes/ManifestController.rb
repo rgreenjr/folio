@@ -311,6 +311,18 @@ class ManifestController < NSResponder
     @bookController.document.metadata.cover = item
     markBookEdited
   end
+  
+  def newItem(sender)
+    parent, index = selectedItemParentAndChildIndex
+    name = parent.generateUniqueChildName("Untitled.xhtml")
+    item = Item.new(parent, name, nil, Media::HTML)
+    item.content = Bundle.read("blank", "xhtml")
+    @manifest.insert(index, item, parent)
+    @outlineView.expandItem(self)
+    reloadDataAndSelectItem(item)
+    markBookEdited
+    @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)    
+  end
 
   def newDirectory(sender)
     parent, index = selectedItemParentAndChildIndex
@@ -318,7 +330,7 @@ class ManifestController < NSResponder
     item = Item.new(parent, name, nil, Media::DIRECTORY)
     @manifest.insert(index, item, parent)
     @outlineView.expandItem(self)
-    reloadDataAndSelectItems([item])
+    reloadDataAndSelectItem(item)
     markBookEdited
     @outlineView.editColumn(0, row:@outlineView.selectedRow, withEvent:NSApp.currentEvent, select:true)
   end
@@ -370,6 +382,10 @@ class ManifestController < NSResponder
   end
 
   private
+
+  def reloadDataAndSelectItem(item)
+    reloadDataAndSelectItems([item])
+  end
 
   def reloadDataAndSelectItems(items)
     @manifest.sort

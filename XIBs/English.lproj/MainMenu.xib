@@ -200,8 +200,17 @@
 								</object>
 								<object class="NSMenuItem" id="74995448">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">New Directory</string>
+									<string key="NSTitle">New Item</string>
 									<string key="NSKeyEquiv">N</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="582663344">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">New Directory</string>
+									<string key="NSKeyEquiv">D</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1251,14 +1260,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">delete:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="437104165"/>
-					</object>
-					<int key="connectionID">235</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">performZoom:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="575023229"/>
@@ -1440,14 +1441,6 @@
 						<reference key="destination" ref="1008771310"/>
 					</object>
 					<int key="connectionID">1758</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">newDirectory:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="74995448"/>
-					</object>
-					<int key="connectionID">1762</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1699,11 +1692,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showPointPanel:</string>
+						<string key="label">showPointCreationPanel:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="1058985916"/>
 					</object>
-					<int key="connectionID">1902</int>
+					<int key="connectionID">1903</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">delete:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="437104165"/>
+					</object>
+					<int key="connectionID">235</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">newDirectory:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="582663344"/>
+					</object>
+					<int key="connectionID">1905</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">newItem:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="74995448"/>
+					</object>
+					<int key="connectionID">1906</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1824,6 +1841,7 @@
 							<reference ref="1068663598"/>
 							<reference ref="1023925487"/>
 							<reference ref="697586212"/>
+							<reference ref="582663344"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1875,11 +1893,6 @@
 							<reference ref="315543224"/>
 						</object>
 						<reference key="parent" ref="952259628"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">202</int>
-						<reference key="object" ref="437104165"/>
-						<reference key="parent" ref="789758025"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">207</int>
@@ -2560,6 +2573,17 @@
 						<reference key="object" ref="928730044"/>
 						<reference key="parent" ref="502084290"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">202</int>
+						<reference key="object" ref="437104165"/>
+						<reference key="parent" ref="789758025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1904</int>
+						<reference key="object" ref="582663344"/>
+						<reference key="parent" ref="720053764"/>
+						<string key="objectName">9</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2652,6 +2676,7 @@
 					<string>1898.IBPluginDependency</string>
 					<string>1899.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
+					<string>1904.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
@@ -2817,6 +2842,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2831,7 +2857,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1902</int>
+			<int key="maxID">1906</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3107,6 +3133,7 @@
 							<string>addSelectedItemsToSpine:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
+							<string>newItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 							<string>showUnregisteredFiles:</string>
@@ -3114,6 +3141,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3130,6 +3158,7 @@
 							<string>addSelectedItemsToSpine:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
+							<string>newItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 							<string>showUnregisteredFiles:</string>
@@ -3147,6 +3176,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newDirectory:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">newItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3259,7 +3292,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
-							<string>showPointPanel:</string>
+							<string>showPointCreationPanel:</string>
 							<string>toggleNavigation:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3276,7 +3309,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
-							<string>showPointPanel:</string>
+							<string>showPointCreationPanel:</string>
 							<string>toggleNavigation:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3290,7 +3323,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showPointPanel:</string>
+								<string key="name">showPointCreationPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
