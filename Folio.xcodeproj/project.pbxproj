@@ -147,7 +147,6 @@
 		CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F912EB3EAF009E33A3 /* IssueView.xib */; };
 		CD8F5F4B12EB75A00036B0D7 /* Validation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F5F4912EB75A00036B0D7 /* Validation.xib */; };
 		CD8F5F5012EB77580036B0D7 /* ValidationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */; };
-		CD8F606512EBB0DE0036B0D7 /* yield.png in Resources */ = {isa = PBXBuildFile; fileRef = CD8F606412EBB0DE0036B0D7 /* yield.png */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CD9C72A31499BF2F0079EA4E /* SourceViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */; };
@@ -175,9 +174,6 @@
 		CDE2C37114AC07FC00EFE5F5 /* blank.xhtml in Resources */ = {isa = PBXBuildFile; fileRef = CDE2C37014AC07FC00EFE5F5 /* blank.xhtml */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
-		CDEBCAC512F0A88100E8834D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC112F0A88100E8834D /* arrow.png */; };
-		CDEBCAC612F0A88100E8834D /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC212F0A88100E8834D /* error.png */; };
-		CDEBCAC712F0A88100E8834D /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC312F0A88100E8834D /* flag.png */; };
 		CDEBCAC812F0A88100E8834D /* spine.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC412F0A88100E8834D /* spine.png */; };
 		CDEBCB0612F0B27C00E8834D /* Metadatum.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB0512F0B27C00E8834D /* Metadatum.rb */; };
 		CDEBCB0812F0B28600E8834D /* InspectorViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */; };
@@ -312,7 +308,6 @@
 		CD85C8FA12EB3EAF009E33A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/IssueView.xib; sourceTree = "<group>"; };
 		CD8F5F4A12EB75A00036B0D7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Validation.xib; sourceTree = "<group>"; };
 		CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ValidationController.rb; sourceTree = "<group>"; };
-		CD8F606412EBB0DE0036B0D7 /* yield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yield.png; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SourceViewController.rb; sourceTree = "<group>"; };
@@ -340,9 +335,6 @@
 		CDE2C37014AC07FC00EFE5F5 /* blank.xhtml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blank.xhtml; sourceTree = "<group>"; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
-		CDEBCAC112F0A88100E8834D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
-		CDEBCAC212F0A88100E8834D /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
-		CDEBCAC312F0A88100E8834D /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
 		CDEBCAC412F0A88100E8834D /* spine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spine.png; sourceTree = "<group>"; };
 		CDEBCB0512F0B27C00E8834D /* Metadatum.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Metadatum.rb; sourceTree = "<group>"; };
 		CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = InspectorViewController.rb; sourceTree = "<group>"; };
@@ -554,7 +546,6 @@
 		CD2D185412E5F28500D6A99A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				CDEBCAC112F0A88100E8834D /* arrow.png */,
 				CD2206671493D04D00AB589F /* background-logo.png */,
 				CD2D185612E5F28500D6A99A /* book.png */,
 				CD6712FE14928E36000B8BBB /* bubble-background-left.png */,
@@ -562,11 +553,9 @@
 				CD6712FF14928E36000B8BBB /* bubble-background-right.png */,
 				CD6C9CAC12F382DA0056D86B /* check.png */,
 				CDB542C412F3638100BB5739 /* empty-inspector.png */,
-				CDEBCAC212F0A88100E8834D /* error.png */,
 				CD2D185712E5F28500D6A99A /* find-close-click.png */,
 				CD2D185812E5F28500D6A99A /* find-close-rollover.png */,
 				CD2D185912E5F28500D6A99A /* find-close.png */,
-				CDEBCAC312F0A88100E8834D /* flag.png */,
 				CD2D185A12E5F28500D6A99A /* folder.png */,
 				CD2D18A412E5F46600D6A99A /* Folio.icns */,
 				CD2D185B12E5F28500D6A99A /* horizontal.png */,
@@ -598,7 +587,6 @@
 				CD2D186E12E5F28500D6A99A /* vertical.png */,
 				CD6C9CAD12F382DA0056D86B /* wrench.png */,
 				CDEBCBEF12F0E7D600E8834D /* yield-circle.png */,
-				CD8F606412EBB0DE0036B0D7 /* yield.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -774,14 +762,10 @@
 				CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */,
 				CD8F5F4B12EB75A00036B0D7 /* Validation.xib in Resources */,
 				CD8F5F5012EB77580036B0D7 /* ValidationController.rb in Resources */,
-				CD8F606512EBB0DE0036B0D7 /* yield.png in Resources */,
 				CDDCAD8012EC7E63003A0B07 /* no-issues.png in Resources */,
 				CDD7AFF712EF675700352D4B /* manifest.png in Resources */,
 				CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */,
 				CDD7B02F12EF79D800352D4B /* ItemRef.rb in Resources */,
-				CDEBCAC512F0A88100E8834D /* arrow.png in Resources */,
-				CDEBCAC612F0A88100E8834D /* error.png in Resources */,
-				CDEBCAC712F0A88100E8834D /* flag.png in Resources */,
 				CDEBCAC812F0A88100E8834D /* spine.png in Resources */,
 				CDEBCB0612F0B27C00E8834D /* Metadatum.rb in Resources */,
 				CDEBCB0812F0B28600E8834D /* InspectorViewController.rb in Resources */,
