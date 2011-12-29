@@ -1,33 +1,31 @@
 Bugs
 ====
 
-- Navigation should check for inclusion of objects prior to deleting
+- Navigation should check for inclusion of objects before deleting
 - ePub validation: handle missing files and unregistered files
-- NavigationController.deletePoints should handle points with children
+- Fix remaining undo bugs
 
 Features
 ========
 
-- Navigation: add points
-- Verify all undo actions
-- Delete cover image
-- Unmark cover image
+- Replace icons
 
 Enhancements
 ============
 
 - Search filtering of selection views
+- Add source code syntax highlighting
 - Ability to drag to manifest items to the desktop
 - Add WebView forward/backward buttons
+- Support "replace" when moving items in Manifest
 - Better error handling of ill-formed XML documents
 - Drag and drop of directories into Manifest
-- Perform background scan of XML for linkable elements
-- Buttons to generate GUID
-- Support "replace" when moving items in Manifest
-- Show icon in spine indicating item is cover, toc, titlepage, etc.
-- Add plus/minus buttons for adding Navigation points, Spine itemrefs, and manifest items
+- Buttons to generate UUID
+- Show icon in spine indicating item is Cover, TOC, Title Page, etc.
+- Add plus/minus buttons for adding Points, ItemRefs, and Items
 - Add icons to right of spine items in to show assigned type
-- Add source code syntax highlighting
+- Add tool tips to tabs
+- Add ability to duplicate manifest items
 
 Refactoring
 ===========
@@ -46,4 +44,3 @@ def keyDown(event)
     super
   end
 end
-

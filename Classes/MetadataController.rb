@@ -134,18 +134,26 @@ class MetadataController < NSWindowController
       displayCoverImage
     end
   end
+  
+  def clearCoverImage(sender)
+    @imageWell.image = noCoverImage
+  end
 
   def changeCoverImage
-    return unless @imageWell.imagePath
-    item = @bookController.document.manifest.itemWithHref(@imageWell.imageName)
-    if item
-      @bookController.selectionViewController.manifestController.deleteItems([item])
+    if @imageWell.image == noCoverImage
+      @metadata.cover = nil
+    else
+      return unless @imageWell.imagePath
+      item = @bookController.document.manifest.itemWithHref(@imageWell.imageName)
+      if item
+        @bookController.selectionViewController.manifestController.deleteItems([item])
+      end
+      item = @bookController.selectionViewController.manifestController.addFile(@imageWell.imagePath)
+      if item
+        @metadata.cover = item
+      end
+      displayCoverImage
     end
-    item = @bookController.selectionViewController.manifestController.addFile(@imageWell.imagePath)
-    if item
-      @metadata.cover = item
-    end
-    displayCoverImage
   end
 
   def noCoverImage
