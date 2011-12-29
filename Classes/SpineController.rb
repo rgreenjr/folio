@@ -180,7 +180,7 @@ class SpineController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).deleteItemRefs(itemRefs, true)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add #{pluralize(itemRefs.size, "Spine ItemRef")}"
+      undoManager.actionName = "Add #{"Spine ItemRef".pluralize(itemRefs.size)}"
     end
     reloadDataAndSelectItems(itemRefs)
   end
@@ -215,7 +215,7 @@ class SpineController < NSResponder
     if allowUndo
       undoManager.prepareWithInvocationTarget(self).addItemRefs(itemRefs.reverse, indexes.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete #{pluralize(itemRefs.size, "Spine ItemRef")}"
+        undoManager.actionName = "Delete #{"Spine ItemRef".pluralize(itemRefs.size)}"
       end
     end
 

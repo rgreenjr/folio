@@ -19,7 +19,17 @@ module StringEnhancements
 
   def urlEscape
     self.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-  end  
+  end
+
+  def pluralize(count, plural=nil)
+    number = count.to_i
+    if number == 1
+      "#{number} #{self}"
+    else
+      plural ? "#{number} #{plural}" : "#{number} #{self}s"
+    end
+  end
+
 end
 
 class String

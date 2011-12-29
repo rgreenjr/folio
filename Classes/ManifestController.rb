@@ -208,7 +208,7 @@ class ManifestController < NSResponder
   def showFilenameCollisionAlert(filepaths, parent, childIndex, collisionCount)
     @collisionInfo = { :parent => parent, :childIndex => childIndex, :filepaths => filepaths }
     alert = NSAlert.alloc.init
-    alert.messageText = "Some files with matching names already exist in this directory. Do you want to replace #{pluralize(collisionCount, "file")}?"
+    alert.messageText = "Some files with matching names already exist in this directory. Do you want to replace #{"file".pluralize(collisionCount)}?"
     alert.informativeText = "You cannot undo this action."
     alert.addButtonWithTitle "Replace"
     alert.addButtonWithTitle "Cancel"
@@ -264,7 +264,7 @@ class ManifestController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldParents.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{pluralize(items.size, "Manifest Item")}"
+      undoManager.actionName = "Move #{"Manifest Item".pluralize(items.size)}"
     end
     
     @manifest.sort

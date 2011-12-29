@@ -186,7 +186,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldIndexes.reverse, oldParents.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{pluralize(points.size, "Navigation Point")}"
+      undoManager.actionName = "Move #{"Navigation Point".pluralize(points.size)}"
     end
 
     reloadDataAndSelectPoints(points)
@@ -221,7 +221,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).deletePoints(points, true, 0)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add #{pluralize(points.size, "Navigation Point")}"
+      undoManager.actionName = "Add #{"Navigation Point".pluralize(points.size)}"
     end
 
     @outlineView.reloadData
@@ -270,7 +270,7 @@ class NavigationController < NSResponder
      if allowUndo
       undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete #{pluralize(points.size, "Navigation Point")}"
+        undoManager.actionName = "Delete #{"Navigation Point".pluralize(points.size)}"
       end
     end
 

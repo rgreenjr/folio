@@ -69,7 +69,6 @@
 		CD2D181C12E5F1F800D6A99A /* ImageCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E712E5F1F800D6A99A /* ImageCell.rb */; };
 		CD2D181D12E5F1F800D6A99A /* ImageWell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E812E5F1F800D6A99A /* ImageWell.rb */; };
 		CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E912E5F1F800D6A99A /* Item.rb */; };
-		CD2D181F12E5F1F800D6A99A /* Kernel.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EA12E5F1F800D6A99A /* Kernel.rb */; };
 		CD2D182012E5F1F800D6A99A /* Language.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EB12E5F1F800D6A99A /* Language.rb */; };
 		CD2D182212E5F1F800D6A99A /* LineNumberRuler.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */; };
 		CD2D182312E5F1F800D6A99A /* Manifest.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17EE12E5F1F800D6A99A /* Manifest.rb */; };
@@ -235,7 +234,6 @@
 		CD2D17E712E5F1F800D6A99A /* ImageCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageCell.rb; sourceTree = "<group>"; };
 		CD2D17E812E5F1F800D6A99A /* ImageWell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageWell.rb; sourceTree = "<group>"; };
 		CD2D17E912E5F1F800D6A99A /* Item.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Item.rb; sourceTree = "<group>"; };
-		CD2D17EA12E5F1F800D6A99A /* Kernel.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Kernel.rb; sourceTree = "<group>"; };
 		CD2D17EB12E5F1F800D6A99A /* Language.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Language.rb; sourceTree = "<group>"; };
 		CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LineNumberRuler.rb; sourceTree = "<group>"; };
 		CD2D17EE12E5F1F800D6A99A /* Manifest.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Manifest.rb; sourceTree = "<group>"; };
@@ -512,7 +510,6 @@
 				CDD7B02E12EF79D800352D4B /* ItemRef.rb */,
 				CDB5428512F33CF600BB5739 /* ItemRefViewController.rb */,
 				CDB5428712F33D2000BB5739 /* ItemViewController.rb */,
-				CD2D17EA12E5F1F800D6A99A /* Kernel.rb */,
 				CD2D17EB12E5F1F800D6A99A /* Language.rb */,
 				CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */,
 				CD2D17EE12E5F1F800D6A99A /* Manifest.rb */,
@@ -705,7 +702,6 @@
 				CD2D181C12E5F1F800D6A99A /* ImageCell.rb in Resources */,
 				CD2D181D12E5F1F800D6A99A /* ImageWell.rb in Resources */,
 				CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */,
-				CD2D181F12E5F1F800D6A99A /* Kernel.rb in Resources */,
 				CD2D182012E5F1F800D6A99A /* Language.rb in Resources */,
 				CD2D182212E5F1F800D6A99A /* LineNumberRuler.rb in Resources */,
 				CD2D182312E5F1F800D6A99A /* Manifest.rb in Resources */,

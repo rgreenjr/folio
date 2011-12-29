@@ -207,7 +207,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
-								<object class="NSMenuItem" id="582663344">
+								<object class="NSMenuItem" id="153628920">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">New Directory</string>
 									<string key="NSKeyEquiv">D</string>
@@ -1710,7 +1710,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">newDirectory:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="582663344"/>
+						<reference key="destination" ref="153628920"/>
 					</object>
 					<int key="connectionID">1905</int>
 				</object>
@@ -1841,7 +1841,7 @@
 							<reference ref="1068663598"/>
 							<reference ref="1023925487"/>
 							<reference ref="697586212"/>
-							<reference ref="582663344"/>
+							<reference ref="153628920"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -2580,7 +2580,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1904</int>
-						<reference key="object" ref="582663344"/>
+						<reference key="object" ref="153628920"/>
 						<reference key="parent" ref="720053764"/>
 						<string key="objectName">9</string>
 					</object>
