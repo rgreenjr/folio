@@ -110,7 +110,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="965545082">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">Name:</string>
+							<string key="NSContents">Name</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="455889636"/>
 							<object class="NSColor" key="NSBackgroundColor" id="952739919">
@@ -160,7 +160,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="280851955">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">ID:</string>
+							<string key="NSContents">ID</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="575222208"/>
 							<reference key="NSBackgroundColor" ref="952739919"/>
@@ -170,7 +170,7 @@
 					<object class="NSTextField" id="599642421">
 						<reference key="NSNextResponder" ref="1011381"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{7, 20}, {69, 14}}</string>
+						<string key="NSFrame">{{10, 20}, {66, 14}}</string>
 						<reference key="NSSuperview" ref="1011381"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="759846280"/>
@@ -178,7 +178,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="119982617">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">Media Type:</string>
+							<string key="NSContents">Media Type</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="599642421"/>
 							<reference key="NSBackgroundColor" ref="952739919"/>

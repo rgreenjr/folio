@@ -91,7 +91,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="170301648">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">Text:</string>
+							<string key="NSContents">Text</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="212106291"/>
 							<object class="NSColor" key="NSBackgroundColor" id="175079231">
@@ -117,6 +117,7 @@
 						<string key="NSFrame">{{63, 17}, {327, 19}}</string>
 						<reference key="NSSuperview" ref="31913715"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="935759113">
 							<int key="NSCellFlags">-1804468671</int>
@@ -159,7 +160,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="293643519">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">ID:</string>
+							<string key="NSContents">ID</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="1051663793"/>
 							<reference key="NSBackgroundColor" ref="175079231"/>
@@ -177,7 +178,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="543468786">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">Source:</string>
+							<string key="NSContents">Source</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="18413311"/>
 							<reference key="NSBackgroundColor" ref="175079231"/>
