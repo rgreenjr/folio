@@ -84,7 +84,9 @@ class Point
   end
 
   def index(point)
-    each_with_index { |pt, index| return index if point.id == pt.id }
+    if point
+      each_with_index { |pt, index| return index if point.id == pt.id }
+    end
     nil
   end
 

@@ -203,15 +203,10 @@ class NavigationController < NSResponder
     @pointPanelController.showPointCreationSheet(self)
   end
   
-  def newPointsWithItems(items, newIndexes=nil, newParents=nil)
-    points = items.map { |item| Point.new(item, item.name) }
-    newParents ||= Array.new(points.size, @navigation.root)
-    newIndexes ||= Array.new(points.size, -1)
-    addPoints(points, newIndexes, newParents)
-  end
-  
   def addPoint(point)
-    addPoints([point], [-1], [selectedPoint || @navigation.root])
+    index, parent = @navigation.indexAndParent(selectedPoint)
+    index = index ? index + 1 : -1
+    addPoints([point], [index], [parent || @navigation.root])
   end
 
   def addPoints(points, newIndexes, newParents)
@@ -229,6 +224,13 @@ class NavigationController < NSResponder
     @outlineView.selectItems(points)
   end
 
+  def newPointsWithItems(items, newIndexes=nil, newParents=nil)
+    points = items.map { |item| Point.new(item, item.name) }
+    newParents ||= Array.new(points.size, @navigation.root)
+    newIndexes ||= Array.new(points.size, -1)
+    addPoints(points, newIndexes, newParents)
+  end
+  
   def duplicateSelectedPoint(sender)
     duplicatePoint(selectedPoint)
   end
