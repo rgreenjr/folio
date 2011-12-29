@@ -48,9 +48,6 @@ class TabbedViewController < NSViewController
     NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), 
         name:NSTextStorageDidProcessEditingNotification, object:@sourceViewController.view.textStorage)
         
-    # default to preview layout mode
-    @layoutMode = LAYOUT_MODE_PREVIEW
-    
     # hide the source view initially
     hideSourceView
   end
@@ -136,7 +133,7 @@ class TabbedViewController < NSViewController
   
   def selectedTabPrintView
     return nil unless selectedTab
-    if @layoutMode == LAYOUT_MODE_SOURCE
+    if layoutMode == LAYOUT_MODE_SOURCE
       @sourceViewController.view
     else
       webView.mainFrame.frameView.documentView
@@ -168,16 +165,13 @@ class TabbedViewController < NSViewController
       showWebView
       showSourceView
     end
-    @layoutMode = tag
-    
-    # set toolbar segmented control to new layout
-    @bookController.layoutSegementedControl.selectSegmentWithTag(@layoutMode)
   end
   
   def showWebView
     unless splitViewContains?(webView)
       positionSplitViewSubviews
       @splitView.addSubview(webView, positioned:NSWindowBelow, relativeTo:sourceView)
+      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
 
@@ -185,6 +179,7 @@ class TabbedViewController < NSViewController
     if splitViewContains?(webView)
       updateSubviewPercentages
       webView.removeFromSuperview
+      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
 
@@ -192,6 +187,7 @@ class TabbedViewController < NSViewController
     unless splitViewContains?(sourceView)
       positionSplitViewSubviews
       @splitView.addSubview(sourceView, positioned:NSWindowAbove, relativeTo:webView)
+      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
 
@@ -199,6 +195,7 @@ class TabbedViewController < NSViewController
     if splitViewContains?(sourceView)
       updateSubviewPercentages
       sourceView.removeFromSuperview
+      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
   
@@ -224,6 +221,16 @@ class TabbedViewController < NSViewController
   #   false
   # end
   
+  def layoutMode
+    if splitViewContains?(webView) && splitViewContains?(sourceView)
+      LAYOUT_MODE_COMBO
+    elsif splitViewContains?(webView)
+      LAYOUT_MODE_PREVIEW
+    else
+      LAYOUT_MODE_SOURCE
+    end
+  end
+  
   def validateMenuItem(menuItem)
     case menuItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
@@ -235,7 +242,7 @@ class TabbedViewController < NSViewController
       numberOfTabs > 0
     when :"toggleSplitOrientation:"
       menuItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
-      menuItem.enabled = numberOfTabs > 0 && @layoutMode == LAYOUT_MODE_COMBO
+      menuItem.enabled = numberOfTabs > 0 && layoutMode == LAYOUT_MODE_COMBO
     else
       true
     end
@@ -299,11 +306,11 @@ class TabbedViewController < NSViewController
   def stateForMenuItem(menuItem)
     case menuItem.tag
     when LAYOUT_MODE_PREVIEW
-      @layoutMode == LAYOUT_MODE_PREVIEW ? NSOnState : NSOffState
+      layoutMode == LAYOUT_MODE_PREVIEW ? NSOnState : NSOffState
     when LAYOUT_MODE_SOURCE
-      @layoutMode == LAYOUT_MODE_SOURCE ? NSOnState : NSOffState
+      layoutMode == LAYOUT_MODE_SOURCE ? NSOnState : NSOffState
     when LAYOUT_MODE_COMBO
-      @layoutMode == LAYOUT_MODE_COMBO ? NSOnState : NSOffState
+      layoutMode == LAYOUT_MODE_COMBO ? NSOnState : NSOffState
     end
   end
   
