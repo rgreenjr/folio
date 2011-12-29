@@ -4,7 +4,6 @@ class NavigationController < NSResponder
 
   def awakeFromNib
     @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addAction("New Point...", "newPoint:", self)
     @menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
     @menu.addAction("Delete", "deleteSelectedPoints:", self)
   end
@@ -237,16 +236,16 @@ class NavigationController < NSResponder
 
   def duplicatePoint(point)
     clone = @navigation.duplicate(point)
-    undoManager.prepareWithInvocationTarget(self).deletePoints([clone])
+    undoManager.prepareWithInvocationTarget(self).deletePoints([clone], true, 0)
     undoManager.actionName = "Duplicate Point"
     reloadDataAndSelectPoints([clone])
   end
 
   def deleteSelectedPoints(sender)
-    deletePoints(selectedPoints)
+    deletePoints(selectedPoints, true, 0)
   end
 
-  def deletePoints(points, allowUndo=true, level=0)
+  def deletePoints(points, allowUndo, level)
     # recursively delete children first
     points.each do |point|
       deletePoints(point.children.reverse, allowUndo, level + 1)
@@ -281,7 +280,7 @@ class NavigationController < NSResponder
 
   def deletePointsReferencingItem(item)
     points = @navigation.select { |point| point.item == item }
-    deletePoints(points, false)
+    deletePoints(points, false, 0)
   end
   
   private
@@ -295,9 +294,9 @@ class NavigationController < NSResponder
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
     when :"deleteSelectedPoints:", :"delete:"
-      @outlineView.numberOfSelectedRows > 0
+      selectedPoints.size > 0
     when :"duplicateSelectedPoint:", :"addPoint:"
-      @outlineView.numberOfSelectedRows == 1
+      selectedPoints.size == 1
     when :"toggleNavigation:"
       interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Navigation" : "Expand Navigation"
     else
