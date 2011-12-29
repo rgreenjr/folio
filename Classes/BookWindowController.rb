@@ -155,7 +155,13 @@ class BookWindowController < NSWindowController
   end
 
   def toggleInspectorView(sender)
-    inspectorViewController.visible? ? hideInspectorView : showInspectorView
+    if inspectorViewController.visible?
+      hideInspectorView
+    else
+      showInspectorView
+      # make the current selection is visible (must dealy execution until after animation)
+      @selectionViewController.performSelector(:scrollSelectedItemsToVisible, withObject:nil, afterDelay:0.3)
+    end
   end
 
   def showInspectorView
@@ -302,5 +308,5 @@ class BookWindowController < NSWindowController
     frame.size.height -= amount
     frame.origin.y += amount
   end
-  
+
 end

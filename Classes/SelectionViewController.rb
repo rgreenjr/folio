@@ -133,6 +133,10 @@ class SelectionViewController < NSViewController
   def selectedItemsForController(controller)
     @outlineView.selectedItems { |item| controllerForItem(item) == controller }
   end
+  
+  def scrollSelectedItemsToVisible
+    @outlineView.scrollItemToVisible(currentSelection)
+  end
 
   def revealInManifest(sender)
     expandManifest(self)
