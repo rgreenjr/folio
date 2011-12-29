@@ -10,8 +10,15 @@
 
 class Book < NSDocument
 
-  attr_reader :controller, :unzipPath, :issues
-  attr_reader :navigation, :manifest, :spine, :container, :metadata, :guide
+  attr_reader :controller
+  attr_reader :unzipPath
+  attr_reader :issues
+  attr_reader :navigation
+  attr_reader :manifest
+  attr_reader :spine
+  attr_reader :container
+  attr_reader :metadata
+  attr_reader :guide
   
   # creates a new book
   def initWithType(typeName, error:outError)

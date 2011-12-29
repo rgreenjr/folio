@@ -125,7 +125,7 @@ class BookWindowController < NSWindowController
   end
 
   def showIssueView
-    # why is this necessary?
+    # TODO: make this correct
     f = issueViewController.view.frame
     f.size.height += 48.0
     issueViewController.view.frame = f
