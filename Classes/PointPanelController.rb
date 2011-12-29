@@ -5,6 +5,7 @@ class PointPanelController < NSWindowController
   attr_accessor :fragmentPopup
   attr_accessor :textField
   attr_accessor :idField
+  attr_accessor :statusField
 
   def initWithBookController(bookController)
     initWithWindowNibName("PointPanel")
@@ -73,18 +74,31 @@ class PointPanelController < NSWindowController
   end
   
   def resetFragmentPopup
-    # clear all items except default 'None' item
+    # clear all items but default 'None' item
     while @fragmentPopup.numberOfItems > 1
       @fragmentPopup.removeItemAtIndex(@fragmentPopup.numberOfItems - 1)
     end
-
-    # load fragments for current source item selection
     item = selectedSourceItem
     if item
-      item.fragments.each do |frag|
+      @fragmentPopup.enabled = false
+      @statusField.stringValue = "Parsing source fragments..."
+      performSelectorOnMainThread(:"loadFragments:", withObject:item, waitUntilDone:false)
+    else
+      @statusField.stringValue = ""
+    end
+  end
+  
+  def loadFragments(item)
+    fragments = item.fragments
+    if fragments
+      @statusField.stringValue = "Source contains #{"fragment".pluralize(fragments.size)}"
+      fragments.each do |frag|
         @fragmentPopup.addItemWithTitle(frag)
       end
+    else
+      @statusField.stringValue = "Unable to list source fragments: a parsing error occurred"
     end
+    @fragmentPopup.enabled = true
   end
 
   def validPointAttributes?
