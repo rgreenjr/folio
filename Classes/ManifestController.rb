@@ -232,7 +232,7 @@ class ManifestController < NSResponder
     else
       undoManager.prepareWithInvocationTarget(self).deleteItems(items)
       unless undoManager.isUndoing
-        undoManager.actionName = "Add #{pluralize(items.size, "Manifest Item")}"
+        undoManager.actionName = "Add #{"Manifest Item".pluralize(items.size)}"
       end
     end
     markBookEdited

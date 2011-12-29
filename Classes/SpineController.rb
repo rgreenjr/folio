@@ -229,7 +229,7 @@ class SpineController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).moveItemRefs(itemRefs.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{pluralize(itemRefs.size, "Spine ItemRef")}"
+      undoManager.actionName = "Move #{"Spine ItemRef".pluralize(itemRefs.size)}"
     end
     reloadDataAndSelectItems(itemRefs)
   end
