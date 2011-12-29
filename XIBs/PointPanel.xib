@@ -218,7 +218,6 @@
 							<string key="NSFrame">{{349, 12}, {117, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="413679157">
@@ -378,6 +377,18 @@
 									<object class="NSMutableArray" key="NSMenuItems">
 										<bool key="EncodedWithXMLCoder">YES</bool>
 										<reference ref="236115046"/>
+										<object class="NSMenuItem" id="809230998">
+											<reference key="NSMenu" ref="195662232"/>
+											<bool key="NSIsDisabled">YES</bool>
+											<bool key="NSIsSeparator">YES</bool>
+											<string key="NSTitle"/>
+											<string key="NSKeyEquiv"/>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="414284363"/>
+											<reference key="NSMixedImage" ref="54577440"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<reference key="NSTarget" ref="796029342"/>
+										</object>
 									</object>
 									<reference key="NSMenuFont" ref="723223177"/>
 								</object>
@@ -734,6 +745,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="236115046"/>
+							<reference ref="809230998"/>
 						</object>
 						<reference key="parent" ref="796029342"/>
 					</object>
@@ -760,6 +772,11 @@
 						<int key="objectID">51</int>
 						<reference key="object" ref="762035622"/>
 						<reference key="parent" ref="851859406"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">53</int>
+						<reference key="object" ref="809230998"/>
+						<reference key="parent" ref="195662232"/>
 					</object>
 				</object>
 			</object>
@@ -798,6 +815,7 @@
 					<string>42.IBPluginDependency</string>
 					<string>50.IBPluginDependency</string>
 					<string>51.IBPluginDependency</string>
+					<string>53.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
@@ -811,6 +829,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{357, 418}, {480, 270}}</string>
 					<boolean value="NO"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -854,7 +873,7 @@
 				<reference key="dict.values" ref="1002"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">52</int>
+			<int key="maxID">53</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

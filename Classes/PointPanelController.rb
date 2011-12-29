@@ -1,4 +1,6 @@
 class PointPanelController < NSWindowController
+  
+  FRAGMENT_POPUP_OFFSET = 2
 
   attr_accessor :bookController
   attr_accessor :sourcePopup
@@ -48,7 +50,7 @@ class PointPanelController < NSWindowController
   
   def selectedFragment
     index = @fragmentPopup.indexOfSelectedItem
-    index == 0 ? '' : @fragmentPopup.itemAtIndex(index).title
+    index < FRAGMENT_POPUP_OFFSET ? '' : @fragmentPopup.itemAtIndex(index).title
   end
   
   def resetPanel
@@ -74,8 +76,8 @@ class PointPanelController < NSWindowController
   end
   
   def resetFragmentPopup
-    # clear all items but default 'None' item
-    while @fragmentPopup.numberOfItems > 1
+    # clear all but default 'None' and separator line menu items
+    while @fragmentPopup.numberOfItems > FRAGMENT_POPUP_OFFSET
       @fragmentPopup.removeItemAtIndex(@fragmentPopup.numberOfItems - 1)
     end
     item = selectedSourceItem
