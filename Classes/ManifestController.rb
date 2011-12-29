@@ -48,7 +48,11 @@ class ManifestController < NSResponder
       if item.directory?
         cell.image = NSImage.imageNamed('folder.png')
       else
-        cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+        if item.hasIssues?
+          cell.image = NSImage.imageNamed('yield.png')
+        else
+          cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+        end
       end
     end
   end
@@ -161,7 +165,11 @@ class ManifestController < NSResponder
     if item.directory?
       cell.image = NSImage.imageNamed('folder.png')
     else
-      cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      if item.hasIssues?
+        cell.image = NSImage.imageNamed('yield.png')
+      else
+        cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      end
     end
   end
 
@@ -405,7 +413,7 @@ class ManifestController < NSResponder
   def markBookEdited
     @bookController.document.updateChangeCount(NSSaveOperation)
   end
-
+  
   def window
     @bookController.window
   end

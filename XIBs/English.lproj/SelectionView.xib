@@ -174,7 +174,7 @@
 					<object class="NSScroller" id="110569793">
 						<reference key="NSNextResponder" ref="318518489"/>
 						<int key="NSvFlags">-2147483392</int>
-						<string key="NSFrame">{{1, 119}, {224, 15}}</string>
+						<string key="NSFrame">{{-100, -100}, {224, 15}}</string>
 						<reference key="NSSuperview" ref="318518489"/>
 						<reference key="NSWindow"/>
 						<int key="NSsFlags">1</int>
