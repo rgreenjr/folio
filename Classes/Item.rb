@@ -143,6 +143,10 @@ class Item
     @children.find {|item| item.name == name}
   end
   
+  def hasChildWithName?(name)
+    childWithName(name) != nil
+  end
+  
   def ancestor?(item)
     return true if item == self
     each {|child| return true if child.ancestor?(item)}
@@ -205,15 +209,11 @@ class Item
   def generateUniqueChildName(childname, counter=0)
     candidate = childname
     extension = childname.pathExtension
-    extension = extension + '.' if !extension.empty?
+    extension = '.' + extension unless extension.empty?
     base = childname.stringByDeletingPathExtension
-    while true
-      if childWithName(candidate)
-        counter += 1
-        candidate = "#{base} #{counter}#{extension}" 
-      else
-        break
-      end
+    while hasChildWithName?(candidate)
+      counter += 1
+      candidate = "#{base} #{counter}#{extension}" 
     end
     candidate
   end
