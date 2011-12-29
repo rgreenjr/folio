@@ -143,6 +143,15 @@ class SelectionViewController < NSViewController
     @outlineView.selectItem(currentSelection.item, expandParents:true)
   end
   
+  def duplicate(sender)
+    item = currentSelection
+    controller = controllerForItem(item)
+    case controller
+    when @navigationController
+      controller.duplicatePoint(item)
+    end
+  end
+  
   def delete(sender)
     items = @outlineView.selectedItems
     controller = commonControllerForItems(items)
@@ -160,8 +169,10 @@ class SelectionViewController < NSViewController
     case menuItem.action
     when :"revealInManifest:"
       @outlineView.numberOfSelectedRows == 1
+    when :"duplicate:"
+      @outlineView.numberOfSelectedRows == 1 && controllerForItem(currentSelection) == @navigationController
     when :"delete:"
-      commonControllerForItems(@outlineView.selectedItems) != nil
+      selectedItemsHaveCommonController?
     else
       true
     end
@@ -178,6 +189,10 @@ class SelectionViewController < NSViewController
       item = @outlineView.parentForItem(item)
     end
     item
+  end
+  
+  def selectedItemsHaveCommonController?
+    commonControllerForItems(@outlineView.selectedItems) != nil
   end
 
   def commonControllerForItems(items)

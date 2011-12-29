@@ -481,6 +481,15 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
+								<object class="NSMenuItem" id="1017484043">
+									<reference key="NSMenu" ref="789758025"/>
+									<string key="NSTitle">Duplicate</string>
+									<string key="NSKeyEquiv">d</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
 								<object class="NSMenuItem" id="212016141">
 									<reference key="NSMenu" ref="789758025"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -1722,6 +1731,14 @@
 					</object>
 					<int key="connectionID">1906</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">duplicate:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="1017484043"/>
+					</object>
+					<int key="connectionID">1909</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1891,6 +1908,7 @@
 							<reference ref="212016141"/>
 							<reference ref="892235320"/>
 							<reference ref="315543224"/>
+							<reference ref="1017484043"/>
 						</object>
 						<reference key="parent" ref="952259628"/>
 					</object>
@@ -2584,6 +2602,11 @@
 						<reference key="parent" ref="720053764"/>
 						<string key="objectName">9</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1907</int>
+						<reference key="object" ref="1017484043"/>
+						<reference key="parent" ref="789758025"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2677,6 +2700,7 @@
 					<string>1899.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>1904.IBPluginDependency</string>
+					<string>1907.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
@@ -2843,6 +2867,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2857,7 +2882,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1906</int>
+			<int key="maxID">1909</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3506,6 +3531,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>delete:</string>
 							<string>displayCurrentSelection:</string>
+							<string>duplicate:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
@@ -3514,6 +3540,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3529,6 +3556,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>delete:</string>
 							<string>displayCurrentSelection:</string>
+							<string>duplicate:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
@@ -3543,6 +3571,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">displayCurrentSelection:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">duplicate:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3854,13 +3886,13 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTab:</string>
+							<string>layoutMode:</string>
 							<string>saveAllTabs:</string>
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
-							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3879,18 +3911,22 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTab:</string>
+							<string>layoutMode:</string>
 							<string>saveAllTabs:</string>
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
-							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">closeTab:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">layoutMode:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3915,10 +3951,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">toggleSplitOrientation:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">webView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
