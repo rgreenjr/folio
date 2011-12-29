@@ -52,6 +52,7 @@ class Item
     @lastSavedContent = @content.dup unless @lastSavedContent || @content.nil?
     @content = string.dup
     File.open(path, 'wb') {|f| f.puts @content}
+    @fragments = nil
   end
 
   def name=(name)
@@ -251,14 +252,22 @@ class Item
     @issueHash[issue.lineNumber] = issue
   end
 
+  # returns an arrays of strings or nil if parsing fails
   def fragments
-    fragments = []
-    if flowable?
-      REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
-        fragments << element.attributes['id']
+    unless @fragments
+      @fragments = []
+      if flowable?
+        begin
+          REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
+            @fragments << element.attributes['id']
+          end
+        rescue REXML::ParseException => exception
+          puts "An error occurred while parsing fragments in #{name}: #{exception.explain}"
+          @fragments = nil
+        end
       end
     end
-    fragments
+    @fragments
   end
 
 end
