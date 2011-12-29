@@ -15,7 +15,7 @@ class Issue
   end
   
   def displayString
-    lineNumber ? "       #{lineNumber + 1}:  #{message}" : "       #{message}"
+    lineNumber ? "#{"%10d" % (lineNumber + 1)}:  #{message}" : "          #{message}"
   end
   
   def <=>(other)
