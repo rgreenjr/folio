@@ -1,9 +1,17 @@
 class MetadataController < NSWindowController
 
-  attr_accessor :bookController, :imageWell, :coverImageView
-  attr_accessor :titleField, :dateField, :identifierField, :languagePopup
-  attr_accessor :descriptionField, :creatorField, :sortCreatorField, :publisherField
-  attr_accessor :subjectField, :rightsField
+  attr_accessor :bookController
+  attr_accessor :imageWell
+  attr_accessor :titleField
+  attr_accessor :dateField
+  attr_accessor :identifierField
+  attr_accessor :languagePopup
+  attr_accessor :descriptionField
+  attr_accessor :creatorField
+  attr_accessor :sortCreatorField
+  attr_accessor :publisherField
+  attr_accessor :subjectField
+  attr_accessor :rightsField
 
   SUBJECTS = ["Biography & Memoir", "Business", "Comedy", "History", "Literature", "Nonfiction", "Science", "Technology", "Travel & Adventure"]
 
@@ -96,9 +104,9 @@ class MetadataController < NSWindowController
 
   def displayCoverImage
     if @metadata.cover
-      @coverImageView.image = NSImage.alloc.initWithContentsOfFile(@metadata.cover.path)
+      @imageWell.image = NSImage.alloc.initWithContentsOfFile(@metadata.cover.path)
     else
-      @coverImageView.image = noCoverImage
+      @imageWell.image = noCoverImage
     end
     @stashedImagePath = nil
   end
