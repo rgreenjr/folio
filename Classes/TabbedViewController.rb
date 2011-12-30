@@ -79,7 +79,7 @@ class TabbedViewController < NSViewController
         @webViewController.item = point
         @imageView.hidden = true
         @splitView.hidden = false
-        showWebView unless @layoutMode == LAYOUT_MODE_SOURCE
+        showWebView unless layoutMode == LAYOUT_MODE_SOURCE
       else
         @imageView.image = nil
         @sourceViewController.item = item
