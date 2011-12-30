@@ -8,6 +8,7 @@ class PointPanelController < NSWindowController
   attr_accessor :textField
   attr_accessor :idField
   attr_accessor :statusField
+  attr_accessor :progressIndicator
 
   def initWithBookController(bookController)
     initWithWindowNibName("PointPanel")
@@ -84,6 +85,8 @@ class PointPanelController < NSWindowController
     if item
       @fragmentPopup.enabled = false
       @statusField.stringValue = "Parsing source fragments..."
+      @progressIndicator.startAnimation(self)
+      @progressIndicator.hidden = false
       performSelectorOnMainThread(:"loadFragments:", withObject:item, waitUntilDone:false)
     else
       @statusField.stringValue = ""
@@ -93,14 +96,16 @@ class PointPanelController < NSWindowController
   def loadFragments(item)
     fragments = item.fragments
     if fragments
-      @statusField.stringValue = "Source contains #{"fragment".pluralize(fragments.size)}"
+      @statusField.stringValue = "#{"fragment".pluralize(fragments.size)}"
       fragments.each do |frag|
         @fragmentPopup.addItemWithTitle(frag)
       end
     else
-      @statusField.stringValue = "Unable to list source fragments: a parsing error occurred"
+      @statusField.stringValue = "Unable to parse source"
     end
     @fragmentPopup.enabled = true
+    @progressIndicator.stopAnimation(self)
+    @progressIndicator.hidden = true
   end
 
   def validPointAttributes?
