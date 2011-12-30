@@ -23,7 +23,6 @@ Enhancements
 - Buttons to generate UUID
 - Show icon in spine indicating item is Cover, TOC, Title Page, etc.
 - Add plus/minus buttons for adding Points, ItemRefs, and Items
-- Add icons to right of spine items in to show assigned type
 - Add tool tips to tabs
 - Add ability to duplicate manifest items
 
