@@ -294,6 +294,8 @@ class BookWindowController < NSWindowController
     when :"toggleInspectorView:"
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = inspectorViewController.visible? ? "Hide Inspector" : "Show Inspector"
+      else
+        true
       end
     when :"printDocument:"
       @tabbedViewController.numberOfTabs > 0
