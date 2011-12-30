@@ -167,7 +167,7 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="134209912">
+							<object class="NSToolbarItem" id="1019910006">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">4C5741C8-8889-4F48-8A5E-197ADEE89431</characters>
 								</object>
@@ -302,13 +302,13 @@
 						<reference ref="961348391"/>
 						<reference ref="580827983"/>
 						<reference ref="25041146"/>
-						<reference ref="134209912"/>
+						<reference ref="1019910006"/>
 						<reference ref="588453196"/>
 					</object>
 					<object class="NSArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="192817359"/>
-						<reference ref="134209912"/>
+						<reference ref="1019910006"/>
 						<reference ref="192817359"/>
 						<reference ref="25041146"/>
 						<reference ref="287252432"/>
@@ -593,7 +593,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleInspectorView:</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="134209912"/>
+						<reference key="destination" ref="1019910006"/>
 					</object>
 					<int key="connectionID">255</int>
 				</object>
@@ -711,7 +711,7 @@
 							<reference ref="25041146"/>
 							<reference ref="961348391"/>
 							<reference ref="588453196"/>
-							<reference ref="134209912"/>
+							<reference ref="1019910006"/>
 						</object>
 						<reference key="parent" ref="53791894"/>
 					</object>
@@ -860,7 +860,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">252</int>
-						<reference key="object" ref="134209912"/>
+						<reference key="object" ref="1019910006"/>
 						<reference key="parent" ref="1014419714"/>
 					</object>
 				</object>

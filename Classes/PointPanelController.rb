@@ -58,7 +58,7 @@ class PointPanelController < NSWindowController
     loadItems
     resetSourcePopup
     resetFragmentPopup
-    @textField.stringValue = ""
+    @textField.stringValue = "New Point"
     @idField.stringValue = UUID.create
   end
   
