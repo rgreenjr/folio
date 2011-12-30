@@ -28,6 +28,10 @@ class BookWindowController < NSWindowController
     # put selectionView in place
     @selectionViewController.view.frame = @selectionView.frame
     @selectionView.addSubview(selectionViewController.view)
+        
+    # resize selectionView outlineTableColumn to fit (not sure why we must subtract 3 for it to fit correctly)
+    outlineTableColumnWidth = @selectionViewController.view.frame.size.width - @selectionViewController.outlineView.indentationPerLevel - 3
+    @selectionViewController.outlineView.outlineTableColumn.setWidth(outlineTableColumnWidth)    
     
     # put logoImageView in place
     @logoImageView.frame = @contentPlaceholder.frame
