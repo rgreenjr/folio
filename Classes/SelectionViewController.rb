@@ -157,7 +157,7 @@ class SelectionViewController < NSViewController
     controller = commonControllerForItems(items)
     case controller
     when @navigationController
-      controller.deletePoints(items)
+      controller.deletePoints(items, true, 0)
     when @spineController
       controller.deleteItemRefs(items)
     when @manifestController
