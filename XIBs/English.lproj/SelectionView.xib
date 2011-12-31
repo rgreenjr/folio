@@ -147,6 +147,7 @@
 								<bool key="NSAllowsTypeSelect">YES</bool>
 								<int key="NSTableViewDraggingDestinationStyle">0</int>
 								<int key="NSTableViewGroupRowStyle">1</int>
+								<bool key="NSOutlineViewAutoresizesOutlineColumnKey">NO</bool>
 							</object>
 						</object>
 						<string key="NSFrameSize">{240, 135}</string>
@@ -438,6 +439,7 @@
 							<string>addSelectedItemsToSpine:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
+							<string>newItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 							<string>showUnregisteredFiles:</string>
@@ -445,6 +447,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -461,6 +464,7 @@
 							<string>addSelectedItemsToSpine:</string>
 							<string>markAsCover:</string>
 							<string>newDirectory:</string>
+							<string>newItem:</string>
 							<string>showAddFilesSheet:</string>
 							<string>showDeleteSelectedItemsSheet:</string>
 							<string>showUnregisteredFiles:</string>
@@ -478,6 +482,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newDirectory:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">newItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -524,10 +532,12 @@
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
 							<string>newPoint:</string>
+							<string>showPointCreationPanel:</string>
 							<string>toggleNavigation:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -541,6 +551,7 @@
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
 							<string>newPoint:</string>
+							<string>showPointCreationPanel:</string>
 							<string>toggleNavigation:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -555,6 +566,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newPoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showPointCreationPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -586,13 +601,23 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>delete:</string>
+							<string>displayCurrentSelection:</string>
 							<string>doubleClickAction:</string>
+							<string>duplicate:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
+							<string>revealInManifest:</string>
+							<string>toggleRow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -603,15 +628,32 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>delete:</string>
+							<string>displayCurrentSelection:</string>
 							<string>doubleClickAction:</string>
+							<string>duplicate:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
+							<string>revealInManifest:</string>
+							<string>toggleRow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
+								<string key="name">delete:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">displayCurrentSelection:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">doubleClickAction:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">duplicate:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -624,6 +666,14 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">expandSpine:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">revealInManifest:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleRow:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
