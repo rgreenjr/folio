@@ -85,7 +85,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Metadata</string>
 								<string key="NSToolbarItemPaletteLabel">Metadata</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Show Metadata</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -109,9 +109,11 @@
 								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {104, 25}}</string>
+									<reference key="NSSuperview"/>
+									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -172,7 +174,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Inspector</string>
 								<string key="NSToolbarItemPaletteLabel">Inspector</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Toggle Inspector</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -192,9 +194,9 @@
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">8D0FEC0F-B9AF-4A75-A5C3-0AC5528B512E</characters>
 								</object>
-								<string key="NSToolbarItemLabel">Re-Format</string>
-								<string key="NSToolbarItemPaletteLabel">Re-Format</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemLabel">Format</string>
+								<string key="NSToolbarItemPaletteLabel">Format</string>
+								<string key="NSToolbarItemToolTip">Format Source</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -216,7 +218,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Validate</string>
 								<string key="NSToolbarItemPaletteLabel">Validate</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Validate Book</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -430,6 +432,7 @@
 							<string key="NSFrame">{{59, 2}, {18, 19}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:2434</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="124213451">
@@ -881,6 +884,7 @@
 					<string>158.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
 					<string>203.IBPluginDependency</string>
+					<string>204.IBAttributePlaceholdersKey</string>
 					<string>204.IBNSSegmentedControlInspectorSelectedSegmentMetadataKey</string>
 					<string>204.IBPluginDependency</string>
 					<string>204.IBSegmentedControlInspectorSelectedSegmentMetadataKey</string>
@@ -890,8 +894,10 @@
 					<string>215.IBPluginDependency</string>
 					<string>22.IBPluginDependency</string>
 					<string>23.IBPluginDependency</string>
+					<string>230.IBAttributePlaceholdersKey</string>
 					<string>230.IBPluginDependency</string>
 					<string>231.IBPluginDependency</string>
+					<string>234.IBAttributePlaceholdersKey</string>
 					<string>234.IBPluginDependency</string>
 					<string>235.IBPluginDependency</string>
 					<string>252.IBPluginDependency</string>
@@ -916,6 +922,14 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="253896760"/>
+							<string key="toolTip">Change Layout - Preview, Source, Both</string>
+						</object>
+					</object>
 					<integer value="0"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="0"/>
@@ -925,8 +939,24 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="569868706"/>
+							<string key="toolTip">Toggle Inspector</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="604164117"/>
+							<string key="toolTip">Toggle Issues</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
