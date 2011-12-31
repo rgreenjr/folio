@@ -125,19 +125,13 @@ class ValidationController < NSWindowController
         item.addIssue(issue)
       else
         # item wasn't found in manifest
-                
-        # check item is OPF file
-        if File.join(book.container.relativePath, itemHref) == book.container.opfRelativePath
+        if book.container.isOPFPath?(itemHref)
           issue.message = "Metadata " + issue.message
-          issue.lineNumber = nil
-
-          # add OPF issue to book
-          book.addIssue(issue)
         else
-          # problem isn't with OPF file, so just log issue
-          puts line
+          issue.message = issue.message
         end
-        
+        issue.lineNumber = nil
+        book.addIssue(issue)        
       end
     else
       # add issue to book since there isn't an associated item

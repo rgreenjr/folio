@@ -71,6 +71,10 @@ class Container
     path.gsub(@absolutePath + "/", '')
   end
   
+  def isOPFPath?(path)
+    path == @opfRelativePath
+  end
+  
   private
   
   def extractRootFilePath(doc)
