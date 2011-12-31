@@ -29,11 +29,11 @@ class Spine < DelegateClass(Array)
   end
   
   def itemRefWithId(id)
-    find { |itemRef| itemRef.id == id }
+    find { |itemRef| itemRef.idref == id }
   end
   
   def itemRefsWithItem(item)
-    select { |itemRef| itemRef.item.id == item.id }
+    select { |itemRef| itemRef.idref == item.id }
   end
 
 end

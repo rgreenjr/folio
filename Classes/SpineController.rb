@@ -49,7 +49,7 @@ class SpineController < NSResponder
 
   # write the ids of the selected itemRefs to the pastebaord
   def writeItems(itemRefs, toPasteboard:pboard)
-    itemRefIds = itemRefs.map { |itemRef| itemRef.id }
+    itemRefIds = itemRefs.map { |itemRef| itemRef.idref }
     pboard.declareTypes([ItemRef::PBOARD_TYPE], owner:self)
     pboard.setPropertyList(itemRefIds.to_plist, forType:ItemRef::PBOARD_TYPE)
     true
