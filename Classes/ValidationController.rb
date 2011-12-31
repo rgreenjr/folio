@@ -26,7 +26,7 @@ class ValidationController < NSWindowController
       libDir  = File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/lib/epubcheck/")
 
       # construct the system command
-      command = "cd \"#{libDir}\"; java -jar epubcheck-1.1.jar \"#{book.fileURL.path}\""
+      command = "cd \"#{libDir}\"; java -jar epubcheck-1.2.jar \"#{book.fileURL.path}\""
 
       # create a file to hold validation output
       resultFile = Tempfile.new('folio-validation-')
