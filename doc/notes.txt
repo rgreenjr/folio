@@ -1,9 +1,6 @@
 Bugs
 ====
 
-- Navigation should check for inclusion of objects before deleting
-- ePub validation: handle missing files and unregistered files
-- Fix remaining undo bugs
 - Fix issue splitview layout problems
 
 Features
@@ -14,6 +11,7 @@ Features
 Enhancements
 ============
 
+- ePub validation: handle missing files and unregistered files
 - Search filtering of selection views
 - Add source code syntax highlighting
 - Ability to drag to manifest items to the desktop
