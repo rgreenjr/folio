@@ -109,10 +109,9 @@
 								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {104, 25}}</string>
-									<reference key="NSSuperview"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -295,7 +294,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<object class="NSArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
@@ -431,7 +430,6 @@
 							<string key="NSFrame">{{59, 2}, {18, 19}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:2434</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="124213451">
@@ -872,6 +870,8 @@
 					<string>-1.IBPluginDependency</string>
 					<string>-2.IBPluginDependency</string>
 					<string>-3.IBPluginDependency</string>
+					<string>1.IBNSWindowAutoPositionCentersHorizontal</string>
+					<string>1.IBNSWindowAutoPositionCentersVertical</string>
 					<string>1.IBPluginDependency</string>
 					<string>1.IBWindowTemplateEditedContentRect</string>
 					<string>1.NSWindowTemplate.visibleAtLaunch</string>
@@ -905,6 +905,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="YES"/>
+					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{255, 131}, {971, 600}}</string>
 					<integer value="1"/>
