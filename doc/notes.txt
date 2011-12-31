@@ -4,6 +4,7 @@ Bugs
 - Navigation should check for inclusion of objects before deleting
 - ePub validation: handle missing files and unregistered files
 - Fix remaining undo bugs
+- Fix issue splitview layout problems
 
 Features
 ========

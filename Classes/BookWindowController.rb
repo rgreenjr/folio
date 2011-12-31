@@ -289,11 +289,11 @@ class BookWindowController < NSWindowController
     case interfaceItem.action
     when :"toggleIssueView:"
       if interfaceItem.class == NSMenuItem
-        interfaceItem.title = issueViewController.visible? ? "Hide Issues" : "Show Issues"
+        interfaceItem.title = issueViewController.visible? ? "Hide Validation Issues" : "Show Validation Issues"
       end
     when :"toggleInspectorView:"
       if interfaceItem.class == NSMenuItem
-        interfaceItem.title = inspectorViewController.visible? ? "Hide Inspector" : "Show Inspector"
+        interfaceItem.title = inspectorViewController.visible? ? "Hide Properties Inspector" : "Show Properties Inspector"
       else
         true
       end

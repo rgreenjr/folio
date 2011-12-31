@@ -36,6 +36,10 @@ class IssueViewController < NSViewController
   end
 
   def refresh
+    Alert.runModal(@bookController.window, "@bookController.document is nil") if @bookController.document == nil
+    
+    Alert.runModal(@bookController.window, "@bookController.document.manifest is nil") if @bookController.document.manifest == nil
+    
     # get all items with validation issues
     @items = @bookController.document.manifest.itemsWithIssues
     

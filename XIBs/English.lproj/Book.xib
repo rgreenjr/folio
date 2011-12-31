@@ -113,7 +113,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {104, 25}}</string>
 									<reference key="NSSuperview"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -174,7 +173,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Inspector</string>
 								<string key="NSToolbarItemPaletteLabel">Inspector</string>
-								<string key="NSToolbarItemToolTip">Toggle Inspector</string>
+								<string key="NSToolbarItemToolTip">Toggle Properties Inspector</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -923,12 +922,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableDictionary">
-						<string key="NS.key.0">ToolTip</string>
-						<object class="IBToolTipAttribute" key="NS.object.0">
-							<string key="name">ToolTip</string>
-							<reference key="object" ref="253896760"/>
-							<string key="toolTip">Change Layout - Preview, Source, Both</string>
-						</object>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<reference key="dict.sortedKeys" ref="0"/>
+						<reference key="dict.values" ref="0"/>
 					</object>
 					<integer value="0"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -944,7 +940,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="569868706"/>
-							<string key="toolTip">Toggle Inspector</string>
+							<string key="toolTip">Toggle Properties Inspector</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -954,7 +950,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="604164117"/>
-							<string key="toolTip">Toggle Issues</string>
+							<string key="toolTip">Toggle Validation Issues</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
