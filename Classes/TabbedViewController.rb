@@ -239,7 +239,6 @@ class TabbedViewController < NSViewController
       numberOfTabs > 0
     when :"toggleLayoutMode:"
       menuItem.state = stateForMenuItem(menuItem)
-      numberOfTabs > 0
     when :"toggleSplitOrientation:"
       menuItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
       menuItem.enabled = numberOfTabs > 0 && layoutMode == LAYOUT_MODE_COMBO
@@ -250,8 +249,6 @@ class TabbedViewController < NSViewController
   
   def validateToolbarItem(toolbarItem)
     case toolbarItem.action
-    when :"toggleLayoutMode:"
-      numberOfTabs > 0
     when :"reformatText:"
       numberOfTabs > 0 && selectedItem.flowable? && sourceViewController.visible?
     else
