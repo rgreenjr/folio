@@ -64,7 +64,7 @@ class SelectionViewController < NSViewController
   end
 
   def outlineView(outlineView, isItemExpandable:item)
-    isController(item) ? true : controllerForItem(item).isItemExpandable(item)
+    isController?(item) ? true : controllerForItem(item).isItemExpandable(item)
   end
 
   def outlineView(outlineView, child:index, ofItem:item)
@@ -77,7 +77,7 @@ class SelectionViewController < NSViewController
   end
 
   def outlineView(outlineView, shouldSelectItem:item)
-    !isController(item) # prevent selection of controllers
+    !isController?(item) # prevent selection of controllers
   end
 
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
@@ -117,17 +117,16 @@ class SelectionViewController < NSViewController
   end
   
   def currentSelection
-    @outlineView.itemAtRow(@outlineView.selectedRow)
+    item = @outlineView.itemAtRow(@outlineView.selectedRow)
+    isController?(item) ? nil : item
   end
   
   def displayCurrentSelection(sender)
-    if @outlineView.numberOfSelectedRows == 1
-      item = currentSelection
+    item = currentSelection
+    if @outlineView.numberOfSelectedRows == 1 && item
       @bookController.tabbedViewController.addObject(item)
-      updateInspector(item)
-    else
-      updateInspector(nil)
     end
+    updateInspector(item)
   end
 
   def selectedItemsForController(controller)
@@ -180,12 +179,12 @@ class SelectionViewController < NSViewController
 
   private
 
-  def isController(item)
+  def isController?(item)
     @outlineView.parentForItem(item) == nil
   end
 
   def controllerForItem(item)
-    while !isController(item)
+    while !isController?(item)
       item = @outlineView.parentForItem(item)
     end
     item
