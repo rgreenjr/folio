@@ -147,7 +147,6 @@
 								<bool key="NSAllowsTypeSelect">YES</bool>
 								<int key="NSTableViewDraggingDestinationStyle">0</int>
 								<int key="NSTableViewGroupRowStyle">1</int>
-								<bool key="NSOutlineViewAutoresizesOutlineColumnKey">NO</bool>
 							</object>
 						</object>
 						<string key="NSFrameSize">{240, 135}</string>
@@ -531,13 +530,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
-							<string>newPoint:</string>
 							<string>showPointCreationPanel:</string>
 							<string>toggleNavigation:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -550,7 +547,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>deleteSelectedPoints:</string>
 							<string>duplicateSelectedPoint:</string>
-							<string>newPoint:</string>
 							<string>showPointCreationPanel:</string>
 							<string>toggleNavigation:</string>
 						</object>
@@ -562,10 +558,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">duplicateSelectedPoint:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">newPoint:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -603,7 +595,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>delete:</string>
 							<string>displayCurrentSelection:</string>
-							<string>doubleClickAction:</string>
 							<string>duplicate:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
@@ -613,7 +604,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -630,7 +620,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>delete:</string>
 							<string>displayCurrentSelection:</string>
-							<string>doubleClickAction:</string>
 							<string>duplicate:</string>
 							<string>expandManifest:</string>
 							<string>expandNavigation:</string>
@@ -646,10 +635,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">displayCurrentSelection:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">doubleClickAction:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
