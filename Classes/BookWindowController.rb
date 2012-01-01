@@ -3,16 +3,16 @@ class BookWindowController < NSWindowController
   ISSUE_VIEW_MIN_HEIGHT    = 100.0
   SELECTION_VIEW_MIN_WIDTH = 150.0
   
-  attr_accessor :masterSplitView # contains selectionView (left) and contentSplitView (right)
+  attr_accessor :masterSplitView         # contains selectionView (left) and contentSplitView (right)
   attr_accessor :selectionView
-  attr_accessor :selectionViewController
-  attr_accessor :tabbedViewController
-  attr_accessor :contentSplitView # contains contentPlaceholder (top) and issueView (bottom)
-  attr_accessor :contentPlaceholder # contains either logoImageView or tabbedView
+  attr_accessor :contentSplitView        # contains contentPlaceholder (top) and issueView (bottom)
+  attr_accessor :contentPlaceholder      # contains either logoImageView or tabbedView
   attr_accessor :logoImageView
   attr_accessor :layoutSegementedControl
-  attr_accessor :inspectorButton
-  attr_accessor :issueButton
+  attr_accessor :validationStatusField
+
+  attr_reader :selectionViewController
+  attr_reader :tabbedViewController
 
   def init
     initWithWindowNibName("Book")
@@ -136,13 +136,11 @@ class BookWindowController < NSWindowController
 
     @contentSplitView.addSubview(issueViewController.view)
     @contentSplitView.adjustSubviews    
-    @issueButton.state = NSOnState
   end
   
   def hideIssueView
     issueViewController.view.removeFromSuperview      
     @contentSplitView.adjustSubviews
-    @issueButton.state = NSOffState
   end
 
   def inspectorViewController
@@ -190,8 +188,6 @@ class BookWindowController < NSWindowController
     frameRect = selectionViewController.view.frame
     shiftFrameOrigin(frameRect, inspectorHeight)
     selectionViewController.view.animator.frame = frameRect
-    
-    @inspectorButton.state = NSOffState
   end
   
   def hideInspectorView
@@ -213,8 +209,6 @@ class BookWindowController < NSWindowController
 
     # make inspectorView invisible
     inspector.animator.hidden = true
-    
-    @inspectorButton.state = NSOnState
   end
 
   def showStagingDirectory(sender)
@@ -268,6 +262,7 @@ class BookWindowController < NSWindowController
     if @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
       issueViewController.refresh
       showIssueView
+      validationStatusField.stringValue = "Validation Issue".pluralize(document.totalIssueCount)
     end
   end
   

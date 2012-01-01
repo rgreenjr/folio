@@ -97,6 +97,7 @@ class Book < NSDocument
     filepath.stringByStandardizingPath
   end
   
+  # validation issues not specific to a manifest item are assigned to book
   def addIssue(issue)
     @issues << issue
   end
@@ -108,6 +109,10 @@ class Book < NSDocument
   
   def hasIssues?
     !@issues.empty?
+  end
+  
+  def totalIssueCount
+    @issues.size + @manifest.totalIssueCount
   end
   
   def close

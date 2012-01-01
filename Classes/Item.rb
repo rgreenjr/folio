@@ -240,6 +240,10 @@ class Item
     !@issueHash.empty?
   end
   
+  def issueCount
+    @issueHash.size
+  end
+  
   def issueHash
     @issueHash
   end

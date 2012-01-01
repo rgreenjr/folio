@@ -143,6 +143,10 @@ class Manifest
   def itemsWithIssues
     select { |item| item.hasIssues? }
   end
+  
+  def totalIssueCount
+    itemsWithIssues.inject(0) { |sum, item| sum += item.issueCount }
+  end
 
   def sort
     @root.sort
