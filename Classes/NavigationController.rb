@@ -219,6 +219,7 @@ class NavigationController < NSResponder
     end
 
     @outlineView.reloadData
+    @outlineView.expandItem(self)
     @outlineView.expandItems(newParents)
     @outlineView.selectItems(points)
   end
