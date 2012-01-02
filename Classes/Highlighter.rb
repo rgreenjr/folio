@@ -7,7 +7,7 @@ class Highlighter
   def initialize(textView)
     @textView = textView
     ctr = NSNotificationCenter.defaultCenter
-    ctr.addObserver(self, selector:('processEditing:'), name:NSTextStorageDidProcessEditingNotification, object:@textView.textStorage)
+    ctr.addObserver(self, selector:"processEditing:", name:NSTextStorageDidProcessEditingNotification, object:@textView.textStorage)
   end
 
   def processEditing(notification)

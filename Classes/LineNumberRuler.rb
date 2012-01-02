@@ -10,11 +10,11 @@ class LineNumberRuler < NSRulerView
     @issueHash = {}
         
     # register for text changes so we can update line indices
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChange:', 
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChange:", 
       name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
     
     # register for selection changes so we can highlighted current line
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:'textDidChangeSelection:', 
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChangeSelection:", 
       name:NSTextViewDidChangeSelectionNotification, object:clientView)
         
     # calculate initial line indices

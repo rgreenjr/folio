@@ -1,8 +1,7 @@
 class SourceViewController < NSViewController
 
-  attr_accessor :bookController
+  attr_reader   :bookController
   attr_accessor :webViewController
-
   attr_accessor :item
   attr_accessor :lineNumberView
 
@@ -19,12 +18,16 @@ class SourceViewController < NSViewController
     view.delegate = self
     view.setEnabledTextCheckingTypes(0)
 
-    # register to receive preference change notifications
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:('preferencesDidChange:'), name:'PreferencesDidChange', object:nil)
-
     # @highlighter = Highlighter.new(view)
     
     @selectedRangeHash = {}
+  end
+  
+  def bookController=(controller)
+    @bookController = controller
+
+    # register to receive preference change notifications
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"preferencesDidChange:", name:'PreferencesDidChange', object:@bookController)
   end
   
   def preferencesDidChange(notification)
@@ -214,7 +217,7 @@ class SourceViewController < NSViewController
          :"stripTagsFromSelectedText:"
       selectedRange.length > 0
     when :"reformatText:"
-      item.flowable?
+      @item.flowable?
     else
       true
     end

@@ -1,6 +1,6 @@
 class IssueViewController < NSViewController
 
-  attr_accessor :bookController
+  attr_reader   :bookController
   attr_accessor :outlineView
   attr_accessor :noIssuesImageView
 
@@ -25,7 +25,7 @@ class IssueViewController < NSViewController
     @outlineView.action = "displayCurrentSelection:"
 
     # receive notification when item issues are updated 
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"itemIssuesDidChange:", name:"ItemIssuesDidChange", object:nil)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"itemIssuesDidChange:", name:"ItemIssuesDidChange", object:@bookController)
 
     # show default image
     showNoIssuesImage
@@ -36,10 +36,6 @@ class IssueViewController < NSViewController
   end
 
   def refresh
-    Alert.runModal(@bookController.window, "@bookController.document is nil") if @bookController.document == nil
-    
-    Alert.runModal(@bookController.window, "@bookController.document.manifest is nil") if @bookController.document.manifest == nil
-    
     # get all items with validation issues
     @items = @bookController.document.manifest.itemsWithIssues
     

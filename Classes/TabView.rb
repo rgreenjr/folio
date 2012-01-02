@@ -14,9 +14,8 @@ class TabView < NSView
     @lineColor = NSColor.colorWithDeviceRed(0.25, green:0.25, blue:0.25, alpha:1.0)
     
     # receive notification when application will become inactive
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:('applicationDidResignActive:'), 
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"applicationDidResignActive:", 
         name:NSApplicationDidResignActiveNotification, object:nil)
-        
   
     # register trackingArea to receive mouseEntered and mouseExited events
     registerTrackingArea

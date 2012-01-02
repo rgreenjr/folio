@@ -45,7 +45,7 @@ class TabbedViewController < NSViewController
     @splitView.hidden = true
 
     # register for source view text changes
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:('textDidChange:'), 
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChange:", 
         name:NSTextStorageDidProcessEditingNotification, object:@sourceViewController.view.textStorage)
         
     # hide the source view initially
