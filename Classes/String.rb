@@ -1,4 +1,5 @@
 module StringEnhancements
+
   def sanitize
     strip.gsub(%r{[/"*:<>\?\\]}, '_')
   end

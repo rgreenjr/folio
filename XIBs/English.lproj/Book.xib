@@ -394,7 +394,6 @@
 							<string key="NSFrame">{{17, 1}, {937, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
@@ -559,6 +558,14 @@
 						<reference key="destination" ref="702703649"/>
 					</object>
 					<int key="connectionID">258</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">informationField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="702703649"/>
+					</object>
+					<int key="connectionID">259</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -884,7 +891,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">258</int>
+			<int key="maxID">259</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -986,11 +993,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>contentPlaceholder</string>
 							<string>contentSplitView</string>
+							<string>informationField</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
 							<string>masterSplitView</string>
 							<string>selectionView</string>
-							<string>validationStatusField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1009,11 +1016,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>contentPlaceholder</string>
 							<string>contentSplitView</string>
+							<string>informationField</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
 							<string>masterSplitView</string>
 							<string>selectionView</string>
-							<string>validationStatusField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1023,6 +1030,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">contentSplitView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">informationField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -1039,10 +1050,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">selectionView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">validationStatusField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -1168,14 +1175,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1185,17 +1190,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
 								<string key="candidateClassName">id</string>

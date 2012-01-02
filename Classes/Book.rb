@@ -19,6 +19,7 @@ class Book < NSDocument
   attr_reader :container
   attr_reader :metadata
   attr_reader :guide
+  attr_reader :fileSize
   
   # creates a new book
   def initWithType(typeName, error:outError)
@@ -39,6 +40,7 @@ class Book < NSDocument
     @progressController ||= ProgressController.alloc.init
     @progressController.showWindowWithTitle("Opening...") do |progressBar|
       begin
+        updateFileSize(absoluteURL.path)
         @unzipPath  = Dir.mktmpdir("folio-unzip-")
         progressBar.doubleValue = 10.0
         runCommand("unzip -q -d '#{@unzipPath}' \"#{absoluteURL.path}\"")
@@ -80,6 +82,7 @@ class Book < NSDocument
     runCommand("cd '#{tmp}'; zip -qX9urD ./folio-book.epub *")
     FileUtils.mv(File.join(tmp, 'folio-book.epub'), absoluteURL.path)
     FileUtils.rm_rf(tmp)
+    updateFileSize(absoluteURL.path)
     true
   rescue Exception => exception
     info = { NSLocalizedFailureReasonErrorKey => exception.message }
@@ -131,6 +134,10 @@ class Book < NSDocument
     result = `#{command}  2>&1`
     raise result unless $?.success? 
     result
+  end
+  
+  def updateFileSize(path)
+    @fileSize = NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
   end
 
 end

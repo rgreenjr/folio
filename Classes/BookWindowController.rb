@@ -9,7 +9,7 @@ class BookWindowController < NSWindowController
   attr_accessor :contentPlaceholder      # contains either logoImageView or tabbedView
   attr_accessor :logoImageView
   attr_accessor :layoutSegementedControl
-  attr_accessor :validationStatusField
+  attr_accessor :informationField
 
   attr_reader :selectionViewController
   attr_reader :tabbedViewController
@@ -55,6 +55,9 @@ class BookWindowController < NSWindowController
     
     # expand the navigation tree by default
     @selectionViewController.expandNavigation(self)
+    
+    # show file size
+    updateInformationField
 
     window.makeKeyAndOrderFront(nil)
   end
@@ -262,8 +265,16 @@ class BookWindowController < NSWindowController
     if @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
       issueViewController.refresh
       showIssueView
-      validationStatusField.stringValue = "Validation Issue".pluralize(document.totalIssueCount)
+      updateInformationField
     end
+  end
+  
+  def updateInformationField
+    text = document.fileSize.to_storage_size
+    if document.totalIssueCount > 0
+      text += ", " + "validation issue".pluralize(document.totalIssueCount)
+    end
+    informationField.stringValue = text
   end
   
   def printDocument(sender)
