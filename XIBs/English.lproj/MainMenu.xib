@@ -254,6 +254,34 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
+								<object class="NSMenuItem" id="754263308">
+									<reference key="NSMenu" ref="720053764"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="603201732">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Add to Table of Contents</string>
+									<string key="NSKeyEquiv">A</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="840540393">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Add to Spine</string>
+									<string key="NSKeyEquiv">a</string>
+									<int key="NSKeyEquivModMask">1310720</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
 								<object class="NSMenuItem" id="416188602">
 									<reference key="NSMenu" ref="720053764"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -1739,6 +1767,22 @@
 					</object>
 					<int key="connectionID">1909</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addSelectedItemRefsToNavigation:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="603201732"/>
+					</object>
+					<int key="connectionID">1914</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addSelectedItemsToSpine:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="840540393"/>
+					</object>
+					<int key="connectionID">1915</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1859,6 +1903,9 @@
 							<reference ref="1023925487"/>
 							<reference ref="697586212"/>
 							<reference ref="153628920"/>
+							<reference ref="603201732"/>
+							<reference ref="754263308"/>
+							<reference ref="840540393"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -2607,6 +2654,21 @@
 						<reference key="object" ref="1017484043"/>
 						<reference key="parent" ref="789758025"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1910</int>
+						<reference key="object" ref="603201732"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1911</int>
+						<reference key="object" ref="754263308"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1912</int>
+						<reference key="object" ref="840540393"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2701,6 +2763,9 @@
 					<string>19.IBPluginDependency</string>
 					<string>1904.IBPluginDependency</string>
 					<string>1907.IBPluginDependency</string>
+					<string>1910.IBPluginDependency</string>
+					<string>1911.IBPluginDependency</string>
+					<string>1912.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
@@ -2868,6 +2933,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2882,7 +2950,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1909</int>
+			<int key="maxID">1915</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3003,20 +3071,14 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>contentPlaceholder</string>
 							<string>contentSplitView</string>
-							<string>inspectorButton</string>
-							<string>issueButton</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
 							<string>masterSplitView</string>
 							<string>selectionView</string>
-							<string>selectionViewController</string>
-							<string>tabbedViewController</string>
+							<string>validationStatusField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3032,14 +3094,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>contentPlaceholder</string>
 							<string>contentSplitView</string>
-							<string>inspectorButton</string>
-							<string>issueButton</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
 							<string>masterSplitView</string>
 							<string>selectionView</string>
-							<string>selectionViewController</string>
-							<string>tabbedViewController</string>
+							<string>validationStatusField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3049,14 +3108,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">contentSplitView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">inspectorButton</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">issueButton</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3076,11 +3127,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">selectionViewController</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabbedViewController</string>
+								<string key="name">validationStatusField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
