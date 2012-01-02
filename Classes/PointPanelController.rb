@@ -10,9 +10,9 @@ class PointPanelController < NSWindowController
   attr_accessor :statusField
   attr_accessor :progressIndicator
 
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithWindowNibName("PointPanel")
-    @bookController = bookController
+    @bookController = controller
     self
   end
 

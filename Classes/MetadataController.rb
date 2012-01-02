@@ -15,9 +15,9 @@ class MetadataController < NSWindowController
 
   SUBJECTS = ["Biography & Memoir", "Business", "Comedy", "History", "Literature", "Nonfiction", "Science", "Technology", "Travel & Adventure"]
 
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithWindowNibName("Metadata")
-    @bookController = bookController
+    @bookController = controller
     @metadata = @bookController.document.metadata
     self
   end

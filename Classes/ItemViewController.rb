@@ -1,10 +1,13 @@
 class ItemViewController < NSViewController
 
-  attr_accessor :item, :nameField, :idField, :mediaTypeField
+  attr_accessor :item
+  attr_accessor :nameField
+  attr_accessor :idField
+  attr_accessor :mediaTypeField
   
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithNibName("ItemView", bundle:nil)
-    @bookController = bookController
+    @bookController = controller
     self
   end
   

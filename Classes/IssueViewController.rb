@@ -4,9 +4,9 @@ class IssueViewController < NSViewController
   attr_accessor :outlineView
   attr_accessor :noIssuesImageView
 
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithNibName("IssueView", bundle:nil)
-    @bookController = bookController
+    @bookController = controller
     @items = []
     self
   end

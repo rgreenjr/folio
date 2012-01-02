@@ -1,10 +1,12 @@
 class InspectorViewController < NSViewController
 
-  attr_accessor :bookController, :attributesView, :emptyView
+  attr_accessor :bookController
+  attr_accessor :attributesView
+  attr_accessor :emptyView
 
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithNibName("InspectorView", bundle:nil)
-    @bookController = bookController
+    @bookController = controller
     self
   end
   

@@ -6,9 +6,9 @@ class SelectionViewController < NSViewController
   attr_accessor :manifestController
   attr_accessor :outlineView
 
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithNibName("SelectionView", bundle:nil)
-    @bookController = bookController
+    @bookController = controller
     self
   end
 

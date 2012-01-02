@@ -14,9 +14,9 @@ class TabbedViewController < NSViewController
   attr_accessor :splitView
   attr_accessor :imageView
   
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithNibName("TabbedView", bundle:nil)
-    @bookController = bookController
+    @bookController = controller
     @webViewPercentage = 0.5
     @sourceViewPercentage = 0.5
     self

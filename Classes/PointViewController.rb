@@ -2,9 +2,9 @@ class PointViewController < NSViewController
   
   attr_accessor :point, :textField, :idField, :sourceField
   
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithNibName("PointView", bundle:nil)
-    @bookController = bookController
+    @bookController = controller
     self
   end
 

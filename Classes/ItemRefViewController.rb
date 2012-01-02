@@ -1,10 +1,12 @@
 class ItemRefViewController < NSViewController
 
-  attr_accessor :item, :typePopup, :linearCheckBox
+  attr_accessor :item
+  attr_accessor :typePopup
+  attr_accessor :linearCheckBox
 
-  def initWithBookController(bookController)
+  def initWithBookController(controller)
     initWithNibName("ItemRefView", bundle:nil)
-    @bookController = bookController
+    @bookController = controller
     self
   end
 
