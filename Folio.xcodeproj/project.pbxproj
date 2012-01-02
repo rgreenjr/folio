@@ -573,7 +573,6 @@
 				CD102B86149590A500EE8650 /* issues-hide-icon.png */,
 				CD102B88149592D100EE8650 /* issues-show-icon.png */,
 				CDD7AFF612EF675700352D4B /* manifest.png */,
-				CD389FF614B2349B00305ED7 /* warning.png */,
 				CD2D185D12E5F28500D6A99A /* Metadata.tiff */,
 				CD2D185F12E5F28500D6A99A /* no-cover.png */,
 				CDDCAD7F12EC7E63003A0B07 /* no-issues.png */,
@@ -594,6 +593,7 @@
 				CDD7AFFA12EF6D5F00352D4B /* toc.png */,
 				CD17D85714AEC956004080CE /* Validate.png */,
 				CD2D186E12E5F28500D6A99A /* vertical.png */,
+				CD389FF614B2349B00305ED7 /* warning.png */,
 				CD6C9CAD12F382DA0056D86B /* wrench.png */,
 				CD72EFE714AD1FDC0000B398 /* yield.png */,
 			);

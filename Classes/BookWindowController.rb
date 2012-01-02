@@ -25,6 +25,10 @@ class BookWindowController < NSWindowController
     # create selectionViewController
     @selectionViewController = SelectionViewController.alloc.initWithBookController(self)
 
+    # create metadataController and add to responder chain
+    @metadataController = MetadataController.alloc.initWithBookController(self)
+    makeResponder(@metadataController)
+
     # put selectionView in place
     @selectionViewController.view.frame = @selectionView.frame
     @selectionView.addSubview(selectionViewController.view)
@@ -107,11 +111,6 @@ class BookWindowController < NSWindowController
   def showLogoImage
     @logoImageView.hidden = false
     @tabbedViewController.hide
-  end
-
-  def showMetadataPanel(sender)
-    @metadataController ||= MetadataController.alloc.initWithBookController(self)
-    @metadataController.showMetadataSheet(self)
   end
 
   def issueViewController

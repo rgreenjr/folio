@@ -1576,14 +1576,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showMetadataPanel:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="913588406"/>
-					</object>
-					<int key="connectionID">1827</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">printDocument:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="49223823"/>
@@ -1773,6 +1765,14 @@
 						<reference key="destination" ref="891582415"/>
 					</object>
 					<int key="connectionID">1919</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showMetadataSheet:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="913588406"/>
+					</object>
+					<int key="connectionID">1920</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2933,7 +2933,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1919</int>
+			<int key="maxID">1920</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2968,7 +2968,6 @@
 							<string>searchAmazon:</string>
 							<string>searchGoogle:</string>
 							<string>searchWikipedia:</string>
-							<string>showMetadataPanel:</string>
 							<string>showStagingDirectory:</string>
 							<string>showTabbedView:</string>
 							<string>toggleInspectorView:</string>
@@ -2977,7 +2976,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2997,7 +2995,6 @@
 							<string>searchAmazon:</string>
 							<string>searchGoogle:</string>
 							<string>searchWikipedia:</string>
-							<string>showMetadataPanel:</string>
 							<string>showStagingDirectory:</string>
 							<string>showTabbedView:</string>
 							<string>toggleInspectorView:</string>
@@ -3020,10 +3017,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">searchWikipedia:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showMetadataPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3269,6 +3262,169 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/ManifestController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MetadataController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>clearCoverImage:</string>
+							<string>closeMetadataSheet:</string>
+							<string>imageWellReceivedImage:</string>
+							<string>saveMetadata:</string>
+							<string>showMetadataSheet:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>clearCoverImage:</string>
+							<string>closeMetadataSheet:</string>
+							<string>imageWellReceivedImage:</string>
+							<string>saveMetadata:</string>
+							<string>showMetadataSheet:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">clearCoverImage:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">closeMetadataSheet:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">imageWellReceivedImage:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">saveMetadata:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showMetadataSheet:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>bookController</string>
+							<string>creatorField</string>
+							<string>dateField</string>
+							<string>descriptionField</string>
+							<string>identifierField</string>
+							<string>imageWell</string>
+							<string>languagePopup</string>
+							<string>publisherField</string>
+							<string>rightsField</string>
+							<string>sortCreatorField</string>
+							<string>subjectField</string>
+							<string>titleField</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>bookController</string>
+							<string>creatorField</string>
+							<string>dateField</string>
+							<string>descriptionField</string>
+							<string>identifierField</string>
+							<string>imageWell</string>
+							<string>languagePopup</string>
+							<string>publisherField</string>
+							<string>rightsField</string>
+							<string>sortCreatorField</string>
+							<string>subjectField</string>
+							<string>titleField</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">bookController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">creatorField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">dateField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">descriptionField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">identifierField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">imageWell</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">languagePopup</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">publisherField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">rightsField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">sortCreatorField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">subjectField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">titleField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MetadataController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
