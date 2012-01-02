@@ -54,7 +54,7 @@ class SourceViewController < NSViewController
   end
   
   def toggleLineNumbers(sender)
-    if sender.title == 'Hide Line Numbers'
+    if view.enclosingScrollView.rulersVisible
       sender.title = 'Show Line Numbers'
       view.enclosingScrollView.rulersVisible = false
     else
