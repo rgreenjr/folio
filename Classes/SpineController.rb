@@ -246,7 +246,7 @@ class SpineController < NSResponder
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
     when :"addSelectedItemRefsToNavigation:", :"deleteSelectedItemRefs:"
-      @outlineView.numberOfSelectedRows > 0
+      selectedItemRefs.size > 0
     when :"toggleSpine:"
       interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Spine" : "Expand Spine"
     else
@@ -266,6 +266,7 @@ class SpineController < NSResponder
 
   def reloadDataAndSelectItems(itemRefs)
     @outlineView.reloadData
+    @outlineView.expandItem(self)
     @outlineView.selectItems(itemRefs)
     window.makeFirstResponder(@outlineView)
   end

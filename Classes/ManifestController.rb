@@ -377,11 +377,11 @@ class ManifestController < NSResponder
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action
     when :"showDeleteSelectedItemsSheet:", :"delete:"
-      @outlineView.numberOfSelectedRows > 0
+      selectedItems.size > 0
     when :"addSelectedItemsToSpine:"
-      selectedItems.reject { |item| item.flowable? }.empty?
+      selectedItems.reject { |item| !item.flowable? }.size > 0
     when :"markAsCover:"
-      @outlineView.numberOfSelectedRows == 1 && selectedItem.imageable?
+      selectedItems.size == 1 && selectedItem.imageable?
     when :"toggleManifest:"
       interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Manifest" : "Expand Manifest"
     else
