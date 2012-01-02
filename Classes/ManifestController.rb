@@ -301,8 +301,7 @@ class ManifestController < NSResponder
     return unless items && !items.empty?
     items.each do |item|
       @bookController.tabbedViewController.removeObject(item)
-      @bookController.selectionViewController.spineController.deleteItemRefsWithItem(item)
-      @bookController.selectionViewController.navigationController.deletePointsReferencingItem(item)
+      NSNotificationCenter.defaultCenter.postNotificationName("ManifestWillDeleteItem", object:@manifest, userInfo:item)
       @manifest.delete(item)
     end
     undoManager.removeAllActions

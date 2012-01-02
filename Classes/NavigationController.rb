@@ -11,6 +11,10 @@ class NavigationController < NSResponder
   def bookController=(controller)
     @bookController = controller
     @navigation = @bookController.document.navigation
+
+    # register for manifest item deletion notifications
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"manifestWillDeleteItem:", 
+        name:"ManifestWillDeleteItem", object:@bookController.document.manifest)
   end
   
   def toggleNavigation(sender)
@@ -279,11 +283,14 @@ class NavigationController < NSResponder
     reloadDataAndSelectPoints(nil)
   end
 
-  def deletePointsReferencingItem(item)
-    points = @navigation.select { |point| point.item == item }
-    deletePoints(points, false, 0)
+  def manifestWillDeleteItem(notification)
+    item = notification.userInfo
+    if item
+      points = @navigation.select { |point| point.item == item }
+      deletePoints(points, false, 0)
+    end
   end
-  
+
   private
 
   def reloadDataAndSelectPoints(points)

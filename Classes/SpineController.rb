@@ -11,6 +11,10 @@ class SpineController < NSResponder
   def bookController=(controller)
     @bookController = controller
     @spine = @bookController.document.spine
+    
+    # register for manifest item deletion notifications
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"manifestWillDeleteItem:", 
+        name:"ManifestWillDeleteItem", object:@bookController.document.manifest)
   end
 
   def toggleSpine(sender)
@@ -197,8 +201,12 @@ class SpineController < NSResponder
     deleteItemRefs(selectedItemRefs)
   end
 
-  def deleteItemRefsWithItem(item)
-    deleteItemRefs(@spine.itemRefsWithItem(item), false)
+  def manifestWillDeleteItem(notification)
+    item = notification.userInfo
+    if item
+      itemrefs = @spine.itemRefsWithItem(item)
+      deleteItemRefs(itemrefs, false)
+    end
   end
 
   def deleteItemRefs(itemRefs, allowUndo=true)

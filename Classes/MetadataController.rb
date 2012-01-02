@@ -19,6 +19,11 @@ class MetadataController < NSWindowController
     initWithWindowNibName("Metadata")
     @bookController = controller
     @metadata = @bookController.document.metadata
+    
+    # register for manifest item deletion notifications
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"manifestWillDeleteItem:", 
+        name:"ManifestWillDeleteItem", object:@bookController.document.manifest)
+    
     self
   end
 
@@ -158,6 +163,13 @@ class MetadataController < NSWindowController
 
   def noCoverImage
     @noCoverImage ||= NSImage.imageNamed("no-cover.png")
+  end
+  
+  def manifestWillDeleteItem(notification)
+    item = notification.userInfo
+    if item && @metadata.cover == item
+      @metadata.cover = nil 
+    end
   end
 
   def displayAttribute(attribute)
