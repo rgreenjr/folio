@@ -51,7 +51,7 @@
 							<object class="NSOutlineView" id="142008421">
 								<reference key="NSNextResponder" ref="216311287"/>
 								<int key="NSvFlags">4370</int>
-								<string key="NSFrameSize">{240, 135}</string>
+								<string key="NSFrameSize">{365, 627}</string>
 								<reference key="NSSuperview" ref="216311287"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1058702558"/>
@@ -64,7 +64,7 @@
 								<object class="NSMutableArray" key="NSTableColumns">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="NSTableColumn" id="28704890">
-										<double key="NSWidth">237</double>
+										<double key="NSWidth">362</double>
 										<double key="NSMinWidth">16</double>
 										<double key="NSMaxWidth">1000</double>
 										<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -147,9 +147,10 @@
 								<bool key="NSAllowsTypeSelect">YES</bool>
 								<int key="NSTableViewDraggingDestinationStyle">0</int>
 								<int key="NSTableViewGroupRowStyle">1</int>
+								<bool key="NSOutlineViewAutoresizesOutlineColumnKey">NO</bool>
 							</object>
 						</object>
-						<string key="NSFrameSize">{240, 135}</string>
+						<string key="NSFrameSize">{365, 627}</string>
 						<reference key="NSSuperview" ref="318518489"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="142008421"/>
@@ -166,7 +167,7 @@
 						<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 						<reference key="NSSuperview" ref="318518489"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="110569793"/>
+						<reference key="NSNextKeyView"/>
 						<reference key="NSTarget" ref="318518489"/>
 						<string key="NSAction">_doScroller:</string>
 						<double key="NSPercent">0.9925373134328358</double>
@@ -177,16 +178,17 @@
 						<string key="NSFrame">{{-100, -100}, {224, 15}}</string>
 						<reference key="NSSuperview" ref="318518489"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="216311287"/>
 						<int key="NSsFlags">1</int>
 						<reference key="NSTarget" ref="318518489"/>
 						<string key="NSAction">_doScroller:</string>
 						<double key="NSPercent">0.99581589958159</double>
 					</object>
 				</object>
-				<string key="NSFrameSize">{240, 135}</string>
+				<string key="NSFrameSize">{365, 627}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="216311287"/>
+				<reference key="NSNextKeyView" ref="110569793"/>
 				<int key="NSsFlags">133680</int>
 				<reference key="NSVScroller" ref="1058702558"/>
 				<reference key="NSHScroller" ref="110569793"/>
