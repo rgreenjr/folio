@@ -24,6 +24,17 @@ class Image
       nil
     end
   end
+  
+  def self.warningCompositeImage(bottomImage)
+    rect = NSMakeRect(0, 0, 16, 16)
+    compositeImage = NSImage.alloc.initWithSize(rect.size)
+    compositeImage.lockFocus
+    bottomImage.drawInRect(rect, fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:1.0)
+    warningImage = NSImage.imageNamed("warning.png")
+    warningImage.drawInRect(rect, fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:1.0)
+    compositeImage.unlockFocus
+    compositeImage    
+  end
 
 end
 

@@ -48,10 +48,11 @@ class ManifestController < NSResponder
       if item.directory?
         cell.image = NSImage.imageNamed('folder.png')
       else
+        fileIcon = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
         if item.hasIssues?
-          cell.image = NSImage.imageNamed('yield.png')
+          cell.image = Image.warningCompositeImage(fileIcon)
         else
-          cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+          cell.image = fileIcon
         end
       end
     end
@@ -165,10 +166,11 @@ class ManifestController < NSResponder
     if item.directory?
       cell.image = NSImage.imageNamed('folder.png')
     else
+      fileIcon = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
       if item.hasIssues?
-        cell.image = NSImage.imageNamed('yield.png')
+        cell.image = Image.warningCompositeImage(fileIcon)
       else
-        cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+        cell.image = fileIcon
       end
     end
   end
