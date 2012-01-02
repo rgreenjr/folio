@@ -2,11 +2,13 @@ class TabbedViewController < NSViewController
 
   SPLIT_VIEW_MINIMUM_POSITION  = 50
   
-  LAYOUT_MODE_PREVIEW = 0
-  LAYOUT_MODE_SOURCE  = 1
-  LAYOUT_MODE_COMBO   = 2
+  LAYOUT_MODE_PREVIEW    = 0
+  LAYOUT_MODE_SOURCE     = 1
+  LAYOUT_MODE_HORIZONTAL = 2
+  LAYOUT_MODE_VERTICAL   = 3
 
-  attr_accessor :bookController
+  attr_reader   :bookController
+  attr_reader   :layoutMode
   attr_accessor :sourceViewController
   attr_accessor :webViewController
   attr_accessor :tabContentPlaceholder
@@ -48,8 +50,8 @@ class TabbedViewController < NSViewController
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChange:", 
         name:NSTextStorageDidProcessEditingNotification, object:@sourceViewController.view.textStorage)
         
-    # hide the source view initially
-    hideSourceView
+    # set layoutMode to preview
+    self.layoutMode = LAYOUT_MODE_PREVIEW
   end
   
   def show
@@ -79,7 +81,7 @@ class TabbedViewController < NSViewController
         @webViewController.item = point
         @imageView.hidden = true
         @splitView.hidden = false
-        showWebView unless layoutMode == LAYOUT_MODE_SOURCE
+        showWebView unless sourceLayoutMode?
       else
         @imageView.image = nil
         @sourceViewController.item = item
@@ -133,7 +135,7 @@ class TabbedViewController < NSViewController
   
   def selectedTabPrintView
     return nil unless selectedTab
-    if layoutMode == LAYOUT_MODE_SOURCE
+    if sourceLayoutMode?
       @sourceViewController.view
     else
       webView.mainFrame.frameView.documentView
@@ -153,25 +155,56 @@ class TabbedViewController < NSViewController
   end
 
   def toggleLayoutMode(sender)
-    tag = sender.class == NSMenuItem ? sender.tag : sender.selectedSegment
-    case tag
+    mode = (sender.class == NSMenuItem) ? sender.tag : sender.selectedSegment
+    self.layoutMode = mode
+  end
+  
+  def layoutMode=(mode)
+    @layoutMode = mode
+    case @layoutMode
     when LAYOUT_MODE_PREVIEW
       hideSourceView
       showWebView
     when LAYOUT_MODE_SOURCE
       hideWebView
       showSourceView
-    when LAYOUT_MODE_COMBO
+    when LAYOUT_MODE_HORIZONTAL
       showWebView
       showSourceView
+      toggleSplitOrientation(self) if @splitView.vertical?
+    when LAYOUT_MODE_VERTICAL
+      showWebView
+      showSourceView
+      toggleSplitOrientation(self) unless @splitView.vertical?
     end
+    @bookController.layoutSegementedControl.selectSegmentWithTag(@layoutMode)
+  end
+  
+  def ensureSourceViewVisible
+    return unless previewLayoutMode?
+    self.layoutMode = @splitView.vertical? ? LAYOUT_MODE_VERTICAL : LAYOUT_MODE_HORIZONTAL
+  end
+  
+  def previewLayoutMode?
+    @layoutMode == LAYOUT_MODE_PREVIEW
+  end
+  
+  def sourceLayoutMode?
+    @layoutMode == LAYOUT_MODE_SOURCE
+  end
+  
+  def horizontalLayoutMode?
+    @layoutMode == LAYOUT_MODE_HORIZONTAL
+  end
+  
+  def verticalLayoutMode?
+    @layoutMode == LAYOUT_MODE_VERTICAL
   end
   
   def showWebView
     unless splitViewContains?(webView)
       positionSplitViewSubviews
       @splitView.addSubview(webView, positioned:NSWindowBelow, relativeTo:sourceView)
-      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
 
@@ -179,7 +212,6 @@ class TabbedViewController < NSViewController
     if splitViewContains?(webView)
       updateSubviewPercentages
       webView.removeFromSuperview
-      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
 
@@ -187,7 +219,6 @@ class TabbedViewController < NSViewController
     unless splitViewContains?(sourceView)
       positionSplitViewSubviews
       @splitView.addSubview(sourceView, positioned:NSWindowAbove, relativeTo:webView)
-      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
 
@@ -195,7 +226,6 @@ class TabbedViewController < NSViewController
     if splitViewContains?(sourceView)
       updateSubviewPercentages
       sourceView.removeFromSuperview
-      @bookController.layoutSegementedControl.selectSegmentWithTag(layoutMode)
     end
   end
   
@@ -213,24 +243,6 @@ class TabbedViewController < NSViewController
     proposedMax - SPLIT_VIEW_MINIMUM_POSITION
   end
   
-  # def splitView(sender, shouldCollapseSubview:subview, forDoubleClickOnDividerAtIndex:index)
-  #   puts "shouldCollapseSubview"
-  #   @sourceViewPercentage = 0.5
-  #   @sourceView = 0.5
-  #   positionSplitViewSubviews
-  #   false
-  # end
-  
-  def layoutMode
-    if splitViewContains?(webView) && splitViewContains?(sourceView)
-      LAYOUT_MODE_COMBO
-    elsif splitViewContains?(webView)
-      LAYOUT_MODE_PREVIEW
-    else
-      LAYOUT_MODE_SOURCE
-    end
-  end
-  
   def validateMenuItem(menuItem)
     case menuItem.action
     when :"selectNextTab:", :"selectPreviousTab:"
@@ -239,9 +251,7 @@ class TabbedViewController < NSViewController
       numberOfTabs > 0
     when :"toggleLayoutMode:"
       menuItem.state = stateForMenuItem(menuItem)
-    when :"toggleSplitOrientation:"
-      menuItem.title = @splitView.vertical? ? "Split Horizontally" : "Split Vertically"
-      menuItem.enabled = numberOfTabs > 0 && layoutMode == LAYOUT_MODE_COMBO
+      true
     else
       true
     end
@@ -303,11 +313,13 @@ class TabbedViewController < NSViewController
   def stateForMenuItem(menuItem)
     case menuItem.tag
     when LAYOUT_MODE_PREVIEW
-      layoutMode == LAYOUT_MODE_PREVIEW ? NSOnState : NSOffState
+      previewLayoutMode? ? NSOnState : NSOffState
     when LAYOUT_MODE_SOURCE
-      layoutMode == LAYOUT_MODE_SOURCE ? NSOnState : NSOffState
-    when LAYOUT_MODE_COMBO
-      layoutMode == LAYOUT_MODE_COMBO ? NSOnState : NSOffState
+      sourceLayoutMode? ? NSOnState : NSOffState
+    when LAYOUT_MODE_HORIZONTAL
+      horizontalLayoutMode? ? NSOnState : NSOffState
+    when LAYOUT_MODE_VERTICAL
+      verticalLayoutMode? ? NSOnState : NSOffState
     end
   end
   

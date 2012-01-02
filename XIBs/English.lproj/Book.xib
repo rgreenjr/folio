@@ -109,9 +109,11 @@
 								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{0, 14}, {104, 25}}</string>
+									<string key="NSFrame">{{0, 14}, {137, 25}}</string>
+									<reference key="NSSuperview"/>
+									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -147,8 +149,17 @@
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">horizontal</string>
 												</object>
-												<string key="NSSegmentItemTooltip">Show Preview and Source</string>
+												<string key="NSSegmentItemTooltip">Split Preview and Source Horizontally</string>
 												<int key="NSSegmentItemTag">2</int>
+												<int key="NSSegmentItemImageScaling">0</int>
+											</object>
+											<object class="NSSegmentItem">
+												<object class="NSCustomResource" key="NSSegmentItemImage">
+													<string key="NSClassName">NSImage</string>
+													<string key="NSResourceName">vertical</string>
+												</object>
+												<string key="NSSegmentItemTooltip">Split Preview and Source Vertically</string>
+												<int key="NSSegmentItemTag">3</int>
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 										</object>
@@ -159,7 +170,7 @@
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
 								<string key="NSToolbarItemMinSize">{104, 25}</string>
-								<string key="NSToolbarItemMaxSize">{104, 25}</string>
+								<string key="NSToolbarItemMaxSize">{137, 25}</string>
 								<bool key="NSToolbarItemEnabled">YES</bool>
 								<bool key="NSToolbarItemAutovalidates">YES</bool>
 								<int key="NSToolbarItemTag">0</int>
@@ -308,14 +319,10 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="192817359"/>
 						<reference ref="1019910006"/>
-						<reference ref="192817359"/>
-						<reference ref="25041146"/>
-						<reference ref="287252432"/>
-						<reference ref="192817359"/>
-						<reference ref="192817359"/>
 						<reference ref="961348391"/>
+						<reference ref="25041146"/>
 						<reference ref="580827983"/>
-						<reference ref="192817359"/>
+						<reference ref="287252432"/>
 						<reference ref="588453196"/>
 						<reference ref="192817359"/>
 					</object>
@@ -394,6 +401,7 @@
 							<string key="NSFrame">{{17, 1}, {937, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
@@ -1223,13 +1231,13 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTab:</string>
-							<string>layoutMode:</string>
 							<string>saveAllTabs:</string>
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
+							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1248,22 +1256,18 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTab:</string>
-							<string>layoutMode:</string>
 							<string>saveAllTabs:</string>
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
+							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">closeTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">layoutMode:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1288,6 +1292,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">toggleSplitOrientation:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">webView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -1392,6 +1400,7 @@
 				<string>horizontal</string>
 				<string>preview</string>
 				<string>source</string>
+				<string>vertical</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1402,6 +1411,7 @@
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
 				<string>{600, 600}</string>
+				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>

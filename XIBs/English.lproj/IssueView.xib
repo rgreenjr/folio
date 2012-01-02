@@ -65,7 +65,6 @@
 						<string key="NSFrameSize">{351, 383}</string>
 						<reference key="NSSuperview" ref="1003346232"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="412818648">
 							<int key="NSCellFlags">130560</int>
@@ -97,7 +96,7 @@
 										<string key="NSFrameSize">{351, 368}</string>
 										<reference key="NSSuperview" ref="37782988"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="623479252"/>
+										<reference key="NSNextKeyView" ref="627773920"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTableHeaderView" key="NSHeaderView" id="237597350">
 											<reference key="NSNextResponder" ref="324696436"/>
@@ -251,7 +250,7 @@
 						<string key="NSFrameSize">{351, 385}</string>
 						<reference key="NSSuperview" ref="1003346232"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="627773920"/>
+						<reference key="NSNextKeyView" ref="37782988"/>
 						<int key="NSsFlags">199184</int>
 						<reference key="NSVScroller" ref="623479252"/>
 						<reference key="NSHScroller" ref="627773920"/>
@@ -472,13 +471,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>noIssuesImageView</string>
 							<string>outlineView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -487,16 +484,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>noIssuesImageView</string>
 							<string>outlineView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">noIssuesImageView</string>
 								<string key="candidateClassName">id</string>

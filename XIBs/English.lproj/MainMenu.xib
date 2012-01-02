@@ -778,7 +778,7 @@
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSMenuItem" id="218956827">
 												<reference key="NSMenu" ref="995635774"/>
-												<string key="NSTitle">Show Preview</string>
+												<string key="NSTitle">Preview</string>
 												<string key="NSKeyEquiv">1</string>
 												<int key="NSKeyEquivModMask">1572864</int>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -787,7 +787,7 @@
 											</object>
 											<object class="NSMenuItem" id="197966002">
 												<reference key="NSMenu" ref="995635774"/>
-												<string key="NSTitle">Show Source</string>
+												<string key="NSTitle">Source</string>
 												<string key="NSKeyEquiv">2</string>
 												<int key="NSKeyEquivModMask">1572864</int>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -797,7 +797,7 @@
 											</object>
 											<object class="NSMenuItem" id="35251847">
 												<reference key="NSMenu" ref="995635774"/>
-												<string key="NSTitle">Show Preview and Source</string>
+												<string key="NSTitle">Split Horizontally</string>
 												<string key="NSKeyEquiv">3</string>
 												<int key="NSKeyEquivModMask">1572864</int>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -805,24 +805,15 @@
 												<reference key="NSMixedImage" ref="807125248"/>
 												<int key="NSTag">2</int>
 											</object>
-											<object class="NSMenuItem" id="297899931">
-												<reference key="NSMenu" ref="995635774"/>
-												<bool key="NSIsDisabled">YES</bool>
-												<bool key="NSIsSeparator">YES</bool>
-												<string key="NSTitle"/>
-												<string key="NSKeyEquiv"/>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="35465992"/>
-												<reference key="NSMixedImage" ref="807125248"/>
-											</object>
 											<object class="NSMenuItem" id="891582415">
 												<reference key="NSMenu" ref="995635774"/>
 												<string key="NSTitle">Split Vertically</string>
-												<string key="NSKeyEquiv">\</string>
-												<int key="NSKeyEquivModMask">1179648</int>
+												<string key="NSKeyEquiv">4</string>
+												<int key="NSKeyEquivModMask">1572864</int>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="35465992"/>
 												<reference key="NSMixedImage" ref="807125248"/>
+												<int key="NSTag">3</int>
 											</object>
 										</object>
 									</object>
@@ -1633,14 +1624,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleSplitOrientation:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="891582415"/>
-					</object>
-					<int key="connectionID">1864</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleFullScreen:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="79305098"/>
@@ -1782,6 +1765,14 @@
 						<reference key="destination" ref="840540393"/>
 					</object>
 					<int key="connectionID">1915</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleLayoutMode:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="891582415"/>
+					</object>
+					<int key="connectionID">1919</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2558,7 +2549,6 @@
 							<reference ref="197966002"/>
 							<reference ref="35251847"/>
 							<reference ref="891582415"/>
-							<reference ref="297899931"/>
 						</object>
 						<reference key="parent" ref="250082790"/>
 					</object>
@@ -2580,11 +2570,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">1859</int>
 						<reference key="object" ref="891582415"/>
-						<reference key="parent" ref="995635774"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1860</int>
-						<reference key="object" ref="297899931"/>
 						<reference key="parent" ref="995635774"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -2749,7 +2734,6 @@
 					<string>1857.IBPluginDependency</string>
 					<string>1858.IBPluginDependency</string>
 					<string>1859.IBPluginDependency</string>
-					<string>1860.IBPluginDependency</string>
 					<string>1876.IBPluginDependency</string>
 					<string>1879.IBPluginDependency</string>
 					<string>1881.IBPluginDependency</string>
@@ -2935,7 +2919,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2950,7 +2933,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1915</int>
+			<int key="maxID">1919</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3071,11 +3054,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>contentPlaceholder</string>
 							<string>contentSplitView</string>
+							<string>informationField</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
 							<string>masterSplitView</string>
 							<string>selectionView</string>
-							<string>validationStatusField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3094,11 +3077,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>contentPlaceholder</string>
 							<string>contentSplitView</string>
+							<string>informationField</string>
 							<string>layoutSegementedControl</string>
 							<string>logoImageView</string>
 							<string>masterSplitView</string>
 							<string>selectionView</string>
-							<string>validationStatusField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3108,6 +3091,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">contentSplitView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">informationField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -3124,10 +3111,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">selectionView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">validationStatusField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -3820,14 +3803,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3837,17 +3818,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
 								<string key="candidateClassName">id</string>
@@ -3933,13 +3909,13 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTab:</string>
-							<string>layoutMode:</string>
 							<string>saveAllTabs:</string>
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
+							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3958,22 +3934,18 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeTab:</string>
-							<string>layoutMode:</string>
 							<string>saveAllTabs:</string>
 							<string>saveTab:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>toggleLayoutMode:</string>
 							<string>toggleSplitOrientation:</string>
+							<string>webView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">closeTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">layoutMode:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -4000,13 +3972,16 @@
 								<string key="name">toggleSplitOrientation:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">webView:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>imageView</string>
 							<string>sourceViewController</string>
 							<string>splitView</string>
@@ -4016,7 +3991,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4029,7 +4003,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>imageView</string>
 							<string>sourceViewController</string>
 							<string>splitView</string>
@@ -4039,10 +4012,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">imageView</string>
 								<string key="candidateClassName">id</string>
