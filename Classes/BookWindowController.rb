@@ -131,16 +131,13 @@ class BookWindowController < NSWindowController
   end
 
   def showIssueView
-    # TODO: make this correct
-    f = issueViewController.view.frame
-    f.size.height += 48.0
-    issueViewController.view.frame = f
-
+    restoreContentSplitviewPosition
     @contentSplitView.addSubview(issueViewController.view)
     @contentSplitView.adjustSubviews    
   end
   
   def hideIssueView
+    storeContentSplitviewPosition
     issueViewController.view.removeFromSuperview      
     @contentSplitView.adjustSubviews
   end
@@ -332,4 +329,26 @@ class BookWindowController < NSWindowController
     frame.origin.y += amount
   end
 
+  def storeContentSplitviewPosition
+    if @contentSplitView.subviews.size == 2
+      @contentPlaceholderPercentage = NSHeight(contentPlaceholder.bounds) / (NSHeight(@contentSplitView.bounds) - @contentSplitView.dividerThickness)
+      @issueViewPercentage = 1.0 - @contentPlaceholderPercentage
+    end
+  end
+  
+  def restoreContentSplitviewPosition
+    if @contentPlaceholderPercentage.nil? || @issueViewPercentage.nil?
+      @contentPlaceholderPercentage = 0.75
+      @issueViewPercentage = 0.25
+    end
+    positionContentSplitViewSubview(@contentPlaceholder, withPercentage:@contentPlaceholderPercentage)
+    positionContentSplitViewSubview(issueViewController.view, withPercentage:@issueViewPercentage)
+  end
+  
+  def positionContentSplitViewSubview(subview, withPercentage:percentage)
+    rect = @contentSplitView.frame
+    rect.size.height *= percentage
+    subview.frame = rect
+  end
+  
 end
