@@ -11,6 +11,8 @@
 			<array>
 				<string>epub</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>epub-icon</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/epub+zip</string>
