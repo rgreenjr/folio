@@ -189,7 +189,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldIndexes.reverse, oldParents.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{"Navigation Point".pluralize(points.size)}"
+      undoManager.actionName = "Move in Table of Contents"
     end
 
     reloadDataAndSelectPoints(points)
@@ -219,7 +219,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).deletePoints(points, true, 0)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add #{"Navigation Point".pluralize(points.size)}"
+      undoManager.actionName = "Add to Table of Contents"
     end
 
     @outlineView.reloadData
@@ -242,7 +242,7 @@ class NavigationController < NSResponder
   def duplicatePoint(point)
     clone = @navigation.duplicate(point)
     undoManager.prepareWithInvocationTarget(self).deletePoints([clone], true, 0)
-    undoManager.actionName = "Duplicate Point"
+    undoManager.actionName = "Duplicate in Table of Contents"
     reloadDataAndSelectPoints([clone])
   end
 
@@ -276,7 +276,7 @@ class NavigationController < NSResponder
      if allowUndo
       undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete #{"Navigation Point".pluralize(points.size)}"
+        undoManager.actionName = "Delete in Table of Contents"
       end
     end
 
@@ -306,7 +306,7 @@ class NavigationController < NSResponder
     when :"duplicateSelectedPoint:", :"addPoint:"
       selectedPoints.size == 1
     when :"toggleNavigation:"
-      interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Navigation" : "Expand Navigation"
+      interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Table of Contents" : "Expand Table of Contents"
     else
       true
     end

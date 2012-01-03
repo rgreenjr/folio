@@ -140,13 +140,6 @@ class SpineController < NSResponder
       # move the specified itemRefs
       moveItemRefs(itemRefs, newIndexes)
 
-      # itemRefIds.reverse.each do |id|
-      #   itemRef = @spine.itemRefWithId(id)
-      #   currentIndex = @spine.index(itemRef)
-      #   childIndex -= 1 if currentIndex < childIndex
-      #   moveItemRef(itemRef, childIndex)
-      # end
-
       return true
     elsif types.containsObject(Item::PBOARD_TYPE)
       # drag data from manifest controller, read item ids from pastebaord
@@ -183,7 +176,7 @@ class SpineController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).deleteItemRefs(itemRefs, true)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add #{"Spine ItemRef".pluralize(itemRefs.size)}"
+      undoManager.actionName = "Add to Spine"
     end
     reloadDataAndSelectItems(itemRefs)
   end
@@ -222,7 +215,7 @@ class SpineController < NSResponder
     if allowUndo
       undoManager.prepareWithInvocationTarget(self).addItemRefs(itemRefs.reverse, indexes.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete #{"Spine ItemRef".pluralize(itemRefs.size)}"
+        undoManager.actionName = "Delete from Spine"
       end
     end
 
@@ -236,20 +229,10 @@ class SpineController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).moveItemRefs(itemRefs.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{"Spine ItemRef".pluralize(itemRefs.size)}"
+      undoManager.actionName = "Move in Spine"
     end
     reloadDataAndSelectItems(itemRefs)
   end
-
-  # def moveItemRef(itemRef, newIndex)
-  #   oldIndex = @spine.move(itemRef, newIndex)
-  #   puts "moveItemRef #{itemRef} from #{oldIndex} to #{newIndex}"
-  #   undoManager.prepareWithInvocationTarget(self).moveItemRef(itemRef, oldIndex)
-  #   unless undoManager.isUndoing
-  #     undoManager.actionName = "Move Spine ItemRef"
-  #   end
-  #   reloadDataAndSelectItems([itemRef])
-  # end
 
   def validateUserInterfaceItem(interfaceItem)
     case interfaceItem.action

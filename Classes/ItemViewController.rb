@@ -68,7 +68,7 @@ class ItemViewController < NSViewController
         Alert.runModal(@bookController.window, "An item with the name \"#{value}\" already exists in this directory.", "Please choose a unique item name.")
       else
         undoManager.prepareWithInvocationTarget(self).changeName(item, item.name)
-        undoManager.actionName = "Change Item Name"
+        undoManager.actionName = "Change Name"
         item.name = value
       end
     end
@@ -79,7 +79,7 @@ class ItemViewController < NSViewController
     unless value.blank? || item.id == value
       if oldID = @bookController.document.manifest.changeItemId(item, value)
         undoManager.prepareWithInvocationTarget(self).changeID(item, oldID)
-        undoManager.actionName = "Change Item ID"
+        undoManager.actionName = "Change ID"
       else
         @bookController.runModalAlert("A manifest item with ID \"#{value}\" already exists.", "Please choose a unique item ID.")
       end
@@ -90,7 +90,7 @@ class ItemViewController < NSViewController
   def changeMediaType(item, value)
     unless value.blank? || item.mediaType == value
       undoManager.prepareWithInvocationTarget(self).changeMediaType(item, item.mediaType)
-      undoManager.actionName = "Change Item Media Type"
+      undoManager.actionName = "Change Media Type"
       item.mediaType = value
     end
     updateView(item)

@@ -242,7 +242,7 @@ class ManifestController < NSResponder
     else
       undoManager.prepareWithInvocationTarget(self).deleteItems(items)
       unless undoManager.isUndoing
-        undoManager.actionName = "Add #{"Manifest Item".pluralize(items.size)}"
+        undoManager.actionName = "Add to Manifest"
       end
     end
     markBookEdited
@@ -274,7 +274,7 @@ class ManifestController < NSResponder
     end
     undoManager.prepareWithInvocationTarget(self).moveItems(items.reverse, oldParents.reverse, oldIndexes.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move #{"Manifest Item".pluralize(items.size)}"
+      undoManager.actionName = "Move in Manifest"
     end
     
     @manifest.sort

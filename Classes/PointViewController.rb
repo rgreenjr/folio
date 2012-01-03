@@ -27,7 +27,7 @@ class PointViewController < NSViewController
   def changeText(point, value)
     unless value.blank? || point.text == value
       undoManager.prepareWithInvocationTarget(self).changeText(point, point.text)
-      undoManager.actionName = "Change Point Text"
+      undoManager.actionName = "Change Text"
       point.text = value
     end
     updateView(point)
@@ -37,7 +37,7 @@ class PointViewController < NSViewController
     unless value.blank? || point.id == value
       if oldID = @bookController.document.navigation.changePointId(point, value)
         undoManager.prepareWithInvocationTarget(self).changeID(point, oldID)
-        undoManager.actionName = "Change Point ID"
+        undoManager.actionName = "Change ID"
       else
         @bookController.runModalAlert("A point with ID \"#{value}\" already exists.", "Please choose a unique point ID.")
       end
@@ -51,7 +51,7 @@ class PointViewController < NSViewController
       item = @bookController.document.manifest.itemWithHref(href)
       if item
         undoManager.prepareWithInvocationTarget(self).changeSource(point, point.src)
-        undoManager.actionName = "Change Point Source"
+        undoManager.actionName = "Change Source"
         point.item = item
         point.fragment = fragment
         @bookController.tabbedViewController.addObject(point)
