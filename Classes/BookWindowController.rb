@@ -233,6 +233,18 @@ class BookWindowController < NSWindowController
     @progressController ||= ProgressController.alloc.init
     @progressController.showWindowWithTitle(title, &block)
   end
+  
+  def saveBook(sender)
+    document.saveDocument(self)
+    updateInformationField
+  end
+
+  def saveBookAs(sender)
+    document.saveDocumentAs(self)
+
+    # this is being called immediately and should be moved to post saveAs: calledback
+    updateInformationField
+  end
 
   def validate(sender)
     if document.isDocumentEdited
