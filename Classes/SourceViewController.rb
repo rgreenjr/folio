@@ -6,8 +6,6 @@ class SourceViewController < NSViewController
   attr_accessor :lineNumberView
 
   def awakeFromNib
-    @textAttributes = { NSFontAttributeName => PreferencesController.sharedPreferencesController.font }  
-
     scrollView = view.enclosingScrollView
     @lineNumberView = LineNumberRuler.alloc.initWithScrollView(scrollView)
     scrollView.verticalRulerView = @lineNumberView
@@ -18,7 +16,9 @@ class SourceViewController < NSViewController
     view.delegate = self
     view.setEnabledTextCheckingTypes(0)
 
-    # @highlighter = Highlighter.new(view)
+    @highlighter = Highlighter.new(view)
+    
+    self.font = PreferencesController.sharedPreferencesController.font
     
     @selectedRangeHash = {}
   end
@@ -27,12 +27,12 @@ class SourceViewController < NSViewController
     @bookController = controller
 
     # register to receive preference change notifications
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"preferencesDidChange:", name:'PreferencesDidChange', object:@bookController)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"preferencesDidChange:", 
+      name:'PreferencesDidChange', object:nil)    
   end
   
   def preferencesDidChange(notification)
-    @textAttributes = { NSFontAttributeName => notification.object.font }
-    self.item = @item # reload item to force font change
+    self.font = notification.object.font
   end
 
   def item=(item)
@@ -231,6 +231,12 @@ class SourceViewController < NSViewController
     unsupported = menu.itemArray.select { |item| unsupportedMenuTitles.include?(item.title) }
     unsupported.each { |item| menu.removeItem(item) }
     menu
+  end
+  
+  def font=(font)
+    @textAttributes = { NSFontAttributeName => font }
+    @highlighter.font = font if @highlighter
+    self.item = @item # reload item to force font change
   end
   
   private
