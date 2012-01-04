@@ -9,6 +9,8 @@
 # OEBPS/content.opf (variable path and filename)
 
 class Book < NSDocument
+  
+  UNZIP_DIRECTORY_PREFIX = "com.folioapp."
 
   attr_reader :controller
   attr_reader :unzipPath
@@ -24,7 +26,7 @@ class Book < NSDocument
   # creates a new book
   def initWithType(typeName, error:outError)
     super
-    @unzipPath  = Dir.mktmpdir("folio-unzip-")
+    @unzipPath  = Dir.mktmpdir(UNZIP_DIRECTORY_PREFIX)
     @container  = Container.new(@unzipPath)
     @manifest   = Manifest.new(@container)
     @metadata   = Metadata.new
@@ -40,7 +42,7 @@ class Book < NSDocument
     @progressController ||= ProgressController.alloc.init
     @progressController.showWindowWithTitle("Opening...") do |progressBar|
       begin
-        @unzipPath  = Dir.mktmpdir("folio-unzip-")
+        @unzipPath  = Dir.mktmpdir(UNZIP_DIRECTORY_PREFIX)
         progressBar.doubleValue = 10.0
         runCommand("unzip -q -d '#{@unzipPath}' \"#{absoluteURL.path}\"")
         progressBar.doubleValue = 40.0
