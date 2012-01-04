@@ -68,7 +68,7 @@ class TabbedViewController < NSViewController
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)
     if item
       if item.imageable?
-        @imageView.image = selectedTab.item.imageRep
+        @imageView.image = item.imageRep
         @sourceViewController.item = nil
         @webViewController.item = nil
         @imageView.hidden = false
