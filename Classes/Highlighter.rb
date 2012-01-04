@@ -6,8 +6,9 @@ class Highlighter
   
   def initialize(textView)
     @textView = textView
-    ctr = NSNotificationCenter.defaultCenter
-    ctr.addObserver(self, selector:"processEditing:", name:NSTextStorageDidProcessEditingNotification, object:@textView.textStorage)
+    @textAttributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"processEditing:", 
+      name:NSTextStorageDidProcessEditingNotification, object:@textView.textStorage)
   end
 
   def processEditing(notification)
@@ -186,7 +187,7 @@ class Highlighter
 
       # Loop over all available components:
       vCurrComponent = nil
-      vStyles = defaultTextAttributes
+      vStyles = @textAttributes
 
       while vCurrComponent = vComponentsEnny.nextObject
         vComponentType = vCurrComponent["Type"]
@@ -527,18 +528,43 @@ class Highlighter
     end
   end
 
-  def defaultTextAttributes
-    @defaultTextAttributes ||= {NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0)}
-  end 
+  def font=(font)
+    @textAttributes = { NSFontAttributeName => font }
+  end
 
   def syntaxDefinitionDictionary
     @htmlDictionary ||= {
-      "Components" => [{"EscapeChar"=>"", "Color"=>[1, 1, 1], "Start"=>"\"", "Type"=>"String", "End"=>"\"", "Name"=>"Strings"}, 
-      {"IgnoredComponent"=>"Strings", "Color"=>[0, 0, 0.5], "Start"=>"<", "Type"=>"Tag", "End"=>">", "Name"=>"Tags"}, 
-      {"EscapeChar"=>"", "Color"=>[0.86, 0, 0], "Start"=>"\"", "Type"=>"String", "End"=>"\"", "Name"=>"Strings"}, 
-      {"Color"=>[0.2, 0.5, 0.2], "Type"=>"Keywords", "Name"=>"Identifiers", "Keywords"=>["&lt;", "&gt;", "&amp;", "&auml;", "&uuml;", "&ouml;"]}, 
-      {"Color"=>[0.5078125, 0.16015625, 0.59765625], "Start"=>"<!--", "Type"=>"BlockComment", "End"=>"-->", "Name"=>"Comments"}], 
-      "FileNameSuffixes"=>["htm", "html"]
+      "Components" => [
+        { 
+          "Name" => "Tags",
+          "Type" => "Tag", 
+          "Color" => [0.24, 0.34, 0.52], 
+          "Start" => "<", 
+          "End" => ">", 
+          "IgnoredComponent" => "Strings", 
+        },
+        { 
+          "Name" => "Strings",
+          "Type" => "String", 
+          "Color" => [0.63, 0.01, 0.0], 
+          "Start" => "\"", 
+          "End" => "\"", 
+          "EscapeChar" => "",
+        },
+        { 
+          "Name" => "Identifiers", 
+          "Type" => "Keywords", 
+          "Color" => [0.0, 0.1, 0.49], 
+          "Keywords" => ["&lt;", "&gt;", "&amp;", "&auml;", "&uuml;", "&ouml;"],
+        },
+        { 
+          "Name" => "Comments",
+          "Type" => "BlockComment", 
+          "Color" => [0.6, 0.6, 0.53], 
+          "Start" => "<!--",
+          "End" => "-->", 
+        }], 
+        "FileNameSuffixes" => ["htm", "html"]
     }
   end
 
