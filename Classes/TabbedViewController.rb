@@ -19,8 +19,6 @@ class TabbedViewController < NSViewController
   def initWithBookController(controller)
     initWithNibName("TabbedView", bundle:nil)
     @bookController = controller
-    @webViewPercentage = 0.5
-    @sourceViewPercentage = 0.5
     self
   end
 
@@ -49,7 +47,7 @@ class TabbedViewController < NSViewController
     # register for source view text changes
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChange:", 
         name:NSTextStorageDidProcessEditingNotification, object:@sourceViewController.view.textStorage)
-        
+
     # set layoutMode to preview
     self.layoutMode = LAYOUT_MODE_PREVIEW
   end
@@ -203,36 +201,35 @@ class TabbedViewController < NSViewController
   
   def showWebView
     unless splitViewContains?(webView)
-      positionSplitViewSubviews
+      restoreSplitviewPosition
       @splitView.addSubview(webView, positioned:NSWindowBelow, relativeTo:sourceView)
     end
   end
 
   def hideWebView
     if splitViewContains?(webView)
-      updateSubviewPercentages
+      storeSplitviewPosition
       webView.removeFromSuperview
     end
   end
 
   def showSourceView
     unless splitViewContains?(sourceView)
-      positionSplitViewSubviews
+      restoreSplitviewPosition
       @splitView.addSubview(sourceView, positioned:NSWindowAbove, relativeTo:webView)
     end
   end
 
   def hideSourceView
     if splitViewContains?(sourceView)
-      updateSubviewPercentages
+      storeSplitviewPosition
       sourceView.removeFromSuperview
     end
   end
   
   def toggleSplitOrientation(sender)
-    updateSubviewPercentages
     @splitView.vertical = !@splitView.vertical?
-    positionSplitViewSubviews
+    restoreSplitviewPosition
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
@@ -241,6 +238,10 @@ class TabbedViewController < NSViewController
 
   def splitView(sender, constrainMaxCoordinate:proposedMax, ofSubviewAt:offset)
     proposedMax - SPLIT_VIEW_MINIMUM_POSITION
+  end
+  
+  def splitViewDidResizeSubviews(notification)
+    storeSplitviewPosition
   end
   
   def validateMenuItem(menuItem)
@@ -280,24 +281,28 @@ class TabbedViewController < NSViewController
     @sourceViewController.view.enclosingScrollView
   end
 
-  def updateSubviewPercentages
+  def storeSplitviewPosition
     if @splitView.subviews.size == 2
-      @webViewPercentage = calculateSubviewPositionPercentage(webView)
-      @sourceViewPercentage = 1.0 - @webViewPercentage
+      @webViewSplitviewPercentage = calculateSubviewPositionPercentage(webView)
+      @sourceViewSplitviewPercentage = 1.0 - @webViewSplitviewPercentage
     end
   end
   
   def calculateSubviewPositionPercentage(subview)
-    if @splitView.vertical?
+    if @splitView.vertical?      
       NSWidth(subview.bounds) / (NSWidth(@splitView.bounds) - @splitView.dividerThickness)
     else
       NSHeight(subview.bounds) / (NSHeight(@splitView.bounds) - @splitView.dividerThickness)
     end
   end
   
-  def positionSplitViewSubviews
-    positionSubview(webView, withPercentage:@webViewPercentage)
-    positionSubview(sourceView, withPercentage:@sourceViewPercentage)
+  def restoreSplitviewPosition
+    if @webViewSplitviewPercentage.nil? || @sourceViewSplitviewPercentage.nil?
+      @webViewSplitviewPercentage = 0.5
+      @sourceViewSplitviewPercentage = 0.5
+    end
+    positionSubview(webView, withPercentage:@webViewSplitviewPercentage)
+    positionSubview(sourceView, withPercentage:@sourceViewSplitviewPercentage)
   end
   
   def positionSubview(subview, withPercentage:percentage)
