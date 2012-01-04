@@ -47,14 +47,14 @@ class TabView < NSView
 
   def selectNextTab
     return unless @selectedTabCell
-    index = indexForTabCell(@selectedTabCell) + 1
-    selectTabCell(@tabCells[index]) if index < numberOfTabs
+    index = (indexForTabCell(@selectedTabCell) + 1) % numberOfTabs
+    selectTabCell(@tabCells[index])
   end
 
   def selectPreviousTab
     return unless @selectedTabCell
-    index = indexForTabCell(@selectedTabCell) - 1
-    selectTabCell(@tabCells[index]) if index >= 0
+    index = (indexForTabCell(@selectedTabCell) - 1) % numberOfTabs
+    selectTabCell(@tabCells[index])
   end  
 
   def editedTabs
