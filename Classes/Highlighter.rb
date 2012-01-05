@@ -14,7 +14,11 @@ class Highlighter
     processUserPreferences(PreferencesController.sharedPreferencesController)    
   end
 
-  def processEditing(notification)    
+  def mediaType=(type)
+    @syntaxDictionary = syntaxDictionaryForMediaType(type)
+  end
+
+  def processEditing(notification)
     textStorage = @textView.textStorage
     range = textStorage.editedRange
     changeInLen = textStorage.changeInLength
@@ -163,7 +167,7 @@ class Highlighter
   # 
   # This calls oldRecolorRange to handle old-style syntax definitions.
   def recolorRange(range)
-    return if @syntaxColoringBusy || @textView.nil? || range.length == 0
+    return if @syntaxColoringBusy || @textView.nil? || range.length == 0 || @syntaxDictionary.nil?
 
     # handle case where we may exceed text length
     diff = @textView.textStorage.length - (range.location + range.length)    
@@ -175,7 +179,7 @@ class Highlighter
             
       string = NSMutableAttributedString.alloc.initWithString(@textView.textStorage.string.substringWithRange(range))
 
-      syntaxDictionaryForMediaType(Media::XML).each do |component|
+      @syntaxDictionary.each do |component|
         
         type  = component[:type]
         name  = component[:name]
@@ -291,9 +295,7 @@ class Highlighter
 
         endOffset = scanner.scanLocation
 
-        # Now mess with the string's styles:
-        applyStyle(styles, s, startOffset, endOffset)
-        
+        # Now mess with the string's styles:        
         string.setAttributes(styles, range:NSMakeRange(startOffset, endOffset - startOffset))
       end
 
@@ -461,6 +463,8 @@ class Highlighter
       xmlSyntaxDictionary
     when Media::XML
       xmlSyntaxDictionary
+    when Media::CSS
+      cssSyntaxDictionary
     else
       defaultSyntaxDictionary
     end
@@ -500,12 +504,60 @@ class Highlighter
     ]
   end
   
+  def cssSyntaxDictionary
+    @cssSyntaxDictionary ||= [
+      { 
+        :name       => "Tags",
+        :type       => :tagType, 
+        :color      => @tagColor, 
+        :start      => "{", 
+        :end        => "} ", 
+        :ignored    => "Strings", 
+      },
+      { 
+        :name       => "Strings",
+        :type       => :stringType, 
+        :color      => @stringColor, 
+        :start      => "\"", 
+        :end        => "\"", 
+        :escapeChar => "",
+      },
+      { 
+        :name       => "Identifiers", 
+        :type       => :keywordType, 
+        :color      => @identifierColor, 
+        :keywords   => ["background:", "background-attachment:", "background-color:", "background-image:", "background-position:", 
+                        "background-repeat:", "border:", "border-bottom:", "border-bottom-color:", "border-bottom-style:", "border-bottom-width:", 
+                        "border-color:", "border-left:", "border-left-color:", "border-left-style:", "border-left-width:", "border-right:", 
+                        "border-right-color:", "border-right-style:", "border-right-width:", "border-style:", "border-top:", "border-top-color:", 
+                        "border-top-style:", "border-top-width:", "border-width:", "clear:", "cursor:", "display:", "float:", "position:", 
+                        "visibility:", "height:", "line-height:", "max-height:", "min-height:", "min-width:", "width:", "font:", "font-family:", 
+                        "font-size:", "font-size-adjust:", "font-strech:", "font-style:", "font-variant:", "font-weight:", "content:", 
+                        "counter-increment:", "counter-reset:", "quotes:", "list-style:", "list-style-image:", "list-style-position:", 
+                        "list-style-type:", "marker-offset:", "margin:", "margin-bottom:", "margin-left:", "margin-right:", "margin-top:", 
+                        "outline:", "outline-color:", "outline-style:", "outline-width:", "padding:", "padding-bottom:", "padding-left:", 
+                        "padding-right:", "padding-top:", "bottom:", "clip:", "left:", "overflow:", "right:", "top:", "vertical-align:", 
+                        "z-index:", "border-collapse:", "border-spacing:", "caption-side:", "empty-cells:", "table-layout:", "color:", 
+                        "direction:", "letter-spacing:", "text-align:", "text-decoration:", "text-indent:", "text-shadow:", "text-transform:", 
+                        "unicode-bidi:", "white-space:"],
+      },
+      { 
+        :name       => "Comments",
+        :type       => :blockCommentType, 
+        :color      => @commentColor, 
+        :start      => "/*",
+        :end        => "*/", 
+      }
+    ]
+  end
+  
   def defaultSyntaxDictionary
     @defaultSyntaxDictionary ||= []
   end
   
   def clearSyntaxDictionaries
     @xmlSyntaxDictionary = nil
+    @cssSyntaxDictionary = nil
     @defaultSyntaxDictionary = nil
   end
 

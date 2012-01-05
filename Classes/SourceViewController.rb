@@ -48,9 +48,10 @@ class SourceViewController < NSViewController
     # record the currently selected text range
     storeSelectedRange(@item)
 
-    @item = item    
+    @item = item
     if @item && @item.editable?
-      @lineNumberView.issueHash = @item.issueHash      
+      @lineNumberView.issueHash = @item.issueHash
+      @highlighter.mediaType = @item.mediaType if @highlighter
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:@textAttributes)
     else
       @lineNumberView.clearIssues
