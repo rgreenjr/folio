@@ -1,19 +1,20 @@
 class Highlighter
 
-  attr_accessor :textView
-
   FOLIO_ATTR = "FolioTextDocumentSyntaxColoringMode"
+  
+  attr_accessor :textView
   
   def initialize(textView)
     @textView = textView
-    @textAttributes = { NSFontAttributeName => NSFont.userFixedPitchFontOfSize(11.0) }
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"processEditing:", 
-      name:NSTextStorageDidProcessEditingNotification, object:@textView.textStorage)
+    
+    # register for text changes
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"processEditing:", name:NSTextStorageDidProcessEditingNotification, object:@textView.textStorage)
+      
+    # get user preferences  
+    processUserPreferences(PreferencesController.sharedPreferencesController)    
   end
 
-  def processEditing(notification)
-    # puts "processEditing"
-    
+  def processEditing(notification)    
     textStorage = @textView.textStorage
     range = textStorage.editedRange
     changeInLen = textStorage.changeInLength
@@ -96,9 +97,7 @@ class Highlighter
   end
 
   def textView(aTextView, shouldChangeTextInRange:affectedCharRange, replacementString:replacementString)
-    # puts "textView(aTextView, shouldChangeTextInRange:affectedCharRange, replacementString:replacementString)"
     @affectedCharRange = affectedCharRange
-    @replacementString = nil if @replacementString
     @replacementString = replacementString
     self.performSelector(:updateHighlights, withObject:nil, afterDelay:0.0)
     true
@@ -166,89 +165,47 @@ class Highlighter
   def recolorRange(range)
     return if @syntaxColoringBusy || @textView.nil? || range.length == 0
 
-    # Kludge fix for case where we sometimes exceed text length
-    diff = @textView.textStorage.length - (range.location + range.length)
-
-    if diff < 0
-      range.length += diff
-    end
+    # handle case where we may exceed text length
+    diff = @textView.textStorage.length - (range.location + range.length)    
+    
+    range.length += diff if diff < 0
 
     begin
-
       @syntaxColoringBusy = true
+            
+      string = NSMutableAttributedString.alloc.initWithString(@textView.textStorage.string.substringWithRange(range))
 
-      # Get the text we'll be working with:
-      vString = NSMutableAttributedString.alloc.initWithString(@textView.textStorage.string.substringWithRange(range))
-
-      # Load our dictionary which contains info on coloring this language:
-      vSyntaxDefinition = syntaxDefinitionDictionary
-
-      vComponentsEnny = vSyntaxDefinition["Components"].objectEnumerator
-
-      # Loop over all available components:
-      vCurrComponent = nil
-      vStyles = @textAttributes
-
-      while vCurrComponent = vComponentsEnny.nextObject
-        vComponentType = vCurrComponent["Type"]
-        vComponentName = vCurrComponent["Name"]
-        vColorKeyName = "SyntaxColoring:Color:".stringByAppendingString(vComponentName)
-
-        vColor = colorValue(vCurrComponent["Color"])
-
-        if vComponentType.isEqualToString("BlockComment")
-
-          colorCommentsFrom(vCurrComponent["Start"], to:vCurrComponent["End"], 
-          inString:vString, withColor:vColor, andMode:vComponentName)
-
-        elsif vComponentType.isEqualToString("OneLineComment")
-
-          colorOneLineComment(vCurrComponent["Start"], 
-          inString:vString, withColor:vColor, andMode:vComponentName)
-
-        elsif vComponentType.isEqualToString("String")
-
-          colorStringsFrom(vCurrComponent["Start"], to:vCurrComponent["End"], 
-          inString:vString, withColor:vColor, andMode:vComponentName, andEscapeChar:vCurrComponent["EscapeChar"])
-
-        elsif vComponentType.isEqualToString("Tag")
-
-          colorTagFrom(vCurrComponent["Start"], to:vCurrComponent["End"], 
-          inString:vString, withColor:vColor, andMode:vComponentName, exceptIfMode:vCurrComponent["IgnoredComponent"])
-
-        elsif vComponentType.isEqualToString("Keywords")
-
-          vIdents = vCurrComponent["Keywords"]
-
-          unless vIdents
-            vIdents = NSUserDefaults.standardUserDefaults["SyntaxColoring:Keywords:" + vComponentName]
-          end
-
-          if !vIdents && vComponentName.isEqualToString("UserIdentifiers")
-            vIdents = NSUserDefaults.standardUserDefaults[TD_USER_DEFINED_IDENTIFIERS]
-          end
-
-          if vIdents
-            vIdentCharset = nil
-            vCurrIdent = nil
-            vCsStr = vCurrComponent["Charset"]
-
-            if vCsStr
-              vIdentCharset = NSCharacterSet.characterSetWithCharactersInString(vCsStr)
-            end
-
-            vItty = vIdents.objectEnumerator
-            while vCurrIdent = vItty.nextObject
-              colorIdentifier(vCurrIdent, inString:vString, withColor:vColor, andMode:vComponentName, charset:vIdentCharset)
+      syntaxDictionaryForMediaType(Media::XML).each do |component|
+        
+        type  = component[:type]
+        name  = component[:name]
+        color = component[:color]
+        
+        case type
+        when :blockCommentType
+          colorCommentsFrom(component[:start], to:component[:end], inString:string, withColor:color, andMode:name)
+        when :oneLineCommentType
+          colorOneLineComment(component[:start], inString:string, withColor:color, andMode:name)
+        when :stringType
+          colorStringsFrom(component[:start], to:component[:end], inString:string, withColor:color, andMode:name, andEscapeChar:component[:escapeChar])
+        when :tagType
+          colorTagFrom(component[:start], to:component[:end], inString:string, withColor:color, andMode:name, exceptIfMode:component[:ignored])
+        when :keywordType
+          keywords = component[:keywords]
+          if keywords
+            keywordCharacterSet = component[:charset] ? NSCharacterSet.characterSetWithCharactersInString(component[:charset]) : nil
+            keywords.each do |keyword|
+              colorIdentifier(keyword, inString:string, withColor:color, andMode:name, charset:keywordCharacterSet)
             end
           end
         end
+        
       end
 
       # Replace the range with our recolored part:
-      vString.addAttributes(vStyles, range:NSMakeRange(0, vString.length))
+      string.addAttributes(@textAttributes, range:NSMakeRange(0, string.length))
 
-      @textView.textStorage.replaceCharactersInRange(range, withAttributedString:vString)
+      @textView.textStorage.replaceCharactersInRange(range, withAttributedString:string)
 
       @syntaxColoringBusy = false
 
@@ -259,93 +216,50 @@ class Highlighter
     end
   end
 
-  # Delegate method called when our selection changes. Updates our status
-  # display to indicate which characters are selected.
-  def textView(aTextView, willChangeSelectionFromCharacterRange:oldSelectedCharRange, toCharacterRange:newSelectedCharRange)
-    # puts "textView(aTextView, willChangeSelectionFromCharacterRange:oldSelectedCharRange, toCharacterRange:newSelectedCharRange)"
-
-    startCh = newSelectedCharRange.location + 1
-    endCh = newSelectedCharRange.location + newSelectedCharRange.length
-    lineNo = 1
-    lastLineStart = 0
-    lastBreakChar = 0
-    lastBreakOffs = 0
-
-    # Calc line number:
-    index = 0
-    while (index < startCh && index < aTextView.string.length)
-      char = aTextView.string[index]
-      case char
-      when "\n"
-        # LF in CRLF sequence? Treat this as a single line break.
-        if lastBreakOffs == (index - 1) && lastBreakChar == "\r"
-          lastBreakOffs = 0
-          lastBreakChar = 0
-          next
-        end
-        lineNo += 1
-        lastLineStart = index + 1
-        lastBreakOffs = index
-        lastBreakChar = char
-      when "\r"
-        lineNo += 1
-        lastLineStart = index + 1
-        lastBreakOffs = index
-        lastBreakChar = char
-      end
-      index += 1
-    end
-
-    startChLine = (newSelectedCharRange.location - lastLineStart) + 1
-    endChLine = (newSelectedCharRange.location - lastLineStart) + newSelectedCharRange.length
-
-    newSelectedCharRange
-  end
-
   # Apply syntax coloring to all strings. This is basically the same code
   # as used for multi-line comments, except that it ignores the end
   # character if it is preceded by a backslash.
-  def colorStringsFrom(startCh, to:endCh, inString:s, withColor:col, andMode:mode, andEscapeChar:vStringEscapeCharacter)
-    # puts "colorStringsFrom"
+  def colorStringsFrom(startChar, to:endChar, inString:string, withColor:color, andMode:mode, andEscapeChar:escapeChar)
     begin
-      vScanner = NSScanner.scannerWithString(s.string)
-      vStyles = {NSForegroundColorAttributeName => col, FOLIO_ATTR => mode}
-      vIsEndChar = false
-      vEscChar = "\\"
+      scanner = NSScanner.scannerWithString(string.string)
+      
+      styles = { NSForegroundColorAttributeName => color, FOLIO_ATTR => mode }
+      
+      foundEndChar = false
 
-      if vStringEscapeCharacter
-        if vStringEscapeCharacter.length != 0
-          vEscChar = vStringEscapeCharacter[0]
-        end
+      if escapeChar && escapeChar.length != 0
+        escChar = escapeChar[0]
+      else
+        escChar = "\\"
       end
 
-      while !vScanner.isAtEnd
-        vIsEndChar = false
+      while !scanner.isAtEnd
+        foundEndChar = false
 
         # Look for start of string:
-        vScanner.scanUpToString(startCh, intoString:nil)
-        vStartOffs = vScanner.scanLocation
+        scanner.scanUpToString(startChar, intoString:nil)
+        startOffset = scanner.scanLocation
 
-        return unless vScanner.scanString(startCh, intoString:nil)
+        return unless scanner.scanString(startChar, intoString:nil)
 
         # Loop until we find end-of-string marker or our text to color is finished:
-        while !vIsEndChar && !vScanner.isAtEnd
-          vScanner.scanUpToString(endCh, intoString: nil)
+        while !foundEndChar && !scanner.isAtEnd
+          scanner.scanUpToString(endChar, intoString: nil)
 
           # Backslash before the end marker? That means ignore the end marker.
-          if vStringEscapeCharacter.length == 0 || s.string[vScanner.scanLocation - 1] != vEscChar
+          if escapeChar.length == 0 || string.string[scanner.scanLocation - 1] != escChar
             # A real one! Terminate loop.
-            vIsEndChar = true
+            foundEndChar = true
           end
 
           # But skip this char before that.
-          return unless vScanner.scanString(endCh, intoString:nil)
+          return unless scanner.scanString(endChar, intoString:nil)
         end
 
-        vEndOffs = vScanner.scanLocation
+        endOffset = scanner.scanLocation
 
         # Now mess with the string's styles:
-        s.setAttributes(vStyles, range:NSMakeRange(vStartOffs, vEndOffs - vStartOffs))
+        string.setAttributes(styles, range:NSMakeRange(startOffset, endOffset - startOffset))
       end
 
     rescue Exception => e
@@ -354,62 +268,64 @@ class Highlighter
   end
 
   # Colorize block-comments in the text view.
-  def colorCommentsFrom(startCh, to:endCh, inString:s, withColor:col, andMode:mode)
-    # puts "colorCommentsFrom"
+  def colorCommentsFrom(startChar, to:endChar, inString:string, withColor:color, andMode:mode)
     begin
-      vScanner = NSScanner.scannerWithString(s.string)
-      vStyles = {NSForegroundColorAttributeName => col, FOLIO_ATTR => mode}
+      scanner = NSScanner.scannerWithString(string.string)
+      
+      styles = { NSForegroundColorAttributeName => color, FOLIO_ATTR => mode }
 
-      while !vScanner.isAtEnd
+      while !scanner.isAtEnd
 
         # Look for start of multi-line comment:
-        vScanner.scanUpToString(startCh, intoString:nil)
-        vStartOffs = vScanner.scanLocation
+        scanner.scanUpToString(startChar, intoString:nil)
+        startOffset = scanner.scanLocation
 
-        return unless vScanner.scanString(startCh, intoString:nil)
+        return unless scanner.scanString(startChar, intoString:nil)
 
         # Look for associated end-of-comment marker:
-        vScanner.scanUpToString(endCh, intoString:nil)
+        scanner.scanUpToString(endChar, intoString:nil)
 
-        unless vScanner.scanString(endCh, intoString:nil)
+        unless scanner.scanString(endChar, intoString:nil)
           # Don't exit. If user forgot trailing marker, indicate this by "bleeding" until end of string.
         end
 
-        vEndOffs = vScanner.scanLocation
+        endOffset = scanner.scanLocation
 
         # Now mess with the string's styles:
-        s.setAttributes(vStyles, range:NSMakeRange(vStartOffs, vEndOffs - vStartOffs))
+        applyStyle(styles, s, startOffset, endOffset)
+        
+        string.setAttributes(styles, range:NSMakeRange(startOffset, endOffset - startOffset))
       end
 
     rescue Exception => e
       puts "EXCEPTION: colorCommentsFrom => #{e.message}"
     end
   end
-
+  
   # Colorize one-line-comments in the text view.
-  def colorOneLineComment(startCh, inString:s, withColor:col, andMode:mode)
-    # puts "colorOneLineComment"
+  def colorOneLineComment(startChar, inString:string, withColor:color, andMode:mode)
     begin
-      vScanner = NSScanner.scannerWithString(s.string)
-      vStyles = {NSForegroundColorAttributeName => col, FOLIO_ATTR => mode}
+      scanner = NSScanner.scannerWithString(string.string)
+      
+      styles = { NSForegroundColorAttributeName => color, FOLIO_ATTR => mode }
 
-      while !vScanner.isAtEnd
+      while !scanner.isAtEnd
 
         # Look for start of one-line comment:
-        vScanner.scanUpToString(startCh, intoString:nil)
+        scanner.scanUpToString(startChar, intoString:nil)
 
-        vStartOffs = vScanner.scanLocation
+        startOffset = scanner.scanLocation
 
-        return unless vScanner.scanString(startCh, intoString:nil)
+        return unless scanner.scanString(startChar, intoString:nil)
 
         # Look for associated line break:
-        if !vScanner.skipUpToCharactersFromSet(NSCharacterSet.characterSetWithCharactersInString("\n\r"))
+        if !scanner.skipUpToCharactersFromSet(NSCharacterSet.characterSetWithCharactersInString("\n\r"))
         end
 
-        vEndOffs = vScanner.scanLocation
+        endOffset = scanner.scanLocation
 
         # Now mess with the string's styles:
-        s.setAttributes(vStyles, range:NSMakeRange(vStartOffs, vEndOffs - vStartOffs))
+        string.setAttributes(styles, range:NSMakeRange(startOffset, endOffset - startOffset))
       end
 
     rescue Exception => e
@@ -418,54 +334,55 @@ class Highlighter
   end
 
   # Colorize keywords in the text view.
-  def colorIdentifier(ident, inString:s, withColor:col, andMode:mode, charset:cset)
-    # puts "colorIdentifier"
+  def colorIdentifier(ident, inString:string, withColor:color, andMode:mode, charset:cset)
     begin
-      vScanner = NSScanner.scannerWithString(s.string)
-      vStyles = {NSForegroundColorAttributeName => col, FOLIO_ATTR => mode}
-      vStartOffs = 0
+      scanner = NSScanner.scannerWithString(string.string)
+      
+      styles = { NSForegroundColorAttributeName => color, FOLIO_ATTR => mode }
+      
+      startOffset = 0
 
       # Skip any leading whitespace chars, somehow NSScanner doesn't do that:
       if cset
-        while vStartOffs < s.string.length
-          if cset.characterIsMember(s.string[vStartOffs])
+        while startOffset < string.string.length
+          if cset.characterIsMember(string.string[startOffset])
             break 
           end
-          vStartOffs += 1
+          startOffset += 1
         end
       end
 
-      vScanner.setScanLocation(vStartOffs)
+      scanner.setScanLocation(startOffset)
 
-      while !vScanner.isAtEnd
+      while !scanner.isAtEnd
         # Look for start of identifier:
-        vScanner.scanUpToString(ident, intoString:nil)
+        scanner.scanUpToString(ident, intoString:nil)
 
-        vStartOffs = vScanner.scanLocation
+        startOffset = scanner.scanLocation
 
-        unless vScanner.scanString(ident, intoString:nil)
+        unless scanner.scanString(ident, intoString:nil)
           return
         end
 
         # Check that we're not in the middle of an identifier:
-        if vStartOffs > 0
+        if startOffset > 0
           # Alphanum character before identifier start?
           # If charset is NIL, this evaluates to NO.
-          if cset && cset.characterIsMember(s.string[vStartOffs - 1])
+          if cset && cset.characterIsMember(string.string[startOffset - 1])
             next
           end
         end
 
-        if vStartOffs + ident.length + 1 < s.length
+        if startOffset + ident.length + 1 < string.length
           # Alphanum character following our identifier?
           # If charset is NIL, this evaluates to NO.
-          if cset && cset.characterIsMember(s.string[vStartOffs + ident.length])
+          if cset && cset.characterIsMember(string.string[startOffset + ident.length])
             next
           end
         end
 
         # Now mess with the string's styles:
-        s.setAttributes(vStyles, range:NSMakeRange(vStartOffs, ident.length))
+        string.setAttributes(styles, range:NSMakeRange(startOffset, ident.length))
       end
 
     rescue Exception => e
@@ -474,102 +391,122 @@ class Highlighter
   end
 
   # # Colorize HTML tags or similar constructs in the text view.
-  def colorTagFrom(startCh, to:endCh, inString:s, withColor:col, andMode:mode, exceptIfMode:ignoreAttr)
-    # puts "colorTagFrom"
+  def colorTagFrom(startChar, to:endChar, inString:string, withColor:color, andMode:mode, exceptIfMode:ignoreAttr)
     begin
-      vScanner = NSScanner.scannerWithString(s.string)
-      vStyles = {NSForegroundColorAttributeName => col, FOLIO_ATTR => mode}
+      scanner = NSScanner.scannerWithString(string.string)
+      
+      styles = { NSForegroundColorAttributeName => color, FOLIO_ATTR => mode }
 
-      while !vScanner.isAtEnd
+      while !scanner.isAtEnd
 
         # Look for start of one-line comment:
-        vScanner.scanUpToString(startCh, intoString:nil)
-        vStartOffs = vScanner.scanLocation
+        scanner.scanUpToString(startChar, intoString:nil)
+        startOffset = scanner.scanLocation
 
-        return if vStartOffs >= s.length
+        return if startOffset >= string.length
 
-        scMode = s.attributesAtIndex(vStartOffs, effectiveRange:nil)[FOLIO_ATTR]
+        scMode = string.attributesAtIndex(startOffset, effectiveRange:nil)[FOLIO_ATTR]
 
-        return unless vScanner.scanString(startCh, intoString:nil)
+        return unless scanner.scanString(startChar, intoString:nil)
 
         # If start lies in range of ignored style, don't colorize it:
         next if ignoreAttr && scMode && scMode.isEqualToString(ignoreAttr)
 
         # Look for matching end marker:
-        while !vScanner.isAtEnd
+        while !scanner.isAtEnd
           # Scan up to the next occurence of the terminating sequence:
-          vScanner.scanUpToString(endCh, intoString:nil)
+          scanner.scanUpToString(endChar, intoString:nil)
 
           # Now, if the mode of the end marker is not the mode we were told to ignore,
           # we're finished now and we can exit the inner loop:
-          vEndOffs = vScanner.scanLocation
-          if vEndOffs < s.length
-            scMode = s.attributesAtIndex(vEndOffs, effectiveRange:nil)[FOLIO_ATTR]
+          endOffset = scanner.scanLocation
+          if endOffset < string.length
+            scMode = string.attributesAtIndex(endOffset, effectiveRange:nil)[FOLIO_ATTR]
 
             # Also skip the terminating sequence.
-            vScanner.scanString(endCh, intoString:nil)
+            scanner.scanString(endChar, intoString:nil)
 
             if ignoreAttr.nil? || scMode.nil? || !scMode.isEqualToString(ignoreAttr)
               break
             end
           end
 
-          # Otherwise we keep going, look for the next occurence of endCh and hope it isn't in that style.
+          # Otherwise we keep going, look for the next occurence of endChar and hope it isn't in that style.
         end
 
-        vEndOffs = vScanner.scanLocation
+        endOffset = scanner.scanLocation
 
         # Now mess with the string's styles:
-        s.setAttributes(vStyles, range:NSMakeRange(vStartOffs, vEndOffs - vStartOffs))
+        string.setAttributes(styles, range:NSMakeRange(startOffset, endOffset - startOffset))
       end
 
     rescue Exception => e
       puts "EXCEPTION: colorTagFrom => #{e.message}"
     end
   end
-
-  def font=(font)
-    @textAttributes = { NSFontAttributeName => font }
+  
+  def processUserPreferences(preferenceController)
+    @textAttributes = { NSFontAttributeName => preferenceController.font }
+    @stringColor = preferenceController.stringColor
+    @tagColor = preferenceController.tagColor
+    @commentColor = preferenceController.commentColor
+    @identifierColor = preferenceController.identifierColor
+    @backgroundColor = preferenceController.backgroundColor
+    clearSyntaxDictionaries
   end
-
-  def syntaxDefinitionDictionary
-    @htmlDictionary ||= {
-      "Components" => [
-        { 
-          "Name" => "Tags",
-          "Type" => "Tag", 
-          "Color" => [0.24, 0.34, 0.52], 
-          "Start" => "<", 
-          "End" => ">", 
-          "IgnoredComponent" => "Strings", 
-        },
-        { 
-          "Name" => "Strings",
-          "Type" => "String", 
-          "Color" => [0.63, 0.01, 0.0], 
-          "Start" => "\"", 
-          "End" => "\"", 
-          "EscapeChar" => "",
-        },
-        { 
-          "Name" => "Identifiers", 
-          "Type" => "Keywords", 
-          "Color" => [0.0, 0.1, 0.49], 
-          "Keywords" => ["&lt;", "&gt;", "&amp;", "&auml;", "&uuml;", "&ouml;"],
-        },
-        { 
-          "Name" => "Comments",
-          "Type" => "BlockComment", 
-          "Color" => [0.6, 0.6, 0.53], 
-          "Start" => "<!--",
-          "End" => "-->", 
-        }], 
-        "FileNameSuffixes" => ["htm", "html"]
-    }
+    
+  def syntaxDictionaryForMediaType(mediaType)
+    case mediaType
+    when Media::HTML
+      xmlSyntaxDictionary
+    when Media::XML
+      xmlSyntaxDictionary
+    else
+      defaultSyntaxDictionary
+    end
   end
-
-  def colorValue(array)
-    NSColor.colorWithCalibratedRed(array[0].to_f, green:array[1].to_f, blue:array[2].to_f, alpha:1.0)
+  
+  def xmlSyntaxDictionary
+    @xmlSyntaxDictionary ||= [
+      { 
+        :name       => "Tags",
+        :type       => :tagType, 
+        :color      => @tagColor, 
+        :start      => "<", 
+        :end        => ">", 
+        :ignored    => "Strings", 
+      },
+      { 
+        :name       => "Strings",
+        :type       => :stringType, 
+        :color      => @stringColor, 
+        :start      => "\"", 
+        :end        => "\"", 
+        :escapeChar => "",
+      },
+      { 
+        :name       => "Identifiers", 
+        :type       => :keywordType, 
+        :color      => @identifierColor, 
+        :keywords   => ["&lt;", "&gt;", "&amp;", "&auml;", "&uuml;", "&ouml;"],
+      },
+      { 
+        :name       => "Comments",
+        :type       => :blockCommentType, 
+        :color      => @commentColor, 
+        :start      => "<!--",
+        :end        => "-->", 
+      }
+    ]
+  end
+  
+  def defaultSyntaxDictionary
+    @defaultSyntaxDictionary ||= []
+  end
+  
+  def clearSyntaxDictionaries
+    @xmlSyntaxDictionary = nil
+    @defaultSyntaxDictionary = nil
   end
 
 end

@@ -18,21 +18,30 @@ class SourceViewController < NSViewController
 
     @highlighter = Highlighter.new(view)
     
-    self.font = PreferencesController.sharedPreferencesController.font
-    
     @selectedRangeHash = {}
+    
+    # set user font and background color
+    processUserPreferences(PreferencesController.sharedPreferencesController)
+        
+    # register to receive preference change notifications
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"preferencesDidChange:", 
+      name:'PreferencesDidChange', object:nil)
   end
   
   def bookController=(controller)
     @bookController = controller
-
-    # register to receive preference change notifications
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"preferencesDidChange:", 
-      name:'PreferencesDidChange', object:nil)    
   end
   
   def preferencesDidChange(notification)
-    self.font = notification.object.font
+    preferenceController = notification.object
+    processUserPreferences(preferenceController)
+    @highlighter.processUserPreferences(preferenceController) if @highlighter
+    self.item = @item # reload item to force font change
+  end
+  
+  def processUserPreferences(preferenceController)    
+    @textAttributes = { NSFontAttributeName => preferenceController.font, NSForegroundColorAttributeName => NSColor.redColor }
+    view.backgroundColor = preferenceController.backgroundColor
   end
 
   def item=(item)
@@ -231,12 +240,6 @@ class SourceViewController < NSViewController
     unsupported = menu.itemArray.select { |item| unsupportedMenuTitles.include?(item.title) }
     unsupported.each { |item| menu.removeItem(item) }
     menu
-  end
-  
-  def font=(font)
-    @textAttributes = { NSFontAttributeName => font }
-    @highlighter.font = font if @highlighter
-    self.item = @item # reload item to force font change
   end
   
   private
