@@ -1,7 +1,11 @@
 class CSSSyntax
   
   def self.sharedInstance
-    @syntax ||= [
+    @sharedInstance ||= self.new
+  end
+  
+  def initialize
+    @components = [
       { 
         :name       => "Tags",
         :type       => Syntax::TAG_TYPE,
@@ -41,6 +45,10 @@ class CSSSyntax
         :end        => "*/", 
       }
     ]
+  end
+
+  def each_component
+    @components.each {|component| yield component}
   end
   
 end

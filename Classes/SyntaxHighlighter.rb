@@ -114,7 +114,7 @@ class SyntaxHighlighter
       @syntaxColoringBusy = true
       string = NSMutableAttributedString.alloc.initWithString(@textView.textStorage.string.substringWithRange(range))
       string.addAttributes(@defaultTextAttributes, range:NSMakeRange(0, string.length))
-      @syntax.each do |component|
+      @syntax.each_component do |component|
         type  = component[:type]
         name  = component[:name]
         color = colorForSyntaxType(type)
