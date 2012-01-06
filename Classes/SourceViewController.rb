@@ -16,7 +16,7 @@ class SourceViewController < NSViewController
     view.delegate = self
     view.setEnabledTextCheckingTypes(0)
 
-    @highlighter = Highlighter.new(view)
+    @syntaxHighlighter = SyntaxHighlighter.new(view)
     
     @selectedRangeHash = {}
     
@@ -35,12 +35,12 @@ class SourceViewController < NSViewController
   def preferencesDidChange(notification)
     preferenceController = notification.object
     processUserPreferences(preferenceController)
-    @highlighter.processUserPreferences(preferenceController) if @highlighter
+    @syntaxHighlighter.processUserPreferences(preferenceController) if @syntaxHighlighter
     self.item = @item # reload item to force font change
   end
   
   def processUserPreferences(preferenceController)    
-    @textAttributes = { NSFontAttributeName => preferenceController.font, NSForegroundColorAttributeName => NSColor.redColor }
+    @textAttributes = { NSFontAttributeName => preferenceController.font }
     view.backgroundColor = preferenceController.backgroundColor
   end
 
@@ -51,13 +51,14 @@ class SourceViewController < NSViewController
     @item = item
     if @item && @item.editable?
       @lineNumberView.issueHash = @item.issueHash
-      @highlighter.mediaType = @item.mediaType if @highlighter
+      @syntaxHighlighter.mediaType = @item.mediaType if @syntaxHighlighter
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:@textAttributes)
     else
       @lineNumberView.clearIssues
       string = NSAttributedString.alloc.initWithString('')
     end
     view.textStorage.attributedString = string
+    view.textStorage.foregroundColor = NSColor.blueColor
     
     # restore previous selected text range
     restoreSelectedRange(@item)

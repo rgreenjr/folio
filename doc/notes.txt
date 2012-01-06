@@ -1,16 +1,16 @@
 Bugs
 ====
 
-- Fix issue splitview layout problems
-
 Features
 ========
 
 - Replace icons
+- Better handling of layout switch between media types
 
 Enhancements
 ============
 
+- User control of syntax highlighting color for default text
 - Search filtering of selection views
 - Add source code syntax highlighting
 - Ability to drag to manifest items to the desktop

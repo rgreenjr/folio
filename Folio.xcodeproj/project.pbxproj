@@ -50,6 +50,10 @@
 		CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0603AB1207940A00E447D5 /* WebKit.framework */; };
 		CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E59123140FA00A67BFB /* Fight Club.epub */; };
 		CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */ = {isa = PBXBuildFile; fileRef = CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */; };
+		CD0D0D3614B66F17000BB22C /* CSSSyntax.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0D0D3314B66F17000BB22C /* CSSSyntax.rb */; };
+		CD0D0D3714B66F17000BB22C /* Syntax.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0D0D3414B66F17000BB22C /* Syntax.rb */; };
+		CD0D0D3814B66F17000BB22C /* XMLSyntax.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0D0D3514B66F17000BB22C /* XMLSyntax.rb */; };
+		CD0D0D3B14B670FB000BB22C /* SyntaxHighlighter.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD0D0D3A14B670FB000BB22C /* SyntaxHighlighter.rb */; };
 		CD102B87149590A500EE8650 /* issues-hide-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD102B86149590A500EE8650 /* issues-hide-icon.png */; };
 		CD102B89149592D100EE8650 /* issues-show-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD102B88149592D100EE8650 /* issues-show-icon.png */; };
 		CD145F7F14A2A9B600DD607C /* SelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD145F7B14A2A9B600DD607C /* SelectionView.xib */; };
@@ -63,12 +67,9 @@
 		CD2D181112E5F1F800D6A99A /* BookWindowController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */; };
 		CD2D181212E5F1F800D6A99A /* Bundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DD12E5F1F800D6A99A /* Bundle.rb */; };
 		CD2D181312E5F1F800D6A99A /* Container.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DE12E5F1F800D6A99A /* Container.rb */; };
-		CD2D181412E5F1F800D6A99A /* CSS.treetop in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17DF12E5F1F800D6A99A /* CSS.treetop */; };
-		CD2D181512E5F1F800D6A99A /* CSSParser.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E012E5F1F800D6A99A /* CSSParser.rb */; };
 		CD2D181612E5F1F800D6A99A /* GotoLineController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E112E5F1F800D6A99A /* GotoLineController.rb */; };
 		CD2D181712E5F1F800D6A99A /* Guide.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E212E5F1F800D6A99A /* Guide.rb */; };
 		CD2D181812E5F1F800D6A99A /* HeaderView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E312E5F1F800D6A99A /* HeaderView.rb */; };
-		CD2D181912E5F1F800D6A99A /* Highlighter.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E412E5F1F800D6A99A /* Highlighter.rb */; };
 		CD2D181C12E5F1F800D6A99A /* ImageCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E712E5F1F800D6A99A /* ImageCell.rb */; };
 		CD2D181D12E5F1F800D6A99A /* ImageWell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E812E5F1F800D6A99A /* ImageWell.rb */; };
 		CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D17E912E5F1F800D6A99A /* Item.rb */; };
@@ -215,6 +216,10 @@
 		CD0603AB1207940A00E447D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CD0A2E59123140FA00A67BFB /* Fight Club.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fight Club.epub"; sourceTree = "<group>"; };
 		CD0A2E5A123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HTML & CSS_ The Good Parts.epub"; sourceTree = "<group>"; };
+		CD0D0D3314B66F17000BB22C /* CSSSyntax.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CSSSyntax.rb; sourceTree = "<group>"; };
+		CD0D0D3414B66F17000BB22C /* Syntax.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Syntax.rb; sourceTree = "<group>"; };
+		CD0D0D3514B66F17000BB22C /* XMLSyntax.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = XMLSyntax.rb; sourceTree = "<group>"; };
+		CD0D0D3A14B670FB000BB22C /* SyntaxHighlighter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SyntaxHighlighter.rb; sourceTree = "<group>"; };
 		CD102B86149590A500EE8650 /* issues-hide-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-hide-icon.png"; sourceTree = "<group>"; };
 		CD102B88149592D100EE8650 /* issues-show-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-show-icon.png"; sourceTree = "<group>"; };
 		CD145F7C14A2A9B600DD607C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SelectionView.xib; sourceTree = "<group>"; };
@@ -228,12 +233,9 @@
 		CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BookWindowController.rb; sourceTree = "<group>"; };
 		CD2D17DD12E5F1F800D6A99A /* Bundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Bundle.rb; sourceTree = "<group>"; };
 		CD2D17DE12E5F1F800D6A99A /* Container.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Container.rb; sourceTree = "<group>"; };
-		CD2D17DF12E5F1F800D6A99A /* CSS.treetop */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSS.treetop; sourceTree = "<group>"; };
-		CD2D17E012E5F1F800D6A99A /* CSSParser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CSSParser.rb; sourceTree = "<group>"; };
 		CD2D17E112E5F1F800D6A99A /* GotoLineController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = GotoLineController.rb; sourceTree = "<group>"; };
 		CD2D17E212E5F1F800D6A99A /* Guide.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Guide.rb; sourceTree = "<group>"; };
 		CD2D17E312E5F1F800D6A99A /* HeaderView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HeaderView.rb; sourceTree = "<group>"; };
-		CD2D17E412E5F1F800D6A99A /* Highlighter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Highlighter.rb; sourceTree = "<group>"; };
 		CD2D17E712E5F1F800D6A99A /* ImageCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageCell.rb; sourceTree = "<group>"; };
 		CD2D17E812E5F1F800D6A99A /* ImageWell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ImageWell.rb; sourceTree = "<group>"; };
 		CD2D17E912E5F1F800D6A99A /* Item.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Item.rb; sourceTree = "<group>"; };
@@ -492,12 +494,10 @@
 				CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */,
 				CD2D17DD12E5F1F800D6A99A /* Bundle.rb */,
 				CD2D17DE12E5F1F800D6A99A /* Container.rb */,
-				CD2D17DF12E5F1F800D6A99A /* CSS.treetop */,
-				CD2D17E012E5F1F800D6A99A /* CSSParser.rb */,
+				CD0D0D3314B66F17000BB22C /* CSSSyntax.rb */,
 				CD2D17E112E5F1F800D6A99A /* GotoLineController.rb */,
 				CD2D17E212E5F1F800D6A99A /* Guide.rb */,
 				CD2D17E312E5F1F800D6A99A /* HeaderView.rb */,
-				CD2D17E412E5F1F800D6A99A /* Highlighter.rb */,
 				CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */,
 				CDB6DED61492A0EF00E83456 /* HoverWindow.rb */,
 				CDAECE0514AA1E8D00CF8274 /* Image.rb */,
@@ -542,12 +542,15 @@
 				CD2D180212E5F1F800D6A99A /* Spine.rb */,
 				CD2D180312E5F1F800D6A99A /* SpineController.rb */,
 				CD2D180412E5F1F800D6A99A /* String.rb */,
+				CD0D0D3414B66F17000BB22C /* Syntax.rb */,
+				CD0D0D3A14B670FB000BB22C /* SyntaxHighlighter.rb */,
 				CDB780D5149964060025702F /* TabbedViewController.rb */,
 				CD2D180512E5F1F800D6A99A /* TabCell.rb */,
 				CD2D180612E5F1F800D6A99A /* TabView.rb */,
 				CD2D180A12E5F1F800D6A99A /* UUID.rb */,
 				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
 				CD2D180C12E5F1F800D6A99A /* WebViewController.rb */,
+				CD0D0D3514B66F17000BB22C /* XMLSyntax.rb */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -693,12 +696,9 @@
 				CD2D181112E5F1F800D6A99A /* BookWindowController.rb in Resources */,
 				CD2D181212E5F1F800D6A99A /* Bundle.rb in Resources */,
 				CD2D181312E5F1F800D6A99A /* Container.rb in Resources */,
-				CD2D181412E5F1F800D6A99A /* CSS.treetop in Resources */,
-				CD2D181512E5F1F800D6A99A /* CSSParser.rb in Resources */,
 				CD2D181612E5F1F800D6A99A /* GotoLineController.rb in Resources */,
 				CD2D181712E5F1F800D6A99A /* Guide.rb in Resources */,
 				CD2D181812E5F1F800D6A99A /* HeaderView.rb in Resources */,
-				CD2D181912E5F1F800D6A99A /* Highlighter.rb in Resources */,
 				CD2D181C12E5F1F800D6A99A /* ImageCell.rb in Resources */,
 				CD2D181D12E5F1F800D6A99A /* ImageWell.rb in Resources */,
 				CD2D181E12E5F1F800D6A99A /* Item.rb in Resources */,
@@ -820,6 +820,10 @@
 				CD1A2D7314B20F82008200F8 /* Numeric.rb in Resources */,
 				CD389FF714B2349B00305ED7 /* warning.png in Resources */,
 				CD9373CA14B392980068FA40 /* epub-icon.icns in Resources */,
+				CD0D0D3614B66F17000BB22C /* CSSSyntax.rb in Resources */,
+				CD0D0D3714B66F17000BB22C /* Syntax.rb in Resources */,
+				CD0D0D3814B66F17000BB22C /* XMLSyntax.rb in Resources */,
+				CD0D0D3B14B670FB000BB22C /* SyntaxHighlighter.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,12 +1,12 @@
 class PreferencesController < NSWindowController
 
-  FONT_NAME_KEY = "FontName"
-  FONT_SIZE_KEY = "FontSize"
-  
+  FONT_NAME_KEY     = "FontName"
+  FONT_SIZE_KEY     = "FontSize"
   STRING_COLOR      = "StringColor"
   TAG_COLOR         = "TagColor"
   COMMENT_COLOR     = "CommentColor"
-  IDENTIFIER_COLOR  = "IdentifierColor"
+  KEYWORD_COLOR     = "KeywordColor"
+  FOREGROUND_COLOR  = "ForegroundColor"
   BACKGROUND_COLOR  = "BackgroundColor"
 
   attr_reader   :font
@@ -21,9 +21,12 @@ class PreferencesController < NSWindowController
   attr_reader   :commentColor
   attr_accessor :commentColorWell
 
-  attr_reader   :identifierColor
-  attr_accessor :identifierColorWell
+  attr_reader   :keywordColor
+  attr_accessor :keywordColorWell
 
+  attr_reader   :foregroundColor
+  attr_accessor :foregroundColorWell
+  
   attr_reader   :backgroundColor
   attr_accessor :backgroundColorWell
 
@@ -75,8 +78,10 @@ class PreferencesController < NSWindowController
       @tagColor = @tagColorWell.color
     when @commentColorWell
       @commentColor = @commentColorWell.color
-    when @identifierColorWell
-      @identifierColor = @identifierColorWell.color
+    when @keywordColorWell
+      @keywordColor = @keywordColorWell.color
+    when @foregroundColorWell
+      @foregroundColor = @foregroundColorWell.color
     when @backgroundColorWell
       @backgroundColor = @backgroundColorWell.color
     end
@@ -89,7 +94,8 @@ class PreferencesController < NSWindowController
     @stringColor     = defaultStringColor
     @tagColor        = defaultTagColor
     @commentColor    = defaultCommentColor
-    @identifierColor = defaultIdentifierColor
+    @keywordColor    = defaultKeywordColor
+    @foregroundColor = defaultForegroundColor
     @backgroundColor = defaultBackgroundColor
     writeFontPreference
     writeColorPreferences
@@ -104,7 +110,8 @@ class PreferencesController < NSWindowController
     @stringColor     = readColor(STRING_COLOR)     || defaultStringColor
     @tagColor        = readColor(TAG_COLOR)        || defaultTagColor
     @commentColor    = readColor(COMMENT_COLOR)    || defaultCommentColor
-    @identifierColor = readColor(IDENTIFIER_COLOR) || defaultIdentifierColor
+    @keywordColor    = readColor(KEYWORD_COLOR)    || defaultKeywordColor
+    @foregroundColor = readColor(FOREGROUND_COLOR) || defaultForegroundColor
     @backgroundColor = readColor(BACKGROUND_COLOR) || defaultBackgroundColor
   end
   
@@ -112,7 +119,8 @@ class PreferencesController < NSWindowController
     writeColor(@stringColor,     STRING_COLOR)
     writeColor(@tagColor,        TAG_COLOR)
     writeColor(@commentColor,    COMMENT_COLOR)
-    writeColor(@identifierColor, IDENTIFIER_COLOR)
+    writeColor(@keywordColor,    KEYWORD_COLOR)
+    writeColor(@foregroundColor, FOREGROUND_COLOR)
     writeColor(@backgroundColor, BACKGROUND_COLOR)
   end
 
@@ -145,7 +153,8 @@ class PreferencesController < NSWindowController
     @stringColorWell.color     = @stringColor
     @tagColorWell.color        = @tagColor
     @commentColorWell.color    = @commentColor
-    @identifierColorWell.color = @identifierColor
+    @keywordColorWell.color    = @keywordColor
+    @foregroundColorWell.color = @foregroundColor
     @backgroundColorWell.color = @backgroundColor
   end
   
@@ -165,10 +174,14 @@ class PreferencesController < NSWindowController
     NSColor.colorWithCalibratedRed(0.60, green:0.60, blue:0.53, alpha:1.0)
   end
   
-  def defaultIdentifierColor
+  def defaultKeywordColor
     NSColor.colorWithCalibratedRed(0.00, green:0.10, blue:0.49, alpha:1.0)
   end
 
+  def defaultForegroundColor
+    NSColor.blackColor
+  end
+  
   def defaultBackgroundColor
     NSColor.whiteColor
   end
