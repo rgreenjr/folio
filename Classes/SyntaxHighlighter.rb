@@ -112,30 +112,32 @@ class SyntaxHighlighter
 
     begin
       @syntaxColoringBusy = true
+
       string = NSMutableAttributedString.alloc.initWithString(@textView.textStorage.string.substringWithRange(range))
       string.addAttributes(@defaultTextAttributes, range:NSMakeRange(0, string.length))
-      @syntax.each_component do |component|
-        type  = component[:type]
-        name  = component[:name]
-        color = colorForSyntaxType(type)
-        case type
-        when Syntax::BLOCK_COMMENT_TYPE
-          colorBlockCommentsFrom(component[:start], to:component[:end], inString:string, withColor:color, andMode:name)
-        when Syntax::COMMENT_TYPE
-          colorOneLineComments(component[:start], inString:string, withColor:color, andMode:name)
-        when Syntax::STRING_TYPE
-          colorStringsFrom(component[:start], to:component[:end], inString:string, withColor:color, andMode:name, andEscapeChar:component[:escapeChar])
-        when Syntax::TAG_TYPE
-          colorTagsFrom(component[:start], to:component[:end], inString:string, withColor:color, andMode:name, exceptIfMode:component[:ignored])
-        when Syntax::KEYWORD_TYPE
-          keywords = component[:keywords]
-          if keywords
-            keywords.each do |keyword|
-              colorIdentifiers(keyword, inString:string, withColor:color, andMode:name)
-            end
-          end
+      
+      if @syntax.keywords
+        @syntax.keywords[:list].each do |keyword|
+          colorIdentifiers(keyword, inString:string, withColor:@keywordColor, andMode:@syntax.keywords[:name])
         end
       end
+
+      if @syntax.tags
+        colorTagsFrom(@syntax.tags[:start], to:@syntax.tags[:end], inString:string, withColor:@tagColor, andMode:@syntax.tags[:name], exceptIfMode:@syntax.tags[:ignored])
+      end
+
+      if @syntax.strings
+        colorStringsFrom(@syntax.strings[:start], to:@syntax.strings[:end], inString:string, withColor:@stringColor, andMode: @syntax.strings[:name], andEscapeChar: @syntax.strings[:escapeChar])
+      end
+
+      if @syntax.comments
+        colorOneLineComments(@syntax.comments[:start], inString:string, withColor:@commentColor, andMode:@syntax.comments[:name])
+      end
+
+      if @syntax.blockComments
+        colorBlockCommentsFrom(@syntax.blockComments[:start], to:@syntax.blockComments[:end], inString:string, withColor:@commentColor, andMode:@syntax.blockComments[:name])
+      end
+      
       @textView.textStorage.replaceCharactersInRange(range, withAttributedString:string)
       @syntaxColoringBusy = false
     rescue Exception => e
@@ -293,7 +295,7 @@ class SyntaxHighlighter
     when Media::CSS
       CSSSyntax.sharedInstance
     else
-      Syntax.defaultInstance
+      Syntax.sharedInstance
     end
   end
   

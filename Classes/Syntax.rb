@@ -6,8 +6,15 @@ class Syntax
   COMMENT_TYPE       = "CommentType"
   BLOCK_COMMENT_TYPE = "BlockCommentType"
   
-  def self.defaultInstance
-    @defaultInstance ||= []
+  attr_accessor :type
+  attr_accessor :tags
+  attr_accessor :strings
+  attr_accessor :keywords
+  attr_accessor :comments
+  attr_accessor :blockComments
+  
+  def self.sharedInstance
+    @sharedInstance ||= self.new
   end
   
 end

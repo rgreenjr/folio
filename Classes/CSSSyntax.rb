@@ -1,29 +1,32 @@
-class CSSSyntax
+require 'Syntax.rb'
+
+class CSSSyntax < Syntax
   
   def self.sharedInstance
     @sharedInstance ||= self.new
   end
   
   def initialize
-    @components = [
-      { 
+      self.tags = { 
         :name       => "Tags",
         :type       => Syntax::TAG_TYPE,
         :start      => "{", 
         :end        => "} ", 
         :ignored    => "Strings", 
-      },
-      { 
+      }
+      
+      self.strings = { 
         :name       => "Strings",
         :type       => Syntax::STRING_TYPE,
         :start      => "\"", 
         :end        => "\"", 
         :escapeChar => "",
-      },
-      { 
+      }
+      
+      self.keywords = { 
         :name       => "Keywords", 
         :type       => Syntax::KEYWORD_TYPE,
-        :keywords   => ["background:", "background-attachment:", "background-color:", "background-image:", "background-position:", 
+        :list       => ["background:", "background-attachment:", "background-color:", "background-image:", "background-position:", 
                         "background-repeat:", "border:", "border-bottom:", "border-bottom-color:", "border-bottom-style:", "border-bottom-width:", 
                         "border-color:", "border-left:", "border-left-color:", "border-left-style:", "border-left-width:", "border-right:", 
                         "border-right-color:", "border-right-style:", "border-right-width:", "border-style:", "border-top:", "border-top-color:", 
@@ -37,18 +40,14 @@ class CSSSyntax
                         "z-index:", "border-collapse:", "border-spacing:", "caption-side:", "empty-cells:", "table-layout:", "color:", 
                         "direction:", "letter-spacing:", "text-align:", "text-decoration:", "text-indent:", "text-shadow:", "text-transform:", 
                         "unicode-bidi:", "white-space:"],
-      },
-      { 
-        :name       => "Comments",
+      }
+      
+      self.blockComments = { 
+        :name       => "BlockComments",
         :type       => Syntax::BLOCK_COMMENT_TYPE,
         :start      => "/*",
         :end        => "*/", 
       }
-    ]
   end
 
-  def each_component
-    @components.each {|component| yield component}
-  end
-  
 end
