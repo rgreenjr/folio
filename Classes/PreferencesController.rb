@@ -183,19 +183,19 @@ class PreferencesController < NSWindowController
   end
   
   def defaultStringColor
-    NSColor.colorWithCalibratedRed(0.63, green:0.01, blue:0.00, alpha:1.0)
+    NSColor.colorWithCalibratedRed(0.86, green:0.07, blue:0.27, alpha:1.0)
   end
   
   def defaultTagColor
-    NSColor.colorWithCalibratedRed(0.24, green:0.34, blue:0.52, alpha:1.0)
+    NSColor.colorWithCalibratedRed(0.00, green:0.0, blue:0.50, alpha:1.0)
   end
 
   def defaultCommentColor
-    NSColor.colorWithCalibratedRed(0.60, green:0.60, blue:0.53, alpha:1.0)
+    NSColor.colorWithCalibratedRed(0.60, green:0.60, blue:0.60, alpha:1.0)
   end
   
   def defaultKeywordColor
-    NSColor.colorWithCalibratedRed(0.00, green:0.10, blue:0.49, alpha:1.0)
+    NSColor.colorWithCalibratedRed(0.00, green:0.50, blue:0.50, alpha:1.0)
   end
 
   def defaultForegroundColor
