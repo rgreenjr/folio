@@ -8,6 +8,8 @@ class PreferencesController < NSWindowController
   KEYWORD_COLOR     = "KeywordColor"
   FOREGROUND_COLOR  = "ForegroundColor"
   BACKGROUND_COLOR  = "BackgroundColor"
+  CARET_COLOR       = "CaretColor"
+  SELECTION_COLOR   = "SelectionColor"
 
   attr_reader   :font
   attr_accessor :fontTextField
@@ -29,6 +31,12 @@ class PreferencesController < NSWindowController
   
   attr_reader   :backgroundColor
   attr_accessor :backgroundColorWell
+  
+  attr_reader   :caretColor
+  attr_accessor :caretColorWell
+
+  attr_reader   :selectionColor
+  attr_accessor :selectionColorWell
 
   def self.sharedPreferencesController
     @sharedPreferencesController ||= PreferencesController.alloc.init
@@ -84,6 +92,10 @@ class PreferencesController < NSWindowController
       @foregroundColor = @foregroundColorWell.color
     when @backgroundColorWell
       @backgroundColor = @backgroundColorWell.color
+    when @caretColorWell
+      @caretColor = @caretColorWell.color
+    when @selectionColorWell
+      @selectionColor = @selectionColorWell.color
     end
     writeColorPreferences
     postNotification
@@ -97,6 +109,8 @@ class PreferencesController < NSWindowController
     @keywordColor    = defaultKeywordColor
     @foregroundColor = defaultForegroundColor
     @backgroundColor = defaultBackgroundColor
+    @caretColor      = defaultCaretColor
+    @selectionColor  = defaultSelectionColor
     writeFontPreference
     writeColorPreferences
     updateFontTextField
@@ -113,6 +127,8 @@ class PreferencesController < NSWindowController
     @keywordColor    = readColor(KEYWORD_COLOR)    || defaultKeywordColor
     @foregroundColor = readColor(FOREGROUND_COLOR) || defaultForegroundColor
     @backgroundColor = readColor(BACKGROUND_COLOR) || defaultBackgroundColor
+    @caretColor      = readColor(CARET_COLOR)      || defaultCaretColor
+    @selectionColor  = readColor(SELECTION_COLOR)  || defaultSelectionColor
   end
   
   def writeColorPreferences
@@ -122,6 +138,8 @@ class PreferencesController < NSWindowController
     writeColor(@keywordColor,    KEYWORD_COLOR)
     writeColor(@foregroundColor, FOREGROUND_COLOR)
     writeColor(@backgroundColor, BACKGROUND_COLOR)
+    writeColor(@caretColor,      CARET_COLOR)
+    writeColor(@selectionColor,  SELECTION_COLOR)
   end
 
   def readColor(colorKey)
@@ -156,6 +174,8 @@ class PreferencesController < NSWindowController
     @keywordColorWell.color    = @keywordColor
     @foregroundColorWell.color = @foregroundColor
     @backgroundColorWell.color = @backgroundColor
+    @caretColorWell.color      = @caretColor
+    @selectionColorWell.color  = @selectionColor
   end
   
   def defaultFont
@@ -184,6 +204,14 @@ class PreferencesController < NSWindowController
   
   def defaultBackgroundColor
     NSColor.whiteColor
+  end
+  
+  def defaultCaretColor
+    NSColor.blackColor
+  end
+  
+  def defaultSelectionColor
+    NSColor.colorWithCalibratedRed(0.70, green:0.83, blue:0.99, alpha:1.0)
   end
   
   def postNotification

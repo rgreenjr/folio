@@ -10,7 +10,7 @@ Features
 Enhancements
 ============
 
-- User control of syntax highlighting color for default text
+- Figure out why syntax highlighting is being invoked so often
 - Search filtering of selection views
 - Add source code syntax highlighting
 - Ability to drag to manifest items to the desktop

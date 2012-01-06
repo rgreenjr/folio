@@ -42,6 +42,11 @@ class SourceViewController < NSViewController
   def processUserPreferences(preferenceController)    
     @textAttributes = { NSFontAttributeName => preferenceController.font }
     view.backgroundColor = preferenceController.backgroundColor
+    view.insertionPointColor = preferenceController.caretColor
+    view.selectedTextAttributes = { 
+      NSFontAttributeName => preferenceController.font,
+      NSBackgroundColorAttributeName => preferenceController.selectionColor
+    }
   end
 
   def item=(item)
