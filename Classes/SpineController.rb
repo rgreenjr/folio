@@ -45,7 +45,7 @@ class SpineController < NSResponder
       cell.menu = nil
     else
       cell.font = NSFont.systemFontOfSize(11.0)
-      cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.item.name))
+      cell.image = nil # NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.item.name))
       cell.menu = @menu
     end
   end
