@@ -145,8 +145,6 @@
 		CD67130014928E36000B8BBB /* bubble-background-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6712FE14928E36000B8BBB /* bubble-background-left.png */; };
 		CD67130114928E36000B8BBB /* bubble-background-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6712FF14928E36000B8BBB /* bubble-background-right.png */; };
 		CD6713031492952D000B8BBB /* bubble-background-middle.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6713021492952D000B8BBB /* bubble-background-middle.png */; };
-		CD6C9CAE12F382DA0056D86B /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6C9CAC12F382DA0056D86B /* check.png */; };
-		CD6C9CAF12F382DA0056D86B /* wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6C9CAD12F382DA0056D86B /* wrench.png */; };
 		CD72EFE814AD1FDC0000B398 /* yield.png in Resources */ = {isa = PBXBuildFile; fileRef = CD72EFE714AD1FDC0000B398 /* yield.png */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
 		CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F912EB3EAF009E33A3 /* IssueView.xib */; };
@@ -311,8 +309,6 @@
 		CD6712FE14928E36000B8BBB /* bubble-background-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-left.png"; sourceTree = "<group>"; };
 		CD6712FF14928E36000B8BBB /* bubble-background-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-right.png"; sourceTree = "<group>"; };
 		CD6713021492952D000B8BBB /* bubble-background-middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-middle.png"; sourceTree = "<group>"; };
-		CD6C9CAC12F382DA0056D86B /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
-		CD6C9CAD12F382DA0056D86B /* wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrench.png; sourceTree = "<group>"; };
 		CD72EFE714AD1FDC0000B398 /* yield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yield.png; sourceTree = "<group>"; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
 		CD85C8FA12EB3EAF009E33A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/IssueView.xib; sourceTree = "<group>"; };
@@ -564,7 +560,6 @@
 				CD6712FE14928E36000B8BBB /* bubble-background-left.png */,
 				CD6713021492952D000B8BBB /* bubble-background-middle.png */,
 				CD6712FF14928E36000B8BBB /* bubble-background-right.png */,
-				CD6C9CAC12F382DA0056D86B /* check.png */,
 				CDB542C412F3638100BB5739 /* empty-inspector.png */,
 				CD9373C914B392980068FA40 /* epub-icon.icns */,
 				CD2D185712E5F28500D6A99A /* find-close-click.png */,
@@ -600,7 +595,6 @@
 				CD17D85714AEC956004080CE /* Validate.png */,
 				CD2D186E12E5F28500D6A99A /* vertical.png */,
 				CD389FF614B2349B00305ED7 /* warning.png */,
-				CD6C9CAD12F382DA0056D86B /* wrench.png */,
 				CD72EFE714AD1FDC0000B398 /* yield.png */,
 			);
 			path = Images;
@@ -789,8 +783,6 @@
 				CDB5428812F33D2000BB5739 /* ItemViewController.rb in Resources */,
 				CDB5428D12F33D2E00BB5739 /* ItemView.xib in Resources */,
 				CDB542C512F3638100BB5739 /* empty-inspector.png in Resources */,
-				CD6C9CAE12F382DA0056D86B /* check.png in Resources */,
-				CD6C9CAF12F382DA0056D86B /* wrench.png in Resources */,
 				CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */,
 				CDDF2453140D57DF00D2898B /* Blank.rb in Resources */,
 				CD67130014928E36000B8BBB /* bubble-background-left.png in Resources */,

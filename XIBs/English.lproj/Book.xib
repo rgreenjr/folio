@@ -109,11 +109,9 @@
 								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {137, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -305,7 +303,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<object class="NSArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
@@ -315,11 +313,11 @@
 						<reference ref="826128801"/>
 						<reference ref="588453196"/>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
+					<object class="NSArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="192817359"/>
-						<reference ref="1019910006"/>
 						<reference ref="25041146"/>
+						<reference ref="1019910006"/>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
 						<reference ref="961348391"/>
@@ -403,7 +401,6 @@
 							<string key="NSFrame">{{17, 1}, {937, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
@@ -455,7 +452,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSImageView" id="80335154">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableSet" key="NSDragTypes">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -470,6 +467,8 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{510, 457}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<bool key="NSEnabled">YES</bool>
 				<object class="NSImageCell" key="NSCell" id="803434083">
 					<int key="NSCellFlags">537001472</int>
