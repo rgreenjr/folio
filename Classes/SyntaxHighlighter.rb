@@ -112,11 +112,11 @@ class SyntaxHighlighter
 
     # highlighting order here is important
 
-    # highlight keywords
-    colorString(string, @syntax.keywords, @keywordColor) if @syntax.keywords
-
     # highlight tag
     colorString(string, @syntax.tags, @tagColor) if @syntax.tags
+
+    # highlight keywords
+    colorString(string, @syntax.keywords, @keywordColor) if @syntax.keywords
 
     # highlight strings
     colorString(string, @syntax.strings, @stringColor) if @syntax.strings
