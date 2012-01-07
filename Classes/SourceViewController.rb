@@ -49,7 +49,7 @@ class SourceViewController < NSViewController
     }
   end
 
-  def item=(item)
+  def item=(item)    
     # record the currently selected text range
     storeSelectedRange(@item)
 
@@ -63,7 +63,6 @@ class SourceViewController < NSViewController
       string = NSAttributedString.alloc.initWithString('')
     end
     view.textStorage.attributedString = string
-    view.textStorage.foregroundColor = NSColor.blueColor
     
     # restore previous selected text range
     restoreSelectedRange(@item)
