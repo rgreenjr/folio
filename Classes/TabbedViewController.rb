@@ -61,8 +61,7 @@ class TabbedViewController < NSViewController
   end
 
   def textDidChange(notification)
-    # required to update edited status
-    @tabView.setNeedsDisplay(true)
+    @tabView.setNeedsDisplay(true) # required to toggle close icon to edited state
   end
   
   def tabView(tabView, selectionDidChange:selectedTab, item:item, point:point)

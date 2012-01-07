@@ -104,13 +104,17 @@ class BookWindowController < NSWindowController
   end
   
   def showTabbedView
-    @logoImageView.hidden = true
-    @tabbedViewController.show
+    unless @logoImageView.hidden?
+      @logoImageView.hidden = true
+      @tabbedViewController.show
+    end
   end
 
   def showLogoImage
-    @logoImageView.hidden = false
-    @tabbedViewController.hide
+    if @logoImageView.hidden?
+      @logoImageView.hidden = false
+      @tabbedViewController.hide
+    end
   end
 
   def issueViewController
