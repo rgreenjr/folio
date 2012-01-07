@@ -184,6 +184,7 @@
 		CDEBCB1312F0B40700E8834D /* InspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB1112F0B40700E8834D /* InspectorView.xib */; };
 		CDEBCB8512F0CBDA00E8834D /* inspector-border.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB8412F0CBDA00E8834D /* inspector-border.png */; };
 		CDEBCBEE12F0E7CB00E8834D /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBED12F0E7CB00E8834D /* preview.png */; };
+		CDF1F01714B8F18800040124 /* wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF1F01614B8F18800040124 /* wrench.png */; };
 		CDF7071614AA68CA004F76EF /* PointPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF7071514AA68CA004F76EF /* PointPanel.xib */; };
 		CDF7071914AA68FA004F76EF /* PointPanelController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDF7071814AA68FA004F76EF /* PointPanelController.rb */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
@@ -348,6 +349,7 @@
 		CDEBCB1212F0B40700E8834D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/InspectorView.xib; sourceTree = "<group>"; };
 		CDEBCB8412F0CBDA00E8834D /* inspector-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inspector-border.png"; sourceTree = "<group>"; };
 		CDEBCBED12F0E7CB00E8834D /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
+		CDF1F01614B8F18800040124 /* wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrench.png; sourceTree = "<group>"; };
 		CDF7071514AA68CA004F76EF /* PointPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointPanel.xib; sourceTree = "<group>"; };
 		CDF7071814AA68FA004F76EF /* PointPanelController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointPanelController.rb; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -555,6 +557,7 @@
 		CD2D185412E5F28500D6A99A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDF1F01614B8F18800040124 /* wrench.png */,
 				CD2206671493D04D00AB589F /* background-logo.png */,
 				CD2D185612E5F28500D6A99A /* book.png */,
 				CD6712FE14928E36000B8BBB /* bubble-background-left.png */,
@@ -816,6 +819,7 @@
 				CD0D0D3B14B670FB000BB22C /* SyntaxHighlighter.rb in Resources */,
 				CD659C4014B8C7AE00870743 /* metatdata.png in Resources */,
 				CD659C4414B8C94200870743 /* metadata.png in Resources */,
+				CDF1F01714B8F18800040124 /* wrench.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
