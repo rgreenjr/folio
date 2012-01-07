@@ -1,18 +1,18 @@
 Bugs
 ====
 
+- Better handling of layout switch between media types
+
 Features
 ========
 
-- Replace icons
-- Better handling of layout switch between media types
 
 Enhancements
 ============
 
+- Move guide type selection to TOC.
 - Figure out why syntax highlighting is being invoked so often
 - Search filtering of selection views
-- Add source code syntax highlighting
 - Ability to drag to manifest items to the desktop
 - Add WebView forward/backward buttons
 - Support "replace" when moving items in Manifest

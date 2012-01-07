@@ -104,17 +104,13 @@ class BookWindowController < NSWindowController
   end
   
   def showTabbedView
-    unless @logoImageView.hidden?
-      @logoImageView.hidden = true
-      @tabbedViewController.show
-    end
+    @logoImageView.hidden = true
+    @tabbedViewController.show
   end
 
   def showLogoImage
-    if @logoImageView.hidden?
-      @logoImageView.hidden = false
-      @tabbedViewController.hide
-    end
+    @logoImageView.hidden = false
+    @tabbedViewController.hide
   end
 
   def issueViewController
@@ -309,12 +305,12 @@ class BookWindowController < NSWindowController
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = issueViewController.visible? ? "Hide Validation Issues" : "Show Validation Issues"
       end
+      true
     when :"toggleInspectorView:"
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = inspectorViewController.visible? ? "Hide Properties Inspector" : "Show Properties Inspector"
-      else
-        true
       end
+      true
     when :"printDocument:"
       @tabbedViewController.numberOfTabs > 0
     else
