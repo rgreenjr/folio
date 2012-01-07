@@ -21,7 +21,7 @@ class XMLSyntax < Syntax
     self.keywords = {
       :name   => "Keywords",
       :type   => Syntax::KEYWORD_TYPE,
-      :regex  => /&([a-zA-Z]+|#\d{4}|#x[a-fA-F0-9]{4});/
+      :regex  => /&([a-zA-Z]+|#\d+|#x[a-fA-F0-9]+);/
     }
 
     self.blockComments = { 
