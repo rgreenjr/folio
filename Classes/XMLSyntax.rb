@@ -6,32 +6,28 @@ class XMLSyntax < Syntax
   
   def initialize
       self.tags = { 
-        :name       => "Tags",
-        :type       => Syntax::TAG_TYPE, 
-        :start      => "<", 
-        :end        => ">", 
-        :ignored    => "Strings", 
+        :name   => "Tags",
+        :type   => Syntax::TAG_TYPE,
+        :regex  => /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/,
+        :ignore => "Strings"
       }
       
       self.strings = { 
-        :name       => "Strings",
-        :type       => Syntax::STRING_TYPE, 
-        :start      => "\"", 
-        :end        => "\"", 
-        :escapeChar => "",
+        :name   => "Strings",
+        :type   => Syntax::STRING_TYPE,
+        :regex  => /"(?:[^"\\]|\\.)*"/
       }
       
       self.keywords = {
-        :name       => "Keywords", 
-        :type       => Syntax::KEYWORD_TYPE, 
-        :list       => ["&lt;", "&gt;", "&amp;", "&auml;", "&uuml;", "&ouml;"],
+        :name   => "Keywords", 
+        :type   => Syntax::KEYWORD_TYPE, 
+        :regex  => /&([a-zA-Z]+|#\d{4}|#x[a-fA-F0-9]{4});/
       }
       
       self.blockComments = { 
-        :name       => "BlockComments",
-        :type       => Syntax::BLOCK_COMMENT_TYPE, 
-        :start      => "<!--",
-        :end        => "-->", 
+        :name   => "BlockComments",
+        :type   => Syntax::BLOCK_COMMENT_TYPE, 
+        :regex  => /<!--.*?-->/m 
       }      
   end
 

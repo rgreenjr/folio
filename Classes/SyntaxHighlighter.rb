@@ -95,183 +95,51 @@ class SyntaxHighlighter
     end
   end
 
-  # Note that the order in which the different things are colorized is
-  # important, e.g. identifiers go first, followed by comments, since that
-  # way colors are removed from identifiers inside a comment and replaced
-  # with the comment color, etc. 
-  # 
-  # The range passed in here is special, and may not include partial
-  # identifiers or the end of a comment. Make sure you include the entire
-  # multi-line comment etc. or it'll lose color.
   def recolorRange(range)
-    return if @syntaxColoringBusy || @textView.nil? || range.length == 0 || @syntax.nil?
+    return if @highlightingActive || @textView.nil? || range.length == 0 || @syntax.nil?
 
-    # make sure we dont't exceed text length
+    @highlightingActive = true
+
+    # dont't exceed text length
     diff = @textView.textStorage.length - (range.location + range.length)
     range.length += diff if diff < 0
 
-    begin
-      @syntaxColoringBusy = true
+    # duplicate specified range of string
+    string = NSMutableAttributedString.alloc.initWithString(@textView.textStorage.string.substringWithRange(range))
 
-      string = NSMutableAttributedString.alloc.initWithString(@textView.textStorage.string.substringWithRange(range))
-      string.addAttributes(@defaultTextAttributes, range:NSMakeRange(0, string.length))
-      
-      if @syntax.keywords
-        @syntax.keywords[:list].each do |keyword|
-          colorIdentifiers(keyword, inString:string, withColor:@keywordColor, andMode:@syntax.keywords[:name])
-        end
-      end
+    # assign default font and color attributions
+    string.addAttributes(@defaultTextAttributes, range:NSMakeRange(0, string.length))
 
-      if @syntax.tags
-        colorTagsFrom(@syntax.tags[:start], to:@syntax.tags[:end], inString:string, withColor:@tagColor, andMode:@syntax.tags[:name], exceptIfMode:@syntax.tags[:ignored])
-      end
+    # highlighting order here is important
 
-      if @syntax.strings
-        colorStringsFrom(@syntax.strings[:start], to:@syntax.strings[:end], inString:string, withColor:@stringColor, andMode: @syntax.strings[:name], andEscapeChar: @syntax.strings[:escapeChar])
-      end
+    # highlight keywords
+    colorString(string, @syntax.keywords, @keywordColor) if @syntax.keywords
 
-      if @syntax.comments
-        colorOneLineComments(@syntax.comments[:start], inString:string, withColor:@commentColor, andMode:@syntax.comments[:name])
-      end
+    # highlight tag
+    colorString(string, @syntax.tags, @tagColor) if @syntax.tags
 
-      if @syntax.blockComments
-        colorBlockCommentsFrom(@syntax.blockComments[:start], to:@syntax.blockComments[:end], inString:string, withColor:@commentColor, andMode:@syntax.blockComments[:name])
-      end
-      
-      @textView.textStorage.replaceCharactersInRange(range, withAttributedString:string)
-      @syntaxColoringBusy = false
-    rescue Exception => e
-      puts "EXCEPTION: recolorRange => #{e.message}"
-      @syntaxColoringBusy = false
-    end
-  end
+    # highlight strings
+    colorString(string, @syntax.strings, @stringColor) if @syntax.strings
 
-  # TODO - add escapeChar support
-  def colorStringsFrom(startStr, to:endStr, inString:attributedString, withColor:color, andMode:mode, andEscapeChar:escapeChar)
-    begin
-      string = attributedString.string
-      styles = { NSForegroundColorAttributeName => color, NSFontAttributeName => @font, FOLIO_COLORING_MODE => mode }
-      index = 0
-      while index < string.length
-        range = findStringRange(string, index, startStr, endStr, mode)
-        return unless range
-        attributedString.setAttributes(styles, range:range)
-        index = range.location + range.length
-      end
-    rescue Exception => e
-      puts "EXCEPTION: colorStringsFrom => #{e.message}"
-    end
+    # highlight comments
+    colorString(string, @syntax.comments, @commentColor) if @syntax.comments
+
+    # highlight blockComments
+    colorString(string, @syntax.blockComments, @commentColor) if @syntax.blockComments
+
+    # replace specified with colored text
+    @textView.textStorage.replaceCharactersInRange(range, withAttributedString:string) 
+         
+  ensure
+    @highlightingActive = false
   end
   
-  def colorBlockCommentsFrom(startStr, to:endStr, inString:attributedString, withColor:color, andMode:mode)
-    begin
-      string = attributedString.string
-      styles = { NSForegroundColorAttributeName => color, NSFontAttributeName => @font, FOLIO_COLORING_MODE => mode }
-      index = 0
-      while index < string.length
-        range = findStringRange(string, index, startStr, endStr, mode)
-        return unless range
-        attributedString.setAttributes(styles, range:range)
-        index = range.location + range.length
-      end
-    rescue Exception => e
-      puts "EXCEPTION: colorBlockCommentsFrom => #{e.message}"
-    end
-  end
-  
-  def colorOneLineComments(startStr, inString:attributedString, withColor:color, andMode:mode)
-    begin
-      string = attributedString.string
-      styles = { NSForegroundColorAttributeName => color, NSFontAttributeName => @font, FOLIO_COLORING_MODE => mode }
-      index = 0
-      while index < string.length
-        startOffset = string.index(startStr, index)
-        return nil unless startOffset
-        index = startOffset + startStr.length
-
-        # scan to end of line
-        while index < string.length && string[index] != "\n" && string[index] != "\r"
-          index += 1
-        end
-
-        range = NSMakeRange(startOffset, index - startOffset)
-        puts "(#{range.location}, #{range.length}) => #{mode}"
-
-        attributedString.setAttributes(styles, range:range)
-        index = range.location + range.length
-      end
-    rescue Exception => e
-      puts "EXCEPTION: colorOneLineComments"
-    end
-  end
-
-  def colorIdentifiers(identifier, inString:attributedString, withColor:color, andMode:mode)
-    begin
-      string = attributedString.string
-      styles = { NSForegroundColorAttributeName => color, NSFontAttributeName => @font, FOLIO_COLORING_MODE => mode }
-      index = 0
-      while index < string.length
-        startOffset = string.index(identifier, index)
-        return unless startOffset
-        range = NSMakeRange(startOffset, identifier.length)
-        attributedString.setAttributes(styles, range:range)
-        index = range.location + range.length
-      end
-    rescue Exception => e
-      puts "EXCEPTION: colorIdentifiers => #{e.message}"
-    end
-  end
-
-  def colorTagsFrom(startStr, to:endStr, inString:attributedString, withColor:color, andMode:mode, exceptIfMode:ignoreAttr)
-    begin
-      scanner = NSScanner.scannerWithString(attributedString.string)
-      
-      styles = { NSForegroundColorAttributeName => color, NSFontAttributeName => @font, FOLIO_COLORING_MODE => mode }
-
-      while !scanner.isAtEnd
-
-        # Look for start of one-line comment:
-        scanner.scanUpToString(startStr, intoString:nil)
-        startOffset = scanner.scanLocation
-
-        return if startOffset >= attributedString.length
-
-        scMode = attributedString.attributesAtIndex(startOffset, effectiveRange:nil)[FOLIO_COLORING_MODE]
-
-        return unless scanner.scanString(startStr, intoString:nil)
-
-        # If start lies in range of ignored style, don't colorize it:
-        next if ignoreAttr && scMode && scMode.isEqualToString(ignoreAttr)
-
-        # Look for matching end marker:
-        while !scanner.isAtEnd
-          # Scan up to the next occurence of the terminating sequence:
-          scanner.scanUpToString(endStr, intoString:nil)
-
-          # Now, if the mode of the end marker is not the mode we were told to ignore,
-          # we're finished now and we can exit the inner loop:
-          endOffset = scanner.scanLocation
-          if endOffset < attributedString.length
-            scMode = attributedString.attributesAtIndex(endOffset, effectiveRange:nil)[FOLIO_COLORING_MODE]
-
-            # Also skip the terminating sequence.
-            scanner.scanString(endStr, intoString:nil)
-
-            if ignoreAttr.nil? || scMode.nil? || !scMode.isEqualToString(ignoreAttr)
-              break
-            end
-          end
-
-          # Otherwise we keep going, look for the next occurence of endStr and hope it isn't in that style.
-        end
-
-        endOffset = scanner.scanLocation
-
-        attributedString.setAttributes(styles, range:NSMakeRange(startOffset, endOffset - startOffset))
-      end
-
-    rescue Exception => e
-      puts "EXCEPTION: colorTagsFrom => #{e.message}"
+  def colorString(attributedString, syntaxComponent, color)
+    textAttributes =  { NSFontAttributeName => @font, NSForegroundColorAttributeName => color, FOLIO_COLORING_MODE => syntaxComponent[:name] }
+    string = attributedString.string
+    string.scan(syntaxComponent[:regex]) do
+      start, stop = Regexp.last_match.offset(0)
+      attributedString.setAttributes(textAttributes, range:NSMakeRange(start, stop - start))
     end
   end
   
@@ -314,17 +182,6 @@ class SyntaxHighlighter
     else
       NSColor.blackColor
     end
-  end
-
-  def findStringRange(string, index, startStr, endStr, mode)
-    startOffset = string.index(startStr, index)
-    return nil unless startOffset
-    index = startOffset + startStr.length
-    endOffset = string.index(endStr, index)
-    endOffset = endOffset ? endOffset + endStr.length : string.length
-    range = NSMakeRange(startOffset, endOffset - startOffset)
-    # puts "(#{range.location}, #{range.length}) => #{mode}"
-    range
   end
 
 end
