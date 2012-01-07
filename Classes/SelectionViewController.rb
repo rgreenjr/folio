@@ -138,8 +138,12 @@ class SelectionViewController < NSViewController
   end
 
   def revealInManifest(sender)
-    expandManifest(self)
-    @outlineView.selectItem(currentSelection.item, expandParents:true)
+    item = @bookController.tabbedViewController.selectedItem
+    item = currentSelection.item if item.nil? && currentSelection
+    if item
+      expandManifest(self)
+      @outlineView.selectItem(item, expandParents:true)
+    end
   end
   
   def duplicate(sender)
@@ -167,7 +171,7 @@ class SelectionViewController < NSViewController
   def validateMenuItem(menuItem)
     case menuItem.action
     when :"revealInManifest:"
-      @outlineView.numberOfSelectedRows == 1
+      @outlineView.numberOfSelectedRows == 1 || @bookController.tabbedViewController.numberOfTabs > 0
     when :"duplicate:"
       @outlineView.numberOfSelectedRows == 1 && controllerForItem(currentSelection) == @navigationController
     when :"delete:"
