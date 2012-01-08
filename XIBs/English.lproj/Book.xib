@@ -305,7 +305,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSArray" key="NSToolbarIBAllowedItems">
+					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
@@ -320,11 +320,10 @@
 						<reference ref="192817359"/>
 						<reference ref="25041146"/>
 						<reference ref="1019910006"/>
-						<reference ref="287252432"/>
 						<reference ref="192817359"/>
 						<reference ref="961348391"/>
 						<reference ref="826128801"/>
-						<reference ref="192817359"/>
+						<reference ref="287252432"/>
 						<reference ref="588453196"/>
 						<reference ref="192817359"/>
 					</object>

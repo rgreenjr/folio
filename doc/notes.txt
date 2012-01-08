@@ -10,8 +10,8 @@ Features
 Enhancements
 ============
 
-- Move guide type selection to TOC.
-- Figure out why syntax highlighting is being invoked so often
+- Add "new" toolbar button for creating items, points, folders, etc.
+- Add panel for item creation for users to pick name, type, etc.
 - Search filtering of selection views
 - Ability to drag to manifest items to the desktop
 - Add WebView forward/backward buttons
@@ -23,6 +23,7 @@ Enhancements
 - Add plus/minus buttons for adding Points, ItemRefs, and Items
 - Add tool tips to tabs
 - Add ability to duplicate manifest items
+- Add Guide section?
 
 Refactoring
 ===========
