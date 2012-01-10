@@ -26,6 +26,16 @@ class SpineController < NSResponder
     item == self ? @spine.size : 0
   end
 
+  def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
+    if item == self
+      view = outlineView.makeViewWithIdentifier("SpineSectionCell", owner:self)
+    else
+      view = outlineView.makeViewWithIdentifier("SpineCell", owner:self)
+      view.textField.stringValue = item.item.name
+    end
+    view
+  end
+
   def isItemExpandable(item)
     item == self
   end
@@ -34,21 +44,21 @@ class SpineController < NSResponder
     item == self ? @spine[index] : nil
   end
 
-  def objectValueForTableColumn(tableColumn, byItem:item)
-    item == self ? "SPINE" : item.item.name
-  end
+  # def objectValueForTableColumn(tableColumn, byItem:item)
+  #   item == self ? "SPINE" : item.item.name
+  # end
 
-  def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
-    if item == self
-      cell.font = NSFont.boldSystemFontOfSize(11.0)
-      cell.image = NSImage.imageNamed('spine.png')
-      cell.menu = nil
-    else
-      cell.font = NSFont.systemFontOfSize(11.0)
-      cell.image = nil # NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.item.name))
-      cell.menu = @menu
-    end
-  end
+  # def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
+  #   if item == self
+  #     cell.font = NSFont.boldSystemFontOfSize(11.0)
+  #     cell.image = NSImage.imageNamed('spine.png')
+  #     cell.menu = nil
+  #   else
+  #     cell.font = NSFont.systemFontOfSize(11.0)
+  #     cell.image = nil # NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.item.name))
+  #     cell.menu = @menu
+  #   end
+  # end
 
   # write the ids of the selected itemRefs to the pastebaord
   def writeItems(itemRefs, toPasteboard:pboard)

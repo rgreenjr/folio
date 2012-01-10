@@ -153,6 +153,8 @@
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CD9C72A31499BF2F0079EA4E /* SourceViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */; };
+		CDA91EAA14BBC5EB0036461C /* MyTextField.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA91EA914BBC5EB0036461C /* MyTextField.rb */; };
+		CDA91EAC14BBCE5B0036461C /* ManifestIssueCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */; };
 		CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */; };
 		CDAECE0614AA1E8D00CF8274 /* Image.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAECE0514AA1E8D00CF8274 /* Image.rb */; };
 		CDB5422D12F32CE800BB5739 /* PointViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422C12F32CE800BB5739 /* PointViewController.rb */; };
@@ -317,6 +319,8 @@
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SourceViewController.rb; sourceTree = "<group>"; };
+		CDA91EA914BBC5EB0036461C /* MyTextField.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MyTextField.rb; sourceTree = "<group>"; };
+		CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ManifestIssueCell.rb; sourceTree = "<group>"; };
 		CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Issue.rb; sourceTree = "<group>"; };
 		CDAECE0514AA1E8D00CF8274 /* Image.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Image.rb; sourceTree = "<group>"; };
 		CDB5422C12F32CE800BB5739 /* PointViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointViewController.rb; sourceTree = "<group>"; };
@@ -510,11 +514,13 @@
 				CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */,
 				CD2D17EE12E5F1F800D6A99A /* Manifest.rb */,
 				CD2D17EF12E5F1F800D6A99A /* ManifestController.rb */,
+				CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */,
 				CD2D17F012E5F1F800D6A99A /* Match.rb */,
 				CD2D17F112E5F1F800D6A99A /* Media.rb */,
 				CD2D17F212E5F1F800D6A99A /* Metadata.rb */,
 				CD2D17F312E5F1F800D6A99A /* MetadataController.rb */,
 				CDEBCB0512F0B27C00E8834D /* Metadatum.rb */,
+				CDA91EA914BBC5EB0036461C /* MyTextField.rb */,
 				CD2D17F412E5F1F800D6A99A /* Navigation.rb */,
 				CD2D17F512E5F1F800D6A99A /* NavigationController.rb */,
 				CD2D17F612E5F1F800D6A99A /* NilClass.rb */,
@@ -816,6 +822,8 @@
 				CD0D0D3B14B670FB000BB22C /* SyntaxHighlighter.rb in Resources */,
 				CD659C4414B8C94200870743 /* metadata.png in Resources */,
 				CDF1F01714B8F18800040124 /* wrench.png in Resources */,
+				CDA91EAA14BBC5EB0036461C /* MyTextField.rb in Resources */,
+				CDA91EAC14BBCE5B0036461C /* ManifestIssueCell.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

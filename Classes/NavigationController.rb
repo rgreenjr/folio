@@ -8,6 +8,10 @@ class NavigationController < NSResponder
     @menu.addAction("Delete", "deleteSelectedPoints:", self)
   end
   
+  def textShouldBeginEditing(textfield)
+    @outlineView.rowForView(textfield.superview) == @outlineView.selectedRow
+  end
+  
   def bookController=(controller)
     @bookController = controller
     @navigation = @bookController.document.navigation
@@ -26,6 +30,25 @@ class NavigationController < NSResponder
     point == self ? @navigation.root.size : point.size
   end
 
+  def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
+    if item == self
+      view = outlineView.makeViewWithIdentifier("NavigationSectionCell", owner:self)
+    else
+      view = outlineView.makeViewWithIdentifier("NavigationCell", owner:self)
+      view.textField.stringValue = item.text
+      view.textField.action = "updatePoint:"
+      view.textField.target = self
+      view.textField.delegate = self
+    end
+    view
+  end
+  
+  def updatePoint(sender)
+    row = @outlineView.rowForView(sender)
+    point = @outlineView.itemAtRow(row)
+    @bookController.inspectorViewController.pointViewController.changeText(point, sender.stringValue)
+  end
+
   def isItemExpandable(point)
     point == self ? true : point.size > 0
   end
@@ -34,27 +57,27 @@ class NavigationController < NSResponder
     point == self ? @navigation.root[index] : point[index]
   end
 
-  def objectValueForTableColumn(tableColumn, byItem:point)
-    point == self ? "TABLE OF CONTENTS" : point.text
-  end
+  # def objectValueForTableColumn(tableColumn, byItem:point)
+  #   point == self ? "TABLE OF CONTENTS" : point.text
+  # end
+  
+  # def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
+  #   if item == self
+  #     # cell.textColor = NSColor.colorWithDeviceRed(0.39, green:0.44, blue:0.5, alpha:1.0)
+  #     cell.font = NSFont.boldSystemFontOfSize(11.0)
+  #     cell.image = NSImage.imageNamed('toc.png')
+  #     cell.menu = nil
+  #   else
+  #     # cell.textColor = NSColor.blackColor
+  #     cell.font = NSFont.systemFontOfSize(11.0)
+  #     cell.image = nil
+  #     cell.menu = @menu
+  #   end
+  # end
 
-  def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
-    if item == self
-      # cell.textColor = NSColor.colorWithDeviceRed(0.39, green:0.44, blue:0.5, alpha:1.0)
-      cell.font = NSFont.boldSystemFontOfSize(11.0)
-      cell.image = NSImage.imageNamed('toc.png')
-      cell.menu = nil
-    else
-      # cell.textColor = NSColor.blackColor
-      cell.font = NSFont.systemFontOfSize(11.0)
-      cell.image = nil
-      cell.menu = @menu
-    end
-  end
-
-  def setObjectValue(value, forTableColumn:tableColumn, byItem:point)
-    @bookController.inspectorViewController.pointViewController.changeText(point, value)
-  end
+  # def setObjectValue(value, forTableColumn:tableColumn, byItem:point)
+  #   @bookController.inspectorViewController.pointViewController.changeText(point, value)
+  # end
 
   def writeItems(points, toPasteboard:pboard)
     pointIds = points.map { |point| point.id }

@@ -26,7 +26,7 @@ class SelectionViewController < NSViewController
     @controllers.each { |controller| @bookController.makeResponder(controller) }
     
     # use our custom image cell
-    @outlineView.tableColumns.first.dataCell = ImageCell.new
+    # @outlineView.tableColumns.first.dataCell = ImageCell.new
     
     # register the drag types we support
     @outlineView.registerForDraggedTypes([Point::PBOARD_TYPE, ItemRef::PBOARD_TYPE, Item::PBOARD_TYPE, NSFilenamesPboardType])
@@ -55,12 +55,17 @@ class SelectionViewController < NSViewController
   end
   
   def reloadItem(item)
-    @outlineView.reloadItem(item)
+    row = @outlineView.rowForItem(item)
+    @outlineView.reloadDataForRowIndexes(NSIndexSet.indexSetWithIndex(row), columnIndexes:NSIndexSet.indexSetWithIndex(0))
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:item)
     return 0 unless @outlineView.dataSource # guard against SDK bug
     item ? controllerForItem(item).numberOfChildrenOfItem(item) : @controllers.size
+  end
+
+  def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
+    controllerForItem(item).outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
   end
 
   def outlineView(outlineView, isItemExpandable:item)
@@ -71,26 +76,25 @@ class SelectionViewController < NSViewController
     item ? controllerForItem(item).child(index, ofItem:item) : @controllers[index]
   end
 
-  def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:item)
-    puts "objectValueForTableColumn item is nil" if item == nil
-    controllerForItem(item).objectValueForTableColumn(tableColumn, byItem:item)
-  end
+  # def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:item)
+  #   controllerForItem(item).objectValueForTableColumn(tableColumn, byItem:item)
+  # end
 
   def outlineView(outlineView, shouldSelectItem:item)
     !isController?(item) # prevent selection of controllers
   end
 
-  def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
-    controllerForItem(item).willDisplayCell(cell, forTableColumn:tableColumn, item:item)
-  end
+  # def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
+  #   controllerForItem(item).willDisplayCell(cell, forTableColumn:tableColumn, item:item)
+  # end
   
   def outlineView(outlineView, shouldEditTableColumn:tableColumn, item:item)
     controllerForItem(item) != @spineController
   end
 
-  def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
-    controllerForItem(item).setObjectValue(value, forTableColumn:tableColumn, byItem:item)
-  end
+  # def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
+  #   controllerForItem(item).setObjectValue(value, forTableColumn:tableColumn, byItem:item)
+  # end
 
   def outlineViewSelectionDidChange(notification)
     displayCurrentSelection(self)
@@ -115,7 +119,15 @@ class SelectionViewController < NSViewController
   def outlineView(outlineView, acceptDrop:info, item:parent, childIndex:childIndex)
     controllerForItem(parent).acceptDrop(info, item:parent, childIndex:childIndex)
   end
-  
+
+  def outlineView(tableView, heightOfRowByItem:item)
+    if item.class == Item
+      item.hasIssues? ? 34.0 : 17.0
+    else
+      17.0
+    end
+  end
+
   def currentSelection
     item = @outlineView.itemAtRow(@outlineView.selectedRow)
     isController?(item) ? nil : item

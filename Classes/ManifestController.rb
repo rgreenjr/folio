@@ -24,6 +24,34 @@ class ManifestController < NSResponder
     return 0 unless @manifest # guard against SDK bug
     item == self ? @manifest.root.size : item.size
   end
+  
+  def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
+    if item == self
+      view = outlineView.makeViewWithIdentifier("ManifestSectionCell", owner:self)
+    else
+      if item.directory?
+        view = outlineView.makeViewWithIdentifier("ManifestFolderCell", owner:self)
+      else
+        if item.hasIssues?
+          view = outlineView.makeViewWithIdentifier("ManifestIssueCell", owner:self)
+          view.statusTextField.stringValue =  "validation issue".pluralize(item.issueCount)
+        else
+          view = outlineView.makeViewWithIdentifier("ManifestCell", owner:self)
+        end
+        view.imageView.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+      end
+      view.textField.stringValue = item.name
+      view.textField.action = "updateItem:"
+      view.textField.target = self
+    end
+    view
+  end
+
+  def updateItem(sender)
+    row = @outlineView.rowForView(sender)
+    item = @outlineView.itemAtRow(row)
+    @bookController.inspectorViewController.itemViewController.changeName(item, sender.stringValue)
+  end
 
   def isItemExpandable(item)
     item == self ? true : item.directory?
@@ -33,34 +61,34 @@ class ManifestController < NSResponder
     item == self ? @manifest.root[index] : item[index]
   end
 
-  def objectValueForTableColumn(tableColumn, byItem:item)
-    item == self ? "MANIFEST" : item.name
-  end
+  # def objectValueForTableColumn(tableColumn, byItem:item)
+  #   item == self ? "MANIFEST" : item.name
+  # end
 
-  def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
-    if item == self
-      cell.font = NSFont.boldSystemFontOfSize(11.0)
-      cell.image = NSImage.imageNamed('manifest.png')
-      cell.menu = nil
-    else
-      cell.font = NSFont.systemFontOfSize(11.0)
-      cell.menu = @menu
-      if item.directory?
-        cell.image = NSImage.imageNamed('folder.png')
-      else
-        fileIcon = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
-        if item.hasIssues?
-          cell.image = Image.warningCompositeImage(fileIcon)
-        else
-          cell.image = fileIcon
-        end
-      end
-    end
-  end
+  # def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
+  #   if item == self
+  #     cell.font = NSFont.boldSystemFontOfSize(11.0)
+  #     cell.image = 
+  #     cell.menu = nil
+  #   else
+  #     cell.font = NSFont.systemFontOfSize(11.0)
+  #     cell.menu = @menu
+  #     if item.directory?
+  #       cell.image = NSImage.imageNamed('folder.png')
+  #     else
+  #       fileIcon = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
+  #       if item.hasIssues?
+  #         cell.image = Image.warningCompositeImage(fileIcon)
+  #       else
+  #         cell.image = fileIcon
+  #       end
+  #     end
+  #   end
+  # end
 
-  def setObjectValue(value, forTableColumn:tableColumn, byItem:item)
-    @bookController.inspectorViewController.itemViewController.changeName(item, value)
-  end
+  # def setObjectValue(value, forTableColumn:tableColumn, byItem:item)
+  #   @bookController.inspectorViewController.itemViewController.changeName(item, value)
+  # end
 
   def writeItems(items, toPasteboard:pboard)
     itemIds = items.map { |item| item.id }
