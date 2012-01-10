@@ -272,8 +272,11 @@ class BookWindowController < NSWindowController
     @validationController ||= ValidationController.alloc.init
     if @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
       issueViewController.refresh
-      showIssueView
       updateInformationField
+      @selectionViewController.outlineView.reloadData
+      if document.totalIssueCount > 0
+        showIssueView
+      end
     end
   end
   

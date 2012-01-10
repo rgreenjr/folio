@@ -1,6 +1,8 @@
 class ValidationController < NSWindowController
 
-  attr_accessor :progressBar, :progressText
+  attr_accessor :progressBar
+  attr_accessor :progressText
+  attr_accessor :successWindow
 
   def init
     initWithWindowNibName("Validation")
@@ -29,7 +31,7 @@ class ValidationController < NSWindowController
       command = "cd \"#{libDir}\"; java -jar epubcheck-1.2.jar \"#{book.fileURL.path}\""
 
       # create a file to hold validation output
-      resultFile = Tempfile.new('folio-validation-')
+      resultFile = Tempfile.new('com.folioapp.validation-')
 
       # run the validation command and piping all output to resultFile
       system("#{command} &>#{resultFile.path}")
@@ -52,6 +54,8 @@ class ValidationController < NSWindowController
     ensure
       hideStatus
     end
+
+    showSuccessWindow(book) if book.totalIssueCount == 0
     
     true
   end
@@ -76,6 +80,17 @@ class ValidationController < NSWindowController
     
     # stop progress bar animation
     @progressBar.stopAnimation(self)
+  end
+  
+  def showSuccessWindow(book)
+    puts ""
+    NSApp.beginSheet(successWindow, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
+    self.performSelector(:hideSuccessWindow, withObject:nil, afterDelay:2.0)
+  end
+  
+  def hideSuccessWindow
+    NSApp.endSheet(successWindow)
+    successWindow.orderOut(self)
   end
 
   def parseLine(book, line)

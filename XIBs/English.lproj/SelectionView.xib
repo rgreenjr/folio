@@ -415,7 +415,7 @@
 									<int key="NSvFlags">266</int>
 									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="170590787"/>
-									<reference key="NSNextKeyView"/>
+									<reference key="NSNextKeyView" ref="257389858"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="293185497">
@@ -850,7 +850,7 @@
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents">
 											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">yield</string>
+											<string key="NSResourceName">error</string>
 										</object>
 										<string key="NSCellIdentifier">_NS:75</string>
 										<int key="NSAlign">0</int>
@@ -863,7 +863,7 @@
 								<object class="NSTextField" id="115180314">
 									<reference key="NSNextResponder" ref="257389858"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{47, -1}, {308, 17}}</string>
+									<string key="NSFrame">{{42, -1}, {313, 17}}</string>
 									<reference key="NSSuperview" ref="257389858"/>
 									<reference key="NSNextKeyView" ref="1058702558"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -1918,11 +1918,11 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>NSActionTemplate</string>
+				<string>error</string>
 				<string>folder</string>
 				<string>manifest</string>
 				<string>spine</string>
 				<string>toc</string>
-				<string>yield</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>

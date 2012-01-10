@@ -168,6 +168,8 @@
 		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
 		CDB780D6149964070025702F /* TabbedViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D5149964060025702F /* TabbedViewController.rb */; };
 		CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */ = {isa = PBXBuildFile; fileRef = CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */; };
+		CDCB82DB14BC0C68004B4BE2 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCB82DA14BC0C68004B4BE2 /* error.png */; };
+		CDCB82DD14BC0F6B004B4BE2 /* validation-success.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCB82DC14BC0F6B004B4BE2 /* validation-success.png */; };
 		CDD7AFF712EF675700352D4B /* manifest.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFF612EF675700352D4B /* manifest.png */; };
 		CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFFA12EF6D5F00352D4B /* toc.png */; };
 		CDD7B02F12EF79D800352D4B /* ItemRef.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDD7B02E12EF79D800352D4B /* ItemRef.rb */; };
@@ -334,6 +336,8 @@
 		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
 		CDB780D5149964060025702F /* TabbedViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabbedViewController.rb; sourceTree = "<group>"; };
 		CDBE27C912E5544800D4DDC6 /* The Fall of the Roman Empire.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Fall of the Roman Empire.epub"; sourceTree = "<group>"; };
+		CDCB82DA14BC0C68004B4BE2 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
+		CDCB82DC14BC0F6B004B4BE2 /* validation-success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "validation-success.png"; sourceTree = "<group>"; };
 		CDD7AFF612EF675700352D4B /* manifest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manifest.png; sourceTree = "<group>"; };
 		CDD7AFFA12EF6D5F00352D4B /* toc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toc.png; sourceTree = "<group>"; };
 		CDD7B02E12EF79D800352D4B /* ItemRef.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ItemRef.rb; sourceTree = "<group>"; };
@@ -560,7 +564,6 @@
 		CD2D185412E5F28500D6A99A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				CDF1F01614B8F18800040124 /* wrench.png */,
 				CD2206671493D04D00AB589F /* background-logo.png */,
 				CD2D185612E5F28500D6A99A /* book.png */,
 				CD6712FE14928E36000B8BBB /* bubble-background-left.png */,
@@ -568,6 +571,7 @@
 				CD6712FF14928E36000B8BBB /* bubble-background-right.png */,
 				CDB542C412F3638100BB5739 /* empty-inspector.png */,
 				CD9373C914B392980068FA40 /* epub-icon.icns */,
+				CDCB82DA14BC0C68004B4BE2 /* error.png */,
 				CD2D185712E5F28500D6A99A /* find-close-click.png */,
 				CD2D185812E5F28500D6A99A /* find-close-rollover.png */,
 				CD2D185912E5F28500D6A99A /* find-close.png */,
@@ -599,8 +603,10 @@
 				CD2D186C12E5F28500D6A99A /* table-header-bg1.png */,
 				CDD7AFFA12EF6D5F00352D4B /* toc.png */,
 				CD17D85714AEC956004080CE /* Validate.png */,
+				CDCB82DC14BC0F6B004B4BE2 /* validation-success.png */,
 				CD2D186E12E5F28500D6A99A /* vertical.png */,
 				CD389FF614B2349B00305ED7 /* warning.png */,
+				CDF1F01614B8F18800040124 /* wrench.png */,
 				CD72EFE714AD1FDC0000B398 /* yield.png */,
 			);
 			path = Images;
@@ -824,6 +830,8 @@
 				CDF1F01714B8F18800040124 /* wrench.png in Resources */,
 				CDA91EAA14BBC5EB0036461C /* MyTextField.rb in Resources */,
 				CDA91EAC14BBCE5B0036461C /* ManifestIssueCell.rb in Resources */,
+				CDCB82DB14BC0C68004B4BE2 /* error.png in Resources */,
+				CDCB82DD14BC0F6B004B4BE2 /* validation-success.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
