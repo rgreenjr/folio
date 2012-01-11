@@ -43,7 +43,7 @@ class Point
   end
   
   def fragment=(value)
-    @fragment = value ? value : @fragment
+    @fragment = value ? value : ''
   end
   
   def hasFragment?
