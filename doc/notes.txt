@@ -2,6 +2,7 @@ Bugs
 ====
 
 - Better handling of layout switch between media types
+- Validate Point fragment changes via Inspector by parsing on enter
 
 Features
 ========

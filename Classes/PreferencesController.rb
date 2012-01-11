@@ -211,7 +211,7 @@ class PreferencesController < NSWindowController
   end
   
   def defaultSelectionColor
-    NSColor.colorWithCalibratedRed(0.70, green:0.83, blue:0.99, alpha:1.0)
+    NSColor.colorWithCalibratedRed(0.20, green:0.20, blue:0.20, alpha:1.0)
   end
   
   def postNotification
