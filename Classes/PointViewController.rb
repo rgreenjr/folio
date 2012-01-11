@@ -50,11 +50,15 @@ class PointViewController < NSViewController
       href, fragment = value.split('#')
       item = @bookController.document.manifest.itemWithHref(href)
       if item
-        undoManager.prepareWithInvocationTarget(self).changeSource(point, point.src)
-        undoManager.actionName = "Change Source"
-        point.item = item
-        point.fragment = fragment
-        @bookController.tabbedViewController.addObject(point)
+        if fragment.blank? || item.hasFragment?(fragment)
+          undoManager.prepareWithInvocationTarget(self).changeSource(point, point.src)
+          undoManager.actionName = "Change Source"
+          point.item = item
+          point.fragment = fragment
+          @bookController.tabbedViewController.addObject(point)
+        else
+          @bookController.runModalAlert("Item \"#{item.name}\" doesn't contain fragment \"#{fragment}\".", "Please specify a fragment present in the item.")
+        end
       else
         @bookController.runModalAlert("The manifest doesn't contain \"#{value}\".", "Please specify an item included in the manifest.")
       end
