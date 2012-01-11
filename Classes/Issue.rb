@@ -2,10 +2,15 @@ class Issue
 
   IMAGE_HEIGHT = 15.0
 
-  attr_accessor :lineNumber, :message, :textAttributes, :imageOrigin
+  attr_accessor :lineNumber
+  attr_accessor :message
+  attr_accessor :type
+  attr_accessor :textAttributes
+  attr_accessor :imageOrigin
 
-  def initialize(message, lineNumber=nil)
+  def initialize(message, type, lineNumber=nil)
     @message = message
+    @type = type
     @lineNumber = lineNumber
     @textAttributes = {
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),

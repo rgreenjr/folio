@@ -83,7 +83,6 @@ class ValidationController < NSWindowController
   end
   
   def showSuccessWindow(book)
-    puts ""
     NSApp.beginSheet(successWindow, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
     self.performSelector(:hideSuccessWindow, withObject:nil, afterDelay:2.0)
   end
@@ -105,14 +104,13 @@ class ValidationController < NSWindowController
   end
 
   def parseError(book, line)
-    
     # strip prefix path information from each error
     line.gsub!(File.join(book.fileURL.path, book.container.relativePath, '/'), '')
 
     if line =~ /^ERROR: (.*)\(([0-9]+)\): (.*)/
 
       # create a new maker with the message and line number
-      issue = Issue.new($3, $2.to_i - 1)
+      issue = Issue.new($3, :error, $2.to_i - 1)
 
       # get relative path of item
       itemHref = $1
@@ -120,14 +118,14 @@ class ValidationController < NSWindowController
     elsif line =~ /^ERROR: (.*): (.*)/
 
       # error doesn't include a line number so create new issue without one
-      issue = Issue.new($2)
+      issue = Issue.new($2, :error)
 
       # get relative path of item
       itemHref = $1
 
     else
       # create new issue with entire message since parsing failed
-      issue = Issue.new(line)
+      issue = Issue.new(line, :error)
     end
 
     if itemHref
@@ -155,12 +153,13 @@ class ValidationController < NSWindowController
   end
 
   def parseWarning(book, line)
+    puts "parseWarning => #{line}"
     if line =~ /^WARNING: .*: item \((.*)\) (.*)/
       # create new issue with parsed message
-      issue = Issue.new("#{$1} #{$2}")
+      issue = Issue.new("#{$1} #{$2}", :warning)
     else
       # create new issue with entire message since parsing failed
-      issue = Issue.new(line)
+      issue = Issue.new(line, :warning)
     end
 
     # add issue to book since there isn't an associated item
