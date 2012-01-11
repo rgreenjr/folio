@@ -205,7 +205,7 @@ class SourceViewController < NSViewController
         if line =~ /^Line ([0-9]+): (.*)/
           lineNumber = $1.to_i - 1
           message = $2.gsub("parser error : ", "")
-          issue = Issue.new(message, lineNumber)
+          issue = Issue.new(message, :error, lineNumber)
           @item.addIssue(issue) 
         end
       end
