@@ -211,7 +211,6 @@ class TabView < NSView
   end
   
   def selectTabCell(tabCell, point=nil)
-    return if tabCell && tabCell == @selectedTabCell
     @selectedTabCell.selected = false if @selectedTabCell
     if tabCell
       tabCell.selected = true
