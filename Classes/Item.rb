@@ -273,5 +273,9 @@ class Item
     end
     @fragments
   end
+  
+  def hasFragment?(fragment)
+    fragment && fragments.include?(fragment)
+  end
 
 end
