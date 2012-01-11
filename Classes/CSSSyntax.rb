@@ -34,7 +34,7 @@ list-style-image|list-style-position|list-style-type|marker-offset|margin|margin
 margin-top|outline|outline-color|outline-style|outline-width|padding|padding-bottom|padding-left|\
 padding-right|padding-top|bottom|clip|left|overflow|right|top|vertical-align|z-index|border-collapse|\
 border-spacing|caption-side|empty-cells|table-layout|color|direction|letter-spacing|text-align|\
-text-decoration|text-indent|text-shadow|text-transform|unicode-bidi|white-space)/
+text-decoration|text-indent|text-shadow|text-transform|unicode-bidi|white-space|page-break-before|page-break-after)/
     }
 
     self.blockComments = { 
