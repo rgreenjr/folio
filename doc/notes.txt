@@ -10,7 +10,10 @@ Features
 Enhancements
 ============
 
+- Add NSPopover [http://www.youtube.com%2Fwatch%3Fv%3DP3uehLU67cg&ei=plwKT5H6Ho3CsQLxz6GRCg&usg=AFQjCNG09MZiNqLv3x7Q3MbBdW1LyyyTiQ]
+- Add page vs fragment icon to points in Navigation
 - Add "new" toolbar button for creating items, points, folders, etc.
+
 - Add panel for item creation for users to pick name, type, etc.
 - Search filtering of selection views
 - Ability to drag to manifest items to the desktop

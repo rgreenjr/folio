@@ -188,6 +188,8 @@
 		CDEBCB8512F0CBDA00E8834D /* inspector-border.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB8412F0CBDA00E8834D /* inspector-border.png */; };
 		CDEBCBEE12F0E7CB00E8834D /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCBED12F0E7CB00E8834D /* preview.png */; };
 		CDF1F01714B8F18800040124 /* wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF1F01614B8F18800040124 /* wrench.png */; };
+		CDF4CCD514BCCC5D0009AAE4 /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF4CCD414BCCC5D0009AAE4 /* point.png */; };
+		CDF4CCD814BCCC6B0009AAE4 /* point-fragment.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF4CCD714BCCC6B0009AAE4 /* point-fragment.png */; };
 		CDF7071614AA68CA004F76EF /* PointPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF7071514AA68CA004F76EF /* PointPanel.xib */; };
 		CDF7071914AA68FA004F76EF /* PointPanelController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDF7071814AA68FA004F76EF /* PointPanelController.rb */; };
 		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
@@ -356,6 +358,8 @@
 		CDEBCB8412F0CBDA00E8834D /* inspector-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inspector-border.png"; sourceTree = "<group>"; };
 		CDEBCBED12F0E7CB00E8834D /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		CDF1F01614B8F18800040124 /* wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrench.png; sourceTree = "<group>"; };
+		CDF4CCD414BCCC5D0009AAE4 /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
+		CDF4CCD714BCCC6B0009AAE4 /* point-fragment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "point-fragment.png"; sourceTree = "<group>"; };
 		CDF7071514AA68CA004F76EF /* PointPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointPanel.xib; sourceTree = "<group>"; };
 		CDF7071814AA68FA004F76EF /* PointPanelController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointPanelController.rb; sourceTree = "<group>"; };
 		CDFA75D2120909AA00830BCE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -588,6 +592,8 @@
 				CD659C4314B8C94200870743 /* metadata.png */,
 				CD2D185F12E5F28500D6A99A /* no-cover.png */,
 				CDDCAD7F12EC7E63003A0B07 /* no-issues.png */,
+				CDF4CCD714BCCC6B0009AAE4 /* point-fragment.png */,
+				CDF4CCD414BCCC5D0009AAE4 /* point.png */,
 				CDDBEC9612E611F800633F22 /* preferences-general.tiff */,
 				CDEBCBED12F0E7CB00E8834D /* preview.png */,
 				CD2D186312E5F28500D6A99A /* source.png */,
@@ -832,6 +838,8 @@
 				CDA91EAC14BBCE5B0036461C /* ManifestIssueCell.rb in Resources */,
 				CDCB82DB14BC0C68004B4BE2 /* error.png in Resources */,
 				CDCB82DD14BC0F6B004B4BE2 /* validation-success.png in Resources */,
+				CDF4CCD514BCCC5D0009AAE4 /* point.png in Resources */,
+				CDF4CCD814BCCC6B0009AAE4 /* point-fragment.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

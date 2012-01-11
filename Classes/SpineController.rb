@@ -28,9 +28,9 @@ class SpineController < NSResponder
 
   def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
     if item == self
-      view = outlineView.makeViewWithIdentifier("SpineSectionCell", owner:self)
-    else
       view = outlineView.makeViewWithIdentifier("SpineCell", owner:self)
+    else
+      view = outlineView.makeViewWithIdentifier("ItemRefCell", owner:self)
       view.textField.stringValue = item.item.name
     end
     view

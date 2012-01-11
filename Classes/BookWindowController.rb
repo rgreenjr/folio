@@ -283,7 +283,7 @@ class BookWindowController < NSWindowController
   def updateInformationField
     text = document.fileSize.to_storage_size
     if document.totalIssueCount > 0
-      text += ", " + "validation issue".pluralize(document.totalIssueCount)
+      text += " – " + "validation issue".pluralize(document.totalIssueCount)
     end
     informationField.stringValue = text
   end

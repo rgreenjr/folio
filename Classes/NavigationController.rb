@@ -32,9 +32,13 @@ class NavigationController < NSResponder
 
   def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
     if item == self
-      view = outlineView.makeViewWithIdentifier("NavigationSectionCell", owner:self)
-    else
       view = outlineView.makeViewWithIdentifier("NavigationCell", owner:self)
+    else
+      if item.hasFragment?
+        view = outlineView.makeViewWithIdentifier("PointFragmentCell", owner:self)
+      else
+        view = outlineView.makeViewWithIdentifier("PointCell", owner:self)
+      end
       view.textField.stringValue = item.text
       view.textField.action = "updatePoint:"
       view.textField.target = self

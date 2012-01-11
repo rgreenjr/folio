@@ -62,7 +62,6 @@
 						<string key="NSFrameSize">{500, 500}</string>
 						<reference key="NSSuperview" ref="427971903"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSClassName">NSView</string>
 					</object>
 					<object class="NSCustomView" id="578601842">
@@ -82,7 +81,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSSplitView" id="1018391731">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -112,7 +111,6 @@
 						</object>
 						<string key="NSFrameSize">{500, 245}</string>
 						<reference key="NSSuperview" ref="1018391731"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<int key="NSViewLayerContentsRedrawPolicy">2</int>
 						<string key="FrameName"/>
@@ -176,8 +174,7 @@
 										</object>
 										<string key="NSFrameSize">{10, 14}</string>
 										<reference key="NSSuperview" ref="604545385"/>
-										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="812289335"/>
+										<reference key="NSNextKeyView" ref="1054909219"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="136735737">
 											<object class="NSLayoutManager" key="NSLayoutManager">
 												<object class="NSTextStorage" key="NSTextStorage">
@@ -268,7 +265,6 @@
 								</object>
 								<string key="NSFrameSize">{500, 245}</string>
 								<reference key="NSSuperview" ref="371304271"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="725349644"/>
 								<reference key="NSDocView" ref="725349644"/>
 								<reference key="NSBGColor" ref="451190560"/>
@@ -305,8 +301,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{485, 0}, {15, 245}}</string>
 								<reference key="NSSuperview" ref="371304271"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<reference key="NSTarget" ref="371304271"/>
 								<string key="NSAction">_doScroller:</string>
 								<double key="NSCurValue">1</double>
@@ -317,7 +311,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 								<reference key="NSSuperview" ref="371304271"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="604545385"/>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="371304271"/>
@@ -328,8 +321,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<string key="NSFrame">{{0, 255}, {500, 245}}</string>
 						<reference key="NSSuperview" ref="1018391731"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1054909219"/>
+						<reference key="NSNextKeyView" ref="604545385"/>
 						<int key="NSsFlags">133136</int>
 						<reference key="NSVScroller" ref="812289335"/>
 						<reference key="NSHScroller" ref="1054909219"/>
@@ -337,8 +329,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 500}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="217705275"/>
 				<int key="NSDividerStyle">3</int>
 				<string key="NSAutosaveName"/>
@@ -779,14 +769,12 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -796,17 +784,12 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>item</string>
 							<string>lineNumberView</string>
 							<string>webViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">item</string>
 								<string key="candidateClassName">id</string>
@@ -954,7 +937,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>imageView</string>
 							<string>sourceViewController</string>
 							<string>splitView</string>
@@ -964,7 +946,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -977,7 +958,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>imageView</string>
 							<string>sourceViewController</string>
 							<string>splitView</string>
@@ -987,10 +967,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">imageView</string>
 								<string key="candidateClassName">id</string>

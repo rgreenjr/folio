@@ -2,7 +2,11 @@ class Point
 
   PBOARD_TYPE = "PointPboardType"
 
-  attr_accessor :id, :playOrder, :text, :item, :fragment
+  attr_accessor :id
+  attr_accessor :playOrder
+  attr_accessor :text
+  attr_accessor :item
+  attr_accessor :fragment
 
   def initialize(item=nil, text=nil, id=nil, fragment='')
     @item = item
@@ -40,6 +44,10 @@ class Point
   
   def fragment=(value)
     @fragment = value ? value : @fragment
+  end
+  
+  def hasFragment?
+    !@fragment.blank?
   end
   
   def depth

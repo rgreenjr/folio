@@ -27,16 +27,16 @@ class ManifestController < NSResponder
   
   def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
     if item == self
-      view = outlineView.makeViewWithIdentifier("ManifestSectionCell", owner:self)
+      view = outlineView.makeViewWithIdentifier("ManifestCell", owner:self)
     else
       if item.directory?
-        view = outlineView.makeViewWithIdentifier("ManifestFolderCell", owner:self)
+        view = outlineView.makeViewWithIdentifier("ItemFolderCell", owner:self)
       else
         if item.hasIssues?
-          view = outlineView.makeViewWithIdentifier("ManifestIssueCell", owner:self)
+          view = outlineView.makeViewWithIdentifier("ItemIssueCell", owner:self)
           view.statusTextField.stringValue =  "validation issue".pluralize(item.issueCount)
         else
-          view = outlineView.makeViewWithIdentifier("ManifestCell", owner:self)
+          view = outlineView.makeViewWithIdentifier("ItemCell", owner:self)
         end
         view.imageView.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
       end
