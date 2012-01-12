@@ -57,10 +57,10 @@ class PointViewController < NSViewController
           point.fragment = fragment
           @bookController.tabbedViewController.addObject(point)
         else
-          @bookController.runModalAlert("Item \"#{item.name}\" doesn't contain fragment \"#{fragment}\".", "Please specify a fragment present in the item.")
+          @bookController.runModalAlert("Item \"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", "You must specify an existing fragment identifier.")
         end
       else
-        @bookController.runModalAlert("The manifest doesn't contain \"#{value}\".", "Please specify an item included in the manifest.")
+        @bookController.runModalAlert("The manifest doesn't contain an item called \"#{value}\".", "You must specify an item present in the manifest.")
       end
     end
     updateView(point)
