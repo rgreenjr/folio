@@ -118,6 +118,14 @@ class IssueViewController < NSViewController
     end
   end
 
+  def selectPreviousIssue(sender)
+    @outlineView.selectRow(@outlineView.selectedRow - 1)    
+  end
+
+  def selectNextIssue(sender)
+    @outlineView.selectRow(@outlineView.selectedRow + 1)    
+  end
+
   def displayCurrentSelection(sender)
     object = @outlineView.itemAtRow(@outlineView.selectedRow)
     return unless object

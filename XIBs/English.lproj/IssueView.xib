@@ -67,7 +67,7 @@
 						<string key="NSFrameSize">{351, 387}</string>
 						<reference key="NSSuperview" ref="1003346232"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="735459657"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="412818648">
 							<int key="NSCellFlags">130560</int>
@@ -139,7 +139,7 @@
 						<string key="NSFrame">{{329, 363}, {1, 22}}</string>
 						<reference key="NSSuperview" ref="1003346232"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="928408937"/>
 						<string key="NSReuseIdentifierKey">_NS:2141</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="81781600">
@@ -163,7 +163,7 @@
 						<string key="NSFrame">{{329, 363}, {22, 22}}</string>
 						<reference key="NSSuperview" ref="1003346232"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="928408937"/>
+						<reference key="NSNextKeyView" ref="196527821"/>
 						<string key="NSReuseIdentifierKey">_NS:687</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="109559779">
@@ -243,7 +243,7 @@
 						<string key="NSFrame">{{-1, 363}, {352, 23}}</string>
 						<reference key="NSSuperview" ref="1003346232"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="735459657"/>
+						<reference key="NSNextKeyView" ref="207895950"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="759810998">
 							<int key="NSCellFlags">130560</int>
@@ -365,7 +365,7 @@
 								<string key="NSFrame">{{521, 17}, {15, 152}}</string>
 								<reference key="NSSuperview" ref="928408937"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="196527821"/>
+								<reference key="NSNextKeyView"/>
 								<reference key="NSTarget" ref="928408937"/>
 								<string key="NSAction">_doScroller:</string>
 								<double key="NSPercent">0.99740932642487046</double>
@@ -435,6 +435,22 @@
 						<reference key="destination" ref="207895950"/>
 					</object>
 					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectNextIssue:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="904529339"/>
+					</object>
+					<int key="connectionID">101</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectPreviousIssue:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="740009745"/>
+					</object>
+					<int key="connectionID">102</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -638,8 +654,10 @@
 					<string>78.IBPluginDependency</string>
 					<string>79.IBPluginDependency</string>
 					<string>80.IBPluginDependency</string>
+					<string>90.IBAttributePlaceholdersKey</string>
 					<string>90.IBPluginDependency</string>
 					<string>91.IBPluginDependency</string>
+					<string>92.IBAttributePlaceholdersKey</string>
 					<string>92.IBPluginDependency</string>
 					<string>93.IBPluginDependency</string>
 					<string>94.IBPluginDependency</string>
@@ -663,8 +681,24 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="740009745"/>
+							<string key="toolTip">Show previous validation issue</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="904529339"/>
+							<string key="toolTip">Show next validation issue</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -683,7 +717,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">99</int>
+			<int key="maxID">102</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -692,14 +726,42 @@
 					<string key="className">IssueViewController</string>
 					<string key="superclassName">NSViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">displayCurrentSelection:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>displayCurrentSelection:</string>
+							<string>selectNextIssue:</string>
+							<string>selectPreviousIssue:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">displayCurrentSelection:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">displayCurrentSelection:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>displayCurrentSelection:</string>
+							<string>selectNextIssue:</string>
+							<string>selectPreviousIssue:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">displayCurrentSelection:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectNextIssue:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectPreviousIssue:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
