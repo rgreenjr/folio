@@ -47,6 +47,9 @@ class BookWindowController < NSWindowController
     @tabbedViewController.view.frameOrigin = NSZeroPoint
     @contentPlaceholder.addSubview(@tabbedViewController.view)
     
+    # emboss informationField text
+    @informationField.cell.backgroundStyle = NSBackgroundStyleRaised
+    
     # register for tabView selection change events
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"tabViewSelectionDidChange:", 
         name:"TabViewSelectionDidChange", object:@tabbedViewController.tabView)
@@ -285,7 +288,7 @@ class BookWindowController < NSWindowController
     if document.totalIssueCount > 0
       text += " – " + "validation issue".pluralize(document.totalIssueCount)
     end
-    informationField.stringValue = text
+    @informationField.stringValue = text
   end
   
   def printDocument(sender)

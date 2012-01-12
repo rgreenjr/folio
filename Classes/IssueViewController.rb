@@ -20,6 +20,9 @@ class IssueViewController < NSViewController
     
     @outlineView.delegate = self
     @outlineView.dataSource = self
+    
+    # emboss status message text
+    @statusTextField.cell.backgroundStyle = NSBackgroundStyleRaised
 
     # set single click target and action
     @outlineView.target = self
