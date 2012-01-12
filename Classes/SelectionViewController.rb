@@ -158,6 +158,34 @@ class SelectionViewController < NSViewController
     end
   end
   
+  def selectPreviousItem(sender)
+    row = @outlineView.selectedRow
+    row = row == -1 ? @outlineView.numberOfRows - 1 : row - 1
+    while row >= 0
+      item = @outlineView.itemAtRow(row)
+      if isController?(item)
+        row -= 1
+      else
+        @outlineView.selectItem(item)
+        break
+      end
+    end
+  end
+  
+  def selectNextItem(sender)
+    row = @outlineView.selectedRow
+    row = row == -1 ? 0 : row + 1
+    while row < @outlineView.numberOfRows
+      item = @outlineView.itemAtRow(row)
+      if isController?(item)
+        row += 1
+      else
+        @outlineView.selectItem(item)
+        break
+      end
+    end
+  end
+  
   def duplicate(sender)
     item = currentSelection
     controller = controllerForItem(item)

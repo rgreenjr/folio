@@ -1018,6 +1018,34 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
+								<object class="NSMenuItem" id="959110936">
+									<reference key="NSMenu" ref="502084290"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="1065245483">
+									<reference key="NSMenu" ref="502084290"/>
+									<string key="NSTitle">Select Previous Item</string>
+									<string key="NSKeyEquiv"></string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="29091383">
+									<reference key="NSMenu" ref="502084290"/>
+									<string key="NSTitle">Select Next Item</string>
+									<string key="NSKeyEquiv"></string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
 								<object class="NSMenuItem" id="661851425">
 									<reference key="NSMenu" ref="502084290"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -1774,6 +1802,22 @@
 					</object>
 					<int key="connectionID">1922</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectNextItem:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="29091383"/>
+					</object>
+					<int key="connectionID">1926</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectPreviousItem:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="1065245483"/>
+					</object>
+					<int key="connectionID">1927</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -2190,6 +2234,9 @@
 							<reference ref="768104990"/>
 							<reference ref="959929004"/>
 							<reference ref="928730044"/>
+							<reference ref="1065245483"/>
+							<reference ref="29091383"/>
+							<reference ref="959110936"/>
 						</object>
 						<reference key="parent" ref="626404410"/>
 					</object>
@@ -2654,6 +2701,21 @@
 						<reference key="object" ref="840540393"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1923</int>
+						<reference key="object" ref="1065245483"/>
+						<reference key="parent" ref="502084290"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1924</int>
+						<reference key="object" ref="29091383"/>
+						<reference key="parent" ref="502084290"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1925</int>
+						<reference key="object" ref="959110936"/>
+						<reference key="parent" ref="502084290"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2750,6 +2812,9 @@
 					<string>1910.IBPluginDependency</string>
 					<string>1911.IBPluginDependency</string>
 					<string>1912.IBPluginDependency</string>
+					<string>1923.IBPluginDependency</string>
+					<string>1924.IBPluginDependency</string>
+					<string>1925.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
@@ -2919,6 +2984,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2933,7 +3001,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1922</int>
+			<int key="maxID">1927</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3750,10 +3818,14 @@
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
 							<string>revealInManifest:</string>
+							<string>selectNextItem:</string>
+							<string>selectPreviousItem:</string>
 							<string>toggleRow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3775,6 +3847,8 @@
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
 							<string>revealInManifest:</string>
+							<string>selectNextItem:</string>
+							<string>selectPreviousItem:</string>
 							<string>toggleRow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3805,6 +3879,14 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">revealInManifest:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectNextItem:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectPreviousItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
