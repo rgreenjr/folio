@@ -136,6 +136,7 @@
 		CD3179E512EA7AE800C98B33 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD3179D612EA7AE800C98B33 /* WebView.xib */; };
 		CD389FF714B2349B00305ED7 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = CD389FF614B2349B00305ED7 /* warning.png */; };
 		CD3A3E0312F21F0500449BFC /* PrintController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3A3E0212F21F0500449BFC /* PrintController.rb */; };
+		CD4969D614BF4F0F003D91BB /* MySplitView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD4969D514BF4F0F003D91BB /* MySplitView.rb */; };
 		CD52134214BE784B004283BF /* issues-divider-background.png in Resources */ = {isa = PBXBuildFile; fileRef = CD52134114BE784B004283BF /* issues-divider-background.png */; };
 		CD52134714BE7E55004283BF /* issues-button-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD52134514BE7E55004283BF /* issues-button-left.png */; };
 		CD52134814BE7E55004283BF /* issues-button-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD52134614BE7E55004283BF /* issues-button-right.png */; };
@@ -312,6 +313,7 @@
 		CD3179D712EA7AE800C98B33 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebView.xib; sourceTree = "<group>"; };
 		CD389FF614B2349B00305ED7 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		CD3A3E0212F21F0500449BFC /* PrintController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PrintController.rb; sourceTree = "<group>"; };
+		CD4969D514BF4F0F003D91BB /* MySplitView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MySplitView.rb; sourceTree = "<group>"; };
 		CD52134114BE784B004283BF /* issues-divider-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-divider-background.png"; sourceTree = "<group>"; };
 		CD52134514BE7E55004283BF /* issues-button-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-button-left.png"; sourceTree = "<group>"; };
 		CD52134614BE7E55004283BF /* issues-button-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-button-right.png"; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 				CD2D17F212E5F1F800D6A99A /* Metadata.rb */,
 				CD2D17F312E5F1F800D6A99A /* MetadataController.rb */,
 				CDEBCB0512F0B27C00E8834D /* Metadatum.rb */,
+				CD4969D514BF4F0F003D91BB /* MySplitView.rb */,
 				CDA91EA914BBC5EB0036461C /* MyTextField.rb */,
 				CD2D17F412E5F1F800D6A99A /* Navigation.rb */,
 				CD2D17F512E5F1F800D6A99A /* NavigationController.rb */,
@@ -864,6 +867,7 @@
 				CD52134A14BE8080004283BF /* issues-button-left-alt.png in Resources */,
 				CD52134C14BE857C004283BF /* issues-button-right-alt.png in Resources */,
 				CD52134E14BE90CC004283BF /* issues-button-separator.png in Resources */,
+				CD4969D614BF4F0F003D91BB /* MySplitView.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

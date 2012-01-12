@@ -2,12 +2,11 @@ Bugs
 ====
 
 - Better handling of layout switch between media types
-- Validate Point fragment changes via Inspector by parsing on enter
 
 Features
 ========
 
-- Fix point and point-fragment icons.
+- Fix point-fragment icons.
 - Create icon for itemrefs.
 
 Enhancements

@@ -1,6 +1,10 @@
 class PointViewController < NSViewController
   
-  attr_accessor :point, :textField, :idField, :sourceField
+  attr_accessor :point
+  attr_accessor :textField
+  attr_accessor :idField
+  attr_accessor :sourceField
+  attr_accessor :progressIndicator
   
   def initWithBookController(controller)
     initWithNibName("PointView", bundle:nil)
@@ -50,6 +54,7 @@ class PointViewController < NSViewController
       href, fragment = value.split('#')
       item = @bookController.document.manifest.itemWithHref(href)
       if item
+        showProgressIndicator
         if fragment.blank? || item.hasFragment?(fragment)
           undoManager.prepareWithInvocationTarget(self).changeSource(point, point.src)
           undoManager.actionName = "Change Source"
@@ -59,6 +64,7 @@ class PointViewController < NSViewController
         else
           @bookController.runModalAlert("Item \"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", "You must specify an existing fragment identifier.")
         end
+        hideProgressIndicator
       else
         @bookController.runModalAlert("The manifest doesn't contain an item called \"#{value}\".", "You must specify an item present in the manifest.")
       end
@@ -75,6 +81,17 @@ class PointViewController < NSViewController
       @sourceField.stringValue = point.src
       @bookController.selectionViewController.reloadItem(point)
     end
+  end
+  
+  def showProgressIndicator
+    @progressIndicator.hidden = false
+    @progressIndicator.usesThreadedAnimation = true
+    @progressIndicator.startAnimation(self)
+  end
+  
+  def hideProgressIndicator
+    @progressIndicator.hidden = true
+    @progressIndicator.stopAnimation(self)
   end
   
   def undoManager
