@@ -39,9 +39,15 @@ class Guide
       href, fragment = href.split('#')
       
       item  = @manifest.itemWithHref(href)
-      raise "Guide reference item with href \"#{href}\" could not be found." unless item
-      item.referenceType = element.attributes["type"]
-      item.referenceTitle = element.attributes["title"]
+      
+      if item
+        item.referenceType = element.attributes["type"]
+        item.referenceTitle = element.attributes["title"]
+      else
+        # raise "Guide reference item with href \"#{href}\" could not be found." unless item
+        puts "Folio: ignoring guide reference not declared in manifest \"#{href}\""
+      end
+      
     end
   end
   
