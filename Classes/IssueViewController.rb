@@ -3,6 +3,7 @@ class IssueViewController < NSViewController
   attr_reader   :bookController
   attr_accessor :outlineView
   attr_accessor :noIssuesImageView
+  attr_accessor :statusTextField
 
   def initWithBookController(controller)
     initWithNibName("IssueView", bundle:nil)
@@ -36,6 +37,9 @@ class IssueViewController < NSViewController
   end
 
   def refresh
+    # update statusTextField
+    @statusTextField.stringValue = "Validation Issue".pluralize(@bookController.document.totalIssueCount)    
+
     # get all items with validation issues
     @items = @bookController.document.manifest.itemsWithIssues
     
