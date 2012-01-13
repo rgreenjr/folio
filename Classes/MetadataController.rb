@@ -1,6 +1,6 @@
 class MetadataController < NSWindowController
 
-  attr_accessor :bookController
+  attr_reader   :bookController
   attr_accessor :imageWell
   attr_accessor :titleField
   attr_accessor :dateField
@@ -30,9 +30,20 @@ class MetadataController < NSWindowController
   def windowDidLoad
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
     @creatorField.delegate = self
-    @subjectField.delegate = self
     @imageWell.bookController = @bookController
   end
+  
+  def comboBox(comboBox, objectValueForItemAtIndex:index)
+    SUBJECTS[index]
+  end
+  
+  def numberOfItemsInComboBox(comboBox)
+    SUBJECTS.size
+  end
+  
+  def comboBox(comboBox, completedString:uncompletedString)  
+    SUBJECTS.find {|subject| subject.match(/^#{uncompletedString}/i)}
+  end  
 
   # attempt to auto-complete sortCreatorField
   def controlTextDidEndEditing(notification)
@@ -40,34 +51,6 @@ class MetadataController < NSWindowController
     if textField == @creatorField && @sortCreatorField.stringValue.blank?
       @sortCreatorField.stringValue = Metadata.deriveSortCreator(textField.stringValue)
     end
-  end
-
-  # attempt to auto-complete subjectField
-  def controlTextDidChange(notification)
-    
-    # skip auto-complete if deletingBackward
-    if @deletingBackward
-      @deletingBackward = false
-      return
-    end
-    
-    textField = notification.object
-    value = textField.stringValue    
-    if textField == @subjectField && !value.blank?
-      match = SUBJECTS.find {|subject| subject.match(/^#{value}/i)}
-      if match
-        @subjectField.stringValue = match
-        @subjectField.currentEditor.setSelectedRange(NSRange.new(value.length, match.length))
-      end
-    end
-  end
-
-  # disable subjectField auto-complete if deleteBackward: 
-  def control(control, textView:textView, doCommandBySelector:command) 
-    if control == @subjectField && command.to_s == "deleteBackward:"
-      @deletingBackward = true
-    end
-    false
   end
 
   def showMetadataSheet(sender)
