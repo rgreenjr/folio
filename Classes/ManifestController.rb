@@ -61,35 +61,6 @@ class ManifestController < NSResponder
     item == self ? @manifest.root[index] : item[index]
   end
 
-  # def objectValueForTableColumn(tableColumn, byItem:item)
-  #   item == self ? "MANIFEST" : item.name
-  # end
-
-  # def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
-  #   if item == self
-  #     cell.font = NSFont.boldSystemFontOfSize(11.0)
-  #     cell.image = 
-  #     cell.menu = nil
-  #   else
-  #     cell.font = NSFont.systemFontOfSize(11.0)
-  #     cell.menu = @menu
-  #     if item.directory?
-  #       cell.image = NSImage.imageNamed('folder.png')
-  #     else
-  #       fileIcon = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(item.name))
-  #       if item.hasIssues?
-  #         cell.image = Image.warningCompositeImage(fileIcon)
-  #       else
-  #         cell.image = fileIcon
-  #       end
-  #     end
-  #   end
-  # end
-
-  # def setObjectValue(value, forTableColumn:tableColumn, byItem:item)
-  #   @bookController.inspectorViewController.itemViewController.changeName(item, value)
-  # end
-
   def writeItems(items, toPasteboard:pboard)
     itemIds = items.map { |item| item.id }
     pboard.declareTypes([Item::PBOARD_TYPE], owner:self)

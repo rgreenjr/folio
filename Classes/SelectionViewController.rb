@@ -25,9 +25,6 @@ class SelectionViewController < NSViewController
     # add each controller to next repsonder chain
     @controllers.each { |controller| @bookController.makeResponder(controller) }
     
-    # use our custom image cell
-    # @outlineView.tableColumns.first.dataCell = ImageCell.new
-    
     # register the drag types we support
     @outlineView.registerForDraggedTypes([Point::PBOARD_TYPE, ItemRef::PBOARD_TYPE, Item::PBOARD_TYPE, NSFilenamesPboardType])
 
@@ -76,25 +73,13 @@ class SelectionViewController < NSViewController
     item ? controllerForItem(item).child(index, ofItem:item) : @controllers[index]
   end
 
-  # def outlineView(outlineView, objectValueForTableColumn:tableColumn, byItem:item)
-  #   controllerForItem(item).objectValueForTableColumn(tableColumn, byItem:item)
-  # end
-
   def outlineView(outlineView, shouldSelectItem:item)
     !isController?(item) # prevent selection of controllers
   end
 
-  # def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:item)
-  #   controllerForItem(item).willDisplayCell(cell, forTableColumn:tableColumn, item:item)
-  # end
-  
   def outlineView(outlineView, shouldEditTableColumn:tableColumn, item:item)
     controllerForItem(item) != @spineController
   end
-
-  # def outlineView(outlineView, setObjectValue:value, forTableColumn:tableColumn, byItem:item)
-  #   controllerForItem(item).setObjectValue(value, forTableColumn:tableColumn, byItem:item)
-  # end
 
   def outlineViewSelectionDidChange(notification)
     displayCurrentSelection(self)
@@ -209,13 +194,14 @@ class SelectionViewController < NSViewController
   end
   
   def validateMenuItem(menuItem)
+    puts "validateMenuItem #{menuItem.title}"
     case menuItem.action
     when :"revealInManifest:"
       @outlineView.numberOfSelectedRows == 1 || @bookController.tabbedViewController.numberOfTabs > 0
     when :"duplicate:"
       @outlineView.numberOfSelectedRows == 1 && controllerForItem(currentSelection) == @navigationController
     when :"delete:"
-      selectedItemsHaveCommonController?
+      commonControllerForItems(@outlineView.selectedItems) != nil
     else
       true
     end
@@ -234,10 +220,6 @@ class SelectionViewController < NSViewController
     item
   end
   
-  def selectedItemsHaveCommonController?
-    commonControllerForItems(@outlineView.selectedItems) != nil
-  end
-
   def commonControllerForItems(items)
     common = nil
     items.each do |item|

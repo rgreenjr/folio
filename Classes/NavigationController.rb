@@ -61,28 +61,6 @@ class NavigationController < NSResponder
     point == self ? @navigation.root[index] : point[index]
   end
 
-  # def objectValueForTableColumn(tableColumn, byItem:point)
-  #   point == self ? "TABLE OF CONTENTS" : point.text
-  # end
-  
-  # def willDisplayCell(cell, forTableColumn:tableColumn, item:item)
-  #   if item == self
-  #     # cell.textColor = NSColor.colorWithDeviceRed(0.39, green:0.44, blue:0.5, alpha:1.0)
-  #     cell.font = NSFont.boldSystemFontOfSize(11.0)
-  #     cell.image = NSImage.imageNamed('toc.png')
-  #     cell.menu = nil
-  #   else
-  #     # cell.textColor = NSColor.blackColor
-  #     cell.font = NSFont.systemFontOfSize(11.0)
-  #     cell.image = nil
-  #     cell.menu = @menu
-  #   end
-  # end
-
-  # def setObjectValue(value, forTableColumn:tableColumn, byItem:point)
-  #   @bookController.inspectorViewController.pointViewController.changeText(point, value)
-  # end
-
   def writeItems(points, toPasteboard:pboard)
     pointIds = points.map { |point| point.id }
     pboard.declareTypes([Point::PBOARD_TYPE], owner:self)
@@ -290,15 +268,11 @@ class NavigationController < NSResponder
       indexes << index
       if parent
         parents << parent
-        # indent = "   " * level
-        # puts "#{indent}deleting #{point.text}, parent = #{parent.text}, index = #{index}"
         @navigation.delete(point)
       else
         raise "unable to delete parentless point #{point.text}, index = #{index}"
       end
     end
-    
-    # puts "---"
 
      if allowUndo
       undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
@@ -323,7 +297,6 @@ class NavigationController < NSResponder
   def reloadDataAndSelectPoints(points)
     @outlineView.reloadData
     @outlineView.selectItems(points)
-    # window.makeFirstResponder(@outlineView)
   end
 
   def validateUserInterfaceItem(interfaceItem)

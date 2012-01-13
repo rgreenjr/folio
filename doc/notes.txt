@@ -12,6 +12,7 @@ Features
 Enhancements
 ============
 
+- Re-enable selection view context menus.
 - Add NSPopover [http://www.youtube.com%2Fwatch%3Fv%3DP3uehLU67cg&ei=plwKT5H6Ho3CsQLxz6GRCg&usg=AFQjCNG09MZiNqLv3x7Q3MbBdW1LyyyTiQ]
 - Add "new" toolbar button for creating items, points, folders, etc.
 - Auto pick mediaType when item is renamed?
@@ -28,6 +29,7 @@ Enhancements
 - Add tool tips to tabs
 - Add ability to duplicate manifest items
 - Add Guide section?
+- Add "Select..." button to metadata image cover UI. 
 
 Refactoring
 ===========
