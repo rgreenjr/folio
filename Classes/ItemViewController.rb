@@ -3,7 +3,7 @@ class ItemViewController < NSViewController
   attr_accessor :item
   attr_accessor :nameField
   attr_accessor :idField
-  attr_accessor :mediaTypeField
+  attr_accessor :mediaTypeComboBox
   
   def initWithBookController(controller)
     initWithNibName("ItemView", bundle:nil)
@@ -13,7 +13,6 @@ class ItemViewController < NSViewController
   
   def loadView
     super
-    @mediaTypeField.delegate = self # so we receive text edit notificaitons
   end
   
   def item=(item)
@@ -21,35 +20,17 @@ class ItemViewController < NSViewController
     updateView(@item)
   end
   
-  # attempt to auto-complete mediaTypeField
-  def controlTextDidChange(notification)
-    return unless notification.object == @mediaTypeField
-    
-    # skip auto-complete if deletingBackward
-    if @deletingBackward
-      @deletingBackward = false
-      return
-    end
-
-    value = notification.object.stringValue
-    if value.blank?
-      type = Media.guessType(@item.name.pathExtension)
-    else
-      type = Media.closestType(value)
-    end
-    if type
-      @mediaTypeField.stringValue = type
-      @mediaTypeField.currentEditor.setSelectedRange(NSRange.new(value.length, type.length))
-    end
+  def comboBox(comboBox, objectValueForItemAtIndex:index)
+    Media.types[index]
   end
-
-  # disable mediaTypeField auto-complete if deleteBackward: 
-  def control(control, textView:textView, doCommandBySelector:command)
-    if control == @mediaTypeField && command.to_s == "deleteBackward:" && @mediaTypeField.stringValue.size > 1
-      @deletingBackward = true
-    end
-    false
+  
+  def numberOfItemsInComboBox(comboBox)
+    Media.types.size
   end
+  
+  def comboBox(comboBox, completedString:uncompletedString)  
+    Media.closestType(uncompletedString)
+  end  
   
   def updateItem(sender)
     if sender == @nameField
@@ -57,7 +38,7 @@ class ItemViewController < NSViewController
     elsif sender == @idField
       changeID(@item, @idField.stringValue)
     else
-      changeMediaType(@item, @mediaTypeField.stringValue)
+      changeMediaType(@item, @mediaTypeComboBox.stringValue)
     end
   end
   
@@ -104,13 +85,13 @@ class ItemViewController < NSViewController
       if item.directory?
         @idField.stringValue = ''
         @idField.enabled = false
-        @mediaTypeField.stringValue = ''
-        @mediaTypeField.enabled = false
+        @mediaTypeComboBox.stringValue = ''
+        @mediaTypeComboBox.enabled = false
       else
         @idField.stringValue = item.id
         @idField.enabled = true
-        @mediaTypeField.stringValue = item.mediaType
-        @mediaTypeField.enabled = true
+        @mediaTypeComboBox.stringValue = item.mediaType
+        @mediaTypeComboBox.enabled = true
       end
       @bookController.selectionViewController.reloadItem(item)
     end

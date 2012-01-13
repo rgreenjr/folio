@@ -48,7 +48,7 @@ class Media
   end
   
   def self.types
-    @types ||= MEDIA_TYPES_HASH.values.sort
+    @types ||= MEDIA_TYPES_HASH.values.sort.uniq
   end
   
   def self.editable?(mediaType)
