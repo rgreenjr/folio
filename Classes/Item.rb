@@ -233,7 +233,11 @@ class Item
   end
   
   def fileSize
-    content.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+    if imageable?
+      NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
+    else
+      content.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+    end
   end
 
   def issues
@@ -280,6 +284,10 @@ class Item
   
   def hasFragment?(fragment)
     fragment && fragments.include?(fragment)
+  end
+  
+  def fragmentsCached?
+    @fragments != nil
   end
 
 end
