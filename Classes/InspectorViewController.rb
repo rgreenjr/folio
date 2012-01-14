@@ -1,9 +1,10 @@
 class InspectorViewController < NSViewController
 
-  attr_accessor :bookController
+  attr_reader   :bookController
   attr_accessor :attributesView
   attr_accessor :emptyView
-
+  attr_accessor :titleTextField
+  
   def initWithBookController(controller)
     initWithNibName("InspectorView", bundle:nil)
     @bookController = controller
@@ -59,6 +60,7 @@ class InspectorViewController < NSViewController
   private
   
   def showEmptyView
+    @titleTextField.stringValue = "Properties Inspector"
     pointViewController.view.hidden = true
     itemRefViewController.view.hidden = true
     itemViewController.view.hidden = true
@@ -66,6 +68,7 @@ class InspectorViewController < NSViewController
   end
   
   def showPointView(point)
+    @titleTextField.stringValue = "Point Inspector"
     pointViewController.point = point
     pointViewController.view.hidden = false
     itemRefViewController.view.hidden = true
@@ -74,6 +77,7 @@ class InspectorViewController < NSViewController
   end
   
   def showItemRefView(itemref)
+    @titleTextField.stringValue = "ItemRef Inspector"
     itemRefViewController.itemref = itemref
     pointViewController.view.hidden = true
     itemRefViewController.view.hidden = false
@@ -82,6 +86,7 @@ class InspectorViewController < NSViewController
   end
   
   def showItemView(item)
+    @titleTextField.stringValue = "Item Inspector"
     itemViewController.item = item
     pointViewController.view.hidden = true
     itemRefViewController.view.hidden = true

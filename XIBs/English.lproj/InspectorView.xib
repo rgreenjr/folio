@@ -49,7 +49,6 @@
 						<string key="NSFrame">{{0, 142}, {400, 14}}</string>
 						<reference key="NSSuperview" ref="764513978"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="498935286">
 							<int key="NSCellFlags">68288064</int>
@@ -132,7 +131,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSImageView" id="550314342">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">258</int>
 				<object class="NSMutableSet" key="NSDragTypes">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -147,9 +146,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{400, 139}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<bool key="NSEnabled">YES</bool>
 				<object class="NSImageCell" key="NSCell" id="396928022">
 					<int key="NSCellFlags">807534080</int>
@@ -195,11 +191,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">textField</string>
+						<string key="label">titleTextField</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="521013318"/>
 					</object>
-					<int key="connectionID">100</int>
+					<int key="connectionID">121</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -342,7 +338,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">120</int>
+			<int key="maxID">121</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -355,8 +351,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>attributesView</string>
-							<string>bookController</string>
 							<string>emptyView</string>
+							<string>titleTextField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -370,8 +366,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>attributesView</string>
-							<string>bookController</string>
 							<string>emptyView</string>
+							<string>titleTextField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -380,11 +376,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
+								<string key="name">emptyView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">emptyView</string>
+								<string key="name">titleTextField</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
