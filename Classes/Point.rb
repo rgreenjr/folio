@@ -25,6 +25,10 @@ class Point
     url = NSURL.URLWithString(encoded + fragmentWithHash)
   end
   
+  def href
+    @item.href
+  end
+  
   def src
     @item.href + fragmentWithHash
   end
