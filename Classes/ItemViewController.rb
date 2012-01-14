@@ -1,6 +1,7 @@
 class ItemViewController < NSViewController
 
   attr_accessor :item
+  attr_accessor :sizeField
   attr_accessor :nameField
   attr_accessor :idField
   attr_accessor :mediaTypeComboBox
@@ -83,11 +84,13 @@ class ItemViewController < NSViewController
     if item
       @nameField.stringValue = item.name
       if item.directory?
+        @sizeField.stringValue = '--'
         @idField.stringValue = ''
         @idField.enabled = false
         @mediaTypeComboBox.stringValue = ''
         @mediaTypeComboBox.enabled = false
       else
+        @sizeField.stringValue = item.fileSize.to_storage_size
         @idField.stringValue = item.id
         @idField.enabled = true
         @mediaTypeComboBox.stringValue = item.mediaType

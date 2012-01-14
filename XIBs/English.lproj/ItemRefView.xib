@@ -50,7 +50,7 @@
 					<object class="NSButton" id="787800015">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">258</int>
-						<string key="NSFrame">{{101, 35}, {292, 18}}</string>
+						<string key="NSFrame">{{108, 52}, {285, 18}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -83,7 +83,7 @@
 					<object class="NSPopUpButton" id="496954707">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">258</int>
-						<string key="NSFrame">{{101, 55}, {292, 22}}</string>
+						<string key="NSFrame">{{108, 72}, {285, 22}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="982025501"/>
@@ -140,7 +140,7 @@
 					<object class="NSTextField" id="982025501">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{11, 37}, {88, 14}}</string>
+						<string key="NSFrame">{{11, 54}, {95, 14}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="787800015"/>
@@ -149,7 +149,11 @@
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
 							<string key="NSContents">Linear (Primary)</string>
-							<reference key="NSSupport" ref="26"/>
+							<object class="NSFont" key="NSSupport" id="27">
+								<string key="NSName">LucidaGrande-Bold</string>
+								<double key="NSSize">11</double>
+								<int key="NSfFlags">3357</int>
+							</object>
 							<reference key="NSControlView" ref="982025501"/>
 							<object class="NSColor" key="NSBackgroundColor" id="753882283">
 								<int key="NSColorSpace">6</int>
@@ -174,7 +178,7 @@
 					<object class="NSTextField" id="455209919">
 						<reference key="NSNextResponder" ref="111429995"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{58, 60}, {41, 14}}</string>
+						<string key="NSFrame">{{58, 77}, {48, 14}}</string>
 						<reference key="NSSuperview" ref="111429995"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="496954707"/>
@@ -183,14 +187,14 @@
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71435264</int>
 							<string key="NSContents">Type</string>
-							<reference key="NSSupport" ref="26"/>
+							<reference key="NSSupport" ref="27"/>
 							<reference key="NSControlView" ref="455209919"/>
 							<reference key="NSBackgroundColor" ref="753882283"/>
 							<reference key="NSTextColor" ref="97302438"/>
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{400, 110}</string>
+				<string key="NSFrameSize">{400, 139}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="455209919"/>

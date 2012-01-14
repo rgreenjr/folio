@@ -43,22 +43,13 @@
 				<int key="NSvFlags">258</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="NSCustomView" id="745041827">
-						<reference key="NSNextResponder" ref="764513978"/>
-						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{400, 110}</string>
-						<reference key="NSSuperview" ref="764513978"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
-						<string key="NSClassName">NSView</string>
-					</object>
 					<object class="NSTextField" id="521013318">
 						<reference key="NSNextResponder" ref="764513978"/>
 						<int key="NSvFlags">258</int>
-						<string key="NSFrame">{{0, 113}, {400, 14}}</string>
+						<string key="NSFrame">{{0, 142}, {400, 14}}</string>
 						<reference key="NSSuperview" ref="764513978"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="745041827"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="498935286">
 							<int key="NSCellFlags">68288064</int>
@@ -105,7 +96,7 @@
 								<string>NeXT TIFF v4.0 pasteboard type</string>
 							</object>
 						</object>
-						<string key="NSFrame">{{0, 110}, {400, 20}}</string>
+						<string key="NSFrame">{{0, 139}, {400, 20}}</string>
 						<reference key="NSSuperview" ref="764513978"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="521013318"/>
@@ -124,15 +115,24 @@
 						</object>
 						<bool key="NSEditable">YES</bool>
 					</object>
+					<object class="NSCustomView" id="745041827">
+						<reference key="NSNextResponder" ref="764513978"/>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrameSize">{400, 139}</string>
+						<reference key="NSSuperview" ref="764513978"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1053644553"/>
+						<string key="NSClassName">NSView</string>
+					</object>
 				</object>
-				<string key="NSFrameSize">{400, 130}</string>
+				<string key="NSFrameSize">{400, 159}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="1053644553"/>
+				<reference key="NSNextKeyView" ref="745041827"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSImageView" id="550314342">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">258</int>
 				<object class="NSMutableSet" key="NSDragTypes">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -146,7 +146,10 @@
 						<string>NeXT TIFF v4.0 pasteboard type</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{400, 110}</string>
+				<string key="NSFrameSize">{400, 139}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<bool key="NSEnabled">YES</bool>
 				<object class="NSImageCell" key="NSCell" id="396928022">
 					<int key="NSCellFlags">807534080</int>
@@ -176,14 +179,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">textField</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="521013318"/>
-					</object>
-					<int key="connectionID">100</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">emptyView</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="550314342"/>
@@ -197,6 +192,14 @@
 						<reference key="destination" ref="745041827"/>
 					</object>
 					<int key="connectionID">101</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="521013318"/>
+					</object>
+					<int key="connectionID">100</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -256,6 +259,30 @@
 						<reference key="parent" ref="1053644553"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">118</int>
+						<reference key="object" ref="550314342"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="396928022"/>
+						</object>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">No Selection View</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">119</int>
+						<reference key="object" ref="396928022"/>
+						<reference key="parent" ref="550314342"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">97</int>
+						<reference key="object" ref="745041827"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
+						<reference key="parent" ref="764513978"/>
+						<string key="objectName">Attributes View</string>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">98</int>
 						<reference key="object" ref="521013318"/>
 						<object class="NSMutableArray" key="children">
@@ -269,27 +296,6 @@
 						<int key="objectID">99</int>
 						<reference key="object" ref="498935286"/>
 						<reference key="parent" ref="521013318"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">118</int>
-						<reference key="object" ref="550314342"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="396928022"/>
-						</object>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Empty View</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">119</int>
-						<reference key="object" ref="396928022"/>
-						<reference key="parent" ref="550314342"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">97</int>
-						<reference key="object" ref="745041827"/>
-						<reference key="parent" ref="764513978"/>
-						<string key="objectName">Attributes View</string>
 					</object>
 				</object>
 			</object>
