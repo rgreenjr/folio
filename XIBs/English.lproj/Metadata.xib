@@ -312,7 +312,6 @@
 							<string key="NSFrame">{{341, 142}, {81, 17}}</string>
 							<reference key="NSSuperview" ref="318698326"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="481321291">
 								<int key="NSCellFlags">68288064</int>
@@ -591,7 +590,7 @@
 								<bool key="NSDrawsBackground">YES</bool>
 								<reference key="NSBackgroundColor" ref="469225461"/>
 								<reference key="NSTextColor" ref="746358825"/>
-								<int key="NSVisibleItemCount">5</int>
+								<int key="NSVisibleItemCount">10</int>
 								<bool key="NSHasVerticalScroller">YES</bool>
 								<bool key="NSUsesDataSource">YES</bool>
 								<bool key="NSCompletes">YES</bool>
