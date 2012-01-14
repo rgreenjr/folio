@@ -194,7 +194,6 @@ class SelectionViewController < NSViewController
   end
   
   def validateMenuItem(menuItem)
-    puts "validateMenuItem #{menuItem.title}"
     case menuItem.action
     when :"revealInManifest:"
       @outlineView.numberOfSelectedRows == 1 || @bookController.tabbedViewController.numberOfTabs > 0
