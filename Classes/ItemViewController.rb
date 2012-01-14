@@ -14,6 +14,16 @@ class ItemViewController < NSViewController
   
   def loadView
     super
+
+    NSNotificationCenter.defaultCenter.addObserver(self, 
+        selector:"textDidChange:", 
+        name:NSTextStorageDidProcessEditingNotification, 
+        object:@bookController.tabbedViewController.sourceViewController.view.textStorage)
+  end
+  
+  def textDidChange(notification)
+    string = notification.object.string
+    @sizeField.stringValue = string.lengthOfBytesUsingEncoding(NSUTF8StringEncoding).to_storage_size
   end
   
   def item=(item)
