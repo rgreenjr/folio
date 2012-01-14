@@ -1,18 +1,19 @@
 Bugs
 ====
 
+- Make TabView update its content when points are changed via inspector.
 - Better handling of layout switch between media types
 
 Features
 ========
 
+- Re-enable selection view context menus.	
 - Fix point-fragment icons.
 - Create icon for itemrefs.
 
 Enhancements
 ============
 
-- Re-enable selection view context menus.
 - Add NSPopover [http://www.youtube.com%2Fwatch%3Fv%3DP3uehLU67cg&ei=plwKT5H6Ho3CsQLxz6GRCg&usg=AFQjCNG09MZiNqLv3x7Q3MbBdW1LyyyTiQ]
 - Add "new" toolbar button for creating items, points, folders, etc.
 - Auto pick mediaType when item is renamed?

@@ -6,7 +6,7 @@ class PointViewController < NSViewController
   attr_accessor :textField
   attr_accessor :idField
   attr_accessor :sourcePopup
-  attr_accessor :fragmentPopup
+  attr_accessor :fragmentComboBox
   attr_accessor :progressIndicator
   
   def initWithBookController(controller)
@@ -28,11 +28,7 @@ class PointViewController < NSViewController
     elsif sender == @sourcePopup
       changeSourceAndFragment(@point, @items[@sourcePopup.indexOfSelectedItem], '')
     else
-      if @fragmentPopup.indexOfSelectedItem < FRAGMENT_POPUP_OFFSET
-        changeFragment(@point, '')
-      else
-        changeFragment(@point, @fragmentPopup.selectedItem.title)
-      end
+      changeFragment(@point, @fragmentComboBox.stringValue)
     end
   end
   
@@ -69,11 +65,32 @@ class PointViewController < NSViewController
   
   def changeFragment(point, fragment)
     return if point.fragment == fragment
-    undoManager.prepareWithInvocationTarget(self).changeFragment(point, point.fragment)
-    undoManager.actionName = "Change Fragment"
-    point.fragment = fragment
+    if fragment.blank? || point.item.hasFragment?(fragment)
+      undoManager.prepareWithInvocationTarget(self).changeFragment(point, point.fragment)
+      undoManager.actionName = "Change Fragment"
+      point.fragment = fragment
+    else
+      @bookController.runModalAlert("\"#{point.item.name}\" doesn't contain the fragment \"#{fragment}\".", "You must specify an existing fragment identifier.")
+    end
     updateView(point)
   end
+  
+  def comboBox(comboBox, objectValueForItemAtIndex:index)
+    @point.item.fragments[index]
+  end
+  
+  def numberOfItemsInComboBox(comboBox)
+    return 0 unless @point
+    return @point.item.fragments.size if @point.item.fragmentsCached?
+    performSelectorOnMainThread("loadFragments:", withObject:@point, waitUntilDone:false)
+    @progressIndicator.startAnimation(self)
+    @progressIndicator.hidden = false
+    return 0
+  end
+  
+  def comboBox(comboBox, completedString:uncompletedString)
+    @point.item.fragments.find {|frag| frag.match(/^#{uncompletedString}/i)}
+  end  
   
   private
   
@@ -82,7 +99,8 @@ class PointViewController < NSViewController
       @textField.stringValue = point.text
       @idField.stringValue = point.id
       updateSourcePopup(point)
-      updateFragmentPopup(point)
+      @fragmentComboBox.stringValue = point.fragment
+      @fragmentComboBox.noteNumberOfItemsChanged
       @bookController.selectionViewController.reloadItem(point)
     end
   end
@@ -97,36 +115,11 @@ class PointViewController < NSViewController
     @sourcePopup.selectItemWithTitle(point.href)
   end
 
-  def updateFragmentPopup(point)
-    # clear all but 'None' and separator menu items
-    while @fragmentPopup.numberOfItems > FRAGMENT_POPUP_OFFSET
-      @fragmentPopup.removeItemAtIndex(@fragmentPopup.numberOfItems - 1)
-    end
-
-    @fragmentPopup.enabled = false
-    @progressIndicator.startAnimation(self)
-    @progressIndicator.hidden = false
-    performSelectorOnMainThread(:"loadFragmentsAndUpdate:", withObject:point, waitUntilDone:false)
-  end
-  
-  def loadFragmentsAndUpdate(point)
-    fragments = point.item.fragments
-    if fragments
-      fragments.each do |frag|
-        @fragmentPopup.addItemWithTitle(frag)
-      end
-    else
-      puts "Unable to parse source"
-    end
-    @fragmentPopup.enabled = true
-    @progressIndicator.stopAnimation(self)
+  def loadFragments(point)
+    point.item.fragments # force fragment parsing
     @progressIndicator.hidden = true
-
-    if point.fragment.empty?
-      @fragmentPopup.selectItemAtIndex(0)
-    else
-      @fragmentPopup.selectItemWithTitle(point.fragment)
-    end
+    @progressIndicator.stopAnimation(self)
+    @fragmentComboBox.noteNumberOfItemsChanged
   end
   
   def undoManager
