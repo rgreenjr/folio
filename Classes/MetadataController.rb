@@ -13,8 +13,6 @@ class MetadataController < NSWindowController
   attr_accessor :subjectField
   attr_accessor :rightsField
 
-  SUBJECTS = ["Biography & Memoir", "Business", "Comedy", "History", "Literature", "Nonfiction", "Science", "Technology", "Travel & Adventure"]
-
   def initWithBookController(controller)
     initWithWindowNibName("Metadata")
     @bookController = controller
@@ -34,15 +32,15 @@ class MetadataController < NSWindowController
   end
   
   def comboBox(comboBox, objectValueForItemAtIndex:index)
-    SUBJECTS[index]
+    Metadata.subjects[index]
   end
   
   def numberOfItemsInComboBox(comboBox)
-    SUBJECTS.size
+    Metadata.subjects.size
   end
   
   def comboBox(comboBox, completedString:uncompletedString)  
-    SUBJECTS.find {|subject| subject.match(/^#{uncompletedString}/i)}
+    Metadata.closestSubject(uncompletedString)
   end  
 
   # attempt to auto-complete sortCreatorField
