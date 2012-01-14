@@ -194,7 +194,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldIndexes.reverse, oldParents.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move in Table of Contents"
+      undoManager.actionName = "Move Table of Contents Point"
     end
 
     reloadDataAndSelectPoints(points)
@@ -247,7 +247,7 @@ class NavigationController < NSResponder
   def duplicatePoint(point)
     clone = @navigation.duplicate(point)
     undoManager.prepareWithInvocationTarget(self).deletePoints([clone], true, 0)
-    undoManager.actionName = "Duplicate in Table of Contents"
+    undoManager.actionName = "Duplicate Table of Contents Point"
     reloadDataAndSelectPoints([clone])
   end
 
@@ -277,7 +277,7 @@ class NavigationController < NSResponder
      if allowUndo
       undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete in Table of Contents"
+        undoManager.actionName = "Delete Table of Contents Point"
       end
     end
 

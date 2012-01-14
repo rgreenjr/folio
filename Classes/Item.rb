@@ -282,6 +282,10 @@ class Item
     @fragments
   end
   
+  def closestFragment(string)
+    fragments.find {|frag| frag.match(/^#{string}/i)}
+  end
+  
   def hasFragment?(fragment)
     fragment && fragments.include?(fragment)
   end

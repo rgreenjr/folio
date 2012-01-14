@@ -89,7 +89,7 @@ class PointViewController < NSViewController
   end
   
   def comboBox(comboBox, completedString:uncompletedString)
-    @point.item.fragments.find {|frag| frag.match(/^#{uncompletedString}/i)}
+    @point.item.closestFragment(uncompletedString)
   end  
   
   private

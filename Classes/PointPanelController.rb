@@ -2,12 +2,11 @@ class PointPanelController < NSWindowController
   
   FRAGMENT_POPUP_OFFSET = 2
 
-  attr_accessor :bookController
+  attr_reader   :bookController
   attr_accessor :sourcePopup
-  attr_accessor :fragmentPopup
+  attr_accessor :fragmentComboBox
   attr_accessor :textField
   attr_accessor :idField
-  attr_accessor :statusField
   attr_accessor :progressIndicator
 
   def initWithBookController(controller)
@@ -32,89 +31,78 @@ class PointPanelController < NSWindowController
   end
   
   def createPoint(sender)
-    if validPointAttributes?
+    item = selectedSourceItem
+    fragment = @fragmentComboBox.stringValue
+    text = @textField.stringValue
+    identifier = @idField.stringValue
+    if validPointAttributes?(item, text, identifier, fragment)
       closePointCreationSheet(self)
-      point = Point.new(selectedSourceItem, @textField.stringValue, @idField.stringValue, selectedFragment)
+      point = Point.new(item, text, identifier, fragment)
       @bookController.selectionViewController.navigationController.addPoint(point)      
     end
   end
   
   def sourcePopupDidChange(sender)
-    resetFragmentPopup
+    @fragmentComboBox.noteNumberOfItemsChanged
+  end
+  
+  def comboBox(comboBox, objectValueForItemAtIndex:index)
+    selectedSourceItem.fragments[index]
+  end
+  
+  def numberOfItemsInComboBox(comboBox)
+    item = selectedSourceItem
+    return 0 unless item
+    return item.fragments.size if item.fragmentsCached?
+    performSelectorOnMainThread("loadFragments:", withObject:item, waitUntilDone:false)
+    @progressIndicator.startAnimation(self)
+    @progressIndicator.hidden = false
+    return 0
+  end
+  
+  def comboBox(comboBox, completedString:uncompletedString)
+    selectedSourceItem.closestFragment(uncompletedString)
   end
   
   private
   
   def selectedSourceItem
-    @items[@sourcePopup.indexOfSelectedItem]
-  end
-  
-  def selectedFragment
-    index = @fragmentPopup.indexOfSelectedItem
-    index < FRAGMENT_POPUP_OFFSET ? '' : @fragmentPopup.itemAtIndex(index).title
+    @items ? @items[@sourcePopup.indexOfSelectedItem] : nil
   end
   
   def resetPanel
-    loadItems
     resetSourcePopup
-    resetFragmentPopup
+    @fragmentComboBox.stringValue = ''
+    @fragmentComboBox.noteNumberOfItemsChanged
     @textField.stringValue = "New Point"
     @idField.stringValue = UUID.create
   end
   
-  def loadItems
-    @items = []
-    @bookController.document.manifest.each do |item|
-      @items << item if item.flowable?
-    end
-  end
-  
   def resetSourcePopup
     @sourcePopup.removeAllItems
-    @items.each do |item| 
-      @sourcePopup.addItemWithTitle(item.name) if item.flowable?
-    end
-  end
-  
-  def resetFragmentPopup
-    # clear all but default 'None' and separator line menu items
-    while @fragmentPopup.numberOfItems > FRAGMENT_POPUP_OFFSET
-      @fragmentPopup.removeItemAtIndex(@fragmentPopup.numberOfItems - 1)
-    end
-    item = selectedSourceItem
-    if item
-      @fragmentPopup.enabled = false
-      @statusField.stringValue = "Parsing source fragments..."
-      @progressIndicator.startAnimation(self)
-      @progressIndicator.hidden = false
-      performSelectorOnMainThread(:"loadFragments:", withObject:item, waitUntilDone:false)
-    else
-      @statusField.stringValue = ""
+    @items = []
+    @bookController.document.manifest.eachFlowableItem do |item|
+      @items << item 
+      @sourcePopup.addItemWithTitle(item.href)
     end
   end
   
   def loadFragments(item)
-    fragments = item.fragments
-    if fragments
-      @statusField.stringValue = "#{"fragment".pluralize(fragments.size)}"
-      fragments.each do |frag|
-        @fragmentPopup.addItemWithTitle(frag)
-      end
-    else
-      @statusField.stringValue = "Unable to parse source"
-    end
-    @fragmentPopup.enabled = true
-    @progressIndicator.stopAnimation(self)
+    item.fragments # force fragment parsing
     @progressIndicator.hidden = true
+    @progressIndicator.stopAnimation(self)
+    @fragmentComboBox.noteNumberOfItemsChanged
   end
-
-  def validPointAttributes?
+  
+  def validPointAttributes?(item, text, identifier, fragment)
     valid = false
-    if @textField.stringValue.blank?
+    if !fragment.blank? && !item.hasFragment?(fragment)
+      Alert.runModal(window, "\"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", "You must specify an existing fragment identifier.")
+    elsif text.blank?
       Alert.runModal(window, "Point text values cannot be blank.", "Please provide a text value.")
-    elsif @idField.stringValue.blank?
+    elsif identifier.blank?
       Alert.runModal(window, "Point ID values cannot be blank.", "Please provide an ID value.")
-    elsif @bookController.document.navigation.hasPointWithId?(@idField.stringValue)
+    elsif @bookController.document.navigation.hasPointWithId?(identifier)
       Alert.runModal(window, "A point with this ID already exists.", "Please choose a unique point ID.")
     else
       valid = true
