@@ -277,7 +277,7 @@ class SourceViewController < NSViewController
   
   def storeSelectedRange(item)
     if item && item.editable?
-      @selectedRangeHash[@item] = selectedRange
+      @selectedRangeHash[item] = selectedRange
     end
   end
 
