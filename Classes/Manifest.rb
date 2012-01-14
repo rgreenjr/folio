@@ -144,6 +144,12 @@ class Manifest
     select { |item| item.hasIssues? }
   end
   
+  def eachFlowableItem
+    each do |item|
+      yield item if item.flowable?
+    end
+  end
+  
   def totalIssueCount
     itemsWithIssues.inject(0) { |sum, item| sum += item.issueCount }
   end
