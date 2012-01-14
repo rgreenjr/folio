@@ -207,20 +207,20 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
 								</object>
-								<object class="NSMenuItem" id="153628920">
-									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">New Directory</string>
-									<string key="NSKeyEquiv">D</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-								</object>
 								<object class="NSMenuItem" id="1058985916">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">New Point...</string>
 									<string key="NSKeyEquiv">n</string>
 									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="153628920">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">New Directory</string>
+									<string key="NSKeyEquiv">D</string>
+									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="807125248"/>
@@ -1937,9 +1937,9 @@
 							<reference ref="1068663598"/>
 							<reference ref="1023925487"/>
 							<reference ref="697586212"/>
-							<reference ref="153628920"/>
 							<reference ref="603201732"/>
 							<reference ref="754263308"/>
+							<reference ref="153628920"/>
 							<reference ref="840540393"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
@@ -3413,7 +3413,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>creatorField</string>
 							<string>dateField</string>
 							<string>descriptionField</string>
@@ -3428,7 +3427,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3446,7 +3444,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>creatorField</string>
 							<string>dateField</string>
 							<string>descriptionField</string>
@@ -3461,10 +3458,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">creatorField</string>
 								<string key="candidateClassName">id</string>
