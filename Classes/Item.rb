@@ -231,6 +231,10 @@ class Item
     return nil unless imageable?
     @image ||= NSImage.alloc.initWithContentsOfFile(path)
   end
+  
+  def fileSize
+    content.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+  end
 
   def issues
     @issueHash.values.sort
