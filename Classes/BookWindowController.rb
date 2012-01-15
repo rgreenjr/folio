@@ -24,18 +24,13 @@ class BookWindowController < NSWindowController
     
     # create selectionViewController
     @selectionViewController = SelectionViewController.alloc.initWithBookController(self)
+    @selectionViewController.view.frame = @selectionView.frame
+    @selectionView.addSubview(selectionViewController.view)
+    @selectionViewController.expandNavigation(self)
 
     # create metadataController and add to responder chain
     @metadataController = MetadataController.alloc.initWithBookController(self)
     makeResponder(@metadataController)
-
-    # put selectionView in place
-    @selectionViewController.view.frame = @selectionView.frame
-    @selectionView.addSubview(selectionViewController.view)
-        
-    # resize selectionView outlineTableColumn to fit (not sure why we must subtract 3 for it to fit correctly)
-    outlineTableColumnWidth = @selectionViewController.view.frame.size.width - @selectionViewController.outlineView.indentationPerLevel - 3
-    @selectionViewController.outlineView.outlineTableColumn.setWidth(outlineTableColumnWidth)    
     
     # put logoImageView in place
     @logoImageView.frame = @contentPlaceholder.frame
@@ -59,9 +54,6 @@ class BookWindowController < NSWindowController
     
     # show logo in content area by default
     showLogoImage
-    
-    # expand the navigation tree by default
-    @selectionViewController.expandNavigation(self)
     
     # show file size
     updateInformationField

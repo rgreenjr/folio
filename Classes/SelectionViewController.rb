@@ -1,6 +1,6 @@
 class SelectionViewController < NSViewController
 
-  attr_accessor :bookController
+  attr_reader   :bookController
   attr_accessor :navigationController
   attr_accessor :spineController
   attr_accessor :manifestController
@@ -64,6 +64,14 @@ class SelectionViewController < NSViewController
   def outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
     controllerForItem(item).outlineView(outlineView, viewForTableColumn:tableColumn, item:item)
   end
+  
+  def outlineView(outlineView, rowViewForItem:item)
+    if isController?(item)
+      SectionRowView.alloc.initWithFrame(NSZeroRect)
+    else
+      MyTableRowView.alloc.initWithFrame(NSZeroRect)
+    end
+  end
 
   def outlineView(outlineView, isItemExpandable:item)
     isController?(item) ? true : controllerForItem(item).isItemExpandable(item)
@@ -74,7 +82,7 @@ class SelectionViewController < NSViewController
   end
 
   def outlineView(outlineView, shouldSelectItem:item)
-    !isController?(item) # prevent selection of controllers
+    !isController?(item)
   end
 
   def outlineView(outlineView, shouldEditTableColumn:tableColumn, item:item)
@@ -106,11 +114,17 @@ class SelectionViewController < NSViewController
   end
 
   def outlineView(tableView, heightOfRowByItem:item)
-    if item.class == Item
-      item.hasIssues? ? 34.0 : 17.0
+    if item.class == Item && item.hasIssues?
+      37.0
+    elsif isController?(item)
+      22.0
     else
-      17.0
+      20.0
     end
+  end
+  
+  def outlineView(outlineView, isGroupItem:item)
+    isController?(item)
   end
 
   def currentSelection

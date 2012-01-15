@@ -70,7 +70,7 @@
 									<object class="NSTableColumn" id="28704890">
 										<double key="NSWidth">362</double>
 										<double key="NSMinWidth">16</double>
-										<double key="NSMaxWidth">1000</double>
+										<double key="NSMaxWidth">50000</double>
 										<object class="NSTableHeaderCell" key="NSHeaderCell">
 											<int key="NSCellFlags">75628096</int>
 											<int key="NSCellFlags2">2048</int>
@@ -126,8 +126,8 @@
 										<reference key="NSTableView" ref="142008421"/>
 									</object>
 								</object>
-								<double key="NSIntercellSpacingWidth">3</double>
-								<double key="NSIntercellSpacingHeight">2</double>
+								<double key="NSIntercellSpacingWidth">0.0</double>
+								<double key="NSIntercellSpacingHeight">0.0</double>
 								<object class="NSColor" key="NSBackgroundColor">
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC44MjM1Mjk0ODE5IDAuODUwOTgwNDYwNiAwLjg4NjI3NDU3NjIAA</bytes>
@@ -141,17 +141,16 @@
 										<bytes key="NSWhite">MC41AA</bytes>
 									</object>
 								</object>
-								<double key="NSRowHeight">17</double>
+								<double key="NSRowHeight">20</double>
 								<int key="NSTvFlags">-633339904</int>
 								<reference key="NSDelegate"/>
 								<reference key="NSDataSource"/>
-								<int key="NSColumnAutoresizingStyle">4</int>
+								<int key="NSColumnAutoresizingStyle">5</int>
 								<int key="NSDraggingSourceMaskForLocal">15</int>
 								<int key="NSDraggingSourceMaskForNonLocal">0</int>
 								<bool key="NSAllowsTypeSelect">YES</bool>
 								<int key="NSTableViewDraggingDestinationStyle">1</int>
 								<int key="NSTableViewGroupRowStyle">1</int>
-								<bool key="NSOutlineViewAutoresizesOutlineColumnKey">NO</bool>
 							</object>
 						</object>
 						<string key="NSFrameSize">{365, 627}</string>
@@ -171,7 +170,7 @@
 						<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 						<reference key="NSSuperview" ref="318518489"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="110569793"/>
 						<reference key="NSTarget" ref="318518489"/>
 						<string key="NSAction">_doScroller:</string>
 						<double key="NSPercent">0.9925373134328358</double>
@@ -179,25 +178,25 @@
 					<object class="NSScroller" id="110569793">
 						<reference key="NSNextResponder" ref="318518489"/>
 						<int key="NSvFlags">-2147483392</int>
-						<string key="NSFrame">{{-100, -100}, {224, 15}}</string>
+						<string key="NSFrame">{{0, 612}, {365, 15}}</string>
 						<reference key="NSSuperview" ref="318518489"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="216311287"/>
+						<reference key="NSNextKeyView"/>
 						<int key="NSsFlags">1</int>
 						<reference key="NSTarget" ref="318518489"/>
 						<string key="NSAction">_doScroller:</string>
-						<double key="NSPercent">0.99581589958159</double>
+						<double key="NSPercent">0.99726775956284153</double>
 					</object>
 				</object>
 				<string key="NSFrameSize">{365, 627}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="110569793"/>
+				<reference key="NSNextKeyView" ref="216311287"/>
 				<int key="NSsFlags">133680</int>
 				<reference key="NSVScroller" ref="1058702558"/>
 				<reference key="NSHScroller" ref="110569793"/>
 				<reference key="NSContentView" ref="216311287"/>
-				<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
+				<bytes key="NSScrollAmts">QSAAAEEgAABBoAAAQaAAAA</bytes>
 			</object>
 			<object class="NSCustomObject" id="932192161">
 				<string key="NSClassName">SpineController</string>
@@ -315,13 +314,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 2}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="170590787"/>
 									<reference key="NSNextKeyView" ref="190418177"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="987267072">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents" id="609073629">
 											<string key="NSClassName">NSImage</string>
@@ -338,7 +337,7 @@
 								<object class="NSTextField" id="190418177">
 									<reference key="NSNextResponder" ref="170590787"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 1}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="170590787"/>
 									<reference key="NSNextKeyView" ref="257389858"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -364,7 +363,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 134}, {362, 17}}</string>
+							<string key="NSFrame">{{0, 147}, {362, 20}}</string>
 							<reference key="NSNextKeyView" ref="792430929"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -403,13 +402,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 3}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="792175131"/>
 									<reference key="NSNextKeyView" ref="329713912"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="420424698">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents">
 											<string key="NSClassName">NSImage</string>
@@ -426,7 +425,7 @@
 								<object class="NSTextField" id="329713912">
 									<reference key="NSNextResponder" ref="792175131"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 2}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="792175131"/>
 									<reference key="NSNextKeyView" ref="949374206"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -447,7 +446,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 1}, {362, 17}}</string>
+							<string key="NSFrameSize">{362, 22}</string>
 							<reference key="NSNextKeyView" ref="569881286"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -486,13 +485,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 3}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="196223175"/>
 									<reference key="NSNextKeyView" ref="450202625"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="76179222">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents">
 											<string key="NSClassName">NSImage</string>
@@ -509,7 +508,7 @@
 								<object class="NSTextField" id="450202625">
 									<reference key="NSNextResponder" ref="196223175"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 2}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="196223175"/>
 									<reference key="NSNextKeyView" ref="769813472"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -526,7 +525,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 58}, {362, 17}}</string>
+							<string key="NSFrame">{{0, 62}, {362, 23}}</string>
 							<reference key="NSNextKeyView" ref="1051041485"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -565,13 +564,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 3}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="565411267"/>
 									<reference key="NSNextKeyView" ref="88786081"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="641589489">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents">
 											<string key="NSClassName">NSImage</string>
@@ -588,7 +587,7 @@
 								<object class="NSTextField" id="88786081">
 									<reference key="NSNextResponder" ref="565411267"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 2}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="565411267"/>
 									<reference key="NSNextKeyView" ref="66393479"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -605,7 +604,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 96}, {362, 17}}</string>
+							<string key="NSFrame">{{0, 105}, {362, 22}}</string>
 							<reference key="NSNextKeyView" ref="394113820"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -644,13 +643,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 2}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="66393479"/>
 									<reference key="NSNextKeyView" ref="880960212"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="832006666">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents">
 											<string key="NSClassName">NSImage</string>
@@ -667,7 +666,7 @@
 								<object class="NSTextField" id="880960212">
 									<reference key="NSNextResponder" ref="66393479"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 2}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="66393479"/>
 									<reference key="NSNextKeyView" ref="170590787"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -684,7 +683,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 115}, {362, 17}}</string>
+							<string key="NSFrame">{{0, 127}, {362, 20}}</string>
 							<reference key="NSNextKeyView" ref="160706082"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -723,13 +722,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 17}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 19}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="257389858"/>
 									<reference key="NSNextKeyView" ref="708127236"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="299022980">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<reference key="NSContents" ref="609073629"/>
 										<string key="NSCellIdentifier">_NS:75</string>
@@ -743,7 +742,7 @@
 								<object class="NSTextField" id="708127236">
 									<reference key="NSNextResponder" ref="257389858"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 17}, {340, 17}}</string>
+									<string key="NSFrame">{{25, 19}, {340, 17}}</string>
 									<reference key="NSSuperview" ref="257389858"/>
 									<reference key="NSNextKeyView" ref="1030639511"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -780,7 +779,7 @@
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="11872603">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents">
 											<string key="NSClassName">NSImage</string>
@@ -797,7 +796,7 @@
 								<object class="NSTextField" id="115180314">
 									<reference key="NSNextResponder" ref="257389858"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{42, -1}, {313, 17}}</string>
+									<string key="NSFrame">{{42, 0}, {313, 17}}</string>
 									<reference key="NSSuperview" ref="257389858"/>
 									<reference key="NSNextKeyView" ref="1058702558"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -814,7 +813,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 153}, {362, 34}}</string>
+							<string key="NSFrame">{{0, 167}, {362, 37}}</string>
 							<reference key="NSNextKeyView" ref="972560160"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -869,13 +868,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 1}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="949374206"/>
 									<reference key="NSNextKeyView" ref="838420520"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="982357150">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents" id="790766891">
 											<string key="NSClassName">NSImage</string>
@@ -892,7 +891,7 @@
 								<object class="NSTextField" id="838420520">
 									<reference key="NSNextResponder" ref="949374206"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 1}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="949374206"/>
 									<reference key="NSNextKeyView" ref="729406127"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -909,7 +908,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 20}, {362, 17}}</string>
+							<string key="NSFrame">{{0, 22}, {362, 20}}</string>
 							<reference key="NSNextKeyView" ref="89954760"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -948,13 +947,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 1}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="729406127"/>
 									<reference key="NSNextKeyView" ref="891615181"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="1033423479">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<object class="NSCustomResource" key="NSContents">
 											<string key="NSClassName">NSImage</string>
@@ -971,7 +970,7 @@
 								<object class="NSTextField" id="891615181">
 									<reference key="NSNextResponder" ref="729406127"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 1}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="729406127"/>
 									<reference key="NSNextKeyView" ref="196223175"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -988,7 +987,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 39}, {362, 17}}</string>
+							<string key="NSFrame">{{0, 42}, {362, 20}}</string>
 							<reference key="NSNextKeyView" ref="525108462"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -1027,13 +1026,13 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 2}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="769813472"/>
 									<reference key="NSNextKeyView" ref="1014729516"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSImageCell" key="NSCell" id="585246270">
-										<int key="NSCellFlags">130560</int>
+										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">33554432</int>
 										<reference key="NSContents" ref="790766891"/>
 										<string key="NSCellIdentifier">_NS:75</string>
@@ -1047,7 +1046,7 @@
 								<object class="NSTextField" id="1014729516">
 									<reference key="NSNextResponder" ref="769813472"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {337, 17}}</string>
+									<string key="NSFrame">{{25, 1}, {337, 17}}</string>
 									<reference key="NSSuperview" ref="769813472"/>
 									<reference key="NSNextKeyView" ref="565411267"/>
 									<string key="NSReuseIdentifierKey">_NS:78</string>
@@ -1064,7 +1063,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{1, 77}, {362, 17}}</string>
+							<string key="NSFrame">{{0, 85}, {362, 20}}</string>
 							<reference key="NSNextKeyView" ref="657427918"/>
 							<string key="NSReuseIdentifierKey">_NS:16</string>
 						</object>
@@ -1262,8 +1261,8 @@
 						<reference key="object" ref="565411267"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="88786081"/>
 							<reference ref="394113820"/>
+							<reference ref="88786081"/>
 						</object>
 						<reference key="parent" ref="28704890"/>
 						<string key="objectName">ManifestCell</string>
@@ -1606,8 +1605,8 @@
 					<string>141.IBPluginDependency</string>
 					<string>142.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
+					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
-					<string>3.ibExternalAutomaticallyCalculatesRowSizeFromViewHeight</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
@@ -1685,8 +1684,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>MyOutlineView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1892,6 +1891,14 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">MyOutlineView</string>
+					<string key="superclassName">NSOutlineView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MyOutlineView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">MyTextField</string>
 					<string key="superclassName">NSTextField</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1985,10 +1992,14 @@
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
 							<string>revealInManifest:</string>
+							<string>selectNextItem:</string>
+							<string>selectPreviousItem:</string>
 							<string>toggleRow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2010,6 +2021,8 @@
 							<string>expandNavigation:</string>
 							<string>expandSpine:</string>
 							<string>revealInManifest:</string>
+							<string>selectNextItem:</string>
+							<string>selectPreviousItem:</string>
 							<string>toggleRow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -2043,6 +2056,14 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">selectNextItem:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectPreviousItem:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">toggleRow:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -2052,7 +2073,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>manifestController</string>
 							<string>navigationController</string>
 							<string>outlineView</string>
@@ -2060,7 +2080,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2071,7 +2090,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookController</string>
 							<string>manifestController</string>
 							<string>navigationController</string>
 							<string>outlineView</string>
@@ -2079,10 +2097,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookController</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">manifestController</string>
 								<string key="candidateClassName">id</string>
