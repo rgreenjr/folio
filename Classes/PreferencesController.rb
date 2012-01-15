@@ -56,8 +56,8 @@ class PreferencesController < NSWindowController
   end
 
   def showWindow(sender)
-    super
     window.center
+    super
   end
 
   def showGeneralPane(sender)
