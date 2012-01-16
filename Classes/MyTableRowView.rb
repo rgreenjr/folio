@@ -25,5 +25,10 @@ class MyTableRowView < NSTableRowView
     end
   end
   
+  def interiorBackgroundStyle
+    # so white text will be used when app isn't active window
+    isSelected ? NSBackgroundStyleDark : super
+  end
+  
 end
 
