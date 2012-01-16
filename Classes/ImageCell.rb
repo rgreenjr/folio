@@ -21,7 +21,7 @@ class ImageCell < NSTextFieldCell
     }
     
     @baseColor = NSColor.whiteColor
-    @highlightColor = NSColor.colorWithDeviceRed(0.60, green:0.65, blue:0.77, alpha:1.0)
+    @highlightColor = NSColor.colorWithCalibratedRed(0.60, green:0.65, blue:0.77, alpha:1.0)
     
     calcFontHeight
     

@@ -7,11 +7,11 @@ class TabView < NSView
   def initWithFrame(frameRect)
     super
     @tabCells = []
-    begColor  = NSColor.colorWithDeviceRed(0.921, green:0.921, blue:0.921, alpha:1.0)
-    midColor  = NSColor.colorWithDeviceRed(0.871, green:0.871, blue:0.871, alpha:1.0)
-    endColor  = NSColor.colorWithDeviceRed(0.820, green:0.820, blue:0.820, alpha:1.0)
+    begColor  = NSColor.colorWithCalibratedRed(0.921, green:0.921, blue:0.921, alpha:1.0)
+    midColor  = NSColor.colorWithCalibratedRed(0.871, green:0.871, blue:0.871, alpha:1.0)
+    endColor  = NSColor.colorWithCalibratedRed(0.820, green:0.820, blue:0.820, alpha:1.0)
     @gradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], [0.0, 0.5, 1.0], colorSpace:NSColorSpace.genericRGBColorSpace)
-    @lineColor = NSColor.colorWithDeviceRed(0.25, green:0.25, blue:0.25, alpha:1.0)
+    @lineColor = NSColor.colorWithCalibratedRed(0.25, green:0.25, blue:0.25, alpha:1.0)
     
     # receive notification when application will become inactive
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"applicationDidResignActive:", 

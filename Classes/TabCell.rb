@@ -24,7 +24,7 @@ class TabCell < NSView
 	    NSForegroundColorAttributeName => NSColor.blackColor
 	  }
 
-	  @borderColor = NSColor.colorWithDeviceRed(0.535, green:0.535, blue:0.535, alpha:1.0)
+	  @borderColor = NSColor.colorWithCalibratedRed(0.535, green:0.535, blue:0.535, alpha:1.0)
 
 	  @closeImage = NSImage.imageNamed('tab-close.png')
 	  @closePressedImage = NSImage.imageNamed('tab-close-pressed.png')
