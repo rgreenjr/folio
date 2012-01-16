@@ -1,15 +1,17 @@
 class PreferencesController < NSWindowController
 
-  FONT_NAME_KEY     = "FontName"
-  FONT_SIZE_KEY     = "FontSize"
-  STRING_COLOR      = "StringColor"
-  TAG_COLOR         = "TagColor"
-  COMMENT_COLOR     = "CommentColor"
-  KEYWORD_COLOR     = "KeywordColor"
-  FOREGROUND_COLOR  = "ForegroundColor"
-  BACKGROUND_COLOR  = "BackgroundColor"
-  CARET_COLOR       = "CaretColor"
-  SELECTION_COLOR   = "SelectionColor"
+  FONT_NAME_KEY          = "FontName"
+  FONT_SIZE_KEY          = "FontSize"
+  STRING_COLOR           = "StringColor"
+  TAG_COLOR              = "TagColor"
+  COMMENT_COLOR          = "CommentColor"
+  KEYWORD_COLOR          = "KeywordColor"
+  FOREGROUND_COLOR       = "ForegroundColor"
+  BACKGROUND_COLOR       = "BackgroundColor"
+  RULER_BACKGROUND_COLOR = "RulerBackgroundColor"
+  LINE_NUMBER_COLOR      = "LineNumberColor"
+  CARET_COLOR            = "CaretColor"
+  SELECTION_COLOR        = "SelectionColor"
 
   attr_reader   :font
   attr_accessor :fontTextField
@@ -31,6 +33,12 @@ class PreferencesController < NSWindowController
   
   attr_reader   :backgroundColor
   attr_accessor :backgroundColorWell
+  
+  attr_reader   :rulerBackgroundColor
+  attr_accessor :rulerBackgroundColorWell
+  
+  attr_reader   :lineNumberColor
+  attr_accessor :lineNumberColorWell
   
   attr_reader   :caretColor
   attr_accessor :caretColorWell
@@ -92,6 +100,10 @@ class PreferencesController < NSWindowController
       @foregroundColor = @foregroundColorWell.color
     when @backgroundColorWell
       @backgroundColor = @backgroundColorWell.color
+    when @lineNumberColorWell
+      @lineNumberColor = @lineNumberColorWell.color
+    when @rulerBackgroundColorWell
+      @rulerBackgroundColor = @rulerBackgroundColorWell.color
     when @caretColorWell
       @caretColor = @caretColorWell.color
     when @selectionColorWell
@@ -102,15 +114,17 @@ class PreferencesController < NSWindowController
   end
   
   def resetToDefaults(sender)
-    @font            = defaultFont
-    @stringColor     = defaultStringColor
-    @tagColor        = defaultTagColor
-    @commentColor    = defaultCommentColor
-    @keywordColor    = defaultKeywordColor
-    @foregroundColor = defaultForegroundColor
-    @backgroundColor = defaultBackgroundColor
-    @caretColor      = defaultCaretColor
-    @selectionColor  = defaultSelectionColor
+    @font                 = defaultFont
+    @stringColor          = defaultStringColor
+    @tagColor             = defaultTagColor
+    @commentColor         = defaultCommentColor
+    @keywordColor         = defaultKeywordColor
+    @foregroundColor      = defaultForegroundColor
+    @backgroundColor      = defaultBackgroundColor
+    @rulerBackgroundColor = defaultRulerBackgroundColor
+    @lineNumberColor      = defaultLineNumberColor
+    @caretColor           = defaultCaretColor
+    @selectionColor       = defaultSelectionColor
     writeFontPreference
     writeColorPreferences
     updateFontTextField
@@ -121,25 +135,29 @@ class PreferencesController < NSWindowController
   private
 
   def readColorPreferences
-    @stringColor     = readColor(STRING_COLOR)     || defaultStringColor
-    @tagColor        = readColor(TAG_COLOR)        || defaultTagColor
-    @commentColor    = readColor(COMMENT_COLOR)    || defaultCommentColor
-    @keywordColor    = readColor(KEYWORD_COLOR)    || defaultKeywordColor
-    @foregroundColor = readColor(FOREGROUND_COLOR) || defaultForegroundColor
-    @backgroundColor = readColor(BACKGROUND_COLOR) || defaultBackgroundColor
-    @caretColor      = readColor(CARET_COLOR)      || defaultCaretColor
-    @selectionColor  = readColor(SELECTION_COLOR)  || defaultSelectionColor
+    @stringColor          = readColor(STRING_COLOR)           || defaultStringColor
+    @tagColor             = readColor(TAG_COLOR)              || defaultTagColor
+    @commentColor         = readColor(COMMENT_COLOR)          || defaultCommentColor
+    @keywordColor         = readColor(KEYWORD_COLOR)          || defaultKeywordColor
+    @foregroundColor      = readColor(FOREGROUND_COLOR)       || defaultForegroundColor
+    @backgroundColor      = readColor(BACKGROUND_COLOR)       || defaultBackgroundColor
+    @lineNumberColor      = readColor(LINE_NUMBER_COLOR)      || defaultLineNumberColor
+    @rulerBackgroundColor = readColor(RULER_BACKGROUND_COLOR) || defaultRulerBackgroundColor
+    @caretColor           = readColor(CARET_COLOR)            || defaultCaretColor
+    @selectionColor       = readColor(SELECTION_COLOR)        || defaultSelectionColor
   end
   
   def writeColorPreferences
-    writeColor(@stringColor,     STRING_COLOR)
-    writeColor(@tagColor,        TAG_COLOR)
-    writeColor(@commentColor,    COMMENT_COLOR)
-    writeColor(@keywordColor,    KEYWORD_COLOR)
-    writeColor(@foregroundColor, FOREGROUND_COLOR)
-    writeColor(@backgroundColor, BACKGROUND_COLOR)
-    writeColor(@caretColor,      CARET_COLOR)
-    writeColor(@selectionColor,  SELECTION_COLOR)
+    writeColor(@stringColor,          STRING_COLOR)
+    writeColor(@tagColor,             TAG_COLOR)
+    writeColor(@commentColor,         COMMENT_COLOR)
+    writeColor(@keywordColor,         KEYWORD_COLOR)
+    writeColor(@foregroundColor,      FOREGROUND_COLOR)
+    writeColor(@backgroundColor,      BACKGROUND_COLOR)
+    writeColor(@rulerBackgroundColor, RULER_BACKGROUND_COLOR)
+    writeColor(@lineNumberColor,      LINE_NUMBER_COLOR)
+    writeColor(@caretColor,           CARET_COLOR)
+    writeColor(@selectionColor,       SELECTION_COLOR)
   end
 
   def readColor(colorKey)
@@ -168,14 +186,16 @@ class PreferencesController < NSWindowController
   end
   
   def updateColorWells
-    @stringColorWell.color     = @stringColor
-    @tagColorWell.color        = @tagColor
-    @commentColorWell.color    = @commentColor
-    @keywordColorWell.color    = @keywordColor
-    @foregroundColorWell.color = @foregroundColor
-    @backgroundColorWell.color = @backgroundColor
-    @caretColorWell.color      = @caretColor
-    @selectionColorWell.color  = @selectionColor
+    @stringColorWell.color          = @stringColor
+    @tagColorWell.color             = @tagColor
+    @commentColorWell.color         = @commentColor
+    @keywordColorWell.color         = @keywordColor
+    @foregroundColorWell.color      = @foregroundColor
+    @backgroundColorWell.color      = @backgroundColor
+    @rulerBackgroundColorWell.color = @rulerBackgroundColor
+    @lineNumberColorWell.color      = @lineNumberColor
+    @caretColorWell.color           = @caretColor
+    @selectionColorWell.color       = @selectionColor
   end
   
   def defaultFont
@@ -204,6 +224,14 @@ class PreferencesController < NSWindowController
   
   def defaultBackgroundColor
     NSColor.colorWithCalibratedRed(0.12, green:0.13, blue:0.16, alpha:1.0)
+  end
+  
+  def defaultRulerBackgroundColor
+    NSColor.colorWithCalibratedRed(0.10, green:0.10, blue:0.10, alpha:1.0)
+  end
+  
+  def defaultLineNumberColor
+    NSColor.lightGrayColor
   end
   
   def defaultCaretColor

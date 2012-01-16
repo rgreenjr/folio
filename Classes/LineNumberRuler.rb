@@ -16,7 +16,14 @@ class LineNumberRuler < NSRulerView
     # register for selection changes so we can highlighted current line
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChangeSelection:", 
       name:NSTextViewDidChangeSelectionNotification, object:clientView)
-        
+  
+    # register to receive preference change notifications
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"preferencesDidChange:", 
+      name:'PreferencesDidChange', object:nil)
+      
+    # set user font and background color
+    loadUserPreferences(PreferencesController.sharedPreferencesController)  
+    
     # calculate initial line indices
     updateLineIndices
     
@@ -25,24 +32,27 @@ class LineNumberRuler < NSRulerView
   
   def issueHash=(issueHash)
     @issueHash = issueHash
-    setNeedsDisplay true
+    setNeedsDisplay(true)
   end
   
   def clearIssues
     @issueHash = {}
-    setNeedsDisplay true
+    setNeedsDisplay(true)
   end
 
   def textDidChange(notification)
     updateLineIndices
-    setNeedsDisplay true
+    setNeedsDisplay(true)
   end
   
   def textDidChangeSelection(notification)
-    setNeedsDisplay true
+    setNeedsDisplay(true)
   end
 
-  def drawHashMarksAndLabelsInRect(aRect)
+  def drawHashMarksAndLabelsInRect(aRect)    
+    @rulerBackgroundColor.set
+    NSRectFill(aRect)
+    
     text = clientView.string
     container = clientView.textContainer
     layoutManager = clientView.layoutManager
@@ -86,7 +96,7 @@ class LineNumberRuler < NSRulerView
           
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
-          stringSize = labelText.sizeWithAttributes(defaultTextAttributes)
+          stringSize = labelText.sizeWithAttributes(@defaultTextAttributes)
 
           # Draw string flush right, centered vertically within the line
           textRect = NSMakeRect(
@@ -122,10 +132,10 @@ class LineNumberRuler < NSRulerView
             # draw line number with currentLine text attributes
             NSColor.lightGrayColor.set
             NSRectFill(NSMakeRect(0, textRect.origin.y - 1.5, ruleThickness - 1, textRect.size.height))
-            labelText.drawInRect(textRect, withAttributes:currentLineTextAttributes)
+            labelText.drawInRect(textRect, withAttributes:@currentLineTextAttributes)
           else
-            # draw line number withAttributes default text attributes
-            labelText.drawInRect(textRect, withAttributes:defaultTextAttributes)
+            # draw line number with default text attributes
+            labelText.drawInRect(textRect, withAttributes:@defaultTextAttributes)
           end
           
         end
@@ -312,24 +322,30 @@ class LineNumberRuler < NSRulerView
 
   def requiredThickness
     digits = Math.log10(@lineIndices.size + 1).ceil
-    stringSize = ("8" * digits).sizeWithAttributes(defaultTextAttributes)
+    stringSize = ("8" * digits).sizeWithAttributes(@defaultTextAttributes)
     [DEFAULT_THICKNESS, (2 * RULER_MARGIN + stringSize.width).ceil].max
   end
-
-  def defaultTextAttributes
-    @defaultTextAttributes ||= {
-      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
-      NSForegroundColorAttributeName => NSColor.grayColor
-    }
+  
+  def preferencesDidChange(notification)
+    loadUserPreferences(notification.object)
   end
   
-  def currentLineTextAttributes
-    @currentLineTextAttributes ||= {
+  def loadUserPreferences(preferenceController)
+    @rulerBackgroundColor = preferenceController.rulerBackgroundColor
+    
+    @defaultTextAttributes = { 
+      NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)), 
+      NSForegroundColorAttributeName => preferenceController.lineNumberColor
+    }
+    
+    @currentLineTextAttributes = {
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
       NSForegroundColorAttributeName => NSColor.whiteColor
     }
+
+    setNeedsDisplay(true)
   end
-  
+
   def addTrackingAreaForIssue(issue, rect)
 		trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
 		trackingArea = NSTrackingArea.alloc.initWithRect(rect, options:trackingOptions, owner:self, userInfo:issue)
