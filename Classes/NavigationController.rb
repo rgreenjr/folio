@@ -1,13 +1,8 @@
 class NavigationController < NSResponder
 
   attr_accessor :outlineView
+  attr_accessor :menu
 
-  def awakeFromNib
-    @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addActionWithSeparator("Duplicate", "duplicateSelectedPoint:", self)
-    @menu.addAction("Delete", "deleteSelectedPoints:", self)
-  end
-  
   def textShouldBeginEditing(textfield)
     @outlineView.rowForView(textfield.superview) == @outlineView.selectedRow
   end

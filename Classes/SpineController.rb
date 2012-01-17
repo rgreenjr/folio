@@ -1,12 +1,7 @@
 class SpineController < NSResponder
 
   attr_accessor :outlineView
-
-  def awakeFromNib
-    @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addActionWithSeparator("Add to Table of Contents", "addSelectedItemRefsToNavigation:", self)
-    @menu.addAction("Delete", "deleteSelectedItemRefs:", self)
-  end
+  attr_accessor :menu
 
   def bookController=(controller)
     @bookController = controller

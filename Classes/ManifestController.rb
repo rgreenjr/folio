@@ -1,16 +1,8 @@
 class ManifestController < NSResponder
 
   attr_accessor :outlineView
+  attr_accessor :menu
 
-  def awakeFromNib
-    @menu = NSMenu.alloc.initWithTitle("")
-    @menu.addAction("Add Files...", "showAddFilesSheet:", self)
-    @menu.addActionWithSeparator("New Directory", "newDirectory:", self)
-    @menu.addActionWithSeparator("Add to Spine", "addSelectedItemsToSpine:", self)
-    @menu.addActionWithSeparator("Mark as Cover Image", "markAsCover:", self)
-    @menu.addAction("Delete...", "showDeleteSelectedItemsSheet:", self)
-  end
-  
   def bookController=(controller)
     @bookController = controller
     @manifest = @bookController.document.manifest

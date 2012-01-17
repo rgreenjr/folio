@@ -127,6 +127,11 @@ class SelectionViewController < NSViewController
     isController?(item)
   end
 
+  def menuForSelectedItems
+    controller = commonControllerForItems(@outlineView.selectedItems)
+    controller ? controller.menu : nil
+  end
+
   def currentSelection
     item = @outlineView.itemAtRow(@outlineView.selectedRow)
     isController?(item) ? nil : item

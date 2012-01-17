@@ -3,6 +3,8 @@ Bugs
 
 - Make TabView update its content when points are changed via inspector.
 - Better handling of layout switch between media types
+- Manifest: new directory undo crashes
+- Manifest: delete expands spine
 
 Features
 ========

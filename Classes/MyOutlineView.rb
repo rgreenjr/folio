@@ -16,10 +16,9 @@ class MyOutlineView < NSOutlineView
   end
 
   def drawBackgroundInClipRect(clipRect)
-    # drawing our background image in this method does not work all by itself,
-    # because the clipping area has been set and not ALL the background
-    # will update properly.  You also need to implement "drawRect" as well
     super
+    # must draw entire documentVisibleRect since clipping area has been 
+    # set and not all the background will update properly.
   	drawBackgroundImage
   end
 
@@ -36,6 +35,20 @@ class MyOutlineView < NSOutlineView
   def collapseItem(item, collapseChildren:collapseChildren)
     super
     needsDisplay = true
+  end
+  
+  def menuForEvent(event)
+    if delegate
+      window.makeFirstResponder(self)
+      menuPoint = convertPoint(event.locationInWindow, fromView:nil)
+      row = rowAtPoint(menuPoint)
+      unless selectedRowIndexes.containsIndex(row)
+        selectItem(itemAtRow(row))
+      end
+      delegate.menuForSelectedItems
+    else
+      super
+    end
   end
   
 end
