@@ -6,6 +6,10 @@ class ManifestController < NSResponder
   def bookController=(controller)
     @bookController = controller
     @manifest = @bookController.document.manifest
+    
+    # register for metadata change events
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"metadataDidChange:", 
+        name:"MetadataDidChange", object:@bookController.document.metadata)
   end
 
   def toggleManifest(sender)
@@ -27,6 +31,8 @@ class ManifestController < NSResponder
         if item.hasIssues?
           view = outlineView.makeViewWithIdentifier("ItemIssueCell", owner:self)
           view.statusTextField.stringValue =  "validation issue".pluralize(item.issueCount)
+        elsif @bookController.document.metadata.cover == item
+          view = outlineView.makeViewWithIdentifier("ItemCoverImageCell", owner:self)
         else
           view = outlineView.makeViewWithIdentifier("ItemCell", owner:self)
         end
@@ -305,11 +311,18 @@ class ManifestController < NSResponder
     @bookController.selectionViewController.spineController.addItemRefs(itemRefs)
   end
 
-  def markAsCover(sender)
+  def markSelectedItemAsCover(sender)
     item = selectedItem
     return unless item && !item.directory?
-    @bookController.document.metadata.cover = item
+    currentCoverItem = @bookController.document.metadata.cover
+    @bookController.document.metadata.cover = item    
+    @outlineView.reloadItem(currentCoverItem)
+    @outlineView.reloadItem(item)
     markBookEdited
+  end
+  
+  def metadataDidChange(notification)
+    @outlineView.reloadData
   end
   
   def newItem(sender)
@@ -372,7 +385,7 @@ class ManifestController < NSResponder
       selectedItems.size > 0
     when :"addSelectedItemsToSpine:"
       selectedItems.reject { |item| !item.flowable? }.size > 0
-    when :"markAsCover:"
+    when :"markSelectedItemAsCover:"
       selectedItems.size == 1 && selectedItem.imageable?
     when :"toggleManifest:"
       interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Manifest" : "Expand Manifest"

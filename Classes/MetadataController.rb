@@ -140,6 +140,7 @@ class MetadataController < NSWindowController
       end
       displayCoverImage
     end
+    NSNotificationCenter.defaultCenter.postNotificationName("MetadataDidChange", object:@metadata, userInfo:nil)
   end
 
   def noCoverImage

@@ -53,5 +53,15 @@ class NSOutlineView
   def scrollItemsToVisible(items)
     scrollRowToVisible(rowForItem(items.first)) if items && !items.empty?
   end
+  
+  def reloadItem(item)
+    if item
+      reloadDataForRowIndexes(NSIndexSet.indexSetWithIndex(rowForItem(item)), columnIndexes:NSIndexSet.indexSetWithIndex(0))
+    end
+  end
+  
+  def reloadItems(items)
+    items.each { |item| reloadItem(item) } if items
+  end
 
 end

@@ -52,8 +52,7 @@ class SelectionViewController < NSViewController
   end
   
   def reloadItem(item)
-    row = @outlineView.rowForItem(item)
-    @outlineView.reloadDataForRowIndexes(NSIndexSet.indexSetWithIndex(row), columnIndexes:NSIndexSet.indexSetWithIndex(0))
+    @outlineView.reloadItem(item)
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem:item)

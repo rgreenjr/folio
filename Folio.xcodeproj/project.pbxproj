@@ -162,6 +162,7 @@
 		CD67130014928E36000B8BBB /* bubble-background-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6712FE14928E36000B8BBB /* bubble-background-left.png */; };
 		CD67130114928E36000B8BBB /* bubble-background-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6712FF14928E36000B8BBB /* bubble-background-right.png */; };
 		CD6713031492952D000B8BBB /* bubble-background-middle.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6713021492952D000B8BBB /* bubble-background-middle.png */; };
+		CD6F3E1214C5E04A00A308E3 /* CoverIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6F3E1114C5E04A00A308E3 /* CoverIcon.png */; };
 		CD72EFE814AD1FDC0000B398 /* yield.png in Resources */ = {isa = PBXBuildFile; fileRef = CD72EFE714AD1FDC0000B398 /* yield.png */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
 		CD85C8FB12EB3EAF009E33A3 /* IssueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F912EB3EAF009E33A3 /* IssueView.xib */; };
@@ -350,6 +351,7 @@
 		CD6712FE14928E36000B8BBB /* bubble-background-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-left.png"; sourceTree = "<group>"; };
 		CD6712FF14928E36000B8BBB /* bubble-background-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-right.png"; sourceTree = "<group>"; };
 		CD6713021492952D000B8BBB /* bubble-background-middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-background-middle.png"; sourceTree = "<group>"; };
+		CD6F3E1114C5E04A00A308E3 /* CoverIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CoverIcon.png; sourceTree = "<group>"; };
 		CD72EFE714AD1FDC0000B398 /* yield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yield.png; sourceTree = "<group>"; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
 		CD85C8FA12EB3EAF009E33A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/IssueView.xib; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 		CD2D185412E5F28500D6A99A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD6F3E1114C5E04A00A308E3 /* CoverIcon.png */,
 				CD2206671493D04D00AB589F /* background-logo.png */,
 				CD2B4B5C14C38ACC00FD56EE /* BlueTexture.png */,
 				CD2B4B5D14C38ACC00FD56EE /* BlueTextureEndcap.png */,
@@ -912,6 +915,7 @@
 				CD2B4B5B14C38A9A00FD56EE /* SelectionEndcap.png in Resources */,
 				CD2B4B5E14C38ACC00FD56EE /* BlueTexture.png in Resources */,
 				CD2B4B5F14C38ACC00FD56EE /* BlueTextureEndcap.png in Resources */,
+				CD6F3E1214C5E04A00A308E3 /* CoverIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
