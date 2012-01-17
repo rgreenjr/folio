@@ -114,7 +114,7 @@ class ValidationController < NSWindowController
 
       # get relative path of item
       itemHref = $1
-
+      
     elsif line =~ /^ERROR: (.*): (.*)/
 
       # error doesn't include a line number so create new issue without one
@@ -138,11 +138,7 @@ class ValidationController < NSWindowController
         item.addIssue(issue)
       else
         # item wasn't found in manifest
-        if book.container.isOPFPath?(itemHref)
-          issue.message = "Metadata " + issue.message
-        else
-          issue.message = issue.message
-        end
+        issue.message = "Auto-generated metadata file \"#{itemHref}\", line #{issue.lineNumber}: " + issue.message
         issue.lineNumber = nil
         book.addIssue(issue)        
       end
