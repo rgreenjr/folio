@@ -274,8 +274,8 @@ class Item
             @fragments << element.attributes['id']
           end
         rescue REXML::ParseException => exception
-          puts "An error occurred while parsing fragments in #{name}: #{exception.explain}"
-          @fragments = nil
+          puts "An error occurred while parsing fragments in #{name}" # #{exception.explain}"
+          return nil
         end
       end
     end
