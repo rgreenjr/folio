@@ -1,6 +1,7 @@
 class InspectorViewController < NSViewController
 
   attr_reader   :bookController
+  attr_reader   :inspectedObject
   attr_accessor :attributesView
   attr_accessor :emptyView
   attr_accessor :titleTextField
@@ -17,16 +18,29 @@ class InspectorViewController < NSViewController
     showEmptyView
   end
 
-  def displayObject(object)
-    if object == nil 
-      showEmptyView
-    elsif object.class == Point
-      showPointView(object)
-    elsif object.class == ItemRef
-      showItemRefView(object)
-    elsif object.class == Item
-      showItemView(object)
-    end
+  def inspectedObject=(object)
+    @inspectedObject = object
+    toggleView(@inspectedObject) if visible?
+  end
+  
+  def showView
+    return false if view.frame.origin.y > 0
+    view.hidden = false
+    view.frameOrigin = [0, -viewHeight]
+    view.animator.frameOrigin = [0, 0]
+    toggleView(@inspectedObject)
+    true
+  end
+  
+  def hideView
+    return false if view.frame.origin.y < 0
+    view.animator.frameOrigin = [0, -viewHeight]
+    view.animator.hidden = true
+    true
+  end
+  
+  def viewHeight
+    view.frame.size.height
   end
   
   def visible?
@@ -58,6 +72,18 @@ class InspectorViewController < NSViewController
   end
   
   private
+  
+  def toggleView(object)
+    if object == nil 
+      showEmptyView
+    elsif object.class == Point
+      showPointView(object)
+    elsif object.class == ItemRef
+      showItemRefView(object)
+    elsif object.class == Item
+      showItemView(object)
+    end
+  end
   
   def showEmptyView
     @titleTextField.stringValue = "Properties Inspector"

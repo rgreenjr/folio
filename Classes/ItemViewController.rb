@@ -41,7 +41,7 @@ class ItemViewController < NSViewController
   
   def comboBox(comboBox, completedString:uncompletedString)  
     Media.closestType(uncompletedString)
-  end  
+  end
   
   def updateItem(sender)
     if sender == @nameField

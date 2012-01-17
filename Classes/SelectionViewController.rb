@@ -30,7 +30,7 @@ class SelectionViewController < NSViewController
 
     # display clicked rows and expand/collapse double clicked rows
     @outlineView.target = self
-    @outlineView.action = "displayCurrentSelection:"
+    # @outlineView.action = "displayCurrentSelection:"
     @outlineView.doubleAction = "toggleRow:"
   end
   
@@ -137,7 +137,7 @@ class SelectionViewController < NSViewController
     if @outlineView.numberOfSelectedRows == 1 && item
       @bookController.tabbedViewController.addObject(item)
     end
-    updateInspector(item)
+    @bookController.inspectorViewController.inspectedObject = item
   end
 
   def selectedItemsForController(controller)
@@ -219,6 +219,13 @@ class SelectionViewController < NSViewController
       true
     end
   end
+  
+  def shiftViewVertically(amount)
+    rect = view.frame
+    rect.size.height -= amount
+    rect.origin.y += amount
+    view.animator.frame = rect
+  end
 
   private
 
@@ -243,8 +250,4 @@ class SelectionViewController < NSViewController
     common
   end
   
-  def updateInspector(item)
-    @bookController.inspectorViewController.displayObject(item)
-  end
-
 end

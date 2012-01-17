@@ -12,6 +12,7 @@ class PointViewController < NSViewController
   def initWithBookController(controller)
     initWithNibName("PointView", bundle:nil)
     @bookController = controller
+    @fragmentQueue = {}
     self
   end
 
@@ -80,12 +81,21 @@ class PointViewController < NSViewController
   end
   
   def numberOfItemsInComboBox(comboBox)
-    return 0 unless @point
-    return @point.item.fragments.size if @point.item.fragmentsCached?
-    performSelectorOnMainThread("loadFragments:", withObject:@point, waitUntilDone:false)
-    @progressIndicator.startAnimation(self)
-    @progressIndicator.hidden = false
-    return 0
+    return 0 unless @point || @fragmentQueue[@point]
+    if @point.item.fragmentsCached?
+      @fragmentComboBox.enabled = true
+      @fragmentQueue[point] = nil
+      @progressIndicator.hidden = true
+      @progressIndicator.stopAnimation(self)
+      return @point.item.fragments.size 
+    else
+      @fragmentQueue[@point] = point
+      self.performSelector('loadFragments:', withObject:@point, afterDelay:3.0)    
+      @progressIndicator.startAnimation(self)
+      @progressIndicator.hidden = false
+      @fragmentComboBox.enabled = false
+      return 0
+    end
   end
   
   def comboBox(comboBox, completedString:uncompletedString)
@@ -116,9 +126,8 @@ class PointViewController < NSViewController
   end
 
   def loadFragments(point)
+    puts "loadFragments..."
     point.item.fragments # force fragment parsing
-    @progressIndicator.hidden = true
-    @progressIndicator.stopAnimation(self)
     @fragmentComboBox.noteNumberOfItemsChanged
   end
   

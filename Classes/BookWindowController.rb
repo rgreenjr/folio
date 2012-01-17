@@ -161,48 +161,15 @@ class BookWindowController < NSWindowController
   end
 
   def showInspectorView
-    # get inspectorView
-    inspector = inspectorViewController.view
-    
-    return if inspector.frame.origin.y > 0
-
-    # get inspectorView height
-    inspectorHeight = inspector.frame.size.height
-
-    # make inspectorView visible
-    inspector.hidden = false
-    
-    # position inspectorView below selectionView
-    inspector.frameOrigin = [0, -inspectorHeight]
-    
-    # animate inspectorView sliding up into place
-    inspector.animator.frameOrigin = [0, 0]
-
-    # animate selectionView sliding up
-    frameRect = selectionViewController.view.frame
-    shiftFrameOrigin(frameRect, inspectorHeight)
-    selectionViewController.view.animator.frame = frameRect
+    if inspectorViewController.showView
+      selectionViewController.shiftViewVertically(inspectorViewController.viewHeight)
+    end
   end
   
   def hideInspectorView
-    # get inspectorView
-    inspector = inspectorViewController.view
-    
-    return if inspector.frame.origin.y < 0
-    
-    # get inspectorView height
-    inspectorHeight = inspector.frame.size.height
-
-    # animate inspectorView sliding down
-    inspector.animator.frameOrigin = [0, -inspectorHeight]
-
-    # animate selectionView sliding down
-    frameRect = selectionViewController.view.frame
-    shiftFrameOrigin(frameRect, -inspectorHeight)
-    selectionViewController.view.animator.frame = frameRect
-
-    # make inspectorView invisible
-    inspector.animator.hidden = true
+    if inspectorViewController.hideView
+      selectionViewController.shiftViewVertically(-inspectorViewController.viewHeight)
+    end
   end
 
   def showStagingDirectory(sender)
@@ -316,11 +283,6 @@ class BookWindowController < NSWindowController
   
   def openURL(url)
     NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString(url))
-  end
-  
-  def shiftFrameOrigin(frame, amount)
-    frame.size.height -= amount
-    frame.origin.y += amount
   end
 
   def storeContentSplitviewPosition
