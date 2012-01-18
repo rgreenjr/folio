@@ -49,7 +49,7 @@ class TabbedViewController < NSViewController
         name:NSTextStorageDidProcessEditingNotification, object:@sourceViewController.view.textStorage)
 
     # set layoutMode to preview
-    self.layoutMode = LAYOUT_MODE_PREVIEW
+    self.layoutMode = LAYOUT_MODE_VERTICAL
   end
   
   def show
