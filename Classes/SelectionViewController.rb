@@ -14,6 +14,10 @@ class SelectionViewController < NSViewController
 
   def loadView
     super
+    
+    # enable show/hide for group rows
+    @outlineView.floatsGroupRows = false
+    
     @controllers = [@navigationController, @spineController, @manifestController]
 
     # assign bookController to each controller
@@ -30,7 +34,7 @@ class SelectionViewController < NSViewController
 
     # display clicked rows and expand/collapse double clicked rows
     @outlineView.target = self
-    # @outlineView.action = "displayCurrentSelection:"
+    @outlineView.action = "displayCurrentSelection:"
     @outlineView.doubleAction = "toggleRow:"
   end
   
@@ -65,11 +69,7 @@ class SelectionViewController < NSViewController
   end
   
   def outlineView(outlineView, rowViewForItem:item)
-    if isController?(item)
-      SectionRowView.alloc.initWithFrame(NSZeroRect)
-    else
-      MyTableRowView.alloc.initWithFrame(NSZeroRect)
-    end
+    MyTableRowView.alloc.initWithFrame(NSZeroRect)
   end
 
   def outlineView(outlineView, isItemExpandable:item)
@@ -113,19 +113,13 @@ class SelectionViewController < NSViewController
   end
 
   def outlineView(tableView, heightOfRowByItem:item)
-    if item.class == Item && item.hasIssues?
-      37.0
-    elsif isController?(item)
-      22.0
-    else
-      20.0
-    end
+    item.class == Item && item.hasIssues? ? 37.0 : 20.0
   end
   
   def outlineView(outlineView, isGroupItem:item)
     isController?(item)
   end
-
+  
   def menuForSelectedItems
     controller = commonControllerForItems(@outlineView.selectedItems)
     controller ? controller.menu : nil

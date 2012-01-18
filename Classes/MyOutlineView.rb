@@ -1,15 +1,15 @@
 class MyOutlineView < NSOutlineView
-  
+
   BLUE_TEXTURE_COLOR  = NSColor.colorWithPatternImage(NSImage.imageNamed("BlueTexture.png"))
   BLUE_TEXTURE_ENDCAP = NSImage.imageNamed("BlueTextureEndcap.png")
-  
+
   def awakeFromNib
-  	enclosingScrollView.drawsBackground = false
+    enclosingScrollView.drawsBackground = false
   end
 
   def drawBackgroundImage
-		rect = enclosingScrollView.documentVisibleRect		
-		BLUE_TEXTURE_COLOR.set
+    rect = enclosingScrollView.documentVisibleRect		
+    BLUE_TEXTURE_COLOR.set
     NSRectFill(rect)
     endcapRect = NSMakeRect(rect.size.width - 2, rect.origin.y, 2, rect.size.height)
     BLUE_TEXTURE_ENDCAP.drawInRect(endcapRect, fromRect:NSZeroRect, operation:NSCompositeCopy, fraction:1.0)
@@ -19,12 +19,12 @@ class MyOutlineView < NSOutlineView
     super
     # must draw entire documentVisibleRect since clipping area has been 
     # set and not all the background will update properly.
-  	drawBackgroundImage
+    drawBackgroundImage
   end
 
   def drawRect(drawRect)
-  	super
-  	drawBackgroundImage
+    super
+    drawBackgroundImage
   end
 
   def expandItem(item, expandChildren:expandChildren)
@@ -36,7 +36,7 @@ class MyOutlineView < NSOutlineView
     super
     needsDisplay = true
   end
-  
+
   def menuForEvent(event)
     if delegate
       window.makeFirstResponder(self)
@@ -50,5 +50,5 @@ class MyOutlineView < NSOutlineView
       super
     end
   end
-  
+
 end
