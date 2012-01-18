@@ -5,6 +5,7 @@ Bugs
 - Better handling of layout switch between media types
 - Manifest: new directory undo crashes
 - Manifest: delete expands spine
+- Manifest: click on font items hangs app sometimes.
 
 Features
 ========
@@ -12,6 +13,7 @@ Features
 - Re-enable selection view context menus.	
 - Fix point-fragment icons.
 - Create icon for itemrefs.
+- Add red badge showing issue count to Issues toolbar. 
 
 Enhancements
 ============
