@@ -6,35 +6,35 @@ class LineNumberRuler < NSRulerView
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     setClientView(scrollView.documentView)
-    
+
     @issueHash = {}
-        
+
     # register for text changes so we can update line indices
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChange:", 
-      name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
-    
+    name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
+
     # register for selection changes so we can highlighted current line
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChangeSelection:", 
-      name:NSTextViewDidChangeSelectionNotification, object:clientView)
-  
+    name:NSTextViewDidChangeSelectionNotification, object:clientView)
+
     # register to receive preference change notifications
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"preferencesDidChange:", 
-      name:'PreferencesDidChange', object:nil)
-      
+    name:'PreferencesDidChange', object:nil)
+
     # set user font and background color
     loadUserPreferences(PreferencesController.sharedPreferencesController)  
-    
+
     # calculate initial line indices
     updateLineIndices
-    
+
     self
   end
-  
+
   def issueHash=(issueHash)
     @issueHash = issueHash
     setNeedsDisplay(true)
   end
-  
+
   def clearIssues
     @issueHash = {}
     setNeedsDisplay(true)
@@ -44,7 +44,7 @@ class LineNumberRuler < NSRulerView
     updateLineIndices
     setNeedsDisplay(true)
   end
-  
+
   def textDidChangeSelection(notification)
     setNeedsDisplay(true)
   end
@@ -52,14 +52,14 @@ class LineNumberRuler < NSRulerView
   def drawHashMarksAndLabelsInRect(aRect)    
     @rulerBackgroundColor.set
     NSRectFill(aRect)
-    
+
     text = clientView.string
     container = clientView.textContainer
     layoutManager = clientView.layoutManager
-        
+
     yinset = clientView.textContainerInset.height
     visibleRect = scrollView.contentView.bounds
-    
+
     nullRange = NSMakeRange(NSNotFound, 0)
 
     # Find the characters that are currently visible
@@ -76,7 +76,7 @@ class LineNumberRuler < NSRulerView
 
     # remove all tracking areas
     clearTrackingAreas
-    
+
     # close hover window
     closeHoverWindow
 
@@ -87,96 +87,89 @@ class LineNumberRuler < NSRulerView
       if NSLocationInRange(index, range)
         rectCount = Pointer.new(:ulong_long)
         rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0),
-          withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
+        withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
 
         if rectCount[0] > 0
           # Note that the ruler view is only as tall as the visible portion.
           # Need to compensate for the clipview's coordinates.
           ypos = yinset + NSMinY(rects[0]) - NSMinY(visibleRect)
-          
+
           # Line numbers are internally stored starting at 0
           labelText = (line + 1).to_s
           stringSize = labelText.sizeWithAttributes(@defaultTextAttributes)
 
           # Draw string flush right, centered vertically within the line
           textRect = NSMakeRect(
-            NSWidth(bounds) - stringSize.width - RULER_MARGIN,
+            NSWidth(bounds) - stringSize.width - RULER_MARGIN, 
             ypos + (NSHeight(rects[0]) - stringSize.height) / 2.0,
-            NSWidth(bounds) - RULER_MARGIN * 2.0,
+            NSWidth(bounds) - RULER_MARGIN * 2.0, 
             NSHeight(rects[0])
           )
 
           # check if there is a issue to draw for this line number
-					issue = @issueHash[line]
-					
-					if issue
+          issue = @issueHash[line]
 
-					  # update issue width incase ruler width changed
-					  issue.image.size = NSMakeSize(ruleThickness, issue.image.size.height)
 
-						# issue is flush right and centered vertically within the line.
-						issueRect = NSMakeRect(0, ypos + NSHeight(rects[0]) / 2.0 - issue.imageOrigin.y, issue.image.size.width - 1.0, issue.image.size.height)
+          if issue
+            currentLineRect = NSMakeRect(0, textRect.origin.y - 1.5, ruleThickness - 1, textRect.size.height)
 
             # add tracking area for this issue
-            addTrackingAreaForIssue(issue, issueRect)
-
+            addTrackingAreaForIssue(issue, currentLineRect)
+            
             # make issue line numbers slightly transparent unless selected
-					  fraction = physicalLineAtInsertion == (line + 1) ? 1.0 : 0.5
-					  
-						issue.image.drawInRect(issueRect, fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:fraction)
-
-            # draw line number with issue text attributes
-            labelText.drawInRect(textRect, withAttributes:issue.textAttributes)
-
+            # fraction = physicalLineAtInsertion == (line + 1) ? 1.0 : 0.5
+            
+            issue.drawRect(currentLineRect)
+            labelText.drawInRect(textRect, withAttributes:@currentLineTextAttributes)
           elsif physicalLineAtInsertion == line + 1
-            # draw line number with currentLine text attributes
-            NSColor.lightGrayColor.set
-            NSRectFill(NSMakeRect(0, textRect.origin.y - 1.5, ruleThickness - 1, textRect.size.height))
+            @currentLineColor.set
+            currentLineRect = NSMakeRect(0, textRect.origin.y - 1.5, ruleThickness - 1, textRect.size.height)
+            NSRectFill(currentLineRect)
             labelText.drawInRect(textRect, withAttributes:@currentLineTextAttributes)
           else
             # draw line number with default text attributes
             labelText.drawInRect(textRect, withAttributes:@defaultTextAttributes)
           end
-          
+
         end
       end
 
       break if index > NSMaxRange(range)
       line += 1
     end
-    
-  end
-  
-  def lineNumberForLocation(location)
-  	visibleRect = scrollView.contentView.bounds
-  	location += NSMinY(visibleRect)
 
-		nullRange = NSMakeRange(NSNotFound, 0)
-		layoutManager = clientView.layoutManager
-		container = clientView.textContainer
-		count = @lineIndices.count
+  end
+
+  def lineNumberForLocation(location)
+    visibleRect = scrollView.contentView.bounds
+    location += NSMinY(visibleRect)
+
+    nullRange = NSMakeRange(NSNotFound, 0)
+    layoutManager = clientView.layoutManager
+    container = clientView.textContainer
+    count = @lineIndices.count
     line = 0
-    
-		while line < count
-			index = @lineIndices[line]
+
+    while line < count
+      index = @lineIndices[line]
 
       rectCount = Pointer.new(:ulong_long)
-			rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0), 
-			    withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
+      rects = layoutManager.rectArrayForCharacterRange(NSMakeRange(index, 0), 
+      withinSelectedCharacterRange:nullRange, inTextContainer:container, rectCount:rectCount)
 
       i = 0
-			while i < rectCount[0]
-				if location >= NSMinY(rects[i]) && location < NSMaxY(rects[i])
-					return line + 1
-				end
-				i += 1
-			end
-			line += 1
-		end
-  	
-  	NSNotFound
+      while i < rectCount[0]
+        if location >= NSMinY(rects[i]) && location < NSMaxY(rects[i])
+          return line + 1
+        end
+        i += 1
+      end
+      line += 1
+    end
+
+    NSNotFound
   end
-  
+
   # returns the logical (wrapped) line of the current caret location
   def logicalLineAtInsertion
     lineCount = index = 0
@@ -190,7 +183,7 @@ class LineNumberRuler < NSRulerView
     end
     lineCount
   end
-  
+
   # returns the physical (actual) line number for the current caret location
   def physicalLineAtInsertion
     lineNumberForCharacterIndex(clientView.selectedRange.location, inText:clientView.string) + 1
@@ -209,7 +202,7 @@ class LineNumberRuler < NSRulerView
     end
     index
   end
-  
+
   # returns the index of the logical (wrapped) line corresponding to the physical line index return by indexOfPhysicalLine
   def logicalLineIndexAtPhysicalCharacterIndex(physicalIndex)
     index = lineCount = 0
@@ -230,26 +223,26 @@ class LineNumberRuler < NSRulerView
     clientView.selectedRange = NSMakeRange(insertionLocation, 0)
     clientView.scrollRangeToVisible(NSMakeRange(insertionLocation, 0))
   end
-  
+
   def acceptsFirstResponder
     false
   end
-  
+
   def mouseEntered(event)
     # return if we are already displaying hover window
     return if @hoverWindow
 
     # convert event trackingArea to screen coordinates
     screenPoint = window.convertBaseToScreen(convertPoint(event.trackingArea.rect.origin, toView:nil))
-    
+
     # display hover window for issue
     @hoverWindow = HoverWindow.showWindowForIssue(event.trackingArea.userInfo, atLocation:screenPoint)
   end
-  
+
   def mouseExited(event)
     closeHoverWindow
   end
-  
+
   # selects the corresponding line
   def mouseDown(event)
     closeHoverWindow
@@ -257,7 +250,7 @@ class LineNumberRuler < NSRulerView
     lineNumber = lineNumberForLocation(location.y)
     selectLineNumber(lineNumber) unless lineNumber == NSNotFound
   end
-  
+
   def selectLineNumber(lineNumber)
     gotoLine(lineNumber)
     paragraphRange = clientView.string.paragraphRangeForRange(clientView.selectedRange)
@@ -266,7 +259,7 @@ class LineNumberRuler < NSRulerView
   end
 
   private
-  
+
   def lineNumberForCharacterIndex(index, inText:text)
     left = 0
     right = @lineIndices.count
@@ -325,19 +318,20 @@ class LineNumberRuler < NSRulerView
     stringSize = ("8" * digits).sizeWithAttributes(@defaultTextAttributes)
     [DEFAULT_THICKNESS, (2 * RULER_MARGIN + stringSize.width).ceil].max
   end
-  
+
   def preferencesDidChange(notification)
     loadUserPreferences(notification.object)
   end
-  
+
   def loadUserPreferences(preferenceController)
     @rulerBackgroundColor = preferenceController.rulerBackgroundColor
-    
+    @currentLineColor = preferenceController.currentLineColor
+
     @defaultTextAttributes = { 
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)), 
       NSForegroundColorAttributeName => preferenceController.lineNumberColor
     }
-    
+
     @currentLineTextAttributes = {
       NSFontAttributeName => NSFont.labelFontOfSize(NSFont.systemFontSizeForControlSize(NSMiniControlSize)),
       NSForegroundColorAttributeName => NSColor.whiteColor
@@ -347,15 +341,15 @@ class LineNumberRuler < NSRulerView
   end
 
   def addTrackingAreaForIssue(issue, rect)
-		trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
-		trackingArea = NSTrackingArea.alloc.initWithRect(rect, options:trackingOptions, owner:self, userInfo:issue)
+    trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow
+    trackingArea = NSTrackingArea.alloc.initWithRect(rect, options:trackingOptions, owner:self, userInfo:issue)
     addTrackingArea(trackingArea)
   end
-  
+
   def clearTrackingAreas
     trackingAreas.each { |area| removeTrackingArea(area) }
   end
-  
+
   def closeHoverWindow
     if @hoverWindow
       @hoverWindow.close

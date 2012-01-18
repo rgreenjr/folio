@@ -7,9 +7,9 @@ class TabView < NSView
   def initWithFrame(frameRect)
     super
     @tabCells = []
-    begColor  = NSColor.colorWithCalibratedRed(0.921, green:0.921, blue:0.921, alpha:1.0)
-    midColor  = NSColor.colorWithCalibratedRed(0.871, green:0.871, blue:0.871, alpha:1.0)
-    endColor  = NSColor.colorWithCalibratedRed(0.820, green:0.820, blue:0.820, alpha:1.0)
+    begColor  = NSColor.colorWithCalibratedRed(0.92, green:0.92, blue:0.92, alpha:1.0)
+    midColor  = NSColor.colorWithCalibratedRed(0.87, green:0.87, blue:0.87, alpha:1.0)
+    endColor  = NSColor.colorWithCalibratedRed(0.82, green:0.82, blue:0.82, alpha:1.0)
     @gradient = NSGradient.alloc.initWithColors([begColor, midColor, endColor], [0.0, 0.5, 1.0], colorSpace:NSColorSpace.genericRGBColorSpace)
     @lineColor = NSColor.colorWithCalibratedRed(0.25, green:0.25, blue:0.25, alpha:1.0)
     

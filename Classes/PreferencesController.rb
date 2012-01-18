@@ -10,6 +10,7 @@ class PreferencesController < NSWindowController
   BACKGROUND_COLOR       = "BackgroundColor"
   RULER_BACKGROUND_COLOR = "RulerBackgroundColor"
   LINE_NUMBER_COLOR      = "LineNumberColor"
+  CURRENT_LINE_COLOR     = "CurrentLineColor"
   CARET_COLOR            = "CaretColor"
   SELECTION_COLOR        = "SelectionColor"
 
@@ -39,6 +40,9 @@ class PreferencesController < NSWindowController
   
   attr_reader   :lineNumberColor
   attr_accessor :lineNumberColorWell
+  
+  attr_reader   :currentLineColor
+  attr_accessor :currentLineColorWell
   
   attr_reader   :caretColor
   attr_accessor :caretColorWell
@@ -102,6 +106,8 @@ class PreferencesController < NSWindowController
       @backgroundColor = @backgroundColorWell.color
     when @lineNumberColorWell
       @lineNumberColor = @lineNumberColorWell.color
+    when @currentLineColorWell
+      @currentLineColor = @currentLineColorWell.color
     when @rulerBackgroundColorWell
       @rulerBackgroundColor = @rulerBackgroundColorWell.color
     when @caretColorWell
@@ -123,6 +129,7 @@ class PreferencesController < NSWindowController
     @backgroundColor      = defaultBackgroundColor
     @rulerBackgroundColor = defaultRulerBackgroundColor
     @lineNumberColor      = defaultLineNumberColor
+    @currentLineColor     = defaultCurrentLineColor
     @caretColor           = defaultCaretColor
     @selectionColor       = defaultSelectionColor
     writeFontPreference
@@ -142,6 +149,7 @@ class PreferencesController < NSWindowController
     @foregroundColor      = readColor(FOREGROUND_COLOR)       || defaultForegroundColor
     @backgroundColor      = readColor(BACKGROUND_COLOR)       || defaultBackgroundColor
     @lineNumberColor      = readColor(LINE_NUMBER_COLOR)      || defaultLineNumberColor
+    @currentLineColor     = readColor(CURRENT_LINE_COLOR)     || defaultCurrentLineColor
     @rulerBackgroundColor = readColor(RULER_BACKGROUND_COLOR) || defaultRulerBackgroundColor
     @caretColor           = readColor(CARET_COLOR)            || defaultCaretColor
     @selectionColor       = readColor(SELECTION_COLOR)        || defaultSelectionColor
@@ -156,6 +164,7 @@ class PreferencesController < NSWindowController
     writeColor(@backgroundColor,      BACKGROUND_COLOR)
     writeColor(@rulerBackgroundColor, RULER_BACKGROUND_COLOR)
     writeColor(@lineNumberColor,      LINE_NUMBER_COLOR)
+    writeColor(@currentLineColor,     CURRENT_LINE_COLOR)
     writeColor(@caretColor,           CARET_COLOR)
     writeColor(@selectionColor,       SELECTION_COLOR)
   end
@@ -194,6 +203,7 @@ class PreferencesController < NSWindowController
     @backgroundColorWell.color      = @backgroundColor
     @rulerBackgroundColorWell.color = @rulerBackgroundColor
     @lineNumberColorWell.color      = @lineNumberColor
+    @currentLineColorWell.color     = @currentLineColor
     @caretColorWell.color           = @caretColor
     @selectionColorWell.color       = @selectionColor
   end
@@ -232,6 +242,10 @@ class PreferencesController < NSWindowController
   
   def defaultLineNumberColor
     NSColor.lightGrayColor
+  end
+  
+  def defaultCurrentLineColor
+    NSColor.colorWithCalibratedRed(0.19, green:0.27, blue:0.41, alpha:1.0)
   end
   
   def defaultCaretColor

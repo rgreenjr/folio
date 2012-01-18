@@ -90,7 +90,7 @@ class PointViewController < NSViewController
       return @point.item.fragments.size 
     else
       @fragmentQueue[@point] = point
-      self.performSelector('loadFragments:', withObject:@point, afterDelay:3.0)    
+      self.performSelector('loadFragments:', withObject:@point, afterDelay:0.0)    
       @progressIndicator.startAnimation(self)
       @progressIndicator.hidden = false
       @fragmentComboBox.enabled = false

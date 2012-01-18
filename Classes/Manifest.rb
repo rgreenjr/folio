@@ -29,12 +29,12 @@ class Manifest
         
         # raise if item isn't readable
         unless File.readable?(item.path)
-          raise "You do not have permission to open the resource file \"#{item.href}\"."
+          raise "You do not have permission to access the manifest item \"#{item.href}\"."
         end
         
         # raise if item doesn't exist
         unless File.exist?(item.path)
-          raise "The resource file \"#{item.href}\" could not be found."
+          raise "The manifest item \"#{item.href}\" could not be found."
         end
         
         # check item is NCX otherwise append to end
