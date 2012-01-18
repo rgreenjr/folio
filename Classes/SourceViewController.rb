@@ -13,6 +13,9 @@ class SourceViewController < NSViewController
     scrollView.hasVerticalRuler = true
     scrollView.rulersVisible = true
     
+    # make textView use integrated search/replace bar
+    view.usesFindBar = true
+    
     view.delegate = self
     view.setEnabledTextCheckingTypes(0)
 
