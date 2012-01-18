@@ -51,4 +51,11 @@ class MyOutlineView < NSOutlineView
     end
   end
 
+  def acceptsFirstResponder
+    event = NSApp.currentEvent
+    return true unless event
+    row = rowAtPoint(convertPoint(event.locationInWindow, fromView:nil))
+    isRowSelected(row) ? true : false
+  end
+
 end
