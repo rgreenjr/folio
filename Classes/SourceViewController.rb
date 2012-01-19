@@ -52,7 +52,10 @@ class SourceViewController < NSViewController
     }
   end
 
-  def item=(item)    
+  def item=(item)
+    
+    return if item == @item
+      
     # record the currently selected text range
     storeSelectedRange(@item)
 
