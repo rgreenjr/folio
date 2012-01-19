@@ -248,14 +248,16 @@ class LineNumberRuler < NSRulerView
     closeHoverWindow
     location = convertPoint(event.locationInWindow, fromView:nil)
     lineNumber = lineNumberForLocation(location.y)
-    selectLineNumber(lineNumber) unless lineNumber == NSNotFound
+    unless lineNumber == NSNotFound
+      selectLineNumber(lineNumber)
+      window.makeFirstResponder(clientView)
+    end
   end
 
   def selectLineNumber(lineNumber)
     gotoLine(lineNumber)
     paragraphRange = clientView.string.paragraphRangeForRange(clientView.selectedRange)
     clientView.setSelectedRange(paragraphRange)
-    # window.makeFirstResponder(clientView)
   end
 
   private
