@@ -184,6 +184,7 @@ class TabbedViewController < NSViewController
       showSourceView
       toggleSplitOrientation(self) unless @splitView.vertical?
     end
+    @bookController.window.makeFirstResponder(sourceView) unless previewLayoutMode?
     @bookController.layoutSegementedControl.selectSegmentWithTag(@layoutMode)
   end
   
