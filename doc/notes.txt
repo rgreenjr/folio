@@ -1,6 +1,8 @@
 Bugs
 ====
 
+- SelectionView textfields enter edit mode on right clicks.
+- Toolbar has focus on launch.
 - Make TabView update its content when points are changed via inspector.
 - Better handling of layout switch between media types
 - Manifest: new directory undo crashes

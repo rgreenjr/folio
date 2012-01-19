@@ -192,6 +192,9 @@
 		CDD7AFF712EF675700352D4B /* manifest.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFF612EF675700352D4B /* manifest.png */; };
 		CDD7AFFB12EF6D5F00352D4B /* toc.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD7AFFA12EF6D5F00352D4B /* toc.png */; };
 		CDD7B02F12EF79D800352D4B /* ItemRef.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDD7B02E12EF79D800352D4B /* ItemRef.rb */; };
+		CDD8A86014C8B9C000024171 /* LogoView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A85F14C8B9C000024171 /* LogoView.rb */; };
+		CDD8A86414C8BA4700024171 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A86214C8BA4700024171 /* Logo.png */; };
+		CDD8A86514C8BA4700024171 /* LogoTile.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A86314C8BA4700024171 /* LogoTile.png */; };
 		CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC8312E6116600633F22 /* PreferencesController.rb */; };
 		CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC9612E611F800633F22 /* preferences-general.tiff */; };
 		CDDCAD8012EC7E63003A0B07 /* no-issues.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDCAD7F12EC7E63003A0B07 /* no-issues.png */; };
@@ -381,6 +384,9 @@
 		CDD7AFF612EF675700352D4B /* manifest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manifest.png; sourceTree = "<group>"; };
 		CDD7AFFA12EF6D5F00352D4B /* toc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toc.png; sourceTree = "<group>"; };
 		CDD7B02E12EF79D800352D4B /* ItemRef.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ItemRef.rb; sourceTree = "<group>"; };
+		CDD8A85F14C8B9C000024171 /* LogoView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LogoView.rb; sourceTree = "<group>"; };
+		CDD8A86214C8BA4700024171 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		CDD8A86314C8BA4700024171 /* LogoTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoTile.png; sourceTree = "<group>"; };
 		CDDBEC8312E6116600633F22 /* PreferencesController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PreferencesController.rb; sourceTree = "<group>"; };
 		CDDBEC9612E611F800633F22 /* preferences-general.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "preferences-general.tiff"; sourceTree = "<group>"; };
 		CDDCAD7F12EC7E63003A0B07 /* no-issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-issues.png"; sourceTree = "<group>"; };
@@ -558,6 +564,7 @@
 				CDB5428712F33D2000BB5739 /* ItemViewController.rb */,
 				CD2D17EB12E5F1F800D6A99A /* Language.rb */,
 				CD2D17ED12E5F1F800D6A99A /* LineNumberRuler.rb */,
+				CDD8A85F14C8B9C000024171 /* LogoView.rb */,
 				CD2D17EE12E5F1F800D6A99A /* Manifest.rb */,
 				CD2D17EF12E5F1F800D6A99A /* ManifestController.rb */,
 				CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */,
@@ -639,6 +646,8 @@
 				CD52134114BE784B004283BF /* issues-divider-background.png */,
 				CD102B86149590A500EE8650 /* issues-hide-icon.png */,
 				CD102B88149592D100EE8650 /* issues-show-icon.png */,
+				CDD8A86214C8BA4700024171 /* Logo.png */,
+				CDD8A86314C8BA4700024171 /* LogoTile.png */,
 				CDD7AFF612EF675700352D4B /* manifest.png */,
 				CD659C4314B8C94200870743 /* metadata.png */,
 				CD2D185F12E5F28500D6A99A /* no-cover.png */,
@@ -916,6 +925,9 @@
 				CD2B4B5E14C38ACC00FD56EE /* BlueTexture.png in Resources */,
 				CD2B4B5F14C38ACC00FD56EE /* BlueTextureEndcap.png in Resources */,
 				CD6F3E1214C5E04A00A308E3 /* CoverIcon.png in Resources */,
+				CDD8A86014C8B9C000024171 /* LogoView.rb in Resources */,
+				CDD8A86414C8BA4700024171 /* Logo.png in Resources */,
+				CDD8A86514C8BA4700024171 /* LogoTile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
