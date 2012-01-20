@@ -112,6 +112,20 @@ class WebViewController < NSViewController
       end
     end
   end
+  
+  def thumbnail(sender)
+    view.mainFrame.frameView.allowsScrolling = false
+    viewport = view.mainFrame.frameView.documentView
+    # viewport.window.contentSize = viewport.bounds.size
+    viewport.frame = viewport.bounds
+    view.lockFocus
+    bitmap = NSBitmapImageRep.alloc.initWithFocusedViewRect(view.bounds)
+    view.unlockFocus
+    image = bitmap.representationUsingType(NSPNGFileType, properties:nil)
+    image.writeToFile("/Users/rgreen/Desktop/thumbnail.png", atomically:true)
+    view.mainFrame.frameView.allowsScrolling = true
+    image
+  end  
 
   private
 
