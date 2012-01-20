@@ -14,7 +14,6 @@ class WebViewController < NSViewController
   end
 
   def item=(item)
-    return if item == @item
     @item = item
     if @item
       request = NSURLRequest.requestWithURL(@item.url)
