@@ -2,10 +2,6 @@ class NavigationController < NSResponder
 
   attr_accessor :outlineView
   attr_accessor :menu
-
-  def textShouldBeginEditing(textfield)
-    @outlineView.rowForView(textfield.superview) == @outlineView.selectedRow
-  end
   
   def bookController=(controller)
     @bookController = controller
@@ -37,7 +33,6 @@ class NavigationController < NSResponder
       view.textField.stringValue = item.text
       view.textField.action = "updatePoint:"
       view.textField.target = self
-      view.textField.delegate = self
     end
     view
   end

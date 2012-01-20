@@ -44,6 +44,7 @@ class ItemViewController < NSViewController
   end
   
   def updateItem(sender)
+    return unless @item
     if sender == @nameField
       changeName(@item, @nameField.stringValue)
     elsif sender == @idField
@@ -54,6 +55,7 @@ class ItemViewController < NSViewController
   end
   
   def changeName(item, value)
+    return unless item
     unless value.blank? || item.name == value
       value = value.sanitize
       if item.parent.childWithName(value)
@@ -68,6 +70,7 @@ class ItemViewController < NSViewController
   end
 
   def changeID(item, value)
+    return unless item
     unless value.blank? || item.id == value
       if oldID = @bookController.document.manifest.changeItemId(item, value)
         undoManager.prepareWithInvocationTarget(self).changeID(item, oldID)
@@ -80,6 +83,7 @@ class ItemViewController < NSViewController
   end
 
   def changeMediaType(item, value)
+    return unless item
     unless value.blank? || item.mediaType == value
       undoManager.prepareWithInvocationTarget(self).changeMediaType(item, item.mediaType)
       undoManager.actionName = "Change Media Type"

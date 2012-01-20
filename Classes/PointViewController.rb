@@ -22,6 +22,7 @@ class PointViewController < NSViewController
   end
 
   def updatePoint(sender)
+    return unless @point
     if sender == @textField
       changeText(@point, sender.stringValue)
     elsif sender == @idField
@@ -34,6 +35,7 @@ class PointViewController < NSViewController
   end
 
   def changeText(point, value)
+    return unless point
     unless value.blank? || point.text == value
       undoManager.prepareWithInvocationTarget(self).changeText(point, point.text)
       undoManager.actionName = "Change Text"
@@ -43,6 +45,7 @@ class PointViewController < NSViewController
   end
 
   def changeID(point, value)
+    return unless point
     unless value.blank? || point.id == value
       if oldID = @bookController.document.navigation.changePointId(point, value)
         undoManager.prepareWithInvocationTarget(self).changeID(point, oldID)
@@ -55,7 +58,7 @@ class PointViewController < NSViewController
   end
 
   def changeSourceAndFragment(point, item, fragment)
-    return if point.item == item
+    return if point.nil? || point.item == item
     undoManager.prepareWithInvocationTarget(self).changeSourceAndFragment(point, point.item, point.fragment)
     undoManager.actionName = "Change Source"
     point.item = item
@@ -65,7 +68,7 @@ class PointViewController < NSViewController
   end
 
   def changeFragment(point, fragment)
-    return if point.fragment == fragment
+    return if point.nil? || point.fragment == fragment
     if fragment.blank? || point.item.hasFragment?(fragment)
       undoManager.prepareWithInvocationTarget(self).changeFragment(point, point.fragment)
       undoManager.actionName = "Change Fragment"

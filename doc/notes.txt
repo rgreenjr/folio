@@ -3,7 +3,6 @@ Bugs
 
 - Toolbar has focus on launch.
 - Better handling of layout switch between media types
-- Manifest: new directory undo crashes
 - Manifest: click on font items hangs app sometimes.
 
 Features

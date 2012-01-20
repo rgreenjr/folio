@@ -782,7 +782,7 @@
 									<string key="NSReuseIdentifierKey">_NS:78</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="462074228">
-										<int key="NSCellFlags">337772097</int>
+										<int key="NSCellFlags">67239488</int>
 										<int key="NSCellFlags2">272631808</int>
 										<string key="NSContents"># validation issues</string>
 										<reference key="NSSupport" ref="528468973"/>
@@ -1867,6 +1867,7 @@
 					<string>-3.IBPluginDependency</string>
 					<string>10.IBPluginDependency</string>
 					<string>100.IBPluginDependency</string>
+					<string>101.CustomClassName</string>
 					<string>101.IBPluginDependency</string>
 					<string>102.IBPluginDependency</string>
 					<string>103.IBPluginDependency</string>
@@ -1874,6 +1875,7 @@
 					<string>106.IBPluginDependency</string>
 					<string>106.userInterfaceItemIdentifier</string>
 					<string>107.IBPluginDependency</string>
+					<string>108.CustomClassName</string>
 					<string>108.IBPluginDependency</string>
 					<string>109.IBPluginDependency</string>
 					<string>110.IBPluginDependency</string>
@@ -1918,6 +1920,7 @@
 					<string>179.IBPluginDependency</string>
 					<string>179.userInterfaceItemIdentifier</string>
 					<string>180.IBPluginDependency</string>
+					<string>181.CustomClassName</string>
 					<string>181.IBPluginDependency</string>
 					<string>182.IBPluginDependency</string>
 					<string>183.IBPluginDependency</string>
@@ -1946,6 +1949,7 @@
 					<string>6.prototypeCellViews</string>
 					<string>64.IBPluginDependency</string>
 					<string>64.userInterfaceItemIdentifier</string>
+					<string>65.CustomClassName</string>
 					<string>65.IBPluginDependency</string>
 					<string>66.IBPluginDependency</string>
 					<string>67.IBPluginDependency</string>
@@ -1963,6 +1967,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>MyTextField</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1970,6 +1975,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>ItemIssueCell</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>MyTextField</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2014,6 +2020,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>ItemCoverImageCell</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>MyTextField</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2054,6 +2061,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>ItemCell</string>
+					<string>MyTextField</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
