@@ -1,3 +1,5 @@
+require 'Syntax.rb'
+
 class XMLSyntax < Syntax
 
   def self.sharedInstance
