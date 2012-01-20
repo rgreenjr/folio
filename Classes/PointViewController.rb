@@ -91,7 +91,7 @@ class PointViewController < NSViewController
       else
         puts "begin #{item.name}"
         @fragmentQueue[item] = :loading
-        Dispatch::Queue.concurrent.async do
+        queue.async do
           puts "loading #{item.name}"
           if item.fragments
             @fragmentQueue[item] = :complete
@@ -171,6 +171,10 @@ class PointViewController < NSViewController
     @progressIndicator.startAnimation(self)
     @progressIndicator.hidden = false
     @fragmentComboBox.enabled = false
+  end
+
+  def queue
+    @queue ||= Dispatch::Queue.new("com.folioapp.fragment-parsing-queue")
   end
 
 end
