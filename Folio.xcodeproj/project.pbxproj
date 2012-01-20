@@ -176,6 +176,7 @@
 		CDA91EAC14BBCE5B0036461C /* ManifestIssueCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */; };
 		CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */; };
 		CDAECE0614AA1E8D00CF8274 /* Image.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAECE0514AA1E8D00CF8274 /* Image.rb */; };
+		CDB0194514C92BFE00EFB42A /* Thumbnail.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB0194414C92BFE00EFB42A /* Thumbnail.rb */; };
 		CDB5422D12F32CE800BB5739 /* PointViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422C12F32CE800BB5739 /* PointViewController.rb */; };
 		CDB5423112F32E9E00BB5739 /* PointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5422F12F32E9E00BB5739 /* PointView.xib */; };
 		CDB5428312F33CE100BB5739 /* ItemRefView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB5428112F33CE100BB5739 /* ItemRefView.xib */; };
@@ -368,6 +369,7 @@
 		CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ManifestIssueCell.rb; sourceTree = "<group>"; };
 		CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Issue.rb; sourceTree = "<group>"; };
 		CDAECE0514AA1E8D00CF8274 /* Image.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Image.rb; sourceTree = "<group>"; };
+		CDB0194414C92BFE00EFB42A /* Thumbnail.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Thumbnail.rb; sourceTree = "<group>"; };
 		CDB5422C12F32CE800BB5739 /* PointViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PointViewController.rb; sourceTree = "<group>"; };
 		CDB5423012F32E9E00BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PointView.xib; sourceTree = "<group>"; };
 		CDB5428212F33CE100BB5739 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemRefView.xib; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				CD2D17D812E5F1F800D6A99A /* Alert.rb */,
+				CDB0194414C92BFE00EFB42A /* Thumbnail.rb */,
 				CD9727E412E79CBA006398DB /* ApplicationController.rb */,
 				CD9727E212E79CB4006398DB /* AsyncCommand.rb */,
 				CDDF2452140D57DF00D2898B /* Blank.rb */,
@@ -928,6 +931,7 @@
 				CDD8A86014C8B9C000024171 /* LogoView.rb in Resources */,
 				CDD8A86414C8BA4700024171 /* Logo.png in Resources */,
 				CDD8A86514C8BA4700024171 /* LogoTile.png in Resources */,
+				CDB0194514C92BFE00EFB42A /* Thumbnail.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
