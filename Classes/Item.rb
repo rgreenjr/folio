@@ -233,10 +233,10 @@ class Item
   end
   
   def fileSize
-    if imageable?
-      NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
-    else
+    if editable?
       content.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+    else
+      NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
     end
   end
 

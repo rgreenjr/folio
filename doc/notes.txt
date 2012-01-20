@@ -1,12 +1,12 @@
 Bugs
 ====
 
-- Toolbar has focus on launch.
-- Better handling of layout switch between media types
-- Manifest: click on font items hangs app sometimes.
+- Toolbar has focus on launch
 
 Features
 ========
+
+- Better handling of layout switch between media types
 
 Enhancements
 ============
