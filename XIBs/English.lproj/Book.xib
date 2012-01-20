@@ -50,7 +50,7 @@
 			<object class="NSWindowTemplate" id="53791894">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{176, 159}, {971, 600}}</string>
+				<string key="NSWindowRect">{{176, 159}, {1285, 788}}</string>
 				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">Folio</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -344,8 +344,9 @@
 								<object class="NSCustomView" id="120754400">
 									<reference key="NSNextResponder" ref="540888369"/>
 									<int key="NSvFlags">274</int>
-									<string key="NSFrameSize">{240, 576}</string>
+									<string key="NSFrameSize">{263, 764}</string>
 									<reference key="NSSuperview" ref="540888369"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1040038588"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSClassName">NSView</string>
@@ -358,8 +359,9 @@
 										<object class="NSCustomView" id="978303340">
 											<reference key="NSNextResponder" ref="1040038588"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrameSize">{730, 383}</string>
+											<string key="NSFrameSize">{1021, 508}</string>
 											<reference key="NSSuperview" ref="1040038588"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="809935225"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<string key="NSClassName">NSView</string>
@@ -367,22 +369,25 @@
 										<object class="NSCustomView" id="809935225">
 											<reference key="NSNextResponder" ref="1040038588"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{0, 384}, {730, 192}}</string>
+											<string key="NSFrame">{{0, 509}, {1021, 255}}</string>
 											<reference key="NSSuperview" ref="1040038588"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="702703649"/>
 											<string key="NSReuseIdentifierKey">_NS:1116</string>
 											<string key="NSClassName">NSView</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{241, 0}, {730, 576}}</string>
+									<string key="NSFrame">{{264, 0}, {1021, 764}}</string>
 									<reference key="NSSuperview" ref="540888369"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="978303340"/>
 									<string key="NSReuseIdentifierKey">_NS:1111</string>
 									<int key="NSDividerStyle">2</int>
 								</object>
 							</object>
-							<string key="NSFrame">{{0, 24}, {971, 576}}</string>
+							<string key="NSFrame">{{0, 24}, {1285, 764}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="120754400"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSIsVertical">YES</bool>
@@ -392,8 +397,10 @@
 						<object class="NSTextField" id="702703649">
 							<reference key="NSNextResponder" ref="711365869"/>
 							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{17, 1}, {937, 17}}</string>
+							<string key="NSFrame">{{17, 1}, {1251, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
@@ -428,12 +435,13 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{971, 600}</string>
+					<string key="NSFrameSize">{1285, 788}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="540888369"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{897, 676}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">BookWindow</string>
@@ -465,8 +473,6 @@
 						</object>
 						<string key="NSFrameSize">{610, 514}</string>
 						<reference key="NSSuperview" ref="357151366"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="803434083">
 							<int key="NSCellFlags">537001472</int>
@@ -485,7 +491,6 @@
 				</object>
 				<string key="NSFrameSize">{610, 514}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="80335154"/>
 				<string key="NSReuseIdentifierKey">_NS:1192</string>
 				<string key="NSClassName">LogoView</string>
