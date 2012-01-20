@@ -7,7 +7,7 @@ class Media
   JPG       = "image/jpeg"
   PNG       = "image/png"
   NCX       = "application/x-dtbncx+xml"
-  OTF       = "font/opentype"
+  OTF       = "application/x-font-opentype"
   PDF       = "application/pdf"
   SVG       = "image/svg+xml"
   TTF       = "application/x-font-ttf"
