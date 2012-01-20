@@ -1,6 +1,7 @@
 Bugs
 ====
 
+- Draw selection row back instead of using images.
 - Toolbar has focus on launch
 
 Features
