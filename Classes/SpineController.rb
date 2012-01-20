@@ -246,8 +246,10 @@ class SpineController < NSResponder
 
   def reloadDataAndSelectItems(itemRefs)
     @outlineView.reloadData
-    @outlineView.expandItem(self)
-    @outlineView.selectItems(itemRefs)
+    if itemRefs
+      @outlineView.expandItem(self)
+      @outlineView.selectItems(itemRefs)
+    end
     window.makeFirstResponder(@outlineView)
   end
 

@@ -1,25 +1,18 @@
 Bugs
 ====
 
-- SelectionView textfields enter edit mode on right clicks.
 - Toolbar has focus on launch.
-- Make TabView update its content when points are changed via inspector.
 - Better handling of layout switch between media types
 - Manifest: new directory undo crashes
-- Manifest: delete expands spine
 - Manifest: click on font items hangs app sometimes.
 
 Features
 ========
 
-- Re-enable selection view context menus.	
-- Fix point-fragment icons.
-- Create icon for itemrefs.
-- Add red badge showing issue count to Issues toolbar. 
-
 Enhancements
 ============
 
+- Add red badge showing issue count to Issues toolbar. 
 - Add NSPopover [http://www.youtube.com%2Fwatch%3Fv%3DP3uehLU67cg&ei=plwKT5H6Ho3CsQLxz6GRCg&usg=AFQjCNG09MZiNqLv3x7Q3MbBdW1LyyyTiQ]
 - Add "new" toolbar button for creating items, points, folders, etc.
 - Auto pick mediaType when item is renamed?
@@ -43,15 +36,3 @@ Refactoring
 
 - Use "box" in view placeholder names
 - Move metadata, spine, navigation and manifest into container
-
-Code Snippets
-=============
-
-def keyDown(event)
-  key = event.characters.characterAtIndex(0)
-  if (key == NSDeleteCharacter)
-    # delete image here
-  else #if (key == 27)
-    super
-  end
-end
