@@ -1,5 +1,3 @@
-require 'Syntax.rb'
-
 class CSSSyntax < Syntax
 
   def self.sharedInstance
