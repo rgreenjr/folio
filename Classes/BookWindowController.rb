@@ -236,9 +236,7 @@ class BookWindowController < NSWindowController
       issueViewController.refresh
       updateInformationField
       @selectionViewController.outlineView.reloadData
-      if document.totalIssueCount > 0
-        showIssueView
-      end
+      showIssueView if document.totalIssueCount > 0
     end
   end
   

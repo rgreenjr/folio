@@ -702,7 +702,7 @@
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{3, 19}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 18}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="257389858"/>
 									<reference key="NSNextKeyView" ref="708127236"/>
 									<string key="NSReuseIdentifierKey">_NS:75</string>

@@ -92,10 +92,10 @@ class PointViewController < NSViewController
         enableFragmentComboBoxForItem(item)
         return item.fragments.size 
       else
-        puts "begin #{item.name}"
+        # puts "begin #{item.name}"
         @fragmentQueue[item] = :loading
         queue.async do
-          puts "loading #{item.name}"
+          # puts "loading #{item.name}"
           if item.fragments
             @fragmentQueue[item] = :complete
           else
@@ -106,16 +106,16 @@ class PointViewController < NSViewController
         end
       end
     elsif queueStatus == :loading
-      puts "continue #{item.name}"
+      # puts "continue #{item.name}"
     elsif queueStatus == :complete
-      puts "complete #{item.name}\n-----------"
+      # puts "complete #{item.name}\n-----------"
       enableFragmentComboBoxForItem(item)
       return item.fragments.size
     elsif @fragmentQueue[item] == :error
-      puts "error #{item.name}"
+      # puts "error #{item.name}"
       enableFragmentComboBoxForItem(item)
     else
-      puts "bad state #{item.name}"
+      # puts "bad state #{item.name}"
       enableFragmentComboBoxForItem(item)
     end
     disableFragmentComboBox
@@ -150,7 +150,7 @@ class PointViewController < NSViewController
   end
 
   def loadFragments(point)
-    puts "loadFragments..."
+    # puts "loadFragments..."
     if point.item.fragments
       @fragmentQueue[point] = :complete
     else

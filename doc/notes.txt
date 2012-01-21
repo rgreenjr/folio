@@ -1,7 +1,6 @@
 Bugs
 ====
 
-- Draw selection row back instead of using images.
 - Toolbar has focus on launch
 
 Features
@@ -12,24 +11,19 @@ Features
 Enhancements
 ============
 
-- Add red badge showing issue count to Issues toolbar. 
-- Add NSPopover [http://www.youtube.com%2Fwatch%3Fv%3DP3uehLU67cg&ei=plwKT5H6Ho3CsQLxz6GRCg&usg=AFQjCNG09MZiNqLv3x7Q3MbBdW1LyyyTiQ]
 - Add "new" toolbar button for creating items, points, folders, etc.
-- Auto pick mediaType when item is renamed?
-- Add panel for item creation for users to pick name, type, etc.
-- Search filtering of selection views
 - Ability to drag to manifest items to the desktop
-- Add WebView forward/backward buttons
-- Support "replace" when moving items in Manifest
-- Better error handling of ill-formed XML documents
-- Drag and drop of directories into Manifest
-- Buttons to generate UUID
-- Show icon in spine indicating item is Cover, TOC, Title Page, etc.
-- Add plus/minus buttons for adding Points, ItemRefs, and Items
-- Add tool tips to tabs
-- Add ability to duplicate manifest items
-- Add Guide section?
 - Add "Select..." button to metadata image cover UI. 
+- Add ability to duplicate manifest items
+- Support "replace" when moving items in Manifest
+- Drag and drop of directories into Manifest
+- Add tool tips to tabs
+- Search filtering of selection views
+- Add WebView forward/backward buttons
+
+- Add red badge showing issue count to Issues toolbar
+- Buttons to generate UUID
+- Add Guide section
 
 Refactoring
 ===========
