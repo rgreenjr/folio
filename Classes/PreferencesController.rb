@@ -67,12 +67,7 @@ class PreferencesController < NSWindowController
     updateColorWells
   end
 
-  def showWindow(sender)
-    window.center
-    super
-  end
-
-  def showGeneralPane(sender)
+  def showFontAndColorsPane(sender)
     # puts "showGeneralPane"
   end
 
