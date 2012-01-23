@@ -269,14 +269,30 @@ class Item
     unless @fragments
       @fragments = []
       if flowable?
-        begin
-          REXML::XPath.each(REXML::Document.new(content), "//*[@id]") do |element|
-            @fragments << element.attributes['id']
-          end
-        rescue REXML::ParseException => exception
-          puts "An error occurred while parsing fragments in #{name}" # #{exception.explain}"
+        
+        # parse item content
+        error = Pointer.new(:id)
+        doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
+        
+        if error[0]
+          puts "An error occurred while parsing fragments in #{name}: #{error[0].localizedDescription}"
           return nil
         end
+
+        array = doc.nodesForXPath("//*[@id]", error:error)
+
+        if error[0]
+          puts "An error occurred while parsing fragments in #{name}: #{error[0].localizedDescription}"
+          return nil
+        end
+
+        # loop over matching elements and add id attribute values to @fragments
+        array.each do |element|
+          element.attributes.each do |attribute|
+            @fragments << attribute.stringValue if attribute.name == 'id'
+          end
+        end
+        
       end
     end
     @fragments
