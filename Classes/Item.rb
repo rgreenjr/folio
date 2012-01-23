@@ -9,6 +9,7 @@ class Item
   attr_accessor :content
   attr_accessor :name
   attr_accessor :parent
+  attr_reader   :parsingError
 
   def initialize(parent, name, id=nil, mediaType=nil, expanded=false)
     @parent = parent
@@ -53,6 +54,7 @@ class Item
     @content = string.dup
     File.open(path, 'wb') {|f| f.puts @content}
     @fragments = nil
+    @parsingError = nil
   end
 
   def name=(name)
@@ -275,14 +277,14 @@ class Item
         doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
         
         if error[0]
-          puts "An error occurred while parsing fragments in #{name}: #{error[0].localizedDescription}"
+          @parsingError = error[0]
           return nil
         end
 
         array = doc.nodesForXPath("//*[@id]", error:error)
 
         if error[0]
-          puts "An error occurred while parsing fragments in #{name}: #{error[0].localizedDescription}"
+          @parsingError = error[0]
           return nil
         end
 

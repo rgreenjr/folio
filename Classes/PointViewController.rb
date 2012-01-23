@@ -2,18 +2,28 @@ class PointViewController < NSViewController
 
   FRAGMENT_POPUP_OFFSET = 2
 
-  attr_accessor :point
+  attr_reader   :point
   attr_accessor :textField
   attr_accessor :idField
   attr_accessor :sourcePopup
   attr_accessor :fragmentComboBox
   attr_accessor :progressIndicator
+  attr_accessor :errorImage
+  attr_accessor :popover
+  attr_accessor :popoverLabel
 
   def initWithBookController(controller)
     initWithNibName("PointView", bundle:nil)
     @bookController = controller
-    @fragmentQueue = {}
+    @parsingHash = {}
     self
+  end
+  
+  def awakeFromNib
+    trackingArea = NSTrackingArea.alloc.initWithRect(@errorImage.bounds, 
+        options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow), 
+        owner:self, userInfo:nil)
+    @errorImage.addTrackingArea(trackingArea)
   end
 
   def point=(point)
@@ -86,40 +96,25 @@ class PointViewController < NSViewController
   def numberOfItemsInComboBox(comboBox)
     return 0 unless @point
     item = @point.item
-    queueStatus = @fragmentQueue[item]
-    if queueStatus.nil?
+    entry = @parsingHash[item]
+    if entry.nil?
       if item.fragmentsCached?
         enableFragmentComboBoxForItem(item)
         return item.fragments.size 
       else
-        # puts "begin #{item.name}"
-        @fragmentQueue[item] = :loading
+        disableFragmentComboBox
+        @parsingHash[item] = :loading
         queue.async do
-          # puts "loading #{item.name}"
-          if item.fragments
-            @fragmentQueue[item] = :complete
-          else
-            # returns nil on parsing failure
-            @fragmentQueue[item] = :error
-          end
+          item.fragments # load fragments asynchronously
+          @parsingHash[item] = :complete
           @fragmentComboBox.noteNumberOfItemsChanged
         end
+        return 0
       end
-    elsif queueStatus == :loading
-      # puts "continue #{item.name}"
-    elsif queueStatus == :complete
-      # puts "complete #{item.name}\n-----------"
+    elsif entry == :complete
       enableFragmentComboBoxForItem(item)
       return item.fragments.size
-    elsif @fragmentQueue[item] == :error
-      # puts "error #{item.name}"
-      enableFragmentComboBoxForItem(item)
-    else
-      # puts "bad state #{item.name}"
-      enableFragmentComboBoxForItem(item)
     end
-    disableFragmentComboBox
-    return 0
   end
 
   def comboBox(comboBox, completedString:uncompletedString)
@@ -149,31 +144,37 @@ class PointViewController < NSViewController
     @sourcePopup.selectItemWithTitle(point.href)
   end
 
-  def loadFragments(point)
-    # puts "loadFragments..."
-    if point.item.fragments
-      @fragmentQueue[point] = :complete
-    else
-      @fragmentQueue[point] = :error
-    end
-    @fragmentComboBox.noteNumberOfItemsChanged
-  end
-
   def undoManager
     @undoManager ||= @bookController.window.undoManager
   end
 
   def enableFragmentComboBoxForItem(item)
-    @fragmentQueue[item] = nil
+    @parsingHash[item] = nil
     @progressIndicator.hidden = true
     @progressIndicator.stopAnimation(self)
     @fragmentComboBox.enabled = true
+    if item.parsingError
+      @errorImage.hidden = false
+      @popoverLabel.stringValue = item.parsingError.localizedDescription
+    else
+      @errorImage.hidden = true
+    end
   end
 
   def disableFragmentComboBox
     @progressIndicator.startAnimation(self)
     @progressIndicator.hidden = false
     @fragmentComboBox.enabled = false
+  end
+  
+  def mouseEntered(event)
+    if @point && @point.item.parsingError
+      @popover.showRelativeToRect(@errorImage.bounds, ofView:@errorImage, preferredEdge:NSMaxXEdge)
+    end
+  end
+
+  def mouseExited(event)
+    @popover.close
   end
 
   def queue
