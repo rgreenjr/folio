@@ -159,21 +159,24 @@ class PointViewController < NSViewController
       string = item.parsingError.localizedDescription
       @popoverTextField.stringValue = string
 
-      stringRect = string.boundingRectWithSize([@popoverTextField.bounds.size.width, 9999],
-          options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingDisableScreenFontSubstitution),
-          attributes:nil)
+      stringRect = string.boundingRectWithSize([@popoverTextField.bounds.size.width, 0],
+          options:NSStringDrawingUsesLineFragmentOrigin,
+          attributes:{ NSFontAttributeName => NSFont.systemFontOfSize(11) })
+      
 
-      puts string
       p stringRect
-      puts "---"
-
-      popoverRect = @popoverTextField.frame      
-      popoverRect = NSInsetRect(@popoverTextField.frame, 0.0, (NSHeight(@popoverTextField.frame) - stringRect.size.height) / 2)
-      @popoverTextField.frame = popoverRect
-
-      windowRect = @popoverView.frame
-      windowRect.size.height = popoverRect.size.height + 65
-      @popoverView.frame = windowRect
+      puts string
+      
+      size2 = stringSize(string, forWidth:@popoverTextField.bounds.size.width, height:9999)
+      puts "size2 = #{size2.inspect}"
+            
+      puts "befor @popoverView.frame = #{@popoverView.frame.inspect}"
+      newFrame = @popoverView.frame
+      newFrame.size.height = size2.height
+      @popoverView.frame = newFrame
+      puts "after @popoverView.frame = #{@popoverView.frame.inspect}"
+      
+      
     else
       @errorImage.hidden = true
     end
@@ -197,6 +200,21 @@ class PointViewController < NSViewController
 
   def queue
     @queue ||= Dispatch::Queue.new("com.folioapp.fragment-parsing-queue")
+  end
+  
+  def stringSize(string, forWidth:width, height:height)
+    return NSZeroSize if string.length <= 0
+    
+    string = NSAttributedString.alloc.initWithString(string, attributes:{ NSFontAttributeName => NSFont.systemFontOfSize(11.0) })
+		size = [width, height]
+		textContainer = NSTextContainer.alloc.initWithContainerSize(size)
+		textStorage = NSTextStorage.alloc.initWithAttributedString(string)
+		layoutManager = NSLayoutManager.alloc.init
+		layoutManager.addTextContainer(textContainer)
+		textStorage.addLayoutManager(layoutManager)
+		layoutManager.setHyphenationFactor(0.0)
+		layoutManager.glyphRangeForTextContainer(textContainer)
+		layoutManager.usedRectForTextContainer(textContainer).size
   end
 
 end
