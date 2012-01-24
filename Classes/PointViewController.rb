@@ -119,6 +119,9 @@ class PointViewController < NSViewController
     elsif entry == :complete
       enableFragmentComboBoxForItem(item)
       return item.fragments.size
+    else
+      # still loading fragments asynchronously
+      return 0
     end
   end
 
