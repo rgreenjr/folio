@@ -10,13 +10,14 @@ class PointViewController < NSViewController
   attr_accessor :progressIndicator
   attr_accessor :errorImage
   attr_accessor :popover
-  attr_accessor :popoverView
+  attr_accessor :popoverLabel
   attr_accessor :popoverTextField
 
   def initWithBookController(controller)
     initWithNibName("PointView", bundle:nil)
     @bookController = controller
     @parsingHash = {}
+    @popoverAttributes = { NSFontAttributeName => NSFont.systemFontOfSize(11) }
     self
   end
   
@@ -154,32 +155,7 @@ class PointViewController < NSViewController
     @progressIndicator.hidden = true
     @progressIndicator.stopAnimation(self)
     @fragmentComboBox.enabled = true
-    if item.parsingError
-      @errorImage.hidden = false
-      string = item.parsingError.localizedDescription
-      @popoverTextField.stringValue = string
-
-      stringRect = string.boundingRectWithSize([@popoverTextField.bounds.size.width, 0],
-          options:NSStringDrawingUsesLineFragmentOrigin,
-          attributes:{ NSFontAttributeName => NSFont.systemFontOfSize(11) })
-      
-
-      p stringRect
-      puts string
-      
-      size2 = stringSize(string, forWidth:@popoverTextField.bounds.size.width, height:9999)
-      puts "size2 = #{size2.inspect}"
-            
-      puts "befor @popoverView.frame = #{@popoverView.frame.inspect}"
-      newFrame = @popoverView.frame
-      newFrame.size.height = size2.height
-      @popoverView.frame = newFrame
-      puts "after @popoverView.frame = #{@popoverView.frame.inspect}"
-      
-      
-    else
-      @errorImage.hidden = true
-    end
+    @errorImage.hidden = item.parsingError.nil?
   end
 
   def disableFragmentComboBox
@@ -190,6 +166,12 @@ class PointViewController < NSViewController
   
   def mouseEntered(event)
     if @point && @point.item.parsingError
+      string = @point.item.parsingError.localizedDescription.chomp
+      # errorCount = string.scan("\n").size + 1
+      # @popoverLabel.stringValue = "Parsing Error".pluralize(errorCount)
+      stringRect = string.boundingRectWithSize([300, 0], options:NSStringDrawingUsesLineFragmentOrigin, attributes:@popoverAttributes)      
+      @popover.setContentSize [300, stringRect.size.height + 40]
+      @popoverTextField.stringValue = string
       @popover.showRelativeToRect(@errorImage.bounds, ofView:@errorImage, preferredEdge:NSMaxXEdge)
     end
   end
@@ -200,21 +182,6 @@ class PointViewController < NSViewController
 
   def queue
     @queue ||= Dispatch::Queue.new("com.folioapp.fragment-parsing-queue")
-  end
-  
-  def stringSize(string, forWidth:width, height:height)
-    return NSZeroSize if string.length <= 0
-    
-    string = NSAttributedString.alloc.initWithString(string, attributes:{ NSFontAttributeName => NSFont.systemFontOfSize(11.0) })
-		size = [width, height]
-		textContainer = NSTextContainer.alloc.initWithContainerSize(size)
-		textStorage = NSTextStorage.alloc.initWithAttributedString(string)
-		layoutManager = NSLayoutManager.alloc.init
-		layoutManager.addTextContainer(textContainer)
-		textStorage.addLayoutManager(layoutManager)
-		layoutManager.setHyphenationFactor(0.0)
-		layoutManager.glyphRangeForTextContainer(textContainer)
-		layoutManager.usedRectForTextContainer(textContainer).size
   end
 
 end
