@@ -38,7 +38,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Folio</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.folioapp.mac</string>
+	<string>com.folioapp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
