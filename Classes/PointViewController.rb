@@ -84,7 +84,7 @@ class PointViewController < NSViewController
 
   def changeFragment(point, fragment)
     return if point.nil? || point.fragment == fragment
-    if fragment.blank? || point.item.hasFragment?(fragment)
+    if fragment.blank? || point.item.containsFragment?(fragment)
       undoManager.prepareWithInvocationTarget(self).changeFragment(point, point.fragment)
       undoManager.actionName = "Change Fragment"
       point.fragment = fragment

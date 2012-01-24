@@ -117,6 +117,20 @@ class Point
   def to_s
     "@id = #{@id}, @text = #{@text}, @item = #{@item.name}, @expanded = #{@expanded}"
   end
+  
+  # def valid?
+  #   @issues = []
+  #   @issues << Issue.new("item cannot be blank", :error) if item.nil?
+  #   @issues << Issue.new("text cannot be blank", :error) if text.blank?
+  #   @issues << Issue.new("identifier cannot be blank", :error) if identifier.blank?
+  #   @issues << Issue.new("identifier already exists", :error) if @bookController.document.navigation.hasPointWithId?(identifier)
+  #   
+  #   if hasFragment? && item && not item.hasFragement?(fragment)
+  #     @issues << Issue.new("fragment doesn't exist \"#{item.href}#\"#{fragment}\"", :error)
+  #   end
+  # 
+  #   @issues.empty?
+  # end
 
   private
   

@@ -96,7 +96,7 @@ class PointPanelController < NSWindowController
   
   def validPointAttributes?(item, text, identifier, fragment)
     valid = false
-    if !fragment.blank? && !item.hasFragment?(fragment)
+    if !fragment.blank? && !item.containsFragment?(fragment)
       Alert.runModal(window, "\"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", "You must specify an existing fragment identifier.")
     elsif text.blank?
       Alert.runModal(window, "Point text values cannot be blank.", "Please provide a text value.")
