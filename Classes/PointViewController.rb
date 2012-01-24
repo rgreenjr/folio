@@ -10,7 +10,8 @@ class PointViewController < NSViewController
   attr_accessor :progressIndicator
   attr_accessor :errorImage
   attr_accessor :popover
-  attr_accessor :popoverLabel
+  attr_accessor :popoverView
+  attr_accessor :popoverTextField
 
   def initWithBookController(controller)
     initWithNibName("PointView", bundle:nil)
@@ -155,7 +156,24 @@ class PointViewController < NSViewController
     @fragmentComboBox.enabled = true
     if item.parsingError
       @errorImage.hidden = false
-      @popoverLabel.stringValue = item.parsingError.localizedDescription
+      string = item.parsingError.localizedDescription
+      @popoverTextField.stringValue = string
+
+      stringRect = string.boundingRectWithSize([@popoverTextField.bounds.size.width, 9999],
+          options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingDisableScreenFontSubstitution),
+          attributes:nil)
+
+      puts string
+      p stringRect
+      puts "---"
+
+      popoverRect = @popoverTextField.frame      
+      popoverRect = NSInsetRect(@popoverTextField.frame, 0.0, (NSHeight(@popoverTextField.frame) - stringRect.size.height) / 2)
+      @popoverTextField.frame = popoverRect
+
+      windowRect = @popoverView.frame
+      windowRect.size.height = popoverRect.size.height + 65
+      @popoverView.frame = windowRect
     else
       @errorImage.hidden = true
     end

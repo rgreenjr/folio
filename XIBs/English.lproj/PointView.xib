@@ -67,7 +67,7 @@
 								<string>NeXT TIFF v4.0 pasteboard type</string>
 							</object>
 						</object>
-						<string key="NSFrame">{{372, 19}, {16, 16}}</string>
+						<string key="NSFrame">{{372, 20}, {16, 16}}</string>
 						<reference key="NSSuperview" ref="31913715"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -297,7 +297,7 @@
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<reference ref="563508163"/>
 								</object>
-								<object class="NSFont" key="NSMenuFont">
+								<object class="NSFont" key="NSMenuFont" id="601830678">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">1044</int>
@@ -419,10 +419,38 @@
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSTextField" id="959546224">
+						<reference key="NSNextResponder" ref="675636811"/>
+						<int key="NSvFlags">269</int>
+						<string key="NSFrame">{{128, 86}, {90, 17}}</string>
+						<reference key="NSSuperview" ref="675636811"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="409468058"/>
+						<string key="NSReuseIdentifierKey">_NS:3944</string>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="244375763">
+							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags2">138413056</int>
+							<string key="NSContents">Parsing Error</string>
+							<reference key="NSSupport" ref="601830678"/>
+							<string key="NSCellIdentifier">_NS:3944</string>
+							<reference key="NSControlView" ref="959546224"/>
+							<reference key="NSBackgroundColor" ref="175079231"/>
+							<object class="NSColor" key="NSTextColor" id="20886217">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">disabledControlTextColor</string>
+								<object class="NSColor" key="NSColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+								</object>
+							</object>
+						</object>
+					</object>
 					<object class="NSTextField" id="409468058">
 						<reference key="NSNextResponder" ref="675636811"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{20, 20}, {307, 36}}</string>
+						<string key="NSFrame">{{20, 20}, {307, 58}}</string>
 						<reference key="NSSuperview" ref="675636811"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -440,15 +468,16 @@
 							</object>
 							<string key="NSCellIdentifier">_NS:354</string>
 							<reference key="NSControlView" ref="409468058"/>
+							<bool key="NSDrawsBackground">YES</bool>
 							<reference key="NSBackgroundColor" ref="1009828177"/>
-							<reference key="NSTextColor" ref="600085567"/>
+							<reference key="NSTextColor" ref="20886217"/>
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{347, 76}</string>
+				<string key="NSFrameSize">{347, 123}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="409468058"/>
+				<reference key="NSNextKeyView" ref="959546224"/>
 				<string key="NSReuseIdentifierKey">_NS:1192</string>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -564,11 +593,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">popoverLabel</string>
+						<string key="label">popoverTextField</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="409468058"/>
 					</object>
-					<int key="connectionID">102</int>
+					<int key="connectionID">105</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">popoverView</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="675636811"/>
+					</object>
+					<int key="connectionID">106</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -835,6 +872,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="409468058"/>
+							<reference ref="959546224"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Error Popover View</string>
@@ -854,6 +892,21 @@
 						<reference key="object" ref="1058614500"/>
 						<reference key="parent" ref="409468058"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">103</int>
+						<reference key="object" ref="959546224"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="244375763"/>
+						</object>
+						<reference key="parent" ref="675636811"/>
+						<string key="objectName">Title</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">104</int>
+						<reference key="object" ref="244375763"/>
+						<reference key="parent" ref="959546224"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -866,6 +919,8 @@
 					<string>1.IBPluginDependency</string>
 					<string>100.IBPluginDependency</string>
 					<string>101.IBPluginDependency</string>
+					<string>103.IBPluginDependency</string>
+					<string>104.IBPluginDependency</string>
 					<string>14.IBPluginDependency</string>
 					<string>18.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
@@ -923,6 +978,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -937,7 +994,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">102</int>
+			<int key="maxID">106</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -964,13 +1021,15 @@
 							<string>fragmentComboBox</string>
 							<string>idField</string>
 							<string>popover</string>
-							<string>popoverLabel</string>
+							<string>popoverTextField</string>
+							<string>popoverView</string>
 							<string>progressIndicator</string>
 							<string>sourcePopup</string>
 							<string>textField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -989,7 +1048,8 @@
 							<string>fragmentComboBox</string>
 							<string>idField</string>
 							<string>popover</string>
-							<string>popoverLabel</string>
+							<string>popoverTextField</string>
+							<string>popoverView</string>
 							<string>progressIndicator</string>
 							<string>sourcePopup</string>
 							<string>textField</string>
@@ -1013,7 +1073,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">popoverLabel</string>
+								<string key="name">popoverTextField</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">popoverView</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
