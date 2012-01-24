@@ -11,13 +11,16 @@ class PointViewController < NSViewController
   attr_accessor :errorImage
   attr_accessor :popover
   attr_accessor :popoverLabel
-  attr_accessor :popoverTextField
+  attr_accessor :popoverTextView
 
   def initWithBookController(controller)
     initWithNibName("PointView", bundle:nil)
     @bookController = controller
     @parsingHash = {}
-    @popoverAttributes = { NSFontAttributeName => NSFont.systemFontOfSize(11) }
+    @popoverTextAttributes = { 
+      NSFontAttributeName => NSFont.systemFontOfSize(11),
+      NSForegroundColorAttributeName => NSColor.grayColor
+    }
     self
   end
   
@@ -169,15 +172,13 @@ class PointViewController < NSViewController
       string = @point.item.parsingError.localizedDescription.chomp
       # errorCount = string.scan("\n").size + 1
       # @popoverLabel.stringValue = "Parsing Error".pluralize(errorCount)
-      stringRect = string.boundingRectWithSize([300, 0], options:NSStringDrawingUsesLineFragmentOrigin, attributes:@popoverAttributes)      
-      @popover.setContentSize [300, stringRect.size.height + 40]
-      @popoverTextField.stringValue = string
+      @popoverTextView.textStorage.attributedString = NSAttributedString.alloc.initWithString(string, attributes:@popoverTextAttributes)
       @popover.showRelativeToRect(@errorImage.bounds, ofView:@errorImage, preferredEdge:NSMaxXEdge)
     end
   end
 
   def mouseExited(event)
-    @popover.close
+    # @popover.close
   end
 
   def queue
