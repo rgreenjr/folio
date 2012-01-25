@@ -110,7 +110,7 @@ class ValidationController < NSWindowController
     if line =~ /^ERROR: (.*)\(([0-9]+)\): (.*)/
 
       # create a new maker with the message and line number
-      issue = Issue.new($3, :error, $2.to_i - 1)
+      issue = Issue.new($3, $2.to_i - 1)
 
       # get relative path of item
       itemHref = $1
@@ -118,14 +118,14 @@ class ValidationController < NSWindowController
     elsif line =~ /^ERROR: (.*): (.*)/
 
       # error doesn't include a line number so create new issue without one
-      issue = Issue.new($2, :error)
+      issue = Issue.new($2)
 
       # get relative path of item
       itemHref = $1
 
     else
       # create new issue with entire message since parsing failed
-      issue = Issue.new(line, :error)
+      issue = Issue.new(line)
     end
 
     if itemHref
@@ -152,10 +152,10 @@ class ValidationController < NSWindowController
     puts "parseWarning => #{line}"
     if line =~ /^WARNING: .*: item \((.*)\) (.*)/
       # create new issue with parsed message
-      issue = Issue.new("#{$1} #{$2}", :warning)
+      issue = Issue.new("#{$1} #{$2}")
     else
       # create new issue with entire message since parsing failed
-      issue = Issue.new(line, :warning)
+      issue = Issue.new(line)
     end
 
     # add issue to book since there isn't an associated item

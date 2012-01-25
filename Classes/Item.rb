@@ -311,5 +311,19 @@ class Item
   def fragmentsCached?
     @fragments != nil
   end
+  
+  def valid?
+    @issues = []
+    @issues << Issue.new("Item ID cannot be blank.") if @id.blank?
+    @issues << Issue.new("Item mediaType cannot be blank.") if @mediaType.blank?
+    @issues << Issue.new("Item referenceType cannot be blank.") if @referenceType.blank?
+    @issues << Issue.new("Item name cannot be blank.") if @referenceType.blank?
+    fragments.each_with_index do |fragment, index|
+      if fragments[(index+1)..-1].include?(fragment)
+        @issues << Issue.new("Item fragment #{fragment} already exists.")
+      end
+    end
+    @issues.empty?
+  end
 
 end
