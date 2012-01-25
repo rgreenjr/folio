@@ -113,7 +113,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {133, 25}}</string>
 									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -306,7 +305,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<object class="NSArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
@@ -403,7 +402,6 @@
 							<string key="NSFrame">{{17, -94}, {1251, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
