@@ -50,7 +50,7 @@
 			<object class="NSWindowTemplate" id="53791894">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{176, 159}, {1285, 788}}</string>
+				<string key="NSWindowRect">{{768, 464}, {1181, 693}}</string>
 				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">Folio</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -344,7 +344,7 @@
 								<object class="NSCustomView" id="120754400">
 									<reference key="NSNextResponder" ref="540888369"/>
 									<int key="NSvFlags">274</int>
-									<string key="NSFrameSize">{263, 764}</string>
+									<string key="NSFrameSize">{241, 669}</string>
 									<reference key="NSSuperview" ref="540888369"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1040038588"/>
@@ -359,7 +359,7 @@
 										<object class="NSCustomView" id="978303340">
 											<reference key="NSNextResponder" ref="1040038588"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrameSize">{1021, 508}</string>
+											<string key="NSFrameSize">{939, 446}</string>
 											<reference key="NSSuperview" ref="1040038588"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="809935225"/>
@@ -369,7 +369,7 @@
 										<object class="NSCustomView" id="809935225">
 											<reference key="NSNextResponder" ref="1040038588"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{0, 509}, {1021, 255}}</string>
+											<string key="NSFrame">{{0, 447}, {939, 222}}</string>
 											<reference key="NSSuperview" ref="1040038588"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="702703649"/>
@@ -377,7 +377,7 @@
 											<string key="NSClassName">NSView</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{264, 0}, {1021, 764}}</string>
+									<string key="NSFrame">{{242, 0}, {939, 669}}</string>
 									<reference key="NSSuperview" ref="540888369"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="978303340"/>
@@ -385,7 +385,7 @@
 									<int key="NSDividerStyle">2</int>
 								</object>
 							</object>
-							<string key="NSFrame">{{0, 24}, {1285, 764}}</string>
+							<string key="NSFrame">{{0, 24}, {1181, 669}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="120754400"/>
@@ -397,10 +397,9 @@
 						<object class="NSTextField" id="702703649">
 							<reference key="NSNextResponder" ref="711365869"/>
 							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{17, 1}, {1251, 17}}</string>
+							<string key="NSFrame">{{17, -94}, {1251, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
@@ -435,7 +434,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{1285, 788}</string>
+					<string key="NSFrameSize">{1181, 693}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="540888369"/>
@@ -452,7 +451,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="357151366">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -490,7 +489,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{610, 514}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="80335154"/>
 				<string key="NSReuseIdentifierKey">_NS:1192</string>
 				<string key="NSClassName">LogoView</string>
@@ -875,8 +873,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<boolean value="YES"/>
-					<boolean value="YES"/>
+					<boolean value="NO"/>
+					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{255, 131}, {971, 600}}</string>
 					<integer value="1"/>
@@ -1436,7 +1434,7 @@
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{32, 32}</string>
-				<string>{189, 66}</string>
+				<string>{500, 500}</string>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
 				<string>{32, 32}</string>
