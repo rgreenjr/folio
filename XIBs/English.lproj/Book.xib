@@ -12,20 +12,20 @@
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>NSTextField</string>
-			<string>NSSegmentedControl</string>
+			<string>NSSegmentedCell</string>
 			<string>NSToolbar</string>
-			<string>NSSplitView</string>
 			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>NSSplitView</string>
+			<string>NSSegmentedControl</string>
 			<string>NSTextFieldCell</string>
 			<string>NSImageView</string>
 			<string>NSToolbarSpaceItem</string>
 			<string>NSImageCell</string>
 			<string>NSCustomView</string>
-			<string>NSSegmentedCell</string>
+			<string>NSCustomObject</string>
 			<string>NSView</string>
 			<string>NSWindowTemplate</string>
-			<string>NSCustomObject</string>
+			<string>NSTextField</string>
 			<string>NSToolbarItem</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -50,8 +50,8 @@
 			<object class="NSWindowTemplate" id="53791894">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{768, 464}, {1181, 693}}</string>
-				<int key="NSWTFlags">1954021376</int>
+				<string key="NSWindowRect">{{682, 516}, {1181, 693}}</string>
+				<int key="NSWTFlags">1953497088</int>
 				<string key="NSWindowTitle">Folio</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="1014419714">
@@ -109,9 +109,11 @@
 								<string key="NSToolbarItemPaletteLabel">Layout</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="272254908">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{0, 14}, {137, 25}}</string>
+									<string key="NSFrame">{{0, 14}, {133, 25}}</string>
+									<reference key="NSSuperview"/>
+									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="253896760">
 										<int key="NSCellFlags">67239424</int>
@@ -119,12 +121,13 @@
 										<object class="NSFont" key="NSSupport">
 											<string key="NSName">LucidaGrande</string>
 											<double key="NSSize">13</double>
-											<int key="NSfFlags">16</int>
+											<int key="NSfFlags">1044</int>
 										</object>
 										<reference key="NSControlView" ref="272254908"/>
 										<object class="NSMutableArray" key="NSSegmentImages">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSSegmentItem">
+												<double key="NSSegmentItemWidth">32</double>
 												<object class="NSCustomResource" key="NSSegmentItemImage">
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">preview</string>
@@ -161,14 +164,14 @@
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 										</object>
-										<int key="NSSegmentStyle">2</int>
+										<int key="NSSegmentStyle">4</int>
 									</object>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
 								<string key="NSToolbarItemMinSize">{104, 25}</string>
-								<string key="NSToolbarItemMaxSize">{137, 25}</string>
+								<string key="NSToolbarItemMaxSize">{142, 28}</string>
 								<bool key="NSToolbarItemEnabled">YES</bool>
 								<bool key="NSToolbarItemAutovalidates">YES</bool>
 								<int key="NSToolbarItemTag">0</int>
@@ -303,7 +306,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSArray" key="NSToolbarIBAllowedItems">
+					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="287252432"/>
 						<reference ref="192817359"/>
@@ -539,14 +542,6 @@
 					<int key="connectionID">217</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">layoutSegementedControl</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="272254908"/>
-					</object>
-					<int key="connectionID">244</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleInspectorView:</string>
 						<reference key="source" ref="1001"/>
@@ -579,20 +574,20 @@
 					<int key="connectionID">265</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">layoutSegementedControl</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="272254908"/>
+					</object>
+					<int key="connectionID">244</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">validate:</string>
 						<reference key="source" ref="1003"/>
 						<reference key="destination" ref="961348391"/>
 					</object>
 					<int key="connectionID">160</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleLayoutMode:</string>
-						<reference key="source" ref="1003"/>
-						<reference key="destination" ref="588453196"/>
-					</object>
-					<int key="connectionID">243</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -609,6 +604,14 @@
 						<reference key="destination" ref="826128801"/>
 					</object>
 					<int key="connectionID">263</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleLayoutMode:</string>
+						<reference key="source" ref="1003"/>
+						<reference key="destination" ref="588453196"/>
+					</object>
+					<int key="connectionID">243</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -755,29 +758,6 @@
 						<string key="objectName">Content Placeholder</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">205</int>
-						<reference key="object" ref="588453196"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="272254908"/>
-						</object>
-						<reference key="parent" ref="1014419714"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">203</int>
-						<reference key="object" ref="272254908"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="253896760"/>
-						</object>
-						<reference key="parent" ref="588453196"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">204</int>
-						<reference key="object" ref="253896760"/>
-						<reference key="parent" ref="272254908"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">9</int>
 						<reference key="object" ref="192817359"/>
 						<reference key="parent" ref="1014419714"/>
@@ -829,6 +809,29 @@
 						<int key="objectID">23</int>
 						<reference key="object" ref="803434083"/>
 						<reference key="parent" ref="80335154"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">205</int>
+						<reference key="object" ref="588453196"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="272254908"/>
+						</object>
+						<reference key="parent" ref="1014419714"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">203</int>
+						<reference key="object" ref="272254908"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="253896760"/>
+						</object>
+						<reference key="parent" ref="588453196"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">204</int>
+						<reference key="object" ref="253896760"/>
+						<reference key="parent" ref="272254908"/>
 					</object>
 				</object>
 			</object>
