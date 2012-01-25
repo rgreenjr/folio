@@ -31,14 +31,15 @@ class PointPanelController < NSWindowController
   end
   
   def createPoint(sender)
-    item = selectedSourceItem
-    fragment = @fragmentComboBox.stringValue
-    text = @textField.stringValue
-    identifier = @idField.stringValue
-    if validPointAttributes?(item, text, identifier, fragment)
+    point = Point.new(selectedSourceItem, @textField.stringValue, @idField.stringValue, @fragmentComboBox.stringValue)
+    if !point.valid?
+      issue = point.issues.first
+      Alert.runModal(window, issue.message, issue.informativeText)
+    elsif @bookController.document.navigation.hasPointWithId?(point.id)
+      Alert.runModal(window, "A point with this ID already exists.", "Please choose a unique point ID.")
+    else
       closePointCreationSheet(self)
-      point = Point.new(item, text, identifier, fragment)
-      @bookController.selectionViewController.navigationController.addPoint(point)      
+      @bookController.selectionViewController.navigationController.addPoint(point)
     end
   end
   
@@ -94,20 +95,4 @@ class PointPanelController < NSWindowController
     @fragmentComboBox.noteNumberOfItemsChanged
   end
   
-  def validPointAttributes?(item, text, identifier, fragment)
-    valid = false
-    if !fragment.blank? && !item.containsFragment?(fragment)
-      Alert.runModal(window, "\"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", "You must specify an existing fragment identifier.")
-    elsif text.blank?
-      Alert.runModal(window, "Point text values cannot be blank.", "Please provide a text value.")
-    elsif identifier.blank?
-      Alert.runModal(window, "Point ID values cannot be blank.", "Please provide an ID value.")
-    elsif @bookController.document.navigation.hasPointWithId?(identifier)
-      Alert.runModal(window, "A point with this ID already exists.", "Please choose a unique point ID.")
-    else
-      valid = true
-    end
-    valid
-  end
-
 end
