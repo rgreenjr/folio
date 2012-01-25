@@ -1159,15 +1159,6 @@
 									<reference key="NSMixedImage" ref="807125248"/>
 									<int key="NSTag">3</int>
 								</object>
-								<object class="NSMenuItem" id="51120675">
-									<reference key="NSMenu" ref="835318025"/>
-									<string key="NSTitle">Generate Thumbnail</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="807125248"/>
-									<int key="NSTag">3</int>
-								</object>
 								<object class="NSMenuItem" id="339747704">
 									<reference key="NSMenu" ref="835318025"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -1637,14 +1628,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleFullScreen:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="79305098"/>
-					</object>
-					<int key="connectionID">1878</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showStagingDirectory:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="1068663598"/>
@@ -1829,11 +1812,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">thumbnail:</string>
+						<string key="label">toggleFullScreen:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="51120675"/>
+						<reference key="destination" ref="79305098"/>
 					</object>
-					<int key="connectionID">1930</int>
+					<int key="connectionID">1878</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2178,7 +2161,6 @@
 							<reference ref="819319396"/>
 							<reference ref="395420784"/>
 							<reference ref="661020998"/>
-							<reference ref="51120675"/>
 						</object>
 						<reference key="parent" ref="713487014"/>
 					</object>
@@ -2638,11 +2620,6 @@
 						<reference key="parent" ref="995635774"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">1876</int>
-						<reference key="object" ref="79305098"/>
-						<reference key="parent" ref="466310130"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">1879</int>
 						<reference key="object" ref="1068663598"/>
 						<reference key="parent" ref="720053764"/>
@@ -2735,9 +2712,9 @@
 						<reference key="parent" ref="502084290"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">1928</int>
-						<reference key="object" ref="51120675"/>
-						<reference key="parent" ref="835318025"/>
+						<int key="objectID">1876</int>
+						<reference key="object" ref="79305098"/>
+						<reference key="parent" ref="466310130"/>
 					</object>
 				</object>
 			</object>
@@ -2838,7 +2815,6 @@
 					<string>1923.IBPluginDependency</string>
 					<string>1924.IBPluginDependency</string>
 					<string>1925.IBPluginDependency</string>
-					<string>1928.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
@@ -2880,7 +2856,6 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4381,78 +4356,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/TabbedViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WebViewController</string>
-					<string key="superclassName">NSViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>back:</string>
-							<string>createNavigationLink:</string>
-							<string>forward:</string>
-							<string>reload:</string>
-							<string>thumbnail:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>back:</string>
-							<string>createNavigationLink:</string>
-							<string>forward:</string>
-							<string>reload:</string>
-							<string>thumbnail:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">back:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">createNavigationLink:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">forward:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">reload:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">thumbnail:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">bookController</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">bookController</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">bookController</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WebViewController.h</string>
 					</object>
 				</object>
 			</object>
