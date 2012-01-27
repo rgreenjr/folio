@@ -61,11 +61,11 @@ class SourceViewController < NSViewController
 
     @item = item
     if @item && @item.editable?
-      @lineNumberView.issueHash = @item.issueHash
+      @lineNumberView.item = @item
       @syntaxHighlighter.mediaType = @item.mediaType if @syntaxHighlighter
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:@textAttributes)
     else
-      @lineNumberView.clearIssues
+      @lineNumberView.item = nil
       string = NSAttributedString.alloc.initWithString('')
     end
     view.textStorage.attributedString = string

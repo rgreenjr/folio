@@ -1,8 +1,12 @@
 class Navigation
 
   # Navigation Center eXtended (NCX) Table of Contents
-  
-  attr_accessor :id, :title, :creator, :docAuthor, :root
+
+  attr_accessor :id
+  attr_accessor :title
+  attr_accessor :creator
+  attr_accessor :docAuthor
+  attr_accessor :root
 
   def initialize(book=nil)
     @pointIdMap  = {}
@@ -173,6 +177,22 @@ class Navigation
     end
     buffer << "}"
     buffer
+  end
+  
+  def valid?
+    isValid = true
+    each(true) do |point|
+      isValid = false unless point.valid?
+    end
+    isValid
+  end
+  
+  def pointsWithIssues
+    select { |point| point.hasIssues? }
+  end
+  
+  def totalIssueCount
+    pointsWithIssues.inject(0) { |sum, point| sum += point.issueCount }
   end
 
 end

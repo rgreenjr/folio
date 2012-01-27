@@ -115,7 +115,7 @@ class Book < NSDocument
   end
   
   def totalIssueCount
-    @issues.size + @manifest.totalIssueCount
+    @issues.size + @manifest.totalIssueCount + @navigation.totalIssueCount
   end
   
   def fileSize
@@ -129,6 +129,34 @@ class Book < NSDocument
   def close
     super
     FileUtils.rm_rf(@unzipPath)
+  end
+  
+  def validateOPF
+    # if isDocumentEdited
+    #   @container
+    # else
+      XMLLint.validate(opfXML, @issues)
+    # end
+  end
+  
+  def validateContainer
+    XMLLint.validate(@container.to_xml, @issues)
+  end
+  
+  def validateMetadata
+    unless @metadata.valid?
+      @issues.concat(@metadata.issues)
+    end
+  end
+  
+  def validateManifest
+    @manifest.valid?
+  end
+  
+  def validateNavigation
+    unless @navigation.valid?
+      # @issues.concat(@navigation.issues)
+    end
   end
   
   private

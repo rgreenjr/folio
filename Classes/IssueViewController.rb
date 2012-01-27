@@ -93,7 +93,7 @@ class IssueViewController < NSViewController
     elsif object.class == Book
       object.metadata.title # "Book"
     else
-      object.displayString
+      object.to_s
     end
   end
   
@@ -104,17 +104,14 @@ class IssueViewController < NSViewController
   def outlineView(outlineView, willDisplayCell:cell, forTableColumn:tableColumn, item:object)
     cell.font = NSFont.systemFontOfSize(11.0)
     if object.class == Item
-      # cell.badgeCount = object.issues.size
       cell.badgeCount = nil
       cell.image = NSWorkspace.sharedWorkspace.iconForFileType(File.extname(object.name))
     elsif object.class == Book
-      # cell.badgeCount = object.issues.size
       cell.badgeCount = nil
       cell.image = NSImage.imageNamed('book.png')
     else
       cell.badgeCount = nil
       cell.image = nil
-      # cell.image = NSImage.imageNamed('wrench.png')
     end
   end
 

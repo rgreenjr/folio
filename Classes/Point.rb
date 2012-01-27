@@ -120,16 +120,32 @@ class Point
   end
   
   def valid?
-    @issues = []
+    clearIssues
     if hasFragment? && item && !item.containsFragment?(fragment)
-      @issues << Issue.new("The item \"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", nil, "Please specify an existing fragment identifier.")
+      addIssue Issue.new("The item \"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", nil, "Please specify an existing fragment identifier.")
     end
-    @issues << Issue.new("Point text values cannot be blank.", nil, "Please specify a value.") if text.blank?
-    @issues << Issue.new("Point ID values cannot be blank.", nil, "Please specify a value.") if id.blank?    
-    @issues << Issue.new("Point item reference cannot be blank.", "Please specify an item.") if item.nil?
-    @issues.empty?
+    addIssue Issue.new("Point text values cannot be blank.", nil, "Please specify a value.") if text.blank?
+    addIssue Issue.new("Point ID values cannot be blank.", nil, "Please specify a value.") if id.blank?    
+    addIssue Issue.new("Point item reference cannot be blank.", "Please specify an item.") if item.nil?
+    hasIssues?
   end
-
+  
+  def hasIssues?
+    issueCount > 0
+  end
+  
+  def issueCount
+    @issues.size
+  end
+  
+  def clearIssues
+    @issues = []
+  end
+  
+  def addIssue(issue)
+    @issues << issue if issue
+  end
+  
   private
   
   def fragmentWithHash

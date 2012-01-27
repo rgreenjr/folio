@@ -93,9 +93,24 @@ class Metadata
     "Young Adult"
   ]
   
-  attr_accessor :title, :language, :identifier
-  attr_accessor :creator, :sortCreator, :contributor, :publisher, :subject, :description
-  attr_accessor :date, :type, :format, :source, :relation, :coverage, :rights, :cover
+  attr_accessor :title
+  attr_accessor :language
+  attr_accessor :identifier
+  attr_accessor :creator
+  attr_accessor :sortCreator
+  attr_accessor :contributor
+  attr_accessor :publisher
+  attr_accessor :subject
+  attr_accessor :description
+  attr_accessor :date
+  attr_accessor :type
+  attr_accessor :format
+  attr_accessor :source
+  attr_accessor :relation
+  attr_accessor :coverage
+  attr_accessor :rights
+  attr_accessor :cover
+  attr_reader   :issues
 
   def self.subjects
     @subjects ||= SUBJECTS.sort
@@ -149,6 +164,19 @@ class Metadata
       @sortCreator = Metadata.deriveSortCreator(@creator)
     end
     @sortCreator
+  end
+  
+  def valid?
+    @issues = []
+    @issues << Issue.new("Metadata title cannot be blank.") if @title.blank?
+    @issues << Issue.new("Metadata language cannot be blank.") if @language.blank?
+    @issues << Issue.new("Metadata identifier cannot be blank.") if @identifier.blank?
+    
+    unless @date.blank? || @date =~ /^(\d{4}|\d{4}-\d{2}|\d{4}-\d{2}-\d{2})$/
+      @issues << Issue.new("Metadata date is not valid. The date must be in the form YYYY, YYYY-MM or YYYY-MM-DD (e.g., \"2011\", \"2011-05\", or \"2011-05-01\")")
+    end
+    
+    @issues.empty?
   end
   
   private

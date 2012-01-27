@@ -206,20 +206,20 @@ class BookWindowController < NSWindowController
   end
 
   def validate(sender)
-    if document.isDocumentEdited
-      alert = NSAlert.alloc.init
-      alert.messageText = "Your changes need to be saved prior to validation."
-      alert.addButtonWithTitle("Save and Validate")
-      alert.addButtonWithTitle("Cancel")
-      alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
-    elsif document.fileURL.nil?
-      alert = NSAlert.alloc.init
-      alert.messageText = "The book must be saved before it can be validated."
-      alert.addButtonWithTitle("OK")
-      alert.beginSheetModalForWindow(window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
-    else
+    # if document.isDocumentEdited
+    #   alert = NSAlert.alloc.init
+    #   alert.messageText = "Your changes need to be saved prior to validation."
+    #   alert.addButtonWithTitle("Save and Validate")
+    #   alert.addButtonWithTitle("Cancel")
+    #   alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    # elsif document.fileURL.nil?
+    #   alert = NSAlert.alloc.init
+    #   alert.messageText = "The book must be saved before it can be validated."
+    #   alert.addButtonWithTitle("OK")
+    #   alert.beginSheetModalForWindow(window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
+    # else
       performValidation
-    end
+    # end
   end
   
   def validateSheetDidEnd(alert, returnCode:code, contextInfo:info)
@@ -229,14 +229,15 @@ class BookWindowController < NSWindowController
       performValidation
     end
   end
-  
+
   def performValidation
     @validationController ||= ValidationController.alloc.init
-    if @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
+    Dispatch::Queue.new("com.folioapp.validation").async do
+      @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
       issueViewController.refresh
       updateInformationField
-      @selectionViewController.outlineView.reloadData
-      showIssueView if document.totalIssueCount > 0
+      @selectionViewController.outlineView.performSelectorOnMainThread(:reloadData, withObject:nil, waitUntilDone:false)
+      performSelectorOnMainThread(:showIssueView, withObject:nil, waitUntilDone:false) if document.totalIssueCount > 0
     end
   end
   

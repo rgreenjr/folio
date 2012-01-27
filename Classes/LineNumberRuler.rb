@@ -6,9 +6,7 @@ class LineNumberRuler < NSRulerView
   def initWithScrollView(scrollView)
     initWithScrollView(scrollView, orientation:NSVerticalRuler)
     setClientView(scrollView.documentView)
-
-    @issueHash = {}
-
+    
     # register for text changes so we can update line indices
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"textDidChange:", 
     name:NSTextStorageDidProcessEditingNotification, object:clientView.textStorage)
@@ -30,13 +28,8 @@ class LineNumberRuler < NSRulerView
     self
   end
 
-  def issueHash=(issueHash)
-    @issueHash = issueHash
-    setNeedsDisplay(true)
-  end
-
-  def clearIssues
-    @issueHash = {}
+  def item=(item)
+    @item = item
     setNeedsDisplay(true)
   end
 
@@ -107,7 +100,7 @@ class LineNumberRuler < NSRulerView
           )
 
           # check if there is a issue to draw for this line number
-          issue = @issueHash[line]
+          issue = @item.issueForLine(line)
 
 
           if issue

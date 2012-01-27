@@ -7,9 +7,41 @@ class ValidationController < NSWindowController
   def init
     initWithWindowNibName("Validation")
   end
-
+  
   def validateBook(book, lineNumberView)
+    # force validated window to load
+    window
+
+    # clear any existing issues
+    book.clearIssues
     
+    showStatus(book)
+    
+    updateStatus("Validating OPF file", 5)
+    book.validateOPF
+
+    updateStatus("Validating container", 20)
+    book.validateContainer
+    
+    updateStatus("Validating metadata", 20)
+    book.validateMetadata
+
+    updateStatus("Validating manifest", 50)
+    book.validateManifest
+    
+    updateStatus("Validating navigation", 80)
+    book.validateNavigation
+
+    updateStatus("Complete", 90)
+    updateStatus("Complete", 95)
+    updateStatus("Complete", 100)
+    
+    hideStatus
+    
+    showSuccessWindow(book) if book.totalIssueCount == 0
+  end
+
+  def validateBook_OLD(book, lineNumberView)
     unless javaRuntimeInstalled?
       Alert.runModal(book.controller.window, "A Java runtime is required to validate this book.")
       return false
@@ -66,6 +98,9 @@ class ValidationController < NSWindowController
     # show the validation status window
     NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
     
+    # necessary since we're running in a background thread
+    window.makeKeyAndOrderFront(nil)
+    
     # start progress bar animation
     @progressBar.usesThreadedAnimation = true
     @progressBar.startAnimation(self)
@@ -81,15 +116,21 @@ class ValidationController < NSWindowController
     # stop progress bar animation
     @progressBar.stopAnimation(self)
   end
+
+  def updateStatus(status, amount)
+    @progressText.stringValue = status
+    @progressBar.doubleValue = amount
+  end
   
   def showSuccessWindow(book)
     NSApp.beginSheet(successWindow, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
-    self.performSelector(:hideSuccessWindow, withObject:nil, afterDelay:2.0)
+    sleep(2)
+    performSelectorOnMainThread(:hideSuccessWindow, withObject:nil, waitUntilDone:false)
   end
   
   def hideSuccessWindow
     NSApp.endSheet(successWindow)
-    successWindow.orderOut(self)
+    successWindow.orderOut(nil)
   end
 
   def parseLine(book, line)
@@ -166,5 +207,5 @@ class ValidationController < NSWindowController
   def javaRuntimeInstalled?
     `which java` != ''
   end
-
+  
 end

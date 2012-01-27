@@ -18,7 +18,7 @@ class Item
     @mediaType = mediaType || Media.guessType(File.extname(name))
     @expanded = expanded
     @children = []
-    @issueHash = {}    
+    @issues = []    
     FileUtils.mkdir(path) if directory? && !File.exists?(path)
   end
   
@@ -241,60 +241,43 @@ class Item
       NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
     end
   end
-
-  def issues
-    @issueHash.values.sort
-  end
   
+  def issues
+    @issues.sort
+  end
+
   def hasIssues?
-    !@issueHash.empty?
+    issueCount > 0
   end
   
   def issueCount
-    @issueHash.size
+    @issues.size
   end
   
-  def issueHash
-    @issueHash
-  end
-
   def clearIssues
-    @issueHash.clear
+    @issues = []
   end
   
   def addIssue(issue)
-    @issueHash[issue.lineNumber] = issue
+    @issues << issue if issue
+  end
+  
+  def issueForLine(line)
+    @issues.sort.find { |issue| issue.lineNumber == line }
   end
 
   # returns an arrays of strings or nil if parsing fails
   def fragments
     unless @fragments
-      @fragments = []
       if flowable?
-        
-        # parse item content
-        error = Pointer.new(:id)
-        doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
-        
-        if error[0]
-          @parsingError = error[0]
-          return nil
+        begin
+          @fragments = XMLLint.findFragments(content)
+        rescue Exception => exception
+          puts "fragments exception: #{exception.message}"
+          @parsingError = exception.message
         end
-
-        array = doc.nodesForXPath("//*[@id]", error:error)
-
-        if error[0]
-          @parsingError = error[0]
-          return nil
-        end
-
-        # loop over matching elements and add id attribute values to @fragments
-        array.each do |element|
-          element.attributes.each do |attribute|
-            @fragments << attribute.stringValue if attribute.name == 'id'
-          end
-        end
-        
+      else
+        @fragments = []
       end
     end
     @fragments
@@ -313,17 +296,32 @@ class Item
   end
   
   def valid?
-    @issues = []
-    @issues << Issue.new("Item ID cannot be blank.") if @id.blank?
-    @issues << Issue.new("Item mediaType cannot be blank.") if @mediaType.blank?
-    @issues << Issue.new("Item referenceType cannot be blank.") if @referenceType.blank?
-    @issues << Issue.new("Item name cannot be blank.") if @referenceType.blank?
-    fragments.each_with_index do |fragment, index|
-      if fragments[(index+1)..-1].include?(fragment)
-        @issues << Issue.new("Item fragment #{fragment} already exists.")
+    clearIssues
+    puts "validating item #{name}"
+    addIssue Issue.new("Item ID cannot be blank.") if @id.blank?
+    addIssue Issue.new("Item mediaType cannot be blank.") if @mediaType.blank?
+    addIssue Issue.new("Item name cannot be blank.") if @name.blank?
+    if flowable?
+      XMLLint.validate(content, @issues)
+      duplicateFragments.each do |duplicate|
+        addIssue Issue.new("Item fragment \"#{duplicate}\" already exists.")
       end
     end
     @issues.empty?
+  end
+  
+  def duplicateFragments
+    duplicates = []
+    if fragments
+      hash = Hash.new(0)
+      fragments.each do |id|
+        hash[id] += 1
+      end
+      hash.each do |id, count|
+        duplicates << id if count > 1
+      end
+    end
+    duplicates
   end
 
 end

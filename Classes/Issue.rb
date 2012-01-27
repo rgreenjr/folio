@@ -10,11 +10,11 @@ class Issue
 
   def initialize(message, lineNumber=nil, informativeText='')
     @message = message
-    @lineNumber = lineNumber
+    @lineNumber = lineNumber.to_i if lineNumber
     @informativeText = informativeText
   end
   
-  def displayString
+  def to_s
     lineNumber ? "       #{lineNumber + 1}:  #{message}" : "       #{message}"
   end
   

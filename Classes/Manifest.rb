@@ -171,6 +171,14 @@ class Manifest
     buffer
   end
   
+  def valid?
+    isValid = true
+    each do |item|
+      isValid = false unless item.valid?
+    end
+    isValid
+  end
+  
   private
   
   def generateUniqueID(name)

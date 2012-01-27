@@ -138,6 +138,7 @@
 		CD9C72A31499BF2F0079EA4E /* SourceViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */; };
 		CDA91EAA14BBC5EB0036461C /* MyTextField.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA91EA914BBC5EB0036461C /* MyTextField.rb */; };
 		CDA91EAC14BBCE5B0036461C /* ManifestIssueCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */; };
+		CDACEEF114D0C72900ADCB92 /* XMLLint.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDACEEF014D0C72900ADCB92 /* XMLLint.rb */; };
 		CDAD2B7E12F9CCC00055A8D8 /* Issue.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */; };
 		CDAECE0614AA1E8D00CF8274 /* Image.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDAECE0514AA1E8D00CF8274 /* Image.rb */; };
 		CDB0194514C92BFE00EFB42A /* Thumbnail.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB0194414C92BFE00EFB42A /* Thumbnail.rb */; };
@@ -331,6 +332,7 @@
 		CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SourceViewController.rb; sourceTree = "<group>"; };
 		CDA91EA914BBC5EB0036461C /* MyTextField.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MyTextField.rb; sourceTree = "<group>"; };
 		CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ManifestIssueCell.rb; sourceTree = "<group>"; };
+		CDACEEF014D0C72900ADCB92 /* XMLLint.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = XMLLint.rb; sourceTree = "<group>"; };
 		CDAD2B7D12F9CCC00055A8D8 /* Issue.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Issue.rb; sourceTree = "<group>"; };
 		CDAECE0514AA1E8D00CF8274 /* Image.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Image.rb; sourceTree = "<group>"; };
 		CDB0194414C92BFE00EFB42A /* Thumbnail.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Thumbnail.rb; sourceTree = "<group>"; };
@@ -505,7 +507,6 @@
 			isa = PBXGroup;
 			children = (
 				CD2D17D812E5F1F800D6A99A /* Alert.rb */,
-				CDB0194414C92BFE00EFB42A /* Thumbnail.rb */,
 				CD9727E412E79CBA006398DB /* ApplicationController.rb */,
 				CD9727E212E79CB4006398DB /* AsyncCommand.rb */,
 				CDDF2452140D57DF00D2898B /* Blank.rb */,
@@ -573,9 +574,11 @@
 				CDB780D5149964060025702F /* TabbedViewController.rb */,
 				CD2D180512E5F1F800D6A99A /* TabCell.rb */,
 				CD2D180612E5F1F800D6A99A /* TabView.rb */,
+				CDB0194414C92BFE00EFB42A /* Thumbnail.rb */,
 				CD2D180A12E5F1F800D6A99A /* UUID.rb */,
 				CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */,
 				CD2D180C12E5F1F800D6A99A /* WebViewController.rb */,
+				CDACEEF014D0C72900ADCB92 /* XMLLint.rb */,
 				CD0D0D3514B66F17000BB22C /* XMLSyntax.rb */,
 			);
 			path = Classes;
@@ -911,6 +914,7 @@
 				CDD8A86414C8BA4700024171 /* Logo.png in Resources */,
 				CDD8A86514C8BA4700024171 /* LogoTile.png in Resources */,
 				CDB0194514C92BFE00EFB42A /* Thumbnail.rb in Resources */,
+				CDACEEF114D0C72900ADCB92 /* XMLLint.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
