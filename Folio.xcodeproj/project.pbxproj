@@ -160,6 +160,7 @@
 		CDD8A86014C8B9C000024171 /* LogoView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A85F14C8B9C000024171 /* LogoView.rb */; };
 		CDD8A86414C8BA4700024171 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A86214C8BA4700024171 /* Logo.png */; };
 		CDD8A86514C8BA4700024171 /* LogoTile.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A86314C8BA4700024171 /* LogoTile.png */; };
+		CDDB101E14D45F2E008A0130 /* BitmapChecker.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDB101D14D45F2E008A0130 /* BitmapChecker.rb */; };
 		CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC8312E6116600633F22 /* PreferencesController.rb */; };
 		CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC9612E611F800633F22 /* preferences-general.tiff */; };
 		CDDCAD8012EC7E63003A0B07 /* no-issues.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDCAD7F12EC7E63003A0B07 /* no-issues.png */; };
@@ -364,6 +365,7 @@
 		CDD8A85F14C8B9C000024171 /* LogoView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = LogoView.rb; sourceTree = "<group>"; };
 		CDD8A86214C8BA4700024171 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		CDD8A86314C8BA4700024171 /* LogoTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoTile.png; sourceTree = "<group>"; };
+		CDDB101D14D45F2E008A0130 /* BitmapChecker.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BitmapChecker.rb; sourceTree = "<group>"; };
 		CDDBEC8312E6116600633F22 /* PreferencesController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PreferencesController.rb; sourceTree = "<group>"; };
 		CDDBEC9612E611F800633F22 /* preferences-general.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "preferences-general.tiff"; sourceTree = "<group>"; };
 		CDDCAD7F12EC7E63003A0B07 /* no-issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-issues.png"; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 				CD2D17D812E5F1F800D6A99A /* Alert.rb */,
 				CD9727E412E79CBA006398DB /* ApplicationController.rb */,
 				CD9727E212E79CB4006398DB /* AsyncCommand.rb */,
+				CDDB101D14D45F2E008A0130 /* BitmapChecker.rb */,
 				CDDF2452140D57DF00D2898B /* Blank.rb */,
 				CD2D17DB12E5F1F800D6A99A /* Book.rb */,
 				CD2D17DC12E5F1F800D6A99A /* BookWindowController.rb */,
@@ -955,6 +958,7 @@
 				CDE7911914D33B8400BDE04A /* xhtml1-strict.dtd in Resources */,
 				CDE7911A14D33B8400BDE04A /* xhtml1-transitional.dtd in Resources */,
 				CDE7911B14D33B8400BDE04A /* xhtml11.dtd in Resources */,
+				CDDB101E14D45F2E008A0130 /* BitmapChecker.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

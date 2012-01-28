@@ -306,6 +306,8 @@ class Item
       duplicateFragments.each do |duplicate|
         addIssue Issue.new("The fragment \"#{duplicate}\" already exists.")
       end
+    elsif imageable?
+      BitmapChecker.validate(item, @issues)
     end
     @issues.empty?
   end
