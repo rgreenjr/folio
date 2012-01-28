@@ -119,7 +119,6 @@
 		CD52134C14BE857C004283BF /* issues-button-right-alt.png in Resources */ = {isa = PBXBuildFile; fileRef = CD52134B14BE857C004283BF /* issues-button-right-alt.png */; };
 		CD52134E14BE90CC004283BF /* issues-button-separator.png in Resources */ = {isa = PBXBuildFile; fileRef = CD52134D14BE90CC004283BF /* issues-button-separator.png */; };
 		CD547D23149C1ED500242DAC /* tab-hover-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD547D22149C1ED500242DAC /* tab-hover-bg.png */; };
-		CD57035112C28E9C0024EAA4 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = CD57034812C28E9C0024EAA4 /* lib */; };
 		CD5E2B1E14956C0F0036E219 /* inspector-show-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD5E2B1D14956C0F0036E219 /* inspector-show-icon.png */; };
 		CD5E2B2014956DB70036E219 /* inspector-hide-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD5E2B1F14956DB70036E219 /* inspector-hide-icon.png */; };
 		CD659C4414B8C94200870743 /* metadata.png in Resources */ = {isa = PBXBuildFile; fileRef = CD659C4314B8C94200870743 /* metadata.png */; };
@@ -324,7 +323,6 @@
 		CD52134B14BE857C004283BF /* issues-button-right-alt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-button-right-alt.png"; sourceTree = "<group>"; };
 		CD52134D14BE90CC004283BF /* issues-button-separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "issues-button-separator.png"; sourceTree = "<group>"; };
 		CD547D22149C1ED500242DAC /* tab-hover-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-hover-bg.png"; sourceTree = "<group>"; };
-		CD57034812C28E9C0024EAA4 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		CD5E2B1D14956C0F0036E219 /* inspector-show-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inspector-show-icon.png"; sourceTree = "<group>"; };
 		CD5E2B1F14956DB70036E219 /* inspector-hide-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inspector-hide-icon.png"; sourceTree = "<group>"; };
 		CD659C4314B8C94200870743 /* metadata.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metadata.png; sourceTree = "<group>"; };
@@ -449,7 +447,6 @@
 			children = (
 				CD2D17D712E5F1F800D6A99A /* Classes */,
 				CD0A2E58123140FA00A67BFB /* data */,
-				CD57034812C28E9C0024EAA4 /* lib */,
 				CDE4491012305CAD001C69AE /* test */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -785,7 +782,6 @@
 				CDE4491412305CAD001C69AE /* run_suite.rb in Resources */,
 				CD0A2E5C123140FA00A67BFB /* Fight Club.epub in Resources */,
 				CD0A2E5D123140FA00A67BFB /* HTML & CSS_ The Good Parts.epub in Resources */,
-				CD57035112C28E9C0024EAA4 /* lib in Resources */,
 				CDBE27CA12E5544800D4DDC6 /* The Fall of the Roman Empire.epub in Resources */,
 				CD2D180D12E5F1F800D6A99A /* Alert.rb in Resources */,
 				CD2D181012E5F1F800D6A99A /* Book.rb in Resources */,
