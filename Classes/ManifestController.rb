@@ -349,22 +349,13 @@ class ManifestController < NSResponder
   end
 
   def showUnregisteredFiles(sender)
-    ignore = %w{META-INF/container.xml mimetype}
-    ignore = ignore.map { |item| "#{@bookController.document.unzipPath}/#{item}" }
-    ignore << @bookController.document.container.opfAbsolutePath
-    ignore << @manifest.ncx.path
-    @undeclared = []
-    Dir.glob("#{@bookController.document.unzipPath}/**/*").each do |entry|
-      next if ignore.include?(entry) || File.directory?(entry)
-      @undeclared << entry unless @manifest.itemWithHref(entry)
-    end
+    @undeclared = @bookController.document.undeclaredItems
     if @undeclared.empty?
       @bookController.runModalAlert("All files are properly declared in the manifest.")
     else
-      relativePaths = @undeclared.map {|entry| @bookController.document.relativePathFor(entry) }
       alert = NSAlert.alloc.init
       alert.messageText = "The following files are present but not declared in the manifest."
-      alert.informativeText = "#{relativePaths.join("\n")}\n"
+      alert.informativeText = "#{@undeclared.join("\n")}\n"
       alert.addButtonWithTitle("Move to Trash")
       alert.addButtonWithTitle("Cancel")
       alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"deleteUndeclaredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)

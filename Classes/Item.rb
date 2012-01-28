@@ -297,14 +297,14 @@ class Item
   
   def valid?
     clearIssues
-    puts "validating item #{name}"
-    addIssue Issue.new("Item ID cannot be blank.") if @id.blank?
-    addIssue Issue.new("Item mediaType cannot be blank.") if @mediaType.blank?
-    addIssue Issue.new("Item name cannot be blank.") if @name.blank?
+    addIssue Issue.new("ID cannot be blank.") if @id.blank?
+    addIssue Issue.new("Name cannot be blank.") if @name.blank?
+    addIssue Issue.new("Media Type cannot be blank.") if @mediaType.blank?
+    addIssue Issue.new("Media Type \"#{@mediaType}\" is invalid.") unless Media.validMediaType?(@mediaType)
     if flowable?
       XMLLint.validate(content, @issues)
       duplicateFragments.each do |duplicate|
-        addIssue Issue.new("Item fragment \"#{duplicate}\" already exists.")
+        addIssue Issue.new("The fragment \"#{duplicate}\" already exists.")
       end
     end
     @issues.empty?

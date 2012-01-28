@@ -11,6 +11,7 @@
 class Book < NSDocument
   
   UNZIP_DIRECTORY_PREFIX = "com.folioapp."
+  EMPTY_BOOK_FILE_SIZE   = 1300
 
   attr_reader :controller
   attr_reader :unzipPath
@@ -102,9 +103,9 @@ class Book < NSDocument
   
   # validation issues not specific to a manifest item are assigned to book
   def addIssue(issue)
-    @issues << issue
+    @issues << issue if issue
   end
-  
+
   def clearIssues
     @issues.clear
     @manifest.each { |item| item.clearIssues }
@@ -115,14 +116,14 @@ class Book < NSDocument
   end
   
   def totalIssueCount
-    @issues.size + @manifest.totalIssueCount + @navigation.totalIssueCount
+    @issues.size + @manifest.totalIssueCount# + @navigation.totalIssueCount
   end
   
   def fileSize
     if fileURL
       NSFileManager.defaultManager.attributesOfItemAtPath(fileURL.path, error:nil).fileSize
     else
-      1300 # size of a new empty book
+      EMPTY_BOOK_FILE_SIZE
     end
   end
   
@@ -144,21 +145,36 @@ class Book < NSDocument
   end
   
   def validateMetadata
-    unless @metadata.valid?
-      @issues.concat(@metadata.issues)
-    end
+    @issues.concat(@metadata.issues) unless @metadata.valid?
   end
   
   def validateManifest
     @manifest.valid?
-  end
-  
-  def validateNavigation
-    unless @navigation.valid?
-      # @issues.concat(@navigation.issues)
+    undeclaredItems.each do |filename| 
+      addIssue(Issue.new("The file \"#{filename}\" is present but not declared in the manifest."))
     end
   end
   
+  def validateNavigation
+    # @issues.concat(@navigation.issues) 
+    # unless @navigation.valid?
+    #   @navigation.pointsWithIssues.each { |point| point. }
+    # end
+  end
+  
+  def undeclaredItems
+    undeclared = []
+    ignore = ["META-INF/container.xml", "mimetype"].map { |item| "#{@unzipPath}/#{item}" }
+    ignore << @container.opfAbsolutePath
+    ignore << @manifest.ncx.path
+    Dir.glob("#{@unzipPath}/**/*").each do |entry|
+      unless ignore.include?(entry) || File.directory?(entry) || @manifest.itemWithHref(entry)
+        undeclared << relativePathFor(entry)
+      end
+    end
+    undeclared
+  end
+
   private
 
   def opfXML

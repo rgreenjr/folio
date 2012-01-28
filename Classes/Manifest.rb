@@ -1,6 +1,7 @@
 class Manifest
 
-  attr_accessor :root, :ncx
+  attr_accessor :root
+  attr_accessor :ncx
   
   def initialize(container)
     @container = container
@@ -190,5 +191,5 @@ class Manifest
     end
     name
   end
-
+  
 end

@@ -32,11 +32,10 @@ class XMLLint
   def self.findFragments(text)
     error = Pointer.new(:id)
     doc = NSXMLDocument.alloc.initWithXMLString(text, options:0, error:error)
+    
+    showDTD(doc)
+    
     raise error[0].localizedDescription if error[0]
-    if doc.DTD
-      puts "doc.DTD.publicID = #{doc.DTD.publicID}"
-      puts "doc.DTD.systemID = #{doc.DTD.systemID}"
-    end
     array = doc.nodesForXPath("//*[@id]", error:error)
     raise error[0].localizedDescription if error[0]
     fragments = []
@@ -46,6 +45,12 @@ class XMLLint
       end
     end
     fragments
+  end
+  
+  def self.showDTD(xmlDocument)
+    return nil unless xmlDocument && xmlDocument.DTD
+    puts "xmlDocument.DTD.publicID = #{xmlDocument.DTD.publicID}"
+    puts "xmlDocument.DTD.systemID = #{xmlDocument.DTD.systemID}"
   end
   
   private

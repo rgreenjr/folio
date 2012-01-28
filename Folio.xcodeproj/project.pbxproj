@@ -169,6 +169,17 @@
 		CDE2C37114AC07FC00EFE5F5 /* blank.xhtml in Resources */ = {isa = PBXBuildFile; fileRef = CDE2C37014AC07FC00EFE5F5 /* blank.xhtml */; };
 		CDE4491312305CAD001C69AE /* book_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491112305CAD001C69AE /* book_test.rb */; };
 		CDE4491412305CAD001C69AE /* run_suite.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDE4491212305CAD001C69AE /* run_suite.rb */; };
+		CDE7911114D33B8400BDE04A /* dtbook-2005-2.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910614D33B8400BDE04A /* dtbook-2005-2.dtd */; };
+		CDE7911214D33B8400BDE04A /* ncx-2005-1.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910714D33B8400BDE04A /* ncx-2005-1.dtd */; };
+		CDE7911314D33B8400BDE04A /* oeb12.dtdinc in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910814D33B8400BDE04A /* oeb12.dtdinc */; };
+		CDE7911414D33B8400BDE04A /* opf20.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910914D33B8400BDE04A /* opf20.dtd */; };
+		CDE7911514D33B8400BDE04A /* svg11.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910A14D33B8400BDE04A /* svg11.dtd */; };
+		CDE7911614D33B8400BDE04A /* xhtml-lat1.dtdinc in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910B14D33B8400BDE04A /* xhtml-lat1.dtdinc */; };
+		CDE7911714D33B8400BDE04A /* xhtml-special.dtdinc in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910C14D33B8400BDE04A /* xhtml-special.dtdinc */; };
+		CDE7911814D33B8400BDE04A /* xhtml-symbol.dtdinc in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910D14D33B8400BDE04A /* xhtml-symbol.dtdinc */; };
+		CDE7911914D33B8400BDE04A /* xhtml1-strict.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910E14D33B8400BDE04A /* xhtml1-strict.dtd */; };
+		CDE7911A14D33B8400BDE04A /* xhtml1-transitional.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDE7910F14D33B8400BDE04A /* xhtml1-transitional.dtd */; };
+		CDE7911B14D33B8400BDE04A /* xhtml11.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDE7911014D33B8400BDE04A /* xhtml11.dtd */; };
 		CDEBCAC812F0A88100E8834D /* spine.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCAC412F0A88100E8834D /* spine.png */; };
 		CDEBCB0612F0B27C00E8834D /* Metadatum.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB0512F0B27C00E8834D /* Metadatum.rb */; };
 		CDEBCB0812F0B28600E8834D /* InspectorViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */; };
@@ -363,6 +374,17 @@
 		CDE2C37014AC07FC00EFE5F5 /* blank.xhtml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blank.xhtml; sourceTree = "<group>"; };
 		CDE4491112305CAD001C69AE /* book_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = book_test.rb; sourceTree = "<group>"; };
 		CDE4491212305CAD001C69AE /* run_suite.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = run_suite.rb; sourceTree = "<group>"; };
+		CDE7910614D33B8400BDE04A /* dtbook-2005-2.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dtbook-2005-2.dtd"; sourceTree = "<group>"; };
+		CDE7910714D33B8400BDE04A /* ncx-2005-1.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "ncx-2005-1.dtd"; sourceTree = "<group>"; };
+		CDE7910814D33B8400BDE04A /* oeb12.dtdinc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oeb12.dtdinc; sourceTree = "<group>"; };
+		CDE7910914D33B8400BDE04A /* opf20.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = opf20.dtd; sourceTree = "<group>"; };
+		CDE7910A14D33B8400BDE04A /* svg11.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svg11.dtd; sourceTree = "<group>"; };
+		CDE7910B14D33B8400BDE04A /* xhtml-lat1.dtdinc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-lat1.dtdinc"; sourceTree = "<group>"; };
+		CDE7910C14D33B8400BDE04A /* xhtml-special.dtdinc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-special.dtdinc"; sourceTree = "<group>"; };
+		CDE7910D14D33B8400BDE04A /* xhtml-symbol.dtdinc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-symbol.dtdinc"; sourceTree = "<group>"; };
+		CDE7910E14D33B8400BDE04A /* xhtml1-strict.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-strict.dtd"; sourceTree = "<group>"; };
+		CDE7910F14D33B8400BDE04A /* xhtml1-transitional.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-transitional.dtd"; sourceTree = "<group>"; };
+		CDE7911014D33B8400BDE04A /* xhtml11.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = xhtml11.dtd; sourceTree = "<group>"; };
 		CDEBCAC412F0A88100E8834D /* spine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spine.png; sourceTree = "<group>"; };
 		CDEBCB0512F0B27C00E8834D /* Metadatum.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Metadatum.rb; sourceTree = "<group>"; };
 		CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = InspectorViewController.rb; sourceTree = "<group>"; };
@@ -657,6 +679,17 @@
 		CD2D189112E5F2BF00D6A99A /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				CDE7910614D33B8400BDE04A /* dtbook-2005-2.dtd */,
+				CDE7910714D33B8400BDE04A /* ncx-2005-1.dtd */,
+				CDE7910814D33B8400BDE04A /* oeb12.dtdinc */,
+				CDE7910914D33B8400BDE04A /* opf20.dtd */,
+				CDE7910A14D33B8400BDE04A /* svg11.dtd */,
+				CDE7910B14D33B8400BDE04A /* xhtml-lat1.dtdinc */,
+				CDE7910C14D33B8400BDE04A /* xhtml-special.dtdinc */,
+				CDE7910D14D33B8400BDE04A /* xhtml-symbol.dtdinc */,
+				CDE7910E14D33B8400BDE04A /* xhtml1-strict.dtd */,
+				CDE7910F14D33B8400BDE04A /* xhtml1-transitional.dtd */,
+				CDE7911014D33B8400BDE04A /* xhtml11.dtd */,
 				CDE2C37014AC07FC00EFE5F5 /* blank.xhtml */,
 				CD2D189212E5F2BF00D6A99A /* container.xml.erb */,
 				CD2D189312E5F2BF00D6A99A /* content.opf.erb */,
@@ -915,6 +948,17 @@
 				CDD8A86514C8BA4700024171 /* LogoTile.png in Resources */,
 				CDB0194514C92BFE00EFB42A /* Thumbnail.rb in Resources */,
 				CDACEEF114D0C72900ADCB92 /* XMLLint.rb in Resources */,
+				CDE7911114D33B8400BDE04A /* dtbook-2005-2.dtd in Resources */,
+				CDE7911214D33B8400BDE04A /* ncx-2005-1.dtd in Resources */,
+				CDE7911314D33B8400BDE04A /* oeb12.dtdinc in Resources */,
+				CDE7911414D33B8400BDE04A /* opf20.dtd in Resources */,
+				CDE7911514D33B8400BDE04A /* svg11.dtd in Resources */,
+				CDE7911614D33B8400BDE04A /* xhtml-lat1.dtdinc in Resources */,
+				CDE7911714D33B8400BDE04A /* xhtml-special.dtdinc in Resources */,
+				CDE7911814D33B8400BDE04A /* xhtml-symbol.dtdinc in Resources */,
+				CDE7911914D33B8400BDE04A /* xhtml1-strict.dtd in Resources */,
+				CDE7911A14D33B8400BDE04A /* xhtml1-transitional.dtd in Resources */,
+				CDE7911B14D33B8400BDE04A /* xhtml11.dtd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

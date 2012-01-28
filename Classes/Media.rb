@@ -75,4 +75,8 @@ class Media
     mediaType == DIRECTORY
   end
 
+  def self.validMediaType?(mediaType)
+    (mediaType =~ /^[a-zA-Z0-9!#$&+-^_]+\/[a-zA-Z0-9!#$&+-^_]+$/) == 0
+  end
+
 end

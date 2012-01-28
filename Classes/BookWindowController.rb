@@ -206,33 +206,8 @@ class BookWindowController < NSWindowController
   end
 
   def validate(sender)
-    # if document.isDocumentEdited
-    #   alert = NSAlert.alloc.init
-    #   alert.messageText = "Your changes need to be saved prior to validation."
-    #   alert.addButtonWithTitle("Save and Validate")
-    #   alert.addButtonWithTitle("Cancel")
-    #   alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"validateSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
-    # elsif document.fileURL.nil?
-    #   alert = NSAlert.alloc.init
-    #   alert.messageText = "The book must be saved before it can be validated."
-    #   alert.addButtonWithTitle("OK")
-    #   alert.beginSheetModalForWindow(window, modalDelegate:nil, didEndSelector:nil, contextInfo:nil)
-    # else
-      performValidation
-    # end
-  end
-  
-  def validateSheetDidEnd(alert, returnCode:code, contextInfo:info)
-    if code == NSAlertFirstButtonReturn
-      alert.window.orderOut(self)
-      document.saveDocument(self)
-      performValidation
-    end
-  end
-
-  def performValidation
     @validationController ||= ValidationController.alloc.init
-    Dispatch::Queue.new("com.folioapp.validation").async do
+    Dispatch::Queue.new("com.folioapp.performValidation").async do
       @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
       issueViewController.refresh
       updateInformationField
@@ -265,17 +240,14 @@ class BookWindowController < NSWindowController
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = issueViewController.visible? ? "Hide Validation Issues" : "Show Validation Issues"
       end
-      true
     when :"toggleInspectorView:"
       if interfaceItem.class == NSMenuItem
         interfaceItem.title = inspectorViewController.visible? ? "Hide Properties Inspector" : "Show Properties Inspector"
       end
-      true
     when :"printDocument:"
-      @tabbedViewController.numberOfTabs > 0
-    else
-      true
+      return @tabbedViewController.numberOfTabs > 0
     end
+    true
   end
   
   private
