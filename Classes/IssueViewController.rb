@@ -134,7 +134,7 @@ class IssueViewController < NSViewController
         @bookController.tabbedViewController.addObject(parent)
         @bookController.tabbedViewController.ensureSourceViewVisible
         if object.lineNumber
-          @bookController.tabbedViewController.sourceViewController.selectLineNumber(object.lineNumber + 1)
+          @bookController.tabbedViewController.sourceViewController.selectLineNumber(object.lineNumber)
         end
       end
     end

@@ -100,7 +100,7 @@ class LineNumberRuler < NSRulerView
           )
 
           # check if there is a issue to draw for this line number
-          issue = @item.issueForLine(line)
+          issue = @item.issueForLine(line + 1)
 
 
           if issue

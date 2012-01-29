@@ -2,11 +2,13 @@ class Media
 
   CSS       = "text/css"
   DIRECTORY = "directory"
+  EPUB      = "application/oebps-package+xml"
   GIF       = "image/gif"
   HTML      = "application/xhtml+xml"
   JPG       = "image/jpeg"
   PNG       = "image/png"
   NCX       = "application/x-dtbncx+xml"
+  OPF       = "application/x-font-opentype"
   OTF       = "application/x-font-opentype"
   PDF       = "application/pdf"
   SVG       = "image/svg+xml"
@@ -77,6 +79,19 @@ class Media
 
   def self.validMediaType?(mediaType)
     (mediaType =~ /^[a-zA-Z0-9!#$&+-^_]+\/[a-zA-Z0-9!#$&+-^_]+$/) == 0
+  end
+
+  def self.dtdForType(mediaType)
+    case mediaType
+    when Media::HTML
+      "/Users/rgreen/code/folio/Templates/xhtml1-strict.dtd"
+    when Media::NCX
+      "/Users/rgreen/code/folio/Templates/ncx-2005-1.dtd"
+    when Media::OPF
+      "/Users/rgreen/code/folio/Templates/opf20.dtd"
+    else
+      nil
+    end
   end
 
 end

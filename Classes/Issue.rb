@@ -15,7 +15,7 @@ class Issue
   end
   
   def to_s
-    lineNumber ? "       #{lineNumber + 1}:  #{message}" : "       #{message}"
+    lineNumber ? "       #{lineNumber}:  #{message}" : "       #{message}"
   end
   
   def <=>(other)

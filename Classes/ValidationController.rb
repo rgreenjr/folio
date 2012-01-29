@@ -15,8 +15,8 @@ class ValidationController < NSWindowController
     updateStatus("Validating OPF file", 0)
     book.validateOPF
 
-    updateStatus("Validating container", 25)
-    book.validateContainer
+    # updateStatus("Validating container", 25)
+    # book.validateContainer
     
     updateStatus("Validating metadata", 50)
     book.validateMetadata

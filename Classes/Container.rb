@@ -1,6 +1,5 @@
 class Container
 
-  EPUB_MEDIA_TYPE              = "application/oebps-package+xml"
   META_INF_DIRECTORY           = "META-INF"
   CONTAINER_XML_NAME           = "container.xml"
   CONTAINER_XML_RELATIVE_PATH  = File.join(META_INF_DIRECTORY, CONTAINER_XML_NAME)
@@ -8,7 +7,11 @@ class Container
   DEFAULT_CONTENT_OPF_NAME     = "content.opf"
   DEFAULT_RELATIVE_PATH        = "OEBPS"
   
-  attr_reader :relativePath, :absolutePath, :opfDoc, :opfAbsolutePath, :opfRelativePath
+  attr_reader :relativePath
+  attr_reader :absolutePath
+  attr_reader :opfDoc
+  attr_reader :opfAbsolutePath
+  attr_reader :opfRelativePath
 
   def initialize(unzipPath, book=nil)
     if book.nil?
@@ -75,15 +78,19 @@ class Container
     path == @opfRelativePath
   end
   
+  def mediaType
+    Media::EPUB
+  end
+  
   private
   
   def extractRootFilePath(doc)
     doc.root.elements.each("/container/rootfiles/rootfile") do |element|
-      if element.attributes["media-type"] == EPUB_MEDIA_TYPE
+      if element.attributes["media-type"] == Media::EPUB
         return element.attributes["full-path"]
       end
     end
-    raise "The #{CONTAINER_XML_RELATIVE_PATH} does not specify an #{EPUB_MEDIA_TYPE} rendition."
+    raise "The #{CONTAINER_XML_RELATIVE_PATH} does not specify an #{Media::EPUB} rendition."
   end
 
 end

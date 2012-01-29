@@ -136,13 +136,13 @@ class Book < NSDocument
     # if isDocumentEdited
     #   @container
     # else
-      XMLLint.validate(opfXML, @issues)
+      # XMLLint.validate(opfXML, Media::OPF, @issues)
     # end
   end
   
-  def validateContainer
-    XMLLint.validate(@container.to_xml, @issues)
-  end
+  # def validateContainer
+  #   XMLLint.validate(@container.to_xml, Media::EPUB, @issues)
+  # end
   
   def validateMetadata
     @issues.concat(@metadata.issues) unless @metadata.valid?
