@@ -13,9 +13,9 @@ class BitmapChecker
     when Media::JPG
   		header[0] == 0xFF && header[1] == 0xD8
     when Media::GIF
-  		header[0] == 'G' && header[1] == 'I' && header[2] == 'F' && header[3] == '8'
+  		header[0] == 0x47 && header[1] == 0x49 && header[2] == 0x46 && header[3] == 0x38
     when Media::PNG
-  		header[0] == 0x89 && header[1] == 'P' && header[2] == 'N' && header[3] == 'G'
+  		header[0] == 0x89 && header[1] == 0x50 && header[2] == 0x4E && header[3] == 0x47
 		else
 		  true
     end
