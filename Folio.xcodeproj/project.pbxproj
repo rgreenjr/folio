@@ -161,6 +161,9 @@
 		CDD8A86414C8BA4700024171 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A86214C8BA4700024171 /* Logo.png */; };
 		CDD8A86514C8BA4700024171 /* LogoTile.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8A86314C8BA4700024171 /* LogoTile.png */; };
 		CDDB101E14D45F2E008A0130 /* BitmapChecker.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDB101D14D45F2E008A0130 /* BitmapChecker.rb */; };
+		CDDB102214D59B64008A0130 /* xhtml-lat1.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDDB101F14D59B64008A0130 /* xhtml-lat1.ent */; };
+		CDDB102314D59B64008A0130 /* xhtml-special.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDDB102014D59B64008A0130 /* xhtml-special.ent */; };
+		CDDB102414D59B64008A0130 /* xhtml-symbol.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDDB102114D59B64008A0130 /* xhtml-symbol.ent */; };
 		CDDBEC8412E6116600633F22 /* PreferencesController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC8312E6116600633F22 /* PreferencesController.rb */; };
 		CDDBEC9712E611F800633F22 /* preferences-general.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDDBEC9612E611F800633F22 /* preferences-general.tiff */; };
 		CDDCAD8012EC7E63003A0B07 /* no-issues.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDCAD7F12EC7E63003A0B07 /* no-issues.png */; };
@@ -366,6 +369,9 @@
 		CDD8A86214C8BA4700024171 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		CDD8A86314C8BA4700024171 /* LogoTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoTile.png; sourceTree = "<group>"; };
 		CDDB101D14D45F2E008A0130 /* BitmapChecker.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = BitmapChecker.rb; sourceTree = "<group>"; };
+		CDDB101F14D59B64008A0130 /* xhtml-lat1.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-lat1.ent"; sourceTree = "<group>"; };
+		CDDB102014D59B64008A0130 /* xhtml-special.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-special.ent"; sourceTree = "<group>"; };
+		CDDB102114D59B64008A0130 /* xhtml-symbol.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-symbol.ent"; sourceTree = "<group>"; };
 		CDDBEC8312E6116600633F22 /* PreferencesController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PreferencesController.rb; sourceTree = "<group>"; };
 		CDDBEC9612E611F800633F22 /* preferences-general.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "preferences-general.tiff"; sourceTree = "<group>"; };
 		CDDCAD7F12EC7E63003A0B07 /* no-issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-issues.png"; sourceTree = "<group>"; };
@@ -679,6 +685,9 @@
 		CD2D189112E5F2BF00D6A99A /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				CDDB101F14D59B64008A0130 /* xhtml-lat1.ent */,
+				CDDB102014D59B64008A0130 /* xhtml-special.ent */,
+				CDDB102114D59B64008A0130 /* xhtml-symbol.ent */,
 				CDE7910614D33B8400BDE04A /* dtbook-2005-2.dtd */,
 				CDE7910714D33B8400BDE04A /* ncx-2005-1.dtd */,
 				CDE7910814D33B8400BDE04A /* oeb12.dtdinc */,
@@ -959,6 +968,9 @@
 				CDE7911A14D33B8400BDE04A /* xhtml1-transitional.dtd in Resources */,
 				CDE7911B14D33B8400BDE04A /* xhtml11.dtd in Resources */,
 				CDDB101E14D45F2E008A0130 /* BitmapChecker.rb in Resources */,
+				CDDB102214D59B64008A0130 /* xhtml-lat1.ent in Resources */,
+				CDDB102314D59B64008A0130 /* xhtml-special.ent in Resources */,
+				CDDB102414D59B64008A0130 /* xhtml-symbol.ent in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
