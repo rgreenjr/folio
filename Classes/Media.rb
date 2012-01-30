@@ -81,14 +81,14 @@ class Media
     (mediaType =~ /^[a-zA-Z0-9!#$&+-^_]+\/[a-zA-Z0-9!#$&+-^_]+$/) == 0
   end
 
-  def self.dtdForType(mediaType)
+  def self.dtdPathForType(mediaType)
     case mediaType
     when Media::HTML
-      "/Users/rgreen/code/folio/Templates/xhtml1-strict.dtd"
+      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/xhtml1-strict.dtd")
     when Media::NCX
-      "/Users/rgreen/code/folio/Templates/ncx-2005-1.dtd"
+      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/ncx-2005-1.dtd")
     when Media::OPF
-      "/Users/rgreen/code/folio/Templates/opf20.dtd"
+      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/opf20.dtd")
     else
       nil
     end

@@ -1,7 +1,7 @@
 class XMLLint
 
   def self.validate(content, mediaType, issues=[])    
-    dtdPath = Media.dtdForType(mediaType)
+    dtdPath = Media.dtdPathForType(mediaType)
     arguments = dtdPath.nil? ? "--noout" : "--noout --dtdvalid #{dtdPath}"
     execute(arguments, content) do |success, path, output|
       output.split(/\n/).each do |line|

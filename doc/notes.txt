@@ -32,3 +32,19 @@ Refactoring
 
 - Use "box" in view placeholder names
 - Move metadata, spine, navigation and manifest into container
+
+Validation Notes
+================
+
+Point
+- item exists, fragment exists
+
+Item
+- DTD validation, no duplicate IDs, mimetype correct
+
+Spine
+- no itemref duplicates, mimetype is XML, 
+
+Metadata
+- date correct, etc
+
