@@ -135,6 +135,7 @@
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
 		CD9727E512E79CBA006398DB /* ApplicationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E412E79CBA006398DB /* ApplicationController.rb */; };
 		CD9C72A31499BF2F0079EA4E /* SourceViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */; };
+		CDA7558014D8A2A80085C8D9 /* catalog.xml in Resources */ = {isa = PBXBuildFile; fileRef = CDA7557F14D8A2A80085C8D9 /* catalog.xml */; };
 		CDA91EAA14BBC5EB0036461C /* MyTextField.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA91EA914BBC5EB0036461C /* MyTextField.rb */; };
 		CDA91EAC14BBCE5B0036461C /* ManifestIssueCell.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */; };
 		CDACEEF114D0C72900ADCB92 /* XMLLint.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDACEEF014D0C72900ADCB92 /* XMLLint.rb */; };
@@ -343,6 +344,7 @@
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
 		CD9727E412E79CBA006398DB /* ApplicationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ApplicationController.rb; sourceTree = "<group>"; };
 		CD9C72A21499BF2F0079EA4E /* SourceViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SourceViewController.rb; sourceTree = "<group>"; };
+		CDA7557F14D8A2A80085C8D9 /* catalog.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = catalog.xml; sourceTree = "<group>"; };
 		CDA91EA914BBC5EB0036461C /* MyTextField.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MyTextField.rb; sourceTree = "<group>"; };
 		CDA91EAB14BBCE5B0036461C /* ManifestIssueCell.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ManifestIssueCell.rb; sourceTree = "<group>"; };
 		CDACEEF014D0C72900ADCB92 /* XMLLint.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = XMLLint.rb; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 		CD2D189112E5F2BF00D6A99A /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				CDA7557F14D8A2A80085C8D9 /* catalog.xml */,
 				CDDB101F14D59B64008A0130 /* xhtml-lat1.ent */,
 				CDDB102014D59B64008A0130 /* xhtml-special.ent */,
 				CDDB102114D59B64008A0130 /* xhtml-symbol.ent */,
@@ -971,6 +974,7 @@
 				CDDB102214D59B64008A0130 /* xhtml-lat1.ent in Resources */,
 				CDDB102314D59B64008A0130 /* xhtml-special.ent in Resources */,
 				CDDB102414D59B64008A0130 /* xhtml-symbol.ent in Resources */,
+				CDA7558014D8A2A80085C8D9 /* catalog.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

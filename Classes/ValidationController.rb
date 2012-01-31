@@ -12,25 +12,35 @@ class ValidationController < NSWindowController
     book.clearIssues    
     showProgressWindow(book)
     
-    updateStatus("Validating OPF file", 0)
+    updateStatus("Checking OPF file", 0)
     book.validateOPF
 
-    # updateStatus("Validating container", 25)
+    # updateStatus("Checking container", 25)
     # book.validateContainer
     
-    updateStatus("Validating metadata", 50)
+    updateStatus("Checking metadata", 25)
     book.validateMetadata
-
-    updateStatus("Validating manifest", 75)
-    book.validateManifest
     
-    updateStatus("Validating navigation", 90)
+    updateStatus("Checking navigation", 50)
     book.validateNavigation
+
+    increment = 50.0 / book.manifest.size
+    book.manifest.each do |item|
+      incrementStatus("Checking #{item.name}", increment)
+      item.valid?
+    end
+    book.validateManifest
 
     updateStatus("Complete", 100)
     
+    # sleep breifly to allow UI update
+    sleep(0.2)
+    
     hideProgressWindow
-    showSuccessWindow(book) if book.totalIssueCount == 0
+    
+    if book.totalIssueCount == 0
+      showSuccessWindow(book)
+    end
   end
   
   private
@@ -38,6 +48,11 @@ class ValidationController < NSWindowController
   def updateStatus(status, amount)
     @progressText.stringValue = status
     @progressBar.doubleValue = amount
+  end
+  
+  def incrementStatus(status, amount)
+    @progressText.stringValue = status
+    @progressBar.incrementBy(amount)
   end
   
   def showProgressWindow(book)

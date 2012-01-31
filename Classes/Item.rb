@@ -302,7 +302,7 @@ class Item
     addIssue Issue.new("Media Type cannot be blank.") if @mediaType.blank?
     addIssue Issue.new("Media Type \"#{@mediaType}\" is invalid.") unless Media.validMediaType?(@mediaType)
     if flowable?
-      XMLLint.validate(item.content, item.mediaType, @issues)
+      XMLLint.validate(item.content, @issues)
       duplicateFragments.each do |duplicate|
         addIssue Issue.new("The fragment \"#{duplicate}\" already exists.")
       end

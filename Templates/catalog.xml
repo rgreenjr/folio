@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS/DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+	<rewriteSystem systemIdStartString="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" rewritePrefix="xhtml1-strict.dtd" />
+	<rewriteSystem systemIdStartString="http://www.idpf.org/dtds/2007/opf.dtd" rewritePrefix="opf20.dtd" />
+	<rewriteSystem systemIdStartString="http://openebook.org/dtds/oeb-1.2/oeb12.ent" rewritePrefix="oeb12.dtdinc" />
+	<rewriteSystem systemIdStartString="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" rewritePrefix="xhtml1-transitional.dtd" />
+	<rewriteSystem systemIdStartString="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" rewritePrefix="xhtml1-strict.dtd" />
+	<rewriteSystem systemIdStartString="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent" rewritePrefix="xhtml-lat1.dtdinc" />
+	<rewriteSystem systemIdStartString="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent" rewritePrefix="xhtml-symbol.dtdinc" />
+	<rewriteSystem systemIdStartString="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent" rewritePrefix="xhtml-special.dtdinc" />
+	<rewriteSystem systemIdStartString="http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" rewritePrefix="svg11.dtd" />
+	<rewriteSystem systemIdStartString="http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd" rewritePrefix="dtbook-2005-2.dtd" />
+	<rewriteSystem systemIdStartString="http://www.daisy.org/z3986/2005/ncx-2005-1.dtd" rewritePrefix="ncx-2005-1.dtd" />
+	<nextCatalog catalog="/etc/xml/catalog.xml" />
+</catalog>
+
+

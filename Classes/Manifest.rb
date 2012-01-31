@@ -12,7 +12,7 @@ class Manifest
     @root = Item.new(nil, @container.absolutePath, 'ROOT', Media::DIRECTORY, true)
     
     if !@container.hasOPFDoc?
-      @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', 'application/x-dtbncx+xml')
+      @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', Media::NCX)
     else
       @container.each_element("/package/manifest/item") do |e|
         parent = @root
@@ -178,6 +178,12 @@ class Manifest
       isValid = false unless item.valid?
     end
     isValid
+  end
+  
+  def size
+    count = 0
+    each { count += 1 }
+    count
   end
   
   private
