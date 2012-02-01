@@ -1,22 +1,32 @@
 class XMLLint
 
-  def self.validate(content, issues=[])    
-    execute("--noout --nonet --valid", content) do |success, path, output|
+  def self.validate(content, mediaType, issues=[])
+    error = Pointer.new(:id)
+    doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
+
+    if doc && doc.DTD
+      arguments = "--noout --nonet --valid"
+    else
+      dtdPath = Media.dtdPathForType(mediaType)
+      arguments = dtdPath ? "--noout --dtdvalid #{dtdPath}" : "--noout"
+    end
+
+    execute(arguments, content) do |success, path, output|
       output.split(/\n/).each do |line|
         if line =~ /#{path}:(\d+):(.*)/
           issues << Issue.new($2, $1)
-          # puts issues.last
         else
-          puts "***       #{line}"
+          # puts "*** #{line}"
         end
       end
     end
+
     issues
   end
-  
+
   def self.findFragments(content)
     error = Pointer.new(:id)
-    doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)    
+    doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
     raise error[0].localizedDescription if error[0]
     array = doc.nodesForXPath("//*[@id]", error:error)
     raise error[0].localizedDescription if error[0]
@@ -30,7 +40,7 @@ class XMLLint
   end
 
   private
-  
+
   def self.execute(arguments, content, &block)
     tmp = Tempfile.new('com.folioapp.tmp.')
     File.open(tmp, "w") { |f| f.print content }
@@ -39,13 +49,13 @@ class XMLLint
     yield($?.success?, tmp.path, output)
     tmp.delete
   end
-  
+
   def self.catalogPath
     @catalogPath ||= File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/catalog.xml")
   end
-  
+
   def self.resourcesPath
     @workingPath ||= File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources")
   end
-  
+
 end

@@ -12,29 +12,28 @@ class ValidationController < NSWindowController
     book.clearIssues    
     showProgressWindow(book)
     
-    updateStatus("Checking OPF file", 0)
-    book.validateOPF
+    updateStatus("Checking manifest", 0)
 
-    # updateStatus("Checking container", 25)
-    # book.validateContainer
-    
-    updateStatus("Checking metadata", 25)
-    book.validateMetadata
-    
-    updateStatus("Checking navigation", 50)
-    book.validateNavigation
-
-    increment = 50.0 / book.manifest.size
+    increment = 95.0 / book.manifest.size
     book.manifest.each do |item|
       incrementStatus("Checking #{item.name}", increment)
       item.valid?
     end
     book.validateManifest
 
-    updateStatus("Complete", 100)
+    updateStatus("Checking OPF file", 96)
+    book.validateOPF
+
+    # updateStatus("Checking container", 25)
+    # book.validateContainer
     
-    # sleep breifly to allow UI update
-    sleep(0.2)
+    updateStatus("Checking metadata", 97)
+    book.validateMetadata
+    
+    updateStatus("Checking navigation", 98)
+    book.validateNavigation
+
+    updateStatus("Complete", 100)
     
     hideProgressWindow
     
@@ -48,11 +47,13 @@ class ValidationController < NSWindowController
   def updateStatus(status, amount)
     @progressText.stringValue = status
     @progressBar.doubleValue = amount
+    sleep 0.01
   end
   
   def incrementStatus(status, amount)
     @progressText.stringValue = status
     @progressBar.incrementBy(amount)
+    sleep 0.01
   end
   
   def showProgressWindow(book)
