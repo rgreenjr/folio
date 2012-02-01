@@ -1,6 +1,8 @@
 Bugs
 ====
 
+- remove duplication validation issues
+- add back book file size to window bottom
 - test changes
 - Toolbar has focus on launch
 
