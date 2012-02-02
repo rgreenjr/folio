@@ -12,6 +12,7 @@
 	<rewriteSystem systemIdStartString="http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd" rewritePrefix="dtbook-2005-2.dtd" />
 	<rewriteSystem systemIdStartString="http://www.daisy.org/z3986/2005/ncx-2005-1.dtd" rewritePrefix="ncx-2005-1.dtd" />
 	<rewriteSystem systemIdStartString="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" rewritePrefix="xhtml1-strict.dtd" />
+	<rewriteSystem systemIdStartString="http://www.w3.org/2001/xml.xsd" rewritePrefix="xml.xsd" />
 	<nextCatalog catalog="/etc/xml/catalog.xml" />
 </catalog>
 

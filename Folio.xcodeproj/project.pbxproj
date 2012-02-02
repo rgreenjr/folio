@@ -80,6 +80,18 @@
 		CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */; };
 		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
 		CDB780D6149964070025702F /* TabbedViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D5149964060025702F /* TabbedViewController.rb */; };
+		CDCBBFBB14DB028000C8BF4A /* xhtml1-strict.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */; };
+		CDCBBFBC14DB028000C8BF4A /* xml.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFBA14DB028000C8BF4A /* xml.xsd */; };
+		CDCBBFDC14DB09B600C8BF4A /* dtbook-2005-2.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */; };
+		CDCBBFDD14DB09B600C8BF4A /* ncx-2005-1.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD314DB09B600C8BF4A /* ncx-2005-1.dtd */; };
+		CDCBBFDE14DB09B600C8BF4A /* oeb12.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD414DB09B600C8BF4A /* oeb12.ent */; };
+		CDCBBFDF14DB09B600C8BF4A /* opf20.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD514DB09B600C8BF4A /* opf20.dtd */; };
+		CDCBBFE014DB09B600C8BF4A /* svg11.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD614DB09B600C8BF4A /* svg11.dtd */; };
+		CDCBBFE114DB09B600C8BF4A /* xhtml-lat1.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD714DB09B600C8BF4A /* xhtml-lat1.ent */; };
+		CDCBBFE214DB09B600C8BF4A /* xhtml-special.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD814DB09B600C8BF4A /* xhtml-special.ent */; };
+		CDCBBFE314DB09B600C8BF4A /* xhtml-symbol.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD914DB09B600C8BF4A /* xhtml-symbol.ent */; };
+		CDCBBFE414DB09B600C8BF4A /* xhtml1-strict.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFDA14DB09B600C8BF4A /* xhtml1-strict.dtd */; };
+		CDCBBFE514DB09B600C8BF4A /* xhtml1-transitional.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFDB14DB09B600C8BF4A /* xhtml1-transitional.dtd */; };
 		CDD7B02F12EF79D800352D4B /* ItemRef.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDD7B02E12EF79D800352D4B /* ItemRef.rb */; };
 		CDD887B914D9DAEC000A2068 /* background-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8874314D9DAEC000A2068 /* background-logo.png */; };
 		CDD887BA14D9DAEC000A2068 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD8874414D9DAEC000A2068 /* BlueTexture.png */; };
@@ -165,16 +177,6 @@
 		CDD8880B14D9DAEC000A2068 /* PointPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD887A814D9DAEC000A2068 /* PointPanel.xib */; };
 		CDD8880C14D9DAEC000A2068 /* blank.xhtml in Resources */ = {isa = PBXBuildFile; fileRef = CDD887AA14D9DAEC000A2068 /* blank.xhtml */; };
 		CDD8880D14D9DAEC000A2068 /* catalog.xml in Resources */ = {isa = PBXBuildFile; fileRef = CDD887AB14D9DAEC000A2068 /* catalog.xml */; };
-		CDD888F614D9DD34000A2068 /* dtbook-2005-2.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDD888EC14D9DD34000A2068 /* dtbook-2005-2.dtd */; };
-		CDD888F714D9DD34000A2068 /* ncx-2005-1.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDD888ED14D9DD34000A2068 /* ncx-2005-1.dtd */; };
-		CDD888F814D9DD34000A2068 /* oeb12.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDD888EE14D9DD34000A2068 /* oeb12.ent */; };
-		CDD888F914D9DD34000A2068 /* opf20.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDD888EF14D9DD34000A2068 /* opf20.dtd */; };
-		CDD888FA14D9DD34000A2068 /* svg11.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDD888F014D9DD34000A2068 /* svg11.dtd */; };
-		CDD888FB14D9DD34000A2068 /* xhtml-lat1.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDD888F114D9DD34000A2068 /* xhtml-lat1.ent */; };
-		CDD888FC14D9DD34000A2068 /* xhtml-special.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDD888F214D9DD34000A2068 /* xhtml-special.ent */; };
-		CDD888FD14D9DD34000A2068 /* xhtml-symbol.ent in Resources */ = {isa = PBXBuildFile; fileRef = CDD888F314D9DD34000A2068 /* xhtml-symbol.ent */; };
-		CDD888FE14D9DD34000A2068 /* xhtml1-strict.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDD888F414D9DD34000A2068 /* xhtml1-strict.dtd */; };
-		CDD888FF14D9DD34000A2068 /* xhtml1-transitional.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDD888F514D9DD34000A2068 /* xhtml1-transitional.dtd */; };
 		CDD8890414D9DD39000A2068 /* container.xml.erb in Resources */ = {isa = PBXBuildFile; fileRef = CDD8890114D9DD39000A2068 /* container.xml.erb */; };
 		CDD8890514D9DD39000A2068 /* content.opf.erb in Resources */ = {isa = PBXBuildFile; fileRef = CDD8890214D9DD39000A2068 /* content.opf.erb */; };
 		CDD8890614D9DD39000A2068 /* toc.ncx.erb in Resources */ = {isa = PBXBuildFile; fileRef = CDD8890314D9DD39000A2068 /* toc.ncx.erb */; };
@@ -281,6 +283,18 @@
 		CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverMessageView.rb; sourceTree = "<group>"; };
 		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
 		CDB780D5149964060025702F /* TabbedViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabbedViewController.rb; sourceTree = "<group>"; };
+		CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-strict.xsd"; sourceTree = "<group>"; };
+		CDCBBFBA14DB028000C8BF4A /* xml.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = xml.xsd; sourceTree = "<group>"; };
+		CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dtbook-2005-2.dtd"; sourceTree = "<group>"; };
+		CDCBBFD314DB09B600C8BF4A /* ncx-2005-1.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "ncx-2005-1.dtd"; sourceTree = "<group>"; };
+		CDCBBFD414DB09B600C8BF4A /* oeb12.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oeb12.ent; sourceTree = "<group>"; };
+		CDCBBFD514DB09B600C8BF4A /* opf20.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = opf20.dtd; sourceTree = "<group>"; };
+		CDCBBFD614DB09B600C8BF4A /* svg11.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svg11.dtd; sourceTree = "<group>"; };
+		CDCBBFD714DB09B600C8BF4A /* xhtml-lat1.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-lat1.ent"; sourceTree = "<group>"; };
+		CDCBBFD814DB09B600C8BF4A /* xhtml-special.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-special.ent"; sourceTree = "<group>"; };
+		CDCBBFD914DB09B600C8BF4A /* xhtml-symbol.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-symbol.ent"; sourceTree = "<group>"; };
+		CDCBBFDA14DB09B600C8BF4A /* xhtml1-strict.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-strict.dtd"; sourceTree = "<group>"; };
+		CDCBBFDB14DB09B600C8BF4A /* xhtml1-transitional.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-transitional.dtd"; sourceTree = "<group>"; };
 		CDD7B02E12EF79D800352D4B /* ItemRef.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ItemRef.rb; sourceTree = "<group>"; };
 		CDD8874314D9DAEC000A2068 /* background-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-logo.png"; sourceTree = "<group>"; };
 		CDD8874414D9DAEC000A2068 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueTexture.png; sourceTree = "<group>"; };
@@ -367,16 +381,6 @@
 		CDD887AA14D9DAEC000A2068 /* blank.xhtml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blank.xhtml; sourceTree = "<group>"; };
 		CDD887AB14D9DAEC000A2068 /* catalog.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = catalog.xml; sourceTree = "<group>"; };
 		CDD8880E14D9DB39000A2068 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CDD888EC14D9DD34000A2068 /* dtbook-2005-2.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dtbook-2005-2.dtd"; sourceTree = "<group>"; };
-		CDD888ED14D9DD34000A2068 /* ncx-2005-1.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "ncx-2005-1.dtd"; sourceTree = "<group>"; };
-		CDD888EE14D9DD34000A2068 /* oeb12.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oeb12.ent; sourceTree = "<group>"; };
-		CDD888EF14D9DD34000A2068 /* opf20.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = opf20.dtd; sourceTree = "<group>"; };
-		CDD888F014D9DD34000A2068 /* svg11.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svg11.dtd; sourceTree = "<group>"; };
-		CDD888F114D9DD34000A2068 /* xhtml-lat1.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-lat1.ent"; sourceTree = "<group>"; };
-		CDD888F214D9DD34000A2068 /* xhtml-special.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-special.ent"; sourceTree = "<group>"; };
-		CDD888F314D9DD34000A2068 /* xhtml-symbol.ent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xhtml-symbol.ent"; sourceTree = "<group>"; };
-		CDD888F414D9DD34000A2068 /* xhtml1-strict.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-strict.dtd"; sourceTree = "<group>"; };
-		CDD888F514D9DD34000A2068 /* xhtml1-transitional.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-transitional.dtd"; sourceTree = "<group>"; };
 		CDD8890114D9DD39000A2068 /* container.xml.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = container.xml.erb; sourceTree = "<group>"; };
 		CDD8890214D9DD39000A2068 /* content.opf.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = content.opf.erb; sourceTree = "<group>"; };
 		CDD8890314D9DD39000A2068 /* toc.ncx.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = toc.ncx.erb; sourceTree = "<group>"; };
@@ -464,7 +468,6 @@
 			isa = PBXGroup;
 			children = (
 				CDD8890014D9DD39000A2068 /* erb */,
-				CDD888EB14D9DD34000A2068 /* dtd */,
 				CDD8880E14D9DB39000A2068 /* Info.plist */,
 				CDD8874214D9DAEC000A2068 /* images */,
 				CDD8878314D9DAEC000A2068 /* xib */,
@@ -666,29 +669,23 @@
 		CDD887A914D9DAEC000A2068 /* xml */ = {
 			isa = PBXGroup;
 			children = (
+				CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */,
+				CDCBBFD314DB09B600C8BF4A /* ncx-2005-1.dtd */,
+				CDCBBFD414DB09B600C8BF4A /* oeb12.ent */,
+				CDCBBFD514DB09B600C8BF4A /* opf20.dtd */,
+				CDCBBFD614DB09B600C8BF4A /* svg11.dtd */,
+				CDCBBFD714DB09B600C8BF4A /* xhtml-lat1.ent */,
+				CDCBBFD814DB09B600C8BF4A /* xhtml-special.ent */,
+				CDCBBFD914DB09B600C8BF4A /* xhtml-symbol.ent */,
+				CDCBBFDA14DB09B600C8BF4A /* xhtml1-strict.dtd */,
+				CDCBBFDB14DB09B600C8BF4A /* xhtml1-transitional.dtd */,
+				CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */,
+				CDCBBFBA14DB028000C8BF4A /* xml.xsd */,
 				CDD887AA14D9DAEC000A2068 /* blank.xhtml */,
 				CDD887AB14D9DAEC000A2068 /* catalog.xml */,
 			);
 			name = xml;
 			path = Resources/xml;
-			sourceTree = "<group>";
-		};
-		CDD888EB14D9DD34000A2068 /* dtd */ = {
-			isa = PBXGroup;
-			children = (
-				CDD888EC14D9DD34000A2068 /* dtbook-2005-2.dtd */,
-				CDD888ED14D9DD34000A2068 /* ncx-2005-1.dtd */,
-				CDD888EE14D9DD34000A2068 /* oeb12.ent */,
-				CDD888EF14D9DD34000A2068 /* opf20.dtd */,
-				CDD888F014D9DD34000A2068 /* svg11.dtd */,
-				CDD888F114D9DD34000A2068 /* xhtml-lat1.ent */,
-				CDD888F214D9DD34000A2068 /* xhtml-special.ent */,
-				CDD888F314D9DD34000A2068 /* xhtml-symbol.ent */,
-				CDD888F414D9DD34000A2068 /* xhtml1-strict.dtd */,
-				CDD888F514D9DD34000A2068 /* xhtml1-transitional.dtd */,
-			);
-			name = dtd;
-			path = Resources/dtd;
 			sourceTree = "<group>";
 		};
 		CDD8890014D9DD39000A2068 /* erb */ = {
@@ -947,19 +944,21 @@
 				CDD8880B14D9DAEC000A2068 /* PointPanel.xib in Resources */,
 				CDD8880C14D9DAEC000A2068 /* blank.xhtml in Resources */,
 				CDD8880D14D9DAEC000A2068 /* catalog.xml in Resources */,
-				CDD888F614D9DD34000A2068 /* dtbook-2005-2.dtd in Resources */,
-				CDD888F714D9DD34000A2068 /* ncx-2005-1.dtd in Resources */,
-				CDD888F814D9DD34000A2068 /* oeb12.ent in Resources */,
-				CDD888F914D9DD34000A2068 /* opf20.dtd in Resources */,
-				CDD888FA14D9DD34000A2068 /* svg11.dtd in Resources */,
-				CDD888FB14D9DD34000A2068 /* xhtml-lat1.ent in Resources */,
-				CDD888FC14D9DD34000A2068 /* xhtml-special.ent in Resources */,
-				CDD888FD14D9DD34000A2068 /* xhtml-symbol.ent in Resources */,
-				CDD888FE14D9DD34000A2068 /* xhtml1-strict.dtd in Resources */,
-				CDD888FF14D9DD34000A2068 /* xhtml1-transitional.dtd in Resources */,
 				CDD8890414D9DD39000A2068 /* container.xml.erb in Resources */,
 				CDD8890514D9DD39000A2068 /* content.opf.erb in Resources */,
 				CDD8890614D9DD39000A2068 /* toc.ncx.erb in Resources */,
+				CDCBBFBB14DB028000C8BF4A /* xhtml1-strict.xsd in Resources */,
+				CDCBBFBC14DB028000C8BF4A /* xml.xsd in Resources */,
+				CDCBBFDC14DB09B600C8BF4A /* dtbook-2005-2.dtd in Resources */,
+				CDCBBFDD14DB09B600C8BF4A /* ncx-2005-1.dtd in Resources */,
+				CDCBBFDE14DB09B600C8BF4A /* oeb12.ent in Resources */,
+				CDCBBFDF14DB09B600C8BF4A /* opf20.dtd in Resources */,
+				CDCBBFE014DB09B600C8BF4A /* svg11.dtd in Resources */,
+				CDCBBFE114DB09B600C8BF4A /* xhtml-lat1.ent in Resources */,
+				CDCBBFE214DB09B600C8BF4A /* xhtml-special.ent in Resources */,
+				CDCBBFE314DB09B600C8BF4A /* xhtml-symbol.ent in Resources */,
+				CDCBBFE414DB09B600C8BF4A /* xhtml1-strict.dtd in Resources */,
+				CDCBBFE514DB09B600C8BF4A /* xhtml1-transitional.dtd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

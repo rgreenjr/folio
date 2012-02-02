@@ -7,8 +7,8 @@ class XMLLint
     if doc && doc.DTD
       arguments = "--noout --nonet --valid"
     else
-      dtdPath = Media.dtdPathForType(mediaType)
-      arguments = dtdPath ? "--noout --dtdvalid #{dtdPath}" : "--noout"
+      path = schemaPathForMediaType(mediaType)
+      arguments = path ? "--noout --schema #{path}" : "--noout"
     end
 
     execute(arguments, content) do |success, path, output|
@@ -16,7 +16,7 @@ class XMLLint
         if line =~ /#{path}:(\d+):(.*)/
           issues << Issue.new($2, $1)
         else
-          # puts "*** #{line}"
+          puts "*** #{line}"
         end
       end
     end
@@ -58,4 +58,26 @@ class XMLLint
     @workingPath ||= File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources")
   end
 
+  def self.schemaPathForMediaType(mediaType)
+    case mediaType
+    when Media::HTML
+      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/xhtml1-strict.xsd")
+    else
+      nil
+    end
+  end
+
+  def self.dtdPathForMediaType(mediaType)
+    case mediaType
+    when Media::HTML
+      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/xhtml1-strict.dtd")
+    when Media::NCX
+      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/ncx-2005-1.dtd")
+    when Media::OPF
+      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/opf20.dtd")
+    else
+      nil
+    end
+  end
+  
 end
