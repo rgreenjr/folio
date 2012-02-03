@@ -184,7 +184,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).movePoints(points.reverse, oldIndexes.reverse, oldParents.reverse)
     unless undoManager.isUndoing
-      undoManager.actionName = "Move Table of Contents Point"
+      undoManager.actionName = "Move Navigation Point"
     end
 
     reloadDataAndSelectPoints(points)
@@ -214,7 +214,7 @@ class NavigationController < NSResponder
 
     undoManager.prepareWithInvocationTarget(self).deletePoints(points, true, 0)
     unless undoManager.isUndoing
-      undoManager.actionName = "Add to Table of Contents"
+      undoManager.actionName = "Add to Navigation"
     end
 
     @outlineView.reloadData
@@ -237,7 +237,7 @@ class NavigationController < NSResponder
   def duplicatePoint(point)
     clone = @navigation.duplicate(point)
     undoManager.prepareWithInvocationTarget(self).deletePoints([clone], true, 0)
-    undoManager.actionName = "Duplicate Table of Contents Point"
+    undoManager.actionName = "Duplicate Navigation Point"
     reloadDataAndSelectPoints([clone])
   end
 
@@ -246,11 +246,15 @@ class NavigationController < NSResponder
   end
 
   def deletePoints(points, allowUndo, level)
+    return unless points.size > 0
+    
+    points = removeDescendants(points)
+    
     # recursively delete children first
     points.each do |point|
       deletePoints(point.children.reverse, allowUndo, level + 1)
     end
-
+    
     indexes = []
     parents = []
     points.each do |point|
@@ -267,7 +271,7 @@ class NavigationController < NSResponder
      if allowUndo
       undoManager.prepareWithInvocationTarget(self).addPoints(points.reverse, indexes.reverse, parents.reverse)
       unless undoManager.isUndoing
-        undoManager.actionName = "Delete Table of Contents Point"
+        undoManager.actionName = "Delete Navigation Point"
       end
     end
 
@@ -296,10 +300,20 @@ class NavigationController < NSResponder
     when :"duplicateSelectedPoint:", :"addPoint:"
       selectedPoints.size == 1
     when :"toggleNavigation:"
-      interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Table of Contents" : "Expand Table of Contents"
+      interfaceItem.title = @outlineView.isItemExpanded(self) ? "Collapse Navigation" : "Expand Navigation"
     else
       true
     end
+  end
+  
+  def removeDescendants(points)
+    descendants = []
+    points.each do |point|
+      points.each do |inner|
+        descendants << inner if point != inner && point.ancestor?(inner)
+      end
+    end    
+    points.reject { |point| descendants.include?(point) }
   end
 
   def markBookEdited

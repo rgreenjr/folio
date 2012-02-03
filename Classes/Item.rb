@@ -150,12 +150,6 @@ class Item
     childWithName(name) != nil
   end
   
-  def ancestor?(item)
-    return true if item == self
-    each {|child| return true if child.ancestor?(item)}
-    false
-  end
-  
   def index(item)
     each_with_index { |i, index| return index if item == i }
     nil
