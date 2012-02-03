@@ -109,6 +109,7 @@
 							<string key="NSFrame">{{17, 20}, {399, 17}}</string>
 							<reference key="NSSuperview" ref="135408230"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="757285985">
@@ -137,7 +138,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="820127203"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -165,7 +166,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="313106538">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">138413056</int>
-								<string key="NSContents">Validation Success</string>
+								<string key="NSContents">Validation Successful</string>
 								<reference key="NSSupport" ref="1055304257"/>
 								<reference key="NSControlView" ref="205755410"/>
 								<reference key="NSBackgroundColor" ref="251883079"/>
@@ -215,7 +216,7 @@
 					<reference key="NSNextKeyView" ref="178585407"/>
 					<string key="NSReuseIdentifierKey">_NS:224</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>

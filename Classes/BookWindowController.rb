@@ -217,7 +217,7 @@ class BookWindowController < NSWindowController
   end
   
   def updateInformationField
-    @informationField.stringValue = document.fileSize.to_storage_size
+    @informationField.stringValue = "#{document.manifest.size} items, #{document.fileSize.to_storage_size}"
   end
   
   def printDocument(sender)
