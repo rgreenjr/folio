@@ -116,7 +116,7 @@ class Book < NSDocument
   end
   
   def totalIssueCount
-    @issues.size + @manifest.totalIssueCount# + @navigation.totalIssueCount
+    @issues.size + @manifest.totalIssueCount
   end
   
   def fileSize
@@ -136,7 +136,7 @@ class Book < NSDocument
     # if isDocumentEdited
     #   @container
     # else
-      # XMLLint.validate(opfXML, @issues)
+      XMLLint.validate(opfXML, @issues)
     # end
   end
   
@@ -145,21 +145,18 @@ class Book < NSDocument
   # end
   
   def validateMetadata
-    @issues.concat(@metadata.issues) unless @metadata.valid?
+    @metadata.validate(@issues)
   end
   
   def validateManifest
-    @manifest.valid?
+    # @manifest.valid?
     undeclaredItems.each do |filename| 
       addIssue(Issue.new("The file \"#{filename}\" is present but not declared in the manifest."))
     end
   end
   
   def validateNavigation
-    # @issues.concat(@navigation.issues) 
-    # unless @navigation.valid?
-    #   @navigation.pointsWithIssues.each { |point| point. }
-    # end
+    @navigation.validate(@issues)
   end
   
   def undeclaredItems

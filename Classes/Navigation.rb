@@ -179,20 +179,16 @@ class Navigation
     buffer
   end
   
-  def valid?
-    isValid = true
+  def validate(issues)
     each(true) do |point|
-      isValid = false unless point.valid?
+      issues.concat(point.issues) unless point.valid?
     end
-    isValid
   end
   
-  def pointsWithIssues
-    select { |point| point.hasIssues? }
+  def size
+    count = 0
+    each(true) { count += 1 }
+    count
   end
   
-  def totalIssueCount
-    pointsWithIssues.inject(0) { |sum, point| sum += point.issueCount }
-  end
-
 end

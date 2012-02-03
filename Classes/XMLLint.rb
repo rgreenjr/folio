@@ -16,7 +16,7 @@ class XMLLint
         if line =~ /#{path}:(\d+):(.*)/
           issues << Issue.new($2, $1)
         else
-          puts "*** #{line}"
+          # puts "*** #{line}"
         end
       end
     end
@@ -42,7 +42,7 @@ class XMLLint
   private
 
   def self.execute(arguments, content, &block)
-    tmp = Tempfile.new('com.folioapp.tmp.')
+    tmp = Tempfile.new('com.folioapp.xmllint.')
     File.open(tmp, "w") { |f| f.print content }
     # puts "cd #{resourcesPath}; XML_CATALOG_FILES=#{catalogPath} xmllint #{arguments} #{tmp.path} 2>&1"
     output = `cd #{resourcesPath}; XML_CATALOG_FILES=#{catalogPath} xmllint #{arguments} #{tmp.path} 2>&1`

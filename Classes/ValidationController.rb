@@ -14,23 +14,31 @@ class ValidationController < NSWindowController
     
     updateStatus("Checking manifest", 0)
 
-    increment = 95.0 / book.manifest.size
+    increment = 75.0 / book.manifest.size
     book.manifest.each do |item|
-      incrementStatus("Checking #{item.name}", increment)
+      incrementStatus("Checking item \"#{item.name}\"", increment)
       item.valid?
     end
+
+    increment = 20.0 / book.navigation.size
+    book.navigation.each(true) do |point|
+      incrementStatus("Checking point \"#{point.text}\"", increment)
+      point.valid?
+    end
+
+    updateStatus("Checking manifest", 96)
     book.validateManifest
 
-    updateStatus("Checking OPF file", 96)
+    updateStatus("Checking OPF file", 97)
     book.validateOPF
 
     # updateStatus("Checking container", 25)
     # book.validateContainer
     
-    updateStatus("Checking metadata", 97)
+    updateStatus("Checking metadata", 98)
     book.validateMetadata
     
-    updateStatus("Checking navigation", 98)
+    updateStatus("Checking navigation", 99)
     book.validateNavigation
 
     updateStatus("Complete", 100)

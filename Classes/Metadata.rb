@@ -166,17 +166,13 @@ class Metadata
     @sortCreator
   end
   
-  def valid?
-    @issues = []
-    @issues << Issue.new("Metadata title cannot be blank.") if @title.blank?
-    @issues << Issue.new("Metadata language cannot be blank.") if @language.blank?
-    @issues << Issue.new("Metadata identifier cannot be blank.") if @identifier.blank?
-    
+  def validate(issues)
+    issues << Issue.new("Metadata title cannot be blank.") if @title.blank?
+    issues << Issue.new("Metadata language cannot be blank.") if @language.blank?
+    issues << Issue.new("Metadata identifier cannot be blank.") if @identifier.blank?    
     unless @date.blank? || @date =~ /^(\d{4}|\d{4}-\d{2}|\d{4}-\d{2}-\d{2})$/
-      @issues << Issue.new("Metadata date is not valid. The date must be in the form YYYY, YYYY-MM or YYYY-MM-DD (e.g., \"2011\", \"2011-05\", or \"2011-05-01\")")
+      issues << Issue.new("Metadata date must be in the form YYYY, YYYY-MM or YYYY-MM-DD (e.g., \"2011\", \"2011-05\", or \"2011-05-01\")")
     end
-    
-    @issues.empty?
   end
   
   private
