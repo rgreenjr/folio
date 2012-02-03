@@ -283,7 +283,7 @@ class ManifestController < NSResponder
 
   def showDeleteSelectedItemsSheet(sender)
     alert = NSAlert.alloc.init
-    alert.messageText = "Are you sure you want to delete the selected items? Any references will be removed from the Table of Contents and Spine."
+    alert.messageText = "Are you sure you want to delete the selected items? Any references will be removed from the Navigation and Spine."
     alert.informativeText = "You cannot undo this action."
     alert.addButtonWithTitle("OK")
     alert.addButtonWithTitle("Cancel")
