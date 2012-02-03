@@ -50,8 +50,8 @@
 			<object class="NSWindowTemplate" id="53791894">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{682, 516}, {1181, 693}}</string>
-				<int key="NSWTFlags">1953497088</int>
+				<string key="NSWindowRect">{{409, 326}, {1181, 693}}</string>
+				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">Folio</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="1014419714">
@@ -401,7 +401,6 @@
 							<string key="NSFrame">{{17, 2}, {1147, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
