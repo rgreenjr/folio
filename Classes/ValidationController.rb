@@ -20,22 +20,22 @@ class ValidationController < NSWindowController
       item.valid?
     end
 
-    increment = 20.0 / book.navigation.size
+    increment = 10.0 / book.navigation.size
     book.navigation.each(true) do |point|
       incrementStatus("Checking point \"#{point.text}\"", increment)
       point.valid?
     end
 
-    updateStatus("Checking manifest", 96)
+    updateStatus("Checking manifest", 86)
     book.validateManifest
 
-    updateStatus("Checking OPF file", 97)
+    updateStatus("Checking OPF file", 88)
     book.validateOPF
 
-    # updateStatus("Checking container", 25)
-    # book.validateContainer
+    updateStatus("Checking container", 90)
+    book.validateContainer
     
-    updateStatus("Checking metadata", 98)
+    updateStatus("Checking metadata", 95)
     book.validateMetadata
     
     updateStatus("Checking navigation", 99)
@@ -53,36 +53,41 @@ class ValidationController < NSWindowController
   private
   
   def updateStatus(status, amount)
-    @progressText.stringValue = status
-    @progressBar.doubleValue = amount
-    sleep 0.01
+    Dispatch::Queue.main.async do
+      @progressText.stringValue = status
+      @progressBar.doubleValue = amount
+    end
   end
   
   def incrementStatus(status, amount)
-    @progressText.stringValue = status
-    @progressBar.incrementBy(amount)
-    sleep 0.01
+    Dispatch::Queue.main.async do
+      @progressText.stringValue = status
+      @progressBar.incrementBy(amount)
+    end
   end
   
   def showProgressWindow(book)
-    window # force window to load
-    NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
-    window.makeKeyAndOrderFront(nil) # necessary since we're running in a background thread
-    @progressBar.usesThreadedAnimation = true
-    @progressBar.startAnimation(self)
+    Dispatch::Queue.main.async do
+      window # force window to load
+      NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
+      @progressBar.startAnimation(self)
+    end
   end
   
   def hideProgressWindow
-    NSApp.endSheet(window)
-    window.orderOut(self)
-    @progressBar.stopAnimation(self)
-    updateStatus("", 0)
+    Dispatch::Queue.main.async do
+      NSApp.endSheet(window)
+      window.orderOut(self)
+      @progressBar.stopAnimation(self)
+      updateStatus("", 0)
+    end
   end
 
   def showSuccessWindow(book)
-    NSApp.beginSheet(successWindow, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
-    sleep(2)
-    performSelectorOnMainThread(:hideSuccessWindow, withObject:nil, waitUntilDone:false)
+    Dispatch::Queue.main.async do
+      NSApp.beginSheet(successWindow, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
+      performSelector(:hideSuccessWindow, withObject:nil, afterDelay:2.0)      
+    end
   end
   
   def hideSuccessWindow

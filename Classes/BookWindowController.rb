@@ -206,13 +206,15 @@ class BookWindowController < NSWindowController
   end
 
   def validate(sender)
-    @validationController ||= ValidationController.alloc.init
-    Dispatch::Queue.new("com.folioapp.performValidation").async do
+    Dispatch::Queue.concurrent(:default).async do
+      @validationController ||= ValidationController.alloc.init
       @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
-      issueViewController.refresh
-      updateInformationField
-      @selectionViewController.outlineView.performSelectorOnMainThread(:reloadData, withObject:nil, waitUntilDone:false)
-      performSelectorOnMainThread(:showIssueView, withObject:nil, waitUntilDone:false) if document.totalIssueCount > 0
+      Dispatch::Queue.main.async do
+        issueViewController.refresh
+        updateInformationField
+        @selectionViewController.outlineView.reloadData
+        showIssueView if document.totalIssueCount > 0
+      end
     end
   end
   

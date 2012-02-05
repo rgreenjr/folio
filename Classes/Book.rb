@@ -133,16 +133,16 @@ class Book < NSDocument
   end
   
   def validateOPF
-    # if isDocumentEdited
-    #   @container
-    # else
+    if isDocumentEdited
       XMLLint.validate(opfXML, @issues)
-    # end
+    elsif @container.hasOPFDoc?
+      XMLLint.validate(@container.opfDoc.to_s, @issues)
+    end
   end
   
-  # def validateContainer
-  #   XMLLint.validate(@container.to_xml, @issues)
-  # end
+  def validateContainer
+    XMLLint.validate(@container.to_xml, @issues)
+  end
   
   def validateMetadata
     @metadata.validate(@issues)
