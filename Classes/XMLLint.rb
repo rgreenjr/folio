@@ -14,7 +14,9 @@ class XMLLint
     execute(arguments, content) do |success, path, output|
       output.split(/\n/).each do |line|
         if line =~ /#{path}:(\d+):(.*)/
-          issues << Issue.new($2, $1)
+          lineNumber = $1
+          message = scrubMessage($2)
+          issues << Issue.new(message, lineNumber)
         else
           # puts "*** #{line}"
         end
@@ -78,6 +80,14 @@ class XMLLint
     else
       nil
     end
+  end
+
+  def self.scrubMessage(message)
+    message = message.gsub(/\{http:\/\/www.w3.org\/(1999|2000)\/(xhtml|svg)\}/, '')
+    message = message.gsub(/^ element \w*: /, '')
+    message = message.gsub('Schemas validity error : ', '')
+    message = message.gsub(/^ parser error : /, '')
+    message = message.gsub(/: This element is not expected. Expected is one of /, ' is unexpected and should be one of ')
   end
   
 end
