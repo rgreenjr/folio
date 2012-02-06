@@ -10,7 +10,7 @@
 
 class Book < NSDocument
   
-  UNZIP_DIRECTORY_PREFIX = "com.folioapp."
+  UNZIP_DIRECTORY_PREFIX = "me.folioapp."
   EMPTY_BOOK_FILE_SIZE   = 1300
 
   attr_reader :controller

@@ -44,7 +44,7 @@ class XMLLint
   private
 
   def self.execute(arguments, content, &block)
-    tmp = Tempfile.new('com.folioapp.xmllint.')
+    tmp = Tempfile.new('me.folioapp.xmllint.')
     File.open(tmp, "w") { |f| f.print content }
     # puts "cd #{resourcesPath}; XML_CATALOG_FILES=#{catalogPath} xmllint #{arguments} #{tmp.path} 2>&1"
     output = `cd #{resourcesPath}; XML_CATALOG_FILES=#{catalogPath} xmllint #{arguments} #{tmp.path} 2>&1`

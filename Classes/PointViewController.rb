@@ -185,7 +185,7 @@ class PointViewController < NSViewController
   end
 
   def queue
-    @queue ||= Dispatch::Queue.new("com.folioapp.fragment-parsing-queue")
+    @queue ||= Dispatch::Queue.new("me.folioapp.fragment-parsing-queue")
   end
 
 end
