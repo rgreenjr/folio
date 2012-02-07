@@ -200,7 +200,7 @@ class SourceViewController < NSViewController
     tmp = Tempfile.new('folio-tmp-file')
     text = view.string
     File.open(tmp, "w") { |f| f.print text }
-    output = `xmllint --format #{tmp.path} 2>&1`
+    output = `xmllint --format #{tmp.path}`
     @item.clearIssues
     if $?.success?
       replace(NSRange.new(0, text.length), output)
