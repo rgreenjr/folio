@@ -50,7 +50,7 @@
 			<object class="NSWindowTemplate" id="53791894">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{409, 326}, {1181, 693}}</string>
+				<string key="NSWindowRect">{{409, 326}, {1280, 722}}</string>
 				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">Folio</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -345,7 +345,7 @@
 								<object class="NSCustomView" id="120754400">
 									<reference key="NSNextResponder" ref="540888369"/>
 									<int key="NSvFlags">274</int>
-									<string key="NSFrameSize">{241, 669}</string>
+									<string key="NSFrameSize">{261, 698}</string>
 									<reference key="NSSuperview" ref="540888369"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1040038588"/>
@@ -360,7 +360,7 @@
 										<object class="NSCustomView" id="978303340">
 											<reference key="NSNextResponder" ref="1040038588"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrameSize">{939, 446}</string>
+											<string key="NSFrameSize">{1018, 461}</string>
 											<reference key="NSSuperview" ref="1040038588"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="809935225"/>
@@ -370,7 +370,7 @@
 										<object class="NSCustomView" id="809935225">
 											<reference key="NSNextResponder" ref="1040038588"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{0, 447}, {939, 222}}</string>
+											<string key="NSFrame">{{0, 462}, {1018, 236}}</string>
 											<reference key="NSSuperview" ref="1040038588"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="702703649"/>
@@ -378,7 +378,7 @@
 											<string key="NSClassName">NSView</string>
 										</object>
 									</object>
-									<string key="NSFrame">{{242, 0}, {939, 669}}</string>
+									<string key="NSFrame">{{262, 0}, {1018, 698}}</string>
 									<reference key="NSSuperview" ref="540888369"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="978303340"/>
@@ -386,7 +386,7 @@
 									<int key="NSDividerStyle">2</int>
 								</object>
 							</object>
-							<string key="NSFrame">{{0, 24}, {1181, 669}}</string>
+							<string key="NSFrame">{{0, 24}, {1280, 698}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="120754400"/>
@@ -398,9 +398,10 @@
 						<object class="NSTextField" id="702703649">
 							<reference key="NSNextResponder" ref="711365869"/>
 							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{17, 2}, {1147, 17}}</string>
+							<string key="NSFrame">{{17, 2}, {1246, 17}}</string>
 							<reference key="NSSuperview" ref="711365869"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="520696239">
@@ -435,7 +436,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{1181, 693}</string>
+					<string key="NSFrameSize">{1280, 722}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="540888369"/>
@@ -452,7 +453,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="357151366">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -490,6 +491,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{610, 514}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="80335154"/>
 				<string key="NSReuseIdentifierKey">_NS:1192</string>
 				<string key="NSClassName">LogoView</string>
