@@ -19,6 +19,7 @@ class Point
     @id = id || UUID.create
     @fragment = fragment
     @children = []
+    @issues = []
   end
 
   def url
@@ -124,10 +125,10 @@ class Point
     if hasFragment? && item && !item.containsFragment?(fragment)
       addIssue Issue.new("The item \"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", nil, "Please specify an existing fragment identifier.")
     end
-    addIssue Issue.new("Point text values cannot be blank.", nil, "Please specify a value.") if text.blank?
-    addIssue Issue.new("Point ID values cannot be blank.", nil, "Please specify a value.") if id.blank?    
-    addIssue Issue.new("Point item reference cannot be blank.", "Please specify an item.") if item.nil?
-    hasIssues?
+    addIssue(Issue.new("Point text values cannot be blank.", nil, "Please specify a value.")) if text.blank?
+    addIssue(Issue.new("Point ID values cannot be blank.", nil, "Please specify a value.")) if id.blank?    
+    addIssue(Issue.new("Point item reference cannot be blank.", "Please specify an item.")) if item.nil?
+    !hasIssues?
   end
   
   def hasIssues?
