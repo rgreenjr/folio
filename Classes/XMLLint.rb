@@ -44,11 +44,15 @@ class XMLLint
   private
 
   def self.execute(arguments, content, &block)
-    tmp = Tempfile.new('me.folioapp.xmllint.')
-    File.open(tmp, "w") { |f| f.print content }
-    output = `cd #{resourcesPath}; XML_CATALOG_FILES=#{catalogPath} xmllint #{arguments} #{tmp.path} 2>&1`
-    yield($?.success?, tmp.path, output)
-    tmp.delete
+    tmp = Tempfile.new('me.folioapp.xmllint.valid')
+    begin
+      File.open(tmp, "w") { |f| f.print content }
+      output = `cd #{resourcesPath}; XML_CATALOG_FILES=#{catalogPath} xmllint #{arguments} #{tmp.path} 2>&1`
+      yield($?.success?, tmp.path, output)
+    ensure
+      tmp.close
+      tmp.unlink
+    end
   end
 
   def self.catalogPath
