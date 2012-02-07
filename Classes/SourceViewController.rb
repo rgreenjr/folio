@@ -170,7 +170,7 @@ class SourceViewController < NSViewController
 
     stack = []
     text.scan(/<\s*(\/)?\s*(\w[\w:-]*)[^>]*>/) do |match|
-      if match[0].nil? then
+      if match[0].nil?
         stack << match[1]
       else
         until stack.empty? do
@@ -188,42 +188,52 @@ class SourceViewController < NSViewController
   end
 
   def stripTagsFromSelectedText(sender)
-    tmp = Tempfile.new('folio-tmp-file')
-    text = selectedText
-    text = view.string if text.size == 0
-    File.open(tmp, "w") {|f| f.print text}
-    replace(NSRange.new(0, text.size), `php -r 'echo strip_tags( file_get_contents("#{tmp.path}") );'`)
-    tmp.delete
+    tmp = Tempfile.new('me.folioapp.striptags')
+    begin
+      text = selectedText
+      text = view.string if text.size == 0
+      File.open(tmp, "w") {|f| f.print text}
+      replace(NSRange.new(0, text.size), `php -r 'echo strip_tags( file_get_contents("#{tmp.path}") );'`)
+    ensure
+      tmp.close
+      tmp.unlink
+    end
   end
 
   def reformatText(sender)
-    tmp = Tempfile.new('folio-tmp-file')
-    text = view.string
-    File.open(tmp, "w") { |f| f.print text }
-    output = `xmllint --format #{tmp.path}`
     @item.clearIssues
-    if $?.success?
-      replace(NSRange.new(0, text.length), output)
-    else
-      output.gsub!(tmp.path + ':', 'Line ')
-      output.gsub!("^", '')
-      output.split(/\n/).each do |line|
-        if line =~ /^Line ([0-9]+): (.*)/
-          lineNumber = $1.to_i - 1
-          message = $2.gsub("parser error : ", "")
-          issue = Issue.new(message, lineNumber)
-          @item.addIssue(issue) 
+    input = Tempfile.open('me.folioapp.xmllint.format.')
+    errors = Tempfile.open('me.folioapp.xmllint.errors.')
+    begin
+      File.open(input, 'w') { |f| f.print(view.string) }
+    
+      # format content and redirect any errors
+      formattedText = `xmllint --format #{input.path} 2>#{errors.path}`
+
+      if errors.size == 0
+        replace(NSRange.new(0, view.string.length), formattedText)
+      else
+        errors.each_line do |line|
+          if line =~ /^#{input.path}:([0-9]+): (.*)/
+            lineNumber = $1.to_i
+            message = $2.gsub("parser error : ", "")
+            issue = Issue.new(message, lineNumber)
+            @item.addIssue(issue)
+          end
         end
+        # goto the first issue
+        gotoLineNumber(@item.issues.first.lineNumber) if @item.hasIssues?
       end
-      # goto the first issue
-      @item.issues.each do |issue|
-        gotoLineNumber(issue.lineNumber + 1)
-        break
-      end
+      
+      @lineNumberView.setNeedsDisplay(true)
+      NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
+      
+    ensure
+      input.close
+      input.unlink
+      errors.close
+      errors.unlink
     end
-    tmp.delete
-    @lineNumberView.setNeedsDisplay true
-    NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
   end
 
   def paragraphSelectedLines(sender)
