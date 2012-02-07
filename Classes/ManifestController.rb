@@ -190,12 +190,14 @@ class ManifestController < NSResponder
     panel.title = "Add Files"
     panel.prompt = "Select"
     panel.allowsMultipleSelection = true
-    panel.beginSheetModalForWindow(window, completionHandler:Proc.new {|resultCode|
-      if resultCode == NSOKButton
-        filepaths = panel.URLs.map { |url| url.path }
-        addFiles(filepaths)
-      end      
-    })
+    panel.beginSheetForDirectory(nil, file:nil, modalForWindow:window, modalDelegate:self, didEndSelector:"addFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+  end
+  
+  def addFilesSheetDidEnd(panel, returnCode:code, contextInfo:info)
+    if code == NSOKButton
+      filepaths = panel.URLs.map { |url| url.path }
+      addFiles(filepaths)
+    end      
   end
 
   def addFile(filepath, parent=nil, childIndex=nil)
@@ -219,7 +221,7 @@ class ManifestController < NSResponder
     alert.informativeText = "You cannot undo this action."
     alert.addButtonWithTitle "Replace"
     alert.addButtonWithTitle "Cancel"
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self,
+    alert.beginSheetModalForWindow(window, modalDelegate:self,
       didEndSelector:"filenameCollisionAlertDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
@@ -287,7 +289,7 @@ class ManifestController < NSResponder
     alert.informativeText = "You cannot undo this action."
     alert.addButtonWithTitle("OK")
     alert.addButtonWithTitle("Cancel")
-    alert.beginSheetModalForWindow(@outlineView.window, modalDelegate:self, didEndSelector:"deleteSelectedItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
+    alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"deleteSelectedItemsSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
   end
 
   def deleteSelectedItemsSheetDidEnd(alert, returnCode:code, contextInfo:info)
@@ -375,7 +377,7 @@ class ManifestController < NSResponder
     when :"showDeleteSelectedItemsSheet:", :"delete:"
       selectedItems.size > 0
     when :"addSelectedItemsToSpine:"
-      selectedItems.reject { |item| !item.flowable? }.size > 0
+      selectedItems.reject { |item| !item.parseable? }.size > 0
     when :"markSelectedItemAsCover:"
       selectedItems.size == 1 && selectedItem.imageable?
     when :"toggleManifest:"
@@ -399,11 +401,11 @@ class ManifestController < NSResponder
   end
 
   def showChangeNameCollisionAlert(name)
-    Alert.runModal(@outlineView.window, "The name \"#{name}\" is already taken. Please choose a different name.")
+    Alert.runModal(window, "The name \"#{name}\" is already taken. Please choose a different name.")
   end
 
   def showMoveFilesCollisionAlert(filenames)
-    Alert.runModal(@outlineView.window, "The following files were not moved because items with the same names already exist in this directory.", filenames.join("\n"))
+    Alert.runModal(window, "The following files were not moved because items with the same names already exist in this directory.", filenames.join("\n"))
   end
 
   def markBookEdited

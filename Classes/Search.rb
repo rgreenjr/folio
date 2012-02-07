@@ -7,7 +7,7 @@ class Search
     @query = query
     unless query.empty?
       book.manifest.each do |item|
-        next unless item.editable?
+        next unless item.textual?
         offset = 0
         parent = Match.new(item)
         while index = item.content.index(query, offset)

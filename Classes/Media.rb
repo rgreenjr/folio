@@ -53,20 +53,20 @@ class Media
     @types ||= MEDIA_TYPES_HASH.values.sort.uniq
   end
   
-  def self.editable?(mediaType)
-    [XML, HTML, CSS, TXT, SVG, NCX].include?(mediaType)
-  end
-  
   def self.renderable?(mediaType)
     [XML, HTML, JPG, PNG, GIF, SVG, CSS, TXT].include?(mediaType)
   end
   
   def self.imageable?(mediaType)
-    [JPG, PNG, GIF, SVG, TIFF].include?(mediaType)
+    [JPG, PNG, GIF, TIFF].include?(mediaType)
   end
   
-  def self.flowable?(mediaType)
-    [XML, HTML, TXT].include?(mediaType)
+  def self.textual?(mediaType)
+    [XML, HTML, CSS, TXT, SVG, NCX].include?(mediaType)
+  end
+  
+  def self.parseable?(mediaType)
+    [XML, HTML].include?(mediaType)
   end
   
   def self.ncx?(mediaType)

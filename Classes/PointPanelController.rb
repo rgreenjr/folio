@@ -82,7 +82,7 @@ class PointPanelController < NSWindowController
   def resetSourcePopup
     @sourcePopup.removeAllItems
     @items = []
-    @bookController.document.manifest.eachFlowableItem do |item|
+    @bookController.document.manifest.eachParseableItem do |item|
       @items << item 
       @sourcePopup.addItemWithTitle(item.href)
     end

@@ -69,8 +69,8 @@ class SpineController < NSResponder
         # reject if itemRef not found
         return NSDragOperationNone unless itemRef
 
-        # reject drag if itemRef item isn't flowable
-        return NSDragOperationNone unless itemRef.item.flowable?
+        # reject drag if itemRef item isn't parseable
+        return NSDragOperationNone unless itemRef.item.parseable?
       end
 
       # data looks good so allow move operation
@@ -90,8 +90,8 @@ class SpineController < NSResponder
         # reject drag unless item is found
         return NSDragOperationNone unless item
         
-        # reject drag if item isn't flowable
-        return NSDragOperationNone unless item.flowable?
+        # reject drag if item isn't parseable
+        return NSDragOperationNone unless item.parseable?
 
       end
 

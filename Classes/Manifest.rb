@@ -145,9 +145,9 @@ class Manifest
     select { |item| item.hasIssues? }
   end
   
-  def eachFlowableItem
+  def eachParseableItem
     each do |item|
-      yield item if item.flowable?
+      yield item if item.parseable?
     end
   end
   

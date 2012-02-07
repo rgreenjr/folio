@@ -85,10 +85,6 @@ class Item
     @async.value
   end
 
-  def editable?
-    Media.editable?(@mediaType)
-  end
-
   def renderable?
     Media.renderable?(@mediaType)
   end
@@ -97,8 +93,12 @@ class Item
     Media.imageable?(@mediaType)
   end
   
-  def flowable?
-    Media.flowable?(@mediaType)
+  def textual?
+    Media.textual?(@mediaType)
+  end
+  
+  def parseable?
+    Media.parseable?(@mediaType)
   end
   
   def ncx?
@@ -229,7 +229,7 @@ class Item
   end
   
   def fileSize
-    if editable?
+    if textual?
       content.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
     else
       NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
@@ -263,7 +263,7 @@ class Item
   # returns an arrays of strings or nil if parsing fails
   def fragments
     unless @fragments
-      if flowable?
+      if parseable?
         begin
           @fragments = XMLLint.findFragments(content)
         rescue Exception => exception
@@ -295,7 +295,7 @@ class Item
     addIssue Issue.new("Name cannot be blank.") if @name.blank?
     addIssue Issue.new("Media Type cannot be blank.") if @mediaType.blank?
     addIssue Issue.new("Media Type \"#{@mediaType}\" is invalid.") unless Media.validMediaType?(@mediaType)
-    if flowable?
+    if parseable?
       XMLLint.validate(content, @mediaType, @issues)
       duplicateFragments.each do |duplicate|
         addIssue Issue.new("The fragment \"#{duplicate}\" already exists.")

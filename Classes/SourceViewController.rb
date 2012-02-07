@@ -60,7 +60,7 @@ class SourceViewController < NSViewController
     storeSelectedRange(@item)
 
     @item = item
-    if @item && @item.editable?
+    if @item && @item.textual?
       @lineNumberView.item = @item
       @syntaxHighlighter.mediaType = @item.mediaType if @syntaxHighlighter
       string = NSAttributedString.alloc.initWithString(@item.content, attributes:@textAttributes)
@@ -237,8 +237,8 @@ class SourceViewController < NSViewController
          :"uppercaseSelectedText:", :"lowercaseSelectedText:", :"titlecaseSelectedText:", 
          :"stripTagsFromSelectedText:"
       selectedRange.length > 0
-    when :"reformatText:"
-      @item.flowable?
+    when :"reformatText:", :"insertCloseTag:"
+      @item.parseable?
     else
       true
     end
@@ -282,13 +282,13 @@ class SourceViewController < NSViewController
   end
   
   def storeSelectedRange(item)
-    if item && item.editable?
+    if item && item.textual?
       @selectedRangeHash[item] = selectedRange
     end
   end
 
   def restoreSelectedRange(item)
-    if item && item.editable?
+    if item && item.textual?
       range = @selectedRangeHash[item] || NSMakeRange(0, 0)
       view.setSelectedRange(range)
     end

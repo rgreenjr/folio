@@ -72,7 +72,7 @@ class TabbedViewController < NSViewController
         @webViewController.item = nil
         @imageView.hidden = false
         @splitView.hidden = true
-      elsif item.flowable?
+      elsif item.textual?
         @imageView.image = nil
         @sourceViewController.item = item
         @webViewController.item = point
@@ -271,7 +271,7 @@ class TabbedViewController < NSViewController
   def validateToolbarItem(toolbarItem)
     case toolbarItem.action
     when :"reformatText:"
-      numberOfTabs > 0 && selectedItem.flowable? && sourceViewController.visible?
+      numberOfTabs > 0 && selectedItem.parseable? && sourceViewController.visible?
     else
       true
     end

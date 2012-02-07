@@ -98,8 +98,8 @@ class NavigationController < NSResponder
         # reject drag unless itemRef is found
         return NSDragOperationNone unless itemRef
         
-        # reject drag if itemRef item isn't flowable
-        return NSDragOperationNone unless itemRef.item.flowable?
+        # reject drag if itemRef item isn't parseable
+        return NSDragOperationNone unless itemRef.item.parseable?
       end
 
       # itemRefs look good so return copy operation
