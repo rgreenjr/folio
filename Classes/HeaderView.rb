@@ -4,7 +4,7 @@ class HeaderView < NSView
 
   def initWithFrame(frameRect)
     super
-    @title = "Untitled"
+    @title = "untitled"
     @image = NSImage.imageNamed("table-header-bg1.png")
     style = NSMutableParagraphStyle.alloc.init
     style.alignment = NSCenterTextAlignment

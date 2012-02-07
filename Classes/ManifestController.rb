@@ -337,7 +337,7 @@ class ManifestController < NSResponder
   
   def newItem(sender)
     parent, index = selectedItemParentAndChildIndex
-    name = parent.generateUniqueChildName("Untitled.xhtml")
+    name = parent.generateUniqueChildName("untitled.xhtml")
     item = Item.new(parent, name, nil, Media::HTML)
     item.content = Bundle.read("blank", "xhtml")
     @manifest.insert(index, item, parent)
