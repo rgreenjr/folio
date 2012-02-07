@@ -8,6 +8,15 @@ class Point
   attr_accessor :item
   attr_accessor :fragment
   attr_reader   :issues
+  attr_accessor :root
+  
+  def self.root
+    root = Point.new
+    root.text = "__ROOT__"
+    root.root = true
+    root.expanded = true
+    root
+  end
 
   def initialize(item=nil, text=nil, id=nil, fragment='')
     @item = item
@@ -54,6 +63,10 @@ class Point
   
   def hasFragment?
     !@fragment.blank?
+  end
+  
+  def root?
+    @root
   end
   
   def depth
@@ -127,7 +140,7 @@ class Point
     end
     addIssue(Issue.new("Point text values cannot be blank.", nil, "Please specify a value.")) if text.blank?
     addIssue(Issue.new("Point ID values cannot be blank.", nil, "Please specify a value.")) if id.blank?    
-    addIssue(Issue.new("Point item reference cannot be blank.", "Please specify an item.")) if item.nil?
+    addIssue(Issue.new("Point item reference cannot be blank.", nil, "Please specify an item.")) if item.nil? && !root?
     !hasIssues?
   end
   

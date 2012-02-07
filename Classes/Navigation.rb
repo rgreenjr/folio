@@ -14,9 +14,7 @@ class Navigation
     @ncx_name = "toc.ncx"
     @title = "untitled"
     @docAuthor = ""
-    @root = Point.new
-    @root.text = "__ROOT__"
-    @root.expanded = true
+    @root = Point.root
 
     return unless book
     
