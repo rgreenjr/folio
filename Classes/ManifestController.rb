@@ -234,7 +234,8 @@ class ManifestController < NSResponder
   def performAddFilepaths(filepaths, parent, childIndex, replace=false)
     items = []
     filepaths.each do |path|
-      items << @manifest.addFile(path, parent, childIndex, replace)
+      item = @manifest.addFile(path, parent, childIndex, replace)
+      items << item if item
     end
     if replace
       undoManager.removeAllActions
@@ -297,15 +298,22 @@ class ManifestController < NSResponder
   end
 
   def deleteItems(items)
-    return unless items && !items.empty?
+    return if items.nil? || items.empty?
     items.each do |item|
       @bookController.tabbedViewController.removeObject(item)
       NSNotificationCenter.defaultCenter.postNotificationName("ManifestWillDeleteItem", object:@manifest, userInfo:item)
       @manifest.delete(item)
     end
-    undoManager.removeAllActions
+    Dispatch::Queue.main.async do
+      # deleting items cannot be undone, but we have to clear undo stack asynchronously incase we are in midst of undo
+      clearUndoStack
+    end
     reloadDataAndSelectItems(nil)
     markBookEdited
+  end
+  
+  def clearUndoStack
+    undoManager.removeAllActions
   end
 
   def addSelectedItemsToSpine(sender)
