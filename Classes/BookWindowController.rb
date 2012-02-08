@@ -252,6 +252,10 @@ class BookWindowController < NSWindowController
     true
   end
   
+  def windowDidBecomeKey(notification)
+    @tabbedViewController.toggleCloseMenuKeyEquivalents
+  end
+  
   private
   
   def openURL(url)

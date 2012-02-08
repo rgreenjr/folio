@@ -111,7 +111,10 @@ class TabbedViewController < NSViewController
   end
   
   def addObject(object)
-    @tabView.addObject(object) if object.item.renderable?
+    if object.item.renderable?
+      @tabView.addObject(object)
+      toggleCloseMenuKeyEquivalents
+    end
   end
 
   def removeObject(object)
@@ -138,6 +141,7 @@ class TabbedViewController < NSViewController
 
   def closeTab(sender)
     @tabView.closeSelectedTab
+    toggleCloseMenuKeyEquivalents
   end
   
   def selectedTabPrintView
@@ -274,6 +278,19 @@ class TabbedViewController < NSViewController
       numberOfTabs > 0 && selectedItem.parseable? && sourceViewController.visible?
     else
       true
+    end
+  end
+
+  def toggleCloseMenuKeyEquivalents
+    fileMenu = NSApp.mainMenu.itemWithTitle("File")
+    closeMenu = fileMenu.submenu.itemWithTitle("Close")
+    closeTabMenu = fileMenu.submenu.itemWithTitle("Close Tab")
+    if @bookController.window.isKeyWindow && numberOfTabs > 0
+      closeTabMenu.keyEquivalent = "w"
+      closeMenu.keyEquivalent = "W"
+    else
+      closeTabMenu.keyEquivalent = ""
+      closeMenu.keyEquivalent = "w"
     end
   end
 
