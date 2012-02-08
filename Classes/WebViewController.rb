@@ -44,7 +44,7 @@ class WebViewController < NSViewController
     unsupported = menuItems.select { |item| unsupportedMenuTags.include?(item.tag) }
     unsupported.each { |item| menuItems.delete(item) }
     
-    puts element[WebElementDOMNodeKey]
+    # puts element[WebElementDOMNodeKey]
 
     menuItem = NSMenuItem.alloc.init
     menuItem.title = "Create Navigation Link"

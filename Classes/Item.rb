@@ -267,7 +267,7 @@ class Item
         begin
           @fragments = XMLLint.findFragments(content)
         rescue Exception => exception
-          puts "fragments exception: #{exception.message}"
+          # puts "fragments exception: #{exception.message}"
           @parsingError = exception.message
         end
       else
