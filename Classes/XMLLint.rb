@@ -25,6 +25,35 @@ class XMLLint
 
     issues
   end
+  
+  def self.format(content)
+    formattedText = nil
+    issues = []
+    input = Tempfile.open('me.folioapp.xmllint.format.')
+    errors = Tempfile.open('me.folioapp.xmllint.errors.')
+    begin
+      File.open(input, 'w') { |f| f.print(content) }
+    
+      # format content and redirect any errors
+      formattedText = `xmllint --format #{input.path} 2>#{errors.path}`
+
+      unless errors.size == 0
+        errors.each_line do |line|
+          if line =~ /^#{input.path}:([0-9]+): (.*)/
+            lineNumber = $1.to_i
+            message = $2.gsub("parser error : ", "")
+            issues << Issue.new(message, lineNumber)
+          end
+        end
+      end
+    ensure
+      input.close
+      input.unlink
+      errors.close
+      errors.unlink
+    end
+    [formattedText, issues]
+  end
 
   def self.findFragments(content)
     error = Pointer.new(:id)

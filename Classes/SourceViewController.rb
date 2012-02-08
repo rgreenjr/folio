@@ -202,37 +202,14 @@ class SourceViewController < NSViewController
 
   def reformatText(sender)
     @item.clearIssues
-    input = Tempfile.open('me.folioapp.xmllint.format.')
-    errors = Tempfile.open('me.folioapp.xmllint.errors.')
-    begin
-      File.open(input, 'w') { |f| f.print(view.string) }
-    
-      # format content and redirect any errors
-      formattedText = `xmllint --format #{input.path} 2>#{errors.path}`
-
-      if errors.size == 0
-        replace(NSRange.new(0, view.string.length), formattedText)
-      else
-        errors.each_line do |line|
-          if line =~ /^#{input.path}:([0-9]+): (.*)/
-            lineNumber = $1.to_i
-            message = $2.gsub("parser error : ", "")
-            issue = Issue.new(message, lineNumber)
-            @item.addIssue(issue)
-          end
-        end
-        # goto the first issue
-        gotoLineNumber(@item.issues.first.lineNumber) if @item.hasIssues?
-      end
-      
+    formattedText, issues = XMLLint.format(view.string)
+    if issues.empty?
+      replace(NSRange.new(0, view.string.length), formattedText)
       @lineNumberView.setNeedsDisplay(true)
       NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
-      
-    ensure
-      input.close
-      input.unlink
-      errors.close
-      errors.unlink
+    else
+      issues.each { |issue| @item.addIssue(issue) }
+      gotoLineNumber(@item.issues.first.lineNumber)
     end
   end
 
