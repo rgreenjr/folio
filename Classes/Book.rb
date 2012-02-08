@@ -62,9 +62,7 @@ class Book < NSDocument
         @issues     = []
         true
       rescue Exception => exception
-        info = {
-          NSLocalizedFailureReasonErrorKey => "\n\n" + exception.message
-        }
+        info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
         outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
         false
       end
@@ -86,7 +84,7 @@ class Book < NSDocument
     FileUtils.rm_rf(tmp)
     true
   rescue Exception => exception
-    info = { NSLocalizedFailureReasonErrorKey => exception.message }
+    info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
     outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
     false
   end
