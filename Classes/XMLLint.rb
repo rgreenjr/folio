@@ -1,19 +1,18 @@
 class XMLLint
 
   def self.validate(content, mediaType, issues=[])
-    error = Pointer.new(:id)
-    doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
-
+    doc = parseXML(content)
     if doc && doc.DTD
       arguments = "--noout --nonet --valid"
     else
       path = schemaPathForMediaType(mediaType)
       arguments = path ? "--noout --schema #{path}" : "--noout"
     end
-
-    execute(arguments, content) do |success, path, output|
-      output.split(/\n/).each do |line|
-        if line =~ /#{path}:(\d+):(.*)/
+    
+    tmpFileWithContent(content) do |tmp|
+      errors = `#{command} #{arguments} #{tmp.path} 2>&1`
+      errors.split(/\n/).each do |line|
+        if line =~ /#{tmp.path}:(\d+):(.*)/
           lineNumber = $1
           message = scrubMessage($2)
           issues << Issue.new(message, lineNumber)
@@ -22,33 +21,39 @@ class XMLLint
         end
       end
     end
-
+    
     issues
   end
   
-  def self.format(content)
+  def self.format(content, mediaType)
     formattedText = nil
     issues = []
-    input = Tempfile.open('me.folioapp.xmllint.format.')
     errors = Tempfile.open('me.folioapp.xmllint.errors.')
     begin
-      File.open(input, 'w') { |f| f.print(content) }
-    
-      # format content and redirect any errors
-      formattedText = `xmllint --format #{input.path} 2>#{errors.path}`
-
-      unless errors.size == 0
-        errors.each_line do |line|
-          if line =~ /^#{input.path}:([0-9]+): (.*)/
-            lineNumber = $1.to_i
-            message = $2.gsub("parser error : ", "")
-            issues << Issue.new(message, lineNumber)
+      
+      doc = parseXML(content)
+      if doc && doc.DTD
+        arguments = "--format --nonet --valid"
+      else
+        arguments = "--format"
+      end
+      
+      tmpFileWithContent(content) do |tmp|
+        # format content and redirect any errors
+        formattedText = `#{command}  #{arguments} #{tmp.path} 2>#{errors.path}`
+      
+        unless errors.size == 0
+          errors.each_line do |line|
+            if line =~ /^#{tmp.path}:([0-9]+): (.*)/
+              lineNumber = $1.to_i
+              message = $2.gsub("parser error : ", "")
+              issues << Issue.new(message, lineNumber)
+            end
           end
         end
       end
+      
     ensure
-      input.close
-      input.unlink
       errors.close
       errors.unlink
     end
@@ -72,46 +77,8 @@ class XMLLint
 
   private
 
-  def self.execute(arguments, content, &block)
-    tmp = Tempfile.new('me.folioapp.xmllint.valid')
-    begin
-      File.open(tmp, "w") { |f| f.print content }
-      output = `cd #{resourcesPath}; XML_CATALOG_FILES=#{catalogPath} xmllint #{arguments} #{tmp.path} 2>&1`
-      yield($?.success?, tmp.path, output)
-    ensure
-      tmp.close
-      tmp.unlink
-    end
-  end
-
-  def self.catalogPath
-    @catalogPath ||= File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/catalog.xml")
-  end
-
-  def self.resourcesPath
-    @workingPath ||= File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources")
-  end
-
   def self.schemaPathForMediaType(mediaType)
-    case mediaType
-    when Media::HTML
-      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/xhtml1-strict.xsd")
-    else
-      nil
-    end
-  end
-
-  def self.dtdPathForMediaType(mediaType)
-    case mediaType
-    when Media::HTML
-      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/xhtml1-strict.dtd")
-    when Media::NCX
-      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/ncx-2005-1.dtd")
-    when Media::OPF
-      File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/opf20.dtd")
-    else
-      nil
-    end
+    mediaType == Media::HTML ? File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/xhtml1-strict.xsd") : nil
   end
 
   def self.scrubMessage(message)
@@ -119,7 +86,28 @@ class XMLLint
     message = message.gsub(/^ element \w*: /, '')
     message = message.gsub('Schemas validity error : ', '')
     message = message.gsub(/^ parser error : /, '')
-    message = message.gsub(/: This element is not expected. Expected is one of /, ' is unexpected and should be one of ')
+    message = message.gsub(/: This element is not expected. Expected is one of /, ' is not allowed in this context and should be one of ')
+  end
+  
+  def self.tmpFileWithContent(content)
+    tmp = Tempfile.new('me.folioapp.xmllint.valid')
+    begin
+      File.open(tmp, "w") { |f| f.print content }
+      yield(tmp)
+    ensure
+      tmp.close
+      tmp.unlink
+    end
+  end
+  
+  def self.command
+    @catalogPath ||= File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/catalog.xml")
+    "XML_CATALOG_FILES=#{@catalogPath} xmllint"
+  end
+  
+  def self.parseXML(content)
+    error = Pointer.new(:id)
+    NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
   end
   
 end

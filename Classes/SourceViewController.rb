@@ -202,7 +202,7 @@ class SourceViewController < NSViewController
 
   def reformatText(sender)
     @item.clearIssues
-    formattedText, issues = XMLLint.format(view.string)
+    formattedText, issues = XMLLint.format(view.string, @item.mediaType)
     if issues.empty?
       replace(NSRange.new(0, view.string.length), formattedText)
       @lineNumberView.setNeedsDisplay(true)
