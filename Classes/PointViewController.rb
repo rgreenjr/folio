@@ -101,26 +101,21 @@ class PointViewController < NSViewController
   def numberOfItemsInComboBox(comboBox)
     return 0 unless @point
     item = @point.item
-    entry = @parsingHash[item]
-    if entry.nil?
-      if item.fragmentsCached?
-        enableFragmentComboBoxForItem(item)
-        return item.fragments.size 
-      else
-        disableFragmentComboBox
-        @parsingHash[item] = :loading
-        queue.async do
-          item.fragments # load fragments asynchronously
-          @parsingHash[item] = :complete
+    if item.fragmentsCached?
+      enableFragmentComboBox(item)
+      return item.fragments.size
+    elsif item.parsingError
+      enableFragmentComboBox(item)
+      return 0
+    else
+      disableFragmentComboBox
+      Dispatch::Queue.concurrent(:default).async do
+        item.fragments
+        Dispatch::Queue.main.async do
+          enableFragmentComboBox(item)
           @fragmentComboBox.noteNumberOfItemsChanged
         end
-        return 0
       end
-    elsif entry == :complete
-      enableFragmentComboBoxForItem(item)
-      return item.fragments.size
-    else
-      # still loading fragments asynchronously
       return 0
     end
   end
@@ -156,36 +151,26 @@ class PointViewController < NSViewController
     @undoManager ||= @bookController.window.undoManager
   end
 
-  def enableFragmentComboBoxForItem(item)
-    @parsingHash[item] = nil
+  def mouseEntered(event)
+    if @point && @point.item.parsingError
+      string = @point.item.parsingError.chomp
+      @popoverTextView.textStorage.attributedString = NSAttributedString.alloc.initWithString(string, attributes:@popoverTextAttributes)
+      @popover.showRelativeToRect(@errorImage.bounds, ofView:@errorImage, preferredEdge:NSMaxXEdge)
+    end
+  end
+  
+  def enableFragmentComboBox(item)
     @progressIndicator.hidden = true
     @progressIndicator.stopAnimation(self)
     @fragmentComboBox.enabled = true
     @errorImage.hidden = item.parsingError.nil?
   end
-
+  
   def disableFragmentComboBox
     @progressIndicator.startAnimation(self)
     @progressIndicator.hidden = false
     @fragmentComboBox.enabled = false
-  end
-  
-  def mouseEntered(event)
-    if @point && @point.item.parsingError
-      string = @point.item.parsingError.localizedDescription.chomp
-      # errorCount = string.scan("\n").size + 1
-      # @popoverLabel.stringValue = "Parsing Error".pluralize(errorCount)
-      @popoverTextView.textStorage.attributedString = NSAttributedString.alloc.initWithString(string, attributes:@popoverTextAttributes)
-      @popover.showRelativeToRect(@errorImage.bounds, ofView:@errorImage, preferredEdge:NSMaxXEdge)
-    end
-  end
-
-  def mouseExited(event)
-    # @popover.close
-  end
-
-  def queue
-    @queue ||= Dispatch::Queue.new("me.folioapp.fragment-parsing-queue")
+    @errorImage.hidden = true
   end
 
 end

@@ -55,9 +55,16 @@ class PointPanelController < NSWindowController
     item = selectedSourceItem
     return 0 unless item
     return item.fragments.size if item.fragmentsCached?
-    performSelectorOnMainThread("loadFragments:", withObject:item, waitUntilDone:false)
     @progressIndicator.startAnimation(self)
     @progressIndicator.hidden = false
+    Dispatch::Queue.concurrent(:default).async do
+      item.fragments # force fragment parsing
+      Dispatch::Queue.main.async do
+        @progressIndicator.hidden = true
+        @progressIndicator.stopAnimation(self)
+        @fragmentComboBox.noteNumberOfItemsChanged
+      end
+    end
     return 0
   end
   
@@ -86,13 +93,6 @@ class PointPanelController < NSWindowController
       @items << item 
       @sourcePopup.addItemWithTitle(item.href)
     end
-  end
-  
-  def loadFragments(item)
-    item.fragments # force fragment parsing
-    @progressIndicator.hidden = true
-    @progressIndicator.stopAnimation(self)
-    @fragmentComboBox.noteNumberOfItemsChanged
   end
   
 end
