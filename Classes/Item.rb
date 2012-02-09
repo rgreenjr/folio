@@ -101,6 +101,10 @@ class Item
     Media.parseable?(@mediaType)
   end
   
+  def spineable?
+    Media.spineable?(@mediaType)
+  end
+  
   def ncx?
     Media.ncx?(@mediaType)
   end

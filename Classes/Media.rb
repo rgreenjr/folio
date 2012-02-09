@@ -70,6 +70,10 @@ class Media
     [XML, HTML, SVG, PMAP, NCX].include?(mediaType)
   end
   
+  def self.spineable?(mediaType)
+    [XML, HTML].include?(mediaType)
+  end
+  
   def self.ncx?(mediaType)
     mediaType == NCX
   end

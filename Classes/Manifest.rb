@@ -145,9 +145,9 @@ class Manifest
     select { |item| item.hasIssues? }
   end
   
-  def eachParseableItem
+  def eachSpineableItem
     each do |item|
-      yield item if item.parseable?
+      yield item if item.spineable?
     end
   end
   

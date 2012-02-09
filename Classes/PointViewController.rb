@@ -140,7 +140,7 @@ class PointViewController < NSViewController
   def updateSourcePopup(point)
     @sourcePopup.removeAllItems
     @items = []
-    @bookController.document.manifest.eachParseableItem do |item|
+    @bookController.document.manifest.eachSpineableItem do |item|
       @items << item 
       @sourcePopup.addItemWithTitle(item.href)
     end
