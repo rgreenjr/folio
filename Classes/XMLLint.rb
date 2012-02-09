@@ -9,10 +9,10 @@ class XMLLint
       arguments = path ? "--noout --schema #{path}" : "--noout"
     end
     
-    tmpFileWithContent(content) do |tmp|
-      errors = `#{command} #{arguments} #{tmp.path} 2>&1`
+    tempfileWithContent(content) do |input|
+      errors = `#{command} #{arguments} #{input.path} 2>&1`
       errors.split(/\n/).each do |line|
-        if line =~ /#{tmp.path}:(\d+):(.*)/
+        if line =~ /#{input.path}:(\d+):(.*)/
           lineNumber = $1
           message = scrubMessage($2)
           issues << Issue.new(message, lineNumber)
@@ -29,33 +29,29 @@ class XMLLint
     formattedText = nil
     issues = []
     errors = Tempfile.open('me.folioapp.xmllint.errors.')
+    output = Tempfile.open('me.folioapp.xmllint.output.')
     begin
-      
       doc = parseXML(content)
-      if doc && doc.DTD
-        arguments = "--format --nonet --valid"
-      else
-        arguments = "--format"
-      end
-      
-      tmpFileWithContent(content) do |tmp|
-        # format content and redirect any errors
-        formattedText = `#{command}  #{arguments} #{tmp.path} 2>#{errors.path}`
-      
-        unless errors.size == 0
+      arguments = (doc && doc.DTD) ? "--format --nonet --valid" : "--format"
+      tempfileWithContent(content) do |input|        
+        system("#{command} #{arguments} #{input.path} 1>#{output.path} 2>#{errors.path}")
+        if errors.size == 0
+          formattedText = File.read(output)
+        else
           errors.each_line do |line|
-            if line =~ /^#{tmp.path}:([0-9]+): (.*)/
+            if line =~ /^#{input.path}:([0-9]+): (.*)/
               lineNumber = $1.to_i
               message = $2.gsub("parser error : ", "")
               issues << Issue.new(message, lineNumber)
             end
           end
         end
-      end
-      
+      end      
     ensure
       errors.close
       errors.unlink
+      output.close
+      output.unlink
     end
     [formattedText, issues]
   end
@@ -89,7 +85,7 @@ class XMLLint
     message = message.gsub(/: This element is not expected. Expected is one of /, ' is not allowed in this context and should be one of ')
   end
   
-  def self.tmpFileWithContent(content)
+  def self.tempfileWithContent(content)
     tmp = Tempfile.new('me.folioapp.xmllint.valid')
     begin
       File.open(tmp, "w") { |f| f.print content }
