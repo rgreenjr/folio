@@ -977,7 +977,7 @@
 								</object>
 								<object class="NSMenuItem" id="615305040">
 									<reference key="NSMenu" ref="246656630"/>
-									<string key="NSTitle">Re-Indent</string>
+									<string key="NSTitle">Re-Format</string>
 									<string key="NSKeyEquiv">R</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
