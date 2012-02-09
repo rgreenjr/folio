@@ -207,6 +207,8 @@ class SourceViewController < NSViewController
       replace(NSRange.new(0, view.string.length), formattedText)
       @lineNumberView.setNeedsDisplay(true)
       NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
+      view.window.makeFirstResponder(view)
+      view.selectedRange = NSMakeRange(0, 0)
     else
       issues.each { |issue| @item.addIssue(issue) }
       gotoLineNumber(@item.issues.first.lineNumber)
