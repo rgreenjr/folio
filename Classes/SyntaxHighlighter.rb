@@ -156,9 +156,7 @@ class SyntaxHighlighter
     
   def syntaxForMediaType(mediaType)
     case mediaType
-    when Media::HTML
-      XMLSyntax.sharedInstance
-    when Media::XML
+    when Media::HTML, Media::XML, Media::PMAP
       XMLSyntax.sharedInstance
     when Media::CSS
       CSSSyntax.sharedInstance

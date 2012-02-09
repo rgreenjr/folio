@@ -17,6 +17,7 @@ class Media
   TXT       = "text/plain"
   XPGT      = "application/vnd.adobe-page-template+xml"
   XML       = "application/xml"
+  PMAP      = "application/oebps-page-map+xml"
   
   MEDIA_TYPES_HASH = {
     "css"   => CSS,
@@ -54,7 +55,7 @@ class Media
   end
   
   def self.renderable?(mediaType)
-    [XML, HTML, JPG, PNG, GIF, SVG, CSS, TXT].include?(mediaType)
+    [XML, HTML, JPG, PNG, GIF, SVG, CSS, TXT, PMAP].include?(mediaType)
   end
   
   def self.imageable?(mediaType)
@@ -62,11 +63,11 @@ class Media
   end
   
   def self.textual?(mediaType)
-    [XML, HTML, CSS, TXT, SVG, NCX].include?(mediaType)
+    [XML, HTML, CSS, TXT, SVG, NCX, PMAP].include?(mediaType)
   end
   
   def self.parseable?(mediaType)
-    [XML, HTML].include?(mediaType)
+    [XML, HTML, SVG, PMAP, NCX].include?(mediaType)
   end
   
   def self.ncx?(mediaType)

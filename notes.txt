@@ -11,6 +11,9 @@ Features
 Enhancements
 ============
 
+- Auto detect encrypted books.
+- Auto update content when an item's name is changes (e.g. images)
+
 - Add "new" toolbar button for creating items, points, folders, etc.
 - Clicking on line numbers with issue marker opens Issues View
 - Ability to drag to manifest items to the desktop
