@@ -179,7 +179,7 @@ class Navigation
   
   def validate(issues)
     each(true) do |point|
-      issues.concat(point.issues) unless point.valid?
+      issues += point.issues unless point.valid?
     end
   end
   

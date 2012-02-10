@@ -16,57 +16,36 @@ class ValidationController < NSWindowController
     updateStatus("Checking manifest", 0)
 
     increment = 75.0 / book.manifest.size
-    book.manifest.each do |item|
-      if @shouldStop
-        hideProgressWindow
-        return
-      end 
+    book.manifest.each do |item|      
+      return if validationCanceled?
       incrementStatus("Checking item \"#{item.name}\"", increment)
       item.valid?
     end
 
     increment = 10.0 / book.navigation.size
     book.navigation.each(true) do |point|
-      if @shouldStop
-        hideProgressWindow
-        return
-      end 
+      return if validationCanceled?
       incrementStatus("Checking point \"#{point.text}\"", increment)
       point.valid?
     end
 
-    if @shouldStop
-      hideProgressWindow
-      return
-    end 
+    return if validationCanceled?    
     updateStatus("Checking manifest", 86)
     book.validateManifest
 
-    if @shouldStop
-      hideProgressWindow
-      return
-    end 
+    return if validationCanceled?
     updateStatus("Checking OPF file", 88)
     book.validateOPF
 
-    if @shouldStop
-      hideProgressWindow
-      return
-    end 
+    return if validationCanceled?
     updateStatus("Checking container", 90)
     book.validateContainer
     
-    if @shouldStop
-      hideProgressWindow
-      return
-    end 
+    return if validationCanceled?
     updateStatus("Checking metadata", 95)
     book.validateMetadata
     
-    if @shouldStop
-      hideProgressWindow
-      return
-    end 
+    return if validationCanceled?
     updateStatus("Checking navigation", 99)
     book.validateNavigation
 
@@ -126,6 +105,15 @@ class ValidationController < NSWindowController
   def hideSuccessWindow
     NSApp.endSheet(successWindow)
     successWindow.orderOut(nil)
+  end
+
+  def validationCanceled?
+    if @shouldStop
+      hideProgressWindow
+      true
+    else
+      false
+    end
   end
 
 end
