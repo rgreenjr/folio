@@ -136,7 +136,7 @@ class Point
   def valid?
     clearIssues
     if hasFragment? && item && !item.containsFragment?(fragment)
-      addIssue Issue.new("The item \"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", nil, "Please specify an existing fragment identifier.")
+      addIssue Issue.new("Item \"#{item.name}\" doesn't contain the fragment \"#{fragment}\".", nil, "Please specify an existing fragment identifier.")
     end
     addIssue(Issue.new("Point text values cannot be blank.", nil, "Please specify a value.")) if text.blank?
     addIssue(Issue.new("Point ID values cannot be blank.", nil, "Please specify a value.")) if id.blank?    

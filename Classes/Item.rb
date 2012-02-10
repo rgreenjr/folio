@@ -282,11 +282,11 @@ class Item
   end
   
   def closestFragment(string)
-    fragments.find {|frag| frag.match(/^#{string}/i)}
+    fragments.find {|frag| frag.match(/^#{string}/i)} unless fragments.nil?
   end
   
   def containsFragment?(fragment)
-    fragment && fragments.include?(fragment)
+    fragment && fragments && fragments.include?(fragment)
   end
   
   def fragmentsCached?
