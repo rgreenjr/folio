@@ -9,6 +9,7 @@ class ValidationController < NSWindowController
   end
   
   def validateBook(book, lineNumberView)
+    @shouldStop = false
     book.clearIssues    
     showProgressWindow(book)
     
@@ -16,28 +17,56 @@ class ValidationController < NSWindowController
 
     increment = 75.0 / book.manifest.size
     book.manifest.each do |item|
+      if @shouldStop
+        hideProgressWindow
+        return
+      end 
       incrementStatus("Checking item \"#{item.name}\"", increment)
       item.valid?
     end
 
     increment = 10.0 / book.navigation.size
     book.navigation.each(true) do |point|
+      if @shouldStop
+        hideProgressWindow
+        return
+      end 
       incrementStatus("Checking point \"#{point.text}\"", increment)
       point.valid?
     end
 
+    if @shouldStop
+      hideProgressWindow
+      return
+    end 
     updateStatus("Checking manifest", 86)
     book.validateManifest
 
+    if @shouldStop
+      hideProgressWindow
+      return
+    end 
     updateStatus("Checking OPF file", 88)
     book.validateOPF
 
+    if @shouldStop
+      hideProgressWindow
+      return
+    end 
     updateStatus("Checking container", 90)
     book.validateContainer
     
+    if @shouldStop
+      hideProgressWindow
+      return
+    end 
     updateStatus("Checking metadata", 95)
     book.validateMetadata
     
+    if @shouldStop
+      hideProgressWindow
+      return
+    end 
     updateStatus("Checking navigation", 99)
     book.validateNavigation
 
@@ -48,6 +77,10 @@ class ValidationController < NSWindowController
     if book.totalIssueCount == 0
       showSuccessWindow(book)
     end
+  end
+  
+  def cancelValidation(sender)
+    @shouldStop = true
   end
   
   private
