@@ -271,7 +271,7 @@ class Item
       if parseable?
         begin
           @fragments = XMLLint.findFragments(content)
-        rescue REXML::ParseException => exception
+        rescue StandardError => exception
           if exception.message =~ /Line (\d+): (.*)/
             addIssue(Issue.new($2, $1)) 
           end

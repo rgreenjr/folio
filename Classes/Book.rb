@@ -23,18 +23,18 @@ class Book < NSDocument
     progressController = ProgressController.alloc.init
     progressController.showWindowWithTitle("Opening...") do |progressBar|
       @unzipPath = Dir.mktmpdir(UNZIP_DIRECTORY_PREFIX)
-      progressBar.doubleValue = 10.0
+      progressBar.doubleValue = 10
       runCommand("unzip -q -d '#{@unzipPath}' \"#{absoluteURL.path}\"")
-      progressBar.doubleValue = 50.0
-      @container  = Container.load(@unzipPath)
-      progressBar.doubleValue = 100.0
+      progressBar.doubleValue = 50
+      @container  = Container.load(@unzipPath, progressBar)
+      progressBar.doubleValue = 100
       @issues = []
       true
     end
-  # rescue Exception => exception
-  #   info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
-  #   outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:1 userInfo:info))
-  #   false
+  rescue StandardError => exception
+    info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
+    outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:1, userInfo:info))
+    false
   end
 
   def writeToURL(absoluteURL, ofType:inTypeName, error:outError)
@@ -48,10 +48,10 @@ class Book < NSDocument
     FileUtils.mv(File.join(tempDirectory, tempName), absoluteURL.path)
     FileUtils.rm_rf(tempDirectory)
     true
-  # rescue Exception => exception
-  #   info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
-  #   outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:1, userInfo:info))
-  #   false
+  rescue StandardError => exception
+    info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
+    outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:1, userInfo:info))
+    false
   end
 
   def makeWindowControllers

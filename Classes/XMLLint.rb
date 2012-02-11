@@ -59,9 +59,9 @@ class XMLLint
   def self.findFragments(content)
     error = Pointer.new(:id)
     doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
-    raise REXML::ParseException.new(error[0].localizedDescription) if error[0]
+    raise StandardError, error[0].localizedDescription if error[0]
     array = doc.nodesForXPath("//*[@id]", error:error)
-    raise REXML::ParseException.new(error[0].localizedDescription) if error[0]
+    raise StandardError, error[0].localizedDescription if error[0]
     fragments = []
     array.each do |element|
       element.attributes.each do |attribute|

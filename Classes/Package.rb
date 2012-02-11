@@ -15,15 +15,20 @@ class Package
   attr_accessor :guide
   attr_accessor :navigation
 
-  def self.load(unzipPath, fullPath)
+  def self.load(unzipPath, fullPath, progressBar)
     package = Package.new(unzipPath, fullPath)
     raise "The OPF file \"#{fullPath}\" could not be found." unless File.exists?(package.absoluteFullPath)
     package.opf = REXML::Document.new(File.read(package.absoluteFullPath))
     package.manifest = Manifest.load(package)
+    progressBar.doubleValue = 75
     package.metadata = Metadata.load(package)
+    progressBar.doubleValue = 80
     package.spine = Spine.load(package)
+    progressBar.doubleValue = 85
     package.guide = Guide.load(package)
+    progressBar.doubleValue = 90
     package.navigation = Navigation.load(package)
+    progressBar.doubleValue = 95
     package
   rescue REXML::ParseException => exception
     raise StandardError, "Unable to parse OPF file \"#{fullPath}\": #{exception.explain}"

@@ -8,12 +8,12 @@ class Container
   attr_reader   :absolutePath
   attr_accessor :package
 
-  def self.load(unzipPath)
+  def self.load(unzipPath, progressBar)
     raise "This book is encrytped and cannot be opened." if File.exists?(File.join(unzipPath, ENCRYPTION_XML_PATH))
     container = Container.new(unzipPath)
     raise "The \"#{CONTAINER_XML_PATH}\" file is missing." unless File.exists?(container.absolutePath)
     doc = REXML::Document.new(File.read(container.absolutePath))
-    container.package = Package.load(unzipPath, extractRootFilePath(doc))
+    container.package = Package.load(unzipPath, extractRootFilePath(doc), progressBar)
     container
   rescue REXML::ParseException => exception
     raise StandardError, "Unable to parse \"#{CONTAINER_XML_PATH}\": #{exception.explain}"
