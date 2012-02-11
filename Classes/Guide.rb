@@ -32,7 +32,7 @@ class Guide
   
   def initialize(container, manifest)
     @manifest = manifest
-    container.each_element("/package/guide/reference") do |element|
+    container.package.each("guide/reference") do |element|
       href  = element.attributes["href"]
       
       # strip fragment before lookup

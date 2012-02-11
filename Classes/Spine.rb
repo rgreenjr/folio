@@ -4,7 +4,7 @@ class Spine < DelegateClass(Array)
     @itemRefs = []
     super(@itemRefs)
     if book
-      book.container.each_element("/package/spine/itemref") do |element|
+      book.container.package.each("spine/itemref") do |element|
         idref = element.attributes["idref"]
         linear = element.attributes["linear"]
         item = book.manifest.itemWithId(idref)

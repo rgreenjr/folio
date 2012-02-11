@@ -3,18 +3,19 @@ class Manifest
   attr_accessor :root
   attr_accessor :ncx
   
-  def initialize(container)
-    @container = container
+  def initialize(package)
+    @package = package
     
+    # create hash to map item ID's to items
     @itemsMap  = {}
 
     # create the root item
-    @root = Item.new(nil, @container.absolutePath, 'ROOT', Media::DIRECTORY, true)
+    @root = Item.new(nil, @package.absoluteDirectory, 'ROOT', Media::DIRECTORY, true)
     
-    if !@container.hasOPFDoc?
+    if !@package.opf
       @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', Media::NCX)
     else
-      @container.each_element("/package/manifest/item") do |e|
+      @package.each("manifest/item") do |e|
         parent = @root
         parts = e.attributes["href"].split('/')
         parts.each_with_index do |part, index|
@@ -28,14 +29,14 @@ class Manifest
         end
         item = Item.new(parent, parts.last, e.attributes["id"], e.attributes["media-type"])
         
-        # raise if item isn't readable
-        unless File.readable?(item.path)
-          raise "You do not have permission to access the manifest item \"#{item.href}\"."
-        end
-        
         # raise if item doesn't exist
         unless File.exist?(item.path)
           raise "The manifest item \"#{item.href}\" could not be found."
+        end
+        
+        # raise if item isn't readable
+        unless File.readable?(item.path)
+          raise "You do not have permission to access the manifest item \"#{item.href}\"."
         end
         
         # check item is NCX otherwise append to end
@@ -123,7 +124,7 @@ class Manifest
   end
   
   def itemWithHref(href)
-    href = @container.relativePathFor(href)
+    href = @package.makePathRelative(href)    
     current = @root
     parts = href.split('/')
     while !parts.empty? && current

@@ -7,6 +7,19 @@
 #
 # OEBPS/toc.ncx (variable path and filename)
 # OEBPS/content.opf (variable path and filename)
+#
+# EPUB version 2.0.1 consists of three specifications:
+# 
+# Open Publication Structure (OPS) 2.0.1, contains the formatting of its content.
+# 
+# Open Packaging Format (OPF) 2.0.1, describes the structure of the .epub file in XML.
+# 
+# Open Container Format (OCF) 2.0.1, collects all files as a ZIP archive.
+# 
+# EPUB internally uses XHTML or DTBook (an XML standard provided by the DAISY Consortium) to 
+# represent the text and structure of the content document, and a subset of CSS to provide 
+# layout and formatting. XML is used to create the document manifest, table of contents, 
+# and EPUB metadata. Finally, the files are bundled in a zip file as a packaging format.
 
 class Book < NSDocument
   
@@ -29,7 +42,7 @@ class Book < NSDocument
     super
     @unzipPath  = Dir.mktmpdir(UNZIP_DIRECTORY_PREFIX)
     @container  = Container.new(@unzipPath)
-    @manifest   = Manifest.new(@container)
+    @manifest   = Manifest.new(@container.package)
     @metadata   = Metadata.new
     @spine      = Spine.new
     @guide      = Guide.new(@container, @manifest)
@@ -45,26 +58,36 @@ class Book < NSDocument
       begin
         @unzipPath  = Dir.mktmpdir(UNZIP_DIRECTORY_PREFIX)
         progressBar.doubleValue = 10.0
+        
         runCommand("unzip -q -d '#{@unzipPath}' \"#{absoluteURL.path}\"")
         progressBar.doubleValue = 40.0
-        @container  = Container.new(@unzipPath, self)
+        
+        @container  = Container.load(@unzipPath)
         progressBar.doubleValue = 50.0
-        @manifest   = Manifest.new(@container)
+        
+        p @container.package
+        puts "-----"
+        
+        @manifest   = Manifest.new(@container.package)
         progressBar.doubleValue = 60.0
+        
         @metadata   = Metadata.new(self)
         progressBar.doubleValue = 70.0
+        
         @spine      = Spine.new(self)
         progressBar.doubleValue = 80.0
+        
         @guide      = Guide.new(@container, @manifest)
         progressBar.doubleValue = 90.0
+        
         @navigation = Navigation.new(self)
         progressBar.doubleValue = 100.0
         @issues     = []
         true
-      rescue Exception => exception
-        info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
-        outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
-        false
+      # rescue Exception => exception
+      #   info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
+      #   outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:-4, userInfo:info))
+      #   false
       end
     end
   end
@@ -74,10 +97,10 @@ class Book < NSDocument
     tmp = Dir.mktmpdir("folio-zip-")
     File.open(File.join(tmp, "mimetype"), "w") {|f| f.print "application/epub+zip"}
     @container.save(tmp)
-    dest = File.join(tmp, @container.relativePath)
+    dest = File.join(tmp, @container.package.directory)
     @manifest.save(dest)
     @navigation.save(dest)
-    File.open(File.join(tmp, @container.relativePath, "content.opf"), "w") {|f| f.puts opfXML}
+    File.open(File.join(tmp, @container.package.fullPath), "w") {|f| f.puts opfXML}
     runCommand("cd '#{tmp}'; zip -qX0 ./folio-book.epub mimetype")
     runCommand("cd '#{tmp}'; zip -qX9urD ./folio-book.epub *")
     FileUtils.mv(File.join(tmp, 'folio-book.epub'), absoluteURL.path)
@@ -133,8 +156,8 @@ class Book < NSDocument
   def validateOPF
     if isDocumentEdited
       XMLLint.validate(opfXML, @issues)
-    elsif @container.hasOPFDoc?
-      XMLLint.validate(@container.opfDoc.to_s, @issues)
+    elsif @container.package.opf
+      XMLLint.validate(@container.package.opf.to_s, @issues)
     end
   end
   
@@ -159,9 +182,7 @@ class Book < NSDocument
   
   def undeclaredItems
     undeclared = []
-    ignore = ["META-INF/container.xml", "mimetype"].map { |item| "#{@unzipPath}/#{item}" }
-    ignore << @container.opfAbsolutePath
-    ignore << @manifest.ncx.path
+    ignore = [File.join(@unzipPath, "mimetype"), @container.absolutePath, @container.package.absolutePath, @manifest.ncx.path]
     Dir.glob("#{@unzipPath}/**/*").each do |entry|
       unless ignore.include?(entry) || File.directory?(entry) || @manifest.itemWithHref(entry)
         undeclared << relativePathFor(entry)
@@ -172,6 +193,7 @@ class Book < NSDocument
 
   private
 
+  # move to Package
   def opfXML
     book = self
     ERB.new(Bundle.template("content.opf")).result(binding)
