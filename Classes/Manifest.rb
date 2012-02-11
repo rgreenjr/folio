@@ -2,58 +2,58 @@ class Manifest
 
   attr_accessor :root
   attr_accessor :ncx
-  
-  def initialize(package)
-    @package = package
-    
-    # create hash to map item ID's to items
-    @itemsMap  = {}
 
-    # create the root item
-    @root = Item.new(nil, @package.absoluteDirectory, 'ROOT', Media::DIRECTORY, true)
+  def self.load(package)
+    manifest = Manifest.new(package)
     
-    if !@package.opf
-      @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', Media::NCX)
-    else
-      @package.each("manifest/item") do |e|
-        parent = @root
-        parts = e.attributes["href"].split('/')
-        parts.each_with_index do |part, index|
-          break if index == (parts.size - 1)
-          directory = parent.childWithName(part)
-          if directory == nil
-            directory = Item.new(parent, part, nil, Media::DIRECTORY)
-            parent << directory
-          end
-          parent = directory
+    package.each("manifest/item") do |element|
+      parent = manifest.root
+      parts = element.attributes["href"].split('/')
+      parts.each_with_index do |part, index|
+        break if index == (parts.size - 1)
+        directory = parent.childWithName(part)
+        if directory == nil
+          directory = Item.new(parent, part, nil, Media::DIRECTORY)
+          parent << directory
         end
-        item = Item.new(parent, parts.last, e.attributes["id"], e.attributes["media-type"])
-        
-        # raise if item doesn't exist
-        unless File.exist?(item.path)
-          raise "The manifest item \"#{item.href}\" could not be found."
-        end
-        
-        # raise if item isn't readable
-        unless File.readable?(item.path)
-          raise "You do not have permission to access the manifest item \"#{item.href}\"."
-        end
-        
-        # check item is NCX otherwise append to end
-        if item.ncx?
-          @ncx = item
-        else
-          insert(-1, item, parent)
-        end
+        parent = directory
+      end
+      
+      item = Item.new(parent, parts.last, element.attributes["id"], element.attributes["media-type"])
+
+      # raise if item doesn't exist
+      unless File.exist?(item.path)
+        raise "The manifest item \"#{item.href}\" could not be found."
       end
 
-      # an NCX file is required, so raise if one wasn't found
-      raise "A navigation NCX file wasn't specified in the manifest." unless @ncx
-      
-      self.sort
+      # raise if item isn't readable
+      unless File.readable?(item.path)
+        raise "You do not have permission to access the manifest item \"#{item.href}\"."
+      end
+
+      # check item is NCX otherwise append to end
+      if item.ncx?
+        manifest.ncx = item
+      else
+        manifest.insert(-1, item, parent)
+      end
     end
+
+    # an NCX file is required, so raise if one wasn't found
+    raise "A navigation NCX file wasn't specified in the manifest." unless manifest.ncx
+
+    manifest.sort
+    
+    manifest
   end
-  
+
+  def initialize(package)
+    @package = package
+    @root = Item.new(nil, @package.absoluteDirectory, 'ROOT', Media::DIRECTORY, true)
+    @ncx = Item.new(@root, 'toc.ncx', 'toc.ncx', Media::NCX)
+    @itemsMap  = {}
+  end
+
   def addFile(filepath, parent, index, replace=false)
     name = File.basename(filepath)
     item = parent.childWithName(name)
@@ -69,7 +69,7 @@ class Manifest
     end
     item
   end
-  
+
   def insert(index, item, parent)
     unless item.directory?
       raise "A resource with ID \"#{item.id}\" already exists in the manifest." if @itemsMap[item.id]
@@ -77,13 +77,13 @@ class Manifest
     @itemsMap[item.id] = item
     parent.insert(index, item)
   end
-  
+
   def delete(item)
     parent = item.parent
     NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:[item.url], withObject:nil)
     parent.delete_at(item.parent.index(item))
   end
-  
+
   def each(includeDirectories=false, &block)
     stack = [@root]
     while stack.size > 0
@@ -104,7 +104,7 @@ class Manifest
       index -= 1
     end
   end
-  
+
   def select(&block)
     items = []
     each do |item|
@@ -112,7 +112,7 @@ class Manifest
     end
     items
   end
-  
+
   def move(item, index, parent)
     FileUtils.mv(item.path, File.join(parent.path, item.name))
     item.parent.delete(item)
@@ -122,7 +122,7 @@ class Manifest
   def itemWithId(identifier)
     @itemsMap[identifier]
   end
-  
+
   def itemWithHref(href)
     href = @package.makePathRelative(href)    
     current = @root
@@ -132,7 +132,7 @@ class Manifest
     end
     current
   end
-  
+
   def changeItemId(item, newID)
     return nil if itemWithId(newID)
     @itemsMap[item.id] = nil
@@ -141,17 +141,17 @@ class Manifest
     @itemsMap[item.id] = item
     oldID
   end
-  
+
   def itemsWithIssues
     select { |item| item.hasIssues? }
   end
-  
+
   def eachSpineableItem
     each do |item|
       yield item if item.spineable?
     end
   end
-  
+
   def totalIssueCount
     itemsWithIssues.inject(0) { |sum, item| sum += item.issueCount }
   end
@@ -160,10 +160,10 @@ class Manifest
     @root.sort
   end
 
-  def save(directory)
-    each(true) {|item| item.saveToDirectory(directory)}
+  def saveItems(directoryPath)
+    each(true) {|item| item.saveToDirectory(directoryPath)}
   end
-  
+
   def to_s
     buffer = "@manifest = {\n"
     @itemsMap.each do |id, item|
@@ -172,7 +172,7 @@ class Manifest
     buffer << "}"
     buffer
   end
-  
+
   def valid?
     isValid = true
     each do |item|
@@ -180,15 +180,15 @@ class Manifest
     end
     isValid
   end
-  
+
   def size
     count = 0
     each { count += 1 }
     count
   end
-  
+
   private
-  
+
   def generateUniqueID(name)
     name = name.stringByDeletingPathExtension
     i = 1
@@ -198,5 +198,5 @@ class Manifest
     end
     name
   end
-  
+
 end

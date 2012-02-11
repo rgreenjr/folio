@@ -5,11 +5,11 @@ class ManifestController < NSResponder
 
   def bookController=(controller)
     @bookController = controller
-    @manifest = @bookController.document.manifest
+    @manifest = @bookController.document.container.package.manifest
     
     # register for metadata change events
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"metadataDidChange:", 
-        name:"MetadataDidChange", object:@bookController.document.metadata)
+        name:"MetadataDidChange", object:@bookController.document.container.package.metadata)
   end
 
   def toggleManifest(sender)
@@ -31,7 +31,7 @@ class ManifestController < NSResponder
         if item.hasIssues?
           view = outlineView.makeViewWithIdentifier("ItemIssueCell", owner:self)
           view.statusTextField.stringValue =  "validation issue".pluralize(item.issueCount)
-        elsif @bookController.document.metadata.cover == item
+        elsif @bookController.document.container.package.metadata.cover == item
           view = outlineView.makeViewWithIdentifier("ItemCoverImageCell", owner:self)
         else
           view = outlineView.makeViewWithIdentifier("ItemCell", owner:self)
@@ -324,8 +324,8 @@ class ManifestController < NSResponder
   def markSelectedItemAsCover(sender)
     item = selectedItem
     return unless item && !item.directory?
-    currentCoverItem = @bookController.document.metadata.cover
-    @bookController.document.metadata.cover = item    
+    currentCoverItem = @bookController.document.container.package.metadata.cover
+    @bookController.document.container.package.metadata.cover = item    
     @outlineView.reloadItem(currentCoverItem)
     @outlineView.reloadItem(item)
     markBookEdited

@@ -18,6 +18,23 @@ class Guide
     "toc"              => "Table of Contents",
   }
 
+  def self.load(package)
+    guide = Guide.new(package)
+    package.each("guide/reference") do |element|
+      href  = element.attributes["href"]      
+      href, fragment = href.split('#') # strip fragment before lookup
+      item  = package.manifest.itemWithHref(href)
+      if item
+        item.referenceType = element.attributes["type"]
+        item.referenceTitle = element.attributes["title"]
+      else
+        # raise "Guide reference item with href \"#{href}\" could not be found." unless item
+        puts "Folio: ignoring guide reference not declared in manifest \"#{href}\""
+      end
+    end
+    guide
+  end
+  
   def self.types
     REFERENCE_TYPE_HASH.values.sort
   end
@@ -30,29 +47,12 @@ class Guide
     REFERENCE_TYPE_HASH[type]
   end
   
-  def initialize(container, manifest)
-    @manifest = manifest
-    container.package.each("guide/reference") do |element|
-      href  = element.attributes["href"]
-      
-      # strip fragment before lookup
-      href, fragment = href.split('#')
-      
-      item  = @manifest.itemWithHref(href)
-      
-      if item
-        item.referenceType = element.attributes["type"]
-        item.referenceTitle = element.attributes["title"]
-      else
-        # raise "Guide reference item with href \"#{href}\" could not be found." unless item
-        puts "Folio: ignoring guide reference not declared in manifest \"#{href}\""
-      end
-      
-    end
+  def initialize(package)
+    @package = package
   end
   
   def each
-    @manifest.each do |item|
+    @package.manifest.each do |item|
       yield item if item.referenceType && item.referenceTitle
     end
   end

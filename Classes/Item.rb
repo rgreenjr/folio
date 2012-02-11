@@ -21,26 +21,26 @@ class Item
     @issues = []    
     FileUtils.mkdir(path) if directory? && !File.exists?(path)
   end
-  
+
   # allows points, itemRefs, and items to be treated interchangeably 
   # when accessing item objects using object.item
   def item
     self
   end
-  
+
   def path
     @parent ? File.join(@parent.path, @name) : @name
   end
-  
+
   def hasParent?
     @parent != nil
   end
-  
+
   def href
     return '' unless hasParent?
     @parent.hasParent? ? "#{@parent.href}/#{@name}" : @name
   end
-  
+
   def url
     NSURL.fileURLWithPath(path)
   end
@@ -48,7 +48,7 @@ class Item
   def content
     @content ||= File.read(path)
   end
-  
+
   def content=(string)
     @lastSavedContent = @content.dup unless @lastSavedContent || @content.nil?
     @content = string.dup
@@ -66,21 +66,21 @@ class Item
     end
     @name
   end
-  
+
   def mediaType=(value)
     unless value.empty?
       @mediaType = value
     end
     @mediaType
   end
-  
+
   def id=(value)
     unless value.empty?
       @id = value
     end
     @id
   end
-  
+
   def links
     @async.value
   end
@@ -88,23 +88,23 @@ class Item
   def renderable?
     Media.renderable?(@mediaType)
   end
-  
+
   def imageable?
     Media.imageable?(@mediaType)
   end
-  
+
   def textual?
     Media.textual?(@mediaType)
   end
-  
+
   def parseable?
     Media.parseable?(@mediaType)
   end
-  
+
   def spineable?
     Media.spineable?(@mediaType)
   end
-  
+
   def ncx?
     Media.ncx?(@mediaType)
   end
@@ -116,15 +116,15 @@ class Item
   def expanded?
     @expanded
   end
-  
+
   def expanded=(bool)
     @expanded = bool
   end
-  
+
   def leaf?
     @children.empty?
   end
-  
+
   def size
     @children.size
   end
@@ -149,11 +149,11 @@ class Item
   def childWithName(name)
     @children.find {|item| item.name == name}
   end
-  
+
   def hasChildWithName?(name)
     childWithName(name) != nil
   end
-  
+
   def index(item)
     each_with_index { |i, index| return index if item == i }
     nil
@@ -171,17 +171,17 @@ class Item
       @children.delete(item)
     end
   end
-  
+
   def delete_at(index)
     @children[index].parent = nil
     @children.delete_at(index)
   end
-  
+
   def save
     File.open(path, 'wb') {|f| f.puts content}
     @lastSavedContent = nil
   end
-  
+
   def saveToDirectory(directory)
     file = File.join(directory, href)
     if directory?
@@ -190,14 +190,14 @@ class Item
       File.open(file, 'wb') {|f| f.puts content}
     end
   end
-  
+
   def revert
     if @lastSavedContent
       @content = @lastSavedContent.dup
       @lastSavedContent = nil
     end
   end
-  
+
   def edited?
     @lastSavedContent != nil
   end
@@ -206,7 +206,7 @@ class Item
     @children.sort!
     @children.each { |item| item.sort }
   end
-  
+
   def generateUniqueChildName(childname, counter=0)
     candidate = childname
     extension = childname.pathExtension
@@ -218,11 +218,11 @@ class Item
     end
     candidate
   end
-  
+
   def <=>(other)
     @name <=> other.name
   end
-  
+
   def ==(other)
     other.class == Item && other.id == @id
   end
@@ -231,7 +231,7 @@ class Item
     return nil unless imageable?
     @image ||= NSImage.alloc.initWithContentsOfFile(path)
   end
-  
+
   def fileSize
     if textual?
       content.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
@@ -239,7 +239,7 @@ class Item
       NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
     end
   end
-  
+
   def issues
     @issues.sort
   end
@@ -247,31 +247,34 @@ class Item
   def hasIssues?
     issueCount > 0
   end
-  
+
   def issueCount
     @issues.size
   end
-  
+
   def clearIssues
     @issues = []
   end
-  
+
   def addIssue(issue)
     @issues << issue if issue
   end
-  
+
   def issueForLine(line)
     @issues.sort.find { |issue| issue.lineNumber == line }
   end
 
   # returns an arrays of strings or nil if parsing fails
   def fragments
+    clearIssues
     unless @fragments
       if parseable?
         begin
           @fragments = XMLLint.findFragments(content)
-        rescue Exception => exception
-          # puts "fragments exception: #{exception.message}"
+        rescue REXML::ParseException => exception
+          if exception.message =~ /Line (\d+): (.*)/
+            addIssue(Issue.new($2, $1)) 
+          end
           @parsingError = exception.message
         end
       else
@@ -280,19 +283,19 @@ class Item
     end
     @fragments
   end
-  
+
   def closestFragment(string)
     fragments.find {|frag| frag.match(/^#{string}/i)} unless fragments.nil?
   end
-  
+
   def containsFragment?(fragment)
     fragment && fragments && fragments.include?(fragment)
   end
-  
+
   def fragmentsCached?
     @fragments != nil
   end
-  
+
   def valid?
     clearIssues
     addIssue Issue.new("ID cannot be blank.") if @id.blank?
@@ -309,7 +312,7 @@ class Item
     end
     @issues.empty?
   end
-  
+
   def duplicateFragments
     duplicates = []
     if fragments

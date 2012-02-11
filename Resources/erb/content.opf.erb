@@ -2,31 +2,31 @@
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
 
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title><%= book.metadata.title.escapeHTML %></dc:title>
-    <dc:language><%= book.metadata.language.escapeHTML %></dc:language>
-    <dc:identifier id="BookId" opf:scheme="ISBN"><%= book.metadata.identifier.escapeHTML %></dc:identifier>
-    <dc:creator opf:file-as="<%= book.metadata.sortCreator.escapeHTML %>" opf:role="aut"><%= book.metadata.creator.escapeHTML %></dc:creator>
-    <dc:date opf:event="publication"><%= book.metadata.date.escapeHTML %></dc:date>
-    <dc:subject><%= book.metadata.subject.escapeHTML %></dc:subject>
-    <dc:description><%= book.metadata.description.escapeHTML %></dc:description>
-    <dc:subject><%= book.metadata.subject.escapeHTML %></dc:subject>
-    <dc:publisher><%= book.metadata.publisher.escapeHTML %></dc:publisher>
-    <dc:rights><%= book.metadata.rights.escapeHTML %></dc:rights>
-    <% if book.metadata.cover %>
-    <meta name="cover" content="<%= book.metadata.cover.id %>"/>
+    <dc:title><%= metadata.title.escapeHTML %></dc:title>
+    <dc:language><%= metadata.language.escapeHTML %></dc:language>
+    <dc:identifier id="BookId" opf:scheme="ISBN"><%= metadata.identifier.escapeHTML %></dc:identifier>
+    <dc:creator opf:file-as="<%= metadata.sortCreator.escapeHTML %>" opf:role="aut"><%= metadata.creator.escapeHTML %></dc:creator>
+    <dc:date opf:event="publication"><%= metadata.date.escapeHTML %></dc:date>
+    <dc:subject><%= metadata.subject.escapeHTML %></dc:subject>
+    <dc:description><%= metadata.description.escapeHTML %></dc:description>
+    <dc:subject><%= metadata.subject.escapeHTML %></dc:subject>
+    <dc:publisher><%= metadata.publisher.escapeHTML %></dc:publisher>
+    <dc:rights><%= metadata.rights.escapeHTML %></dc:rights>
+    <% if metadata.cover %>
+    <meta name="cover" content="<%= metadata.cover.id %>"/>
     <% end %>
   </metadata>
 
-  <manifest><% book.manifest.each do |item| %>
+  <manifest><% manifest.each do |item| %>
     <item id="<%= item.id %>" href="<%= item.href.escapeHTML %>" media-type="<%= item.mediaType %>" /><% end %>
-	<item id="ncx" href="<%= book.manifest.ncx.href.escapeHTML %>" media-type="<%= book.manifest.ncx.mediaType %>" />
+	<item id="ncx" href="<%= manifest.ncx.href.escapeHTML %>" media-type="<%= manifest.ncx.mediaType %>" />
   </manifest>
 
-  <spine toc="ncx"><% book.spine.each do |itemref| %>
+  <spine toc="ncx"><% spine.each do |itemref| %>
     <itemref idref="<%= itemref.idref %>" <% if !itemref.linear? %>linear="<%= itemref.linear %>"<% end %>/><% end %>
   </spine>
 
-  <guide><% book.guide.each do |item| %>
+  <guide><% guide.each do |item| %>
     <reference type="<%= item.referenceType.escapeHTML %>" title="<%= item.referenceTitle.escapeHTML %>" href="<%= item.href.escapeHTML %>" /><% end %>
   </guide>
 

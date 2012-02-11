@@ -35,7 +35,7 @@ class PointPanelController < NSWindowController
     if !point.valid?
       issue = point.issues.first
       Alert.runModal(window, issue.message, issue.informativeText)
-    elsif @bookController.document.navigation.hasPointWithId?(point.id)
+    elsif @bookController.document.container.package.navigation.hasPointWithId?(point.id)
       Alert.runModal(window, "A point with this ID already exists.", "Please choose a unique point ID.")
     else
       closePointCreationSheet(self)
@@ -89,7 +89,7 @@ class PointPanelController < NSWindowController
   def resetSourcePopup
     @sourcePopup.removeAllItems
     @items = []
-    @bookController.document.manifest.eachSpineableItem do |item|
+    @bookController.document.container.package.manifest.eachSpineableItem do |item|
       @items << item 
       @sourcePopup.addItemWithTitle(item.href)
     end

@@ -8,39 +8,39 @@ class ValidationController < NSWindowController
     initWithWindowNibName("Validation")
   end
   
-  def validateBook(book, lineNumberView)
+  def validateBook(book)
     @shouldStop = false
     book.clearIssues    
     showProgressWindow(book)
     
     updateStatus("Checking manifest", 0)
 
-    increment = 75.0 / book.manifest.size
-    book.manifest.each do |item|      
+    increment = 75.0 / book.container.package.manifest.size
+    book.container.package.manifest.each do |item|      
       return if validationCanceled?
       incrementStatus("Checking item \"#{item.name}\"", increment)
       item.valid?
     end
 
-    increment = 10.0 / book.navigation.size
-    book.navigation.each(true) do |point|
+    increment = 10.0 / book.container.package.navigation.size
+    book.container.package.navigation.each(true) do |point|
       return if validationCanceled?
       incrementStatus("Checking point \"#{point.text}\"", increment)
       point.valid?
     end
 
-    return if validationCanceled?    
-    updateStatus("Checking manifest", 86)
-    book.validateManifest
-
     return if validationCanceled?
-    updateStatus("Checking OPF file", 88)
-    book.validateOPF
-
-    return if validationCanceled?
-    updateStatus("Checking container", 90)
+    updateStatus("Checking container", 86)
     book.validateContainer
     
+    return if validationCanceled?
+    updateStatus("Checking package", 88)
+    book.validatePackage
+
+    return if validationCanceled?    
+    updateStatus("Checking manifest", 90)
+    book.validateManifest
+
     return if validationCanceled?
     updateStatus("Checking metadata", 95)
     book.validateMetadata

@@ -111,6 +111,10 @@ class SourceViewController < NSViewController
     @bookController.document.updateChangeCount(NSSaveOperation)    
   end
   
+  def updateLineNumberView
+    @lineNumberView.setNeedsDisplay(true)
+  end
+  
   def undoManagerForTextView(textView)
     @bookController.tabbedViewController.undoManagerForItem(@item)
   end
@@ -129,9 +133,6 @@ class SourceViewController < NSViewController
   def selectCurrentLine(sender)
     paragraphRange = view.textStorage.string.paragraphRangeForRange(selectedRange)
     view.setSelectedRange(paragraphRange)
-  end
-
-  def selectEnclosingBrackets(sender)
   end
 
   def uppercaseSelectedText(sender)
@@ -205,7 +206,7 @@ class SourceViewController < NSViewController
     formattedText, issues = XMLLint.format(view.string, @item.mediaType)
     if issues.empty?
       replace(NSRange.new(0, view.string.length), formattedText)
-      @lineNumberView.setNeedsDisplay(true)
+      updateLineNumberView
       NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
       view.window.makeFirstResponder(view)
       view.selectedRange = NSMakeRange(0, 0)

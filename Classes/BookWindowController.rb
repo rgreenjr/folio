@@ -62,7 +62,7 @@ class BookWindowController < NSWindowController
   end
 
   def windowTitleForDocumentDisplayName(windowTitleForDocumentDisplayName)
-    document.metadata.title
+    document.container.package.metadata.title
   end
 
   def splitView(sender, constrainMinCoordinate:proposedMin, ofSubviewAt:offset)
@@ -177,15 +177,15 @@ class BookWindowController < NSWindowController
   end
 
   def searchWikipedia(sender)
-    openURL("http://en.wikipedia.org/wiki/Special:Search/#{document.metadata.title.urlEscape}")
+    openURL("http://en.wikipedia.org/wiki/Special:Search/#{document.container.package.metadata.title.urlEscape}")
   end
 
   def searchGoogle(sender)
-    openURL("http://www.google.com/search?q=#{document.metadata.title.urlEscape}+#{document.metadata.creator.urlEscape}")
+    openURL("http://www.google.com/search?q=#{document.metadata.title.urlEscape}+#{document.container.package.metadata.creator.urlEscape}")
   end
 
   def searchAmazon(sender)
-    openURL("http://www.amazon.com/s?field-keywords=#{document.metadata.title.urlEscape}+#{document.metadata.creator.urlEscape}")
+    openURL("http://www.amazon.com/s?field-keywords=#{document.container.package.metadata.title.urlEscape}+#{document.container.package.metadata.creator.urlEscape}")
   end
 
   def showProgressWindow(title, &block)
@@ -208,10 +208,11 @@ class BookWindowController < NSWindowController
   def validate(sender)
     Dispatch::Queue.concurrent(:default).async do
       @validationController ||= ValidationController.alloc.init
-      @validationController.validateBook(document, @tabbedViewController.sourceViewController.lineNumberView)
+      @validationController.validateBook(document)
       Dispatch::Queue.main.async do
         issueViewController.refresh
         updateInformationField
+        @tabbedViewController.sourceViewController.updateLineNumberView
         @selectionViewController.outlineView.reloadData
         showIssueView if document.totalIssueCount > 0
       end
@@ -219,7 +220,7 @@ class BookWindowController < NSWindowController
   end
   
   def updateInformationField
-    @informationField.stringValue = "#{document.manifest.size} items, #{document.fileSize.to_storage_size}"
+    @informationField.stringValue = "#{document.container.package.manifest.size} items, #{document.fileSize.to_storage_size}"
   end
   
   def printDocument(sender)

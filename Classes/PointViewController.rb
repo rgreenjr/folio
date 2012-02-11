@@ -62,7 +62,7 @@ class PointViewController < NSViewController
   def changeID(point, value)
     return unless point
     unless value.blank? || point.id == value
-      if oldID = @bookController.document.navigation.changePointId(point, value)
+      if oldID = @bookController.document.container.package.navigation.changePointId(point, value)
         undoManager.prepareWithInvocationTarget(self).changeID(point, oldID)
         undoManager.actionName = "Change ID"
       else
@@ -114,6 +114,7 @@ class PointViewController < NSViewController
         Dispatch::Queue.main.async do
           enableFragmentComboBox(item)
           @fragmentComboBox.noteNumberOfItemsChanged
+          @bookController.tabbedViewController.sourceViewController.updateLineNumberView
         end
       end
       return 0
@@ -140,7 +141,7 @@ class PointViewController < NSViewController
   def updateSourcePopup(point)
     @sourcePopup.removeAllItems
     @items = []
-    @bookController.document.manifest.eachSpineableItem do |item|
+    @bookController.document.container.package.manifest.eachSpineableItem do |item|
       @items << item 
       @sourcePopup.addItemWithTitle(item.href)
     end
@@ -162,14 +163,14 @@ class PointViewController < NSViewController
   def enableFragmentComboBox(item)
     @progressIndicator.hidden = true
     @progressIndicator.stopAnimation(self)
-    @fragmentComboBox.enabled = true
+    # @fragmentComboBox.enabled = true
     @errorImage.hidden = item.parsingError.nil?
   end
   
   def disableFragmentComboBox
     @progressIndicator.startAnimation(self)
     @progressIndicator.hidden = false
-    @fragmentComboBox.enabled = false
+    # @fragmentComboBox.enabled = false
     @errorImage.hidden = true
   end
 

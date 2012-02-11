@@ -5,11 +5,11 @@ class NavigationController < NSResponder
   
   def bookController=(controller)
     @bookController = controller
-    @navigation = @bookController.document.navigation
+    @navigation = @bookController.document.container.package.navigation
 
     # register for manifest item deletion notifications
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"manifestWillDeleteItem:", 
-        name:"ManifestWillDeleteItem", object:@bookController.document.manifest)
+        name:"ManifestWillDeleteItem", object:@bookController.document.container.package.manifest)
   end
   
   def toggleNavigation(sender)
@@ -93,7 +93,7 @@ class NavigationController < NSResponder
       itemRefIds.each do |id|
         
         # get itemRef with associated id
-        itemRef = @bookController.document.spine.itemRefWithId(id)
+        itemRef = @bookController.document.container.package.spine.itemRefWithId(id)
         
         # reject drag unless itemRef is found
         return NSDragOperationNone unless itemRef
@@ -144,7 +144,7 @@ class NavigationController < NSResponder
       itemRefIds = load_plist(info.draggingPasteboard.propertyListForType(ItemRef::PBOARD_TYPE))
       
       # get the associated item for each itemRefs
-      items = itemRefIds.map { |id| @bookController.document.spine.itemRefWithId(id).item }
+      items = itemRefIds.map { |id| @bookController.document.container.package.spine.itemRefWithId(id).item }
   
       # reverse the insertion sequence to maintain order unless childIndex == -1
       items = items.reverse unless childIndex == -1

@@ -28,7 +28,7 @@ class ImageWell < NSImageView
     pasteboard = NSPasteboard.generalPasteboard
     if pasteboard.canReadObjectForClasses(classArray, options:options)
       imageArray = pasteboard.readObjectsForClasses(classArray, options:options)
-      if stashImage(imageArray[0], @bookController.document.manifest.root.generateUniqueChildName(DEFAULT_IMAGE_NAME))
+      if stashImage(imageArray[0], @bookController.document.container.package.manifest.root.generateUniqueChildName(DEFAULT_IMAGE_NAME))
         self.image = imageArray[0]
         @metadataController.imageWellReceivedImage(self)
       end

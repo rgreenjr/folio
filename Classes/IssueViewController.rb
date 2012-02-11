@@ -44,7 +44,7 @@ class IssueViewController < NSViewController
     @statusTextField.stringValue = "Validation Issue".pluralize(@bookController.document.totalIssueCount)    
 
     # get all items with validation issues
-    @items = @bookController.document.manifest.itemsWithIssues
+    @items = @bookController.document.container.package.manifest.itemsWithIssues
     
     # add book if it has any valitions issues
     @items.unshift(@bookController.document) if @bookController.document.hasIssues?
@@ -91,7 +91,7 @@ class IssueViewController < NSViewController
     if object.class == Item
       object.name
     elsif object.class == Book
-      object.metadata.title # "Book"
+      object.container.package.metadata.title
     else
       object.to_s
     end

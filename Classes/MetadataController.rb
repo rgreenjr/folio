@@ -16,18 +16,17 @@ class MetadataController < NSWindowController
   def initWithBookController(controller)
     initWithWindowNibName("Metadata")
     @bookController = controller
-    @metadata = @bookController.document.metadata
+    @metadata = @bookController.document.container.package.metadata
     
     # register for manifest item deletion notifications
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"manifestWillDeleteItem:", 
-        name:"ManifestWillDeleteItem", object:@bookController.document.manifest)
+        name:"ManifestWillDeleteItem", object:@bookController.document.container.package.manifest)
     
     self
   end
 
   def windowDidLoad
     Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
-    @creatorField.delegate = self
     @imageWell.bookController = @bookController
   end
   
@@ -42,14 +41,6 @@ class MetadataController < NSWindowController
   def comboBox(comboBox, completedString:uncompletedString)  
     Metadata.closestSubject(uncompletedString)
   end  
-
-  # attempt to auto-complete sortCreatorField
-  def controlTextDidEndEditing(notification)
-    textField = notification.object
-    if textField == @creatorField && @sortCreatorField.stringValue.blank?
-      @sortCreatorField.stringValue = Metadata.deriveSortCreator(textField.stringValue)
-    end
-  end
 
   def showMetadataSheet(sender)
     window # force window load
@@ -100,7 +91,7 @@ class MetadataController < NSWindowController
   def	imageWellReceivedImage(sender)
     if @imageWell.imagePath.nil?
       displayCoverImage
-    elsif @bookController.document.manifest.itemWithHref(@imageWell.imageName)
+    elsif @bookController.document.container.package.manifest.itemWithHref(@imageWell.imageName)
       showCoverImageCollisionWarning
     end
   end
@@ -130,7 +121,7 @@ class MetadataController < NSWindowController
       @metadata.cover = nil
     else
       return unless @imageWell.imagePath
-      item = @bookController.document.manifest.itemWithHref(@imageWell.imageName)
+      item = @bookController.document.container.package.manifest.itemWithHref(@imageWell.imageName)
       if item
         @bookController.selectionViewController.manifestController.deleteItems([item])
       end

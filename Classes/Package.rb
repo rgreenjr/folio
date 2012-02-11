@@ -4,21 +4,26 @@ class Package
   DEFAULT_FILENAME  = "content.opf"
   DEFAULT_FULL_PATH = File.join(DEFAULT_DIRECTORY, DEFAULT_FILENAME)
 
-  attr_reader   :fullPath
-  attr_reader   :absoluteFullPath
-  attr_reader   :absoluteDirectory
-  attr_reader   :directory
-  attr_accessor :opf
-
-  # attr_reader :metadata
-  # attr_reader :manifest
-  # attr_reader :spine
-  # attr_reader :guide
+  attr_accessor :opf                # parsed OPF file
+  attr_accessor :fullPath           # path to OPF file (relative to unzipPath)
+  attr_accessor :absoluteFullPath   # fully qualified path to OPF file
+  attr_accessor :directory          # path to package directory (relative to unzipPath)
+  attr_accessor :absoluteDirectory  # fully qualified path to package directory
+  attr_accessor :metadata
+  attr_accessor :manifest
+  attr_accessor :spine
+  attr_accessor :guide
+  attr_accessor :navigation
 
   def self.load(unzipPath, fullPath)
     package = Package.new(unzipPath, fullPath)
     raise "The OPF file \"#{fullPath}\" could not be found." unless File.exists?(package.absoluteFullPath)
     package.opf = REXML::Document.new(File.read(package.absoluteFullPath))
+    package.manifest = Manifest.load(package)
+    package.metadata = Metadata.load(package)
+    package.spine = Spine.load(package)
+    package.guide = Guide.load(package)
+    package.navigation = Navigation.load(package)
     package
   rescue REXML::ParseException => exception
     raise StandardError, "Unable to parse OPF file \"#{fullPath}\": #{exception.explain}"
@@ -27,19 +32,44 @@ class Package
   def initialize(unzipPath, fullPath=nil)
     @unzipPath = unzipPath
     @fullPath = fullPath || DEFAULT_FULL_PATH
-    @absoluteFullPath = File.join(@unzipPath, @fullPath)
     @directory = File.dirname(@fullPath)
+    @absoluteFullPath = File.join(@unzipPath, @fullPath)
     @absoluteDirectory = File.dirname(@absoluteFullPath)
     FileUtils.mkdir_p(@absoluteDirectory)
+    @manifest = Manifest.new(self)
+    @metadata = Metadata.new
+    @spine = Spine.new
+    @guide = Guide.new(self)
+    @navigation = Navigation.new(self)
   end
 
   def each(path)
-    return unless @opf
-    @opf.elements.each("package/#{path}") { |element| yield element }
+    @opf.elements.each("package/#{path}") { |element| yield element } if @opf
   end
 
   def makePathRelative(path)
     path.gsub(@absoluteDirectory + "/", '')
+  end
+  
+  def save(directoryPath)
+    # prepend package directory to directoryPath
+    subDirectory = File.join(directoryPath, @directory)
+    
+    # create subDirectory
+    FileUtils.mkdir_p(subDirectory)
+    
+    # write content.opf file
+    File.open(File.join(directoryPath, @fullPath), "w") { |f| f.puts opfXML }
+
+    # save individual manifest items
+    @manifest.saveItems(subDirectory)
+    
+    # write toc.ncx file
+    @navigation.save(subDirectory)
+  end
+
+  def opfXML
+    ERB.new(Bundle.template("content.opf")).result(binding)
   end
 
 end

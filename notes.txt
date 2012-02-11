@@ -34,4 +34,3 @@ Refactoring
 ===========
 
 - Use "box" in view placeholder names
-- Move metadata, spine, navigation and manifest into container

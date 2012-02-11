@@ -1,17 +1,20 @@
 class Spine < DelegateClass(Array)
+  
+  def self.load(package)
+    spine = Spine.new
+    package.each("spine/itemref") do |element|
+      idref = element.attributes["idref"]
+      linear = element.attributes["linear"]
+      item = package.manifest.itemWithId(idref)
+      raise "Could not find spine itemref with idref \"#{idref}\"." unless item
+      spine << ItemRef.new(item, linear)
+    end
+    spine
+  end
 
-  def initialize(book=nil)
+  def initialize
     @itemRefs = []
     super(@itemRefs)
-    if book
-      book.container.package.each("spine/itemref") do |element|
-        idref = element.attributes["idref"]
-        linear = element.attributes["linear"]
-        item = book.manifest.itemWithId(idref)
-        raise "Spine item with idref \"#{idref}\" could not be found." unless item
-        @itemRefs << ItemRef.new(item, linear)
-      end
-    end
   end
   
   def insert(index, item)

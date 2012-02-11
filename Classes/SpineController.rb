@@ -5,11 +5,11 @@ class SpineController < NSResponder
 
   def bookController=(controller)
     @bookController = controller
-    @spine = @bookController.document.spine
+    @spine = @bookController.document.container.package.spine
     
     # register for manifest item deletion notifications
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"manifestWillDeleteItem:", 
-        name:"ManifestWillDeleteItem", object:@bookController.document.manifest)
+        name:"ManifestWillDeleteItem", object:@bookController.document.container.package.manifest)
   end
 
   def toggleSpine(sender)
@@ -85,7 +85,7 @@ class SpineController < NSResponder
       itemIds.each do |id|
 
         # get item with associated id
-        item = @bookController.document.manifest.itemWithId(id)
+        item = @bookController.document.container.package.manifest.itemWithId(id)
         
         # reject drag unless item is found
         return NSDragOperationNone unless item
@@ -135,7 +135,7 @@ class SpineController < NSResponder
       itemIds = load_plist(info.draggingPasteboard.propertyListForType(Item::PBOARD_TYPE))
 
       # create a new ItemRef for each item id
-      items = itemIds.map { |id| ItemRef.new(@bookController.document.manifest.itemWithId(id)) }
+      items = itemIds.map { |id| ItemRef.new(@bookController.document.container.package.manifest.itemWithId(id)) }
 
       # reverse the insertion sequence to maintain order unless childIndex == -1
       items = items.reverse unless childIndex == -1

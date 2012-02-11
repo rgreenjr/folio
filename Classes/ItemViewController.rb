@@ -72,7 +72,7 @@ class ItemViewController < NSViewController
   def changeID(item, value)
     return unless item
     unless value.blank? || item.id == value
-      if oldID = @bookController.document.manifest.changeItemId(item, value)
+      if oldID = @bookController.document.container.package.manifest.changeItemId(item, value)
         undoManager.prepareWithInvocationTarget(self).changeID(item, oldID)
         undoManager.actionName = "Change ID"
       else

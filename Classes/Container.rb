@@ -22,20 +22,21 @@ class Container
   def initialize(unzipPath)
     @unzipPath = unzipPath
     @absolutePath = File.join(@unzipPath, CONTAINER_XML_PATH)
+    @package = Package.new(@unzipPath)
   end
 
-  def save(directory)
-    # FileUtils.mkdir_p(File.join(directory, @relativePath))    
-    FileUtils.mkdir_p(File.join(directory, META_INF_DIRECTORY))
-    File.open(File.join(directory, CONTAINER_XML_PATH), "w") { |f| f.write(to_xml) }
-  end
-
-  def to_xml
-    ERB.new(Bundle.template(CONTAINER_XML_NAME)).result(binding)
+  def save(directoryPath)
+    FileUtils.mkdir_p(File.join(directoryPath, META_INF_DIRECTORY))
+    File.open(File.join(directoryPath, CONTAINER_XML_PATH), "w") { |f| f.write containerXML }    
+    @package.save(directoryPath)
   end
 
   def mediaType
     Media::EPUB
+  end
+
+  def containerXML
+    ERB.new(Bundle.template(CONTAINER_XML_NAME)).result(binding)
   end
 
   private

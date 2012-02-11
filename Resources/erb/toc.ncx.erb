@@ -2,23 +2,23 @@
 <ncx version="2005-1" xml:lang="en" xmlns="http://www.daisy.org/z3986/2005/ncx/">
 
   <head>
-    <meta name="dtb:uid" content="<%= navigation.id %>"/>
-    <meta name="dtb:depth" content="<%= navigation.depth %>"/>
+    <meta name="dtb:uid" content="<%= id %>"/>
+    <meta name="dtb:depth" content="<%= depth %>"/>
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
  
   <docTitle>
-    <text><%= navigation.title.escapeHTML %></text>
+    <text><%= title.escapeHTML %></text>
   </docTitle>
  
   <docAuthor>
-    <text><%= navigation.docAuthor.escapeHTML %></text>
+    <text><%= docAuthor.escapeHTML %></text>
   </docAuthor>
 
   <navMap>
   <% stack = [] %>
-  <% navigation.root.each { |point| stack << point } %>
+  <% root.each { |point| stack << point } %>
   <% playOrder = 0 %>
   <% while stack.size > 0 %>
     <% point = stack[0] %>

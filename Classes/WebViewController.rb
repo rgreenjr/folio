@@ -79,7 +79,7 @@ class WebViewController < NSViewController
       fragment = request.URL.fragment || ""
       
       # find matching item in manifest
-      targetItem = @bookController.document.manifest.itemWithHref(href)      
+      targetItem = @bookController.document.container.package.manifest.itemWithHref(href)      
       
       if targetItem.nil?
         # not match was found, so supress listener

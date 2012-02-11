@@ -12,7 +12,7 @@ class SpineTest < Test::Unit::TestCase
   end
   
   def test_size
-    assert_equal(29, @book.spine.size)
+    assert_equal(29, @book.container.package.spine.size)
   end
   
 end

@@ -92,7 +92,7 @@ class Metadata
     "Western",
     "Young Adult"
   ]
-  
+
   attr_accessor :title
   attr_accessor :language
   attr_accessor :identifier
@@ -112,6 +112,26 @@ class Metadata
   attr_accessor :cover
   attr_reader   :issues
 
+  def self.load(package)
+    metadata = Metadata.new
+    package.each("metadata/*") do |element|
+      case element.name
+      when "meta"
+        if element.attributes["name"] == "cover"
+          metadata.cover = package.manifest.itemWithId(element.attributes["content"])
+        else
+          puts "Folio: ignoring metadata element \"#{element}\""
+        end
+      when "creator"
+        metadata.sortCreator = element.attributes["opf:file-as"]
+        metadata.updateAttrbute(element)
+      else
+        metadata.updateAttrbute(element)
+      end
+    end
+    metadata
+  end
+
   def self.subjects
     @subjects ||= SUBJECTS.sort
   end
@@ -120,52 +140,13 @@ class Metadata
     self.subjects.find {|subject| subject.match(/^#{string}/i)}
   end
 
-  def self.deriveSortCreator(creator)
-    parts = creator.split
-    case parts.size
-    when 0
-      derivedSortCreator = ''
-    when 1
-      derivedSortCreator = parts[-1]
-    else
-      derivedSortCreator = parts[-1] + ', ' + parts[0...-1].join(' ')
-    end
-    derivedSortCreator
-  end
-  
-  def initialize(book=nil)
-    # provide some default values
+  def initialize
     @title = "untitled"
     @language = "en"
     @identifier = UUID.create
     @date = Time.now.strftime("%Y-%m-%d")
-        
-    if book
-      book.container.package.each("metadata/*") do |element|
-        case element.name
-        when "meta"
-          if element.attributes["name"] == "cover"
-            @cover = book.manifest.itemWithId(element.attributes["content"])
-          else
-            puts "Ignoring metadata element: #{element}"
-          end
-        when "creator"
-          @sortCreator = element.attributes["opf:file-as"]
-          updateAttrbute(element)
-        else
-          updateAttrbute(element)
-        end
-      end
-    end
   end
-  
-  def sortCreator
-    if @sortCreator.blank? && !@creator.blank?
-      @sortCreator = Metadata.deriveSortCreator(@creator)
-    end
-    @sortCreator
-  end
-  
+
   def validate(issues)
     issues << Issue.new("Metadata title cannot be blank.") if @title.blank?
     issues << Issue.new("Metadata language cannot be blank.") if @language.blank?
@@ -174,13 +155,11 @@ class Metadata
       issues << Issue.new("Metadata date must be in the form YYYY, YYYY-MM or YYYY-MM-DD (e.g., \"2011\", \"2011-05\", or \"2011-05-01\")")
     end
   end
-  
-  private
-  
+
   def updateAttrbute(element)
     method = element.name.to_sym
     self.class.send(:attr_accessor, method) unless self.respond_to?(method)
     self.send("#{method}=", element.text)
   end
-  
+
 end

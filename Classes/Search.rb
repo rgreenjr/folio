@@ -6,7 +6,7 @@ class Search
     @matches = []
     @query = query
     unless query.empty?
-      book.manifest.each do |item|
+      book.container.package.manifest.each do |item|
         next unless item.textual?
         offset = 0
         parent = Match.new(item)

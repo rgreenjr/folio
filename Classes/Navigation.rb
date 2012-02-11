@@ -1,67 +1,61 @@
+# Navigation Center eXtended (NCX) Table of Contents
 class Navigation
-
-  # Navigation Center eXtended (NCX) Table of Contents
 
   attr_accessor :id
   attr_accessor :title
-  attr_accessor :creator
   attr_accessor :docAuthor
+  attr_accessor :creator
   attr_accessor :root
 
-  def initialize(book=nil)
-    @pointIdMap  = {}
+  def self.load(package)
+    navigation = Navigation.new(package)
+    
+    # parse NCX file
+    doc = parseNCX(package.manifest.ncx)
+
+    # determine namespace prefix
+    prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
+    
+    navigation.id = extractID(doc, prefix)        
+    navigation.title = extractDocTitle(doc, prefix)
+    navigation.docAuthor = extractDocAuthor(doc)
+
+    pointStack = [navigation.root]
+    xmlStack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
+    while pointStack.size > 0
+      parent = pointStack.shift
+      element = xmlStack.shift
+      element.elements.each_with_index("#{prefix}navPoint") do |element, index|
+
+        href, fragment = element.elements["#{prefix}content"].attributes["src"].split("#")
+
+        item = package.manifest.itemWithHref(href)
+        raise "The item \"#{href}\" is referenced in the navigation, but could not be found in the manifest." unless item
+
+        childPoint = Point.new
+        childPoint.id = element.attributes["id"]
+
+        childPoint.playOrder = element.attributes["playOrder"]
+        childPoint.text = element.elements["#{prefix}navLabel/#{prefix}text"].text
+        childPoint.item = item
+        childPoint.fragment = fragment
+
+        navigation.insert(childPoint, -1, parent)
+
+        pointStack.insert(index, childPoint)
+        xmlStack.insert(index, element)
+      end
+    end
+    navigation
+  end
+
+  def initialize(package)
+    @package = package
+    @root = Point.root
     @id = UUID.create
-    @ncx_name = "toc.ncx"
     @title = "untitled"
     @docAuthor = ""
-    @root = Point.root
-
-    return unless book
-    
-    begin
-      doc = REXML::Document.new(book.manifest.ncx.content)    
-      @ncx_name = book.manifest.ncx.name
-      prefix = (doc.root.prefix != '') ? "#{doc.root.prefix}:" : ''
-      uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:uid']"]
-      # check for 'dtb:PrimaryID' as last resort (is this standard compliant?)
-      uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:PrimaryID']"] unless uid
-      raise "The \"#{@ncx_name}\" file does not specify a 'dtb:uid'." unless uid
-      @id = uid.attributes["content"]
-      @title = doc.elements["/#{prefix}ncx/#{prefix}docTitle/#{prefix}text"].text
-
-      if doc.elements["/ncx/docAuthor/text"]
-        @docAuthor = doc.elements["/ncx/docAuthor/text"].text
-      end
-
-      point_stack = [@root]
-      xml_stack = [doc.elements["/#{prefix}ncx/#{prefix}navMap"]]
-      while point_stack.size > 0
-        parent = point_stack.shift
-        element = xml_stack.shift
-        element.elements.each_with_index("#{prefix}navPoint") do |e, i|
-
-          href, fragment = e.elements["#{prefix}content"].attributes["src"].split("#")
-
-          item = book.manifest.itemWithHref(href)
-          raise "The resource \"#{href}\" is referenced in the navigation, but could not be found in the manifest." unless item
-
-          childPoint           = Point.new
-          childPoint.id        = e.attributes["id"]
-        
-          childPoint.playOrder = e.attributes["playOrder"]
-          childPoint.text      = e.elements["#{prefix}navLabel/#{prefix}text"].text
-          childPoint.item      = item
-          childPoint.fragment  = fragment
-
-          insert(childPoint, -1, parent)
-
-          point_stack.insert(i, childPoint)
-          xml_stack.insert(i, e)
-        end
-      end
-    rescue REXML::ParseException => exception
-      raise StandardError, "An error occurred while parsing #{book.manifest.ncx.href}: #{exception.explain}"
-    end
+    @pointIdMap = {}
   end
 
   def depth
@@ -86,7 +80,7 @@ class Navigation
       index += 1
     end
   end
-  
+
   def select(&block)
     points = []
     each(true) do |point| 
@@ -144,7 +138,7 @@ class Navigation
   def pointWithId(identifier)
     @pointIdMap[identifier]
   end
-  
+
   def hasPointWithId?(identifier)
     pointWithId(identifier) != nil
   end
@@ -157,36 +151,53 @@ class Navigation
     @pointIdMap[point.id] = point
     oldID
   end
-  
-  def save(directory)
-    filepath = File.join(directory, @ncx_name)
-    File.open(filepath, 'w') {|f| f.write(to_xml)}
+
+  def save(directoryPath)
+    File.open(File.join(directoryPath, @package.manifest.ncx.name), 'w') { |f| f.write ncxXML }
   end
 
-  def to_xml
-    navigation = self
+  def ncxXML
     ERB.new(Bundle.template("toc.ncx")).result(binding)
   end
 
-  def to_s
-    buffer = "@navigation = {\n"
-    @pointIdMap.each do |id, point|
-      buffer << "  id=#{id} => href=#{point.item.href}\n"
-    end
-    buffer << "}"
-    buffer
-  end
-  
   def validate(issues)
     each(true) do |point|
       issues += point.issues unless point.valid?
     end
   end
-  
+
   def size
     count = 0
     each(true) { count += 1 }
     count
   end
   
+  private
+  
+  def self.parseNCX(ncx)
+    begin
+      doc = REXML::Document.new(ncx.content)    
+    rescue REXML::ParseException => exception
+      raise StandardError, "Unable to parse NCX file \"#{ncx.href}\": #{exception.explain}"
+    end
+  end
+
+  def self.extractID(doc, prefix)
+    uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:uid']"]    
+    if uid.blank?
+      # check for 'dtb:PrimaryID' as last resort (not sure if this standards compliant)
+      uid = doc.elements["/#{prefix}ncx/#{prefix}head/#{prefix}meta[@name='dtb:PrimaryID']"]
+      raise "The NCX file \"#{package.manifest.ncx.name}\" doesn't specify a 'dtb:uid'." unless uid
+    end
+    uid.attributes["content"]
+  end
+
+  def self.extractDocTitle(doc, prefix)
+    doc.elements["/#{prefix}ncx/#{prefix}docTitle/#{prefix}text"].text
+  end
+  
+  def self.extractDocAuthor(doc)
+    doc.elements["/ncx/docAuthor/text"] ? doc.elements["/ncx/docAuthor/text"].text : ""
+  end
+
 end
