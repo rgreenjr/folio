@@ -277,6 +277,7 @@ class BookWindowController < NSWindowController
     end
     positionContentSplitViewSubview(@contentPlaceholder, withPercentage:@contentPlaceholderPercentage)
     positionContentSplitViewSubview(issueViewController.view, withPercentage:@issueViewPercentage)
+    @contentSplitView.adjustSubviews
   end
   
   def positionContentSplitViewSubview(subview, withPercentage:percentage)
