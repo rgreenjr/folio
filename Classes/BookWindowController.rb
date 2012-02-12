@@ -126,15 +126,19 @@ class BookWindowController < NSWindowController
   end
 
   def showIssueView
-    restoreContentSplitviewPosition
-    @contentSplitView.addSubview(issueViewController.view)
-    @contentSplitView.adjustSubviews    
+    unless issueViewController.visible?
+      restoreContentSplitviewPosition
+      @contentSplitView.addSubview(issueViewController.view)
+      @contentSplitView.adjustSubviews
+    end
   end
   
   def hideIssueView
-    storeContentSplitviewPosition
-    issueViewController.view.removeFromSuperview      
-    @contentSplitView.adjustSubviews
+    if issueViewController.visible?
+      storeContentSplitviewPosition
+      issueViewController.view.removeFromSuperview      
+      @contentSplitView.adjustSubviews
+    end
   end
 
   def inspectorViewController
