@@ -366,6 +366,7 @@ class ManifestController < NSResponder
       alert = NSAlert.alloc.init
       alert.messageText = "The following files are present but not declared in the manifest."
       alert.informativeText = "#{@undeclared.join("\n")}\n"
+      alert.addButtonWithTitle("Add to Manifest")
       alert.addButtonWithTitle("Move to Trash")
       alert.addButtonWithTitle("Cancel")
       alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"deleteUndeclaredFilesSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
@@ -374,6 +375,10 @@ class ManifestController < NSResponder
 
   def deleteUndeclaredFilesSheetDidEnd(alert, returnCode:code, contextInfo:info)
     if code == NSAlertFirstButtonReturn
+      filepaths = @undeclared.map { |filepath| NSURL.fileURLWithPath(File.join(@bookController.document.unzipPath, filepath)).path }
+      addFiles(filepaths)
+      markBookEdited
+    elsif code == NSAlertSecondButtonReturn
       urls = @undeclared.map { |filepath| NSURL.fileURLWithPath(File.join(@bookController.document.unzipPath, filepath)) }
       NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:urls, withObject:nil)
       markBookEdited
