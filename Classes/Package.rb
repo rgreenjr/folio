@@ -67,7 +67,7 @@ class Package
     File.open(File.join(directoryPath, @fullPath), "w") { |f| f.puts opfXML }
 
     # save individual manifest items
-    @manifest.saveItems(subDirectory)
+    @manifest.saveAllItems(subDirectory)
     
     # write toc.ncx file
     @navigation.save(subDirectory)

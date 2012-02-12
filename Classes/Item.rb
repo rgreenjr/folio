@@ -19,7 +19,7 @@ class Item
     @expanded = expanded
     @children = []
     @issues = []    
-    FileUtils.mkdir(path) if directory? && !File.exists?(path)
+    FileUtils.mkdir(absolutePath) if directory? && !File.exists?(absolutePath)
   end
 
   # allows points, itemRefs, and items to be treated interchangeably 
@@ -28,8 +28,8 @@ class Item
     self
   end
 
-  def path
-    @parent ? File.join(@parent.path, @name) : @name
+  def absolutePath
+    @parent ? File.join(@parent.absolutePath, @name) : @name
   end
 
   def hasParent?
@@ -42,17 +42,18 @@ class Item
   end
 
   def url
-    NSURL.fileURLWithPath(path)
+    NSURL.fileURLWithPath(absolutePath)
   end
 
   def content
-    @content ||= File.read(path)
+    @content ||= File.read(absolutePath)
   end
 
   def content=(string)
     @lastSavedContent = @content.dup unless @lastSavedContent || @content.nil?
     @content = string.dup
-    File.open(path, 'wb') {|f| f.puts @content}
+    File.open(absolutePath, 'wb') {|f| f.puts @content}
+    @xmlDocument = nil
     @fragments = nil
     @parsingError = nil
   end
@@ -60,9 +61,9 @@ class Item
   def name=(name)
     name = name.sanitize
     unless name.empty?
-      old = path
+      old = absolutePath
       @name = name
-      File.rename(old, path)
+      File.rename(old, absolutePath)
     end
     @name
   end
@@ -178,7 +179,7 @@ class Item
   end
 
   def save
-    File.open(path, 'wb') {|f| f.puts content}
+    File.open(absolutePath, 'wb') {|f| f.puts content}
     @lastSavedContent = nil
   end
 
@@ -229,14 +230,14 @@ class Item
 
   def imageRep
     return nil unless imageable?
-    @image ||= NSImage.alloc.initWithContentsOfFile(path)
+    @image ||= NSImage.alloc.initWithContentsOfFile(absolutePath)
   end
 
   def fileSize
     if textual?
       content.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
     else
-      NSFileManager.defaultManager.attributesOfItemAtPath(path, error:nil).fileSize
+      NSFileManager.defaultManager.attributesOfItemAtPath(absolutePath, error:nil).fileSize
     end
   end
 
@@ -266,19 +267,16 @@ class Item
 
   # returns an arrays of strings or nil if parsing fails
   def fragments
-    clearIssues
+    return [] unless parseable?
     unless @fragments
-      if parseable?
-        begin
-          @fragments = XMLLint.findFragments(content)
-        rescue StandardError => exception
-          if exception.message =~ /Line (\d+): (.*)/
-            addIssue(Issue.new($2, $1)) 
-          end
-          @parsingError = exception.message
-        end
-      else
+      nodes = fragmentNodes
+      if nodes
         @fragments = []
+        nodes.each do |node|
+          node.attributes.each do |attribute|
+            @fragments << attribute.stringValue if attribute.name == 'id'
+          end
+        end
       end
     end
     @fragments
@@ -304,16 +302,15 @@ class Item
     addIssue Issue.new("Media Type \"#{@mediaType}\" is invalid.") unless Media.validMediaType?(@mediaType)
     if parseable?
       XMLLint.validate(content, @mediaType, @issues)
-      duplicateFragments.each do |duplicate|
-        addIssue Issue.new("The fragment \"#{duplicate}\" already exists.")
-      end
+      validateFragments
     elsif imageable?
       BitmapChecker.validate(item, @issues)
     end
     @issues.empty?
   end
 
-  def duplicateFragments
+  # checks for fragment ids being used more than once
+  def validateFragments
     duplicates = []
     if fragments
       hash = Hash.new(0)
@@ -324,7 +321,59 @@ class Item
         duplicates << id if count > 1
       end
     end
-    duplicates
+    duplicates.each do |duplicate|
+      addIssue Issue.new("The fragment \"#{duplicate}\" already exists.")
+    end
+  end
+
+  def parseXMLContent
+    unless @xmlDocument
+      error = Pointer.new(:id)
+      @xmlDocument = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
+      addXMLError(error[0]) if error[0]
+    end
+    @xmlDocument
+  end
+
+  def imageNodes
+    return [] unless parseable?
+    nodesForXPath("//img[@src]")
+  end
+  
+  def anchorNodes
+    return [] unless parseable?
+    nodesForXPath("//a[@href]")
+  end
+  
+  def fragmentNodes
+    return [] unless parseable?
+    nodesForXPath("//*[@id]")
+  end
+  
+  def nodesForXPath(xpath)
+    nodes = []
+    doc = parseXMLContent
+    if doc
+      error = Pointer.new(:id)      
+      nodes = doc.nodesForXPath(xpath, error:error)
+      addXMLError(error[0]) if error[0]
+    end
+    nodes
+  end
+
+  def addXMLError(error)
+    @parsingError = error.localizedDescription        
+    addIssue(Issue.new($2, $1)) if @parsingError =~ /Line (\d+): (.*)/
+  end
+  
+  def self.findFragments(document)
+    error = Pointer.new(:id)
+    array = document.nodesForXPath("//*[@id]", error:error)
+    raise StandardError, error[0].localizedDescription if error[0]
+    fragments = []
+    array.each do |element|
+    end
+    fragments
   end
 
 end

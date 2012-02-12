@@ -32,7 +32,7 @@ class Point
   end
 
   def url
-    encoded = @item.path.gsub(' ', '%20')
+    encoded = @item.absolutePath.gsub(' ', '%20')
     url = NSURL.URLWithString(encoded + fragmentWithHash)
   end
   

@@ -8,7 +8,7 @@ class XMLLint
       path = schemaPathForMediaType(mediaType)
       arguments = path ? "--noout --schema #{path}" : "--noout"
     end
-    
+
     tempfileWithContent(content) do |input|
       errors = `#{command} #{arguments} #{input.path} 2>&1`
       errors.split(/\n/).each do |line|
@@ -21,10 +21,10 @@ class XMLLint
         end
       end
     end
-    
+
     issues
   end
-  
+
   def self.format(content, mediaType)
     formattedText = nil
     issues = []
@@ -56,21 +56,6 @@ class XMLLint
     [formattedText, issues]
   end
 
-  def self.findFragments(content)
-    error = Pointer.new(:id)
-    doc = NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
-    raise StandardError, error[0].localizedDescription if error[0]
-    array = doc.nodesForXPath("//*[@id]", error:error)
-    raise StandardError, error[0].localizedDescription if error[0]
-    fragments = []
-    array.each do |element|
-      element.attributes.each do |attribute|
-        fragments << attribute.stringValue if attribute.name == 'id'
-      end
-    end
-    fragments
-  end
-
   private
 
   def self.schemaPathForMediaType(mediaType)
@@ -84,7 +69,7 @@ class XMLLint
     message = message.gsub(/^ parser error : /, '')
     message = message.gsub(/: This element is not expected. Expected is one of /, ' is not allowed in this context and should be one of ')
   end
-  
+
   def self.tempfileWithContent(content)
     tmp = Tempfile.new('me.folioapp.xmllint.valid')
     begin
@@ -95,15 +80,15 @@ class XMLLint
       tmp.unlink
     end
   end
-  
+
   def self.command
     @catalogPath ||= File.join(NSBundle.mainBundle.bundlePath, "/Contents/Resources/catalog.xml")
     "XML_CATALOG_FILES=#{@catalogPath} xmllint"
   end
-  
+
   def self.parseXML(content)
     error = Pointer.new(:id)
     NSXMLDocument.alloc.initWithXMLString(content, options:0, error:error)
   end
-  
+
 end

@@ -5,7 +5,7 @@ class Manifest
 
   def self.load(package)
     manifest = Manifest.new(package)
-    
+
     package.each("manifest/item") do |element|
       parent = manifest.root
       parts = element.attributes["href"].split('/')
@@ -18,16 +18,16 @@ class Manifest
         end
         parent = directory
       end
-      
+
       item = Item.new(parent, parts.last, element.attributes["id"], element.attributes["media-type"])
 
       # raise if item doesn't exist
-      unless File.exist?(item.path)
+      unless File.exist?(item.absolutePath)
         raise "The manifest item \"#{item.href}\" could not be found."
       end
 
       # raise if item isn't readable
-      unless File.readable?(item.path)
+      unless File.readable?(item.absolutePath)
         raise "You do not have permission to access the manifest item \"#{item.href}\"."
       end
 
@@ -43,7 +43,7 @@ class Manifest
     raise "A navigation NCX file wasn't specified in the manifest." unless manifest.ncx
 
     manifest.sort
-    
+
     manifest
   end
 
@@ -114,7 +114,7 @@ class Manifest
   end
 
   def move(item, index, parent)
-    FileUtils.mv(item.path, File.join(parent.path, item.name))
+    FileUtils.mv(item.absolutePath, File.join(parent.absolutePath, item.name))
     item.parent.delete(item)
     parent.insert(index, item)
   end
@@ -134,8 +134,9 @@ class Manifest
   end
 
   def changeItemId(item, newID)
+    # check if newID is already being used
     return nil if itemWithId(newID)
-    @itemsMap[item.id] = nil
+    @itemsMap[item.id] = nil    
     oldID = item.id
     item.id = newID
     @itemsMap[item.id] = item
@@ -160,25 +161,16 @@ class Manifest
     @root.sort
   end
 
-  def saveItems(directoryPath)
+  def saveAllItems(directoryPath)
     each(true) {|item| item.saveToDirectory(directoryPath)}
   end
 
-  def to_s
-    buffer = "@manifest = {\n"
-    @itemsMap.each do |id, item|
-      buffer << "  id=#{id} => href=#{item.href}\n"
-    end
-    buffer << "}"
-    buffer
-  end
 
-  def valid?
-    isValid = true
+  def validate
     each do |item|
-      isValid = false unless item.valid?
+      validateAnchorNodes(item)
+      validateImageNodes(item)
     end
-    isValid
   end
 
   def size
@@ -197,6 +189,33 @@ class Manifest
       name = "#{name}-#{i}"
     end
     name
+  end
+
+  def validateAnchorNodes(item)
+    item.anchorNodes.each do |node|
+      href = node.attributeForName("href").stringValue
+      unless NSURL.URLWithString(href).remote?
+        # strip fragment before lookup
+        href, fragment = href.split('#')   
+        
+        # expand src incase '.' or '..' are used
+        expandedPath = File.expand_path(href, File.dirname(item.absolutePath))
+        unless itemWithHref(expandedPath)
+          item.addIssue(Issue.new("The item \"#{href}\" is referenced but doesn't exist."))
+        end
+      end
+    end
+  end
+
+  def validateImageNodes(item)
+    item.imageNodes.each do |node|
+      src = node.attributeForName("src").stringValue
+      # expand src incase '.' or '..' are used
+      expandedPath = File.expand_path(src, File.dirname(item.absolutePath))
+      unless itemWithHref(expandedPath)
+        item.addIssue(Issue.new("The image \"#{src}\" is referenced but doesn't exist."))
+      end
+    end
   end
 
 end

@@ -112,6 +112,9 @@ class Book < NSDocument
   end
 
   def validateManifest
+    @container.package.manifest.validate
+    
+    # check for items present in unzipPath that aren't declared in manifest
     undeclaredItems.each do |filename| 
       addIssue(Issue.new("The item \"#{filename}\" is present but not declared in the manifest."))
     end
@@ -123,7 +126,7 @@ class Book < NSDocument
 
   def undeclaredItems
     undeclared = []
-    ignore = [File.join(@unzipPath, "mimetype"), @container.absolutePath, @container.package.absoluteFullPath, @container.package.manifest.ncx.path]
+    ignore = [File.join(@unzipPath, "mimetype"), @container.absolutePath, @container.package.absoluteFullPath, @container.package.manifest.ncx.absolutePath]
     Dir.glob("#{@unzipPath}/**/*").each do |entry|
       unless ignore.include?(entry) || File.directory?(entry) || @container.package.manifest.itemWithHref(entry)
         undeclared << relativePathFor(entry)

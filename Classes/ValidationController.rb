@@ -12,10 +12,8 @@ class ValidationController < NSWindowController
     @shouldStop = false
     book.clearIssues    
     showProgressWindow(book)
-    
-    updateStatus("Checking manifest", 0)
 
-    increment = 75.0 / book.container.package.manifest.size
+    increment = 75.0 / book.container.package.manifest.size    
     book.container.package.manifest.each do |item|      
       return if validationCanceled?
       incrementStatus("Checking item \"#{item.name}\"", increment)
@@ -80,6 +78,7 @@ class ValidationController < NSWindowController
   
   def showProgressWindow(book)
     Dispatch::Queue.main.async do
+      updateStatus("", 0)
       window # force window to load
       NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
@@ -91,7 +90,6 @@ class ValidationController < NSWindowController
       NSApp.endSheet(window)
       window.orderOut(self)
       @progressBar.stopAnimation(self)
-      updateStatus("", 0)
     end
   end
 

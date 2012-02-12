@@ -81,7 +81,7 @@ class MetadataController < NSWindowController
 
   def displayCoverImage
     if @metadata.cover
-      @imageWell.image = NSImage.alloc.initWithContentsOfFile(@metadata.cover.path)
+      @imageWell.image = NSImage.alloc.initWithContentsOfFile(@metadata.cover.absolutePath)
     else
       @imageWell.image = noCoverImage
     end
