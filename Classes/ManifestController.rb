@@ -374,7 +374,7 @@ class ManifestController < NSResponder
 
   def deleteUndeclaredFilesSheetDidEnd(alert, returnCode:code, contextInfo:info)
     if code == NSAlertFirstButtonReturn
-      urls = @undeclared.map { |filepath| NSURL.fileURLWithPath(filepath) }
+      urls = @undeclared.map { |filepath| NSURL.fileURLWithPath(File.join(@bookController.document.unzipPath, filepath)) }
       NSWorkspace.sharedWorkspace.performSelector(:"recycleURLs:completionHandler:", withObject:urls, withObject:nil)
       markBookEdited
     end
