@@ -231,9 +231,9 @@ class BookWindowController < NSWindowController
     PrintController.printView(@tabbedViewController.selectedTabPrintView)
   end
   
-  def saveAsPDF(sender)
-    @pdfPanelController ||= PDFController.alloc.init
-    @pdfPanelController.saveBookAsPDF(document)
+  def exportAsPDF(sender)
+    @pdfController ||= PDFController.alloc.init
+    @pdfController.exportBookAsPDF(document)
   end
 
   def runModalAlert(messageText, informativeText='')
