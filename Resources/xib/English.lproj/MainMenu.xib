@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.SystemVersion">11D50b</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
 		<string key="IBDocument.AppKitVersion">1138.32</string>
 		<string key="IBDocument.HIToolboxVersion">568.00</string>
@@ -344,6 +344,15 @@
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Save Tab</string>
 									<string key="NSKeyEquiv">s</string>
+									<int key="NSKeyEquivModMask">1310720</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="807125248"/>
+								</object>
+								<object class="NSMenuItem" id="29242364">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Save As PDF...</string>
+									<string key="NSKeyEquiv">S</string>
 									<int key="NSKeyEquivModMask">1310720</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1818,6 +1827,14 @@
 					</object>
 					<int key="connectionID">1878</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">saveAsPDF:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="29242364"/>
+					</object>
+					<int key="connectionID">1933</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1941,6 +1958,7 @@
 							<reference ref="754263308"/>
 							<reference ref="153628920"/>
 							<reference ref="840540393"/>
+							<reference ref="29242364"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -2716,6 +2734,12 @@
 						<reference key="object" ref="79305098"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1931</int>
+						<reference key="object" ref="29242364"/>
+						<reference key="parent" ref="720053764"/>
+						<string key="objectName">3</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2815,6 +2839,7 @@
 					<string>1923.IBPluginDependency</string>
 					<string>1924.IBPluginDependency</string>
 					<string>1925.IBPluginDependency</string>
+					<string>1931.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
@@ -2987,6 +3012,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -3001,7 +3027,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1930</int>
+			<int key="maxID">1933</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3033,6 +3059,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>printDocument:</string>
+							<string>saveAsPDF:</string>
 							<string>saveBook:</string>
 							<string>saveBookAs:</string>
 							<string>searchAmazon:</string>
@@ -3046,6 +3073,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3064,6 +3092,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>printDocument:</string>
+							<string>saveAsPDF:</string>
 							<string>saveBook:</string>
 							<string>saveBookAs:</string>
 							<string>searchAmazon:</string>
@@ -3079,6 +3108,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">printDocument:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">saveAsPDF:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3994,7 +4027,6 @@
 							<string>paragraphSelectedLines:</string>
 							<string>reformatText:</string>
 							<string>selectCurrentLine:</string>
-							<string>selectEnclosingBrackets:</string>
 							<string>showGotoLineWindow:</string>
 							<string>stripTagsFromSelectedText:</string>
 							<string>strongifySelectedText:</string>
@@ -4004,7 +4036,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4029,7 +4060,6 @@
 							<string>paragraphSelectedLines:</string>
 							<string>reformatText:</string>
 							<string>selectCurrentLine:</string>
-							<string>selectEnclosingBrackets:</string>
 							<string>showGotoLineWindow:</string>
 							<string>stripTagsFromSelectedText:</string>
 							<string>strongifySelectedText:</string>
@@ -4061,10 +4091,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">selectCurrentLine:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectEnclosingBrackets:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

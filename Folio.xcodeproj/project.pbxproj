@@ -63,6 +63,9 @@
 		CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D184312E5F23400D6A99A /* NSURL_test.rb */; };
 		CD3A3E0312F21F0500449BFC /* PrintController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3A3E0212F21F0500449BFC /* PrintController.rb */; };
 		CD4969D614BF4F0F003D91BB /* MySplitView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD4969D514BF4F0F003D91BB /* MySplitView.rb */; };
+		CD64AA5114E8DA6B00C017AA /* PDFPanelController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD64AA5014E8DA6B00C017AA /* PDFPanelController.rb */; };
+		CD64AA5414E8DAA400C017AA /* PDFPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD64AA5314E8DAA400C017AA /* PDFPanel.xib */; };
+		CD64AA5614E8EF4E00C017AA /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD64AA5514E8EF4E00C017AA /* Quartz.framework */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
 		CD8F5F5012EB77580036B0D7 /* ValidationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
@@ -267,6 +270,9 @@
 		CD2D184312E5F23400D6A99A /* NSURL_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NSURL_test.rb; sourceTree = "<group>"; };
 		CD3A3E0212F21F0500449BFC /* PrintController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PrintController.rb; sourceTree = "<group>"; };
 		CD4969D514BF4F0F003D91BB /* MySplitView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MySplitView.rb; sourceTree = "<group>"; };
+		CD64AA5014E8DA6B00C017AA /* PDFPanelController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PDFPanelController.rb; sourceTree = "<group>"; };
+		CD64AA5314E8DAA400C017AA /* PDFPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFPanel.xib; sourceTree = "<group>"; };
+		CD64AA5514E8EF4E00C017AA /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
 		CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ValidationController.rb; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
@@ -404,6 +410,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD64AA5614E8EF4E00C017AA /* Quartz.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */,
 				CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */,
@@ -447,6 +454,7 @@
 		29B97314FDCFA39411CA2CEA /* Folio */ = {
 			isa = PBXGroup;
 			children = (
+				CD64AA5514E8EF4E00C017AA /* Quartz.framework */,
 				CD2D17D712E5F1F800D6A99A /* Classes */,
 				CDE4491012305CAD001C69AE /* test */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -542,6 +550,7 @@
 				CD1A2D7214B20F82008200F8 /* Numeric.rb */,
 				CDFB4FB314E6132E009E4810 /* Package.rb */,
 				CD2D17FC12E5F1F800D6A99A /* ParseException.rb */,
+				CD64AA5014E8DA6B00C017AA /* PDFPanelController.rb */,
 				CD2D17FD12E5F1F800D6A99A /* Point.rb */,
 				CDF7071814AA68FA004F76EF /* PointPanelController.rb */,
 				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
@@ -654,6 +663,8 @@
 				CDD8879014D9DAEC000A2068 /* ItemView.xib */,
 				CDD8879214D9DAEC000A2068 /* MainMenu.xib */,
 				CDD8879414D9DAEC000A2068 /* Metadata.xib */,
+				CD64AA5314E8DAA400C017AA /* PDFPanel.xib */,
+				CDD887A814D9DAEC000A2068 /* PointPanel.xib */,
 				CDD8879614D9DAEC000A2068 /* PointView.xib */,
 				CDD8879814D9DAEC000A2068 /* Preferences.xib */,
 				CDD8879A14D9DAEC000A2068 /* Progress.xib */,
@@ -663,7 +674,6 @@
 				CDD887A214D9DAEC000A2068 /* TabbedView.xib */,
 				CDD887A414D9DAEC000A2068 /* Validation.xib */,
 				CDD887A614D9DAEC000A2068 /* WebView.xib */,
-				CDD887A814D9DAEC000A2068 /* PointPanel.xib */,
 			);
 			name = xib;
 			path = Resources/xib;
@@ -963,6 +973,8 @@
 				CDCBBFE414DB09B600C8BF4A /* xhtml1-strict.dtd in Resources */,
 				CDCBBFE514DB09B600C8BF4A /* xhtml1-transitional.dtd in Resources */,
 				CDFB4FB414E6132E009E4810 /* Package.rb in Resources */,
+				CD64AA5114E8DA6B00C017AA /* PDFPanelController.rb in Resources */,
+				CD64AA5414E8DAA400C017AA /* PDFPanel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1130,7 +1142,7 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Ron Green";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1154,7 +1166,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Ron Green";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1175,7 +1187,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Ron Green";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1190,7 +1202,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Ron Green";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
