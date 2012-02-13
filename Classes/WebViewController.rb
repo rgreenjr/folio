@@ -115,6 +115,12 @@ class WebViewController < NSViewController
   def thumbnail(sender)
     Thumbnail.new.capture(@item.url)
   end
+  
+  def thumbnail_2
+    data = view.mainFrame.frameView.documentView.dataWithPDFInsideRect(view.mainFrame.frameView.documentView.bounds)
+    data.writeToFile("/Users/rgreen/Desktop/t3.pdf", atomically:true)
+    puts "done"
+  end
 
   private
 

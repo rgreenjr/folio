@@ -15,6 +15,14 @@ class PrintController
     printOperation.runOperation
   end
   
+  # PDFDocument *outputDocument = [[PDFDocument alloc] init];
+  # NSUInteger pageIndex = 0;
+  # for (PDFDocument *inputDocument in inputDocuments) {
+  #     for (PDFPage *page in inputDocument) {
+  #         [outputDocument insertPage:page atIndex:pageIndex++];
+  #     }
+  # }
+  
   private
   
   # the methods below are stubs for the coming ability to print all pages in the book via an offscreen window

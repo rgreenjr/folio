@@ -93,3 +93,15 @@ class Thumbnail
     image.writeToFile("/Users/rgreen/Desktop/thumbnail.png", atomically:true)
   end
 end
+
+# this is a possible alternate methods to create thumbnail without using an off screen webview
+# def thumbnail_2(sender)
+#   view = view.mainFrame.frameView.documentView
+#   rect = view.bounds
+#   imageRep = view.bitmapImageRepForCachingDisplayInRect(rect)
+#   view.cacheDisplayInRect(rect, toBitmapImageRep:imageRep)
+#   image = NSImage.alloc.initWithSize(rect.size)
+#   image.addRepresentation(imageRep)
+#   image
+# end
+
