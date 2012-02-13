@@ -232,8 +232,8 @@ class BookWindowController < NSWindowController
   end
   
   def exportAsPDF(sender)
-    @pdfController ||= PDFController.alloc.init
-    @pdfController.exportBookAsPDF(document)
+    @pdfController ||= PDFController.alloc.initWithBookController(self)
+    @pdfController.exportBookAsPDF
   end
 
   def runModalAlert(messageText, informativeText='')

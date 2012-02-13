@@ -3,43 +3,49 @@ class PDFController < NSWindowController
   attr_accessor :progressBar
   attr_accessor :progressText
 
-  def init
+  def initWithBookController(controller)
     initWithWindowNibName("PDFPanel")
+    @bookController = controller
+    self
   end
   
-  def exportBookAsPDF(book)
+  def exportBookAsPDF
+    if @bookController.document.container.package.spine.empty?
+      Alert.runModal(@bookController.window, "Empty Spine", "The spine must contain at least one manifest item.")
+      return
+    end
     window # force window to load
     savePanel = NSSavePanel.savePanel
     savePanel.prompt = "Export"
     savePanel.allowedFileTypes = ["pdf"]
     savePanel.allowsOtherFileTypes = false
-    savePanel.nameFieldStringValue = book.container.package.metadata.title
-    savePanel.beginSheetModalForWindow(book.controller.window, completionHandler:Proc.new {|resultCode|
+    savePanel.nameFieldStringValue = @bookController.document.container.package.metadata.title
+    savePanel.beginSheetModalForWindow(@bookController.window, completionHandler:Proc.new {|resultCode|
       if resultCode == NSOKButton
         @destinationURL = savePanel.URL
         Dispatch::Queue.concurrent.async do
-          generatePDF(book)
+          generatePDF
         end
       end      
     })    
   end
   
-  def generatePDF(book)
+  private
+  
+  def generatePDF
     @shouldStop = false
     @pdfDocuments = []
-    showProgressWindow(book)
-    @renderQueue = book.container.package.spine.map { |itemref| itemref.item }
+    showProgressWindow
+    @renderQueue = @bookController.document.container.package.spine.map { |itemref| itemref.item }
     @progressIncrement = 90.0 / @renderQueue.size
     renderNextQueueItem
   end
-  
-  private
   
   def renderNextQueueItem
     return if operationCanceled?
     @currentItem = @renderQueue.shift
     if @currentItem
-      incrementStatus("Rendering item \"#{@currentItem.name}\"...", @progressIncrement)
+      incrementProgress("Rendering item \"#{@currentItem.name}\"...", @progressIncrement)
       Dispatch::Queue.main.async do
         # must execute in the main GUI thread
         renderItem(@currentItem)
@@ -60,51 +66,34 @@ class PDFController < NSWindowController
     # create a webView to render the content
     webView = WebView.alloc.initWithFrame(frameRect, frameName:nil, groupName:nil)
     
-    # register callback to be notified when webView has completed rendering
+    # register to be notified when webView has completed rendering; will invoke webView:didFinishLoadForFrame:
     webView.frameLoadDelegate = self
 
     # create a window to hold the webView
-    printWindow = NSWindow.alloc.initWithContentRect(frameRect, styleMask:NSBorderlessWindowMask, 
+    offscreenWindow = NSWindow.alloc.initWithContentRect(frameRect, styleMask:NSBorderlessWindowMask, 
         backing:NSBackingStoreNonretained, defer:false, screen:nil)
     
     # add the webView to the window
-    printWindow.contentView.addSubview(webView)
-    
-    # create a web request
-    request = NSURLRequest.requestWithURL(item.url)
+    offscreenWindow.contentView.addSubview(webView)
     
     # load the page into the webview    
-    webView.mainFrame.loadRequest(request, baseURL:nil)
+    webView.mainFrame.loadRequest(NSURLRequest.requestWithURL(item.url), baseURL:nil)
   end
   
   def webView(webView, didFinishLoadForFrame:frame)    
     return if operationCanceled?
-    
-    # get the documentView from the webView; this view contains the rendered content
     documentView = webView.mainFrame.frameView.documentView
-    
-    # order the window front and display it (far offscreen)
     documentView.window.orderFront(self)
     documentView.window.display
-    
-    # lockFocus focus so print operation will take rendered view as content
     documentView.lockFocus
-
-    # print the rendered view
-    # printView(documentView)
-    
     saveViewAsPDF(documentView)
-    
-    # release focus lock
     documentView.unlockFocus
-    
-    # hide window
     documentView.window.orderOut(self)
+    renderNextQueueItem
   end
 
   def saveViewAsPDF(view)    
     return if operationCanceled?  
-    # get sharedPrintInfo and copy its default properties
     printInfoDict = NSMutableDictionary.dictionaryWithDictionary(NSPrintInfo.sharedPrintInfo.dictionary)
     printInfoDict[NSPrintJobDisposition] = NSPrintSaveJob
     tempfile = Tempfile.new("me.folioapp.pdf.")
@@ -117,13 +106,7 @@ class PDFController < NSWindowController
       printOperation = NSPrintOperation.printOperationWithView(view, printInfo:printInfo)
       printOperation.showPanels = false
       printOperation.runOperation
-      doc = PDFDocument.alloc.initWithURL(NSURL.URLWithString("file://#{tempfile.path}"))
-      unless doc
-        cleanUp
-        raise StandardError, "An error occurred while generating PDF for \"#{@currentItem.name}\"." unless doc
-      end
-      @pdfDocuments << doc
-      renderNextQueueItem
+      @pdfDocuments << PDFDocument.alloc.initWithURL(NSURL.URLWithString("file://#{tempfile.path}"))
     ensure
       tempfile.close
       tempfile.unlink
@@ -132,7 +115,7 @@ class PDFController < NSWindowController
   
   def mergeDocuments(pdfDocuments)
     return if operationCanceled?
-    incrementStatus("Merging rendered files...", 0)
+    incrementProgress("Merging rendered files...", 0)
     mergedDocument = PDFDocument.alloc.init
     pdfDocuments.each do |pdf|
       return if operationCanceled?
@@ -144,15 +127,15 @@ class PDFController < NSWindowController
         i += 1
       end
     end
-    updateStatus("Saving PDF...", 99.0)
+    updateProgress("Saving PDF document...", 99.0)
     mergedDocument.dataRepresentation.writeToURL(@destinationURL, atomically:true)
     cleanUp
   end
   
-  def showProgressWindow(book)
+  def showProgressWindow
     Dispatch::Queue.main.async do
-      updateStatus("Preparing PDF generation...", 0)
-      NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
+      updateProgress("Preparing PDF generation...", 0)
+      NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
     end
   end
@@ -165,12 +148,12 @@ class PDFController < NSWindowController
     end
   end
 
-  def updateStatus(status, amount)
+  def updateProgress(status, amount)
     @progressText.stringValue = status
     @progressBar.doubleValue = amount
   end
   
-  def incrementStatus(status, amount)
+  def incrementProgress(status, amount)
     @progressText.stringValue = status
     @progressBar.incrementBy(@progressIncrement)
   end
