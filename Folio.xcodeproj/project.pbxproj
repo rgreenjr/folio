@@ -63,7 +63,6 @@
 		CD2D184412E5F23400D6A99A /* NSURL_test.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD2D184312E5F23400D6A99A /* NSURL_test.rb */; };
 		CD3A3E0312F21F0500449BFC /* PrintController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD3A3E0212F21F0500449BFC /* PrintController.rb */; };
 		CD4969D614BF4F0F003D91BB /* MySplitView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD4969D514BF4F0F003D91BB /* MySplitView.rb */; };
-		CD64AA5114E8DA6B00C017AA /* PDFPanelController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD64AA5014E8DA6B00C017AA /* PDFPanelController.rb */; };
 		CD64AA5414E8DAA400C017AA /* PDFPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD64AA5314E8DAA400C017AA /* PDFPanel.xib */; };
 		CD64AA5614E8EF4E00C017AA /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD64AA5514E8EF4E00C017AA /* Quartz.framework */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
@@ -83,6 +82,7 @@
 		CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */; };
 		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
 		CDB780D6149964070025702F /* TabbedViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D5149964060025702F /* TabbedViewController.rb */; };
+		CDC8344714E970E8001FCBE3 /* PDController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDC8344614E970E8001FCBE3 /* PDController.rb */; };
 		CDCBBFBB14DB028000C8BF4A /* xhtml1-strict.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */; };
 		CDCBBFBC14DB028000C8BF4A /* xml.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFBA14DB028000C8BF4A /* xml.xsd */; };
 		CDCBBFDC14DB09B600C8BF4A /* dtbook-2005-2.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */; };
@@ -193,7 +193,6 @@
 		CDEBCB0612F0B27C00E8834D /* Metadatum.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB0512F0B27C00E8834D /* Metadatum.rb */; };
 		CDEBCB0812F0B28600E8834D /* InspectorViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDEBCB0712F0B28600E8834D /* InspectorViewController.rb */; };
 		CDF7071914AA68FA004F76EF /* PointPanelController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDF7071814AA68FA004F76EF /* PointPanelController.rb */; };
-		CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFA75D2120909AA00830BCE /* CoreAudio.framework */; };
 		CDFB4FB414E6132E009E4810 /* Package.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDFB4FB314E6132E009E4810 /* Package.rb */; };
 /* End PBXBuildFile section */
 
@@ -270,7 +269,6 @@
 		CD2D184312E5F23400D6A99A /* NSURL_test.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = NSURL_test.rb; sourceTree = "<group>"; };
 		CD3A3E0212F21F0500449BFC /* PrintController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PrintController.rb; sourceTree = "<group>"; };
 		CD4969D514BF4F0F003D91BB /* MySplitView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MySplitView.rb; sourceTree = "<group>"; };
-		CD64AA5014E8DA6B00C017AA /* PDFPanelController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PDFPanelController.rb; sourceTree = "<group>"; };
 		CD64AA5314E8DAA400C017AA /* PDFPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFPanel.xib; sourceTree = "<group>"; };
 		CD64AA5514E8EF4E00C017AA /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
@@ -290,6 +288,7 @@
 		CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverMessageView.rb; sourceTree = "<group>"; };
 		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
 		CDB780D5149964060025702F /* TabbedViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabbedViewController.rb; sourceTree = "<group>"; };
+		CDC8344614E970E8001FCBE3 /* PDController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PDController.rb; sourceTree = "<group>"; };
 		CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-strict.xsd"; sourceTree = "<group>"; };
 		CDCBBFBA14DB028000C8BF4A /* xml.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = xml.xsd; sourceTree = "<group>"; };
 		CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dtbook-2005-2.dtd"; sourceTree = "<group>"; };
@@ -414,7 +413,6 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */,
 				CD0603AC1207940A00E447D5 /* WebKit.framework in Frameworks */,
-				CDFA75D3120909AA00830BCE /* CoreAudio.framework in Frameworks */,
 				CDE105F612DFA58000E1518B /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,8 +548,8 @@
 				CD1A2D7214B20F82008200F8 /* Numeric.rb */,
 				CDFB4FB314E6132E009E4810 /* Package.rb */,
 				CD2D17FC12E5F1F800D6A99A /* ParseException.rb */,
-				CD64AA5014E8DA6B00C017AA /* PDFPanelController.rb */,
 				CD2D17FD12E5F1F800D6A99A /* Point.rb */,
+				CDC8344614E970E8001FCBE3 /* PDController.rb */,
 				CDF7071814AA68FA004F76EF /* PointPanelController.rb */,
 				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
 				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
@@ -973,8 +971,8 @@
 				CDCBBFE414DB09B600C8BF4A /* xhtml1-strict.dtd in Resources */,
 				CDCBBFE514DB09B600C8BF4A /* xhtml1-transitional.dtd in Resources */,
 				CDFB4FB414E6132E009E4810 /* Package.rb in Resources */,
-				CD64AA5114E8DA6B00C017AA /* PDFPanelController.rb in Resources */,
 				CD64AA5414E8DAA400C017AA /* PDFPanel.xib in Resources */,
+				CDC8344714E970E8001FCBE3 /* PDController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

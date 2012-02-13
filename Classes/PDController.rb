@@ -1,4 +1,4 @@
-class PDFPanelController < NSWindowController
+class PDFController < NSWindowController
 
   attr_accessor :progressBar
   attr_accessor :progressText

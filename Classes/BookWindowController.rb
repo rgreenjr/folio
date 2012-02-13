@@ -232,7 +232,7 @@ class BookWindowController < NSWindowController
   end
   
   def saveAsPDF(sender)
-    @pdfPanelController ||= PDFPanelController.alloc.init
+    @pdfPanelController ||= PDFController.alloc.init
     @pdfPanelController.saveBookAsPDF(document)
   end
 
