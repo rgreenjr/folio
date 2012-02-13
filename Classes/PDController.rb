@@ -8,16 +8,18 @@ class PDFController < NSWindowController
   end
   
   def exportBookAsPDF(book)
+    window # force window to load
     savePanel = NSSavePanel.savePanel
     savePanel.prompt = "Export"
+    savePanel.allowedFileTypes = ["pdf"]
+    savePanel.allowsOtherFileTypes = false
     savePanel.nameFieldStringValue = book.container.package.metadata.title
     savePanel.beginSheetModalForWindow(book.controller.window, completionHandler:Proc.new {|resultCode|
       if resultCode == NSOKButton
         @destinationURL = savePanel.URL
-        puts "savePanel = #{@destinationURL} => #{@destinationURL.pathExtension}"
-        @destinationURL = NSURL.fileURLWithPath(@destinationURL.path + ".pdf") unless @destinationURL.pathExtension == "pdf"
-        puts "savePanel = #{@destinationURL}"
-        generatePDF(book)
+        Dispatch::Queue.concurrent.async do
+          generatePDF(book)
+        end
       end      
     })    
   end
@@ -26,33 +28,30 @@ class PDFController < NSWindowController
     @shouldStop = false
     @pdfDocuments = []
     showProgressWindow(book)
-    @itemQueue = book.container.package.spine.map { |itemref| itemref.item }
-    @progressIncrement = 100.0 / @itemQueue.size
+    @renderQueue = book.container.package.spine.map { |itemref| itemref.item }
+    @progressIncrement = 90.0 / @renderQueue.size
     renderNextQueueItem
   end
   
   private
   
-  def method_name
-    Alert.runModal(@bookController.window, ".", "Please choose a unique item name.")
-  end
-  
   def renderNextQueueItem
     return if operationCanceled?
-    @currentItem = @itemQueue.shift
+    @currentItem = @renderQueue.shift
     if @currentItem
-      incrementStatus("Rendering \"#{@currentItem.name}\"...", @progressIncrement)
-      renderItem(@currentItem)
-    else
-      pdf = mergeDocuments(@pdfDocuments)
-      puts "pdf = #{pdf}"
-      puts "writing to #{@destinationURL.path}"
-      pdf.dataRepresentation.writeToURL(@destinationURL, atomically:true)      
-      cleanUp
+      incrementStatus("Rendering item \"#{@currentItem.name}\"...", @progressIncrement)
+      Dispatch::Queue.main.async do
+        # must execute in the main GUI thread
+        renderItem(@currentItem)
+      end
+    else      
+      Dispatch::Queue.concurrent.async do
+        mergeDocuments(@pdfDocuments)
+      end
     end
   end
   
-  def renderItem(item)    
+  def renderItem(item)
     return if operationCanceled?
     
     # create a dummy frame far offscreen
@@ -65,7 +64,8 @@ class PDFController < NSWindowController
     webView.frameLoadDelegate = self
 
     # create a window to hold the webView
-    printWindow = NSWindow.alloc.initWithContentRect(frameRect, styleMask:NSBorderlessWindowMask, backing:NSBackingStoreNonretained, defer:false, screen:nil)
+    printWindow = NSWindow.alloc.initWithContentRect(frameRect, styleMask:NSBorderlessWindowMask, 
+        backing:NSBackingStoreNonretained, defer:false, screen:nil)
     
     # add the webView to the window
     printWindow.contentView.addSubview(webView)
@@ -120,7 +120,6 @@ class PDFController < NSWindowController
       doc = PDFDocument.alloc.initWithURL(NSURL.URLWithString("file://#{tempfile.path}"))
       unless doc
         cleanUp
-        puts "problem..."
         raise StandardError, "An error occurred while generating PDF for \"#{@currentItem.name}\"." unless doc
       end
       @pdfDocuments << doc
@@ -131,12 +130,12 @@ class PDFController < NSWindowController
     end
   end
   
-  def mergeDocuments(pdfDocuments)    
+  def mergeDocuments(pdfDocuments)
     return if operationCanceled?
+    incrementStatus("Merging rendered files...", 0)
     mergedDocument = PDFDocument.alloc.init
     pdfDocuments.each do |pdf|
       return if operationCanceled?
-      incrementStatus("Merging rendered files...", @progressIncrement)
       i = 0
       while i < pdf.pageCount
         return if operationCanceled?
@@ -145,13 +144,14 @@ class PDFController < NSWindowController
         i += 1
       end
     end
-    mergedDocument
+    updateStatus("Saving PDF...", 99.0)
+    mergedDocument.dataRepresentation.writeToURL(@destinationURL, atomically:true)
+    cleanUp
   end
   
   def showProgressWindow(book)
     Dispatch::Queue.main.async do
       updateStatus("Preparing PDF generation...", 0)
-      window # force window to load
       NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
     end
@@ -166,17 +166,13 @@ class PDFController < NSWindowController
   end
 
   def updateStatus(status, amount)
-    Dispatch::Queue.main.async do
-      @progressText.stringValue = status
-      @progressBar.doubleValue = @progressIncrement
-    end
+    @progressText.stringValue = status
+    @progressBar.doubleValue = amount
   end
   
   def incrementStatus(status, amount)
-    Dispatch::Queue.main.async do
-      @progressText.stringValue = status
-      @progressBar.incrementBy(@progressIncrement)
-    end
+    @progressText.stringValue = status
+    @progressBar.incrementBy(@progressIncrement)
   end
   
   def cancel(sender)
