@@ -65,6 +65,7 @@
 		CD4969D614BF4F0F003D91BB /* MySplitView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD4969D514BF4F0F003D91BB /* MySplitView.rb */; };
 		CD64AA5414E8DAA400C017AA /* PDFPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD64AA5314E8DAA400C017AA /* PDFPanel.xib */; };
 		CD64AA5614E8EF4E00C017AA /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD64AA5514E8EF4E00C017AA /* Quartz.framework */; };
+		CD6B001514EA0A01001443C8 /* PDFController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD6B001414EA0A01001443C8 /* PDFController.rb */; };
 		CD85C8F812EB3E2F009E33A3 /* IssueViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */; };
 		CD8F5F5012EB77580036B0D7 /* ValidationController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */; };
 		CD9727E312E79CB4006398DB /* AsyncCommand.rb in Resources */ = {isa = PBXBuildFile; fileRef = CD9727E212E79CB4006398DB /* AsyncCommand.rb */; };
@@ -82,7 +83,6 @@
 		CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */; };
 		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
 		CDB780D6149964070025702F /* TabbedViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D5149964060025702F /* TabbedViewController.rb */; };
-		CDC8344714E970E8001FCBE3 /* PDController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDC8344614E970E8001FCBE3 /* PDController.rb */; };
 		CDCBBFBB14DB028000C8BF4A /* xhtml1-strict.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */; };
 		CDCBBFBC14DB028000C8BF4A /* xml.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFBA14DB028000C8BF4A /* xml.xsd */; };
 		CDCBBFDC14DB09B600C8BF4A /* dtbook-2005-2.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */; };
@@ -271,6 +271,7 @@
 		CD4969D514BF4F0F003D91BB /* MySplitView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = MySplitView.rb; sourceTree = "<group>"; };
 		CD64AA5314E8DAA400C017AA /* PDFPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFPanel.xib; sourceTree = "<group>"; };
 		CD64AA5514E8EF4E00C017AA /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		CD6B001414EA0A01001443C8 /* PDFController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PDFController.rb; sourceTree = "<group>"; };
 		CD85C8F712EB3E2F009E33A3 /* IssueViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = IssueViewController.rb; sourceTree = "<group>"; };
 		CD8F5F4F12EB77580036B0D7 /* ValidationController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ValidationController.rb; sourceTree = "<group>"; };
 		CD9727E212E79CB4006398DB /* AsyncCommand.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = AsyncCommand.rb; sourceTree = "<group>"; };
@@ -288,7 +289,6 @@
 		CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverMessageView.rb; sourceTree = "<group>"; };
 		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
 		CDB780D5149964060025702F /* TabbedViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabbedViewController.rb; sourceTree = "<group>"; };
-		CDC8344614E970E8001FCBE3 /* PDController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PDController.rb; sourceTree = "<group>"; };
 		CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-strict.xsd"; sourceTree = "<group>"; };
 		CDCBBFBA14DB028000C8BF4A /* xml.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = xml.xsd; sourceTree = "<group>"; };
 		CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dtbook-2005-2.dtd"; sourceTree = "<group>"; };
@@ -546,8 +546,8 @@
 				CD1A2D7214B20F82008200F8 /* Numeric.rb */,
 				CDFB4FB314E6132E009E4810 /* Package.rb */,
 				CD2D17FC12E5F1F800D6A99A /* ParseException.rb */,
+				CD6B001414EA0A01001443C8 /* PDFController.rb */,
 				CD2D17FD12E5F1F800D6A99A /* Point.rb */,
-				CDC8344614E970E8001FCBE3 /* PDController.rb */,
 				CDF7071814AA68FA004F76EF /* PointPanelController.rb */,
 				CDB5422C12F32CE800BB5739 /* PointViewController.rb */,
 				CDDBEC8312E6116600633F22 /* PreferencesController.rb */,
@@ -970,7 +970,7 @@
 				CDCBBFE514DB09B600C8BF4A /* xhtml1-transitional.dtd in Resources */,
 				CDFB4FB414E6132E009E4810 /* Package.rb in Resources */,
 				CD64AA5414E8DAA400C017AA /* PDFPanel.xib in Resources */,
-				CDC8344714E970E8001FCBE3 /* PDController.rb in Resources */,
+				CD6B001514EA0A01001443C8 /* PDFController.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1138,7 +1138,7 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1153,7 +1153,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Folio;
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
 			};
@@ -1162,7 +1161,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1174,7 +1173,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Folio;
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1183,12 +1181,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
 			};
@@ -1198,12 +1195,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
 			};
