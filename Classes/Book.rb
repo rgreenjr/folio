@@ -32,8 +32,12 @@ class Book < NSDocument
       true
     end
   rescue StandardError => exception
-    info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
+    info = {
+      NSLocalizedDescriptionKey => "The book \"#{absoluteURL.lastPathComponent}\" could not be opened.",
+      NSLocalizedRecoverySuggestionErrorKey => exception.message
+    }
     outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:1, userInfo:info))
+    close
     false
   end
 
@@ -49,7 +53,10 @@ class Book < NSDocument
     FileUtils.rm_rf(tempDirectory)
     true
   rescue StandardError => exception
-    info = { NSLocalizedRecoverySuggestionErrorKey => exception.message }
+    info = {
+      NSLocalizedDescriptionKey => "The book \"#{absoluteURL.lastPathComponent}\" could not be saved.",
+      NSLocalizedRecoverySuggestionErrorKey => exception.message
+    }
     outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:1, userInfo:info))
     false
   end
@@ -92,7 +99,7 @@ class Book < NSDocument
 
   def close
     super
-    FileUtils.rm_rf(@unzipPath)
+    FileUtils.rm_rf(@unzipPath) if @unzipPath
   end
 
   def validatePackage
