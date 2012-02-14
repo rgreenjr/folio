@@ -37,7 +37,7 @@ class PDFController < NSWindowController
     @pdfDocuments = []
     showProgressWindow
     @renderQueue = @bookController.document.container.package.spine.map { |itemref| itemref.item }
-    @progressIncrement = 90.0 / @renderQueue.size
+    @progressIncrement = 100.0 / @renderQueue.size
     renderNextQueueItem
   end
   
@@ -133,13 +133,15 @@ class PDFController < NSWindowController
         i += 1
       end
     end
-    updateProgress("Saving PDF document...", 99.0)
+    @progressBar.indeterminate = true
+    updateProgress("Saving PDF document...", 100)
     mergedDocument.dataRepresentation.writeToURL(@destinationURL, atomically:true)
     cleanUp
   end
   
   def showProgressWindow
     Dispatch::Queue.main.async do
+      @progressBar.indeterminate = false
       updateProgress("Preparing PDF generation...", 0)
       NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
