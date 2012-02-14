@@ -59,7 +59,7 @@ class PDFController < NSWindowController
     if @currentItem
       incrementProgress("Rendering \"#{@currentItem.name}\"...", @progressIncrement)
       Dispatch::Queue.main.async do
-        # must execute in the main GUI thread
+        # must execute webView calls in the main GUI thread
         renderItem(@currentItem)
       end
     else      
@@ -163,7 +163,6 @@ class PDFController < NSWindowController
       @doneButton.hidden = true
       @showInFinderButton.hidden = true
       @cancelButton.hidden = false
-      # @progressBar.indeterminate = false
       updateProgress("Preparing PDF generation...", 0)
       NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
@@ -210,7 +209,6 @@ class PDFController < NSWindowController
     Dispatch::Queue.main.async do
       @progressBar.stopAnimation(self)
       updateProgress("Complete", 100)
-      # @progressBar.enabled = false
       @doneButton.hidden = false
       @showInFinderButton.hidden = false
       @cancelButton.hidden = true
