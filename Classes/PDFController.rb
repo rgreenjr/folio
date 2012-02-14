@@ -124,7 +124,7 @@ class PDFController < NSWindowController
         @pdfDocuments << doc
       else
         @shouldStop = true
-        Alert.runModal(nil, "An error occurred while rendering \"#{@currentItem.name}\".")
+        Alert.runModal(nil, "An unrecoverable error occurred while rendering \"#{@currentItem.name}\".")
       end
     ensure
       tempfile.close

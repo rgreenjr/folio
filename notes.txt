@@ -2,6 +2,8 @@ Bugs
 ====
 
 - Toolbar has focus on launch
+- Handle language dialects (e.g. <dc:language>en-US</dc:language>)
+- Check for EPUB 3.0 version specification and fail gracefully
 
 Features
 ========
