@@ -369,7 +369,7 @@ class Item
   def self.findFragments(document)
     error = Pointer.new(:id)
     array = document.nodesForXPath("//*[@id]", error:error)
-    raise StandardError, error[0].localizedDescription if error[0]
+    raise error[0].localizedDescription if error[0]
     fragments = []
     array.each do |element|
     end

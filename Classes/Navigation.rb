@@ -178,7 +178,7 @@ class Navigation
     begin
       doc = REXML::Document.new(ncx.content)    
     rescue REXML::ParseException => exception
-      raise StandardError, "Unable to parse NCX file \"#{ncx.href}\": #{exception.explain}"
+      raise "Unable to parse NCX file \"#{ncx.href}\": #{exception.explain}"
     end
   end
 

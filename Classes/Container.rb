@@ -16,7 +16,7 @@ class Container
     container.package = Package.load(unzipPath, extractRootFilePath(doc), progressBar)
     container
   rescue REXML::ParseException => exception
-    raise StandardError, "Unable to parse \"#{CONTAINER_XML_PATH}\": #{exception.explain}"
+    raise "Unable to parse \"#{CONTAINER_XML_PATH}\": #{exception.explain}"
   end
 
   def initialize(unzipPath)
