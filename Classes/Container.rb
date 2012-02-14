@@ -32,7 +32,7 @@ class Container
   end
 
   def mediaType
-    Media::EPUB
+    Media::OEBPS
   end
 
   def containerXML
@@ -43,12 +43,12 @@ class Container
 
   def self.extractRootFilePath(doc)
     doc.root.elements.each("/container/rootfiles/rootfile") do |element|
-      if element.attributes["media-type"] == Media::EPUB
+      if element.attributes["media-type"] == Media::OEBPS
         fullPath = element.attributes["full-path"]
         return fullPath unless fullPath.blank?
       end
     end
-    raise "The #{CONTAINER_XML_PATH} does not specify an #{Media::EPUB} rendition."
+    raise "The #{CONTAINER_XML_PATH} does not specify an #{Media::OEBPS} rendition."
   end
 
 end

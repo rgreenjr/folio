@@ -1,6 +1,6 @@
 class Book < NSDocument
 
-  UNZIP_DIRECTORY_PREFIX = "me.folioapp."
+  UNZIP_DIRECTORY_PREFIX = "me.folioapp.unzip."
   EMPTY_BOOK_FILE_SIZE   = 1300
 
   attr_reader :controller
@@ -45,12 +45,19 @@ class Book < NSDocument
     tempName = "book.epub"
     @controller.tabbedViewController.saveAllTabs(self)
     tempDirectory = Dir.mktmpdir("me.folioapp.zip.")
-    File.open(File.join(tempDirectory, "mimetype"), "w") { |f| f.print "application/epub+zip" }
+    File.open(File.join(tempDirectory, "mimetype"), "w") { |f| f.print Media::EPUB }
     @container.save(tempDirectory)
+    
+    # mimetype must be the first file and uncompressed
     runCommand("cd '#{tempDirectory}'; zip -qX0 ./#{tempName} mimetype")
+    
+    # compress and include all remaining files
     runCommand("cd '#{tempDirectory}'; zip -qX9urD ./#{tempName} *")
+    
+    # move the zip file to specified path
     FileUtils.mv(File.join(tempDirectory, tempName), absoluteURL.path)
-    FileUtils.rm_rf(tempDirectory)
+    
+    # return true to indicate success
     true
   rescue StandardError => exception
     info = {
@@ -59,6 +66,8 @@ class Book < NSDocument
     }
     outError.assign(NSError.errorWithDomain(NSOSStatusErrorDomain, code:1, userInfo:info))
     false
+  ensure
+    FileUtils.rm_rf(tempDirectory) if tempDirectory
   end
 
   def makeWindowControllers

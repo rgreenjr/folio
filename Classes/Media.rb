@@ -2,41 +2,43 @@ class Media
 
   CSS       = "text/css"
   DIRECTORY = "directory"
-  EPUB      = "application/oebps-package+xml"
+  EPUB      = "application/epub+zip"
   GIF       = "image/gif"
   HTML      = "application/xhtml+xml"
   JPG       = "image/jpeg"
   PNG       = "image/png"
   NCX       = "application/x-dtbncx+xml"
+  OEBPS     = "application/oebps-package+xml"
   OPF       = "application/x-font-opentype"
   OTF       = "application/x-font-opentype"
   PDF       = "application/pdf"
+  PMAP      = "application/oebps-page-map+xml"
   SVG       = "image/svg+xml"
   TTF       = "application/x-font-ttf"
   TIFF      = "image/tiff"
   TXT       = "text/plain"
   XPGT      = "application/vnd.adobe-page-template+xml"
   XML       = "application/xml"
-  PMAP      = "application/oebps-page-map+xml"
   
   MEDIA_TYPES_HASH = {
     "css"   => CSS,
-    "ttf"   => TTF,
     "gif"   => GIF,
     "htm"   => HTML,
+    "epub"  => EPUB,
     "html"  => HTML,
-    "jpg"   => JPG,
     "jpeg"  => JPG,
+    "jpg"   => JPG,
     "jp2"   => JPG,
-    "png"   => PNG,
     "otf"   => OTF,
     "pdf"   => PDF,
+    "png"   => PNG,
     "svg"   => SVG,
     "tif"   => TIFF,
     "tiff"  => TIFF,
+    "ttf"   => TTF,
     "txt"   => TXT,
-    "xpgt"  => XPGT,
     "xhtml" => HTML,
+    "xpgt"  => XPGT,
     "xml"   => XML,
   }
   
