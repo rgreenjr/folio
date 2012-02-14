@@ -19,6 +19,7 @@ class Package
     package = Package.new(unzipPath, fullPath)
     raise "The OPF file \"#{fullPath}\" could not be found." unless File.exists?(package.absoluteFullPath)
     package.opf = REXML::Document.new(File.read(package.absoluteFullPath))
+    verifyPackageVersionSupport(package.opf)
     package.manifest = Manifest.load(package)
     progressBar.doubleValue = 75
     package.metadata = Metadata.load(package)
@@ -31,7 +32,7 @@ class Package
     progressBar.doubleValue = 95
     package
   rescue REXML::ParseException => exception
-    raise StandardError, "Unable to parse OPF file \"#{fullPath}\": #{exception.explain}"
+    raise "Unable to parse OPF file \"#{fullPath}\": #{exception.explain}"
   end
 
   def initialize(unzipPath, fullPath=nil)
@@ -75,6 +76,15 @@ class Package
 
   def opfXML
     ERB.new(Bundle.template("content.opf")).result(binding)
+  end
+
+  private
+
+  def self.verifyPackageVersionSupport(opf)
+    version = opf.root.attributes["version"]
+    unless version =~ /^2\./
+      raise "The specified format version #{version} is not supported."
+    end
   end
 
 end
