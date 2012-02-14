@@ -196,7 +196,10 @@ class Manifest
       href = node.attributeForName("href").stringValue
       unless NSURL.URLWithString(href).remote?
         # strip fragment before lookup
-        href, fragment = href.split('#')   
+        href, fragment = href.split('#')
+        
+        # ignore self-referencing links with just a fragment 
+        next if href.blank? && !fragment.blank?
         
         # expand src incase '.' or '..' are used
         expandedPath = File.expand_path(href, File.dirname(item.absolutePath))
