@@ -1,7 +1,10 @@
 class PDFController < NSWindowController
 
   attr_accessor :progressBar
-  attr_accessor :progressText
+  attr_accessor :statusText
+  attr_accessor :doneButton
+  attr_accessor :cancelButton
+  attr_accessor :showInFinderButton
 
   def initWithBookController(controller)
     initWithWindowNibName("PDFPanel")
@@ -30,6 +33,15 @@ class PDFController < NSWindowController
     })    
   end
   
+  def showInFinder(sender)
+    NSWorkspace.sharedWorkspace.selectFile(@destinationURL.path, inFileViewerRootedAtPath:nil)
+    cleanUp
+  end
+  
+  def done(sender)
+    cleanUp
+  end
+
   private
   
   def generatePDF
@@ -37,7 +49,7 @@ class PDFController < NSWindowController
     @pdfDocuments = []
     showProgressWindow
     @renderQueue = @bookController.document.container.package.spine.map { |itemref| itemref.item }
-    @progressIncrement = 100.0 / @renderQueue.size
+    @progressIncrement = 95.0 / @renderQueue.size
     renderNextQueueItem
   end
   
@@ -45,7 +57,7 @@ class PDFController < NSWindowController
     return if operationCanceled?
     @currentItem = @renderQueue.shift
     if @currentItem
-      incrementProgress("Rendering item \"#{@currentItem.name}\"...", @progressIncrement)
+      incrementProgress("Rendering \"#{@currentItem.name}\"...", @progressIncrement)
       Dispatch::Queue.main.async do
         # must execute in the main GUI thread
         renderItem(@currentItem)
@@ -106,7 +118,14 @@ class PDFController < NSWindowController
       printOperation = NSPrintOperation.printOperationWithView(view, printInfo:printInfo)
       printOperation.showPanels = false
       printOperation.runOperation
-      @pdfDocuments << PDFDocument.alloc.initWithURL(NSURL.URLWithString("file://#{tempfile.path}"))
+      
+      doc = PDFDocument.alloc.initWithURL(NSURL.URLWithString("file://#{tempfile.path}"))
+      if doc
+        @pdfDocuments << doc
+      else
+        @shouldStop = true
+        Alert.runModal(nil, "An error occurred while rendering \"#{@currentItem.name}\".")
+      end
     ensure
       tempfile.close
       tempfile.unlink
@@ -133,15 +152,18 @@ class PDFController < NSWindowController
         i += 1
       end
     end
-    @progressBar.indeterminate = true
-    updateProgress("Saving PDF document...", 100)
+    # @progressBar.indeterminate = true
+    incrementProgress("Saving PDF document...", 0)
     mergedDocument.dataRepresentation.writeToURL(@destinationURL, atomically:true)
-    cleanUp
+    completeExport
   end
   
   def showProgressWindow
     Dispatch::Queue.main.async do
-      @progressBar.indeterminate = false
+      @doneButton.hidden = true
+      @showInFinderButton.hidden = true
+      @cancelButton.hidden = false
+      # @progressBar.indeterminate = false
       updateProgress("Preparing PDF generation...", 0)
       NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
@@ -157,19 +179,19 @@ class PDFController < NSWindowController
   end
 
   def updateProgress(status, amount)
-    @progressText.stringValue = status
+    @statusText.stringValue = status
     @progressBar.doubleValue = amount
   end
   
   def incrementProgress(status, amount)
-    @progressText.stringValue = status
+    @statusText.stringValue = status
     @progressBar.incrementBy(@progressIncrement)
   end
   
   def cancel(sender)
     @shouldStop = true
   end
-
+  
   def operationCanceled?
     if @shouldStop
       cleanUp
@@ -182,6 +204,17 @@ class PDFController < NSWindowController
   def cleanUp
     hideProgressWindow
     @pdfDocuments = nil
+  end
+  
+  def completeExport
+    Dispatch::Queue.main.async do
+      @progressBar.stopAnimation(self)
+      updateProgress("Complete", 100)
+      # @progressBar.enabled = false
+      @doneButton.hidden = false
+      @showInFinderButton.hidden = false
+      @cancelButton.hidden = true
+    end
   end
   
 end
