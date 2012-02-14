@@ -23,7 +23,6 @@ Enhancements
 - Add tool tips to tabs
 - Search filtering of selection views
 - Add WebView forward/backward buttons
-- Print all spine itemrefs
 
 - Add red badge showing issue count to Issues toolbar
 - Buttons to generate UUID
