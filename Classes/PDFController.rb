@@ -117,6 +117,12 @@ class PDFController < NSWindowController
     return if operationCanceled?
     incrementProgress("Merging rendered files...", 0)
     mergedDocument = PDFDocument.alloc.init
+    mergedDocument.documentAttributes = {
+      PDFDocumentTitleAttribute   => @bookController.document.container.package.metadata.title,
+      PDFDocumentAuthorAttribute  => @bookController.document.container.package.metadata.creator,
+      PDFDocumentSubjectAttribute => @bookController.document.container.package.metadata.subject,
+      PDFDocumentCreatorAttribute => "Folio"
+    }
     pdfDocuments.each do |pdf|
       return if operationCanceled?
       i = 0
