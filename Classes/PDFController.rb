@@ -76,7 +76,7 @@ class PDFController < NSWindowController
     return if operationCanceled?
     
     # create a dummy frame far offscreen
-    frameRect = [-16000.0, -16000.0, 100, 100]
+    frameRect = [-16000.0, -16000.0, 612, 792]
     
     # create a webView to render the content
     webView = WebView.alloc.initWithFrame(frameRect, frameName:nil, groupName:nil)
