@@ -19,7 +19,7 @@ class Package
     package = Package.new(unzipPath, fullPath)
     raise "The OPF file \"#{fullPath}\" could not be found." unless File.exists?(package.absoluteFullPath)
     package.opf = REXML::Document.new(File.read(package.absoluteFullPath))
-    verifyPackageVersionSupport(package.opf)
+    checkPackageVersion(package.opf)
     package.manifest = Manifest.load(package)
     progressBar.doubleValue = 75
     package.metadata = Metadata.load(package)
@@ -80,9 +80,9 @@ class Package
 
   private
 
-  def self.verifyPackageVersionSupport(opf)
+  def self.checkPackageVersion(opf)
     version = opf.root.attributes["version"]
-    unless version =~ /^2\./
+    unless version =~ /^2/
       raise "Folio cannot open EPUB #{version} formatted books."
     end
   end

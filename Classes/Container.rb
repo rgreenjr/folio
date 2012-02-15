@@ -9,7 +9,7 @@ class Container
   attr_accessor :package
 
   def self.load(unzipPath, progressBar)
-    raise "This book is encrytped and cannot be opened." if File.exists?(File.join(unzipPath, ENCRYPTION_XML_PATH))
+    checkForEncryptionXML(unzipPath)
     container = Container.new(unzipPath)
     raise "The \"#{CONTAINER_XML_PATH}\" file is missing." unless File.exists?(container.absolutePath)
     doc = REXML::Document.new(File.read(container.absolutePath))
@@ -40,6 +40,12 @@ class Container
   end
 
   private
+
+  def self.checkForEncryptionXML(unzipPath)
+    if File.exists?(File.join(unzipPath, ENCRYPTION_XML_PATH))
+      raise "Folio cannot open encrypted books." 
+    end
+  end
 
   def self.extractRootFilePath(doc)
     doc.root.elements.each("/container/rootfiles/rootfile") do |element|
