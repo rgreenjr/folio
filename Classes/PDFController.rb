@@ -155,19 +155,29 @@ class PDFController < NSWindowController
         i += 1
       end
     end
-    # @progressBar.indeterminate = true
+    saveMergedDocument(mergedDocument)
+  end
+
+  def saveMergedDocument(pdfDocument)
+    @cancelButton.hidden = true
     incrementProgress("Saving PDF document...", 0)
-    mergedDocument.dataRepresentation.writeToURL(@destinationURL, atomically:true)
-    completeExport
+    error = Pointer.new(:id)
+    if pdfDocument.dataRepresentation.writeToURL(@destinationURL, options:NSDataWritingAtomic, error:error)
+      showExportComplete
+    else
+      message = "An error occurred while saving \"#{@destinationURL.lastPathComponent}\"."
+      Alert.runModal(nil, message, error[0].localizedDescription)
+      cleanUp
+    end
   end
   
   def showProgressWindow
     Dispatch::Queue.main.async do
       @doneButton.hidden = true
       @showInFinderButton.hidden = true
-      @cancelButton.hidden = false
       updateProgress("Preparing PDF generation...", 0)
-      NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
+      NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, 
+          didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
     end
   end
@@ -208,7 +218,7 @@ class PDFController < NSWindowController
     @pdfDocuments = nil
   end
   
-  def completeExport
+  def showExportComplete
     Dispatch::Queue.main.async do
       @progressBar.stopAnimation(self)
       updateProgress("Complete", 100)
