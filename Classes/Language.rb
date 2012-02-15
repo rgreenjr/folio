@@ -150,6 +150,14 @@ class Language
     NAMES[name] = code
   end
   
+  def self.defaultLanguage
+     "en" 
+  end
+ 
+  def self.closestCodeMatch(string)
+    codes.find {|code| code.match(/^#{string}/i)}
+  end
+   
   def self.codeForName(name)
     NAMES[name]
   end
@@ -160,6 +168,10 @@ class Language
   
   def self.names
     @names ||= NAMES.keys.sort
+  end
+
+  def self.codes
+    @codes ||= CODES.keys.sort    
   end
 
 end

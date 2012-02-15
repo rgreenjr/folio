@@ -17,63 +17,54 @@ class MetadataController < NSWindowController
     initWithWindowNibName("Metadata")
     @bookController = controller
     @metadata = @bookController.document.container.package.metadata
-    
+    @noCoverImage = NSImage.imageNamed("no-cover.png")
+
     # register for manifest item deletion notifications
     NSNotificationCenter.defaultCenter.addObserver(self, selector:"manifestWillDeleteItem:", 
-        name:"ManifestWillDeleteItem", object:@bookController.document.container.package.manifest)
-    
+    name:"ManifestWillDeleteItem", object:@bookController.document.container.package.manifest)
+
     self
   end
 
   def windowDidLoad
-    Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
     @imageWell.bookController = @bookController
+
+    # populate language popup
+    Language.names.each {|name| @languagePopup.addItemWithTitle(name)}
+
+    # configure subjectField for autocompletion
+    @subjectField.dataSource = self
+    @subjectField.delegate = self
   end
-  
-  def comboBox(comboBox, objectValueForItemAtIndex:index)
-    Metadata.subjects[index]
-  end
-  
+
   def numberOfItemsInComboBox(comboBox)
-    Metadata.subjects.size
+    Subject.subjects.size
   end
-  
-  def comboBox(comboBox, completedString:uncompletedString)  
-    Metadata.closestSubject(uncompletedString)
+
+  def comboBox(comboBox, objectValueForItemAtIndex:index)
+    Subject.subjects[index]
+  end
+
+  def comboBox(comboBox, completedString:uncompletedString)
+    Subject.closestMatch(uncompletedString)
   end  
 
   def showMetadataSheet(sender)
-    window # force window load
-    displayAttribute('title')
-    displayAttribute('description')
-    displayAttribute('date')
-    displayAttribute('identifier')
-    displayAttribute('creator')
-    displayAttribute('sortCreator')
-    displayAttribute('publisher')
-    displayAttribute('subject')
-    displayAttribute('rights')
-    @languagePopup.selectItemWithTitle(Language.nameForCode(@metadata.language))
+    window # force window to load
     displayCoverImage
+    displayAttributes
+    @languagePopup.selectItemWithTitle(Language.nameForCode(@metadata.language))
     NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
   end
-  
+
   def saveMetadata(sender)
     closeMetadataSheet(sender)
-    changeAttribute('title')
-    changeAttribute('description')
-    changeAttribute('date')
-    changeAttribute('identifier')
-    changeAttribute('creator')
-    changeAttribute('sortCreator')
-    changeAttribute('publisher')
-    changeAttribute('subject')
-    changeAttribute('rights')
+    updateCoverImage
+    updateAttributes
     @metadata.language = Language.codeForName(@languagePopup.titleOfSelectedItem)
-    changeCoverImage
     @bookController.document.updateChangeCount(NSSaveOperation)
   end
-  
+
   def closeMetadataSheet(sender)
     NSApp.endSheet(window)
     window.orderOut(sender)
@@ -83,7 +74,7 @@ class MetadataController < NSWindowController
     if @metadata.cover
       @imageWell.image = NSImage.alloc.initWithContentsOfFile(@metadata.cover.absolutePath)
     else
-      @imageWell.image = noCoverImage
+      @imageWell.image = @noCoverImage
     end
     @stashedImagePath = nil
   end
@@ -99,6 +90,7 @@ class MetadataController < NSWindowController
   def showCoverImageCollisionWarning
     alert = NSAlert.alloc.init
     alert.messageText = "An image named \"#{@imageWell.imageName}\" already exists. Do you want to replace it?"
+    alert.informativeText = "You cannot undo this action."
     alert.addButtonWithTitle "Replace"
     alert.addButtonWithTitle "Cancel"
     alert.beginSheetModalForWindow(window, modalDelegate:self, didEndSelector:"coverImageCollisionWarningSheetDidEnd:returnCode:contextInfo:", contextInfo:nil)
@@ -111,16 +103,46 @@ class MetadataController < NSWindowController
       displayCoverImage
     end
   end
-  
+
   def clearCoverImage(sender)
-    @imageWell.image = noCoverImage
+    @imageWell.image = @noCoverImage
   end
 
-  def changeCoverImage
-    if @imageWell.image == noCoverImage
+  def manifestWillDeleteItem(notification)
+    item = notification.userInfo
+    if item && @metadata.cover == item
+      @metadata.cover = nil 
+    end
+  end
+
+  private
+
+  def attributes
+    %w{title description date identifier creator sortCreator publisher subject rights}
+  end
+
+  def displayAttributes
+    attributes.each { |attribute| displayAttribute(attribute) }
+  end
+
+  def displayAttribute(attribute)
+    value = @metadata.send(attribute) || ''
+    eval("@#{attribute}Field.stringValue = value")
+  end
+
+  def updateAttributes
+    attributes.each { |attribute| updateAttribute(attribute) }
+  end
+
+  def updateAttribute(attribute)
+    value = eval("@#{attribute}Field.stringValue")
+    @metadata.send("#{attribute}=", value)
+  end
+
+  def updateCoverImage
+    if @imageWell.image == @noCoverImage
       @metadata.cover = nil
-    else
-      return unless @imageWell.imagePath
+    elsif @imageWell.imagePath
       item = @bookController.document.container.package.manifest.itemWithHref(@imageWell.imageName)
       if item
         @bookController.selectionViewController.manifestController.deleteItems([item])
@@ -130,29 +152,8 @@ class MetadataController < NSWindowController
         @metadata.cover = item
       end
       displayCoverImage
+      NSNotificationCenter.defaultCenter.postNotificationName("MetadataDidChange", object:@metadata, userInfo:nil)
     end
-    NSNotificationCenter.defaultCenter.postNotificationName("MetadataDidChange", object:@metadata, userInfo:nil)
-  end
-
-  def noCoverImage
-    @noCoverImage ||= NSImage.imageNamed("no-cover.png")
-  end
-  
-  def manifestWillDeleteItem(notification)
-    item = notification.userInfo
-    if item && @metadata.cover == item
-      @metadata.cover = nil 
-    end
-  end
-
-  def displayAttribute(attribute)
-    value = @metadata.send(attribute) || ''
-    eval("@#{attribute}Field.stringValue = value")
-  end
-
-  def changeAttribute(attribute)
-    value = eval("@#{attribute}Field.stringValue")
-    @metadata.send("#{attribute}=", value)
   end
 
 end

@@ -83,6 +83,7 @@
 		CDB6DED71492A0EF00E83456 /* HoverMessageView.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */; };
 		CDB6DED81492A0EF00E83456 /* HoverWindow.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB6DED61492A0EF00E83456 /* HoverWindow.rb */; };
 		CDB780D6149964070025702F /* TabbedViewController.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDB780D5149964060025702F /* TabbedViewController.rb */; };
+		CDBDB46D14EC5A550095AAF1 /* Subject.rb in Resources */ = {isa = PBXBuildFile; fileRef = CDBDB46C14EC5A550095AAF1 /* Subject.rb */; };
 		CDCBBFBB14DB028000C8BF4A /* xhtml1-strict.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */; };
 		CDCBBFBC14DB028000C8BF4A /* xml.xsd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFBA14DB028000C8BF4A /* xml.xsd */; };
 		CDCBBFDC14DB09B600C8BF4A /* dtbook-2005-2.dtd in Resources */ = {isa = PBXBuildFile; fileRef = CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */; };
@@ -289,6 +290,7 @@
 		CDB6DED51492A0EF00E83456 /* HoverMessageView.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverMessageView.rb; sourceTree = "<group>"; };
 		CDB6DED61492A0EF00E83456 /* HoverWindow.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HoverWindow.rb; sourceTree = "<group>"; };
 		CDB780D5149964060025702F /* TabbedViewController.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = TabbedViewController.rb; sourceTree = "<group>"; };
+		CDBDB46C14EC5A550095AAF1 /* Subject.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Subject.rb; sourceTree = "<group>"; };
 		CDCBBFB914DB028000C8BF4A /* xhtml1-strict.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "xhtml1-strict.xsd"; sourceTree = "<group>"; };
 		CDCBBFBA14DB028000C8BF4A /* xml.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = xml.xsd; sourceTree = "<group>"; };
 		CDCBBFD214DB09B600C8BF4A /* dtbook-2005-2.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dtbook-2005-2.dtd"; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 				CD2D180212E5F1F800D6A99A /* Spine.rb */,
 				CD2D180312E5F1F800D6A99A /* SpineController.rb */,
 				CD2D180412E5F1F800D6A99A /* String.rb */,
+				CDBDB46C14EC5A550095AAF1 /* Subject.rb */,
 				CD0D0D3414B66F17000BB22C /* Syntax.rb */,
 				CD0D0D3A14B670FB000BB22C /* SyntaxHighlighter.rb */,
 				CDB780D5149964060025702F /* TabbedViewController.rb */,
@@ -971,6 +974,7 @@
 				CDFB4FB414E6132E009E4810 /* Package.rb in Resources */,
 				CD64AA5414E8DAA400C017AA /* PDFPanel.xib in Resources */,
 				CD6B001514EA0A01001443C8 /* PDFController.rb in Resources */,
+				CDBDB46D14EC5A550095AAF1 /* Subject.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
