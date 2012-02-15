@@ -2,12 +2,12 @@ Bugs
 ====
 
 - Toolbar has focus on launch
-- Handle language dialects (e.g. <dc:language>en-US</dc:language>)
 
 Features
 ========
 
 - Better handling of layout switch between media types
+- Handle language dialects (e.g. <dc:language>en-US</dc:language>)
 
 Enhancements
 ============
