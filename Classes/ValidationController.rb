@@ -9,6 +9,7 @@ class ValidationController < NSWindowController
   end
   
   def validateBook(book)
+    loadWindow
     @shouldStop = false
     book.clearIssues    
     showProgressWindow(book)
@@ -63,23 +64,18 @@ class ValidationController < NSWindowController
   private
   
   def updateStatus(status, amount)
-    Dispatch::Queue.main.async do
-      @progressText.stringValue = status
-      @progressBar.doubleValue = amount
-    end
+    @progressText.stringValue = status
+    @progressBar.doubleValue = amount
   end
   
   def incrementStatus(status, amount)
-    Dispatch::Queue.main.async do
-      @progressText.stringValue = status
-      @progressBar.incrementBy(amount)
-    end
+    @progressText.stringValue = status
+    @progressBar.incrementBy(amount)
   end
   
   def showProgressWindow(book)
     Dispatch::Queue.main.async do
       updateStatus("", 0)
-      window # force window to load
       NSApp.beginSheet(window, modalForWindow:book.controller.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
       @progressBar.startAnimation(self)
     end

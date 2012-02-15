@@ -7,7 +7,7 @@ class ProgressController < NSWindowController
   end
 
   def showWindowWithTitle(title)
-    window # force window to load
+    loadWindow
     begin
       window.center
       @progressText.stringValue = title

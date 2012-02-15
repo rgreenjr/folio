@@ -1,15 +1,16 @@
 class GotoLineController < NSWindowController
   
-  attr_accessor :gotoLineField, :target
+  attr_accessor :gotoLineField
+  attr_accessor :target
   
   def init
     initWithWindowNibName("GotoLine")
   end
 
   def showWindowWithTarget(sender)
-    window # force window to load
-    @target = sender
+    loadWindow
     window.center
+    @target = sender
     @gotoLineField.selectText(self)
     window.makeKeyAndOrderFront(self)
   end
