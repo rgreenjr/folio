@@ -53,7 +53,7 @@ class MetadataController < NSWindowController
     displayAttribute('publisher')
     displayAttribute('subject')
     displayAttribute('rights')
-    @languagePopup.selectItemWithTitle(Language.name_for(@metadata.language))
+    @languagePopup.selectItemWithTitle(Language.nameForCode(@metadata.language))
     displayCoverImage
     NSApp.beginSheet(window, modalForWindow:@bookController.window, modalDelegate:self, didEndSelector:nil, contextInfo:nil)
   end
@@ -69,7 +69,7 @@ class MetadataController < NSWindowController
     changeAttribute('publisher')
     changeAttribute('subject')
     changeAttribute('rights')
-    @metadata.language = Language.code_for(@languagePopup.titleOfSelectedItem)
+    @metadata.language = Language.codeForName(@languagePopup.titleOfSelectedItem)
     changeCoverImage
     @bookController.document.updateChangeCount(NSSaveOperation)
   end

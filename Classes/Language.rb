@@ -150,11 +150,11 @@ class Language
     NAMES[name] = code
   end
   
-  def self.code_for(name)
+  def self.codeForName(name)
     NAMES[name]
   end
 
-  def self.name_for(code)
+  def self.nameForCode(code)
     CODES[code]
   end
   
