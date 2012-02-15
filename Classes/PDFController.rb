@@ -17,7 +17,7 @@ class PDFController < NSWindowController
       Alert.runModal(@bookController.window, "Empty Spine", "The spine must contain at least one manifest item.")
       return
     end
-    window # force window to load
+    loadWindow
     savePanel = NSSavePanel.savePanel
     savePanel.prompt = "Export"
     savePanel.allowedFileTypes = ["pdf"]
@@ -26,11 +26,14 @@ class PDFController < NSWindowController
     savePanel.beginSheetModalForWindow(@bookController.window, completionHandler:Proc.new {|resultCode|
       if resultCode == NSOKButton
         @destinationURL = savePanel.URL
-        Dispatch::Queue.concurrent.async do
-          generatePDF
-        end
+        Dispatch::Queue.concurrent.async { generatePDF }
       end      
     })    
+  end
+  
+  def windowDidLoad
+    # have progressBar use a separate thread since webView.loadRequest must happen in main GUI thread   
+    @progressBar.usesThreadedAnimation = true
   end
   
   def showInFinder(sender)
@@ -92,7 +95,7 @@ class PDFController < NSWindowController
     webView.mainFrame.loadRequest(NSURLRequest.requestWithURL(item.url), baseURL:nil)
   end
   
-  def webView(webView, didFinishLoadForFrame:frame)    
+  def webView(webView, didFinishLoadForFrame:frame)
     return if operationCanceled?
     documentView = webView.mainFrame.frameView.documentView
     documentView.window.orderFront(self)
