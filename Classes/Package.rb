@@ -83,7 +83,7 @@ class Package
   def self.verifyPackageVersionSupport(opf)
     version = opf.root.attributes["version"]
     unless version =~ /^2\./
-      raise "The specified format version #{version} is not supported."
+      raise "Folio cannot open EPUB #{version} formatted books."
     end
   end
 
