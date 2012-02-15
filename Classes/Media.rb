@@ -2,7 +2,6 @@ class Media
 
   CSS       = "text/css"
   DIRECTORY = "directory"
-  EPUB      = "application/epub+zip"
   GIF       = "image/gif"
   HTML      = "application/xhtml+xml"
   JPG       = "image/jpeg"
