@@ -203,17 +203,17 @@ class SourceViewController < NSViewController
 
   def reformatText(sender)
     @item.clearIssues
-    formattedText, issues = XMLLint.format(view.string, @item.mediaType)
-    if issues.empty?
+    formattedText = XMLLint.formatItem(@item)
+    if @item.hasIssues?
+      gotoLineNumber(@item.issues.first.lineNumber)
+    else
+      @item.content = formattedText
       replace(NSRange.new(0, view.string.length), formattedText)
       updateLineNumberView
-      NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
       view.window.makeFirstResponder(view)
       view.selectedRange = NSMakeRange(0, 0)
-    else
-      issues.each { |issue| @item.addIssue(issue) }
-      gotoLineNumber(@item.issues.first.lineNumber)
     end
+    NSNotificationCenter.defaultCenter.postNotificationName("ItemIssuesDidChange", object:@bookController)
   end
 
   def paragraphSelectedLines(sender)

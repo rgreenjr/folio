@@ -25,15 +25,14 @@ class XMLLint
     issues
   end
 
-  def self.format(content, mediaType)
+  def self.formatItem(item)
     formattedText = nil
-    issues = []
     errors = Tempfile.open('me.folioapp.xmllint.errors.')
     output = Tempfile.open('me.folioapp.xmllint.output.')
     begin
-      doc = parseXML(content)
+      doc = parseXML(item.content)
       arguments = (doc && doc.DTD) ? "--format --nonet --valid" : "--format"
-      tempfileWithContent(content) do |input|        
+      tempfileWithContent(item.content) do |input|        
         system("#{command} #{arguments} #{input.path} 1>#{output.path} 2>#{errors.path}")
         if errors.size == 0
           formattedText = File.read(output)
@@ -42,18 +41,18 @@ class XMLLint
             if line =~ /^#{input.path}:([0-9]+): (.*)/
               lineNumber = $1.to_i
               message = $2.gsub("parser error : ", "")
-              issues << Issue.new(message, lineNumber)
+              item.addIssue Issue.new(message, lineNumber)
             end
           end
         end
       end      
+      formattedText
     ensure
       errors.close
       errors.unlink
       output.close
       output.unlink
     end
-    [formattedText, issues]
   end
 
   private
