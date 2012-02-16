@@ -75,7 +75,7 @@ class PDFController < NSWindowController
   def renderItem(item)
     return if operationCanceled?
     
-    # create a dummy frame far offscreen
+    # create a dummy frame far offscreen; dimensions are 8.5x11 at 72 DPI
     frameRect = [-16000.0, -16000.0, 612, 792]
     
     # create a webView to render the content
