@@ -7,6 +7,10 @@ class ValidationController < NSWindowController
   def init
     initWithWindowNibName("Validation")
   end
+
+  def windowDidLoad
+    @progressBar.usesThreadedAnimation = true
+  end
   
   def validateBook(book)
     window # force window to load
