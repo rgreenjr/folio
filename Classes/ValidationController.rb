@@ -9,7 +9,7 @@ class ValidationController < NSWindowController
   end
   
   def validateBook(book)
-    loadWindow
+    window # force window to load
     @shouldStop = false
     book.clearIssues    
     showProgressWindow(book)
