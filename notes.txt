@@ -2,6 +2,7 @@ Bugs
 ====
 
 - Toolbar has focus on launch
+- Fix wierd XMLLint array issue.
 
 Features
 ========
