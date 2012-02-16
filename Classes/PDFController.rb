@@ -17,7 +17,7 @@ class PDFController < NSWindowController
       Alert.runModal(@bookController.window, "Empty Spine", "The spine must contain at least one manifest item.")
       return
     end
-    loadWindow
+    window # force window to load
     savePanel = NSSavePanel.savePanel
     savePanel.prompt = "Export"
     savePanel.allowedFileTypes = ["pdf"]
@@ -159,7 +159,7 @@ class PDFController < NSWindowController
   end
 
   def saveMergedDocument(pdfDocument)
-    @cancelButton.hidden = true
+    @cancelButton.enabled = false
     incrementProgress("Saving PDF document...", 0)
     error = Pointer.new(:id)
     if pdfDocument.dataRepresentation.writeToURL(@destinationURL, options:NSDataWritingAtomic, error:error)
@@ -173,6 +173,8 @@ class PDFController < NSWindowController
   
   def showProgressWindow
     Dispatch::Queue.main.async do
+      @cancelButton.enabled = true
+      @cancelButton.hidden = false
       @doneButton.hidden = true
       @showInFinderButton.hidden = true
       updateProgress("Preparing PDF generation...", 0)
