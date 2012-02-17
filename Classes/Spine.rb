@@ -1,4 +1,8 @@
-class Spine < DelegateClass(Array)
+class Spine
+
+ include Enumerable
+
+  attr_reader :itemRefs
   
   def self.load(package)
     spine = Spine.new
@@ -14,29 +18,40 @@ class Spine < DelegateClass(Array)
 
   def initialize
     @itemRefs = []
-    super(@itemRefs)
+  end
+
+  def each(&block)
+    @itemRefs.each { |itemRef| yield itemRef } 
+  end
+
+  def empty?
+    @itemRefs.empty?
   end
   
+  def size
+    @itemRefs.size
+  end
+
   def insert(index, item)
     index = -1 if index > size
-    super
+    @itemRefs.insert(index, item)
   end
   
   def move(itemRef, newIndex)
     return nil unless itemRef
-    currentIndex = index(itemRef)
+    currentIndex = @itemRefs.index(itemRef)
     return nil unless currentIndex
-    delete_at(currentIndex)
-    insert(newIndex, itemRef)
+    @itemRefs.delete_at(currentIndex)
+    @itemRefs.insert(newIndex, itemRef)
     currentIndex
   end
   
   def itemRefWithId(id)
-    find { |itemRef| itemRef.idref == id }
+    @itemRefs.find { |itemRef| itemRef.idref == id }
   end
   
   def itemRefsWithItem(item)
-    select { |itemRef| itemRef.idref == item.id }
+    @itemRefs.select { |itemRef| itemRef.idref == item.id }
   end
-
+  
 end
