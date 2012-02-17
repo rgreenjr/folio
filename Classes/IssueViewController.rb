@@ -35,10 +35,6 @@ class IssueViewController < NSViewController
     showNoIssuesImage
   end
   
-  def visible?
-    view && !view.hidden? && !view.superview.nil?
-  end
-
   def refresh
     # update statusTextField
     @statusTextField.stringValue = "Validation Issue".pluralize(@bookController.document.totalIssueCount)    

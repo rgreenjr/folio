@@ -122,19 +122,18 @@ class BookWindowController < NSWindowController
   end
 
   def toggleIssueView(sender)
-    issueViewController.visible? ? hideIssueView : showIssueView
+    issueViewVisible? ? hideIssueView : showIssueView
   end
 
   def showIssueView
-    unless issueViewController.visible?
-      restoreContentSplitviewPosition
+    unless issueViewVisible?
       @contentSplitView.addSubview(issueViewController.view)
-      @contentSplitView.adjustSubviews
+      restoreContentSplitviewPosition
     end
   end
   
   def hideIssueView
-    if issueViewController.visible?
+    if issueViewVisible?
       storeContentSplitviewPosition
       issueViewController.view.removeFromSuperview      
       @contentSplitView.adjustSubviews
@@ -250,7 +249,7 @@ class BookWindowController < NSWindowController
     case interfaceItem.action
     when :"toggleIssueView:"
       if interfaceItem.class == NSMenuItem
-        interfaceItem.title = issueViewController.visible? ? "Hide Validation Issues" : "Show Validation Issues"
+        interfaceItem.title = issueViewVisible? ? "Hide Validation Issues" : "Show Validation Issues"
       end
     when :"toggleInspectorView:"
       if interfaceItem.class == NSMenuItem
@@ -295,4 +294,8 @@ class BookWindowController < NSWindowController
     subview.frame = rect
   end
   
+  def issueViewVisible?
+    @contentSplitView.subviews.size == 2
+  end
+
 end
