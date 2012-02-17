@@ -36,7 +36,23 @@ class Spine
     index = -1 if index > size
     @itemRefs.insert(index, item)
   end
-  
+
+  def <<(itemRef)
+    @itemRefs << itemRef if itemRef
+  end
+
+  def [](index)
+    @itemRefs[index] 
+  end
+ 
+  def index(itemRef)
+    @itemRefs.index(itemRef)     
+  end  
+
+  def delete_at(index)
+    @itemRefs.delete_at(index)    
+  end
+
   def move(itemRef, newIndex)
     return nil unless itemRef
     currentIndex = @itemRefs.index(itemRef)
