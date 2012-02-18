@@ -217,7 +217,7 @@ class BookWindowController < NSWindowController
         updateInformationField
         @tabbedViewController.sourceViewController.updateLineNumberView
         @selectionViewController.outlineView.reloadData
-        showIssueView if document.totalIssueCount > 0
+        document.totalIssueCount > 0 ? showIssueView : hideIssueView
       end
     end
   end
