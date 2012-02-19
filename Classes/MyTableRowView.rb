@@ -28,6 +28,8 @@ class MyTableRowView < NSTableRowView
   def drawSelectionInRect(rect)
     # endcapRect = [bounds.size.width - 2, bounds.origin.y, 2, bounds.size.height]    
     if isEmphasized
+      # NSColor.colorWithCalibratedRed(0.232, green:0.502, blue:0.872, alpha:1.0).set
+      # NSRectFill(rect)
       drawSelectionRect(bounds, BACKGROUND_GRADIENT, TOP_LINE_COLOR, INSET_LINE_COLOR, BOTTOM_LINE_COLOR)
     else
       drawSelectionRect(bounds, BACKGROUND_ALT_GRADIENT, TOP_LINE_ALT_COLOR, INSET_LINE_ALT_COLOR, BOTTOM_LINE_ALT_COLOR)
