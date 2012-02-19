@@ -184,7 +184,7 @@ class BookWindowController < NSWindowController
   end
 
   def searchGoogle(sender)
-    openURL("http://www.google.com/search?q=#{document.metadata.title.urlEscape}+#{document.container.package.metadata.creator.urlEscape}")
+    openURL("http://www.google.com/search?q=#{document.container.package.metadata.title.urlEscape}+#{document.container.package.metadata.creator.urlEscape}")
   end
 
   def searchAmazon(sender)
