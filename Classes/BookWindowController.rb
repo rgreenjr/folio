@@ -27,6 +27,8 @@ class BookWindowController < NSWindowController
     @selectionViewController.view.frame = @selectionView.frame
     @selectionView.addSubview(selectionViewController.view)
     @selectionViewController.expandNavigation(self)
+    @selectionViewController.expandSpine(self)
+    @selectionViewController.expandManifest(self)
 
     # create metadataController and add to responder chain
     @metadataController = MetadataController.alloc.initWithBookController(self)
