@@ -21,7 +21,7 @@ class ValidationController < NSWindowController
     increment = 75.0 / book.container.package.manifest.size    
     book.container.package.manifest.each do |item|      
       return if validationCanceled?
-      incrementStatus("Checking item \"#{item.name}\"", increment)
+      incrementStatus("Checking \"#{item.name}\"", increment)
       item.valid?
     end
 
