@@ -387,16 +387,17 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSTextField" id="551262288">
 						<reference key="NSNextResponder" ref="168391022"/>
-						<int key="NSvFlags">298</int>
-						<string key="NSFrame">{{-25, 41}, {213, 14}}</string>
+						<int key="NSvFlags">314</int>
+						<string key="NSFrame">{{-3, 13}, {163, 14}}</string>
 						<reference key="NSSuperview" ref="168391022"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:360</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="923891530">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">138543104</int>
+							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags2">138548224</int>
 							<string key="NSContents">Multiline Label</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
@@ -421,9 +422,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{163, 96}</string>
+				<string key="NSFrameSize">{157, 40}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="551262288"/>
 				<string key="NSReuseIdentifierKey">_NS:1192</string>
 				<string key="NSClassName">NSView</string>
 			</object>

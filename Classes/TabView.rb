@@ -152,12 +152,16 @@ class TabView < NSView
     point = convertPoint(event.locationInWindow, fromView:nil)
     tabCell = tabCellAtPoint(point)
     updateHoverTabCell(tabCell)
+    showPopoverAfterDelay
   end
   
   def mouseMoved(event)
     point = convertPoint(event.locationInWindow, fromView:nil)
     tabCell = tabCellAtPoint(point)
-    updateHoverTabCell(tabCell) unless tabCell == @hoveringTabCell
+    unless tabCell == @hoveringTabCell
+      updateHoverTabCell(tabCell)
+      updatePopover
+    end
   end
 
   def mouseExited(event)
@@ -284,7 +288,6 @@ class TabView < NSView
       @hoveringTabCell = tabCell
       @hoveringTabCell.hovering = true
       setNeedsDisplay(true)
-      showPopoverForTabCell(tabCell)
     end
   end
 
@@ -306,20 +309,35 @@ class TabView < NSView
     clearHoverTabCell
   end
   
-  def showPopoverForTabCell(tabCell)
-    return unless tabCell
+  def showPopoverAfterDelay
+    Dispatch::Queue.concurrent.async do
+      sleep 1.0
+      Dispatch::Queue.main.async do
+        showPopover
+      end
+    end
+  end
+
+  def showPopover
+    return unless @hoveringTabCell
+
     # set popoverLabel
-    @popoverLabel.stringValue = tabCell.item.name
+    @popoverLabel.stringValue = @hoveringTabCell.item.href
     
     # calculate popoverLabel size
     range = Pointer.new(NSRange.type)
     attributes = @popoverLabel.attributedStringValue.attributesAtIndex(0, effectiveRange:range)
-    size = tabCell.item.name.sizeWithAttributes(attributes)
-    width = [100, size.width].max
-    @popover.contentSize = [width + 10, 15]
+    size = @hoveringTabCell.item.href.sizeWithAttributes(attributes)
+    width = [100, size.width + 25 ].max
+    @popover.contentSize = [width, @popover.contentSize.height]
 
-    # display popover below tabCell
-    @popover.showRelativeToRect(rectForTabCell(tabCell), ofView:self, preferredEdge:NSMinYEdge)
+    # display popover below @hoveringTabCell
+    @popover.showRelativeToRect(rectForTabCell(@hoveringTabCell), ofView:self, preferredEdge:NSMinYEdge)
+  end
+  
+  def updatePopover
+    hidePopover
+    showPopover
   end
 
   def hidePopover
