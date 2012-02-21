@@ -58,7 +58,10 @@ class ItemViewController < NSViewController
     return unless item
     unless value.blank? || item.name == value
       value = value.sanitize
-      if item.parent.childWithName(value)
+      if value.size > 255
+        Alert.runModal(@bookController.window, "Name Too Long", "Names must be 255 characters or less.")
+      elsif 
+        item.parent.childWithName(value)
         Alert.runModal(@bookController.window, "An item with the name \"#{value}\" already exists in this directory.", 
             "Please choose a unique item name.")
       else

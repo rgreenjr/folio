@@ -298,6 +298,7 @@ class Item
     clearIssues
     addIssue Issue.new("ID cannot be blank.") if @id.blank?
     addIssue Issue.new("Name cannot be blank.") if @name.blank?
+    addIssue Issue.new("Name cannot be more than 255 characters.") if @name and @name.size > 255
     addIssue Issue.new("Media Type cannot be blank.") if @mediaType.blank?
     addIssue Issue.new("Media Type \"#{@mediaType}\" is invalid.") unless Media.validMediaType?(@mediaType)
     if parseable?
