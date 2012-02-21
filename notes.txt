@@ -2,6 +2,7 @@ Bugs
 ====
 
 - Toolbar has focus on launch
+- Item.rb:66:in `name=:': File name too long
 
 Features
 ========

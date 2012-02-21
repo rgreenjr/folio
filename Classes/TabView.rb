@@ -2,7 +2,10 @@ class TabView < NSView
 
   DEFAULT_TAB_WIDTH = 350.0
 
-  attr_accessor :tabCells, :selectedTabCell, :delegate
+  attr_accessor :tabCells
+  attr_accessor :delegate
+  attr_accessor :popover
+  attr_accessor :popoverLabel
 
   def initWithFrame(frameRect)
     super
@@ -97,10 +100,9 @@ class TabView < NSView
   end  
 
   def saveSelectedTab
-    if @selectedTabCell
-      @selectedTabCell.save
-      setNeedsDisplay(true)
-    end
+    return unless @selectedTabCell
+    @selectedTabCell.save
+    setNeedsDisplay(true)
   end
 
   def saveTab(tabCell)
@@ -155,7 +157,7 @@ class TabView < NSView
   def mouseMoved(event)
     point = convertPoint(event.locationInWindow, fromView:nil)
     tabCell = tabCellAtPoint(point)
-    updateHoverTabCell(tabCell)
+    updateHoverTabCell(tabCell) unless tabCell == @hoveringTabCell
   end
 
   def mouseExited(event)
@@ -222,6 +224,7 @@ class TabView < NSView
       @selectedTabCell = nil
     end
     @delegate.tabView(self, selectionDidChange:@selectedTabCell, item:item, point:point) if @delegate
+    hidePopover
     setNeedsDisplay(true)
     NSNotificationCenter.defaultCenter.postNotificationName("TabViewSelectionDidChange", object:self)
   end
@@ -246,6 +249,7 @@ class TabView < NSView
         selectTabCell(tabCell)
       end
     end
+    hidePopover
     NSNotificationCenter.defaultCenter.postNotificationName("TabViewCellDidClose", object:closedTabCell)
     setNeedsDisplay(true)
   end
@@ -280,11 +284,13 @@ class TabView < NSView
       @hoveringTabCell = tabCell
       @hoveringTabCell.hovering = true
       setNeedsDisplay(true)
+      showPopoverForTabCell(tabCell)
     end
   end
 
   def clearHoverTabCell
     if @hoveringTabCell
+      hidePopover
       @hoveringTabCell.hovering = false
       @hoveringTabCell = nil
       setNeedsDisplay(true)
@@ -292,13 +298,32 @@ class TabView < NSView
   end
 
   def registerTrackingArea
-    addTrackingArea(NSTrackingArea.alloc.initWithRect(self.bounds, 
-      options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow), owner:self, userInfo:nil))
+    options = NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow
+    addTrackingArea(NSTrackingArea.alloc.initWithRect(bounds, options:options, owner:self, userInfo:nil))
   end
   
   def applicationDidResignActive(notification)
     clearHoverTabCell
   end
   
-end
+  def showPopoverForTabCell(tabCell)
+    return unless tabCell
+    # set popoverLabel
+    @popoverLabel.stringValue = tabCell.item.name
+    
+    # calculate popoverLabel size
+    range = Pointer.new(NSRange.type)
+    attributes = @popoverLabel.attributedStringValue.attributesAtIndex(0, effectiveRange:range)
+    size = tabCell.item.name.sizeWithAttributes(attributes)
+    width = [100, size.width].max
+    @popover.contentSize = [width + 10, 15]
 
+    # display popover below tabCell
+    @popover.showRelativeToRect(rectForTabCell(tabCell), ofView:self, preferredEdge:NSMinYEdge)
+  end
+
+  def hidePopover
+    @popover.close
+  end
+
+end

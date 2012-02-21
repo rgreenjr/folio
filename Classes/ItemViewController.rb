@@ -59,7 +59,8 @@ class ItemViewController < NSViewController
     unless value.blank? || item.name == value
       value = value.sanitize
       if item.parent.childWithName(value)
-        Alert.runModal(@bookController.window, "An item with the name \"#{value}\" already exists in this directory.", "Please choose a unique item name.")
+        Alert.runModal(@bookController.window, "An item with the name \"#{value}\" already exists in this directory.", 
+            "Please choose a unique item name.")
       else
         undoManager.prepareWithInvocationTarget(self).changeName(item, item.name)
         undoManager.actionName = "Change Name"
@@ -111,6 +112,8 @@ class ItemViewController < NSViewController
         @mediaTypeComboBox.enabled = true
       end
       @bookController.selectionViewController.reloadItem(item)
+      
+      # TODO update tabView (should use notificaiton)
     end
   end
   
