@@ -186,11 +186,15 @@ class BookWindowController < NSWindowController
   end
 
   def searchGoogle(sender)
-    openURL("http://www.google.com/search?q=#{document.container.package.metadata.title.urlEscape}+#{document.container.package.metadata.creator.urlEscape}")
+    openURL("http://www.google.com/search?q=#{urlEscapeSearchQuery}")
   end
 
   def searchAmazon(sender)
-    openURL("http://www.amazon.com/s?field-keywords=#{document.container.package.metadata.title.urlEscape}+#{document.container.package.metadata.creator.urlEscape}")
+    openURL("http://www.amazon.com/s?field-keywords=#{urlEscapeSearchQuery}")
+  end
+
+  def urlEscapeSearchQuery
+    document.container.package.metadata.title.urlEscape + "+" + document.container.package.metadata.creator.urlEscape    
   end
 
   def showProgressWindow(title, &block)
@@ -211,7 +215,7 @@ class BookWindowController < NSWindowController
   end
 
   def validate(sender)
-    Dispatch::Queue.concurrent(:default).async do
+    Dispatch::Queue.concurrent.async do
       @validationController ||= ValidationController.alloc.init
       @validationController.validateBook(document)
       Dispatch::Queue.main.async do
