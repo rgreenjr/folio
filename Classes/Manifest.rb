@@ -157,6 +157,10 @@ class Manifest
     itemsWithIssues.inject(0) { |sum, item| sum += item.issueCount }
   end
 
+  def clearIssues
+    each { |item| item.clearIssues }
+  end
+
   def sort
     @root.sort
   end

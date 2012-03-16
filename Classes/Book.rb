@@ -87,7 +87,7 @@ class Book < NSDocument
 
   def clearIssues
     @issues.clear
-    @container.package.manifest.each { |item| item.clearIssues }
+    @container.package.manifest.clearIssues
   end
 
   def hasIssues?
